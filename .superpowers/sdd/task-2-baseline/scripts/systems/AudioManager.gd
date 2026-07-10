@@ -1,64 +1,24 @@
 extends Node
 class_name AudioManager
 
-const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
-const HIT_COOLDOWN := 0.055
-
 var streams: Dictionary = {}
 var bgm_player: AudioStreamPlayer
 var bgm_volume_linear: float = 0.65
 var bgm_muted: bool = false
-var hit_stream_names: Dictionary = {
-	DamageTypes.GENERIC: "enemy_hit",
-	DamageTypes.PROJECTILE: "hit_projectile",
-	DamageTypes.LASER: "hit_laser",
-	DamageTypes.ARC: "hit_arc",
-	DamageTypes.DASH: "hit_dash",
-	DamageTypes.SPIKE: "hit_spike",
-}
-var hit_cooldowns: Dictionary = {}
-var laser_loop_player: AudioStreamPlayer
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	streams["bgm"] = _make_bgm_loop()
 	streams["shoot"] = _make_tone(660.0, 0.035, 0.18, 0.35)
+	streams["laser"] = _make_tone(1180.0, 0.055, 0.12, 0.45)
 	streams["xp"] = _make_tone(920.0, 0.06, 0.1, 0.3)
 	streams["upgrade"] = _make_tone(520.0, 0.18, 0.22, 0.45, 1.8)
 	streams["hit"] = _make_tone(180.0, 0.05, 0.18, 0.32)
 	streams["enemy_hit"] = _make_impact(0.075, 0.58, 820.0, 0.42)
-	streams["hit_projectile"] = _make_impact(0.055, 0.5, 980.0, 210.0)
-	streams["hit_laser"] = _make_harmonic_impact(0.1, 0.36, 720.0, 0.08)
-	streams["hit_arc"] = _make_harmonic_impact(0.12, 0.38, 430.0, 0.16)
-	streams["hit_dash"] = _make_impact(0.09, 0.62, 310.0, 95.0)
-	streams["hit_spike"] = _make_impact(0.07, 0.48, 1450.0, 360.0)
-	streams["laser_loop"] = _make_laser_loop()
 	streams["enemy_death"] = _make_impact(0.18, 0.72, 180.0, 0.28)
 	streams["start"] = _make_tone(360.0, 0.22, 0.18, 0.55, 2.2)
 	streams["victory"] = _make_tone(740.0, 0.35, 0.16, 0.55, 1.6)
 	streams["defeat"] = _make_tone(120.0, 0.45, 0.2, 0.55, 0.55)
-	laser_loop_player = AudioStreamPlayer.new()
-	laser_loop_player.stream = streams["laser_loop"]
-	laser_loop_player.volume_db = -18.0
-	add_child(laser_loop_player)
-
-func _process(delta: float) -> void:
-	for source in hit_cooldowns.keys():
-		hit_cooldowns[source] = maxf(0.0, float(hit_cooldowns[source]) - delta)
-
-func play_hit(source: StringName) -> bool:
-	var resolved: StringName = source if hit_stream_names.has(source) else DamageTypes.GENERIC
-	if float(hit_cooldowns.get(resolved, 0.0)) > 0.0:
-		return false
-	hit_cooldowns[resolved] = HIT_COOLDOWN
-	play(String(hit_stream_names.get(resolved, "enemy_hit")))
-	return true
-
-func set_laser_active(active: bool) -> void:
-	if active and not laser_loop_player.playing:
-		laser_loop_player.play()
-	elif not active and laser_loop_player.playing:
-		laser_loop_player.stop()
 
 func play(name: String) -> void:
 	if not streams.has(name):
@@ -173,48 +133,5 @@ func _make_impact(duration: float, volume: float, start_freq: float, end_freq: f
 	wav.format = AudioStreamWAV.FORMAT_16_BITS
 	wav.mix_rate = sample_rate
 	wav.stereo = false
-	wav.data = data
-	return wav
-
-func _make_harmonic_impact(duration: float, volume: float, frequency: float, noise_mix: float) -> AudioStreamWAV:
-	var sample_rate := 22050
-	var sample_count := int(duration * sample_rate)
-	var data := PackedByteArray()
-	data.resize(sample_count * 2)
-	var noise_seed := 24681
-	for i in range(sample_count):
-		noise_seed = int((1103515245 * noise_seed + 12345) & 0x7fffffff)
-		var t := float(i) / float(sample_rate)
-		var progress := float(i) / maxf(1.0, float(sample_count - 1))
-		var attack := minf(1.0, progress / 0.12)
-		var envelope := attack * pow(1.0 - progress, 1.8)
-		var harmonic := sin(TAU * frequency * t) + sin(TAU * frequency * 2.0 * t) * 0.36
-		var noise := ((float(noise_seed % 2000) / 1000.0) - 1.0) * noise_mix
-		data.encode_s16(i * 2, int(clampf((harmonic * 0.55 + noise) * envelope * volume, -1.0, 1.0) * 32767.0))
-	var wav := AudioStreamWAV.new()
-	wav.format = AudioStreamWAV.FORMAT_16_BITS
-	wav.mix_rate = sample_rate
-	wav.stereo = false
-	wav.data = data
-	return wav
-
-func _make_laser_loop() -> AudioStreamWAV:
-	var sample_rate := 22050
-	var duration := 1.0
-	var sample_count := int(duration * sample_rate)
-	var data := PackedByteArray()
-	data.resize(sample_count * 2)
-	for i in range(sample_count):
-		var t := float(i) / float(sample_rate)
-		var modulation := 0.82 + 0.18 * sin(TAU * 3.0 * t)
-		var harmonics := sin(TAU * 180.0 * t) * 0.55 + sin(TAU * 360.0 * t) * 0.28 + sin(TAU * 540.0 * t) * 0.12
-		data.encode_s16(i * 2, int(clampf(harmonics * modulation * 0.22, -1.0, 1.0) * 32767.0))
-	var wav := AudioStreamWAV.new()
-	wav.format = AudioStreamWAV.FORMAT_16_BITS
-	wav.mix_rate = sample_rate
-	wav.stereo = false
-	wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
-	wav.loop_begin = 0
-	wav.loop_end = sample_count
 	wav.data = data
 	return wav

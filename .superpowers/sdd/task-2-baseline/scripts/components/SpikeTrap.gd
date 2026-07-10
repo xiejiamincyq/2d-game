@@ -1,8 +1,6 @@
 extends Area2D
 class_name SpikeTrap
 
-const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
-
 var damage: float = 12.0
 var lifetime: float = 5.0
 var max_lifetime: float = 5.0
@@ -43,4 +41,4 @@ func _draw() -> void:
 func _damage_enemies() -> void:
 	for body in get_overlapping_bodies():
 		if body.is_in_group("enemies") and body.has_method("take_damage"):
-			body.take_damage(damage, DamageTypes.SPIKE)
+			body.take_damage(damage)

@@ -5,14 +5,13 @@ signal health_changed(current: float, maximum: float)
 signal shield_changed(current: float, maximum: float)
 signal died
 signal fired(projectile: Node)
-signal laser_active_changed(active: bool)
+signal laser_fired
 
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const LaserBeamScript = preload("res://scripts/components/LaserBeam.gd")
 const SpikeTrapScript = preload("res://scripts/components/SpikeTrap.gd")
 const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd")
-const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 
 var move_speed: float = 235.0
 var pickup_radius: float = 92.0
@@ -38,7 +37,7 @@ var dash_melee_damage: float = 52.0
 var dash_melee_radius: float = 36.0
 
 var fire_timer: float = 0.0
-var laser_audio_active: bool = false
+var laser_audio_timer: float = 0.0
 var arc_timer: float = 0.0
 var dash_timer: float = 0.0
 var dash_cooldown_remaining: float = 0.0
@@ -104,7 +103,7 @@ func _draw() -> void:
 	if arc_pulse_level > 0:
 		draw_arc(Vector2.ZERO, 78.0 + arc_pulse_level * 16.0, 0.0, TAU, 48, Color(0.25, 1.0, 1.0, 0.18), 2.0)
 
-func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> void:
+func take_damage(amount: float) -> void:
 	var remaining := amount
 	if shield > 0.0:
 		var absorbed := minf(shield, remaining)
@@ -183,7 +182,7 @@ func _apply_dash_melee() -> void:
 			continue
 		if _is_enemy_in_dash_melee(node.global_position):
 			dash_hit_bodies.append(enemy)
-			enemy.take_damage(dash_melee_damage, DamageTypes.DASH)
+			enemy.take_damage(dash_melee_damage)
 
 func _is_enemy_in_dash_melee(enemy_position: Vector2) -> bool:
 	var to_enemy := enemy_position - global_position
@@ -229,11 +228,17 @@ func _update_drone_lasers(delta: float) -> void:
 			continue
 		assigned.append(target)
 		any_laser_active = true
-		target.take_damage(drone_damage * delta, DamageTypes.LASER)
+		target.take_damage(drone_damage * delta)
 		var beam := drone_lasers[index]
 		beam.visible = true
 		beam.setup(origin, target.global_position, Color(0.2, 1.0, 0.95), 4.0)
-	_set_laser_audio_active(any_laser_active)
+	if any_laser_active:
+		laser_audio_timer -= delta
+		if laser_audio_timer <= 0.0:
+			laser_audio_timer = 0.28
+			laser_fired.emit()
+	else:
+		laser_audio_timer = 0.0
 
 func _damage_enemies_on_laser(origin: Vector2, direction: Vector2, length: float, damage: float, width: float) -> void:
 	for enemy in get_tree().get_nodes_in_group("enemies"):
@@ -246,13 +251,13 @@ func _damage_enemies_on_laser(origin: Vector2, direction: Vector2, length: float
 			continue
 		var closest := origin + direction * along
 		if closest.distance_to(node.global_position) <= width:
-			enemy.take_damage(damage, DamageTypes.LASER)
+			enemy.take_damage(damage)
 
 func _emit_arc_pulse() -> void:
 	var radius := arc_radius + arc_pulse_level * 18.0
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if global_position.distance_to(enemy.global_position) <= radius and enemy.has_method("take_damage"):
-			enemy.take_damage(arc_damage + arc_pulse_level * 8.0, DamageTypes.ARC)
+			enemy.take_damage(arc_damage + arc_pulse_level * 8.0)
 	var wave := ArcPulseVisualScript.new()
 	wave.global_position = global_position
 	wave.setup(radius)
@@ -318,18 +323,11 @@ func _sync_drone_lasers() -> void:
 		beam.queue_free()
 
 func _clear_drone_lasers() -> void:
-	_set_laser_audio_active(false)
 	for beam in drone_lasers:
 		if is_instance_valid(beam):
 			beam.queue_free()
 	drone_lasers.clear()
 	drone_targets.clear()
-
-func _set_laser_audio_active(active: bool) -> void:
-	if laser_audio_active == active:
-		return
-	laser_audio_active = active
-	laser_active_changed.emit(active)
 
 func _update_drone_positions() -> void:
 	if drone_visuals.is_empty():

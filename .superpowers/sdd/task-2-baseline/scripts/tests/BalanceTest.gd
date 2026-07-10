@@ -13,10 +13,10 @@ func _initialize() -> void:
 	var enemy: Node = EnemyScript.new()
 	enemy.setup(EnemyScript.EnemyKind.SCRAPPER, 1, Node.new())
 	root.add_child(enemy)
-	var received := {"source": &""}
-	enemy.hit.connect(func(source: StringName) -> void: received["source"] = source)
+	var received_source: StringName = &""
+	enemy.hit.connect(func(source: StringName) -> void: received_source = source)
 	enemy.take_damage(1.0, DamageTypes.LASER)
-	if received["source"] != DamageTypes.LASER:
+	if received_source != DamageTypes.LASER:
 		_fail("enemy hit signal did not preserve the damage source.")
 		return
 

@@ -2,11 +2,10 @@ extends CharacterBody2D
 class_name Enemy
 
 signal died(enemy: Node, xp_value: int)
-signal hit(source: StringName)
+signal hit
 
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
-const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 
 enum EnemyKind { SCRAPPER, DASHER, SPITTER, BRUISER }
 
@@ -136,12 +135,12 @@ func _draw() -> void:
 	draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
 	draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
 
-func take_damage(amount: float, source: StringName = DamageTypes.GENERIC) -> void:
+func take_damage(amount: float) -> void:
 	if health == null:
 		return
 	flash_timer = 0.08
 	health.damage(amount)
-	hit.emit(source)
+	hit.emit()
 
 func _add_health(max_health: float) -> void:
 	health = HealthComponentScript.new()

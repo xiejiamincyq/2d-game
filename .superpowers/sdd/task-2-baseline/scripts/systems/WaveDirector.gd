@@ -83,9 +83,9 @@ func _spawn_enemy(kind: int) -> void:
 	enemy_parent.add_child(enemy)
 	enemy.died.connect(_on_enemy_died)
 	if enemy.has_signal("hit"):
-		enemy.hit.connect(func(source: StringName) -> void:
+		enemy.hit.connect(func() -> void:
 			if get_parent().has_method("_on_enemy_hit"):
-				get_parent()._on_enemy_hit(source)
+				get_parent()._on_enemy_hit()
 		)
 
 func _on_enemy_died(enemy: Node, xp_value: int) -> void:

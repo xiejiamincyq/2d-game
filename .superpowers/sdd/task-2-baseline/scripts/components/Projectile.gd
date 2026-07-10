@@ -1,8 +1,6 @@
 extends Area2D
 class_name Projectile
 
-const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
-
 var velocity: Vector2 = Vector2.ZERO
 var damage: float = 1.0
 var pierce: int = 0
@@ -12,7 +10,6 @@ var hit_bodies: Array[Node] = []
 var tint: Color = Color.CYAN
 var radius: float = 4.0
 var world_bounds: Rect2 = Rect2()
-var damage_source: StringName = DamageTypes.PROJECTILE
 
 func _ready() -> void:
 	monitoring = true
@@ -50,7 +47,7 @@ func _try_hit(node: Node) -> void:
 		return
 	hit_bodies.append(node)
 	if node.has_method("take_damage"):
-		node.take_damage(damage, damage_source)
+		node.take_damage(damage)
 	if pierce <= 0:
 		queue_free()
 	else:

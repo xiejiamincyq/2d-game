@@ -307,20 +307,6 @@ func _initialize() -> void:
 		push_error("SmokeTest failed: shield pickup was not spawned.")
 		quit(1)
 		return
-	scene.audio.set_laser_active(true)
-	if not scene.audio.laser_loop_player.playing:
-		push_error("SmokeTest failed: laser loop did not start for end-run regression setup.")
-		quit(1)
-		return
-	scene._end_run(false)
-	if scene.player.is_physics_processing():
-		push_error("SmokeTest failed: player physics processing continued after defeat.")
-		quit(1)
-		return
-	if scene.audio.laser_loop_player.playing:
-		push_error("SmokeTest failed: laser loop continued after defeat.")
-		quit(1)
-		return
 	scene.queue_free()
 	await process_frame
 	quit(0)

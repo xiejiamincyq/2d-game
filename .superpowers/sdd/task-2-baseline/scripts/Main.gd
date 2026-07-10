@@ -155,7 +155,7 @@ func _start_run() -> void:
 		projectiles.add_child(projectile)
 		audio.play("shoot")
 	)
-	player.laser_active_changed.connect(audio.set_laser_active)
+	player.laser_fired.connect(func() -> void: audio.play("laser"))
 	player.health_changed.connect(ui.set_health)
 	player.shield_changed.connect(ui.set_shield)
 	player.died.connect(_on_player_died)
@@ -191,8 +191,8 @@ func _on_enemy_killed(_xp_value: int) -> void:
 	audio.play("enemy_death")
 	ui.set_run_stats(kill_count, elapsed_seconds)
 
-func _on_enemy_hit(source: StringName) -> void:
-	audio.play_hit(source)
+func _on_enemy_hit() -> void:
+	audio.play("enemy_hit")
 
 func _on_player_died() -> void:
 	_end_run(false)
@@ -204,9 +204,6 @@ func _end_run(victory: bool) -> void:
 	if game_over:
 		return
 	game_over = true
-	if player != null:
-		player.set_physics_process(false)
-	audio.set_laser_active(false)
 	var wave_text := "抵达波次 %d/%d" % [wave_director.wave_index + 1, wave_director.waves.size()]
 	audio.play("victory" if victory else "defeat")
 	ui.show_result(victory, wave_text, kill_count, elapsed_seconds, upgrade_system.level)
