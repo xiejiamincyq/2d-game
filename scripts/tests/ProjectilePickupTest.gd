@@ -5,6 +5,7 @@ const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
 const ExperienceShardScript = preload("res://scripts/pickups/ExperienceShard.gd")
 const ShieldPickupScript = preload("res://scripts/pickups/ShieldPickup.gd")
+const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
 
@@ -65,6 +66,8 @@ func _initialize() -> void:
 		if not _assert_true(collection_count[0] == 1, "%s emitted collected %d times in one frame" % [pickup.get_class(), collection_count[0]]):
 			return
 
+	TestSupport.stop_audio(scene.audio)
+	await create_timer(0.25).timeout
 	scene.queue_free()
 	paused = false
 	await process_frame

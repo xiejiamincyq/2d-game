@@ -1,6 +1,7 @@
 extends SceneTree
 
 const MainScript = preload("res://scripts/Main.gd")
+const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
 
@@ -38,6 +39,8 @@ func _initialize() -> void:
 	if not _assert_true(scene._transition_to(1) and not paused, "PAUSED to PLAYING did not resume"):
 		return
 
+	TestSupport.stop_audio(scene.audio)
+	await create_timer(0.25).timeout
 	scene.queue_free()
 	paused = false
 	await process_frame
