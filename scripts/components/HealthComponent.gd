@@ -16,13 +16,19 @@ func _process(delta: float) -> void:
 	if invulnerable_time > 0.0:
 		invulnerable_time = maxf(0.0, invulnerable_time - delta)
 
-func damage(amount: float) -> void:
-	if amount <= 0.0 or invulnerable_time > 0.0 or current_health <= 0.0:
-		return
+func can_accept_damage() -> bool:
+	return current_health > 0.0 and invulnerable_time <= 0.0
+
+func damage(amount: float, ignore_invulnerability: bool = false) -> bool:
+	if amount <= 0.0 or current_health <= 0.0:
+		return false
+	if not ignore_invulnerability and not can_accept_damage():
+		return false
 	current_health = maxf(0.0, current_health - amount)
 	health_changed.emit(current_health, max_health)
 	if current_health <= 0.0:
 		died.emit()
+	return true
 
 func heal(amount: float) -> void:
 	if amount <= 0.0 or current_health <= 0.0:
@@ -37,5 +43,8 @@ func increase_max(amount: float) -> void:
 	current_health += amount
 	health_changed.emit(current_health, max_health)
 
-func set_invulnerable(seconds: float) -> void:
+func begin_invulnerability(seconds: float) -> void:
 	invulnerable_time = maxf(invulnerable_time, seconds)
+
+func set_invulnerable(seconds: float) -> void:
+	begin_invulnerability(seconds)

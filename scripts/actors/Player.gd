@@ -104,7 +104,9 @@ func _draw() -> void:
 	if arc_pulse_level > 0:
 		draw_arc(Vector2.ZERO, 78.0 + arc_pulse_level * 16.0, 0.0, TAU, 48, Color(0.25, 1.0, 1.0, 0.18), 2.0)
 
-func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> void:
+func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> bool:
+	if health == null or amount <= 0.0 or not health.can_accept_damage():
+		return false
 	var remaining := amount
 	if shield > 0.0:
 		var absorbed := minf(shield, remaining)
@@ -112,8 +114,9 @@ func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> vo
 		remaining -= absorbed
 		shield_changed.emit(shield, max_shield)
 	if remaining > 0.0:
-		health.damage(remaining)
-	health.set_invulnerable(0.35)
+		health.damage(remaining, true)
+	health.begin_invulnerability(0.35)
+	return true
 
 func add_shield(amount: float) -> void:
 	shield = minf(max_shield, shield + amount)
