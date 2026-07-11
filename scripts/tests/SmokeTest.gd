@@ -79,10 +79,21 @@ func _initialize() -> void:
 		return
 	boundary_enemy.queue_free()
 	await process_frame
-	if not scene.audio.streams.has("enemy_hit") or not scene.audio.streams.has("enemy_death"):
-		push_error("SmokeTest failed: enemy hit/death sounds are missing.")
-		quit(1)
-		return
+	var required_combat_streams: Array[String] = [
+		"enemy_hit",
+		"enemy_death",
+		"hit_projectile",
+		"hit_laser",
+		"hit_arc",
+		"hit_dash",
+		"hit_spike",
+		"laser_loop",
+	]
+	for stream_name in required_combat_streams:
+		if not scene.audio.streams.has(stream_name):
+			push_error("SmokeTest failed: combat sound is missing: %s." % stream_name)
+			quit(1)
+			return
 	scene._on_enemy_killed(1)
 	scene._on_enemy_killed(1)
 	if scene.combo_count != 2 or not scene.ui.combo_panel.visible:
@@ -263,6 +274,17 @@ func _initialize() -> void:
 		return
 	laser_enemy_a.queue_free()
 	laser_enemy_b.queue_free()
+	await process_frame
+	scene.player.drone_count = 0
+	scene.player._sync_drone_visuals()
+	scene.player.mine_level = 0
+	scene.player.arc_pulse_level = 0
+	scene.player.dash_active = false
+	scene.player.dash_timer = 0.0
+	scene.player.velocity = Vector2.ZERO
+	scene.player.dash_hit_bodies.clear()
+	for child in scene.projectiles.get_children():
+		child.queue_free()
 	await process_frame
 	var enemy: CharacterBody2D = enemy_script.new()
 	enemy.global_position = scene.player.global_position + Vector2(20, 0)
