@@ -28,7 +28,6 @@ func _physics_process(delta: float) -> void:
 		global_position = global_position.move_toward(player.global_position, drift_speed * delta)
 	if distance <= 18.0:
 		_try_collect()
-	queue_redraw()
 
 func _draw() -> void:
 	draw_polygon(PackedVector2Array([

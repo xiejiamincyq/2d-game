@@ -48,8 +48,8 @@ func _initialize() -> void:
 	if not audio.play_hit(DamageTypes.ARC):
 		_fail("one hit category blocked another category.")
 		return
-	if audio.get_child_count() != child_count_before + 2:
-		_fail("hit playback created an unexpected number of players.")
+	if audio.get_child_count() != child_count_before:
+		_fail("hit playback grew the fixed audio voice pool.")
 		return
 	var unknown_source: StringName = &"unknown_test_source"
 	if not audio.hit_stream_names.has(DamageTypes.GENERIC) or audio.hit_stream_names.has(unknown_source):
@@ -59,8 +59,8 @@ func _initialize() -> void:
 	if not audio.play_hit(unknown_source):
 		_fail("unknown hit source did not play through the generic fallback.")
 		return
-	if audio.get_child_count() != fallback_child_count_before + 1:
-		_fail("unknown hit source did not create exactly one generic fallback player.")
+	if audio.get_child_count() != fallback_child_count_before:
+		_fail("generic fallback grew the fixed audio voice pool.")
 		return
 	var loop_player: AudioStreamPlayer = audio.laser_loop_player
 	audio.set_laser_active(true)

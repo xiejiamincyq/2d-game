@@ -17,6 +17,7 @@ var intermission: float = 1.2
 var active: bool = true
 var world_bounds: Rect2 = Rect2()
 var spawn_rng := RandomNumberGenerator.new()
+var active_enemies: Array[Node] = []
 
 var waves: Array[Dictionary] = [
 	{"scrapper": 34, "dasher": 5, "spitter": 0, "bruiser": 0, "rate": 0.16},
@@ -45,7 +46,7 @@ func _process(delta: float) -> void:
 		intermission -= delta
 		return
 	if spawn_queue.is_empty():
-		if get_tree().get_nodes_in_group("enemies").is_empty():
+		if active_enemies.is_empty():
 			_start_next_wave()
 		return
 	_process_spawn_timer(delta)
@@ -90,6 +91,8 @@ func _spawn_enemy(kind: int) -> void:
 		enemy.world_bounds = world_bounds
 	enemy.setup(kind, wave_index + 1, projectile_parent)
 	enemy_parent.add_child(enemy)
+	active_enemies.append(enemy)
+	enemy.tree_exiting.connect(_on_enemy_tree_exiting.bind(enemy), CONNECT_ONE_SHOT)
 	enemy.died.connect(_on_enemy_died)
 	if enemy.has_signal("hit"):
 		enemy.hit.connect(func(source: StringName) -> void:
@@ -152,6 +155,12 @@ func _deferred_spawn_drops(position: Vector2, xp_value: int, shield_value: float
 	if shield_value > 0.0 and owner.has_method("spawn_shield"):
 		owner.spawn_shield(position, shield_value)
 
+func _on_enemy_tree_exiting(enemy: Node) -> void:
+	active_enemies.erase(enemy)
+
+func get_active_enemies() -> Array[Node]:
+	return active_enemies
+
 func _emit_wave_status() -> void:
-	var remaining := spawn_queue.size() + get_tree().get_nodes_in_group("enemies").size()
+	var remaining := spawn_queue.size() + active_enemies.size()
 	wave_changed.emit(wave_index + 1, waves.size(), remaining)

@@ -179,6 +179,7 @@ func _start_run() -> void:
 	wave_director.enemy_killed.connect(_on_enemy_killed)
 	wave_director.victory.connect(_on_victory)
 	wave_director.setup(player, enemies, projectiles)
+	player.set_enemy_provider(wave_director.get_active_enemies)
 	ui.set_health(player.health.current_health, player.health.max_health)
 	ui.set_shield(player.shield, player.max_shield)
 	ui.set_experience(upgrade_system.experience, upgrade_system.required_experience, upgrade_system.level)

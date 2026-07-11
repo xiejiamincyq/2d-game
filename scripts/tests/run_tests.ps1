@@ -24,6 +24,7 @@ $tests = @(
     "UpgradeTest",
     "StateTest",
     "UITest",
+    "PerformanceTest",
     "SmokeTest"
 )
 $totalAssertions = 0
