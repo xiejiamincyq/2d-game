@@ -263,7 +263,17 @@ func _initialize() -> void:
 		return
 	laser_enemy_a.queue_free()
 	laser_enemy_b.queue_free()
+	scene.player.drone_count = 0
+	scene.player.mine_level = 0
+	scene.player.dash_active = false
+	scene.player.dash_timer = 0.0
+	scene.player.velocity = Vector2.ZERO
+	scene.player.dash_hit_bodies.clear()
+	scene.player._clear_drone_lasers()
+	for lingering_effect in scene.projectiles.get_children():
+		lingering_effect.queue_free()
 	await process_frame
+	await physics_frame
 	var enemy: CharacterBody2D = enemy_script.new()
 	enemy.global_position = scene.player.global_position + Vector2(20, 0)
 	enemy.setup(enemy_script.EnemyKind.SCRAPPER, 1, scene.projectiles)

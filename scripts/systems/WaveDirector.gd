@@ -89,12 +89,20 @@ func _spawn_enemy(kind: int) -> void:
 		)
 
 func _on_enemy_died(enemy: Node, xp_value: int) -> void:
+	var death_position: Vector2 = enemy.global_position
+	var shield_value: float = enemy.shield_drop_value
 	enemy_killed.emit(xp_value)
-	if get_parent().has_method("spawn_experience"):
-		get_parent().spawn_experience(enemy.global_position, xp_value)
-	if enemy.shield_drop_value > 0.0 and get_parent().has_method("spawn_shield"):
-		get_parent().spawn_shield(enemy.global_position, enemy.shield_drop_value)
+	call_deferred("_deferred_spawn_drops", death_position, xp_value, shield_value)
 	_emit_wave_status()
+
+func _deferred_spawn_drops(position: Vector2, xp_value: int, shield_value: float) -> void:
+	var owner := get_parent()
+	if not is_instance_valid(owner):
+		return
+	if xp_value > 0 and owner.has_method("spawn_experience"):
+		owner.spawn_experience(position, xp_value)
+	if shield_value > 0.0 and owner.has_method("spawn_shield"):
+		owner.spawn_shield(position, shield_value)
 
 func _emit_wave_status() -> void:
 	var remaining := spawn_queue.size() + get_tree().get_nodes_in_group("enemies").size()
