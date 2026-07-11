@@ -103,20 +103,21 @@ func _initialize() -> void:
 	scene.player.drone_count = 2
 	scene.player._sync_drone_visuals()
 	scene.player._update_drone_positions()
-	scene.upgrade_system.add_experience(999)
+	scene.upgrade_system.add_experience(scene.upgrade_system.required_experience)
 	if not paused:
 		push_error("SmokeTest failed: upgrade choice did not pause the full scene tree.")
 		quit(1)
 		return
 	await process_frame
-	scene.ui.upgrade_selected.emit({"id": "gun_lines", "label": "分裂枪线", "description": "测试"})
+	var smoke_upgrade_choice: Dictionary = scene.upgrade_system.pending_choices[0].duplicate(true)
+	scene.ui.upgrade_selected.emit(smoke_upgrade_choice)
 	await process_frame
 	if paused:
 		push_error("SmokeTest failed: choosing an upgrade did not resume the scene tree.")
 		quit(1)
 		return
-	if scene.player.weapon_lines < 2:
-		push_error("SmokeTest failed: gun line upgrade did not apply.")
+	if int(scene.upgrade_system.upgrade_counts.get(String(smoke_upgrade_choice["id"]), 0)) != 1:
+		push_error("SmokeTest failed: selected upgrade did not apply exactly once.")
 		quit(1)
 		return
 	if scene.player.drone_visuals.size() != 2:
@@ -162,14 +163,14 @@ func _initialize() -> void:
 	dash_enemy.queue_free()
 	await process_frame
 	scene.player.mine_level = 0
-	scene.upgrade_system.apply_upgrade({"id": "mine", "label": "Spike test"})
+	scene.upgrade_system._apply_upgrade_effect("mine")
 	var first_spike_damage: float = scene.player.spike_damage
 	var first_spike_duration: float = scene.player.spike_duration
 	if absf(first_spike_duration - 5.0) > 0.01:
 		push_error("SmokeTest failed: initial spike duration should be 5 seconds.")
 		quit(1)
 		return
-	scene.upgrade_system.apply_upgrade({"id": "mine", "label": "Spike test"})
+	scene.upgrade_system._apply_upgrade_effect("mine")
 	if scene.player.mine_level != 2:
 		push_error("SmokeTest failed: repeat spike upgrade did not increase spike level.")
 		quit(1)

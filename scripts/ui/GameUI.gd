@@ -141,6 +141,10 @@ func show_upgrades(choices: Array[Dictionary]) -> void:
 	if not buttons.is_empty():
 		buttons[0].grab_focus()
 
+func hide_upgrades() -> void:
+	upgrade_overlay.visible = false
+	upgrade_panel.visible = false
+
 func show_manual_pause() -> void:
 	pause_overlay.visible = true
 	pause_panel.visible = true
@@ -163,7 +167,10 @@ func show_result(victory: bool, wave_text: String, kills: int, elapsed_seconds: 
 		level,
 		_rating_for(kills, elapsed_seconds, victory)
 	]
-	get_tree().paused = true
+
+func hide_result() -> void:
+	result_overlay.visible = false
+	result_panel.visible = false
 
 func show_start_screen() -> void:
 	hud_root.visible = false
@@ -460,8 +467,6 @@ func _build_result_panel() -> void:
 
 func _on_upgrade_button_pressed(button: Button) -> void:
 	var choice := button.get_meta("choice") as Dictionary
-	upgrade_overlay.visible = false
-	upgrade_panel.visible = false
 	upgrade_selected.emit(choice)
 
 func _meter_row(label_text: String, bar: ProgressBar, value_label: Label, tint: Color) -> HBoxContainer:
