@@ -63,6 +63,8 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node) -> void:
 			attack_windup = 0.5
 			attack_recovery = 0.75
 			_add_health(250.0 * scale_factor)
+	var wave_multiplier := 1.0 + 0.15 * float(maxi(1, wave_index) - 1)
+	xp_value = maxi(1, int(round(float(xp_value) * wave_multiplier)))
 
 func _ready() -> void:
 	add_to_group("enemies")

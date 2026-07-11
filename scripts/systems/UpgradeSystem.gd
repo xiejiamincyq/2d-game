@@ -8,7 +8,9 @@ signal upgrade_applied(label: String)
 var player: Node
 var level: int = 1
 var experience: int = 0
-var required_experience: int = 10
+const EXPERIENCE_MULTIPLIER := 2
+var base_required_experience: int = 10
+var required_experience: int = base_required_experience * EXPERIENCE_MULTIPLIER
 
 var upgrade_pool: Array[Dictionary] = [
 	{"id": "damage", "label": "超频弹芯", "description": "主武器伤害 +25%"},
@@ -36,7 +38,8 @@ func add_experience(amount: int) -> void:
 	while experience >= required_experience:
 		experience -= required_experience
 		level += 1
-		required_experience = int(ceil(float(required_experience) * 1.23 + 2.0))
+		base_required_experience = int(ceil(float(base_required_experience) * 1.23 + 2.0))
+		required_experience = base_required_experience * EXPERIENCE_MULTIPLIER
 		_present_choices()
 		break
 	experience_changed.emit(experience, required_experience, level)
