@@ -6,9 +6,10 @@ signal collected(value: float)
 @export var value: float = 9.0
 var drift_speed: float = 420.0
 var magnetized: bool = false
+var collected_once: bool = false
 
 func _ready() -> void:
-	monitoring = true
+	set_deferred("monitoring", true)
 	var shape := CollisionShape2D.new()
 	var circle := CircleShape2D.new()
 	circle.radius = 11.0
@@ -26,8 +27,7 @@ func _physics_process(delta: float) -> void:
 	if magnetized:
 		global_position = global_position.move_toward(player.global_position, drift_speed * delta)
 	if distance <= 18.0:
-		_collect()
-	queue_redraw()
+		_try_collect()
 
 func _draw() -> void:
 	draw_polygon(PackedVector2Array([
@@ -50,8 +50,13 @@ func _draw() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
-		_collect()
+		_try_collect()
 
-func _collect() -> void:
+func _try_collect() -> bool:
+	if collected_once:
+		return false
+	collected_once = true
+	set_deferred("monitoring", false)
 	collected.emit(value)
 	queue_free()
+	return true

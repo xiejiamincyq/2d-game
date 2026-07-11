@@ -56,6 +56,7 @@ var has_spike_position: bool = false
 var dash_active: bool = false
 var dash_direction: Vector2 = Vector2.RIGHT
 var dash_hit_bodies: Array[Node] = []
+var enemy_provider: Callable
 
 func _ready() -> void:
 	add_to_group("player")
@@ -82,9 +83,7 @@ func _physics_process(delta: float) -> void:
 		velocity = input_vector * move_speed
 		move_and_slide()
 		_clamp_to_world_bounds()
-	fire_timer = maxf(0.0, fire_timer - delta)
-	if _can_fire_primary() and Input.is_action_pressed("fire") and fire_timer <= 0.0:
-		_fire()
+	_update_fire(delta, Input.is_action_pressed("fire"))
 	_update_passives(delta)
 	queue_redraw()
 
@@ -104,7 +103,9 @@ func _draw() -> void:
 	if arc_pulse_level > 0:
 		draw_arc(Vector2.ZERO, 78.0 + arc_pulse_level * 16.0, 0.0, TAU, 48, Color(0.25, 1.0, 1.0, 0.18), 2.0)
 
-func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> void:
+func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> bool:
+	if health == null or amount <= 0.0 or not health.can_accept_damage():
+		return false
 	var remaining := amount
 	if shield > 0.0:
 		var absorbed := minf(shield, remaining)
@@ -112,8 +113,9 @@ func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> vo
 		remaining -= absorbed
 		shield_changed.emit(shield, max_shield)
 	if remaining > 0.0:
-		health.damage(remaining)
-	health.set_invulnerable(0.35)
+		health.damage(remaining, true)
+	health.begin_invulnerability(0.35)
+	return true
 
 func add_shield(amount: float) -> void:
 	shield = minf(max_shield, shield + amount)
@@ -128,7 +130,6 @@ func heal(amount: float) -> void:
 func _fire() -> void:
 	if not _can_fire_primary():
 		return
-	fire_timer = 1.0 / fire_rate
 	var direction := (get_global_mouse_position() - global_position).normalized()
 	if direction == Vector2.ZERO:
 		direction = Vector2.RIGHT
@@ -136,6 +137,19 @@ func _fire() -> void:
 	var start_offset := -spread_step * float(weapon_lines - 1) * 0.5
 	for line in range(weapon_lines):
 		_spawn_bullet(direction.rotated(start_offset + spread_step * line))
+
+func _update_fire(delta: float, wants_fire: bool) -> int:
+	var fired_count := 0
+	var interval := 1.0 / maxf(fire_rate, 0.001)
+	fire_timer -= delta
+	if not wants_fire or not _can_fire_primary():
+		fire_timer = maxf(fire_timer, -interval)
+		return fired_count
+	while fire_timer <= 0.0 and fired_count < 4:
+		_fire()
+		fire_timer += interval
+		fired_count += 1
+	return fired_count
 
 func _spawn_bullet(direction: Vector2) -> void:
 	var shot := ProjectileScript.new()
@@ -162,38 +176,38 @@ func _start_dash(direction: Vector2) -> void:
 	dash_timer = dash_duration
 	dash_cooldown_remaining = dash_cooldown
 	dash_hit_bodies.clear()
-	_apply_dash_melee()
+	_apply_dash_melee_sweep(global_position, global_position)
 
 func _update_dash(delta: float) -> void:
 	if not dash_active:
 		return
-	dash_timer -= delta
+	var step_time := minf(delta, dash_timer)
+	var start := global_position
 	velocity = dash_direction * (dash_distance / dash_duration)
-	global_position += velocity * delta
+	global_position += velocity * step_time
 	_clamp_to_world_bounds()
-	_apply_dash_melee()
+	dash_timer -= step_time
+	_apply_dash_melee_sweep(start, global_position)
 	if dash_timer <= 0.0:
 		dash_active = false
 		velocity = Vector2.ZERO
 
-func _apply_dash_melee() -> void:
-	for enemy in get_tree().get_nodes_in_group("enemies"):
+func _apply_dash_melee_sweep(start: Vector2, end: Vector2) -> void:
+	for enemy in _get_enemies():
 		var node := enemy as Node2D
 		if node == null or dash_hit_bodies.has(enemy) or not enemy.has_method("take_damage"):
 			continue
-		if _is_enemy_in_dash_melee(node.global_position):
+		if _distance_to_segment(node.global_position, start, end) <= dash_melee_radius:
 			dash_hit_bodies.append(enemy)
 			enemy.take_damage(dash_melee_damage, DamageTypes.DASH)
 
-func _is_enemy_in_dash_melee(enemy_position: Vector2) -> bool:
-	var to_enemy := enemy_position - global_position
-	if to_enemy.length() <= dash_melee_radius:
-		return true
-	var forward := to_enemy.dot(dash_direction)
-	if forward < -18.0 or forward > dash_melee_radius + 42.0:
-		return false
-	var lateral := absf(to_enemy.cross(dash_direction))
-	return lateral <= dash_melee_radius
+func _distance_to_segment(point: Vector2, start: Vector2, end: Vector2) -> float:
+	var segment := end - start
+	var length_squared := segment.length_squared()
+	if length_squared <= 0.0001:
+		return point.distance_to(start)
+	var t := clampf((point - start).dot(segment) / length_squared, 0.0, 1.0)
+	return point.distance_to(start + segment * t)
 
 func _update_passives(delta: float) -> void:
 	if projectile_parent == null:
@@ -236,7 +250,7 @@ func _update_drone_lasers(delta: float) -> void:
 	_set_laser_audio_active(any_laser_active)
 
 func _damage_enemies_on_laser(origin: Vector2, direction: Vector2, length: float, damage: float, width: float) -> void:
-	for enemy in get_tree().get_nodes_in_group("enemies"):
+	for enemy in _get_enemies():
 		var node := enemy as Node2D
 		if node == null or not enemy.has_method("take_damage"):
 			continue
@@ -250,7 +264,7 @@ func _damage_enemies_on_laser(origin: Vector2, direction: Vector2, length: float
 
 func _emit_arc_pulse() -> void:
 	var radius := arc_radius + arc_pulse_level * 18.0
-	for enemy in get_tree().get_nodes_in_group("enemies"):
+	for enemy in _get_enemies():
 		if global_position.distance_to(enemy.global_position) <= radius and enemy.has_method("take_damage"):
 			enemy.take_damage(arc_damage + arc_pulse_level * 8.0, DamageTypes.ARC)
 	var wave := ArcPulseVisualScript.new()
@@ -343,7 +357,7 @@ func _update_drone_positions() -> void:
 func _nearest_enemy(from_position: Vector2) -> Node2D:
 	var best: Node2D = null
 	var best_distance := INF
-	for enemy in get_tree().get_nodes_in_group("enemies"):
+	for enemy in _get_enemies():
 		var node := enemy as Node2D
 		var distance := from_position.distance_squared_to(node.global_position)
 		if distance < best_distance:
@@ -354,7 +368,7 @@ func _nearest_enemy(from_position: Vector2) -> Node2D:
 func _nearest_unassigned_enemy(from_position: Vector2, assigned: Array[Node2D]) -> Node2D:
 	var best: Node2D = null
 	var best_distance := INF
-	for enemy in get_tree().get_nodes_in_group("enemies"):
+	for enemy in _get_enemies():
 		var node := enemy as Node2D
 		if node == null or assigned.has(node):
 			continue
@@ -363,6 +377,18 @@ func _nearest_unassigned_enemy(from_position: Vector2, assigned: Array[Node2D]) 
 			best_distance = distance
 			best = node
 	return best
+
+func set_enemy_provider(provider: Callable) -> void:
+	enemy_provider = provider
+
+func _get_enemies() -> Array[Node]:
+	if enemy_provider.is_valid():
+		var provided: Variant = enemy_provider.call()
+		if provided is Array:
+			var enemies: Array[Node] = []
+			enemies.assign(provided)
+			return enemies
+	return get_tree().get_nodes_in_group("enemies")
 
 func _clamp_to_world_bounds() -> void:
 	if world_bounds.size == Vector2.ZERO:

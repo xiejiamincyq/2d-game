@@ -11,6 +11,8 @@ const WorldBoundaryScript = preload("res://scripts/world/WorldBoundary.gd")
 
 const WORLD_BOUNDS := Rect2(-1400, -900, 2800, 1800)
 
+enum RunState { START, PLAYING, UPGRADE, PAUSED, RESULT }
+
 var world: Node2D
 var enemies: Node2D
 var projectiles: Node2D
@@ -28,6 +30,7 @@ var elapsed_seconds: float = 0.0
 var shield_drop_timer: float = 6.0
 var combo_count: int = 0
 var combo_timer: float = 0.0
+var run_state: RunState = RunState.START
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -37,12 +40,11 @@ func _ready() -> void:
 	ui.show_start_screen()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if game_over and event is InputEventKey and event.pressed and event.keycode == KEY_R:
-		get_tree().paused = false
-		get_tree().reload_current_scene()
+	if run_state == RunState.RESULT and event is InputEventKey and event.pressed and event.keycode == KEY_R:
+		_restart_run()
 
 func _process(delta: float) -> void:
-	if run_started and not game_over and not get_tree().paused:
+	if run_state == RunState.PLAYING:
 		elapsed_seconds += delta
 		_update_combo(delta)
 		_update_random_shield_drop(delta)
@@ -125,12 +127,10 @@ func _start_run() -> void:
 	if run_started:
 		return
 	run_started = true
-	manual_paused = false
 	kill_count = 0
 	elapsed_seconds = 0.0
 	shield_drop_timer = 4.0
 	game_over = false
-	ui.hide_start_screen()
 	audio.play("start")
 	audio.play_bgm()
 	player = PlayerScript.new()
@@ -164,12 +164,13 @@ func _start_run() -> void:
 	add_child(upgrade_system)
 	upgrade_system.setup(player)
 	upgrade_system.experience_changed.connect(ui.set_experience)
-	upgrade_system.choices_ready.connect(ui.show_upgrades)
+	upgrade_system.choices_ready.connect(_on_upgrade_choices_ready)
 	upgrade_system.upgrade_applied.connect(func(label: String) -> void:
 		ui.show_toast(label)
 		audio.play("upgrade")
 	)
-	ui.upgrade_selected.connect(upgrade_system.apply_upgrade)
+	upgrade_system.upgrade_queue_completed.connect(func() -> void: _transition_to(RunState.PLAYING))
+	ui.upgrade_selected.connect(_on_upgrade_selected)
 	wave_director = WaveDirectorScript.new()
 	wave_director.process_mode = Node.PROCESS_MODE_PAUSABLE
 	wave_director.world_bounds = WORLD_BOUNDS
@@ -178,10 +179,19 @@ func _start_run() -> void:
 	wave_director.enemy_killed.connect(_on_enemy_killed)
 	wave_director.victory.connect(_on_victory)
 	wave_director.setup(player, enemies, projectiles)
+	player.set_enemy_provider(wave_director.get_active_enemies)
 	ui.set_health(player.health.current_health, player.health.max_health)
 	ui.set_shield(player.shield, player.max_shield)
 	ui.set_experience(upgrade_system.experience, upgrade_system.required_experience, upgrade_system.level)
 	ui.set_run_stats(kill_count, elapsed_seconds)
+	_transition_to(RunState.PLAYING)
+
+func _on_upgrade_choices_ready(choices: Array[Dictionary]) -> void:
+	if _transition_to(RunState.UPGRADE):
+		ui.show_upgrades(choices)
+
+func _on_upgrade_selected(choice: Dictionary) -> void:
+	upgrade_system.apply_upgrade(choice)
 
 func _on_enemy_killed(_xp_value: int) -> void:
 	kill_count += 1
@@ -210,25 +220,51 @@ func _end_run(victory: bool) -> void:
 	var wave_text := "抵达波次 %d/%d" % [wave_director.wave_index + 1, wave_director.waves.size()]
 	audio.play("victory" if victory else "defeat")
 	ui.show_result(victory, wave_text, kill_count, elapsed_seconds, upgrade_system.level)
+	_transition_to(RunState.RESULT)
 
 func _toggle_manual_pause() -> void:
 	if not run_started or game_over:
 		return
-	if ui.is_upgrade_open():
-		return
-	if manual_paused:
-		manual_paused = false
-		get_tree().paused = false
-		ui.hide_manual_pause()
-	else:
-		manual_paused = true
-		get_tree().paused = true
-		ui.show_manual_pause()
+	if run_state == RunState.PLAYING:
+		_transition_to(RunState.PAUSED)
+	elif run_state == RunState.PAUSED:
+		_transition_to(RunState.PLAYING)
 
 func _restart_run() -> void:
 	manual_paused = false
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+func _transition_to(next_state: RunState) -> bool:
+	if next_state == run_state:
+		return true
+	var allowed: Dictionary = {
+		RunState.START: [RunState.PLAYING],
+		RunState.PLAYING: [RunState.UPGRADE, RunState.PAUSED, RunState.RESULT],
+		RunState.UPGRADE: [RunState.PLAYING, RunState.RESULT],
+		RunState.PAUSED: [RunState.PLAYING, RunState.RESULT],
+		RunState.RESULT: [RunState.PLAYING],
+	}
+	if not next_state in allowed.get(run_state, []):
+		return false
+	run_state = next_state
+	manual_paused = run_state == RunState.PAUSED
+	get_tree().paused = run_state in [RunState.UPGRADE, RunState.PAUSED, RunState.RESULT]
+	match run_state:
+		RunState.PLAYING:
+			ui.hide_start_screen()
+			ui.hide_upgrades()
+			ui.hide_manual_pause()
+			ui.hide_result()
+		RunState.UPGRADE:
+			ui.hide_manual_pause()
+		RunState.PAUSED:
+			ui.hide_upgrades()
+			ui.show_manual_pause()
+		RunState.RESULT:
+			ui.hide_upgrades()
+			ui.hide_manual_pause()
+	return true
 
 func get_world_bounds() -> Rect2:
 	return WORLD_BOUNDS

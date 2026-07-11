@@ -4,6 +4,7 @@ const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const AudioManagerScript = preload("res://scripts/systems/AudioManager.gd")
 const UpgradeSystemScript = preload("res://scripts/systems/UpgradeSystem.gd")
+const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 func _fail(message: String) -> void:
 	push_error("BalanceTest failed: " + message)
@@ -11,7 +12,7 @@ func _fail(message: String) -> void:
 
 func _initialize() -> void:
 	var enemy: Node = EnemyScript.new()
-	enemy.setup(EnemyScript.EnemyKind.SCRAPPER, 1, Node.new())
+	enemy.setup(EnemyScript.EnemyKind.SCRAPPER, 1, root)
 	root.add_child(enemy)
 	var received := {"source": &""}
 	enemy.hit.connect(func(source: StringName) -> void: received["source"] = source)
@@ -47,8 +48,8 @@ func _initialize() -> void:
 	if not audio.play_hit(DamageTypes.ARC):
 		_fail("one hit category blocked another category.")
 		return
-	if audio.get_child_count() != child_count_before + 2:
-		_fail("hit playback created an unexpected number of players.")
+	if audio.get_child_count() != child_count_before:
+		_fail("hit playback grew the fixed audio voice pool.")
 		return
 	var unknown_source: StringName = &"unknown_test_source"
 	if not audio.hit_stream_names.has(DamageTypes.GENERIC) or audio.hit_stream_names.has(unknown_source):
@@ -58,8 +59,8 @@ func _initialize() -> void:
 	if not audio.play_hit(unknown_source):
 		_fail("unknown hit source did not play through the generic fallback.")
 		return
-	if audio.get_child_count() != fallback_child_count_before + 1:
-		_fail("unknown hit source did not create exactly one generic fallback player.")
+	if audio.get_child_count() != fallback_child_count_before:
+		_fail("generic fallback grew the fixed audio voice pool.")
 		return
 	var loop_player: AudioStreamPlayer = audio.laser_loop_player
 	audio.set_laser_active(true)
@@ -101,7 +102,8 @@ func _initialize() -> void:
 	for kind_index in range(enemy_kinds.size()):
 		for wave_index in range(1, 9):
 			var wave_enemy: Node = EnemyScript.new()
-			wave_enemy.setup(enemy_kinds[kind_index], wave_index, Node.new())
+			wave_enemy.setup(enemy_kinds[kind_index], wave_index, root)
+			root.add_child(wave_enemy)
 			wave_enemies.append(wave_enemy)
 			var expected_xp: int = maxi(1, roundi(float(base_xp_values[kind_index]) * (1.0 + 0.15 * float(wave_index - 1))))
 			if wave_enemy.xp_value != expected_xp:
@@ -109,10 +111,14 @@ func _initialize() -> void:
 				return
 
 	enemy.queue_free()
+	TestSupport.stop_audio(audio)
+	await create_timer(0.25).timeout
 	audio.queue_free()
 	upgrades.queue_free()
 	fake_player.queue_free()
 	for wave_enemy in wave_enemies:
 		wave_enemy.queue_free()
 	await process_frame
+	await process_frame
+	print("TEST PASS: BalanceTest 65")
 	quit(0)

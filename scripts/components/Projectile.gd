@@ -33,7 +33,6 @@ func _physics_process(delta: float) -> void:
 	lifetime -= delta
 	if lifetime <= 0.0:
 		queue_free()
-	queue_redraw()
 
 func _draw() -> void:
 	draw_rect(Rect2(Vector2(-radius, -radius), Vector2(radius * 2.0, radius * 2.0)), tint)

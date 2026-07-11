@@ -3,6 +3,7 @@ class_name AudioManager
 
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const HIT_COOLDOWN := 0.055
+const VOICE_POOL_SIZE := 16
 
 var streams: Dictionary = {}
 var bgm_player: AudioStreamPlayer
@@ -18,6 +19,8 @@ var hit_stream_names: Dictionary = {
 }
 var hit_cooldowns: Dictionary = {}
 var laser_loop_player: AudioStreamPlayer
+var voice_pool: Array[AudioStreamPlayer] = []
+var voice_cursor: int = 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -41,6 +44,11 @@ func _ready() -> void:
 	laser_loop_player.stream = streams["laser_loop"]
 	laser_loop_player.volume_db = -18.0
 	add_child(laser_loop_player)
+	for index in range(VOICE_POOL_SIZE):
+		var voice := AudioStreamPlayer.new()
+		voice.volume_db = -8.0
+		add_child(voice)
+		voice_pool.append(voice)
 
 func _process(delta: float) -> void:
 	for source in hit_cooldowns.keys():
@@ -63,12 +71,18 @@ func set_laser_active(active: bool) -> void:
 func play(name: String) -> void:
 	if not streams.has(name):
 		return
-	var player := AudioStreamPlayer.new()
-	player.stream = streams[name]
-	player.volume_db = -8.0
-	player.finished.connect(player.queue_free)
-	add_child(player)
-	player.play()
+	var voice: AudioStreamPlayer = null
+	for candidate in voice_pool:
+		if not candidate.playing:
+			voice = candidate
+			break
+	if voice == null:
+		voice = voice_pool[voice_cursor]
+		voice_cursor = (voice_cursor + 1) % voice_pool.size()
+		voice.stop()
+	voice.stream = streams[name]
+	voice.volume_db = -8.0
+	voice.play()
 
 func play_bgm() -> void:
 	if bgm_player == null:

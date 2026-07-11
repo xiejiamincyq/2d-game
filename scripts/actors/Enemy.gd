@@ -97,8 +97,8 @@ func _physics_process(delta: float) -> void:
 	if kind == EnemyKind.SPITTER:
 		_update_spitter(delta, player)
 	if flash_timer > 0.0:
-		flash_timer -= delta
-	queue_redraw()
+		flash_timer = maxf(0.0, flash_timer - delta)
+		queue_redraw()
 
 func _get_ranged_desired_velocity(to_player: Vector2) -> Vector2:
 	var distance := to_player.length()
@@ -142,6 +142,7 @@ func take_damage(amount: float, source: StringName = DamageTypes.GENERIC) -> voi
 	if health == null:
 		return
 	flash_timer = 0.08
+	queue_redraw()
 	health.damage(amount)
 	hit.emit(source)
 
@@ -173,6 +174,7 @@ func _update_melee_attack(delta: float, player: Node2D, distance: float) -> void
 	if attack_timer <= -attack_recovery:
 		is_attacking = false
 		attack_cooldown = 0.15
+		queue_redraw()
 
 func _update_spitter(delta: float, player: Node2D) -> void:
 	shoot_cooldown -= delta
