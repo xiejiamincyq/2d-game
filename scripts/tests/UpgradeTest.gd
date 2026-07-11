@@ -27,7 +27,7 @@ func _initialize() -> void:
 	upgrades.add_experience(92)
 	if not _assert_true(upgrades.level == 4, "92 XP reached level %d instead of 4" % upgrades.level):
 		return
-	if not _assert_true(upgrades.pending_upgrade_count == 3 and upgrades.awaiting_choice, "three crossed levels were not queued"): 
+	if not _assert_true(upgrades.pending_upgrade_count == 3 and upgrades.awaiting_choice, "three crossed levels were not queued"):
 		return
 	if not _assert_true(upgrades.pending_choices.size() == 3, "first transaction did not contain three choices"):
 		return
