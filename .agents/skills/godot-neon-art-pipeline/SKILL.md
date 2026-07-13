@@ -51,6 +51,8 @@ Finish and approve the current batch gate before starting the next batch.
 - `gameplay-approved`: runtime scale, silhouette, pivot, collision readability, and UI behavior pass.
 - `final`: gameplay approval is complete and usage rights have been reviewed.
 
+`validate_manifest.py` validates only the manifest's current declarations and the compatibility of `final` with the license gate; it does not store or prove review history. Before setting `review_state` to `final`, the operator must explicitly confirm that the `style-approved` and `gameplay-approved` reviews were actually completed.
+
 ## Safety
 
 - Do not change scripts, collisions, damage radii, UI behavior, or unrelated files while preparing art.
