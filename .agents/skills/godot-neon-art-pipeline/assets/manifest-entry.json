@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_base",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Replace the procedural player body while preserving top-down combat readability.",
+  "runtime_path": "res://assets/art/actors/player/player_base.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "top-down three-quarter",
+  "facing": "right-facing neutral master",
+  "palette": ["#061019", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "cool cyan rim light with restrained magenta bounce and warm weapon accent",
+  "prompt": "High-resolution top-down three-quarter cyber-wasteland player operative, compact readable silhouette, cyan armor light, magenta secondary glow, warm weapon accent, isolated full body, transparent background, no text, no border.",
+  "negative_constraints": [
+    "no embedded text",
+    "no opaque background",
+    "no cropped limbs",
+    "no photorealistic scenery",
+    "no thin silhouette-breaking cables"
+  ],
+  "references": [],
+  "generation_model": "imagegen",
+  "license_review_state": "pending",
+  "review_state": "draft"
+}

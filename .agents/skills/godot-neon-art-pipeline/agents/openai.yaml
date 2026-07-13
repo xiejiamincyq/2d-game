@@ -1,0 +1,4 @@
+interface:
+  display_name: "Godot Neon Art Pipeline"
+  short_description: "Prepare consistent neon sci-fi game art"
+  default_prompt: "Use $godot-neon-art-pipeline to prepare the next approved art batch for this Godot project."
