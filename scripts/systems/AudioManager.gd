@@ -36,7 +36,6 @@ func _ready() -> void:
 	streams["hit_dash"] = _make_impact(0.09, 0.62, 310.0, 95.0)
 	streams["hit_spike"] = _make_impact(0.07, 0.48, 1450.0, 360.0)
 	streams["laser_loop"] = _make_laser_loop()
-	streams["enemy_death"] = _make_impact(0.18, 0.72, 180.0, 0.28)
 	streams["start"] = _make_tone(360.0, 0.22, 0.18, 0.55, 2.2)
 	streams["victory"] = _make_tone(740.0, 0.35, 0.16, 0.55, 1.6)
 	streams["defeat"] = _make_tone(120.0, 0.45, 0.2, 0.55, 0.55)

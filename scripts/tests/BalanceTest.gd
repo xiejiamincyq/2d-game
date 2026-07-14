@@ -24,6 +24,9 @@ func _initialize() -> void:
 	var audio: Node = AudioManagerScript.new()
 	root.add_child(audio)
 	await process_frame
+	if audio.streams.has("enemy_death"):
+		_fail("enemy death audio stream is still configured.")
+		return
 	var expected_sources: Array[StringName] = [
 		DamageTypes.PROJECTILE,
 		DamageTypes.LASER,
@@ -120,5 +123,5 @@ func _initialize() -> void:
 		wave_enemy.queue_free()
 	await process_frame
 	await process_frame
-	print("TEST PASS: BalanceTest 65")
+	print("TEST PASS: BalanceTest 66")
 	quit(0)

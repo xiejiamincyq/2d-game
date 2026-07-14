@@ -198,7 +198,6 @@ func _on_enemy_killed(_xp_value: int) -> void:
 	combo_count += 1
 	combo_timer = 3.0
 	ui.set_combo(combo_count)
-	audio.play("enemy_death")
 	ui.set_run_stats(kill_count, elapsed_seconds)
 
 func _on_enemy_hit(source: StringName) -> void:
