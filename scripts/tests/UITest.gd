@@ -20,6 +20,11 @@ func _initialize() -> void:
 		return
 	if not _assert_true(ui.get("upgrade_screen") != null and ui.get("pause_screen") != null and ui.get("result_screen") != null, "GameUI did not instantiate focused modal screens"):
 		return
+	var ui_font := ui.root.theme.default_font as SystemFont
+	if not _assert_true(ui_font != null, "shared UI theme does not provide the CJK system font"):
+		return
+	if not _assert_true(ui_font.font_names.has("Microsoft YaHei UI") and ui_font.font_names.has("Noto Sans CJK SC"), "shared UI theme lost its Chinese font fallback chain"):
+		return
 
 	for size in [Vector2(960, 540), Vector2(1280, 720), Vector2(1920, 1080), Vector2(2560, 1080)]:
 		ui.apply_viewport_size(size)
