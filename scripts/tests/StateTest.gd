@@ -30,13 +30,44 @@ func _initialize() -> void:
 	scene._start_run()
 	if not _assert_true(scene.get("run_state") == 1 and not paused, "start did not enter PLAYING"):
 		return
+	var permanent_fire_rate: float = scene.player.fire_rate * 1.5
+	var permanent_weapon_damage: float = scene.player.weapon_damage * 1.25
+	scene.player.fire_rate = permanent_fire_rate
+	scene.player.weapon_damage = permanent_weapon_damage
+	scene.player.set_overdrive_active(true)
+	scene.player.set_dash_immunity_active(true)
 	if not _assert_true(scene._transition_to(2) and paused, "PLAYING to UPGRADE did not pause"):
+		return
+	if not _assert_true(
+		is_equal_approx(scene.player.get_effective_fire_rate(), permanent_fire_rate),
+		"upgrade pause did not clear temporary fire-rate modifiers"
+	):
+		return
+	if not _assert_true(
+		is_equal_approx(scene.player.weapon_damage, permanent_weapon_damage),
+		"temporary-state cleanup changed permanent weapon damage"
+	):
+		return
+	if not _assert_true(not scene.player.is_damage_immune(), "upgrade pause left temporary immunity active"):
 		return
 	if not _assert_true(scene._transition_to(1) and not paused, "UPGRADE to PLAYING did not resume"):
 		return
+	scene.player.set_overdrive_active(true)
+	scene.player.set_dash_immunity_active(true)
 	if not _assert_true(scene._transition_to(3) and paused, "PLAYING to PAUSED did not pause"):
 		return
+	if not _assert_true(not scene.player.is_damage_immune(), "manual pause left temporary immunity active"):
+		return
 	if not _assert_true(scene._transition_to(1) and not paused, "PAUSED to PLAYING did not resume"):
+		return
+	scene.player.set_overdrive_active(true)
+	if not _assert_true(scene._transition_to(4) and paused, "PLAYING to RESULT did not pause"):
+		return
+	if not _assert_true(
+		is_equal_approx(scene.player.get_effective_fire_rate(), permanent_fire_rate)
+		and not scene.player.is_damage_immune(),
+		"result transition did not restore runtime modifiers"
+	):
 		return
 
 	TestSupport.stop_audio(scene.audio)

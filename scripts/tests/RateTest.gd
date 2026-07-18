@@ -13,6 +13,45 @@ func _assert_true(condition: bool, message: String) -> bool:
 	return false
 
 func _initialize() -> void:
+	var contract_player: Node = PlayerScript.new()
+	root.add_child(contract_player)
+	await process_frame
+	contract_player.set_physics_process(false)
+	contract_player.fire_rate = 19.5
+	if not _assert_true(
+		is_equal_approx(contract_player.get_effective_fire_rate(), 19.5),
+		"base fire rate was not returned as the effective rate"
+	):
+		return
+	contract_player.set_overdrive_active(true)
+	contract_player.set_overdrive_active(true)
+	if not _assert_true(
+		is_equal_approx(contract_player.get_effective_fire_rate(), 39.0),
+		"repeated overdrive activation stacked the fire-rate modifier"
+	):
+		return
+	contract_player.set_overdrive_active(false)
+	if not _assert_true(
+		is_equal_approx(contract_player.get_effective_fire_rate(), 19.5),
+		"ending overdrive did not restore the permanent fire rate"
+	):
+		return
+	contract_player.set_fire_rate_modifier(&"dash_overclock", 1.5)
+	contract_player.set_fire_rate_modifier(&"dash_overclock", 1.5)
+	if not _assert_true(
+		is_equal_approx(contract_player.get_effective_fire_rate(), 29.25),
+		"reapplying one temporary fire-rate source accumulated"
+	):
+		return
+	contract_player.clear_fire_rate_modifier(&"dash_overclock")
+	if not _assert_true(
+		is_equal_approx(contract_player.get_effective_fire_rate(), 19.5),
+		"clearing a temporary fire-rate source changed the permanent value"
+	):
+		return
+	contract_player.queue_free()
+	await process_frame
+
 	var counts: Array[int] = []
 	for hz in [30, 60, 120]:
 		Input.action_release("fire")
