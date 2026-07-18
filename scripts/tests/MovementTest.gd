@@ -69,9 +69,9 @@ func _initialize() -> void:
 	):
 		return
 	if not _assert_true(
-		MainScript.CAMERA_SMOOTHING_CANDIDATES == [0.0, 16.0, 20.0]
-		and is_equal_approx(MainScript.CAMERA_SMOOTHING_SPEED, 20.0),
-		"camera A/B candidates or provisional selection changed"
+		MainScript.CAMERA_SMOOTHING_CANDIDATES == [0.0, 8.0, 16.0, 20.0]
+		and is_equal_approx(MainScript.CAMERA_SMOOTHING_SPEED, 8.0),
+		"camera profiles lost the stable 8.0 baseline or selected a jitter-prone profile"
 	):
 		return
 

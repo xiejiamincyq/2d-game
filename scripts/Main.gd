@@ -13,8 +13,8 @@ const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
 const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
 
 const WORLD_BOUNDS := Rect2(-1400, -900, 2800, 1800)
-const CAMERA_SMOOTHING_CANDIDATES: Array[float] = [0.0, 16.0, 20.0]
-const CAMERA_SMOOTHING_SPEED: float = 20.0
+const CAMERA_SMOOTHING_CANDIDATES: Array[float] = [0.0, 8.0, 16.0, 20.0]
+const CAMERA_SMOOTHING_SPEED: float = 8.0
 
 enum RunState { START, PLAYING, UPGRADE, PAUSED, RESULT }
 
