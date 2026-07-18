@@ -2,6 +2,8 @@ extends SceneTree
 
 const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
 const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
+const CombatFeedbackScript = preload("res://scripts/systems/CombatFeedback.gd")
+const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 
 var assertions := 0
 
@@ -54,7 +56,62 @@ func _initialize() -> void:
 	if not _assert_true(camera.offset == Vector2.ZERO and is_zero_approx(camera.rotation), "camera did not reset exactly to zero"):
 		return
 
+	var feedback: Node = CombatFeedbackScript.new()
+	root.add_child(feedback)
+	feedback.setup(vfx, camera_effects)
+	Engine.time_scale = 1.0
+	feedback.on_damage_resolved(
+		null,
+		DamageTypes.PROJECTILE,
+		10.0,
+		Vector2(30.0, 20.0),
+		Vector2.RIGHT,
+		false
+	)
+	if not _assert_true(is_equal_approx(Engine.time_scale, 1.0), "ordinary damage triggered hit-stop"):
+		return
+	if not _assert_true(vfx.get_effect_count(CombatVfxScript.SPARK) == 1, "ordinary damage did not request one spark record"):
+		return
+
+	feedback.on_damage_resolved(
+		null,
+		DamageTypes.PROJECTILE,
+		20.0,
+		Vector2(40.0, 20.0),
+		Vector2.RIGHT,
+		true
+	)
+	if not _assert_true(Engine.time_scale < 1.0, "a kill did not trigger hit-stop"):
+		return
+	if not _assert_true(
+		vfx.get_effect_count(CombatVfxScript.DEBRIS) == 1
+		and vfx.get_effect_count(CombatVfxScript.RING) == 1,
+		"a kill did not request bounded debris and ring feedback"
+	):
+		return
+	for request_index in range(20):
+		feedback.request_heavy_hit(Vector2.ZERO, Vector2.UP, 1.0)
+	if not _assert_true(
+		feedback.get_reserved_hit_stop_ms() <= CombatFeedbackScript.MAX_STOP_PER_WINDOW_MS,
+		"rolling hit-stop reservations exceeded the 100ms/35ms budget"
+	):
+		return
+	if not _assert_true(
+		feedback.get_active_hit_stop_remaining_ms() <= CombatFeedbackScript.MAX_STOP_PER_WINDOW_MS,
+		"merged active hit-stop exceeded its hard cap"
+	):
+		return
+	feedback.reset_all()
+	if not _assert_true(is_equal_approx(Engine.time_scale, 1.0), "feedback reset did not restore Engine.time_scale"):
+		return
+	feedback.request_hit_stop(10.0)
+	await create_timer(0.06, true, false, true).timeout
+	feedback._process(0.0)
+	if not _assert_true(is_equal_approx(Engine.time_scale, 1.0), "completed hit-stop did not restore Engine.time_scale automatically"):
+		return
+
 	vfx.queue_free()
+	feedback.queue_free()
 	camera_effects.queue_free()
 	camera.queue_free()
 	await process_frame

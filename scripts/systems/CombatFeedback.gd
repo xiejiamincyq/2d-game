@@ -1,0 +1,122 @@
+extends Node
+class_name CombatFeedback
+
+const CombatVfx = preload("res://scripts/effects/CombatVfx.gd")
+const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+
+const HIT_STOP_WINDOW_MS: float = 100.0
+const MAX_STOP_PER_WINDOW_MS: float = 35.0
+const KILL_STOP_MS: float = 18.0
+const HEAVY_STOP_MS: float = 12.0
+const HIT_STOP_TIME_SCALE: float = 0.05
+
+var combat_vfx: Node
+var camera_effects: Node
+var _stop_reservations: Array[Dictionary] = []
+var _hit_stop_until_ms: float = 0.0
+var _owns_time_scale: bool = false
+
+func _init() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+func setup(vfx: Node, effects: Node) -> void:
+	combat_vfx = vfx
+	camera_effects = effects
+
+func on_damage_resolved(
+	_enemy: Node,
+	source: StringName,
+	amount: float,
+	world_position: Vector2,
+	direction: Vector2,
+	killed: bool
+) -> void:
+	if amount <= 0.0:
+		return
+	var intensity := clampf(amount / 40.0, 0.2, 1.0)
+	_request_vfx(CombatVfx.SPARK, world_position, direction, intensity)
+	if killed:
+		_request_vfx(CombatVfx.DEBRIS, world_position, direction, maxf(0.6, intensity))
+		_request_vfx(CombatVfx.RING, world_position, direction, maxf(0.6, intensity))
+		_request_camera_impact(maxf(0.55, intensity), direction)
+		request_hit_stop(KILL_STOP_MS)
+	elif source in [DamageTypes.DASH, DamageTypes.SPIKE] or amount >= 40.0:
+		request_heavy_hit(world_position, direction, intensity)
+
+func request_heavy_hit(
+	world_position: Vector2,
+	direction: Vector2 = Vector2.ZERO,
+	intensity: float = 1.0
+) -> void:
+	var resolved_intensity := clampf(intensity, 0.25, 1.0)
+	_request_vfx(CombatVfx.RING, world_position, direction, resolved_intensity)
+	_request_camera_impact(maxf(0.35, resolved_intensity), direction)
+	request_hit_stop(HEAVY_STOP_MS)
+
+func request_hit_stop(requested_ms: float) -> float:
+	if requested_ms <= 0.0:
+		return 0.0
+	var now_ms := float(Time.get_ticks_msec())
+	_prune_stop_reservations(now_ms)
+	var reserved_ms := _sum_reserved_stop_ms()
+	var active_remaining_ms := maxf(0.0, _hit_stop_until_ms - now_ms)
+	var available_budget := maxf(0.0, MAX_STOP_PER_WINDOW_MS - reserved_ms)
+	var available_active := maxf(0.0, MAX_STOP_PER_WINDOW_MS - active_remaining_ms)
+	var granted_ms := minf(requested_ms, minf(available_budget, available_active))
+	if granted_ms <= 0.0:
+		return 0.0
+	_stop_reservations.append({"time_ms": now_ms, "duration_ms": granted_ms})
+	_hit_stop_until_ms = maxf(_hit_stop_until_ms, now_ms) + granted_ms
+	_owns_time_scale = true
+	Engine.time_scale = HIT_STOP_TIME_SCALE
+	return granted_ms
+
+func get_reserved_hit_stop_ms() -> float:
+	_prune_stop_reservations(float(Time.get_ticks_msec()))
+	return _sum_reserved_stop_ms()
+
+func get_active_hit_stop_remaining_ms() -> float:
+	return maxf(0.0, _hit_stop_until_ms - float(Time.get_ticks_msec()))
+
+func _process(_delta: float) -> void:
+	if not _owns_time_scale:
+		return
+	if float(Time.get_ticks_msec()) >= _hit_stop_until_ms:
+		_restore_time_scale()
+
+func reset_all() -> void:
+	_stop_reservations.clear()
+	_hit_stop_until_ms = 0.0
+	_restore_time_scale()
+
+func _request_vfx(
+	effect_type: StringName,
+	world_position: Vector2,
+	direction: Vector2,
+	intensity: float
+) -> void:
+	if is_instance_valid(combat_vfx) and combat_vfx.has_method("request_effect"):
+		combat_vfx.request_effect(effect_type, world_position, direction, intensity)
+
+func _request_camera_impact(intensity: float, direction: Vector2) -> void:
+	if is_instance_valid(camera_effects) and camera_effects.has_method("request_impact"):
+		camera_effects.request_impact(intensity, direction)
+
+func _prune_stop_reservations(now_ms: float) -> void:
+	var cutoff := now_ms - HIT_STOP_WINDOW_MS
+	for index in range(_stop_reservations.size() - 1, -1, -1):
+		if float(_stop_reservations[index]["time_ms"]) <= cutoff:
+			_stop_reservations.remove_at(index)
+
+func _sum_reserved_stop_ms() -> float:
+	var total := 0.0
+	for reservation in _stop_reservations:
+		total += float(reservation["duration_ms"])
+	return total
+
+func _restore_time_scale() -> void:
+	Engine.time_scale = 1.0
+	_owns_time_scale = false
+
+func _exit_tree() -> void:
+	reset_all()
