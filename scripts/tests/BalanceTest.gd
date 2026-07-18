@@ -25,6 +25,35 @@ func _initialize() -> void:
 	var audio: Node = AudioManagerScript.new()
 	root.add_child(audio)
 	await process_frame
+	if audio.get("bgm_profile_id") != &"industrial_hardcore_168":
+		_fail("BGM did not select the industrial hardcore 168 BPM profile.")
+		return
+	var bgm := audio.streams.get("bgm") as AudioStreamWAV
+	if bgm == null or bgm.loop_mode != AudioStreamWAV.LOOP_FORWARD or bgm.loop_begin != 0 or bgm.loop_end <= 0:
+		_fail("hardcore BGM is not configured as a full seamless forward loop.")
+		return
+	var expected_duration := 32.0 * 60.0 / 168.0
+	var actual_duration := float(bgm.loop_end) / float(bgm.mix_rate)
+	if absf(actual_duration - expected_duration) > 0.001:
+		_fail("hardcore BGM loop duration %.4f did not preserve eight 4/4 bars at 168 BPM." % actual_duration)
+		return
+	var loop_start_sample := float(bgm.data.decode_s16(0)) / 32767.0
+	var loop_end_sample := float(bgm.data.decode_s16(bgm.data.size() - 2)) / 32767.0
+	if absf(loop_start_sample) > 0.03 or absf(loop_end_sample) > 0.03 or absf(loop_end_sample - loop_start_sample) > 0.03:
+		_fail("hardcore BGM loop boundary would produce an audible click.")
+		return
+	var peak := 0.0
+	var square_sum := 0.0
+	var sampled := 0
+	for byte_index in range(0, bgm.data.size() - 1, 8):
+		var sample := float(bgm.data.decode_s16(byte_index)) / 32767.0
+		peak = maxf(peak, absf(sample))
+		square_sum += sample * sample
+		sampled += 1
+	var rms := sqrt(square_sum / maxf(1.0, float(sampled)))
+	if peak < 0.55 or peak > 0.98 or rms < 0.12 or rms > 0.42:
+		_fail("hardcore BGM loudness escaped the safe impact window (peak %.3f, RMS %.3f)." % [peak, rms])
+		return
 	if audio.streams.has("enemy_death"):
 		_fail("enemy death audio stream is still configured.")
 		return
@@ -115,6 +144,7 @@ func _initialize() -> void:
 				return
 
 	enemy.queue_free()
+	bgm = null
 	TestSupport.stop_audio(audio)
 	await create_timer(0.25).timeout
 	audio.queue_free()
@@ -124,5 +154,6 @@ func _initialize() -> void:
 		wave_enemy.queue_free()
 	await process_frame
 	await process_frame
-	print("TEST PASS: BalanceTest 66")
+	await create_timer(0.1).timeout
+	print("TEST PASS: BalanceTest 71")
 	quit(0)

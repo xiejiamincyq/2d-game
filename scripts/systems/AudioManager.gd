@@ -5,8 +5,12 @@ const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const HIT_COOLDOWN := 0.055
 const KILL_CONFIRM_COOLDOWN := 0.045
 const VOICE_POOL_SIZE := 16
+const BGM_BPM := 168.0
+const BGM_BEATS_PER_BAR := 4
+const BGM_BAR_COUNT := 8
 
 var streams: Dictionary = {}
+var bgm_profile_id: StringName = &"industrial_hardcore_168"
 var bgm_player: AudioStreamPlayer
 var bgm_volume_linear: float = 0.65
 var bgm_muted: bool = false
@@ -144,25 +148,73 @@ func _make_tone(freq: float, duration: float, attack: float, volume: float, swee
 	return wav
 
 func _make_bgm_loop() -> AudioStreamWAV:
-	var sample_rate := 22050
-	var duration := 8.0
+	var sample_rate := 16000
+	var total_beats := BGM_BEATS_PER_BAR * BGM_BAR_COUNT
+	var seconds_per_beat := 60.0 / BGM_BPM
+	var duration := float(total_beats) * seconds_per_beat
 	var sample_count := int(duration * sample_rate)
 	var data := PackedByteArray()
 	data.resize(sample_count * 2)
+	var bass_notes := PackedFloat32Array([
+		55.0, 55.0, 65.41, 55.0,
+		49.0, 55.0, 73.42, 65.41,
+		55.0, 82.41, 73.42, 55.0,
+		49.0, 55.0, 65.41, 49.0,
+	])
+	var motif_notes := PackedFloat32Array([220.0, 196.0, 220.0, 246.94])
+	var noise_seed := 0x4D3C2B1A
 	for i in range(sample_count):
+		noise_seed = int((1103515245 * noise_seed + 12345) & 0x7fffffff)
 		var t := float(i) / float(sample_rate)
-		var beat := int(floor(t * 4.0)) % 16
-		var beat_phase := fmod(t * 4.0, 1.0)
-		var pulse := exp(-beat_phase * 10.0)
-		var kick := sin(TAU * lerpf(88.0, 42.0, minf(1.0, beat_phase * 2.0)) * t) * pulse
-		var bass_gate := 0.55 if beat in [0, 3, 6, 8, 11, 14] else 0.22
-		var bass := sin(TAU * 55.0 * t) * bass_gate
-		var arp_notes := PackedFloat32Array([220.0, 277.0, 330.0, 415.0])
-		var arp_step: float = arp_notes[int(floor(t * 8.0)) % 4]
-		var arp := sin(TAU * arp_step * t) * 0.16
-		var shimmer := sin(TAU * 1320.0 * t) * 0.035 * (0.35 + pulse)
-		var envelope := 0.82 + sin(TAU * t / duration) * 0.02
-		var sample := (kick * 0.58 + bass * 0.34 + arp + shimmer) * envelope * 0.34
+		var beat_position := t / seconds_per_beat
+		var beat_index := int(floor(beat_position)) % total_beats
+		var beat_phase := fmod(beat_position, 1.0)
+		var beat_time := beat_phase * seconds_per_beat
+		var bar_beat := beat_index % BGM_BEATS_PER_BAR
+		var eighth_position := beat_position * 2.0
+		var eighth_index := int(floor(eighth_position)) % bass_notes.size()
+		var eighth_phase := fmod(eighth_position, 1.0)
+		var eighth_time := eighth_phase * seconds_per_beat * 0.5
+		var sixteenth_position := beat_position * 4.0
+		var sixteenth_index := int(floor(sixteenth_position)) % 16
+		var sixteenth_phase := fmod(sixteenth_position, 1.0)
+
+		var kick_envelope := minf(1.0, beat_phase / 0.012) * exp(-beat_phase * 10.5)
+		var kick_frequency := lerpf(165.0, 46.0, minf(1.0, beat_phase * 2.4))
+		var kick_body := sin(TAU * kick_frequency * beat_time)
+		var kick_click := sin(TAU * 1850.0 * beat_time) * exp(-beat_phase * 52.0)
+		var kick_accent := 1.0 if bar_beat in [0, 2] else 0.86
+		var kick := clampf((kick_body * 1.5 + kick_click * 0.38) * kick_envelope, -1.0, 1.0) * kick_accent
+
+		var bass_attack := minf(1.0, eighth_phase / 0.035)
+		var bass_envelope := bass_attack * pow(1.0 - eighth_phase, 0.72)
+		var bass_frequency: float = bass_notes[eighth_index]
+		var bass_saw := fmod(bass_frequency * eighth_time, 1.0) * 2.0 - 1.0
+		var bass_sub := sin(TAU * bass_frequency * 0.5 * eighth_time)
+		var bass_gate := 1.0 if eighth_index not in [3, 7, 11, 15] else 0.28
+		var bass := clampf((bass_saw * 0.72 + bass_sub * 0.58) * 1.45, -1.0, 1.0) * bass_envelope * bass_gate
+
+		var noise := (float(noise_seed % 2000) / 1000.0) - 1.0
+		var transient_attack := minf(1.0, sixteenth_phase / 0.025)
+		var hat_envelope := transient_attack * exp(-sixteenth_phase * (12.0 if sixteenth_index % 4 == 2 else 24.0))
+		var metallic := sin(TAU * 3150.0 * t) * 0.55 + sin(TAU * 4725.0 * t) * 0.28
+		var hat := (noise * 0.72 + metallic * 0.28) * hat_envelope
+
+		var snare_envelope := minf(1.0, beat_phase / 0.018) * exp(-beat_phase * 16.0) if bar_beat in [1, 3] else 0.0
+		var snare_tone := sin(TAU * 190.0 * beat_time) * 0.38
+		var snare := (noise * 0.78 + snare_tone) * snare_envelope
+
+		var motif_step := int(floor(beat_position * 0.5)) % 4
+		var motif_frequency: float = motif_notes[motif_step]
+		var motif_phase := fmod(beat_position * 0.5, 1.0)
+		var motif_attack := minf(1.0, motif_phase / 0.08)
+		var motif_envelope := motif_attack * pow(1.0 - motif_phase, 1.5)
+		var motif_wave := signf(sin(TAU * motif_frequency * t)) * 0.62 + sin(TAU * motif_frequency * 2.0 * t) * 0.18
+		var motif := motif_wave * motif_envelope
+
+		var sidechain := lerpf(0.42, 1.0, minf(1.0, beat_phase * 4.8))
+		var raw_mix := kick * 0.66 + bass * 0.5 * sidechain + snare * 0.25 + hat * 0.12 + motif * 0.09 * sidechain
+		var sample := clampf(raw_mix * 0.92, -0.94, 0.94)
 		var value := int(clampf(sample, -1.0, 1.0) * 32767.0)
 		data.encode_s16(i * 2, value)
 	var wav := AudioStreamWAV.new()
