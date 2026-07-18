@@ -1,413 +1,652 @@
-# Implementation Plan: 五分钟超载清剿
+# 统一实施计划：五分钟高机动超载清剿
 
-## Overview
+## 1. 计划地位
 
-把当前八波、零散刷新的生存战斗改造为五阶段、约五分钟的高速构筑局。敌人通过玩家周围 3–5 个传送门成群涌出；连续击杀积累超载，满槽后自动进入约 2.8 秒的无敌高输出窗口；玩家在单局内完成一条能力进化，并可从最近完成的阶段继续游戏。
+本计划合并并取代以下两套实施计划：
 
-## Product Success Criteria
+- “五分钟超载清剿”：传送门暴兵、连杀超载、三条终极进化、五阶段短局和阶段存档。
+- “战斗手感优化”：射击反馈、移动响应、冲刺进攻闭环、敌人前摇、程序化 VFX、相机冲击和 hit-stop。
 
-- 正常构筑的单局时长落在 4:30–5:30，目标中位数为 5:00。
-- 玩家在 90 秒内获得第一个构筑联动，并在最终阶段前获得终极进化。
-- 每次传送门攻势在可读预警后形成明显的集中涌出，任何敌人都不在玩家危险近距离内出生。
-- 一局通常触发 2–4 次超载；超载期间不消耗生命或护盾，输出提升清晰可感知，结束后所有倍率准确恢复。
-- 250 个敌人的既有性能基线不退化，密集传送门生成不造成单帧无上限实例化。
-- 退出后可从最近阶段检查点继续；损坏或旧版本存档安全回退到新游戏。
+原始计划保留在 Git 历史的 `6dbd19a` 与 `8059c4b` 中。后续实施只以本文件和 `tasks/todo.md` 为准，避免两个任务编号体系、八波/五阶段目标和重复反馈系统并存。
 
-## Architecture Decisions
+此文件只规划，不授权在计划审查前实现玩法代码。
 
-- `WaveDirector` 只负责阶段、传送门编排、敌人注册和活跃上限；新的 `SpawnPortal` 节点负责预警、局部批次队列和传送门生命周期。
-- 传送门位置在以玩家为中心的环带内采样，初始调参范围为 300–520 像素；靠近世界边界时采用拒绝采样和安全回退，禁止简单钳制后落入近距离。
-- 每次攻势生成 3–5 个传送门，预警约 0.6 秒，主要敌群在约 0.8 秒内涌出。底层按帧预算分批创建，视觉同步不等于同一帧实例化。
-- 新建 `OverdriveSystem` 管理槽值、连杀衰减、触发和持续时间。`Main` 负责连接系统，不承载倍率计算。
-- 超载默认自动触发，基础持续时间 2.8 秒。玩家在窗口内完全拒绝伤害且不消耗护盾；初始平衡目标为全伤害 4 倍、主武器射速 2 倍，并加快已有被动能力。倍率统一由运行时修饰器计算，禁止直接反复乘除基础属性。
-- 超载音频沿用现有合成音频架构，拆为触发重击、短循环和结束尾音。画面使用独立的程序化效果层：单次冲击闪光、青色主轮廓、少量品红分层、武器橙色强调、扩张能量环和轻量镜头震动；不使用持续频闪。
-- 升级继续复用三选一界面，但增加能力家族、前置条件和里程碑进化选择。首版只实现三条进化路线，避免把升级池扩成大量低辨识度选项。
-- 存档使用带 `schema_version` 的阶段快照，写入 `user://`。只保存阶段起点可重建的数据，不保存活跃敌人、弹幕、拾取物或传送门实例。
-- 视觉 MVP 保持当前程序化 `_draw()` 路线。若之后引入生成式特效贴图，必须按 `godot-neon-art-pipeline` 先建立有效 manifest、完成 combat/effect style-lock，再进入 Godot 导入验收。
+## 2. 最终体验
 
-## Dependency Graph
+核心循环统一为：
 
 ```text
-传送门节点与安全采样
-  -> 传送门攻势编排
-     -> 五阶段节奏与最终强敌
-
-击杀来源与超载状态机
-  -> 玩家无敌/输出修饰器
-     -> 超载音画反馈与 HUD
-
-升级家族与进化条件
-  -> 三条进化效果
-     -> 五阶段升级里程碑
-
-稳定的阶段与构筑状态
-  -> 阶段快照
-     -> 继续游戏 UI
-
-所有路径
-  -> 五分钟平衡与性能验收
+传送门预警
+  -> 敌群集中涌出
+  -> 高速扫射建立连杀
+  -> 冲刺切入并击杀返还冷却
+  -> 超载槽充满
+  -> 2.8 秒无敌高输出爆发
+  -> 构筑进化
+  -> 最终传送门首领验证完整火力
 ```
 
-## Task 1: 建立传送门生成竖切
+目标玩家偏好割草爽感，而不是长时间谨慎生存。单局目标为约五分钟，允许从最近完成的阶段继续。
 
-**Description:** 新增可独立测试的 `SpawnPortal` 节点。节点先显示预警，再按给定队列和帧预算请求生成敌人，最后在队列耗尽后关闭。先用程序化环形和粒子线条表现，不引入最终贴图。
+## 3. 产品验收指标
 
-**Acceptance criteria:**
-- [ ] 传送门严格经历 `TELEGRAPH -> BURST -> CLOSING`，关闭后不再发出生成请求。
-- [ ] 同一帧发出的生成请求不超过配置预算，完整生命周期发出的敌人类型和数量与输入队列一致。
-- [ ] 预警使用敌对品红与橙色提示，实际游戏尺寸下不与经验、护盾或玩家攻击混淆。
+- 单局中位时长为 `5:00`，正常范围 `4:30–5:30`。
+- 玩家在 `90s` 内形成明确构筑方向，最终阶段前获得一次终极进化。
+- 每次攻势在玩家周围 `300–520px` 生成 `3–5` 个传送门；硬安全距离不低于 `260px`。
+- 传送门预警约 `0.6s`，主要敌群约 `0.8s` 内涌出，但单帧实例化数量有上限。
+- 冲刺保持 `165px / 0.16s`，有效位移窗口无敌，结束后第一帧可恢复射击。
+- 基础冲刺击杀返还以每个敌人 `0.45s`、每次最多 `1.2s`、至少保留 `0.4s` 冷却为调试起点。
+- 一局通常触发 `2–4` 次超载；每次约 `2.8s`，全程无敌、全伤害初始目标 `4x`、主武器射速初始目标 `2x`。
+- 普通子弹命中不触发全局 hit-stop；击杀和重击请求必须合并，任意滚动 `100ms` 内总 hit-stop 不超过 `35ms`。
+- `250` 敌人基线、最大传送门爆发和最高弹幕进化均不产生无上限节点、音频播放器或单帧生成尖峰。
+- 阶段快照可恢复玩家、升级和待开始阶段；损坏或未知版本存档安全回退到新游戏。
 
-**Verification:**
-- [ ] `godot --headless --path . --script res://scripts/tests/PortalTest.gd --quit-after 120`
-- [ ] 手动检查单个传送门的预警、爆发和关闭节奏。
+## 4. 统一架构合同
 
-**Dependencies:** None
+### 4.1 单一伤害与击杀事实
 
-**Files likely touched:**
-- `scripts/systems/SpawnPortal.gd`
-- `scripts/tests/PortalTest.gd`
-- `scripts/tests/run_tests.ps1`
+所有玩法奖励与表现只消费一次确定的伤害结果，避免反馈、冲刺返还、超载充能和掉落各自猜测死亡状态。
 
-**Estimated scope:** Medium
+兼容扩展 `Enemy.take_damage`：
 
-## Task 2: 接入环带传送门攻势
+```gdscript
+func take_damage(
+    amount: float,
+    source: StringName = DamageTypes.GENERIC,
+    hit_direction: Vector2 = Vector2.ZERO
+) -> bool
+```
 
-**Description:** 让 `WaveDirector` 按攻势建立 3–5 个传送门，并将敌人队列分配给各门。位置必须处于玩家周围安全环带且落在世界边界内；敌人从对应门口的小范围内涌出，不再从全地图随机点逐只出现。
+新增结果信号：
 
-**Acceptance criteria:**
-- [ ] 常规空间中所有门距玩家 300–520 像素，边界退化场景仍不小于硬安全距离 260 像素。
-- [ ] 一个攻势的全部敌人只由传送门请求生成，并保持原有敌人注册、死亡掉落和剩余数量统计。
-- [ ] 3–5 个门在约 0.8 秒的主要爆发窗口内制造集中涌出，同时遵守全局单帧生成预算。
+```gdscript
+signal damage_resolved(
+    enemy: Node,
+    source: StringName,
+    amount: float,
+    world_position: Vector2,
+    direction: Vector2,
+    killed: bool
+)
+```
 
-**Verification:**
-- [ ] `godot --headless --path . --script res://scripts/tests/WaveTest.gd --quit-after 120`
-- [ ] 30/60/120 Hz 下比较传送门数量、总生成量和爆发完成时间。
+返回值表示本次被接受伤害是否造成死亡。旧调用仍可只传两个参数；旧 `hit(source)` 音效信号在迁移期保留。`WaveDirector` 只发出一次包含 `enemy/source/xp` 的击杀事实，死亡掉落仍只结算一次。
 
-**Dependencies:** Task 1
+消费者职责固定为：
 
-**Files likely touched:**
-- `scripts/systems/WaveDirector.gd`
-- `scripts/systems/SpawnPortal.gd`
-- `scripts/tests/WaveTest.gd`
-- `scripts/tests/PerformanceTest.gd`
+- `CombatFeedback`：音效、VFX、相机冲击、受限 hit-stop。
+- `OverdriveSystem`：按伤害来源和连杀节奏充能。
+- `Player` 冲刺逻辑：只对唯一的冲刺击杀返还冷却。
+- `WaveDirector/Main`：击杀统计、掉落、阶段进度。
 
-**Estimated scope:** Medium
+### 4.2 基础值与有效值
 
-## Checkpoint: 传送门暴兵
+永久升级只修改基础值；超载、短时超频和进化只通过运行时修饰器产生有效值。禁止靠进入时乘法、退出时除法恢复属性。
 
-- [ ] PortalTest、WaveTest 和 PerformanceTest 通过。
-- [ ] 玩家中心、四角和世界边缘位置均无近身出生。
-- [ ] 密集攻势有暴兵观感，且没有同帧无上限实例化。
+最小合同：
 
-## Task 3: 建立超载状态机
+```gdscript
+func get_effective_fire_rate() -> float
+func get_effective_damage_multiplier(source: StringName) -> float
+func is_damage_immune() -> bool
+func set_overdrive_active(active: bool) -> void
+```
 
-**Description:** 新增 `OverdriveSystem`，接收击杀及伤害来源，维护连杀窗口和 0–100 槽值。槽满后自动触发固定时长超载，并发出开始、进度、结束信号。敌人死亡链路需保留最后一次有效伤害来源，以支持冲刺等行为奖励。
+伤害免疫来源至少区分：
 
-**Acceptance criteria:**
-- [ ] 普通击杀稳定充能，冲刺/地刺击杀可配置额外充能，超时后连杀归零但已获得槽值按规则保留。
-- [ ] 满槽只触发一次 2.8 秒超载，窗口内不重复触发，结束后槽值回到零。
-- [ ] 同一敌人死亡只记一次击杀，未知伤害来源安全回退为普通充能。
+- 冲刺有效位移窗口；
+- 超载完整持续窗口。
 
-**Verification:**
-- [ ] `godot --headless --path . --script res://scripts/tests/OverdriveTest.gd --quit-after 120`
-- [ ] ProjectilePickupTest 继续覆盖真实击杀与延迟掉落。
+任一来源结束不能清除另一来源仍持有的免疫。暂停、升级、结算、重开、加载和退树必须恢复临时修饰器，但不能破坏永久升级。
 
-**Dependencies:** None
+### 4.3 战斗反馈边界
 
-**Files likely touched:**
-- `scripts/systems/OverdriveSystem.gd`
+新增：
+
+- `scripts/systems/CombatFeedback.gd`：反馈请求、强度映射、hit-stop 合并与生命周期。
+- `scripts/effects/CombatVfx.gd`：在单个有界数组渲染火花、碎片、冲击环和残影。
+- `scripts/effects/CameraEffects.gd`：合并并钳制镜头冲击，结束后精确归零。
+
+角色与武器只汇报战斗事实，不直接操作全局时间、相机或 UI。普通命中禁止全局 hit-stop。超载期间抑制普通击杀的反复停顿，只保留超载触发瞬间和高优先级重击，确保必杀窗口保持高速。
+
+### 4.4 传送门与阶段边界
+
+- `SpawnPortal` 负责 `TELEGRAPH -> BURST -> CLOSING`、本地敌人队列和门级帧预算。
+- `WaveDirector` 负责五阶段数据、传送门编排、全局生成预算、敌人注册和活跃数量上限。
+- 位置通过玩家中心环带拒绝采样；边界回退不能通过简单钳制把门推到玩家近处。
+- 视觉上同时暴兵，底层按小批次跨帧实例化。
+
+### 4.5 超载边界
+
+`OverdriveSystem` 只管理槽值、连杀、触发、持续时间和信号，不直接修改玩家基础属性或绘制界面。
+
+```gdscript
+signal meter_changed(current: float, maximum: float)
+signal overdrive_started(duration: float)
+signal overdrive_time_changed(remaining: float, maximum: float)
+signal overdrive_ended
+```
+
+满槽首版立即自动触发。若试玩证明经常在低敌量时浪费，再评估最多等待 `1–2s` 的密度门槛或手动触发，不在首版同时实现两套规则。
+
+### 4.6 升级与进化边界
+
+普通升级继续三选一，并增加家族、次数、前置条件和进化 ID。首版只保留三条终极路线：
+
+- 弹幕：“轨道风暴”。
+- 无人机/电弧：“雷网矩阵”。
+- 冲刺/地刺：“裂地超载”。
+
+冲刺返还、破阵短时射速和电弧返还作为进化前的机制组件，不再成为与三条路线平行的第四套升级体系。每局只能获得一个终极进化，里程碑选择提供与当前投入家族相关的保底候选。
+
+### 4.7 存档边界
+
+使用带 `schema_version` 的 `user://` 阶段快照，只保存可重建数据：
+
+- 待开始阶段、用时和击杀；
+- 玩家生命、护盾和基础属性；
+- 等级、经验、升级次数和进化 ID；
+- 超载槽值可保存，但进行中的超载不恢复。
+
+不保存敌人、弹幕、拾取物、传送门、VFX、音频循环或相机偏移。波次中退出时重玩当前最多约一分钟的阶段。
+
+## 5. 依赖图
+
+```text
+单一伤害/击杀事实 ─────────────┐
+                               ├─> 战斗反馈 ─> 射击/受击/死亡反馈
+基础值/有效值合同 ─────────────┤
+                               ├─> 冲刺无敌/返还 ─> 裂地超载
+移动与相机基线 ────────────────┘
+
+有界 VFX/相机反馈 ─> 传送门组件 ─> 传送门攻势 ─┐
+敌人显式前摇 ───────────────────────────────────┤
+超载状态/修饰器 ─> 超载音画/HUD ───────────────┤
+升级家族/进化门槛 ─> 三条进化 ─────────────────┤
+                                                 └─> 五阶段与首领
+
+稳定阶段 + 稳定构筑状态 ─> 阶段快照 ─> 继续游戏
+
+所有纵向切片 ─> 五分钟平衡、性能、可访问性与最终回归
+```
+
+## 6. 并行实施规则
+
+最多同时运行 `2–3` 条实现线程。先完成共享合同，再并行纵向切片；不得让两个线程同时直接修改同一个核心文件后再依赖人工拼接逻辑。
+
+高冲突文件：
+
+- `scripts/actors/Player.gd`
 - `scripts/actors/Enemy.gd`
+- `scripts/Main.gd`
 - `scripts/systems/WaveDirector.gd`
-- `scripts/Main.gd`
-- `scripts/tests/OverdriveTest.gd`
-
-**Estimated scope:** Medium
-
-## Task 4: 实现无敌高输出窗口
-
-**Description:** 为玩家增加统一的临时战斗修饰器。超载期间拒绝所有伤害且不消耗护盾，并将主武器、无人机、电弧、地刺和冲刺纳入同一输出倍率合同。结束、死亡、重启和加载时都必须恢复正常状态。
-
-**Acceptance criteria:**
-- [ ] 超载期间任何伤害源都不能降低护盾或生命，原有 0.35 秒受击无敌逻辑在非超载状态保持不变。
-- [ ] 初始目标为全伤害 4 倍、主武器射速 2 倍；所有能力从有效倍率读取，不直接污染基础升级数值。
-- [ ] 超载结束后伤害、射速和被动计时器精确回到进入前合同，多次触发不累乘。
-
-**Verification:**
-- [ ] OverdriveTest 覆盖伤害拒绝、护盾不消耗、所有伤害族倍率和两次连续触发后的恢复。
-- [ ] `godot --headless --path . --script res://scripts/tests/DamageTest.gd --quit-after 120`
-- [ ] `godot --headless --path . --script res://scripts/tests/RateTest.gd --quit-after 120`
-
-**Dependencies:** Task 3
-
-**Files likely touched:**
-- `scripts/actors/Player.gd`
-- `scripts/systems/OverdriveSystem.gd`
-- `scripts/components/Projectile.gd`
-- `scripts/tests/OverdriveTest.gd`
-- `scripts/tests/RateTest.gd`
-
-**Estimated scope:** Medium
-
-## Task 5: 完成超载音画反馈
-
-**Description:** 增加独立 `OverdriveVisual` 效果层和三段式音频反馈。触发瞬间必须成为全局视觉与听觉焦点，持续阶段保持强烈但可读，结束时明确收束；同时在 HUD 中显示充能和剩余时间。
-
-**Acceptance criteria:**
-- [ ] 音频包含触发重击、可无缝短循环和结束尾音，重复触发不创建新的 AudioStreamPlayer，也不残留循环。
-- [ ] 画面包含单次冲击闪光、玩家青色高亮、少量品红层、武器橙色强调、扩张环和轻量镜头震动，不使用持续频闪或遮挡危险提示。
-- [ ] HUD 在四种目标分辨率下清楚显示槽值、满槽状态和 2.8 秒倒计时，暂停时不会继续消耗时间。
-
-**Verification:**
-- [ ] `godot --headless --path . --script res://scripts/tests/UITest.gd --quit-after 120`
-- [ ] `godot --headless --path . --script res://scripts/tests/PerformanceTest.gd --quit-after 120`
-- [ ] 手动以普通音量和静音模式检查开始、循环、结束、暂停和重启。
-
-**Dependencies:** Task 4
-
-**Files likely touched:**
-- `scripts/components/OverdriveVisual.gd`
-- `scripts/systems/AudioManager.gd`
-- `scripts/ui/HUD.gd`
-- `scripts/ui/GameUI.gd`
-- `scripts/Main.gd`
-
-**Estimated scope:** Medium
-
-## Checkpoint: 超载必杀窗口
-
-- [ ] OverdriveTest、DamageTest、RateTest、UITest 和 PerformanceTest 通过。
-- [ ] 一次完整超载从触发到结束没有倍率、音频节点或暂停状态泄漏。
-- [ ] 试玩者无需解释即可指出“无敌高输出窗口”何时开始和结束。
-
-## Task 6: 建立升级家族与进化选择
-
-**Description:** 为现有升级增加家族、层级、前置条件和进化标识。普通升级仍为三选一，但达到阶段里程碑并满足条件时，至少提供一个与当前构筑相关的终极进化，不让随机洗牌完全阻断成型。
-
-**Acceptance criteria:**
-- [ ] 升级能按弹幕、无人机/电弧、冲刺/地刺家族统计投入，并可序列化已选次数和进化 ID。
-- [ ] 进化只有满足前置条件才出现，每局只能选择一个终极进化，伪造或过期选择继续被拒绝。
-- [ ] 在标准经验曲线下，90 秒内可形成家族方向，最终阶段前必有一次合法进化机会。
-
-**Verification:**
-- [ ] `godot --headless --path . --script res://scripts/tests/UpgradeTest.gd --quit-after 120`
-- [ ] BalanceTest 验证标准击杀收益下的升级时间点。
-
-**Dependencies:** None
-
-**Files likely touched:**
 - `scripts/systems/UpgradeSystem.gd`
-- `scripts/Main.gd`
-- `scripts/tests/UpgradeTest.gd`
-- `scripts/tests/BalanceTest.gd`
-
-**Estimated scope:** Medium
-
-## Task 7: 实现弹幕终极进化
-
-**Description:** 将多枪线、穿透和射速路线收敛为一种可辨认的弹幕进化。初始候选为“轨道风暴”：固定间隔的主武器齐射追加受严格上限约束的环形弹幕，超载时缩短触发间隔而不是无限增加节点。
-
-**Acceptance criteria:**
-- [ ] 未获得进化时现有主武器行为完全不变，获得后在固定、可测试的齐射计数上触发环形弹幕。
-- [ ] 超载能明显提高进化爆发，但单次追加弹量和单帧射弹量均有显式上限。
-- [ ] 进化投射物继承伤害来源、穿透、世界边界和清理合同。
-
-**Verification:**
-- [ ] UpgradeTest 覆盖前置条件和仅一次进化。
-- [ ] RateTest 覆盖 30/60/120 Hz 的追加齐射计数。
-- [ ] PerformanceTest 覆盖超载弹幕节点上限。
-
-**Dependencies:** Tasks 4, 6
-
-**Files likely touched:**
-- `scripts/actors/Player.gd`
-- `scripts/components/Projectile.gd`
-- `scripts/tests/RateTest.gd`
-- `scripts/tests/PerformanceTest.gd`
-
-**Estimated scope:** Medium
-
-## Task 8: 实现无人机终极进化
-
-**Description:** 将无人机与电弧路线收敛为“雷网矩阵”。无人机持续锁定目标，达到节拍时在已锁定目标之间释放一次受上限约束的电弧脉冲；超载时提高节拍而不复制无限激光节点。
-
-**Acceptance criteria:**
-- [ ] 雷网只选择有效、未退出树的敌人，目标不足时安全降级。
-- [ ] 同一节拍对单个敌人的命中次数有上限，超载结束后节拍恢复。
-- [ ] 无人机、激光和电弧视觉节点数量继续受现有上限约束。
-
-**Verification:**
-- [ ] UpgradeTest 覆盖进化申请与重复拒绝。
-- [ ] BalanceTest 覆盖雷网伤害和超载倍率。
-- [ ] PerformanceTest 覆盖 250 敌人目标选择与节点数量。
-
-**Dependencies:** Tasks 4, 6
-
-**Files likely touched:**
-- `scripts/actors/Player.gd`
-- `scripts/components/ArcPulseVisual.gd`
-- `scripts/tests/BalanceTest.gd`
-- `scripts/tests/PerformanceTest.gd`
-
-**Estimated scope:** Medium
-
-## Task 9: 实现冲刺地刺终极进化
-
-**Description:** 将冲刺和地刺路线收敛为“裂地超载”。冲刺路径产生强化地刺，冲刺击杀额外充能；超载期间冲刺冷却显著缩短，但每个敌人每次冲刺仍只受一次扫掠伤害。
-
-**Acceptance criteria:**
-- [ ] 进化前后的冲刺位移、跨帧扫掠和世界边界合同不变。
-- [ ] 强化地刺的间距、持续时间和伤害有显式上限，不因高帧率重复生成。
-- [ ] 冲刺击杀的额外超载充能只结算一次，超载结束后冷却恢复。
-
-**Verification:**
-- [ ] `godot --headless --path . --script res://scripts/tests/DashTest.gd --quit-after 120`
-- [ ] OverdriveTest 覆盖冲刺击杀额外充能。
-- [ ] PerformanceTest 覆盖地刺节点上限。
-
-**Dependencies:** Tasks 4, 6
-
-**Files likely touched:**
-- `scripts/actors/Player.gd`
-- `scripts/components/SpikeTrap.gd`
-- `scripts/tests/DashTest.gd`
-- `scripts/tests/OverdriveTest.gd`
-- `scripts/tests/PerformanceTest.gd`
-
-**Estimated scope:** Medium
-
-## Checkpoint: 三条极速构筑
-
-- [ ] 三条路线都能在最终阶段前稳定进化。
-- [ ] 每条路线在普通状态和超载状态下都有明显不同的战斗形态。
-- [ ] UpgradeTest、BalanceTest、RateTest、DashTest 和 PerformanceTest 通过。
-
-## Task 10: 重构五阶段节奏
-
-**Description:** 将八波数量表替换为五阶段攻势表。每阶段定义传送门轮次、敌人构成、最早结束时间、升级里程碑和活跃敌人上限；最终阶段加入一个复用传送门主题的简化强敌，作为完整构筑的火力验证。
-
-**Acceptance criteria:**
-- [ ] 五阶段按配置顺序推进，阶段内所有传送门队列和活跃敌人清空后才能结算。
-- [ ] 标准自动化战力模型下总时长目标为 4:30–5:30，第四阶段结束前触发进化选择。
-- [ ] 最终强敌至少包含一个可预警攻击和一次召唤传送门援军，不依赖单纯堆高生命值。
-
-**Verification:**
-- [ ] WaveTest 覆盖阶段推进、传送门队列、最终强敌和胜利信号。
-- [ ] BalanceTest 输出每阶段预计时长、敌人总生命和经验供给。
-- [ ] 手动完成三条构筑各一局并记录时长。
-
-**Dependencies:** Tasks 2, 6, 7, 8, 9
-
-**Files likely touched:**
-- `scripts/systems/WaveDirector.gd`
-- `scripts/actors/PortalOverseer.gd`
-- `scripts/Main.gd`
-- `scripts/tests/WaveTest.gd`
-- `scripts/tests/BalanceTest.gd`
-
-**Estimated scope:** Medium
-
-## Task 11: 建立阶段快照存档
-
-**Description:** 新增版本化 `RunSaveSystem`，在开局模块确定和每阶段升级结算后写入原子阶段快照。快照只包含重建下一阶段所需的玩家、升级、经验、超载和运行统计数据。
-
-**Acceptance criteria:**
-- [ ] 快照包含 schema 版本、待开始阶段、玩家基础状态、升级次数、进化 ID、等级/经验、击杀和用时。
-- [ ] 写入采用临时文件替换策略；缺字段、非法数值、损坏 JSON 和未知版本均安全拒绝并保留新游戏能力。
-- [ ] 加载后从阶段开头重建，不恢复敌人、弹幕、拾取物、传送门或进行中的超载。
-
-**Verification:**
-- [ ] `godot --headless --path . --script res://scripts/tests/SaveTest.gd --quit-after 120`
-- [ ] SaveTest 覆盖往返、损坏文件、旧版本、数值钳制和无存档场景。
-
-**Dependencies:** Tasks 3, 6, 10
-
-**Files likely touched:**
-- `scripts/systems/RunSaveSystem.gd`
-- `scripts/systems/UpgradeSystem.gd`
-- `scripts/actors/Player.gd`
-- `scripts/tests/SaveTest.gd`
 - `scripts/tests/run_tests.ps1`
 
-**Estimated scope:** Medium
+推荐批次：
 
-## Task 12: 接入继续游戏流程
-
-**Description:** 在开始界面只在有效存档存在时显示“继续游戏”，在暂停退出和阶段结算时协调保存。胜利或失败后清除当前局存档；加载过程必须通过 `Main` 的状态机进入合法状态。
-
-**Acceptance criteria:**
-- [ ] 无有效存档时不显示继续入口；有效存档可恢复玩家构筑和待开始阶段。
-- [ ] 暂停、升级、结果界面继续保持唯一暂停所有权，加载不会绕过状态转换。
-- [ ] 胜利、失败和主动新游戏清理旧局存档，普通中途退出保留最近阶段快照。
-
-**Verification:**
-- [ ] `godot --headless --path . --script res://scripts/tests/StateTest.gd --quit-after 120`
-- [ ] `godot --headless --path . --script res://scripts/tests/UITest.gd --quit-after 120`
-- [ ] SmokeTest 覆盖新游戏、继续、失败清档和重新开始。
-
-**Dependencies:** Task 11
-
-**Files likely touched:**
-- `scripts/Main.gd`
-- `scripts/ui/GameUI.gd`
-- `scripts/ui/PauseScreen.gd`
-- `scripts/tests/StateTest.gd`
-- `scripts/tests/SmokeTest.gd`
-
-**Estimated scope:** Medium
-
-## Checkpoint: 完整五分钟续玩流程
-
-- [ ] 新游戏、阶段保存、退出、继续、胜利和失败形成闭环。
-- [ ] 三条构筑都能完成最终阶段，且继续后属性与升级一致。
-- [ ] SaveTest、StateTest、UITest、SmokeTest 和 WaveTest 通过。
-
-## Task 13: 完成平衡与性能验收
-
-**Description:** 用自动化数据和手动试玩收敛传送门距离、敌人批量、经验曲线、超载充能、2.8 秒倍率、进化输出和最终强敌生命。只调配置和常量，不在此阶段引入新机制。
-
-**Acceptance criteria:**
-- [ ] 三条构筑各至少三次测试局的中位时长落在 4:30–5:30，且通常触发 2–4 次超载。
-- [ ] 超载期间每秒击杀显著高于普通期间，玩家全程无伤且音画起止明确；窗口外挑战仍然存在。
-- [ ] 250 敌人基线、最密集传送门攻势和最高弹幕进化均通过性能测试，无对象或音频节点泄漏。
-
-**Verification:**
-- [ ] `powershell -ExecutionPolicy Bypass -File scripts/tests/run_tests.ps1`
-- [ ] `git diff --check`
-- [ ] 手动检查 960x540、1280x720、1920x1080、2560x1080 下的门、HUD 和超载画面。
-
-**Dependencies:** Tasks 5, 10, 12
-
-**Files likely touched:**
-- `scripts/systems/WaveDirector.gd`
-- `scripts/systems/OverdriveSystem.gd`
-- `scripts/systems/UpgradeSystem.gd`
-- `scripts/tests/BalanceTest.gd`
-- `docs/performance/five-minute-overdrive-baseline.md`
-
-**Estimated scope:** Medium
-
-## Checkpoint: Complete
-
-- [ ] 全部自动化测试严格通过，无脚本错误、对象泄漏或资源泄漏。
-- [ ] 五分钟目标、传送门暴兵、三条进化、超载必杀窗口和阶段续玩全部满足验收标准。
-- [ ] 提交仅包含完成且相关的文件，不包含 `.godot`、临时生成状态或现有 `.superpowers/sdd` 文件。
-
-## Risks and Mitigations
-
-| Risk | Impact | Mitigation |
+| 批次 | 可并行工作 | 合并门槛 |
 |---|---|---|
-| 大量敌人同帧实例化造成卡顿 | High | 视觉同步、分帧生成；门级与全局双重预算；保留活跃敌人上限。 |
-| 传送门靠近玩家或在边界采样失败 | High | 环带拒绝采样、硬安全距离、确定性回退点和四角压力测试。 |
-| 无敌 4 倍输出让普通战斗失去意义 | High | 将窗口压缩到约 2.8 秒，控制每局 2–4 次，用充能速度而非削弱爽感调平衡。 |
-| 临时倍率反复触发后污染基础属性 | High | 统一有效属性修饰器，测试两次以上触发和加载/重启恢复。 |
-| 高频弹幕、无人机和地刺放大节点数量 | High | 每个进化设置显式节点、目标和单帧生成上限，并扩展 PerformanceTest。 |
-| 升级随机性导致五分钟内无法成型 | Medium | 家族权重、里程碑保底进化和标准经验模型测试。 |
-| 自动超载在低敌量时浪费 | Medium | 先记录触发时敌人密度；若常见，再加入短暂等待条件或手动触发。 |
-| 超载特效遮挡危险提示或造成视觉疲劳 | Medium | 单次闪光、持续边缘效果、限制震动和 bloom，不使用持续频闪。 |
-| 存档架构拖慢核心玩法 | Medium | 只存阶段快照；存档任务排在核心战斗验证之后。 |
+| Foundation | Task 1 与 Task 2 可并行；合并后顺序执行 Task 3、Task 4 | 合同测试和完整回归通过 |
+| Combat Feel | Tasks 5–9 顺序执行；它们共享 `Player.gd`、`Enemy.gd` 和反馈合同，不强行并行 | Checkpoint B |
+| Systems | 传送门线 Tasks 10–11 与系统线 Tasks 12–14 可并行；每条线内部顺序执行 | Checkpoint C，统一阶段集成 |
+| Evolutions | Tasks 15–17 原则上串行，因为都修改 `Player.gd`；只有先提取并锁定独立组件接口时才可并行 | Checkpoint D |
+| Run Lifecycle | Tasks 18–20 顺序执行；阶段格式、存档 schema 和状态流存在直接依赖 | Checkpoint E |
 
-## Open Questions To Validate During Implementation
+每个工作树只实现一个纵向切片，测试通过后形成独立提交。合并共享文件前先更新目标分支并重新运行相关测试，不允许通过复制整个文件覆盖另一线程的修改。
 
-- 超载满槽后立即自动触发，还是允许最多等待 1–2 秒直到附近敌人数达到阈值？默认先实现立即触发并采集数据。
-- 传送门硬安全距离 260 像素、目标环带 300–520 像素是否在 960x540 下仍然公平？以四种目标分辨率实测为准。
-- 最终强敌是否需要独立美术资产？MVP 先用程序化轮廓和传送门特效完成玩法验证。
+## 7. 分阶段任务
+
+### Task 1：统一伤害与击杀事件合同
+
+**目的：** 建立一次伤害事实、一次击杀事实和兼容迁移路径，为反馈、返还、充能与掉落提供共同输入。
+
+**验收标准：**
+
+- [ ] 每次被接受的伤害只发出一次含来源、实际伤害、方向和死亡状态的结果事件；拒绝或零伤害不发出。
+- [ ] 一个敌人只产生一次击杀、一次经验/护盾掉落和一次阶段移除；旧两参数伤害调用继续工作。
+- [ ] 冲刺、电弧、激光、地刺和弹丸的来源稳定且未知来源安全回退。
+
+**验证：** 新增/扩展 `CombatEventTest`、`DamageTest`、`ProjectilePickupTest`、`WaveTest`，然后运行完整测试。
+
+**依赖：** 无
+
+**预计文件：** `Enemy.gd`、`WaveDirector.gd`、`DamageTypes.gd`、`CombatEventTest.gd`、`run_tests.ps1`
+
+**规模：** M
+
+### Task 2：建立有效属性与免疫合同
+
+**目的：** 分离基础属性、永久升级和临时修饰器，为冲刺、短时超频、超载与进化提供不会漂移的统一入口。
+
+**验收标准：**
+
+- [ ] 有效射速、伤害倍率和免疫状态均由查询函数计算，多次进入/退出临时状态不累乘。
+- [ ] 冲刺免疫和超载免疫独立持有；结束一个来源不会误清另一个来源。
+- [ ] 暂停、结算、重开和退树清理临时状态，永久升级保持不变。
+
+**验证：** 扩展 `RateTest`、`DamageTest`、`StateTest`，覆盖两次触发、重叠免疫和恢复。
+
+**依赖：** 无
+
+**预计文件：** `Player.gd`、`UpgradeSystem.gd`、`RateTest.gd`、`DamageTest.gd`、`StateTest.gd`
+
+**规模：** M
+
+### Task 3：建立有边界的战斗反馈基础
+
+**目的：** 实现 `CombatFeedback`、`CombatVfx` 和 `CameraEffects`，统一强度映射、hit-stop、VFX 容量与镜头归零。
+
+**验收标准：**
+
+- [ ] 普通命中不暂停；击杀和重击请求合并并遵守 `100ms/35ms` 滚动上限。
+- [ ] 火花、碎片、冲击环和残影使用有界记录，不为每次命中永久增加节点。
+- [ ] 暂停、升级、结算、重开和退树后 `Engine.time_scale == 1.0`，相机与 VFX 精确归零。
+
+**验证：** 新增 `CombatFeedbackTest`，并运行 `StateTest`、`UITest`、`PerformanceTest` 和完整测试。
+
+**依赖：** Task 1
+
+**预计文件：** `CombatFeedback.gd`、`CombatVfx.gd`、`CameraEffects.gd`、`Main.gd`、`CombatFeedbackTest.gd`
+
+**规模：** M
+
+### Task 4：收紧移动与相机响应
+
+**目的：** 量化起步、停止和反向响应，解决“移动飘”，但不引入明显惯性或新碰撞框架。
+
+**验收标准：**
+
+- [ ] 30/60/120 Hz 下起步不超过 `50ms`、停止不超过 `40ms`、反向不超过 `70ms`。
+- [ ] 对角速度和世界边界行为不变；快速反向时相机没有明显拖拽。
+- [ ] 在关闭平滑、速度 `16`、`20` 中完成 A/B，并记录最终参数理由。
+
+**验证：** 新增 `MovementTest`，运行 `MovementTest`、`DashTest`、`RateTest` 和完整测试。
+
+**依赖：** 无
+
+**预计文件：** `Player.gd`、`Main.gd`、`MovementTest.gd`、`run_tests.ps1`
+
+**规模：** M
+
+### Checkpoint A：共享地基
+
+- [ ] 单一伤害/击杀合同和有效属性合同通过测试。
+- [ ] 相机、VFX、时间倍率和临时修饰器在所有状态转换后归零。
+- [ ] 人工确认移动与相机参数，完整严格测试通过。
+
+### Task 5：完成射击与敌人受击反馈
+
+**目的：** 增加第一帧枪口反馈、短拖尾、方向性火花和有界死亡碎片，让基础武器无需升级也有明确反馈。
+
+**验收标准：**
+
+- [ ] 枪口反馈在一个模拟帧内出现，不改变帧率独立射击计数。
+- [ ] 只有击杀/重击使用受限 hit-stop；五枪线和高射速状态仍遵守 VFX 容量。
+- [ ] 玩法死亡立即结算，`80–150ms` 表现延续不延迟掉落或阶段结束。
+
+**验证：** 扩展 `RateTest`、`ProjectilePickupTest`、`WaveTest`、`PerformanceTest`，人工检查五种伤害来源。
+
+**依赖：** Tasks 1、3、4
+
+**预计文件：** `Player.gd`、`Projectile.gd`、`Enemy.gd`、`CombatVfx.gd`、`RateTest.gd`
+
+**规模：** M
+
+### Task 6：完成玩家受伤与护盾反馈
+
+**目的：** 区分拒绝伤害、护盾吸收、破盾和生命受伤，并保持既有伤害算术与 `0.35s` 受击后无敌语义。
+
+**验收标准：**
+
+- [ ] 护盾吸收、破盾和生命损失产生不同反馈；被免疫拒绝的伤害保持静默。
+- [ ] 破盾只触发一次强反馈，溢出到生命的数值不变。
+- [ ] 红/青闪光、震屏与音效受容量和强度设置约束。
+
+**验证：** 扩展 `DamageTest` 和 `StateTest`，人工检查纯护盾、破盾溢出、纯生命和高频接触伤害。
+
+**依赖：** Tasks 1、2、3
+
+**预计文件：** `Player.gd`、`CombatFeedback.gd`、`AudioManager.gd`、`DamageTest.gd`
+
+**规模：** S–M
+
+### Task 7：完成冲刺无敌与输入连续性
+
+**目的：** 把冲刺变成确定性的进攻移动窗口，加入有效位移无敌、短射击输入缓存和冷却信号。
+
+**验收标准：**
+
+- [ ] 30/60/120 Hz 下保持 `165px / 0.16s`，扫掠不漏敌且世界边界行为不变。
+- [ ] 只有有效位移窗口免疫伤害，暂停/结算后不残留。
+- [ ] 最后 `100ms` 内缓存的射击在首个允许帧只消费一次。
+
+**验证：** 扩展 `DashTest`、`DamageTest`、`RateTest`、`StateTest`，人工执行“射击—冲刺—射击”。
+
+**依赖：** Tasks 2、4
+
+**预计文件：** `Player.gd`、`HealthComponent.gd`、`DashTest.gd`、`RateTest.gd`
+
+**规模：** M
+
+### Task 8：完成冲刺返还与表现闭环
+
+**目的：** 增加起步爆发、残影、冷却可读性和击杀返还，让冲刺成为主动切入敌群的收益决策。
+
+**验收标准：**
+
+- [ ] 每个唯一冲刺击杀每次冲刺最多返还一次，非致命命中不返还。
+- [ ] 基础返还遵守单杀、单次上限和最低剩余冷却，不能形成永久无敌。
+- [ ] 残影、方向拖线、命中反馈和冷却 UI 均信号驱动且有容量上限。
+
+**验证：** 扩展 `DashTest`、`BalanceTest`、`UITest`、`CombatFeedbackTest`、`PerformanceTest`。
+
+**依赖：** Tasks 1、3、7
+
+**预计文件：** `Player.gd`、`CombatVfx.gd`、`HUD.gd`、`DashTest.gd`、`BalanceTest.gd`
+
+**规模：** M
+
+### Task 9：重构敌人前摇与反击窗口
+
+**目的：** 让疾冲者、吐弹者和重装者通过行为可读，并为冲刺切入提供公平反击窗口。
+
+**验收标准：**
+
+- [ ] 疾冲者采用 `CHASE -> TELEGRAPH -> DASH -> RECOVERY`，锁向后不静默重定向。
+- [ ] 吐弹者发射前约 `0.35s` 预警；重装者约 `0.6s` 前摇可被冲刺打断，普通子弹不打断。
+- [ ] 所有阶段、位移和单次命中在 30/60/120 Hz 下一致，死亡后不延迟攻击。
+
+**验证：** 新增 `EnemyBehaviorTest`，运行 `DamageTest`、`WaveTest`、`ProjectilePickupTest`、`BalanceTest`。
+
+**依赖：** Tasks 1、3、5、8
+
+**预计文件：** `Enemy.gd`、`Projectile.gd`、`CombatVfx.gd`、`EnemyBehaviorTest.gd`、`run_tests.ps1`
+
+**规模：** M
+
+### Checkpoint B：基础战斗爽感
+
+- [ ] 射击、受击、击杀和冲刺无需依赖升级即可清楚辨认。
+- [ ] 冲刺可进攻也可逃生，但基础能力不能形成永久无敌。
+- [ ] 四类敌人可通过前摇和恢复窗口区分。
+- [ ] 完成 15 分钟行为测试并记录冲刺使用、击杀、受伤和吞键次数。
+
+### Task 10：建立传送门生成组件
+
+**目的：** 实现可独立测试的 `SpawnPortal`，负责预警、队列爆发、门级预算和关闭。
+
+**验收标准：**
+
+- [ ] 严格经历 `TELEGRAPH -> BURST -> CLOSING`，关闭后不再请求生成。
+- [ ] 完整生命周期的敌人类型/数量与输入队列一致，同帧请求不超过配置预算。
+- [ ] 敌对品红与橙色预警不与经验、护盾、超载或玩家攻击混淆。
+
+**验证：** 新增 `PortalTest`，手动检查单门在四种目标分辨率下的预警和爆发。
+
+**依赖：** Task 3
+
+**预计文件：** `SpawnPortal.gd`、`PortalTest.gd`、`run_tests.ps1`
+
+**规模：** M
+
+### Task 11：接入玩家环带传送门攻势
+
+**目的：** 让敌人通过玩家周围 `3–5` 个门集中涌出，替换全地图零散逐只刷新。
+
+**验收标准：**
+
+- [ ] 常规门距为 `300–520px`，边界回退仍不低于 `260px` 硬安全距离。
+- [ ] 主要敌群约 `0.8s` 内涌出，门级与全局帧预算、活跃敌人上限同时生效。
+- [ ] 注册、死亡、掉落和剩余数量统计继续正确。
+
+**验证：** 扩展 `WaveTest` 和 `PerformanceTest`，覆盖中心、四角、边缘及 30/60/120 Hz。
+
+**依赖：** Tasks 9、10
+
+**预计文件：** `WaveDirector.gd`、`SpawnPortal.gd`、`WaveTest.gd`、`PerformanceTest.gd`
+
+**规模：** M
+
+### Task 12：建立连杀超载必杀窗口
+
+**目的：** 实现槽值、连杀、自动触发、2.8 秒无敌和高输出修饰器，并与冲刺免疫及临时属性合同正确组合。
+
+**验收标准：**
+
+- [ ] 普通击杀稳定充能，冲刺/地刺击杀可配置额外充能；同一死亡不重复计数。
+- [ ] 满槽只触发一次约 `2.8s` 超载，期间生命/护盾不下降，全伤害初始 `4x`、主武器射速初始 `2x`。
+- [ ] 结束后倍率、免疫和被动节拍精确恢复，多次触发不累乘。
+
+**验证：** 新增 `OverdriveTest`，扩展 `DamageTest`、`RateTest`、`StateTest`。
+
+**依赖：** Tasks 1、2、7
+
+**预计文件：** `OverdriveSystem.gd`、`Player.gd`、`Main.gd`、`OverdriveTest.gd`、`RateTest.gd`
+
+**规模：** M
+
+### Task 13：完成超载音画与 HUD
+
+**目的：** 把超载做成短、稀有、压倒性的必杀时刻，同时保持敌人预警和高密度战斗可读。
+
+**验收标准：**
+
+- [ ] 音频包含触发重击、无缝短循环和结束尾音，不创建重复播放器或残留循环。
+- [ ] 画面包含单次冲击闪光、青色角色高亮、少量品红分层、武器橙色强调、扩张环和轻量震屏，不持续频闪。
+- [ ] HUD 显示槽值和倒计时；暂停时不消耗时间；超载期间普通击杀 hit-stop 被抑制。
+
+**验证：** 扩展 `UITest`、`CombatFeedbackTest`、`PerformanceTest`，人工检查普通音量、静音、暂停和重启。
+
+**依赖：** Tasks 3、12
+
+**预计文件：** `OverdriveVisual.gd`、`AudioManager.gd`、`HUD.gd`、`GameUI.gd`、`Main.gd`
+
+**规模：** M
+
+### Task 14：建立升级家族与进化门槛
+
+**目的：** 将冲刺机制升级与三条终极路线统一到一个可序列化、可保底的选择系统。
+
+**验收标准：**
+
+- [ ] 升级按弹幕、无人机/电弧、冲刺/地刺家族统计投入，并记录次数和进化 ID。
+- [ ] 前置条件、事务校验和上限继续生效；每局最多一个终极进化。
+- [ ] 标准经验曲线下 `90s` 内出现方向，最终阶段前提供相关家族进化机会。
+
+**验证：** 扩展 `UpgradeTest` 和 `BalanceTest`，覆盖伪造选择、上限、里程碑和序列化。
+
+**依赖：** Tasks 1、2
+
+**预计文件：** `UpgradeSystem.gd`、`Player.gd`、`Main.gd`、`UpgradeTest.gd`、`BalanceTest.gd`
+
+**规模：** M
+
+### Checkpoint C：暴兵与超载系统
+
+- [ ] 传送门暴兵公平、集中且性能受控。
+- [ ] 一次完整超载无伤害、倍率、音频、VFX 或暂停状态泄漏。
+- [ ] 玩家无需解释即可指出超载开始和结束。
+- [ ] 升级系统能稳定导向三条路线之一。
+
+### Task 15：实现弹幕进化“轨道风暴”
+
+**目的：** 将多枪线、穿透和射速路线收敛为固定齐射计数触发的有界环形弹幕。
+
+**验收标准：**
+
+- [ ] 未进化时主武器行为不变；进化后在确定性齐射计数触发。
+- [ ] 超载缩短触发间隔但单次追加弹量和单帧弹量均有上限。
+- [ ] 追加弹继承来源、穿透、世界边界和清理合同。
+
+**验证：** 扩展 `UpgradeTest`、`RateTest`、`PerformanceTest`。
+
+**依赖：** Tasks 5、12、14
+
+**预计文件：** `Player.gd`、`Projectile.gd`、`UpgradeTest.gd`、`RateTest.gd`、`PerformanceTest.gd`
+
+**规模：** M
+
+### Task 16：实现无人机进化“雷网矩阵”
+
+**目的：** 让无人机锁定目标并按节拍释放有上限的目标间电弧，超载只提高节拍而不复制无限节点。
+
+**验收标准：**
+
+- [ ] 只选择有效敌人，目标不足时安全降级；单目标每节拍命中次数有上限。
+- [ ] 超载结束后节拍精确恢复，无人机、激光和电弧节点继续受上限约束。
+- [ ] 作为前置组件的电弧击杀返还遵守单脉冲上限和最低冲刺冷却。
+
+**验证：** 扩展 `UpgradeTest`、`BalanceTest`、`PerformanceTest`、`DashTest`。
+
+**依赖：** Tasks 8、12、14
+
+**预计文件：** `Player.gd`、`ArcPulseVisual.gd`、`UpgradeTest.gd`、`BalanceTest.gd`、`PerformanceTest.gd`
+
+**规模：** M
+
+### Task 17：实现冲刺进化“裂地超载”
+
+**目的：** 将冲刺返还、破阵短时射速和地刺路径组合为一条高机动终极路线。
+
+**验收标准：**
+
+- [ ] 冲刺位移、扫掠、输入缓存和边界合同不变；强化地刺间距、持续时间和伤害有上限。
+- [ ] 冲刺命中可刷新但不乘法叠加短时射速；冲刺击杀额外充能只结算一次。
+- [ ] 超载期间缩短冲刺冷却但仍保留最低间隔，不能形成永久无敌循环。
+
+**验证：** 扩展 `DashTest`、`RateTest`、`OverdriveTest`、`PerformanceTest`、`UpgradeTest`。
+
+**依赖：** Tasks 7、8、12、14
+
+**预计文件：** `Player.gd`、`SpikeTrap.gd`、`DashTest.gd`、`OverdriveTest.gd`、`PerformanceTest.gd`
+
+**规模：** M
+
+### Checkpoint D：三条完整构筑
+
+- [ ] 三条路线均能在最终阶段前进化。
+- [ ] 普通状态和超载状态下的战斗形态可明显区分。
+- [ ] 基础构筑、三条进化和无进化降级路径均无属性漂移或性能失控。
+
+### Task 18：重构五阶段节奏与最终强敌
+
+**目的：** 用五阶段传送门攻势取代八波数量表，并加入一个具备预警攻击和召唤援军的简化最终强敌。
+
+**验收标准：**
+
+- [ ] 阶段按配置推进，所有门队列和活跃敌人清空后才结算。
+- [ ] 第四阶段结束前触发进化选择，标准战力模型总时长为 `4:30–5:30`。
+- [ ] 最终强敌至少有一个可预警攻击和一次传送门援军，不靠单纯堆生命。
+
+**验证：** 扩展 `WaveTest`、`EnemyBehaviorTest`、`BalanceTest`，三条构筑各完成一局并记录。
+
+**依赖：** Tasks 9、11、14–17
+
+**预计文件：** `WaveDirector.gd`、`PortalOverseer.gd`、`Main.gd`、`WaveTest.gd`、`BalanceTest.gd`
+
+**规模：** M
+
+### Task 19：建立版本化阶段快照
+
+**目的：** 在初始选择和每阶段升级完成后原子保存下一阶段可重建状态。
+
+**验收标准：**
+
+- [ ] 快照含 schema、待开始阶段、基础属性、升级/进化、经验、生命/护盾、击杀和用时。
+- [ ] 临时文件替换写入；缺字段、非法值、损坏 JSON 和未知版本安全拒绝。
+- [ ] 加载从阶段开头重建，不恢复进行中超载、敌人、弹幕、门或表现状态。
+
+**验证：** 新增 `SaveTest`，覆盖往返、损坏、未知版本、数值钳制和无存档。
+
+**依赖：** Tasks 2、12、14、18
+
+**预计文件：** `RunSaveSystem.gd`、`Player.gd`、`UpgradeSystem.gd`、`SaveTest.gd`、`run_tests.ps1`
+
+**规模：** M
+
+### Task 20：接入继续游戏状态流
+
+**目的：** 在有效存档存在时提供继续入口，并通过 `Main` 的合法状态转换完成恢复、清档和重开。
+
+**验收标准：**
+
+- [ ] 无有效存档不显示继续；有效存档恢复构筑和待开始阶段。
+- [ ] 暂停、升级和结果界面保持唯一暂停所有权，加载不绕过状态机。
+- [ ] 胜利、失败和主动新游戏清理旧存档，中途退出保留最近阶段快照。
+
+**验证：** 扩展 `StateTest`、`UITest`、`SmokeTest`，覆盖新游戏、继续、失败清档和重启。
+
+**依赖：** Task 19
+
+**预计文件：** `Main.gd`、`GameUI.gd`、`PauseScreen.gd`、`StateTest.gd`、`SmokeTest.gd`
+
+**规模：** M
+
+### Checkpoint E：完整五分钟闭环
+
+- [ ] 新游戏、阶段保存、退出、继续、胜利、失败和重开形成闭环。
+- [ ] 三条构筑都能完成最终阶段，继续后属性和升级一致。
+- [ ] 五分钟目标、传送门暴兵、超载和首领节奏完成试玩验收。
+
+### Task 21：最终平衡、性能与可访问性验收
+
+**目的：** 只调整参数，不新增机制；完成密集战斗性能、状态清理、视觉舒适度和发布前回归。
+
+**验收标准：**
+
+- [ ] 三条构筑各至少三局，中位时长 `4:30–5:30`，通常触发 `2–4` 次超载。
+- [ ] `250` 敌人、最大传送门攻势和最高弹幕均满足既有性能容差，无对象、RID、音频或状态泄漏。
+- [ ] 震屏/闪光强度设置只影响表现；四种目标分辨率下 HUD、门和敌人前摇可读。
+
+**验证：**
+
+- 连续两次运行 `powershell -ExecutionPolicy Bypass -File scripts/tests/run_tests.ps1`。
+- 单独运行 Godot 4.7 `SmokeTest` 与 `BalanceTest`。
+- 手动检查 960×540、1280×720、1920×1080、2560×1080。
+- 完成启动、暂停、升级、超载、保存、继续、结算、重开和 Windows 导出启动检查。
+- 审查最终 diff，排除无关文件、生成状态、凭据和调试残留。
+
+**依赖：** Tasks 1–20
+
+**预计文件：** `WaveDirector.gd`、`OverdriveSystem.gd`、`UpgradeSystem.gd`、`PerformanceTest.gd`、`docs/testing.md`
+
+**规模：** M
+
+## 8. 风险与控制
+
+| 风险 | 影响 | 控制措施 |
+|---|---|---|
+| 两套事件链造成重复击杀收益 | 高 | 单一伤害/击杀事实；消费者只读；单次掉落与返还测试。 |
+| 冲刺与超载免疫相互误清 | 高 | 分来源免疫；重叠窗口和退出路径测试。 |
+| 临时倍率永久污染基础属性 | 高 | 基础值/有效值分离；多次触发、加载、重启恢复测试。 |
+| 高频火力造成常驻 hit-stop | 高 | 普通命中不暂停；滚动上限；超载期间抑制低优先级停顿。 |
+| 暴兵同帧实例化卡顿 | 高 | 门级/全局双预算；视觉同步、跨帧创建；活跃敌人上限。 |
+| 传送门在边界靠近玩家 | 高 | 拒绝采样、硬安全距离和确定性回退；四角压力测试。 |
+| 冲刺返还形成永久无敌 | 高 | 单杀/单次上限、最低冷却、基础能力不完全刷新。 |
+| 超载遮挡敌人前摇 | 中 | 单次闪光、持续边缘效果、限制震屏，不持续频闪。 |
+| 进化随机性导致五分钟无法成型 | 中 | 家族权重、里程碑保底和标准经验曲线测试。 |
+| 并行线程覆盖共享文件 | 高 | 工作树隔离、合同先行、纵向提交、禁止整文件覆盖合并。 |
+| 存档拖慢核心玩法 | 中 | 只存阶段快照；在战斗闭环稳定后实施。 |
+
+## 9. 明确不做
+
+- 不保留另一套八波平衡目标。
+- 不建立通用战斗能力或复杂状态机框架。
+- 不为每发普通子弹添加全局 hit-stop。
+- 不设计当前不存在的复杂地形冲刺碰撞。
+- 不增加格斗游戏式连招树、复杂取消窗口或独立护甲生命系统。
+- 不做逐帧战斗存档，不恢复敌人、弹幕和表现节点。
+- 不加入大量新武器或敌人，首版复用四类敌人并重做行为。
+- 不做开放地图、护送或长时间占点。
+- 不做大量永久属性成长，先验证单局深度。
+- 不立即生成最终特效贴图；首版沿用有界程序化绘制与合成音频。
+
+## 10. 最终完成标准
+
+- [ ] 21 个任务与 5 个检查点全部满足验收标准。
+- [ ] 单一计划、单一任务编号和单一五阶段目标贯穿实现与测试。
+- [ ] 所有新增行为有确定性自动测试，完整严格测试连续通过两次。
+- [ ] 三条构筑、传送门、超载、冲刺闭环、敌人前摇和续玩流程均完成人工验收。
+- [ ] 密集战斗性能不低于既有容差，所有临时状态与资源能完整清理。
+- [ ] 每个纵向切片独立验证、提交并按 `AGENTS.md` 推送，不包含无关 `.superpowers` 证据或生成状态。
