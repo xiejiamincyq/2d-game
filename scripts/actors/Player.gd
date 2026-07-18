@@ -137,8 +137,8 @@ func heal(amount: float) -> void:
 
 func get_effective_fire_rate() -> float:
 	var effective_rate := fire_rate
-	for multiplier in _fire_rate_modifiers.values():
-		effective_rate *= float(multiplier)
+	for modifier_id in _fire_rate_modifiers:
+		effective_rate *= float(_fire_rate_modifiers[modifier_id])
 	return effective_rate
 
 func set_fire_rate_modifier(modifier_id: StringName, multiplier: float) -> void:
@@ -207,9 +207,11 @@ func clear_runtime_modifiers() -> void:
 
 func _multiply_damage_modifiers(source: StringName) -> float:
 	var multiplier := 1.0
-	var source_modifiers: Dictionary = _damage_modifiers.get(source, {})
-	for value in source_modifiers.values():
-		multiplier *= float(value)
+	if not _damage_modifiers.has(source):
+		return multiplier
+	var source_modifiers: Dictionary = _damage_modifiers[source]
+	for modifier_id in source_modifiers:
+		multiplier *= float(source_modifiers[modifier_id])
 	return multiplier
 
 func _notification(what: int) -> void:
@@ -247,7 +249,11 @@ func _spawn_bullet(direction: Vector2) -> void:
 	var shot := ProjectileScript.new()
 	shot.global_position = global_position + direction * 25.0
 	shot.velocity = direction * projectile_speed
-	shot.damage = weapon_damage * get_effective_damage_multiplier(DamageTypes.PROJECTILE)
+	shot.damage = weapon_damage
+	shot.damage_multiplier_provider = Callable(
+		self,
+		"get_effective_damage_multiplier"
+	).bind(DamageTypes.PROJECTILE)
 	shot.pierce = projectile_pierce
 	shot.lifetime = 6.0
 	shot.target_group = &"enemies"
@@ -379,7 +385,11 @@ func _emit_arc_pulse() -> void:
 func _drop_spike_trap() -> void:
 	var trap := SpikeTrapScript.new()
 	trap.global_position = global_position
-	trap.damage = spike_damage * get_effective_damage_multiplier(DamageTypes.SPIKE)
+	trap.damage = spike_damage
+	trap.damage_multiplier_provider = Callable(
+		self,
+		"get_effective_damage_multiplier"
+	).bind(DamageTypes.SPIKE)
 	trap.radius = 22.0
 	trap.lifetime = spike_duration
 	projectile_parent.add_child(trap)
@@ -387,7 +397,11 @@ func _drop_spike_trap() -> void:
 func _drop_spike_trap_at(position: Vector2) -> void:
 	var trap := SpikeTrapScript.new()
 	trap.global_position = position
-	trap.damage = spike_damage * get_effective_damage_multiplier(DamageTypes.SPIKE)
+	trap.damage = spike_damage
+	trap.damage_multiplier_provider = Callable(
+		self,
+		"get_effective_damage_multiplier"
+	).bind(DamageTypes.SPIKE)
 	trap.radius = 22.0
 	trap.lifetime = spike_duration
 	projectile_parent.add_child(trap)

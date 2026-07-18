@@ -9,6 +9,7 @@ var max_lifetime: float = 5.0
 var tick_interval: float = 0.35
 var tick_timer: float = 0.0
 var radius: float = 38.0
+var damage_multiplier_provider: Callable
 
 func _ready() -> void:
 	max_lifetime = lifetime
@@ -41,7 +42,14 @@ func _draw() -> void:
 		draw_circle(outer, 3.0, Color(0.2, 1.0, 0.95, 0.85 * fade))
 
 func _damage_enemies() -> void:
+	var resolved_damage := get_resolved_damage()
 	for body in get_overlapping_bodies():
 		if body.is_in_group("enemies") and body.has_method("take_damage"):
 			var hit_direction: Vector2 = (body.global_position - global_position).normalized()
-			body.take_damage(damage, DamageTypes.SPIKE, hit_direction)
+			body.take_damage(resolved_damage, DamageTypes.SPIKE, hit_direction)
+
+func get_resolved_damage() -> float:
+	var multiplier := 1.0
+	if damage_multiplier_provider.is_valid():
+		multiplier = maxf(0.0, float(damage_multiplier_provider.call()))
+	return damage * multiplier

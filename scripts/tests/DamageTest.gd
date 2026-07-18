@@ -92,7 +92,49 @@ func _initialize() -> void:
 	):
 		return
 
+	var spawned_attacks := Node2D.new()
+	root.add_child(spawned_attacks)
+	player.projectile_parent = spawned_attacks
+	var spawned_shots: Array[Node] = []
+	player.fired.connect(func(shot: Node) -> void:
+		spawned_attacks.add_child(shot)
+		spawned_shots.append(shot)
+	)
+	player.weapon_damage = 10.0
+	player.set_overdrive_active(false)
+	player._spawn_bullet(Vector2.RIGHT)
+	var persistent_shot: Node = spawned_shots[0]
+	player.set_overdrive_active(true)
+	if not _assert_true(
+		is_equal_approx(persistent_shot.get_resolved_damage(), 40.0),
+		"a projectile created before overdrive did not gain its active damage multiplier"
+	):
+		return
+	player.set_overdrive_active(false)
+	if not _assert_true(
+		is_equal_approx(persistent_shot.get_resolved_damage(), 10.0),
+		"a projectile retained overdrive damage after the window ended"
+	):
+		return
+
+	player.spike_damage = 12.0
+	player._drop_spike_trap_at(Vector2.ZERO)
+	var persistent_spike: Node = spawned_attacks.get_child(spawned_attacks.get_child_count() - 1)
+	player.set_overdrive_active(true)
+	if not _assert_true(
+		is_equal_approx(persistent_spike.get_resolved_damage(), 48.0),
+		"a spike created before overdrive did not gain its active damage multiplier"
+	):
+		return
+	player.set_overdrive_active(false)
+	if not _assert_true(
+		is_equal_approx(persistent_spike.get_resolved_damage(), 12.0),
+		"a spike retained overdrive damage after the window ended"
+	):
+		return
+
 	player.queue_free()
+	spawned_attacks.queue_free()
 	await process_frame
 	print("TEST PASS: DamageTest %d" % assertions)
 	quit(0)

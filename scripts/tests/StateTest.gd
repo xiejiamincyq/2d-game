@@ -1,6 +1,7 @@
 extends SceneTree
 
 const MainScript = preload("res://scripts/Main.gd")
+const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
@@ -48,6 +49,11 @@ func _initialize() -> void:
 		"temporary-state cleanup changed permanent weapon damage"
 	):
 		return
+	if not _assert_true(
+		is_equal_approx(scene.player.get_effective_damage_multiplier(DamageTypes.PROJECTILE), 1.0),
+		"upgrade pause did not clear temporary damage modifiers"
+	):
+		return
 	if not _assert_true(not scene.player.is_damage_immune(), "upgrade pause left temporary immunity active"):
 		return
 	if not _assert_true(scene._transition_to(1) and not paused, "UPGRADE to PLAYING did not resume"):
@@ -65,6 +71,7 @@ func _initialize() -> void:
 		return
 	if not _assert_true(
 		is_equal_approx(scene.player.get_effective_fire_rate(), permanent_fire_rate)
+		and is_equal_approx(scene.player.get_effective_damage_multiplier(DamageTypes.PROJECTILE), 1.0)
 		and not scene.player.is_damage_immune(),
 		"result transition did not restore runtime modifiers"
 	):

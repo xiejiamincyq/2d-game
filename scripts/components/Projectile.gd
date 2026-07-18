@@ -13,6 +13,7 @@ var tint: Color = Color.CYAN
 var radius: float = 4.0
 var world_bounds: Rect2 = Rect2()
 var damage_source: StringName = DamageTypes.PROJECTILE
+var damage_multiplier_provider: Callable
 
 func _ready() -> void:
 	monitoring = true
@@ -49,11 +50,18 @@ func _try_hit(node: Node) -> void:
 		return
 	hit_bodies.append(node)
 	if node.has_method("take_damage"):
+		var resolved_damage := get_resolved_damage()
 		if node.is_in_group(&"enemies"):
-			node.take_damage(damage, damage_source, velocity.normalized())
+			node.take_damage(resolved_damage, damage_source, velocity.normalized())
 		else:
-			node.take_damage(damage, damage_source)
+			node.take_damage(resolved_damage, damage_source)
 	if pierce <= 0:
 		queue_free()
 	else:
 		pierce -= 1
+
+func get_resolved_damage() -> float:
+	var multiplier := 1.0
+	if damage_multiplier_provider.is_valid():
+		multiplier = maxf(0.0, float(damage_multiplier_provider.call()))
+	return damage * multiplier
