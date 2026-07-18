@@ -3,6 +3,14 @@ class_name WaveDirector
 
 signal wave_changed(index: int, total: int, remaining: int)
 signal enemy_killed(enemy: Node, source: StringName, xp_value: int)
+signal damage_resolved(
+	enemy: Node,
+	source: StringName,
+	amount: float,
+	world_position: Vector2,
+	direction: Vector2,
+	killed: bool
+)
 signal victory
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
@@ -98,6 +106,24 @@ func _spawn_enemy(kind: int) -> void:
 		enemy.hit.connect(func(source: StringName) -> void:
 			if get_parent().has_method("_on_enemy_hit"):
 				get_parent()._on_enemy_hit(source)
+		)
+	if enemy.has_signal("damage_resolved"):
+		enemy.damage_resolved.connect(func(
+			resolved_enemy: Node,
+			source: StringName,
+			amount: float,
+			world_position: Vector2,
+			direction: Vector2,
+			killed: bool
+		) -> void:
+			damage_resolved.emit(
+				resolved_enemy,
+				source,
+				amount,
+				world_position,
+				direction,
+				killed
+			)
 		)
 
 func sample_spawn_position(

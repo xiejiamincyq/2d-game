@@ -8,6 +8,9 @@ const ExperienceShardScript = preload("res://scripts/pickups/ExperienceShard.gd"
 const ShieldPickupScript = preload("res://scripts/pickups/ShieldPickup.gd")
 const AudioManagerScript = preload("res://scripts/systems/AudioManager.gd")
 const WorldBoundaryScript = preload("res://scripts/world/WorldBoundary.gd")
+const CombatFeedbackScript = preload("res://scripts/systems/CombatFeedback.gd")
+const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
+const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
 
 const WORLD_BOUNDS := Rect2(-1400, -900, 2800, 1800)
 
@@ -22,6 +25,9 @@ var wave_director: Node
 var upgrade_system: Node
 var ui: Node
 var audio: Node
+var combat_feedback: Node
+var combat_vfx: Node2D
+var camera_effects: Node
 var game_over: bool = false
 var run_started: bool = false
 var manual_paused: bool = false
@@ -126,6 +132,7 @@ func _draw_floor() -> void:
 func _start_run() -> void:
 	if run_started:
 		return
+	Engine.time_scale = 1.0
 	run_started = true
 	kill_count = 0
 	elapsed_seconds = 0.0
@@ -149,6 +156,20 @@ func _start_run() -> void:
 	camera.limit_bottom = int(WORLD_BOUNDS.end.y)
 	player.add_child(camera)
 	camera.make_current()
+	combat_vfx = CombatVfxScript.new()
+	combat_vfx.name = "CombatVfx"
+	combat_vfx.process_mode = Node.PROCESS_MODE_PAUSABLE
+	combat_vfx.z_index = 20
+	world.add_child(combat_vfx)
+	camera_effects = CameraEffectsScript.new()
+	camera_effects.name = "CameraEffects"
+	camera_effects.process_mode = Node.PROCESS_MODE_PAUSABLE
+	player.add_child(camera_effects)
+	camera_effects.setup(camera)
+	combat_feedback = CombatFeedbackScript.new()
+	combat_feedback.name = "CombatFeedback"
+	add_child(combat_feedback)
+	combat_feedback.setup(combat_vfx, camera_effects)
 	player.fired.connect(func(projectile: Node) -> void:
 		projectile.process_mode = Node.PROCESS_MODE_PAUSABLE
 		projectile.world_bounds = WORLD_BOUNDS
@@ -177,6 +198,7 @@ func _start_run() -> void:
 	add_child(wave_director)
 	wave_director.wave_changed.connect(ui.set_wave)
 	wave_director.enemy_killed.connect(_on_enemy_killed)
+	wave_director.damage_resolved.connect(combat_feedback.on_damage_resolved)
 	wave_director.victory.connect(_on_victory)
 	wave_director.setup(player, enemies, projectiles)
 	player.set_enemy_provider(wave_director.get_active_enemies)
@@ -231,6 +253,7 @@ func _toggle_manual_pause() -> void:
 
 func _restart_run() -> void:
 	manual_paused = false
+	_reset_combat_feedback()
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
@@ -246,6 +269,8 @@ func _transition_to(next_state: RunState) -> bool:
 	}
 	if not next_state in allowed.get(run_state, []):
 		return false
+	if next_state != RunState.PLAYING:
+		_reset_combat_feedback()
 	run_state = next_state
 	manual_paused = run_state == RunState.PAUSED
 	get_tree().paused = run_state in [RunState.UPGRADE, RunState.PAUSED, RunState.RESULT]
@@ -297,3 +322,15 @@ func _enforce_world_bounds() -> void:
 		var pickup_node := pickup as Node2D
 		if pickup_node != null:
 			pickup_node.global_position = pickup_node.global_position.clamp(WORLD_BOUNDS.position + Vector2(12, 12), WORLD_BOUNDS.end - Vector2(12, 12))
+
+func _reset_combat_feedback() -> void:
+	if is_instance_valid(combat_feedback):
+		combat_feedback.reset_all()
+	if is_instance_valid(combat_vfx):
+		combat_vfx.clear_all()
+	if is_instance_valid(camera_effects):
+		camera_effects.clear_all()
+	Engine.time_scale = 1.0
+
+func _exit_tree() -> void:
+	_reset_combat_feedback()
