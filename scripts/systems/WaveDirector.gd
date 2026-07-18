@@ -2,7 +2,7 @@ extends Node
 class_name WaveDirector
 
 signal wave_changed(index: int, total: int, remaining: int)
-signal enemy_killed(xp_value: int)
+signal enemy_killed(enemy: Node, source: StringName, xp_value: int)
 signal victory
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
@@ -139,10 +139,13 @@ func sample_spawn_position(
 			farthest_distance = distance
 	return farthest
 
-func _on_enemy_died(enemy: Node, xp_value: int) -> void:
+func _on_enemy_died(enemy: Node, xp_value: int, source: StringName) -> void:
+	if enemy.get_meta(&"kill_resolved", false):
+		return
+	enemy.set_meta(&"kill_resolved", true)
 	var death_position: Vector2 = enemy.global_position
 	var shield_value: float = enemy.shield_drop_value
-	enemy_killed.emit(xp_value)
+	enemy_killed.emit(enemy, source, xp_value)
 	call_deferred("_deferred_spawn_drops", death_position, xp_value, shield_value)
 	_emit_wave_status()
 

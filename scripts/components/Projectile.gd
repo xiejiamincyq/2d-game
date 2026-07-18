@@ -49,7 +49,7 @@ func _try_hit(node: Node) -> void:
 		return
 	hit_bodies.append(node)
 	if node.has_method("take_damage"):
-		node.take_damage(damage, damage_source)
+		node.take_damage(damage, damage_source, velocity.normalized())
 	if pierce <= 0:
 		queue_free()
 	else:

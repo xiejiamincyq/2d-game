@@ -66,6 +66,14 @@ func _initialize() -> void:
 				return
 			assertions += 2
 
+	var tracked_enemy := Node.new()
+	sampler.active_enemies.append(tracked_enemy)
+	sampler._on_enemy_tree_exiting(tracked_enemy)
+	sampler._on_enemy_tree_exiting(tracked_enemy)
+	if not _assert_true(sampler.active_enemies.is_empty(), "enemy registry retained a removed enemy"):
+		return
+	tracked_enemy.free()
+
 	sampler.queue_free()
 	await process_frame
 	print("TEST PASS: WaveTest %d" % assertions)

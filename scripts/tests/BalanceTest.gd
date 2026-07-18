@@ -14,6 +14,7 @@ func _initialize() -> void:
 	var enemy: Node = EnemyScript.new()
 	enemy.setup(EnemyScript.EnemyKind.SCRAPPER, 1, root)
 	root.add_child(enemy)
+	await process_frame
 	var received := {"source": &""}
 	enemy.hit.connect(func(source: StringName) -> void: received["source"] = source)
 	enemy.take_damage(1.0, DamageTypes.LASER)

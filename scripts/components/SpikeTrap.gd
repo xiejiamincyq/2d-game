@@ -43,4 +43,5 @@ func _draw() -> void:
 func _damage_enemies() -> void:
 	for body in get_overlapping_bodies():
 		if body.is_in_group("enemies") and body.has_method("take_damage"):
-			body.take_damage(damage, DamageTypes.SPIKE)
+			var hit_direction: Vector2 = (body.global_position - global_position).normalized()
+			body.take_damage(damage, DamageTypes.SPIKE, hit_direction)

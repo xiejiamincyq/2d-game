@@ -1,8 +1,16 @@
 extends CharacterBody2D
 class_name Enemy
 
-signal died(enemy: Node, xp_value: int)
+signal died(enemy: Node, xp_value: int, source: StringName)
 signal hit(source: StringName)
+signal damage_resolved(
+	enemy: Node,
+	source: StringName,
+	amount: float,
+	world_position: Vector2,
+	direction: Vector2,
+	killed: bool
+)
 
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
@@ -31,6 +39,7 @@ var ranged_keep_min: float = 320.0
 var ranged_keep_max: float = 520.0
 var attack_anchor_position: Vector2 = Vector2.ZERO
 var world_bounds: Rect2 = Rect2()
+var death_resolved: bool = false
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node) -> void:
 	kind = enemy_kind
@@ -138,22 +147,44 @@ func _draw() -> void:
 	draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
 	draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
 
-func take_damage(amount: float, source: StringName = DamageTypes.GENERIC) -> void:
-	if health == null:
-		return
+func take_damage(
+	amount: float,
+	source: StringName = DamageTypes.GENERIC,
+	hit_direction: Vector2 = Vector2.ZERO
+) -> bool:
+	if health == null or death_resolved:
+		return false
+	var health_before: float = health.current_health
+	if not health.damage(amount):
+		return false
+	var resolved_source: StringName = DamageTypes.resolve(source)
+	var actual_damage: float = maxf(0.0, health_before - health.current_health)
+	var killed: bool = health.current_health <= 0.0
 	flash_timer = 0.08
 	queue_redraw()
-	health.damage(amount)
-	hit.emit(source)
+	damage_resolved.emit(
+		self,
+		resolved_source,
+		actual_damage,
+		global_position,
+		hit_direction,
+		killed
+	)
+	hit.emit(resolved_source)
+	if killed:
+		_die(resolved_source)
+	return killed
 
 func _add_health(max_health: float) -> void:
 	health = HealthComponentScript.new()
 	health.max_health = max_health
 	add_child(health)
-	health.died.connect(_die)
 
-func _die() -> void:
-	died.emit(self, xp_value)
+func _die(source: StringName) -> void:
+	if death_resolved:
+		return
+	death_resolved = true
+	died.emit(self, xp_value, source)
 	queue_free()
 
 func _update_melee_attack(delta: float, player: Node2D, distance: float) -> void:

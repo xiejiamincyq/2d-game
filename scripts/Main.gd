@@ -193,7 +193,7 @@ func _on_upgrade_choices_ready(choices: Array[Dictionary]) -> void:
 func _on_upgrade_selected(choice: Dictionary) -> void:
 	upgrade_system.apply_upgrade(choice)
 
-func _on_enemy_killed(_xp_value: int) -> void:
+func _on_enemy_killed(_enemy: Node, _source: StringName, _xp_value: int) -> void:
 	kill_count += 1
 	combo_count += 1
 	combo_timer = 3.0
