@@ -13,6 +13,11 @@ const LaserBeamScript = preload("res://scripts/components/LaserBeam.gd")
 const SpikeTrapScript = preload("res://scripts/components/SpikeTrap.gd")
 const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const ALL_DAMAGE_SOURCES: StringName = &"all"
+const OVERDRIVE_MODIFIER: StringName = &"overdrive"
+const DASH_IMMUNITY_SOURCE: StringName = &"dash"
+const OVERDRIVE_FIRE_RATE_MULTIPLIER: float = 2.0
+const OVERDRIVE_DAMAGE_MULTIPLIER: float = 4.0
 
 var move_speed: float = 235.0
 var pickup_radius: float = 92.0
@@ -57,6 +62,9 @@ var dash_active: bool = false
 var dash_direction: Vector2 = Vector2.RIGHT
 var dash_hit_bodies: Array[Node] = []
 var enemy_provider: Callable
+var _fire_rate_modifiers: Dictionary = {}
+var _damage_modifiers: Dictionary = {}
+var _damage_immunity_sources: Dictionary = {}
 
 func _ready() -> void:
 	add_to_group("player")
@@ -104,7 +112,7 @@ func _draw() -> void:
 		draw_arc(Vector2.ZERO, 78.0 + arc_pulse_level * 16.0, 0.0, TAU, 48, Color(0.25, 1.0, 1.0, 0.18), 2.0)
 
 func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> bool:
-	if health == null or amount <= 0.0 or not health.can_accept_damage():
+	if health == null or amount <= 0.0 or is_damage_immune() or not health.can_accept_damage():
 		return false
 	var remaining := amount
 	if shield > 0.0:
@@ -127,6 +135,90 @@ func increase_max_health(amount: float) -> void:
 func heal(amount: float) -> void:
 	health.heal(amount)
 
+func get_effective_fire_rate() -> float:
+	var effective_rate := fire_rate
+	for multiplier in _fire_rate_modifiers.values():
+		effective_rate *= float(multiplier)
+	return effective_rate
+
+func set_fire_rate_modifier(modifier_id: StringName, multiplier: float) -> void:
+	if multiplier <= 0.0:
+		clear_fire_rate_modifier(modifier_id)
+		return
+	_fire_rate_modifiers[modifier_id] = multiplier
+
+func clear_fire_rate_modifier(modifier_id: StringName) -> void:
+	_fire_rate_modifiers.erase(modifier_id)
+
+func get_effective_damage_multiplier(source: StringName) -> float:
+	var multiplier := _multiply_damage_modifiers(ALL_DAMAGE_SOURCES)
+	if source != ALL_DAMAGE_SOURCES:
+		multiplier *= _multiply_damage_modifiers(source)
+	return multiplier
+
+func set_damage_modifier(
+	modifier_id: StringName,
+	multiplier: float,
+	source: StringName = ALL_DAMAGE_SOURCES
+) -> void:
+	if multiplier <= 0.0:
+		clear_damage_modifier(modifier_id, source)
+		return
+	var source_modifiers: Dictionary = _damage_modifiers.get(source, {})
+	source_modifiers[modifier_id] = multiplier
+	_damage_modifiers[source] = source_modifiers
+
+func clear_damage_modifier(
+	modifier_id: StringName,
+	source: StringName = ALL_DAMAGE_SOURCES
+) -> void:
+	var source_modifiers: Dictionary = _damage_modifiers.get(source, {})
+	source_modifiers.erase(modifier_id)
+	if source_modifiers.is_empty():
+		_damage_modifiers.erase(source)
+	else:
+		_damage_modifiers[source] = source_modifiers
+
+func set_damage_immunity(source: StringName, active: bool) -> void:
+	if active:
+		_damage_immunity_sources[source] = true
+	else:
+		_damage_immunity_sources.erase(source)
+
+func set_dash_immunity_active(active: bool) -> void:
+	set_damage_immunity(DASH_IMMUNITY_SOURCE, active)
+
+func is_damage_immune() -> bool:
+	return not _damage_immunity_sources.is_empty()
+
+func set_overdrive_active(active: bool) -> void:
+	if active:
+		set_fire_rate_modifier(OVERDRIVE_MODIFIER, OVERDRIVE_FIRE_RATE_MULTIPLIER)
+		set_damage_modifier(OVERDRIVE_MODIFIER, OVERDRIVE_DAMAGE_MULTIPLIER)
+	else:
+		clear_fire_rate_modifier(OVERDRIVE_MODIFIER)
+		clear_damage_modifier(OVERDRIVE_MODIFIER)
+	set_damage_immunity(OVERDRIVE_MODIFIER, active)
+
+func clear_runtime_modifiers() -> void:
+	_fire_rate_modifiers.clear()
+	_damage_modifiers.clear()
+	_damage_immunity_sources.clear()
+
+func _multiply_damage_modifiers(source: StringName) -> float:
+	var multiplier := 1.0
+	var source_modifiers: Dictionary = _damage_modifiers.get(source, {})
+	for value in source_modifiers.values():
+		multiplier *= float(value)
+	return multiplier
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PAUSED:
+		clear_runtime_modifiers()
+
+func _exit_tree() -> void:
+	clear_runtime_modifiers()
+
 func _fire() -> void:
 	if not _can_fire_primary():
 		return
@@ -140,7 +232,7 @@ func _fire() -> void:
 
 func _update_fire(delta: float, wants_fire: bool) -> int:
 	var fired_count := 0
-	var interval := 1.0 / maxf(fire_rate, 0.001)
+	var interval := 1.0 / maxf(get_effective_fire_rate(), 0.001)
 	fire_timer -= delta
 	if not wants_fire or not _can_fire_primary():
 		fire_timer = maxf(fire_timer, -interval)
@@ -155,7 +247,7 @@ func _spawn_bullet(direction: Vector2) -> void:
 	var shot := ProjectileScript.new()
 	shot.global_position = global_position + direction * 25.0
 	shot.velocity = direction * projectile_speed
-	shot.damage = weapon_damage
+	shot.damage = weapon_damage * get_effective_damage_multiplier(DamageTypes.PROJECTILE)
 	shot.pierce = projectile_pierce
 	shot.lifetime = 6.0
 	shot.target_group = &"enemies"
@@ -199,7 +291,10 @@ func _apply_dash_melee_sweep(start: Vector2, end: Vector2) -> void:
 			continue
 		if _distance_to_segment(node.global_position, start, end) <= dash_melee_radius:
 			dash_hit_bodies.append(enemy)
-			enemy.take_damage(dash_melee_damage, DamageTypes.DASH)
+			enemy.take_damage(
+				dash_melee_damage * get_effective_damage_multiplier(DamageTypes.DASH),
+				DamageTypes.DASH
+			)
 
 func _distance_to_segment(point: Vector2, start: Vector2, end: Vector2) -> float:
 	var segment := end - start
@@ -243,7 +338,10 @@ func _update_drone_lasers(delta: float) -> void:
 			continue
 		assigned.append(target)
 		any_laser_active = true
-		target.take_damage(drone_damage * delta, DamageTypes.LASER)
+		target.take_damage(
+			drone_damage * delta * get_effective_damage_multiplier(DamageTypes.LASER),
+			DamageTypes.LASER
+		)
 		var beam := drone_lasers[index]
 		beam.visible = true
 		beam.setup(origin, target.global_position, Color(0.2, 1.0, 0.95), 4.0)
@@ -260,13 +358,19 @@ func _damage_enemies_on_laser(origin: Vector2, direction: Vector2, length: float
 			continue
 		var closest := origin + direction * along
 		if closest.distance_to(node.global_position) <= width:
-			enemy.take_damage(damage, DamageTypes.LASER)
+			enemy.take_damage(
+				damage * get_effective_damage_multiplier(DamageTypes.LASER),
+				DamageTypes.LASER
+			)
 
 func _emit_arc_pulse() -> void:
 	var radius := arc_radius + arc_pulse_level * 18.0
 	for enemy in _get_enemies():
 		if global_position.distance_to(enemy.global_position) <= radius and enemy.has_method("take_damage"):
-			enemy.take_damage(arc_damage + arc_pulse_level * 8.0, DamageTypes.ARC)
+			enemy.take_damage(
+				(arc_damage + arc_pulse_level * 8.0) * get_effective_damage_multiplier(DamageTypes.ARC),
+				DamageTypes.ARC
+			)
 	var wave := ArcPulseVisualScript.new()
 	wave.global_position = global_position
 	wave.setup(radius)
@@ -275,7 +379,7 @@ func _emit_arc_pulse() -> void:
 func _drop_spike_trap() -> void:
 	var trap := SpikeTrapScript.new()
 	trap.global_position = global_position
-	trap.damage = spike_damage
+	trap.damage = spike_damage * get_effective_damage_multiplier(DamageTypes.SPIKE)
 	trap.radius = 22.0
 	trap.lifetime = spike_duration
 	projectile_parent.add_child(trap)
@@ -283,7 +387,7 @@ func _drop_spike_trap() -> void:
 func _drop_spike_trap_at(position: Vector2) -> void:
 	var trap := SpikeTrapScript.new()
 	trap.global_position = position
-	trap.damage = spike_damage
+	trap.damage = spike_damage * get_effective_damage_multiplier(DamageTypes.SPIKE)
 	trap.radius = 22.0
 	trap.lifetime = spike_duration
 	projectile_parent.add_child(trap)
