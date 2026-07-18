@@ -85,6 +85,19 @@ func _initialize() -> void:
 		if not _assert_true(collection_count[0] == 1, "%s emitted collected %d times in one frame" % [pickup.get_class(), collection_count[0]]):
 			return
 
+	var shield_before_hostile_projectile: float = scene.player.shield
+	scene.player.health.invulnerable_time = 0.0
+	var hostile_projectile: Area2D = ProjectileScript.new()
+	hostile_projectile.damage = 3.0
+	hostile_projectile.target_group = &"player"
+	scene.projectiles.add_child(hostile_projectile)
+	hostile_projectile._try_hit(scene.player)
+	if not _assert_true(
+		is_equal_approx(scene.player.shield, shield_before_hostile_projectile - 3.0),
+		"hostile projectile did not use the player's compatible damage contract"
+	):
+		return
+
 	TestSupport.stop_audio(scene.audio)
 	await create_timer(0.25).timeout
 	scene.queue_free()

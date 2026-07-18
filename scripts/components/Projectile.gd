@@ -49,7 +49,10 @@ func _try_hit(node: Node) -> void:
 		return
 	hit_bodies.append(node)
 	if node.has_method("take_damage"):
-		node.take_damage(damage, damage_source, velocity.normalized())
+		if node.is_in_group(&"enemies"):
+			node.take_damage(damage, damage_source, velocity.normalized())
+		else:
+			node.take_damage(damage, damage_source)
 	if pierce <= 0:
 		queue_free()
 	else:
