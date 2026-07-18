@@ -34,11 +34,13 @@ func _ready() -> void:
 	choice_grid.columns = 3
 	choice_grid.add_theme_constant_override("h_separation", 12)
 	choice_grid.add_theme_constant_override("v_separation", 10)
+	choice_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	choice_grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	box.add_child(choice_grid)
 	for index in range(3):
 		var button := Button.new()
 		button.custom_minimum_size = Vector2(250, 150)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		button.focus_mode = Control.FOCUS_ALL
 		button.pressed.connect(_on_button_pressed.bind(button))

@@ -44,12 +44,26 @@ func _initialize() -> void:
 		return
 
 	var choices: Array[Dictionary] = [
-		{"id": "a", "label": "A", "description": "Alpha"},
-		{"id": "b", "label": "B", "description": "Beta"},
-		{"id": "c", "label": "C", "description": "Gamma"},
+		{"id": "damage", "label": "超频弹芯", "description": "主武器伤害 +25%"},
+		{"id": "fire_rate", "label": "灼热枪管", "description": "射速 +50%"},
+		{"id": "gun_lines", "label": "分裂枪线", "description": "主武器枪线 +1"},
 	]
 	ui.show_upgrades(choices)
 	await process_frame
+	for size in [Vector2(960, 540), Vector2(1280, 720), Vector2(2560, 1080)]:
+		ui.apply_viewport_size(size)
+		await process_frame
+		for index in range(choices.size()):
+			var choice_button: Button = ui.upgrade_screen.buttons[index]
+			var rendered_font: Font = choice_button.get_theme_font("font")
+			if not _assert_true(choice_button.visible and not choice_button.text.is_empty(), "upgrade choice %d lost its visible text" % index):
+				return
+			if not _assert_true(choice_button.size.x >= 200.0, "upgrade choice %d collapsed to %.1f pixels wide at %s" % [index, choice_button.size.x, size]):
+				return
+			if not _assert_true(rendered_font != null and rendered_font.has_char("超".unicode_at(0)), "upgrade choice font cannot render Chinese glyphs"):
+				return
+			if not _assert_true(choice_button.get_theme_color("font_color").a > 0.0 and choice_button.modulate.a > 0.0 and choice_button.self_modulate.a > 0.0, "upgrade choice text became transparent"):
+				return
 	if not _assert_true(ui.upgrade_screen.buttons[0].has_focus(), "upgrade modal did not focus the first choice"):
 		return
 	ui.hide_upgrades()
