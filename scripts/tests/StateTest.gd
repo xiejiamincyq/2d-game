@@ -66,7 +66,8 @@ func _initialize() -> void:
 	if not _assert_true(
 		is_equal_approx(Engine.time_scale, 1.0)
 		and scene.combat_vfx.get_total_effect_count() == 0
-		and scene.player.get_node("PlayerCamera").offset == Vector2.ZERO,
+		and scene.player.get_node("PlayerCamera").offset == Vector2.ZERO
+		and is_zero_approx(scene.player.get_node("PlayerCamera").rotation),
 		"upgrade transition did not reset combat feedback"
 	):
 		return
@@ -100,7 +101,8 @@ func _initialize() -> void:
 	if not _assert_true(
 		is_equal_approx(Engine.time_scale, 1.0)
 		and scene.combat_vfx.get_total_effect_count() == 0
-		and scene.player.get_node("PlayerCamera").offset == Vector2.ZERO,
+		and scene.player.get_node("PlayerCamera").offset == Vector2.ZERO
+		and is_zero_approx(scene.player.get_node("PlayerCamera").rotation),
 		"manual pause transition did not reset combat feedback"
 	):
 		return
@@ -118,7 +120,8 @@ func _initialize() -> void:
 	if not _assert_true(
 		is_equal_approx(Engine.time_scale, 1.0)
 		and scene.combat_vfx.get_total_effect_count() == 0
-		and scene.player.get_node("PlayerCamera").offset == Vector2.ZERO,
+		and scene.player.get_node("PlayerCamera").offset == Vector2.ZERO
+		and is_zero_approx(scene.player.get_node("PlayerCamera").rotation),
 		"result transition did not reset combat feedback"
 	):
 		return

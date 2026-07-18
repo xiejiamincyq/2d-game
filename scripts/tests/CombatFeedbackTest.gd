@@ -109,6 +109,15 @@ func _initialize() -> void:
 	feedback._process(0.0)
 	if not _assert_true(is_equal_approx(Engine.time_scale, 1.0), "completed hit-stop did not restore Engine.time_scale automatically"):
 		return
+	await create_timer(0.12, true, false, true).timeout
+	if not _assert_true(is_zero_approx(feedback.get_reserved_hit_stop_ms()), "expired rolling-window reservations were not released"):
+		return
+	if not _assert_true(
+		is_equal_approx(feedback.request_hit_stop(CombatFeedbackScript.MAX_STOP_PER_WINDOW_MS), CombatFeedbackScript.MAX_STOP_PER_WINDOW_MS),
+		"a fresh rolling window did not restore the full hit-stop budget"
+	):
+		return
+	feedback.reset_all()
 
 	vfx.queue_free()
 	feedback.queue_free()
