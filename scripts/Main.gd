@@ -13,6 +13,8 @@ const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
 const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
 
 const WORLD_BOUNDS := Rect2(-1400, -900, 2800, 1800)
+const CAMERA_SMOOTHING_CANDIDATES: Array[float] = [0.0, 16.0, 20.0]
+const CAMERA_SMOOTHING_SPEED: float = 20.0
 
 enum RunState { START, PLAYING, UPGRADE, PAUSED, RESULT }
 
@@ -149,7 +151,7 @@ func _start_run() -> void:
 	var camera := Camera2D.new()
 	camera.name = "PlayerCamera"
 	camera.position_smoothing_enabled = true
-	camera.position_smoothing_speed = 8.0
+	camera.position_smoothing_speed = CAMERA_SMOOTHING_SPEED
 	camera.limit_left = int(WORLD_BOUNDS.position.x)
 	camera.limit_top = int(WORLD_BOUNDS.position.y)
 	camera.limit_right = int(WORLD_BOUNDS.end.x)

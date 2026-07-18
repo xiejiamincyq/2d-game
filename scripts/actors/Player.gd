@@ -88,12 +88,15 @@ func _physics_process(delta: float) -> void:
 		_update_dash(delta)
 	else:
 		var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-		velocity = input_vector * move_speed
-		move_and_slide()
-		_clamp_to_world_bounds()
+		_update_movement(input_vector)
 	_update_fire(delta, Input.is_action_pressed("fire"))
 	_update_passives(delta)
 	queue_redraw()
+
+func _update_movement(input_vector: Vector2) -> void:
+	velocity = input_vector.limit_length(1.0) * move_speed
+	move_and_slide()
+	_clamp_to_world_bounds()
 
 func _draw() -> void:
 	draw_rect(Rect2(-10, -14, 20, 28), Color(0.1, 0.85, 0.95))
