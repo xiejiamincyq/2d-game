@@ -40,7 +40,8 @@ func _initialize() -> void:
 	for index in range(100):
 		audio._process(0.1)
 		audio.play_hit(DamageTypes.ALL[index % DamageTypes.ALL.size()])
-	if not _assert_true(audio.get_child_count() == audio_children_before, "100 hits grew audio nodes from %d to %d" % [audio_children_before, audio.get_child_count()]):
+		audio.play_kill_confirm()
+	if not _assert_true(audio.get_child_count() == audio_children_before, "100 hit/kill cues grew audio nodes from %d to %d" % [audio_children_before, audio.get_child_count()]):
 		return
 
 	var fixture := Node.new()

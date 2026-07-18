@@ -3,7 +3,9 @@ extends SceneTree
 const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
 const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
 const CombatFeedbackScript = preload("res://scripts/systems/CombatFeedback.gd")
+const AudioManagerScript = preload("res://scripts/systems/AudioManager.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
 
@@ -56,9 +58,14 @@ func _initialize() -> void:
 	if not _assert_true(camera.offset == Vector2.ZERO and is_zero_approx(camera.rotation), "camera did not reset exactly to zero"):
 		return
 
+	var audio: Node = AudioManagerScript.new()
+	root.add_child(audio)
+	await process_frame
+	if not _assert_true(audio.streams.has("kill_confirm"), "combat audio does not provide a dedicated kill confirmation cue"):
+		return
 	var feedback: Node = CombatFeedbackScript.new()
 	root.add_child(feedback)
-	feedback.setup(vfx, camera_effects)
+	feedback.setup(vfx, camera_effects, audio)
 	Engine.time_scale = 1.0
 	feedback.on_damage_resolved(
 		null,
@@ -84,10 +91,17 @@ func _initialize() -> void:
 	if not _assert_true(Engine.time_scale < 1.0, "a kill did not trigger hit-stop"):
 		return
 	if not _assert_true(
-		vfx.get_effect_count(CombatVfxScript.DEBRIS) == 1
-		and vfx.get_effect_count(CombatVfxScript.RING) == 1,
-		"a kill did not request bounded debris and ring feedback"
+		vfx.get_effect_count(CombatVfxScript.DEBRIS) >= 6
+		and vfx.get_effect_count(CombatVfxScript.RING) >= 2,
+		"a kill did not request a readable bounded debris and ring burst"
 	):
+		return
+	var kill_cue_assigned := false
+	for voice in audio.voice_pool:
+		if voice.stream == audio.streams["kill_confirm"]:
+			kill_cue_assigned = true
+			break
+	if not _assert_true(kill_cue_assigned, "a kill did not play the dedicated confirmation cue"):
 		return
 	for request_index in range(20):
 		feedback.request_heavy_hit(Vector2.ZERO, Vector2.UP, 1.0)
@@ -105,11 +119,12 @@ func _initialize() -> void:
 	if not _assert_true(is_equal_approx(Engine.time_scale, 1.0), "feedback reset did not restore Engine.time_scale"):
 		return
 	feedback.request_hit_stop(10.0)
-	await create_timer(0.06, true, false, true).timeout
+	feedback._hit_stop_until_ms = float(Time.get_ticks_msec()) - 1.0
 	feedback._process(0.0)
 	if not _assert_true(is_equal_approx(Engine.time_scale, 1.0), "completed hit-stop did not restore Engine.time_scale automatically"):
 		return
-	await create_timer(0.12, true, false, true).timeout
+	for index in range(feedback._stop_reservations.size()):
+		feedback._stop_reservations[index]["time_ms"] = float(Time.get_ticks_msec()) - CombatFeedbackScript.HIT_STOP_WINDOW_MS - 1.0
 	if not _assert_true(is_zero_approx(feedback.get_reserved_hit_stop_ms()), "expired rolling-window reservations were not released"):
 		return
 	if not _assert_true(
@@ -123,6 +138,9 @@ func _initialize() -> void:
 	feedback.queue_free()
 	camera_effects.queue_free()
 	camera.queue_free()
+	TestSupport.stop_audio(audio)
+	await create_timer(0.25).timeout
+	audio.queue_free()
 	await process_frame
 	print("TEST PASS: CombatFeedbackTest %d" % assertions)
 	quit(0)

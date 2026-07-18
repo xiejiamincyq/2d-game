@@ -12,6 +12,7 @@ const HIT_STOP_TIME_SCALE: float = 0.05
 
 var combat_vfx: Node
 var camera_effects: Node
+var audio_manager: Node
 var _stop_reservations: Array[Dictionary] = []
 var _hit_stop_until_ms: float = 0.0
 var _owns_time_scale: bool = false
@@ -19,9 +20,10 @@ var _owns_time_scale: bool = false
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-func setup(vfx: Node, effects: Node) -> void:
+func setup(vfx: Node, effects: Node, audio: Node = null) -> void:
 	combat_vfx = vfx
 	camera_effects = effects
+	audio_manager = audio
 
 func on_damage_resolved(
 	_enemy: Node,
@@ -36,9 +38,9 @@ func on_damage_resolved(
 	var intensity := clampf(amount / 40.0, 0.2, 1.0)
 	_request_vfx(CombatVfx.SPARK, world_position, direction, intensity)
 	if killed:
-		_request_vfx(CombatVfx.DEBRIS, world_position, direction, maxf(0.6, intensity))
-		_request_vfx(CombatVfx.RING, world_position, direction, maxf(0.6, intensity))
-		_request_camera_impact(maxf(0.55, intensity), direction)
+		_request_kill_burst(world_position, direction, maxf(0.8, intensity))
+		_request_camera_impact(maxf(0.8, intensity), direction)
+		_request_kill_audio()
 		request_hit_stop(KILL_STOP_MS)
 	elif source in [DamageTypes.DASH, DamageTypes.SPIKE] or amount >= 40.0:
 		request_heavy_hit(world_position, direction, intensity)
@@ -101,6 +103,23 @@ func _request_vfx(
 func _request_camera_impact(intensity: float, direction: Vector2) -> void:
 	if is_instance_valid(camera_effects) and camera_effects.has_method("request_impact"):
 		camera_effects.request_impact(intensity, direction)
+
+func _request_kill_audio() -> void:
+	if is_instance_valid(audio_manager) and audio_manager.has_method("play_kill_confirm"):
+		audio_manager.play_kill_confirm()
+
+func _request_kill_burst(world_position: Vector2, direction: Vector2, intensity: float) -> void:
+	var base_direction := direction.normalized()
+	if base_direction == Vector2.ZERO:
+		base_direction = Vector2.RIGHT
+	for index in range(6):
+		var burst_direction := base_direction.rotated(TAU * float(index) / 6.0)
+		_request_vfx(CombatVfx.DEBRIS, world_position, burst_direction, intensity)
+	for index in range(4):
+		var spark_direction := base_direction.rotated(TAU * (float(index) + 0.5) / 4.0)
+		_request_vfx(CombatVfx.SPARK, world_position, spark_direction, intensity)
+	_request_vfx(CombatVfx.RING, world_position, base_direction, intensity * 1.25)
+	_request_vfx(CombatVfx.RING, world_position, -base_direction, intensity * 0.75)
 
 func _prune_stop_reservations(now_ms: float) -> void:
 	var cutoff := now_ms - HIT_STOP_WINDOW_MS

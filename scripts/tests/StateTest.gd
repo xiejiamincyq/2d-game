@@ -52,6 +52,21 @@ func _initialize() -> void:
 		"enemy damage did not reach the combat feedback pipeline"
 	):
 		return
+	scene.combat_vfx.clear_all()
+	feedback_enemy.health.current_health = 1.0
+	feedback_enemy.take_damage(5.0, DamageTypes.PROJECTILE, Vector2.RIGHT)
+	if not _assert_true(scene.kill_count == 1, "lethal damage did not reach the unique kill pipeline"):
+		return
+	if not _assert_true(
+		scene.combat_vfx.get_effect_count(&"spark") >= 4
+		and scene.combat_vfx.get_effect_count(&"debris") >= 6
+		and scene.combat_vfx.get_effect_count(&"ring") >= 2,
+		"a real enemy kill did not produce a clearly readable bounded burst"
+	):
+		return
+	if not _assert_true(scene.camera_effects.trauma >= 0.75, "a real enemy kill did not produce a readable camera impact"):
+		return
+	scene._reset_combat_feedback()
 	var permanent_fire_rate: float = scene.player.fire_rate * 1.5
 	var permanent_weapon_damage: float = scene.player.weapon_damage * 1.25
 	scene.player.fire_rate = permanent_fire_rate
