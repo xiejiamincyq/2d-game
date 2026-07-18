@@ -5,6 +5,7 @@ signal progression_changed(coins: int, level: int)
 signal choices_ready(choices: Array[Dictionary])
 signal upgrade_applied(label: String)
 signal upgrade_queue_completed
+signal shop_changed(state: Dictionary)
 
 var player: Node
 var level: int = 1
@@ -15,20 +16,23 @@ var awaiting_choice: bool = false
 var choice_generation: int = 0
 var upgrade_counts: Dictionary = {}
 var rewarded_waves: Dictionary = {}
+var shop_wave: int = 0
+var shop_generation: int = 0
+var shop_offers: Array[Dictionary] = []
 
 var upgrade_pool: Array[Dictionary] = [
-	{"id": "damage", "label": "超频弹芯", "description": "主武器伤害 +25%"},
-	{"id": "fire_rate", "label": "灼热枪管", "description": "射速 +50%"},
-	{"id": "gun_lines", "label": "分裂枪线", "description": "主武器枪线 +1"},
-	{"id": "wide_lines", "label": "扇形校准", "description": "主武器枪线 +1，伤害 +10%"},
-	{"id": "pierce", "label": "轨道穿甲", "description": "子弹穿透 +1"},
-	{"id": "bullet_speed", "label": "线圈加速器", "description": "弹速 +50%"},
-	{"id": "health", "label": "合成脏器", "description": "最大生命 +50%，并回满血"},
-	{"id": "move_speed", "label": "伺服腿甲", "description": "移动速度 +25%"},
-	{"id": "pickup", "label": "磁吸网格", "description": "拾取范围 +50%"},
-	{"id": "drone", "label": "废铁无人机", "description": "增加无人机，并提高持续激光秒伤"},
-	{"id": "arc", "label": "电弧浪涌", "description": "扩大电弧范围并提高伤害"},
-	{"id": "mine", "label": "静滞地刺", "description": "首次获得地刺；再次选择提高地刺伤害和持续时间"},
+	{"id": "damage", "label": "超频弹芯", "description": "主武器伤害 +25%", "family": "projectile", "kind": "support", "base_cost": 28},
+	{"id": "fire_rate", "label": "灼热枪管", "description": "射速 +50%", "family": "projectile", "kind": "core", "base_cost": 36},
+	{"id": "gun_lines", "label": "分裂枪线", "description": "主武器枪线 +1", "family": "projectile", "kind": "core", "base_cost": 52},
+	{"id": "wide_lines", "label": "扇形校准", "description": "主武器枪线 +1，伤害 +10%", "family": "projectile", "kind": "core", "base_cost": 48},
+	{"id": "pierce", "label": "轨道穿甲", "description": "子弹穿透 +1", "family": "projectile", "kind": "support", "base_cost": 34},
+	{"id": "bullet_speed", "label": "线圈加速器", "description": "弹速 +50%", "family": "projectile", "kind": "support", "base_cost": 24},
+	{"id": "health", "label": "合成脏器", "description": "最大生命 +50%，并回满血", "family": "survival", "kind": "support", "base_cost": 30},
+	{"id": "move_speed", "label": "伺服腿甲", "description": "移动速度 +25%", "family": "mobility", "kind": "support", "base_cost": 24},
+	{"id": "pickup", "label": "磁吸网格", "description": "拾取范围 +50%", "family": "economy", "kind": "support", "base_cost": 18},
+	{"id": "drone", "label": "废铁无人机", "description": "增加无人机，并提高持续激光秒伤", "family": "drone_arc", "kind": "core", "base_cost": 48},
+	{"id": "arc", "label": "电弧浪涌", "description": "扩大电弧范围并提高伤害", "family": "drone_arc", "kind": "core", "base_cost": 44},
+	{"id": "mine", "label": "静滞地刺", "description": "首次获得地刺；再次选择提高地刺伤害和持续时间", "family": "dash_spike", "kind": "core", "base_cost": 44},
 ]
 
 func setup(target_player: Node) -> void:
@@ -40,6 +44,7 @@ func add_coins(amount: int) -> bool:
 		return false
 	coins += amount
 	progression_changed.emit(coins, level)
+	_emit_shop_changed()
 	return true
 
 func spend_coins(amount: int) -> bool:
@@ -47,7 +52,67 @@ func spend_coins(amount: int) -> bool:
 		return false
 	coins -= amount
 	progression_changed.emit(coins, level)
+	_emit_shop_changed()
 	return true
+
+func prepare_shop_for_wave(wave: int) -> bool:
+	if player == null or wave <= 0 or wave <= shop_wave:
+		return false
+	var available: Array[Dictionary] = []
+	for choice in upgrade_pool:
+		if not _is_upgrade_capped(String(choice.get("id", ""))):
+			available.append(choice)
+	available.shuffle()
+	shop_wave = wave
+	shop_generation += 1
+	shop_offers.clear()
+	var cost_multiplier := 1.0 + 0.18 * float(wave - 1)
+	for index in range(mini(3, available.size())):
+		var offer: Dictionary = available[index].duplicate(true)
+		offer["cost"] = maxi(1, roundi(float(offer.get("base_cost", 1)) * cost_multiplier))
+		offer["sold"] = false
+		offer["_shop_transaction"] = shop_generation
+		shop_offers.append(offer)
+	_emit_shop_changed()
+	return true
+
+func get_shop_state() -> Dictionary:
+	var visible_offers: Array[Dictionary] = []
+	for offer_value in shop_offers:
+		var offer: Dictionary = offer_value.duplicate(true)
+		var sold := bool(offer.get("sold", false))
+		var capped := _is_upgrade_capped(String(offer.get("id", "")))
+		offer["capped"] = capped
+		offer["affordable"] = not sold and not capped and coins >= int(offer.get("cost", 0))
+		visible_offers.append(offer)
+	return {
+		"wave": shop_wave,
+		"coins": coins,
+		"offers": visible_offers,
+	}
+
+func purchase_shop_offer(request: Dictionary) -> bool:
+	if player == null:
+		return false
+	var request_id := String(request.get("id", ""))
+	var request_transaction := int(request.get("_shop_transaction", -1))
+	for index in range(shop_offers.size()):
+		var offer: Dictionary = shop_offers[index]
+		if String(offer.get("id", "")) != request_id or int(offer.get("_shop_transaction", -2)) != request_transaction:
+			continue
+		var cost := int(offer.get("cost", 0))
+		if bool(offer.get("sold", false)) or _is_upgrade_capped(request_id) or cost <= 0 or cost > coins:
+			return false
+		coins -= cost
+		offer["sold"] = true
+		shop_offers[index] = offer
+		_apply_upgrade_effect(request_id)
+		upgrade_counts[request_id] = int(upgrade_counts.get(request_id, 0)) + 1
+		upgrade_applied.emit(String(offer.get("label", "战斗模块")))
+		progression_changed.emit(coins, level)
+		_emit_shop_changed()
+		return true
+	return false
 
 func queue_wave_upgrade(completed_wave: int) -> bool:
 	if player == null or completed_wave <= 0 or rewarded_waves.has(completed_wave):
@@ -78,6 +143,7 @@ func apply_upgrade(choice: Dictionary) -> bool:
 	level += 1
 	upgrade_applied.emit(String(accepted_choice.get("label", "战斗模块")))
 	progression_changed.emit(coins, level)
+	_emit_shop_changed()
 	if pending_upgrade_count > 0:
 		_present_next_choices()
 	else:
@@ -160,3 +226,7 @@ func _is_upgrade_capped(choice_id: String) -> bool:
 func _get_player_int(property: StringName) -> int:
 	var value: Variant = player.get(property)
 	return int(value) if value != null else 0
+
+func _emit_shop_changed() -> void:
+	if shop_wave > 0:
+		shop_changed.emit(get_shop_state())

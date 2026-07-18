@@ -71,6 +71,74 @@ func _initialize() -> void:
 	if not _assert_true(not progression_events.is_empty() and progression_events[-1] == {"coins": 7, "level": 2}, "progression signal did not publish the final state"):
 		return
 
+	var shop_events: Array[Dictionary] = []
+	upgrades.shop_changed.connect(func(state: Dictionary) -> void: shop_events.append(state.duplicate(true)))
+	upgrades.add_coins(200)
+	if not _assert_true(upgrades.prepare_shop_for_wave(1), "first wave shop was not prepared"):
+		return
+	var wave_one_shop: Dictionary = upgrades.get_shop_state()
+	if not _assert_true(wave_one_shop["wave"] == 1 and wave_one_shop["offers"].size() == 3, "wave one shop did not contain three offers"):
+		return
+	for offer_value in wave_one_shop["offers"]:
+		var offer: Dictionary = offer_value
+		if not _assert_true(
+			offer.has("family") and offer.has("kind") and int(offer["cost"]) > 0 and int(offer["_shop_transaction"]) > 0,
+			"shop offer was missing catalog metadata: %s" % [offer]
+		):
+			return
+	var stable_snapshot: Dictionary = wave_one_shop.duplicate(true)
+	if not _assert_true(not upgrades.prepare_shop_for_wave(1) and upgrades.get_shop_state() == stable_snapshot, "same-wave shop preparation rerolled offers"):
+		return
+
+	var first_offer: Dictionary = wave_one_shop["offers"][0].duplicate(true)
+	var forged_offer: Dictionary = first_offer.duplicate(true)
+	forged_offer["_shop_transaction"] = int(first_offer["_shop_transaction"]) + 999
+	if not _assert_true(not upgrades.purchase_shop_offer(forged_offer), "forged shop transaction was accepted"):
+		return
+	var internal_cost := int(first_offer["cost"])
+	var coins_before_purchase: int = upgrades.coins
+	var level_before_purchase: int = upgrades.level
+	var count_before_purchase: int = int(upgrades.upgrade_counts.get(String(first_offer["id"]), 0))
+	var tampered_offer: Dictionary = first_offer.duplicate(true)
+	tampered_offer["cost"] = 1
+	if not _assert_true(upgrades.purchase_shop_offer(tampered_offer), "valid shop offer was rejected"):
+		return
+	if not _assert_true(upgrades.coins == coins_before_purchase - internal_cost, "shop trusted a caller-tampered price"):
+		return
+	if not _assert_true(upgrades.level == level_before_purchase, "paid shop purchase advanced the free wave level"):
+		return
+	if not _assert_true(int(upgrades.upgrade_counts.get(String(first_offer["id"]), 0)) == count_before_purchase + 1, "shop purchase did not apply the upgrade effect exactly once"):
+		return
+	var sold_state: Dictionary = upgrades.get_shop_state()
+	if not _assert_true(bool(sold_state["offers"][0]["sold"]), "purchased offer was not marked sold"):
+		return
+	var coins_after_purchase: int = upgrades.coins
+	if not _assert_true(not upgrades.purchase_shop_offer(first_offer) and upgrades.coins == coins_after_purchase, "sold offer was purchased twice"):
+		return
+
+	if not _assert_true(upgrades.prepare_shop_for_wave(2), "new wave did not prepare fresh offers"):
+		return
+	var wave_two_shop: Dictionary = upgrades.get_shop_state()
+	if not _assert_true(wave_two_shop["wave"] == 2 and wave_two_shop["offers"].size() == 3, "wave two shop state was invalid"):
+		return
+	for offer_value in wave_two_shop["offers"]:
+		var offer: Dictionary = offer_value
+		var catalog_entry: Dictionary = {}
+		for candidate in upgrades.upgrade_pool:
+			if String(candidate["id"]) == String(offer["id"]):
+				catalog_entry = candidate
+				break
+		var expected_cost := maxi(1, roundi(float(catalog_entry["base_cost"]) * 1.18))
+		if not _assert_true(int(offer["cost"]) == expected_cost, "wave-scaled shop cost was %d instead of %d" % [offer["cost"], expected_cost]):
+			return
+	if upgrades.coins > 0:
+		upgrades.spend_coins(upgrades.coins)
+	var unaffordable_offer: Dictionary = upgrades.get_shop_state()["offers"][0].duplicate(true)
+	if not _assert_true(not bool(unaffordable_offer["affordable"]) and not upgrades.purchase_shop_offer(unaffordable_offer), "unaffordable offer changed progression"):
+		return
+	if not _assert_true(not shop_events.is_empty(), "shop changes were not published"):
+		return
+
 	upgrades.upgrade_counts["fire_rate"] = 12
 	upgrades.choice_generation += 1
 	var capped_choice := {"id": "fire_rate", "label": "capped", "_transaction": upgrades.choice_generation}
