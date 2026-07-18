@@ -7,10 +7,9 @@ signal bgm_mute_changed(muted: bool)
 
 var grid: GridContainer
 var health_bar: ProgressBar
-var xp_bar: ProgressBar
 var health_value_label: Label
 var shield_value_label: Label
-var xp_value_label: Label
+var coin_value_label: Label
 var wave_label: Label
 var level_label: Label
 var stats_label: Label
@@ -57,14 +56,13 @@ func _build_hud() -> void:
 	health_box.add_child(shield_value_label)
 	grid.add_child(health_box.get_parent())
 
-	var xp_box := _make_card()
-	level_label = _make_title("等级 1")
-	xp_bar = _make_bar(Color(0.2, 1.0, 0.95))
-	xp_value_label = _make_label("0 / 20")
-	xp_box.add_child(level_label)
-	xp_box.add_child(xp_bar)
-	xp_box.add_child(xp_value_label)
-	grid.add_child(xp_box.get_parent())
+	var progression_box := _make_card()
+	level_label = _make_title("流派等级 1")
+	coin_value_label = _make_label("金币 0")
+	progression_box.add_child(level_label)
+	progression_box.add_child(coin_value_label)
+	progression_box.add_child(_make_label("清场后免费升级"))
+	grid.add_child(progression_box.get_parent())
 
 	var wave_box := _make_card()
 	wave_label = _make_title("波次 1 / 8")
@@ -175,11 +173,9 @@ func set_health(current: float, maximum: float) -> void:
 func set_shield(value: float, maximum: float) -> void:
 	shield_value_label.text = "护盾 %d / %d" % [int(ceil(value)), int(maximum)]
 
-func set_experience(current: int, required: int, level: int) -> void:
-	xp_bar.max_value = required
-	xp_bar.value = current
-	xp_value_label.text = "%d / %d" % [current, required]
-	level_label.text = "等级 %d" % level
+func set_progression(coins: int, level: int) -> void:
+	coin_value_label.text = "金币 %d" % coins
+	level_label.text = "流派等级 %d" % level
 
 func set_wave(index: int, total: int, remaining: int) -> void:
 	wave_label.text = "波次 %d / %d    剩余 %d" % [index, total, remaining]

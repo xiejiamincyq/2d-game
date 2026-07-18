@@ -24,42 +24,51 @@ func _initialize() -> void:
 	player.set_physics_process(false)
 	upgrades.setup(player)
 
-	upgrades.add_experience(92)
-	if not _assert_true(upgrades.level == 4, "92 XP reached level %d instead of 4" % upgrades.level):
+	var progression_events: Array[Dictionary] = []
+	upgrades.progression_changed.connect(func(coins: int, level: int) -> void:
+		progression_events.append({"coins": coins, "level": level})
+	)
+	if not _assert_true(upgrades.coins == 0 and upgrades.level == 1, "progression did not start at zero coins and level one"):
 		return
-	if not _assert_true(upgrades.pending_upgrade_count == 3 and upgrades.awaiting_choice, "three crossed levels were not queued"):
+	if not _assert_true(upgrades.add_coins(12) and upgrades.coins == 12, "valid coins were not added"):
 		return
-	if not _assert_true(upgrades.pending_choices.size() == 3, "first transaction did not contain three choices"):
+	if not _assert_true(not upgrades.add_coins(0) and not upgrades.add_coins(-2) and upgrades.coins == 12, "invalid coin income changed the balance"):
+		return
+	if not _assert_true(upgrades.spend_coins(5) and upgrades.coins == 7, "valid coin spend was rejected"):
+		return
+	if not _assert_true(not upgrades.spend_coins(8) and not upgrades.spend_coins(0) and upgrades.coins == 7, "invalid coin spend changed the balance"):
+		return
+
+	if not _assert_true(upgrades.queue_wave_upgrade(1), "first cleared wave was not rewarded"):
+		return
+	if not _assert_true(not upgrades.queue_wave_upgrade(1), "the same cleared wave was rewarded twice"):
+		return
+	if not _assert_true(not upgrades.queue_wave_upgrade(0), "invalid wave index was rewarded"):
+		return
+	if not _assert_true(upgrades.level == 1, "level advanced before the upgrade was applied"):
+		return
+	if not _assert_true(upgrades.pending_upgrade_count == 1 and upgrades.awaiting_choice, "wave reward did not queue one choice transaction"):
+		return
+	if not _assert_true(upgrades.pending_choices.size() == 3, "wave reward did not present three choices"):
 		return
 
 	var damage_before: float = player.weapon_damage
-	var pending_before: int = upgrades.pending_upgrade_count
-	paused = true
 	var forged_result: Variant = upgrades.apply_upgrade({"id": "forged", "label": "forged"})
 	if not _assert_true(forged_result == false, "forged choice was not rejected"):
 		return
-	if not _assert_true(paused, "forged choice changed global pause"):
+	if not _assert_true(player.weapon_damage == damage_before and upgrades.pending_upgrade_count == 1, "forged choice changed progression"):
 		return
-	if not _assert_true(player.weapon_damage == damage_before and upgrades.pending_upgrade_count == pending_before, "forged choice changed gameplay state"):
-		return
-	paused = false
 
 	var first_choice: Dictionary = upgrades.pending_choices[0].duplicate(true)
-	var first_result: Variant = upgrades.apply_upgrade(first_choice)
-	if not _assert_true(first_result == true, "current choice was rejected"):
+	if not _assert_true(upgrades.apply_upgrade(first_choice), "current wave choice was rejected"):
 		return
-	var pending_after_first: int = upgrades.pending_upgrade_count
-	var duplicate_result: Variant = upgrades.apply_upgrade(first_choice)
-	if not _assert_true(duplicate_result == false, "consumed transaction was accepted twice"):
+	if not _assert_true(upgrades.level == 2 and upgrades.pending_upgrade_count == 0, "applied wave upgrade did not advance exactly one level"):
 		return
-	if not _assert_true(upgrades.pending_upgrade_count == pending_after_first, "duplicate choice consumed another queued level"):
+	if not _assert_true(not upgrades.awaiting_choice and upgrades.pending_choices.is_empty(), "wave upgrade transaction did not finish cleanly"):
 		return
-
-	while upgrades.pending_upgrade_count > 0:
-		var current: Dictionary = upgrades.pending_choices[0].duplicate(true)
-		if not _assert_true(upgrades.apply_upgrade(current), "queued choice was not accepted"):
-			return
-	if not _assert_true(not upgrades.awaiting_choice and upgrades.pending_choices.is_empty(), "upgrade queue did not finish cleanly"):
+	if not _assert_true(not upgrades.apply_upgrade(first_choice), "consumed transaction was accepted twice"):
+		return
+	if not _assert_true(not progression_events.is_empty() and progression_events[-1] == {"coins": 7, "level": 2}, "progression signal did not publish the final state"):
 		return
 
 	upgrades.upgrade_counts["fire_rate"] = 12

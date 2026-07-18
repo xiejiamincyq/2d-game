@@ -1,5 +1,5 @@
 extends Area2D
-class_name ExperienceShard
+class_name CoinPickup
 
 signal collected(value: int)
 
@@ -30,8 +30,9 @@ func _physics_process(delta: float) -> void:
 		_try_collect()
 
 func _draw() -> void:
-	draw_rect(Rect2(Vector2(-5, -5), Vector2(10, 10)), Color(0.2, 1.0, 0.95))
-	draw_rect(Rect2(Vector2(-2, -8), Vector2(4, 16)), Color(0.55, 0.95, 1.0, 0.8))
+	draw_circle(Vector2.ZERO, 7.0, Color(1.0, 0.72, 0.08))
+	draw_arc(Vector2.ZERO, 7.0, 0.0, TAU, 18, Color(1.0, 0.95, 0.45), 2.0)
+	draw_line(Vector2(0.0, -4.0), Vector2(0.0, 4.0), Color(0.48, 0.22, 0.02), 2.0)
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):

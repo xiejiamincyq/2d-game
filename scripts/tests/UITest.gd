@@ -20,6 +20,11 @@ func _initialize() -> void:
 		return
 	if not _assert_true(ui.get("upgrade_screen") != null and ui.get("pause_screen") != null and ui.get("result_screen") != null, "GameUI did not instantiate focused modal screens"):
 		return
+	ui.set_progression(37, 3)
+	if not _assert_true(ui.hud.coin_value_label.text == "金币 37" and ui.hud.level_label.text == "流派等级 3", "HUD did not display coin progression"):
+		return
+	if not _assert_true(ui.hud.get("xp_bar") == null and ui.hud.get("xp_value_label") == null, "HUD retained the removed XP progress controls"):
+		return
 	var ui_font := ui.root.theme.default_font as SystemFont
 	if not _assert_true(ui_font != null, "shared UI theme does not provide the CJK system font"):
 		return

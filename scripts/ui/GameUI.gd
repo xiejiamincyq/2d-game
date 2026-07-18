@@ -33,10 +33,9 @@ var result_overlay: Control
 var result_panel: PanelContainer
 var pause_button: Button
 var health_bar: ProgressBar
-var xp_bar: ProgressBar
 var health_value_label: Label
 var shield_value_label: Label
-var xp_value_label: Label
+var coin_value_label: Label
 var wave_label: Label
 var level_label: Label
 var stats_label: Label
@@ -121,10 +120,9 @@ func _bind_compatibility_references() -> void:
 	result_panel = result_screen.panel
 	pause_button = hud.pause_button
 	health_bar = hud.health_bar
-	xp_bar = hud.xp_bar
 	health_value_label = hud.health_value_label
 	shield_value_label = hud.shield_value_label
-	xp_value_label = hud.xp_value_label
+	coin_value_label = hud.coin_value_label
 	wave_label = hud.wave_label
 	level_label = hud.level_label
 	stats_label = hud.stats_label
@@ -172,8 +170,8 @@ func set_health(current: float, maximum: float) -> void:
 func set_shield(value: float, maximum: float) -> void:
 	hud.set_shield(value, maximum)
 
-func set_experience(current: int, required: int, level: int) -> void:
-	hud.set_experience(current, required, level)
+func set_progression(coins: int, level: int) -> void:
+	hud.set_progression(coins, level)
 
 func set_wave(index: int, total: int, remaining: int) -> void:
 	hud.set_wave(index, total, remaining)

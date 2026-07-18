@@ -40,8 +40,8 @@ func _initialize() -> void:
 			"killed": killed,
 		})
 	)
-	enemy.died.connect(func(resolved_enemy: Node, xp_value: int, source: StringName) -> void:
-		death_events.append({"enemy": resolved_enemy, "xp": xp_value, "source": source})
+	enemy.died.connect(func(resolved_enemy: Node, coin_value: int, source: StringName) -> void:
+		death_events.append({"enemy": resolved_enemy, "coins": coin_value, "source": source})
 	)
 
 	var first_killed: bool = enemy.take_damage(12.0, DamageTypes.LASER, Vector2(3.0, 4.0))
@@ -92,7 +92,7 @@ func _initialize() -> void:
 		return
 	if not _assert_true(death_events[0]["source"] == DamageTypes.DASH, "death fact lost its damage source"):
 		return
-	if not _assert_true(death_events[0]["xp"] == enemy.xp_value, "death fact changed XP value"):
+	if not _assert_true(death_events[0]["coins"] == enemy.coin_value, "death fact changed coin value"):
 		return
 
 	var repeated_killed: bool = enemy.take_damage(1.0, DamageTypes.PROJECTILE)

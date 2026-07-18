@@ -1,23 +1,20 @@
 extends Node
 class_name UpgradeSystem
 
-signal experience_changed(current: int, required: int, level: int)
+signal progression_changed(coins: int, level: int)
 signal choices_ready(choices: Array[Dictionary])
 signal upgrade_applied(label: String)
 signal upgrade_queue_completed
 
-const EXPERIENCE_MULTIPLIER := 2
-
 var player: Node
 var level: int = 1
-var experience: int = 0
-var base_required_experience: int = 10
-var required_experience: int = base_required_experience * EXPERIENCE_MULTIPLIER
+var coins: int = 0
 var pending_choices: Array[Dictionary] = []
 var pending_upgrade_count: int = 0
 var awaiting_choice: bool = false
 var choice_generation: int = 0
 var upgrade_counts: Dictionary = {}
+var rewarded_waves: Dictionary = {}
 
 var upgrade_pool: Array[Dictionary] = [
 	{"id": "damage", "label": "超频弹芯", "description": "主武器伤害 +25%"},
@@ -36,21 +33,30 @@ var upgrade_pool: Array[Dictionary] = [
 
 func setup(target_player: Node) -> void:
 	player = target_player
-	experience_changed.emit(experience, required_experience, level)
+	progression_changed.emit(coins, level)
 
-func add_experience(amount: int) -> void:
+func add_coins(amount: int) -> bool:
 	if player == null or amount <= 0:
-		return
-	experience += amount
-	while experience >= required_experience:
-		experience -= required_experience
-		level += 1
-		base_required_experience = int(ceil(float(base_required_experience) * 1.23 + 2.0))
-		required_experience = base_required_experience * EXPERIENCE_MULTIPLIER
-		pending_upgrade_count += 1
-	experience_changed.emit(experience, required_experience, level)
+		return false
+	coins += amount
+	progression_changed.emit(coins, level)
+	return true
+
+func spend_coins(amount: int) -> bool:
+	if player == null or amount <= 0 or amount > coins:
+		return false
+	coins -= amount
+	progression_changed.emit(coins, level)
+	return true
+
+func queue_wave_upgrade(completed_wave: int) -> bool:
+	if player == null or completed_wave <= 0 or rewarded_waves.has(completed_wave):
+		return false
+	rewarded_waves[completed_wave] = true
+	pending_upgrade_count += 1
 	if pending_upgrade_count > 0 and not awaiting_choice:
 		_present_next_choices()
+	return true
 
 func apply_upgrade(choice: Dictionary) -> bool:
 	if player == null or not awaiting_choice:
@@ -69,8 +75,9 @@ func apply_upgrade(choice: Dictionary) -> bool:
 	_apply_upgrade_effect(choice_id)
 	upgrade_counts[choice_id] = int(upgrade_counts.get(choice_id, 0)) + 1
 	pending_upgrade_count = maxi(0, pending_upgrade_count - 1)
+	level += 1
 	upgrade_applied.emit(String(accepted_choice.get("label", "战斗模块")))
-	experience_changed.emit(experience, required_experience, level)
+	progression_changed.emit(coins, level)
 	if pending_upgrade_count > 0:
 		_present_next_choices()
 	else:

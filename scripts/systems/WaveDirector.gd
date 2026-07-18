@@ -2,7 +2,8 @@ extends Node
 class_name WaveDirector
 
 signal wave_changed(index: int, total: int, remaining: int)
-signal enemy_killed(enemy: Node, source: StringName, xp_value: int)
+signal wave_cleared(completed_wave: int)
+signal enemy_killed(enemy: Node, source: StringName, coin_value: int)
 signal damage_resolved(
 	enemy: Node,
 	source: StringName,
@@ -23,6 +24,7 @@ var spawn_queue: Array[int] = []
 var spawn_timer: float = 0.0
 var intermission: float = 1.2
 var active: bool = true
+var waiting_for_advance: bool = false
 var world_bounds: Rect2 = Rect2()
 var spawn_rng := RandomNumberGenerator.new()
 var active_enemies: Array[Node] = []
@@ -50,12 +52,14 @@ func setup(target_player: Node, enemies: Node, projectiles: Node) -> void:
 func _process(delta: float) -> void:
 	if not active or player == null:
 		return
+	if waiting_for_advance:
+		return
 	if intermission > 0.0:
 		intermission -= delta
 		return
 	if spawn_queue.is_empty():
 		if active_enemies.is_empty():
-			_start_next_wave()
+			_finish_current_wave()
 		return
 	_process_spawn_timer(delta)
 
@@ -91,6 +95,22 @@ func _start_next_wave() -> void:
 	intermission = 1.5
 	spawn_timer = 0.0
 	_emit_wave_status()
+
+func _finish_current_wave() -> void:
+	_emit_wave_status()
+	if wave_index >= waves.size() - 1:
+		active = false
+		victory.emit()
+		return
+	waiting_for_advance = true
+	wave_cleared.emit(wave_index + 1)
+
+func advance_after_upgrade() -> bool:
+	if not waiting_for_advance or not active:
+		return false
+	waiting_for_advance = false
+	_start_next_wave()
+	return true
 
 func _spawn_enemy(kind: int) -> void:
 	var enemy := EnemyScript.new()
@@ -165,22 +185,22 @@ func sample_spawn_position(
 			farthest_distance = distance
 	return farthest
 
-func _on_enemy_died(enemy: Node, xp_value: int, source: StringName) -> void:
+func _on_enemy_died(enemy: Node, coin_value: int, source: StringName) -> void:
 	if enemy.get_meta(&"kill_resolved", false):
 		return
 	enemy.set_meta(&"kill_resolved", true)
 	var death_position: Vector2 = enemy.global_position
 	var shield_value: float = enemy.shield_drop_value
-	enemy_killed.emit(enemy, source, xp_value)
-	call_deferred("_deferred_spawn_drops", death_position, xp_value, shield_value)
+	enemy_killed.emit(enemy, source, coin_value)
+	call_deferred("_deferred_spawn_drops", death_position, coin_value, shield_value)
 	_emit_wave_status()
 
-func _deferred_spawn_drops(position: Vector2, xp_value: int, shield_value: float) -> void:
+func _deferred_spawn_drops(position: Vector2, coin_value: int, shield_value: float) -> void:
 	var owner := get_parent()
 	if not is_instance_valid(owner):
 		return
-	if xp_value > 0 and owner.has_method("spawn_experience"):
-		owner.spawn_experience(position, xp_value)
+	if coin_value > 0 and owner.has_method("spawn_coins"):
+		owner.spawn_coins(position, coin_value)
 	if shield_value > 0.0 and owner.has_method("spawn_shield"):
 		owner.spawn_shield(position, shield_value)
 

@@ -4,7 +4,7 @@ const PlayerScript = preload("res://scripts/actors/Player.gd")
 const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
 const UpgradeSystemScript = preload("res://scripts/systems/UpgradeSystem.gd")
 const GameUIScript = preload("res://scripts/ui/GameUI.gd")
-const ExperienceShardScript = preload("res://scripts/pickups/ExperienceShard.gd")
+const CoinPickupScript = preload("res://scripts/pickups/CoinPickup.gd")
 const ShieldPickupScript = preload("res://scripts/pickups/ShieldPickup.gd")
 const AudioManagerScript = preload("res://scripts/systems/AudioManager.gd")
 const WorldBoundaryScript = preload("res://scripts/world/WorldBoundary.gd")
@@ -59,14 +59,14 @@ func _process(delta: float) -> void:
 		_enforce_world_bounds()
 		ui.set_run_stats(kill_count, elapsed_seconds)
 
-func spawn_experience(position: Vector2, value: int) -> void:
-	var shard := ExperienceShardScript.new()
-	shard.global_position = position
-	shard.value = value
-	pickups.add_child(shard)
-	shard.collected.connect(func(amount: int) -> void:
-		upgrade_system.add_experience(amount)
-		audio.play("xp")
+func spawn_coins(position: Vector2, value: int) -> void:
+	var coin := CoinPickupScript.new()
+	coin.global_position = position
+	coin.value = value
+	pickups.add_child(coin)
+	coin.collected.connect(func(amount: int) -> void:
+		upgrade_system.add_coins(amount)
+		audio.play("coin")
 	)
 
 func spawn_shield(position: Vector2, value: float = 9.0) -> void:
@@ -77,7 +77,7 @@ func spawn_shield(position: Vector2, value: float = 9.0) -> void:
 	shield_pickup.collected.connect(func(amount: float) -> void:
 		if player != null and player.has_method("add_shield"):
 			player.add_shield(amount)
-			audio.play("xp")
+			audio.play("pickup")
 	)
 
 func _update_random_shield_drop(delta: float) -> void:
@@ -186,19 +186,20 @@ func _start_run() -> void:
 	upgrade_system.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(upgrade_system)
 	upgrade_system.setup(player)
-	upgrade_system.experience_changed.connect(ui.set_experience)
+	upgrade_system.progression_changed.connect(ui.set_progression)
 	upgrade_system.choices_ready.connect(_on_upgrade_choices_ready)
 	upgrade_system.upgrade_applied.connect(func(label: String) -> void:
 		ui.show_toast(label)
 		audio.play("upgrade")
 	)
-	upgrade_system.upgrade_queue_completed.connect(func() -> void: _transition_to(RunState.PLAYING))
+	upgrade_system.upgrade_queue_completed.connect(_on_upgrade_queue_completed)
 	ui.upgrade_selected.connect(_on_upgrade_selected)
 	wave_director = WaveDirectorScript.new()
 	wave_director.process_mode = Node.PROCESS_MODE_PAUSABLE
 	wave_director.world_bounds = WORLD_BOUNDS
 	add_child(wave_director)
 	wave_director.wave_changed.connect(ui.set_wave)
+	wave_director.wave_cleared.connect(_on_wave_cleared)
 	wave_director.enemy_killed.connect(_on_enemy_killed)
 	wave_director.damage_resolved.connect(combat_feedback.on_damage_resolved)
 	wave_director.victory.connect(_on_victory)
@@ -206,7 +207,7 @@ func _start_run() -> void:
 	player.set_enemy_provider(wave_director.get_active_enemies)
 	ui.set_health(player.health.current_health, player.health.max_health)
 	ui.set_shield(player.shield, player.max_shield)
-	ui.set_experience(upgrade_system.experience, upgrade_system.required_experience, upgrade_system.level)
+	ui.set_progression(upgrade_system.coins, upgrade_system.level)
 	ui.set_run_stats(kill_count, elapsed_seconds)
 	_transition_to(RunState.PLAYING)
 
@@ -217,7 +218,15 @@ func _on_upgrade_choices_ready(choices: Array[Dictionary]) -> void:
 func _on_upgrade_selected(choice: Dictionary) -> void:
 	upgrade_system.apply_upgrade(choice)
 
-func _on_enemy_killed(_enemy: Node, _source: StringName, _xp_value: int) -> void:
+func _on_wave_cleared(completed_wave: int) -> void:
+	upgrade_system.queue_wave_upgrade(completed_wave)
+
+func _on_upgrade_queue_completed() -> void:
+	if is_instance_valid(wave_director):
+		wave_director.advance_after_upgrade()
+	_transition_to(RunState.PLAYING)
+
+func _on_enemy_killed(_enemy: Node, _source: StringName, _coin_value: int) -> void:
 	kill_count += 1
 	combo_count += 1
 	combo_timer = 3.0

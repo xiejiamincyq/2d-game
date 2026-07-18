@@ -32,6 +32,24 @@ func _initialize() -> void:
 		return
 	if not _assert_true(scene.audio.bgm_player != null and scene.audio.bgm_player.playing, "BGM did not start"):
 		return
+	if not _assert_true(scene.upgrade_system.coins == 0 and scene.ui.hud.coin_value_label.text == "金币 0", "run did not start with a visible zero coin balance"):
+		return
+
+	scene.wave_director.active = true
+	scene.wave_director.wave_index = 0
+	scene.wave_director.spawn_queue.clear()
+	scene.wave_director.active_enemies.clear()
+	scene.wave_director.intermission = 0.0
+	scene.wave_director._process(0.016)
+	if not _assert_true(scene.run_state == scene.RunState.UPGRADE and paused and scene.wave_director.waiting_for_advance, "cleared wave did not enter the gated upgrade state"):
+		return
+	scene._on_wave_cleared(1)
+	if not _assert_true(scene.wave_director.waiting_for_advance and scene.wave_director.wave_index == 0, "duplicate wave reward bypassed the upgrade gate"):
+		return
+	var wave_choice: Dictionary = scene.upgrade_system.pending_choices[0].duplicate(true)
+	scene._on_upgrade_selected(wave_choice)
+	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused and scene.wave_director.wave_index == 1, "wave upgrade did not resume into the next wave"):
+		return
 
 	scene._toggle_manual_pause()
 	if not _assert_true(scene.run_state == scene.RunState.PAUSED and paused and scene.ui.pause_panel.visible, "manual pause did not own tree and UI state"):

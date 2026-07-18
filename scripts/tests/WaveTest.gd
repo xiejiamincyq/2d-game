@@ -74,6 +74,56 @@ func _initialize() -> void:
 		return
 	tracked_enemy.free()
 
+	var cleared_waves: Array[int] = []
+	var remaining_statuses: Array[int] = []
+	var gated_director: Node = WaveDirectorScript.new()
+	var gated_fixture := Node.new()
+	var gated_player := Node2D.new()
+	var gated_enemies := Node2D.new()
+	var gated_projectiles := Node2D.new()
+	root.add_child(gated_fixture)
+	gated_fixture.add_child(gated_player)
+	gated_fixture.add_child(gated_enemies)
+	gated_fixture.add_child(gated_projectiles)
+	gated_fixture.add_child(gated_director)
+	gated_director.set_process(false)
+	gated_director.player = gated_player
+	gated_director.enemy_parent = gated_enemies
+	gated_director.projectile_parent = gated_projectiles
+	gated_director.wave_index = 0
+	gated_director.intermission = 0.0
+	gated_director.wave_cleared.connect(func(completed_wave: int) -> void: cleared_waves.append(completed_wave))
+	gated_director.wave_changed.connect(func(_index: int, _total: int, remaining: int) -> void: remaining_statuses.append(remaining))
+	gated_director._process(0.016)
+	gated_director._process(0.016)
+	if not _assert_true(cleared_waves == [1], "one cleared wave emitted rewards %s" % [cleared_waves]):
+		return
+	if not _assert_true(gated_director.waiting_for_advance and gated_director.wave_index == 0 and gated_director.spawn_queue.is_empty(), "director started the next wave behind the upgrade gate"):
+		return
+	if not _assert_true(not remaining_statuses.is_empty() and remaining_statuses[-1] == 0, "cleared wave did not publish zero remaining enemies"):
+		return
+	if not _assert_true(gated_director.advance_after_upgrade(), "completed upgrade did not advance the wave"):
+		return
+	if not _assert_true(not gated_director.waiting_for_advance and gated_director.wave_index == 1 and not gated_director.spawn_queue.is_empty(), "next wave was not prepared after the upgrade"):
+		return
+	if not _assert_true(not gated_director.advance_after_upgrade(), "duplicate upgrade completion advanced another wave"):
+		return
+
+	var victory_count := [0]
+	gated_director.active = true
+	gated_director.wave_index = gated_director.waves.size() - 1
+	gated_director.spawn_queue.clear()
+	gated_director.active_enemies.clear()
+	gated_director.intermission = 0.0
+	gated_director.victory.connect(func() -> void: victory_count[0] += 1)
+	gated_director._process(0.016)
+	gated_director._process(0.016)
+	if not _assert_true(victory_count[0] == 1 and not gated_director.active, "final wave did not resolve victory exactly once"):
+		return
+	if not _assert_true(cleared_waves == [1], "final victory queued a useless upgrade"):
+		return
+	gated_fixture.queue_free()
+
 	sampler.queue_free()
 	await process_frame
 	print("TEST PASS: WaveTest %d" % assertions)

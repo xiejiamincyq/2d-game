@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Enemy
 
-signal died(enemy: Node, xp_value: int, source: StringName)
+signal died(enemy: Node, coin_value: int, source: StringName)
 signal hit(source: StringName)
 signal damage_resolved(
 	enemy: Node,
@@ -21,7 +21,7 @@ enum EnemyKind { SCRAPPER, DASHER, SPITTER, BRUISER }
 var kind: EnemyKind = EnemyKind.SCRAPPER
 var speed: float = 90.0
 var contact_damage: float = 8.0
-var xp_value: int = 1
+var coin_value: int = 1
 var shield_drop_value: float = 0.0
 var shoot_cooldown: float = 0.0
 var health: Node
@@ -49,23 +49,23 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node) -> void:
 		EnemyKind.SCRAPPER:
 			speed = 80.0 + wave_index * 3.0
 			contact_damage = 8.0
-			xp_value = 1
+			coin_value = 1
 			_add_health(36.0 * scale_factor)
 		EnemyKind.DASHER:
 			speed = 145.0 + wave_index * 4.0
 			contact_damage = 6.0
-			xp_value = 2
+			coin_value = 2
 			_add_health(22.0 * scale_factor)
 		EnemyKind.SPITTER:
 			speed = 58.0 + wave_index * 2.0
 			contact_damage = 5.0
-			xp_value = 3
+			coin_value = 3
 			shoot_cooldown = randf_range(1.0, 2.0)
 			_add_health(28.0 * scale_factor)
 		EnemyKind.BRUISER:
 			speed = 54.0 + wave_index * 1.5
 			contact_damage = 18.0
-			xp_value = 8
+			coin_value = 8
 			shield_drop_value = 17.0 + wave_index * 1.5
 			body_radius = 24.0
 			attack_range = 46.0
@@ -73,7 +73,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node) -> void:
 			attack_recovery = 0.75
 			_add_health(250.0 * scale_factor)
 	var wave_multiplier := 1.0 + 0.15 * float(maxi(1, wave_index) - 1)
-	xp_value = maxi(1, int(round(float(xp_value) * wave_multiplier)))
+	coin_value = maxi(1, int(round(float(coin_value) * wave_multiplier)))
 
 func _ready() -> void:
 	add_to_group("enemies")
@@ -184,7 +184,7 @@ func _die(source: StringName) -> void:
 	if death_resolved:
 		return
 	death_resolved = true
-	died.emit(self, xp_value, source)
+	died.emit(self, coin_value, source)
 	queue_free()
 
 func _update_melee_attack(delta: float, player: Node2D, distance: float) -> void:

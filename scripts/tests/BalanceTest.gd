@@ -110,19 +110,12 @@ func _initialize() -> void:
 	var upgrades: Node = UpgradeSystemScript.new()
 	root.add_child(upgrades)
 	upgrades.setup(fake_player)
-	var old_curve_base: int = 10
-	for upgrade_index in range(8):
-		var expected_required: int = old_curve_base * 2
-		if upgrades.required_experience != expected_required:
-			_fail("upgrade requirement at level %d was %d instead of %d." % [upgrades.level, upgrades.required_experience, expected_required])
-			return
-		var expected_level: int = upgrades.level + 1
-		upgrades.add_experience(expected_required)
-		if upgrades.level != expected_level:
-			_fail("adding the exact requirement did not advance to level %d." % expected_level)
-			return
-		paused = false
-		old_curve_base = int(ceil(float(old_curve_base) * 1.23 + 2.0))
+	if not upgrades.add_coins(40) or not upgrades.spend_coins(15) or upgrades.coins != 25:
+		_fail("coin economy did not preserve a deterministic non-negative balance.")
+		return
+	if upgrades.spend_coins(26) or upgrades.coins != 25:
+		_fail("coin economy accepted an unaffordable purchase.")
+		return
 
 	var enemy_kinds: Array[int] = [
 		EnemyScript.EnemyKind.SCRAPPER,
@@ -130,7 +123,7 @@ func _initialize() -> void:
 		EnemyScript.EnemyKind.SPITTER,
 		EnemyScript.EnemyKind.BRUISER,
 	]
-	var base_xp_values: Array[int] = [1, 2, 3, 8]
+	var base_coin_values: Array[int] = [1, 2, 3, 8]
 	var wave_enemies: Array[Node] = []
 	for kind_index in range(enemy_kinds.size()):
 		for wave_index in range(1, 9):
@@ -138,9 +131,9 @@ func _initialize() -> void:
 			wave_enemy.setup(enemy_kinds[kind_index], wave_index, root)
 			root.add_child(wave_enemy)
 			wave_enemies.append(wave_enemy)
-			var expected_xp: int = maxi(1, roundi(float(base_xp_values[kind_index]) * (1.0 + 0.15 * float(wave_index - 1))))
-			if wave_enemy.xp_value != expected_xp:
-				_fail("enemy kind %d wave %d XP was %d instead of %d." % [enemy_kinds[kind_index], wave_index, wave_enemy.xp_value, expected_xp])
+			var expected_coins: int = maxi(1, roundi(float(base_coin_values[kind_index]) * (1.0 + 0.15 * float(wave_index - 1))))
+			if wave_enemy.coin_value != expected_coins:
+				_fail("enemy kind %d wave %d coin value was %d instead of %d." % [enemy_kinds[kind_index], wave_index, wave_enemy.coin_value, expected_coins])
 				return
 
 	enemy.queue_free()

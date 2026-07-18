@@ -3,7 +3,7 @@ extends SceneTree
 const MainScript = preload("res://scripts/Main.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
-const ExperienceShardScript = preload("res://scripts/pickups/ExperienceShard.gd")
+const CoinPickupScript = preload("res://scripts/pickups/CoinPickup.gd")
 const ShieldPickupScript = preload("res://scripts/pickups/ShieldPickup.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
@@ -32,14 +32,14 @@ func _initialize() -> void:
 	scene.enemies.add_child(enemy)
 	enemy.died.connect(scene.wave_director._on_enemy_died)
 	var expected_enemy_id: int = enemy.get_instance_id()
-	var expected_xp: int = enemy.xp_value
+	var expected_coins: int = enemy.coin_value
 	var kill_facts: Array[Dictionary] = []
-	scene.wave_director.enemy_killed.connect(func(killed_enemy: Node, source: StringName, xp_value: int) -> void:
-		kill_facts.append({"enemy_id": killed_enemy.get_instance_id(), "source": source, "xp": xp_value})
+	scene.wave_director.enemy_killed.connect(func(killed_enemy: Node, source: StringName, coin_value: int) -> void:
+		kill_facts.append({"enemy_id": killed_enemy.get_instance_id(), "source": source, "coins": coin_value})
 	)
 	# A duplicate migration consumer must not create a second kill fact or drops.
-	enemy.died.connect(func(killed_enemy: Node, xp_value: int, source: StringName) -> void:
-		scene.wave_director._on_enemy_died(killed_enemy, xp_value, source)
+	enemy.died.connect(func(killed_enemy: Node, coin_value: int, source: StringName) -> void:
+		scene.wave_director._on_enemy_died(killed_enemy, coin_value, source)
 	)
 	await process_frame
 	enemy.health.current_health = 1.0
@@ -56,14 +56,14 @@ func _initialize() -> void:
 	await physics_frame
 	await process_frame
 
-	var xp_pickups: Array[Node] = []
+	var coin_pickups: Array[Node] = []
 	var shield_pickups: Array[Node] = []
 	for child in scene.pickups.get_children():
-		if child.get_script() == ExperienceShardScript:
-			xp_pickups.append(child)
+		if child.get_script() == CoinPickupScript:
+			coin_pickups.append(child)
 		elif child.get_script() == ShieldPickupScript:
 			shield_pickups.append(child)
-	if not _assert_true(xp_pickups.size() == 1, "physical projectile kill created %d XP pickups" % xp_pickups.size()):
+	if not _assert_true(coin_pickups.size() == 1, "physical projectile kill created %d coin pickups" % coin_pickups.size()):
 		return
 	if not _assert_true(shield_pickups.size() == 1, "physical projectile kill created %d shield pickups" % shield_pickups.size()):
 		return
@@ -73,10 +73,11 @@ func _initialize() -> void:
 		return
 	if not _assert_true(kill_facts[0]["source"] == DamageTypes.PROJECTILE, "kill fact source was %s" % kill_facts[0]["source"]):
 		return
-	if not _assert_true(kill_facts[0]["xp"] == expected_xp, "kill fact changed the XP value"):
+	if not _assert_true(kill_facts[0]["coins"] == expected_coins, "kill fact changed the coin value"):
 		return
 
-	for pickup in [xp_pickups[0], shield_pickups[0]]:
+	var coins_before: int = scene.upgrade_system.coins
+	for pickup in [coin_pickups[0], shield_pickups[0]]:
 		var collection_count := [0]
 		pickup.collected.connect(func(_value: Variant) -> void: collection_count[0] += 1)
 		pickup.global_position = scene.player.global_position
@@ -84,6 +85,8 @@ func _initialize() -> void:
 		pickup._on_body_entered(scene.player)
 		if not _assert_true(collection_count[0] == 1, "%s emitted collected %d times in one frame" % [pickup.get_class(), collection_count[0]]):
 			return
+	if not _assert_true(scene.upgrade_system.coins == coins_before + expected_coins, "coin pickup did not increase the run balance exactly once"):
+		return
 
 	var shield_before_hostile_projectile: float = scene.player.shield
 	scene.player.health.invulnerable_time = 0.0

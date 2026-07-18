@@ -22,7 +22,7 @@ func _initialize() -> void:
 		return
 	for path in [
 		"res://scripts/components/Projectile.gd",
-		"res://scripts/pickups/ExperienceShard.gd",
+		"res://scripts/pickups/CoinPickup.gd",
 		"res://scripts/pickups/ShieldPickup.gd",
 	]:
 		var source := FileAccess.get_file_as_string(path)
