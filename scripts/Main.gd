@@ -187,6 +187,7 @@ func _start_run() -> void:
 	add_child(upgrade_system)
 	upgrade_system.setup(player)
 	upgrade_system.progression_changed.connect(ui.set_progression)
+	upgrade_system.shop_changed.connect(ui.set_shop_state)
 	upgrade_system.choices_ready.connect(_on_upgrade_choices_ready)
 	upgrade_system.upgrade_applied.connect(func(label: String) -> void:
 		ui.show_toast(label)
@@ -194,6 +195,7 @@ func _start_run() -> void:
 	)
 	upgrade_system.upgrade_queue_completed.connect(_on_upgrade_queue_completed)
 	ui.upgrade_selected.connect(_on_upgrade_selected)
+	ui.shop_offer_selected.connect(_on_shop_offer_selected)
 	wave_director = WaveDirectorScript.new()
 	wave_director.process_mode = Node.PROCESS_MODE_PAUSABLE
 	wave_director.world_bounds = WORLD_BOUNDS
@@ -204,6 +206,7 @@ func _start_run() -> void:
 	wave_director.damage_resolved.connect(combat_feedback.on_damage_resolved)
 	wave_director.victory.connect(_on_victory)
 	wave_director.setup(player, enemies, projectiles)
+	upgrade_system.prepare_shop_for_wave(wave_director.wave_index + 1)
 	player.set_enemy_provider(wave_director.get_active_enemies)
 	ui.set_health(player.health.current_health, player.health.max_health)
 	ui.set_shield(player.shield, player.max_shield)
@@ -218,12 +221,17 @@ func _on_upgrade_choices_ready(choices: Array[Dictionary]) -> void:
 func _on_upgrade_selected(choice: Dictionary) -> void:
 	upgrade_system.apply_upgrade(choice)
 
+func _on_shop_offer_selected(offer: Dictionary) -> void:
+	if run_state == RunState.PAUSED:
+		upgrade_system.purchase_shop_offer(offer)
+
 func _on_wave_cleared(completed_wave: int) -> void:
 	upgrade_system.queue_wave_upgrade(completed_wave)
 
 func _on_upgrade_queue_completed() -> void:
 	if is_instance_valid(wave_director):
-		wave_director.advance_after_upgrade()
+		if wave_director.advance_after_upgrade():
+			upgrade_system.prepare_shop_for_wave(wave_director.wave_index + 1)
 	_transition_to(RunState.PLAYING)
 
 func _on_enemy_killed(_enemy: Node, _source: StringName, _coin_value: int) -> void:

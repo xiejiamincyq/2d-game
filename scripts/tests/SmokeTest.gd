@@ -50,13 +50,32 @@ func _initialize() -> void:
 	scene._on_upgrade_selected(wave_choice)
 	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused and scene.wave_director.wave_index == 1, "wave upgrade did not resume into the next wave"):
 		return
+	var shop_before_pause: Dictionary = scene.upgrade_system.get_shop_state()
+	if not _assert_true(shop_before_pause["wave"] == 2 and shop_before_pause["offers"].size() == 3, "next wave did not prepare a stable shop"):
+		return
+	var shop_offer: Dictionary = shop_before_pause["offers"][0].duplicate(true)
+	var offer_cost := int(shop_offer["cost"])
+	scene.upgrade_system.add_coins(offer_cost)
+	var free_level_before_purchase: int = scene.upgrade_system.level
 
 	scene._toggle_manual_pause()
 	if not _assert_true(scene.run_state == scene.RunState.PAUSED and paused and scene.ui.pause_panel.visible, "manual pause did not own tree and UI state"):
 		return
+	scene._on_shop_offer_selected(shop_offer)
+	if not _assert_true(scene.run_state == scene.RunState.PAUSED and paused, "shop purchase closed the pause state"):
+		return
+	if not _assert_true(scene.upgrade_system.coins == 0 and scene.upgrade_system.level == free_level_before_purchase, "shop purchase changed coins or free wave level incorrectly"):
+		return
+	var purchased_shop: Dictionary = scene.upgrade_system.get_shop_state()
+	if not _assert_true(bool(purchased_shop["offers"][0]["sold"]), "shop purchase did not update the visible sold state"):
+		return
 	scene._toggle_manual_pause()
 	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "manual resume did not restore PLAYING"):
 		return
+	scene._toggle_manual_pause()
+	if not _assert_true(scene.upgrade_system.get_shop_state() == purchased_shop, "reopening pause rerolled or reset the shop"):
+		return
+	scene._toggle_manual_pause()
 
 	scene._end_run(false)
 	if not _assert_true(scene.run_state == scene.RunState.RESULT and paused, "defeat did not enter RESULT"):

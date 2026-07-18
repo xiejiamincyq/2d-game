@@ -2,6 +2,7 @@ extends CanvasLayer
 class_name GameUI
 
 signal upgrade_selected(choice: Dictionary)
+signal shop_offer_selected(offer: Dictionary)
 signal start_requested
 signal restart_requested
 signal pause_requested
@@ -108,6 +109,7 @@ func _connect_components() -> void:
 	hud.bgm_mute_changed.connect(func(muted: bool) -> void: bgm_mute_changed.emit(muted))
 	upgrade_screen.choice_selected.connect(func(choice: Dictionary) -> void: upgrade_selected.emit(choice))
 	pause_screen.resume_requested.connect(func() -> void: pause_requested.emit())
+	pause_screen.offer_selected.connect(func(offer: Dictionary) -> void: shop_offer_selected.emit(offer))
 	result_screen.restart_requested.connect(func() -> void: restart_requested.emit())
 
 func _bind_compatibility_references() -> void:
@@ -143,6 +145,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	if result_screen.visible and event is InputEventKey and event.pressed and event.keycode == KEY_R:
 		restart_requested.emit()
 		return
+	if pause_screen.visible and event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode >= KEY_1 and event.keycode <= KEY_3:
+			var shop_index: int = event.keycode - KEY_1
+			if shop_index < pause_screen.offer_buttons.size():
+				var shop_button: Button = pause_screen.offer_buttons[shop_index]
+				if shop_button.visible and not shop_button.disabled:
+					shop_button.pressed.emit()
+			return
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_SPACE:
 		if not start_panel.visible and not upgrade_screen.visible and not result_screen.visible:
 			pause_requested.emit()
@@ -172,6 +182,9 @@ func set_shield(value: float, maximum: float) -> void:
 
 func set_progression(coins: int, level: int) -> void:
 	hud.set_progression(coins, level)
+
+func set_shop_state(state: Dictionary) -> void:
+	pause_screen.set_shop_state(state)
 
 func set_wave(index: int, total: int, remaining: int) -> void:
 	hud.set_wave(index, total, remaining)
