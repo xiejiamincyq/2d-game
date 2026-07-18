@@ -17,6 +17,7 @@ if ([string]::IsNullOrWhiteSpace($godot) -or -not (Test-Path -LiteralPath $godot
 $tests = @(
     "BalanceTest",
     "CombatEventTest",
+    "CombatFeedbackTest",
     "DamageTest",
     "ProjectilePickupTest",
     "RateTest",
