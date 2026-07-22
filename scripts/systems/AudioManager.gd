@@ -48,7 +48,7 @@ func _ready() -> void:
 	streams["hit_dash"] = _make_impact(0.09, 0.62, 310.0, 95.0)
 	streams["hit_spike"] = _make_impact(0.045, 0.24, 2050.0, 620.0)
 	streams["kill_confirm"] = _make_kill_confirm()
-	streams["overdrive_kill"] = _make_tone(1680.0, 0.065, 0.004, 0.52, 1.65)
+	streams["overdrive_kill"] = _make_overdrive_kill_confirm()
 	streams["laser_loop"] = _make_laser_loop()
 	streams["start"] = _make_tone(360.0, 0.22, 0.18, 0.55, 2.2)
 	streams["victory"] = _make_tone(740.0, 0.35, 0.16, 0.55, 1.6)
@@ -373,6 +373,44 @@ func _make_kill_confirm() -> AudioStreamWAV:
 		var confirm_click := sin(TAU * 1320.0 * t) * exp(-progress * 18.0) * 0.5
 		var noise := ((float(noise_seed % 2000) / 1000.0) - 1.0) * exp(-progress * 24.0) * 0.22
 		var sample := (low_impact + confirm_click + noise) * envelope * 0.68
+		data.encode_s16(i * 2, int(clampf(sample, -1.0, 1.0) * 32767.0))
+	var wav := AudioStreamWAV.new()
+	wav.format = AudioStreamWAV.FORMAT_16_BITS
+	wav.mix_rate = sample_rate
+	wav.stereo = false
+	wav.data = data
+	return wav
+
+func _make_overdrive_kill_confirm() -> AudioStreamWAV:
+	# A short forged-metal hit: a dense low steel contact first, followed by a
+	# brighter, slightly detuned ring. It keeps the weight of armor-on-metal
+	# without the long medieval tail, so rapid Overdrive kills stay punchy.
+	var sample_rate := 22050
+	var duration := 0.11
+	var sample_count := int(duration * sample_rate)
+	var data := PackedByteArray()
+	data.resize(sample_count * 2)
+	var noise_seed := 0x4F564452
+	for i in range(sample_count):
+		noise_seed = int((1103515245 * noise_seed + 12345) & 0x7fffffff)
+		var t := float(i) / float(sample_rate)
+		var attack := minf(1.0, t / 0.0012)
+		var impact_envelope := attack * exp(-t * 58.0)
+		var ring_time := maxf(0.0, t - 0.006)
+		var ring_attack := minf(1.0, ring_time / 0.0025)
+		var ring_envelope := ring_attack * exp(-ring_time * 24.0)
+		var noise := (float(noise_seed % 2000) / 1000.0) - 1.0
+		var steel_body := (
+			sin(TAU * 390.0 * t) * 0.7
+			+ sin(TAU * 780.0 * t) * 0.3
+		) * impact_envelope
+		var contact := noise * exp(-t * 150.0) * 0.28
+		var bright_ring := (
+			sin(TAU * 2480.0 * ring_time) * 0.7
+			+ sin(TAU * 3725.0 * ring_time) * 0.31
+			+ sin(TAU * 5140.0 * ring_time) * 0.15
+		) * ring_envelope
+		var sample := (steel_body + contact + bright_ring) * 0.78
 		data.encode_s16(i * 2, int(clampf(sample, -1.0, 1.0) * 32767.0))
 	var wav := AudioStreamWAV.new()
 	wav.format = AudioStreamWAV.FORMAT_16_BITS

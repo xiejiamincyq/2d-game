@@ -64,6 +64,13 @@ func _initialize() -> void:
 	await process_frame
 	if not _assert_true(audio.streams.has("kill_confirm"), "combat audio does not provide a dedicated kill confirmation cue"):
 		return
+	if not _assert_true(audio.streams.has("overdrive_kill"), "combat audio does not provide an overdrive kill confirmation cue"):
+		return
+	var overdrive_kill_stream: AudioStreamWAV = audio.streams["overdrive_kill"]
+	if not _assert_true(overdrive_kill_stream.data.size() >= 4400, "overdrive confirmation is too short to carry the metal strike and bright ring"):
+		return
+	if not _assert_true(overdrive_kill_stream.data != (audio.streams["kill_confirm"] as AudioStreamWAV).data, "overdrive confirmation reused the ordinary kill cue"):
+		return
 	var feedback: Node = CombatFeedbackScript.new()
 	root.add_child(feedback)
 	feedback.setup(vfx, camera_effects, audio)
