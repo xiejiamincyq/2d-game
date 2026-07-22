@@ -133,6 +133,67 @@ func _initialize() -> void:
 	):
 		return
 
+	player.set_build_family_levels({
+		"ballistics": 3,
+		"mobility": 2,
+		"automation": 4,
+	})
+	if not _assert_true(
+		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.PROJECTILE), 1.1025),
+		"ballistics level did not add 5% compounded projectile damage per level"
+	):
+		return
+	if not _assert_true(
+		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.DASH), 1.05)
+		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.SPIKE), 1.05),
+		"mobility level did not apply to both dash and spike damage"
+	):
+		return
+	if not _assert_true(
+		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.LASER), 1.157625)
+		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.ARC), 1.157625),
+		"automation level did not apply to laser and arc damage"
+	):
+		return
+
+	var original_dash_cooldown: float = player.dash_cooldown
+	var original_dash_distance: float = player.dash_distance
+	var original_spike_spacing: float = player.spike_spacing
+	if not _assert_true(player.activate_build_evolution("rift_overdrive"), "rift evolution was rejected"):
+		return
+	if not _assert_true(
+		player.mine_level >= 1
+		and player.dash_cooldown < original_dash_cooldown
+		and player.dash_distance > original_dash_distance
+		and player.spike_spacing < original_spike_spacing,
+		"rift evolution did not unlock and strengthen its linked mobility mechanics"
+	):
+		return
+	if not _assert_true(not player.activate_build_evolution("rift_overdrive"), "duplicate evolution activation stacked"):
+		return
+
+	var shots_before_storm := spawned_shots.size()
+	if not _assert_true(player.activate_build_evolution("orbital_storm"), "orbital evolution was rejected"):
+		return
+	for volley in range(5):
+		player._fire()
+	var storm_shot_count := spawned_shots.size() - shots_before_storm
+	if not _assert_true(
+		storm_shot_count == player.weapon_lines * 5 + 12,
+		"orbital evolution spawned %d shots instead of five volleys plus 12 radial shots" % storm_shot_count
+	):
+		return
+
+	var drones_before_matrix: int = player.drone_count
+	if not _assert_true(player.activate_build_evolution("thunder_matrix"), "thunder evolution was rejected"):
+		return
+	if not _assert_true(
+		player.drone_count >= maxi(2, drones_before_matrix + 1)
+		and player.arc_pulse_level >= 1,
+		"thunder evolution did not guarantee both drone and arc mechanics"
+	):
+		return
+
 	player.queue_free()
 	spawned_attacks.queue_free()
 	await process_frame

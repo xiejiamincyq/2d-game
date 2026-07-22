@@ -25,9 +25,17 @@ func _initialize() -> void:
 
 	scene._start_run()
 	await process_frame
-	scene.wave_director.active = false
-	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "start did not enter PLAYING"):
+	if not _assert_true(
+		scene.run_state == scene.RunState.WAVE_INTRO and paused and scene.ui.wave_banner.visible,
+		"start did not enter the first wave introduction gate"
+	):
 		return
+	if not _assert_true(scene.ui.wave_banner.message_label.text == "侦测到第 1 波敌人", "first wave banner copy was incorrect"):
+		return
+	scene.ui.wave_banner.finish_message()
+	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "wave introduction did not enter PLAYING"):
+		return
+	scene.wave_director.active = false
 	if not _assert_true(scene.player.process_mode == Node.PROCESS_MODE_PAUSABLE, "player is not pausable"):
 		return
 	if not _assert_true(scene.audio.bgm_player != null and scene.audio.bgm_player.playing, "BGM did not start"):
@@ -39,43 +47,74 @@ func _initialize() -> void:
 	scene.wave_director.wave_index = 0
 	scene.wave_director.spawn_queue.clear()
 	scene.wave_director.active_enemies.clear()
-	scene.wave_director.intermission = 0.0
+	scene.wave_director.prepared_wave = false
+	scene.wave_director.wave_running = true
+	scene.wave_director.waiting_for_advance = false
 	scene.wave_director._process(0.016)
-	if not _assert_true(scene.run_state == scene.RunState.UPGRADE and paused and scene.wave_director.waiting_for_advance, "cleared wave did not enter the gated upgrade state"):
+	if not _assert_true(
+		scene.run_state == scene.RunState.WAVE_CLEAR and paused and scene.wave_director.waiting_for_advance,
+		"cleared wave did not enter the clear banner gate"
+	):
 		return
-	scene._on_wave_cleared(1)
-	if not _assert_true(scene.wave_director.waiting_for_advance and scene.wave_director.wave_index == 0, "duplicate wave reward bypassed the upgrade gate"):
+	if not _assert_true(scene.ui.wave_banner.message_label.text == "第 1 波清剿完成", "wave clear banner copy was incorrect"):
 		return
-	var wave_choice: Dictionary = scene.upgrade_system.pending_choices[0].duplicate(true)
-	scene._on_upgrade_selected(wave_choice)
-	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused and scene.wave_director.wave_index == 1, "wave upgrade did not resume into the next wave"):
+	scene.ui.wave_banner.finish_message()
+	if not _assert_true(scene.run_state == scene.RunState.SETTLEMENT and paused and scene.ui.settlement_screen.visible, "clear banner did not open unified settlement"):
 		return
-	var shop_before_pause: Dictionary = scene.upgrade_system.get_shop_state()
-	if not _assert_true(shop_before_pause["wave"] == 2 and shop_before_pause["offers"].size() == 3, "next wave did not prepare a stable shop"):
+	var settlement: Dictionary = scene.upgrade_system.get_settlement_state()
+	var settlement_offers: Array[Dictionary] = []
+	for family in settlement["families"]:
+		for offer in family["offers"]:
+			settlement_offers.append(offer)
+	if not _assert_true(settlement_offers.size() == 6 and not settlement["can_close"], "settlement did not contain two cards per family behind the reward gate"):
 		return
-	var shop_offer: Dictionary = shop_before_pause["offers"][0].duplicate(true)
-	var offer_cost := int(shop_offer["cost"])
-	scene.upgrade_system.add_coins(offer_cost)
-	var free_level_before_purchase: int = scene.upgrade_system.level
+	var free_offer: Dictionary = settlement_offers[0]
+	var free_family := String(free_offer["family"])
+	var free_family_level := int(scene.upgrade_system.family_levels[free_family])
+	scene._on_settlement_offer_selected(free_offer)
+	settlement = scene.upgrade_system.get_settlement_state()
+	if not _assert_true(settlement["reward_claimed"] and settlement["can_close"] and int(scene.upgrade_system.family_levels[free_family]) == free_family_level + 1, "free reward did not unlock close and increase its family level"):
+		return
+	var paid_offer: Dictionary = {}
+	for family in settlement["families"]:
+		for offer in family["offers"]:
+			if not bool(offer["sold"]):
+				paid_offer = offer
+				break
+		if not paid_offer.is_empty():
+			break
+	var paid_family := String(paid_offer["family"])
+	var paid_family_level := int(scene.upgrade_system.family_levels[paid_family])
+	scene.upgrade_system.add_coins(int(paid_offer["cost"]))
+	scene._on_settlement_offer_selected(paid_offer)
+	if not _assert_true(scene.upgrade_system.coins == 0 and int(scene.upgrade_system.family_levels[paid_family]) == paid_family_level, "paid card changed coins or family level incorrectly"):
+		return
+	scene.wave_director.waiting_for_advance = false
+	scene._on_settlement_close_requested()
+	if not _assert_true(
+		scene.run_state == scene.RunState.SETTLEMENT
+		and scene.ui.settlement_screen.visible
+		and not bool(scene.upgrade_system.get_settlement_state()["closed"]),
+		"failed wave preflight consumed or hid the settlement"
+	):
+		return
+	scene.wave_director.waiting_for_advance = true
+	scene._on_settlement_close_requested()
+	if not _assert_true(scene.run_state == scene.RunState.WAVE_INTRO and paused and scene.wave_director.wave_index == 1, "closing settlement did not prepare the next wave introduction"):
+		return
+	scene.ui.wave_banner.finish_message()
+	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "second wave introduction did not resume combat"):
+		return
+	scene.wave_director.active = false
 
 	scene._toggle_manual_pause()
 	if not _assert_true(scene.run_state == scene.RunState.PAUSED and paused and scene.ui.pause_panel.visible, "manual pause did not own tree and UI state"):
 		return
-	scene._on_shop_offer_selected(shop_offer)
-	if not _assert_true(scene.run_state == scene.RunState.PAUSED and paused, "shop purchase closed the pause state"):
-		return
-	if not _assert_true(scene.upgrade_system.coins == 0 and scene.upgrade_system.level == free_level_before_purchase, "shop purchase changed coins or free wave level incorrectly"):
-		return
-	var purchased_shop: Dictionary = scene.upgrade_system.get_shop_state()
-	if not _assert_true(bool(purchased_shop["offers"][0]["sold"]), "shop purchase did not update the visible sold state"):
+	if not _assert_true(not scene.ui.pause_screen.has_signal("offer_selected") and not scene.ui.has_signal("shop_offer_selected"), "manual pause still exposed a second card shop"):
 		return
 	scene._toggle_manual_pause()
 	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "manual resume did not restore PLAYING"):
 		return
-	scene._toggle_manual_pause()
-	if not _assert_true(scene.upgrade_system.get_shop_state() == purchased_shop, "reopening pause rerolled or reset the shop"):
-		return
-	scene._toggle_manual_pause()
 
 	scene._end_run(false)
 	if not _assert_true(scene.run_state == scene.RunState.RESULT and paused, "defeat did not enter RESULT"):

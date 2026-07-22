@@ -33,6 +33,7 @@ func _initialize() -> void:
 		director.projectile_parent = projectiles
 		director.world_bounds = Rect2(-1400, -900, 2800, 1800)
 		director.wave_index = 0
+		director.wave_running = true
 		director.intermission = 0.0
 		director.spawn_timer = 0.0
 		director.spawn_queue.assign(Array(range(1000)).map(func(_value: int) -> int: return EnemyScript.EnemyKind.SCRAPPER))
@@ -75,6 +76,8 @@ func _initialize() -> void:
 	tracked_enemy.free()
 
 	var cleared_waves: Array[int] = []
+	var prepared_summaries: Array[Dictionary] = []
+	var finished_summaries: Array[Dictionary] = []
 	var remaining_statuses: Array[int] = []
 	var gated_director: Node = WaveDirectorScript.new()
 	var gated_fixture := Node.new()
@@ -87,38 +90,57 @@ func _initialize() -> void:
 	gated_fixture.add_child(gated_projectiles)
 	gated_fixture.add_child(gated_director)
 	gated_director.set_process(false)
-	gated_director.player = gated_player
-	gated_director.enemy_parent = gated_enemies
-	gated_director.projectile_parent = gated_projectiles
-	gated_director.wave_index = 0
-	gated_director.intermission = 0.0
+	gated_director.wave_prepared.connect(func(summary: Dictionary) -> void: prepared_summaries.append(summary.duplicate(true)))
+	gated_director.wave_finished.connect(func(summary: Dictionary) -> void: finished_summaries.append(summary.duplicate(true)))
 	gated_director.wave_cleared.connect(func(completed_wave: int) -> void: cleared_waves.append(completed_wave))
 	gated_director.wave_changed.connect(func(_index: int, _total: int, remaining: int) -> void: remaining_statuses.append(remaining))
+	gated_director.setup(gated_player, gated_enemies, gated_projectiles)
+	if not _assert_true(prepared_summaries.size() == 1 and prepared_summaries[0]["wave"] == 1, "setup did not prepare the first wave exactly once"):
+		return
+	var queued_before_intro: int = gated_director.spawn_queue.size()
+	gated_director._process(1.0)
+	if not _assert_true(gated_director.spawn_queue.size() == queued_before_intro and gated_director.active_enemies.is_empty(), "enemies spawned before the wave intro completed"):
+		return
+	if not _assert_true(gated_director.begin_prepared_wave(), "prepared first wave could not begin"):
+		return
+	gated_director.spawn_queue.clear()
+	gated_director.active_enemies.clear()
 	gated_director._process(0.016)
 	gated_director._process(0.016)
-	if not _assert_true(cleared_waves == [1], "one cleared wave emitted rewards %s" % [cleared_waves]):
+	if not _assert_true(finished_summaries.size() == 1 and finished_summaries[0]["wave"] == 1 and not finished_summaries[0]["is_final"], "first wave did not publish one finished summary"):
+		return
+	if not _assert_true(cleared_waves == [1], "one cleared wave emitted compatibility rewards %s" % [cleared_waves]):
 		return
 	if not _assert_true(gated_director.waiting_for_advance and gated_director.wave_index == 0 and gated_director.spawn_queue.is_empty(), "director started the next wave behind the upgrade gate"):
 		return
 	if not _assert_true(not remaining_statuses.is_empty() and remaining_statuses[-1] == 0, "cleared wave did not publish zero remaining enemies"):
 		return
-	if not _assert_true(gated_director.advance_after_upgrade(), "completed upgrade did not advance the wave"):
+	if not _assert_true(gated_director.can_advance_after_settlement(), "valid settlement advance was not reported ready"):
 		return
-	if not _assert_true(not gated_director.waiting_for_advance and gated_director.wave_index == 1 and not gated_director.spawn_queue.is_empty(), "next wave was not prepared after the upgrade"):
+	if not _assert_true(gated_director.advance_after_settlement(), "completed settlement did not prepare the next wave"):
 		return
-	if not _assert_true(not gated_director.advance_after_upgrade(), "duplicate upgrade completion advanced another wave"):
+	if not _assert_true(not gated_director.waiting_for_advance and gated_director.wave_index == 1 and gated_director.prepared_wave and not gated_director.spawn_queue.is_empty(), "next wave was not prepared behind its intro gate"):
+		return
+	if not _assert_true(not gated_director.can_advance_after_settlement() and not gated_director.advance_after_settlement(), "duplicate settlement completion advanced another wave"):
 		return
 
 	var victory_count := [0]
-	gated_director.active = true
-	gated_director.wave_index = gated_director.waves.size() - 1
+	gated_director.wave_index = gated_director.waves.size() - 2
+	gated_director.prepared_wave = false
+	gated_director.wave_running = false
+	gated_director.waiting_for_advance = true
+	if not _assert_true(gated_director.advance_after_settlement() and gated_director.begin_prepared_wave(), "final wave could not pass prepare and intro gates"):
+		return
 	gated_director.spawn_queue.clear()
 	gated_director.active_enemies.clear()
-	gated_director.intermission = 0.0
 	gated_director.victory.connect(func() -> void: victory_count[0] += 1)
 	gated_director._process(0.016)
 	gated_director._process(0.016)
-	if not _assert_true(victory_count[0] == 1 and not gated_director.active, "final wave did not resolve victory exactly once"):
+	if not _assert_true(finished_summaries[-1]["is_final"] and victory_count[0] == 0, "final wave bypassed its clear banner gate"):
+		return
+	if not _assert_true(gated_director.complete_final_wave() and victory_count[0] == 1 and not gated_director.active, "final wave did not resolve victory exactly once after its banner"):
+		return
+	if not _assert_true(not gated_director.complete_final_wave() and victory_count[0] == 1, "final victory resolved more than once"):
 		return
 	if not _assert_true(cleared_waves == [1], "final victory queued a useless upgrade"):
 		return

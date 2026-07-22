@@ -57,7 +57,7 @@ func _build_hud() -> void:
 	grid.add_child(health_box.get_parent())
 
 	var progression_box := _make_card()
-	level_label = _make_title("流派等级 1")
+	level_label = _make_title("等级  火力:1  机动:1  工程:1")
 	coin_value_label = _make_label("金币 0")
 	progression_box.add_child(level_label)
 	progression_box.add_child(coin_value_label)
@@ -173,9 +173,14 @@ func set_health(current: float, maximum: float) -> void:
 func set_shield(value: float, maximum: float) -> void:
 	shield_value_label.text = "护盾 %d / %d" % [int(ceil(value)), int(maximum)]
 
-func set_progression(coins: int, level: int) -> void:
-	coin_value_label.text = "金币 %d" % coins
-	level_label.text = "流派等级 %d" % level
+func set_progression_state(state: Dictionary) -> void:
+	var levels: Dictionary = state.get("family_levels", {})
+	coin_value_label.text = "金币 %d" % int(state.get("coins", 0))
+	level_label.text = "等级  火力:%d  机动:%d  工程:%d" % [
+		int(levels.get("ballistics", 1)),
+		int(levels.get("mobility", 1)),
+		int(levels.get("automation", 1)),
+	]
 
 func set_wave(index: int, total: int, remaining: int) -> void:
 	wave_label.text = "波次 %d / %d    剩余 %d" % [index, total, remaining]

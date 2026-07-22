@@ -37,6 +37,14 @@ func _initialize() -> void:
 	root.add_child(audio)
 	await process_frame
 	var audio_children_before: int = audio.get_child_count()
+	if not _assert_true(audio.has_method("play_shot"), "audio manager does not expose bounded gunshot playback"):
+		return
+	if not audio.play_shot() or audio.play_shot():
+		_assert_true(false, "gunshot playback did not accept one shot and throttle the immediate duplicate")
+		return
+	audio._process(0.02)
+	if not _assert_true(audio.play_shot(), "gunshot playback did not recover after its cooldown"):
+		return
 	for index in range(100):
 		audio._process(0.1)
 		audio.play_hit(DamageTypes.ALL[index % DamageTypes.ALL.size()])

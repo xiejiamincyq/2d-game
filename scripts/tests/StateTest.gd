@@ -25,12 +25,15 @@ func _initialize() -> void:
 	var scene: Node = MainScript.new()
 	root.add_child(scene)
 	await process_frame
-	if not _assert_true(scene.get("run_state") == 0, "Main did not start in START state"):
+	if not _assert_true(scene.run_state == scene.RunState.START, "Main did not start in START state"):
 		return
-	if not _assert_true(scene._transition_to(4) == false, "illegal START to RESULT transition was accepted"):
+	if not _assert_true(scene._transition_to(scene.RunState.RESULT) == false, "illegal START to RESULT transition was accepted"):
 		return
 	scene._start_run()
-	if not _assert_true(scene.get("run_state") == 1 and not paused, "start did not enter PLAYING"):
+	if not _assert_true(scene.run_state == scene.RunState.WAVE_INTRO and paused, "start did not enter WAVE_INTRO"):
+		return
+	scene.ui.wave_banner.finish_message()
+	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "wave banner did not enter PLAYING"):
 		return
 	if not _assert_true(
 		is_instance_valid(scene.combat_feedback)
@@ -64,7 +67,7 @@ func _initialize() -> void:
 		"a real enemy kill did not produce a clearly readable bounded burst"
 	):
 		return
-	if not _assert_true(scene.camera_effects.trauma >= 0.75, "a real enemy kill did not produce a readable camera impact"):
+	if not _assert_true(scene.camera_effects.trauma >= 0.25, "a light enemy kill did not produce its reduced camera impact"):
 		return
 	scene._reset_combat_feedback()
 	var permanent_fire_rate: float = scene.player.fire_rate * 1.5
@@ -76,19 +79,19 @@ func _initialize() -> void:
 	scene.combat_feedback.request_hit_stop(20.0)
 	scene.camera_effects.request_impact(1.0, Vector2.RIGHT)
 	scene.camera_effects._process(0.016)
-	if not _assert_true(scene._transition_to(2) and paused, "PLAYING to UPGRADE did not pause"):
+	if not _assert_true(scene._transition_to(scene.RunState.WAVE_CLEAR) and paused, "PLAYING to WAVE_CLEAR did not pause"):
 		return
 	if not _assert_true(
 		is_equal_approx(Engine.time_scale, 1.0)
 		and scene.combat_vfx.get_total_effect_count() == 0
 		and scene.player.get_node("PlayerCamera").offset == Vector2.ZERO
 		and is_zero_approx(scene.player.get_node("PlayerCamera").rotation),
-		"upgrade transition did not reset combat feedback"
+		"wave-clear transition did not reset combat feedback"
 	):
 		return
 	if not _assert_true(
 		is_equal_approx(scene.player.get_effective_fire_rate(), permanent_fire_rate),
-		"upgrade pause did not clear temporary fire-rate modifiers"
+		"wave-clear pause did not clear temporary fire-rate modifiers"
 	):
 		return
 	if not _assert_true(
@@ -98,12 +101,16 @@ func _initialize() -> void:
 		return
 	if not _assert_true(
 		is_equal_approx(scene.player.get_effective_damage_multiplier(DamageTypes.PROJECTILE), 1.0),
-		"upgrade pause did not clear temporary damage modifiers"
+		"wave-clear pause did not clear temporary damage modifiers"
 	):
 		return
-	if not _assert_true(not scene.player.is_damage_immune(), "upgrade pause left temporary immunity active"):
+	if not _assert_true(not scene.player.is_damage_immune(), "wave-clear pause left temporary immunity active"):
 		return
-	if not _assert_true(scene._transition_to(1) and not paused, "UPGRADE to PLAYING did not resume"):
+	if not _assert_true(scene._transition_to(scene.RunState.SETTLEMENT) and paused, "WAVE_CLEAR to SETTLEMENT was rejected"):
+		return
+	if not _assert_true(scene._transition_to(scene.RunState.WAVE_INTRO) and paused, "SETTLEMENT to WAVE_INTRO was rejected"):
+		return
+	if not _assert_true(scene._transition_to(scene.RunState.PLAYING) and not paused, "WAVE_INTRO to PLAYING did not resume"):
 		return
 	scene.player.set_overdrive_active(true)
 	scene.player.set_dash_immunity_active(true)
@@ -111,7 +118,7 @@ func _initialize() -> void:
 	scene.combat_feedback.request_hit_stop(20.0)
 	scene.camera_effects.request_impact(1.0, Vector2.UP)
 	scene.camera_effects._process(0.016)
-	if not _assert_true(scene._transition_to(3) and paused, "PLAYING to PAUSED did not pause"):
+	if not _assert_true(scene._transition_to(scene.RunState.PAUSED) and paused, "PLAYING to PAUSED did not pause"):
 		return
 	if not _assert_true(
 		is_equal_approx(Engine.time_scale, 1.0)
@@ -123,14 +130,14 @@ func _initialize() -> void:
 		return
 	if not _assert_true(not scene.player.is_damage_immune(), "manual pause left temporary immunity active"):
 		return
-	if not _assert_true(scene._transition_to(1) and not paused, "PAUSED to PLAYING did not resume"):
+	if not _assert_true(scene._transition_to(scene.RunState.PLAYING) and not paused, "PAUSED to PLAYING did not resume"):
 		return
 	scene.player.set_overdrive_active(true)
 	scene.combat_vfx.request_effect(&"debris", Vector2.ZERO)
 	scene.combat_feedback.request_hit_stop(20.0)
 	scene.camera_effects.request_impact(1.0, Vector2.LEFT)
 	scene.camera_effects._process(0.016)
-	if not _assert_true(scene._transition_to(4) and paused, "PLAYING to RESULT did not pause"):
+	if not _assert_true(scene._transition_to(scene.RunState.RESULT) and paused, "PLAYING to RESULT did not pause"):
 		return
 	if not _assert_true(
 		is_equal_approx(Engine.time_scale, 1.0)

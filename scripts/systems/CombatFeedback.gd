@@ -3,6 +3,7 @@ class_name CombatFeedback
 
 const CombatVfx = preload("res://scripts/effects/CombatVfx.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 
 const HIT_STOP_WINDOW_MS: float = 100.0
 const MAX_STOP_PER_WINDOW_MS: float = 35.0
@@ -26,7 +27,7 @@ func setup(vfx: Node, effects: Node, audio: Node = null) -> void:
 	audio_manager = audio
 
 func on_damage_resolved(
-	_enemy: Node,
+	enemy: Node,
 	source: StringName,
 	amount: float,
 	world_position: Vector2,
@@ -36,10 +37,12 @@ func on_damage_resolved(
 	if amount <= 0.0:
 		return
 	var intensity := clampf(amount / 40.0, 0.2, 1.0)
+	var feedback_weight := _resolve_feedback_weight(enemy)
 	_request_vfx(CombatVfx.SPARK, world_position, direction, intensity)
+	_request_hit_audio(source, feedback_weight)
 	if killed:
 		_request_kill_burst(world_position, direction, maxf(0.8, intensity))
-		_request_camera_impact(maxf(0.8, intensity), direction)
+		_request_camera_impact(_get_kill_trauma(feedback_weight), direction)
 		_request_kill_audio()
 		request_hit_stop(KILL_STOP_MS)
 	elif source in [DamageTypes.DASH, DamageTypes.SPIKE] or amount >= 40.0:
@@ -107,6 +110,24 @@ func _request_camera_impact(intensity: float, direction: Vector2) -> void:
 func _request_kill_audio() -> void:
 	if is_instance_valid(audio_manager) and audio_manager.has_method("play_kill_confirm"):
 		audio_manager.play_kill_confirm()
+
+func _request_hit_audio(source: StringName, feedback_weight: int) -> void:
+	if is_instance_valid(audio_manager) and audio_manager.has_method("play_hit"):
+		audio_manager.play_hit(source, feedback_weight)
+
+func _resolve_feedback_weight(enemy: Node) -> int:
+	if is_instance_valid(enemy) and enemy.has_method("get_feedback_weight"):
+		return int(enemy.get_feedback_weight())
+	return EnemyScript.FeedbackWeight.MEDIUM
+
+func _get_kill_trauma(feedback_weight: int) -> float:
+	match feedback_weight:
+		EnemyScript.FeedbackWeight.LIGHT:
+			return 0.28
+		EnemyScript.FeedbackWeight.HEAVY:
+			return 1.0
+		_:
+			return 0.8
 
 func _request_kill_burst(world_position: Vector2, direction: Vector2, intensity: float) -> void:
 	var base_direction := direction.normalized()

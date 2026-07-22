@@ -1,8 +1,9 @@
 extends CanvasLayer
 class_name GameUI
 
-signal upgrade_selected(choice: Dictionary)
-signal shop_offer_selected(offer: Dictionary)
+signal settlement_offer_selected(offer: Dictionary)
+signal settlement_close_requested
+signal wave_banner_finished(context: StringName)
 signal start_requested
 signal restart_requested
 signal pause_requested
@@ -10,24 +11,24 @@ signal bgm_volume_changed(value: float)
 signal bgm_mute_changed(muted: bool)
 
 const HUDScene = preload("res://scenes/ui/HUD.tscn")
-const UpgradeScene = preload("res://scenes/ui/UpgradeScreen.tscn")
 const PauseScene = preload("res://scenes/ui/PauseScreen.tscn")
+const SettlementScene = preload("res://scenes/ui/SettlementScreen.tscn")
 const ResultScene = preload("res://scenes/ui/ResultScreen.tscn")
+const WaveBannerScene = preload("res://scenes/ui/WaveBanner.tscn")
 const CyberTheme = preload("res://themes/CyberTheme.tres")
 
 var root: Control
 var hud: Control
-var upgrade_screen: Control
 var pause_screen: Control
+var settlement_screen: Control
 var result_screen: Control
+var wave_banner: Control
 var start_backdrop: ColorRect
 var start_panel: PanelContainer
 var start_button: Button
 
 # Compatibility references used by Main and focused tests.
 var hud_root: Control
-var upgrade_overlay: Control
-var upgrade_panel: PanelContainer
 var pause_overlay: Control
 var pause_panel: PanelContainer
 var result_overlay: Control
@@ -47,7 +48,6 @@ var combo_panel: PanelContainer
 var combo_label: Label
 var bgm_toggle_button: Button
 var bgm_volume_slider: HSlider
-var buttons: Array[Button] = []
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -58,13 +58,15 @@ func _ready() -> void:
 	add_child(root)
 
 	hud = HUDScene.instantiate()
-	upgrade_screen = UpgradeScene.instantiate()
 	pause_screen = PauseScene.instantiate()
+	settlement_screen = SettlementScene.instantiate()
 	result_screen = ResultScene.instantiate()
+	wave_banner = WaveBannerScene.instantiate()
 	root.add_child(hud)
-	root.add_child(upgrade_screen)
 	root.add_child(pause_screen)
+	root.add_child(settlement_screen)
 	root.add_child(result_screen)
+	root.add_child(wave_banner)
 	_build_start_screen()
 	_connect_components()
 	_bind_compatibility_references()
@@ -107,15 +109,14 @@ func _connect_components() -> void:
 	hud.pause_requested.connect(func() -> void: pause_requested.emit())
 	hud.bgm_volume_changed.connect(func(value: float) -> void: bgm_volume_changed.emit(value))
 	hud.bgm_mute_changed.connect(func(muted: bool) -> void: bgm_mute_changed.emit(muted))
-	upgrade_screen.choice_selected.connect(func(choice: Dictionary) -> void: upgrade_selected.emit(choice))
 	pause_screen.resume_requested.connect(func() -> void: pause_requested.emit())
-	pause_screen.offer_selected.connect(func(offer: Dictionary) -> void: shop_offer_selected.emit(offer))
+	settlement_screen.offer_selected.connect(func(offer: Dictionary) -> void: settlement_offer_selected.emit(offer))
+	settlement_screen.close_requested.connect(func() -> void: settlement_close_requested.emit())
+	wave_banner.finished.connect(func(context: StringName) -> void: wave_banner_finished.emit(context))
 	result_screen.restart_requested.connect(func() -> void: restart_requested.emit())
 
 func _bind_compatibility_references() -> void:
 	hud_root = hud
-	upgrade_overlay = upgrade_screen
-	upgrade_panel = upgrade_screen.panel
 	pause_overlay = pause_screen
 	pause_panel = pause_screen.panel
 	result_overlay = result_screen
@@ -135,7 +136,6 @@ func _bind_compatibility_references() -> void:
 	combo_label = hud.combo_label
 	bgm_toggle_button = hud.bgm_toggle_button
 	bgm_volume_slider = hud.bgm_volume_slider
-	buttons = upgrade_screen.buttons
 
 func _unhandled_input(event: InputEvent) -> void:
 	if start_panel.visible and event is InputEventKey and event.pressed and not event.echo:
@@ -145,34 +145,26 @@ func _unhandled_input(event: InputEvent) -> void:
 	if result_screen.visible and event is InputEventKey and event.pressed and event.keycode == KEY_R:
 		restart_requested.emit()
 		return
-	if pause_screen.visible and event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode >= KEY_1 and event.keycode <= KEY_3:
-			var shop_index: int = event.keycode - KEY_1
-			if shop_index < pause_screen.offer_buttons.size():
-				var shop_button: Button = pause_screen.offer_buttons[shop_index]
-				if shop_button.visible and not shop_button.disabled:
-					shop_button.pressed.emit()
+	if settlement_screen.visible and event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode >= KEY_1 and event.keycode <= KEY_6:
+			var settlement_index: int = event.keycode - KEY_1
+			if settlement_index < settlement_screen.offer_buttons.size():
+				var settlement_button: Button = settlement_screen.offer_buttons[settlement_index]
+				if settlement_button.visible and not settlement_button.disabled:
+					settlement_button.pressed.emit()
 			return
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_SPACE:
-		if not start_panel.visible and not upgrade_screen.visible and not result_screen.visible:
+		if not start_panel.visible and not settlement_screen.visible and not result_screen.visible:
 			pause_requested.emit()
 			return
-	if not upgrade_screen.visible or not (event is InputEventKey and event.pressed and not event.echo):
-		return
-	if event.keycode >= KEY_1 and event.keycode <= KEY_3:
-		var index: int = event.keycode - KEY_1
-		if index < buttons.size() and buttons[index].visible:
-			buttons[index].pressed.emit()
 
 func apply_viewport_size(viewport_size: Vector2) -> void:
 	hud.apply_viewport_size(viewport_size)
-	upgrade_screen.apply_viewport_size(viewport_size)
 	pause_screen.apply_viewport_size(viewport_size)
+	settlement_screen.apply_viewport_size(viewport_size)
 	result_screen.apply_viewport_size(viewport_size)
+	wave_banner.apply_viewport_size(viewport_size)
 	start_panel.custom_minimum_size = Vector2(minf(520.0, viewport_size.x - 40.0), minf(310.0, viewport_size.y - 40.0))
-
-func is_upgrade_open() -> bool:
-	return upgrade_screen.visible
 
 func set_health(current: float, maximum: float) -> void:
 	hud.set_health(current, maximum)
@@ -180,11 +172,11 @@ func set_health(current: float, maximum: float) -> void:
 func set_shield(value: float, maximum: float) -> void:
 	hud.set_shield(value, maximum)
 
-func set_progression(coins: int, level: int) -> void:
-	hud.set_progression(coins, level)
+func set_progression_state(state: Dictionary) -> void:
+	hud.set_progression_state(state)
 
-func set_shop_state(state: Dictionary) -> void:
-	pause_screen.set_shop_state(state)
+func set_settlement_state(state: Dictionary) -> void:
+	settlement_screen.set_state(state)
 
 func set_wave(index: int, total: int, remaining: int) -> void:
 	hud.set_wave(index, total, remaining)
@@ -201,13 +193,14 @@ func clear_combo() -> void:
 func show_toast(text: String) -> void:
 	hud.show_toast(text)
 
-func show_upgrades(choices: Array[Dictionary]) -> void:
-	upgrade_screen.show_choices(choices)
+func show_settlement() -> void:
+	settlement_screen.show_screen()
 
-func hide_upgrades() -> void:
-	upgrade_screen.hide_screen()
-	if pause_button != null:
-		pause_button.grab_focus()
+func hide_settlement() -> void:
+	settlement_screen.hide_screen()
+
+func show_wave_banner(text: String, context: StringName, duration: float = 1.1) -> void:
+	wave_banner.show_message(text, context, duration)
 
 func show_manual_pause() -> void:
 	pause_screen.show_screen()
@@ -219,8 +212,8 @@ func hide_manual_pause() -> void:
 	if pause_button != null:
 		pause_button.grab_focus()
 
-func show_result(victory: bool, wave_text: String, kills: int, elapsed_seconds: float, level: int) -> void:
-	result_screen.show_result(victory, wave_text, kills, elapsed_seconds, level)
+func show_result(victory: bool, wave_text: String, kills: int, elapsed_seconds: float, progression_state: Dictionary) -> void:
+	result_screen.show_result(victory, wave_text, kills, elapsed_seconds, progression_state)
 
 func hide_result() -> void:
 	result_screen.hide_screen()

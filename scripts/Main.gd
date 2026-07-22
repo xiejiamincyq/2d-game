@@ -16,7 +16,7 @@ const WORLD_BOUNDS := Rect2(-1400, -900, 2800, 1800)
 const CAMERA_SMOOTHING_CANDIDATES: Array[float] = [0.0, 8.0, 16.0, 20.0]
 const CAMERA_SMOOTHING_SPEED: float = 8.0
 
-enum RunState { START, PLAYING, UPGRADE, PAUSED, RESULT }
+enum RunState { START, WAVE_INTRO, PLAYING, WAVE_CLEAR, SETTLEMENT, PAUSED, RESULT }
 
 var world: Node2D
 var enemies: Node2D
@@ -39,6 +39,7 @@ var shield_drop_timer: float = 6.0
 var combo_count: int = 0
 var combo_timer: float = 0.0
 var run_state: RunState = RunState.START
+var pending_wave_summary: Dictionary = {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -176,7 +177,7 @@ func _start_run() -> void:
 		projectile.process_mode = Node.PROCESS_MODE_PAUSABLE
 		projectile.world_bounds = WORLD_BOUNDS
 		projectiles.add_child(projectile)
-		audio.play("shoot")
+		audio.play_shot()
 	)
 	player.laser_active_changed.connect(audio.set_laser_active)
 	player.health_changed.connect(ui.set_health)
@@ -185,54 +186,101 @@ func _start_run() -> void:
 	upgrade_system = UpgradeSystemScript.new()
 	upgrade_system.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(upgrade_system)
-	upgrade_system.setup(player)
-	upgrade_system.progression_changed.connect(ui.set_progression)
-	upgrade_system.shop_changed.connect(ui.set_shop_state)
-	upgrade_system.choices_ready.connect(_on_upgrade_choices_ready)
+	upgrade_system.progression_state_changed.connect(ui.set_progression_state)
+	upgrade_system.settlement_changed.connect(ui.set_settlement_state)
 	upgrade_system.upgrade_applied.connect(func(label: String) -> void:
 		ui.show_toast(label)
 		audio.play("upgrade")
 	)
-	upgrade_system.upgrade_queue_completed.connect(_on_upgrade_queue_completed)
-	ui.upgrade_selected.connect(_on_upgrade_selected)
-	ui.shop_offer_selected.connect(_on_shop_offer_selected)
+	upgrade_system.setup(player)
+	ui.settlement_offer_selected.connect(_on_settlement_offer_selected)
+	ui.settlement_close_requested.connect(_on_settlement_close_requested)
+	ui.wave_banner_finished.connect(_on_wave_banner_finished)
 	wave_director = WaveDirectorScript.new()
 	wave_director.process_mode = Node.PROCESS_MODE_PAUSABLE
 	wave_director.world_bounds = WORLD_BOUNDS
 	add_child(wave_director)
 	wave_director.wave_changed.connect(ui.set_wave)
-	wave_director.wave_cleared.connect(_on_wave_cleared)
+	wave_director.wave_prepared.connect(_on_wave_prepared)
+	wave_director.wave_finished.connect(_on_wave_finished)
 	wave_director.enemy_killed.connect(_on_enemy_killed)
 	wave_director.damage_resolved.connect(combat_feedback.on_damage_resolved)
 	wave_director.victory.connect(_on_victory)
 	wave_director.setup(player, enemies, projectiles)
-	upgrade_system.prepare_shop_for_wave(wave_director.wave_index + 1)
 	player.set_enemy_provider(wave_director.get_active_enemies)
 	ui.set_health(player.health.current_health, player.health.max_health)
 	ui.set_shield(player.shield, player.max_shield)
-	ui.set_progression(upgrade_system.coins, upgrade_system.level)
+	ui.set_progression_state(upgrade_system.get_progression_state())
 	ui.set_run_stats(kill_count, elapsed_seconds)
-	_transition_to(RunState.PLAYING)
 
-func _on_upgrade_choices_ready(choices: Array[Dictionary]) -> void:
-	if _transition_to(RunState.UPGRADE):
-		ui.show_upgrades(choices)
+func _on_wave_prepared(summary: Dictionary) -> void:
+	pending_wave_summary = summary.duplicate(true)
+	if not _transition_to(RunState.WAVE_INTRO):
+		return
+	ui.show_wave_banner(
+		"侦测到第 %d 波敌人" % int(summary.get("wave", 0)),
+		&"wave_intro",
+		1.15
+	)
 
-func _on_upgrade_selected(choice: Dictionary) -> void:
-	upgrade_system.apply_upgrade(choice)
+func _on_wave_finished(summary: Dictionary) -> void:
+	pending_wave_summary = summary.duplicate(true)
+	if not _transition_to(RunState.WAVE_CLEAR):
+		return
+	ui.show_wave_banner(
+		"第 %d 波清剿完成" % int(summary.get("wave", 0)),
+		&"wave_clear",
+		1.05
+	)
 
-func _on_shop_offer_selected(offer: Dictionary) -> void:
-	if run_state == RunState.PAUSED:
-		upgrade_system.purchase_shop_offer(offer)
+func _on_wave_banner_finished(context: StringName) -> void:
+	if context == &"wave_intro" and run_state == RunState.WAVE_INTRO:
+		if wave_director.begin_prepared_wave():
+			_transition_to(RunState.PLAYING)
+		else:
+			_fail_progression_gate("波次启动失败")
+		return
+	if context != &"wave_clear" or run_state != RunState.WAVE_CLEAR:
+		return
+	if bool(pending_wave_summary.get("is_final", false)):
+		if not wave_director.complete_final_wave():
+			_fail_progression_gate("最终波结算失败")
+		return
+	var completed_wave := int(pending_wave_summary.get("wave", 0))
+	if upgrade_system.prepare_settlement(completed_wave):
+		_transition_to(RunState.SETTLEMENT)
+		ui.show_settlement()
+	else:
+		_fail_progression_gate("波次结算生成失败")
 
-func _on_wave_cleared(completed_wave: int) -> void:
-	upgrade_system.queue_wave_upgrade(completed_wave)
+func _on_settlement_offer_selected(offer: Dictionary) -> void:
+	if run_state != RunState.SETTLEMENT:
+		return
+	var state: Dictionary = upgrade_system.get_settlement_state()
+	if bool(state.get("reward_claimed", false)):
+		upgrade_system.purchase_settlement_offer(offer)
+	else:
+		upgrade_system.claim_free_offer(offer)
 
-func _on_upgrade_queue_completed() -> void:
-	if is_instance_valid(wave_director):
-		if wave_director.advance_after_upgrade():
-			upgrade_system.prepare_shop_for_wave(wave_director.wave_index + 1)
-	_transition_to(RunState.PLAYING)
+func _on_settlement_close_requested() -> void:
+	if run_state != RunState.SETTLEMENT:
+		return
+	if not wave_director.can_advance_after_settlement():
+		ui.show_toast("下一波尚未就绪，请重试")
+		ui.show_settlement()
+		return
+	var state: Dictionary = upgrade_system.get_settlement_state()
+	if not upgrade_system.complete_settlement({"transaction": state.get("transaction", -1)}):
+		ui.show_toast("结算尚未完成")
+		ui.show_settlement()
+		return
+	if not wave_director.advance_after_settlement():
+		_fail_progression_gate("下一波推进失败")
+
+func _fail_progression_gate(message: String) -> void:
+	push_warning(message)
+	ui.show_toast(message)
+	_end_run(false)
 
 func _on_enemy_killed(_enemy: Node, _source: StringName, _coin_value: int) -> void:
 	kill_count += 1
@@ -240,9 +288,6 @@ func _on_enemy_killed(_enemy: Node, _source: StringName, _coin_value: int) -> vo
 	combo_timer = 3.0
 	ui.set_combo(combo_count)
 	ui.set_run_stats(kill_count, elapsed_seconds)
-
-func _on_enemy_hit(source: StringName) -> void:
-	audio.play_hit(source)
 
 func _on_player_died() -> void:
 	_end_run(false)
@@ -259,7 +304,7 @@ func _end_run(victory: bool) -> void:
 	audio.set_laser_active(false)
 	var wave_text := "抵达波次 %d/%d" % [wave_director.wave_index + 1, wave_director.waves.size()]
 	audio.play("victory" if victory else "defeat")
-	ui.show_result(victory, wave_text, kill_count, elapsed_seconds, upgrade_system.level)
+	ui.show_result(victory, wave_text, kill_count, elapsed_seconds, upgrade_system.get_progression_state())
 	_transition_to(RunState.RESULT)
 
 func _toggle_manual_pause() -> void:
@@ -280,11 +325,13 @@ func _transition_to(next_state: RunState) -> bool:
 	if next_state == run_state:
 		return true
 	var allowed: Dictionary = {
-		RunState.START: [RunState.PLAYING],
-		RunState.PLAYING: [RunState.UPGRADE, RunState.PAUSED, RunState.RESULT],
-		RunState.UPGRADE: [RunState.PLAYING, RunState.RESULT],
+		RunState.START: [RunState.WAVE_INTRO],
+		RunState.WAVE_INTRO: [RunState.PLAYING, RunState.RESULT],
+		RunState.PLAYING: [RunState.WAVE_CLEAR, RunState.PAUSED, RunState.RESULT],
+		RunState.WAVE_CLEAR: [RunState.SETTLEMENT, RunState.RESULT],
+		RunState.SETTLEMENT: [RunState.WAVE_INTRO, RunState.RESULT],
 		RunState.PAUSED: [RunState.PLAYING, RunState.RESULT],
-		RunState.RESULT: [RunState.PLAYING],
+		RunState.RESULT: [],
 	}
 	if not next_state in allowed.get(run_state, []):
 		return false
@@ -292,20 +339,32 @@ func _transition_to(next_state: RunState) -> bool:
 		_reset_combat_feedback()
 	run_state = next_state
 	manual_paused = run_state == RunState.PAUSED
-	get_tree().paused = run_state in [RunState.UPGRADE, RunState.PAUSED, RunState.RESULT]
+	get_tree().paused = run_state in [
+		RunState.WAVE_INTRO,
+		RunState.WAVE_CLEAR,
+		RunState.SETTLEMENT,
+		RunState.PAUSED,
+		RunState.RESULT,
+	]
 	match run_state:
 		RunState.PLAYING:
 			ui.hide_start_screen()
-			ui.hide_upgrades()
+			ui.hide_settlement()
 			ui.hide_manual_pause()
 			ui.hide_result()
-		RunState.UPGRADE:
+		RunState.WAVE_INTRO:
+			ui.hide_start_screen()
+			ui.hide_settlement()
+			ui.hide_manual_pause()
+		RunState.WAVE_CLEAR:
+			ui.hide_manual_pause()
+		RunState.SETTLEMENT:
 			ui.hide_manual_pause()
 		RunState.PAUSED:
-			ui.hide_upgrades()
+			ui.hide_settlement()
 			ui.show_manual_pause()
 		RunState.RESULT:
-			ui.hide_upgrades()
+			ui.hide_settlement()
 			ui.hide_manual_pause()
 	return true
 

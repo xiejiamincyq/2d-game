@@ -25,6 +25,38 @@ func _initialize() -> void:
 	var audio: Node = AudioManagerScript.new()
 	root.add_child(audio)
 	await process_frame
+	var gunshot := audio.streams.get("shoot") as AudioStreamWAV
+	if gunshot == null:
+		_fail("procedural gunshot stream is missing.")
+		return
+	var gunshot_duration := float(gunshot.data.size() / 2) / float(gunshot.mix_rate)
+	if gunshot_duration < 0.06 or gunshot_duration > 0.09:
+		_fail("gunshot duration %.3fs escaped the 0.06-0.09s ballistic window." % gunshot_duration)
+		return
+	var segment_samples := maxi(1, int(float(gunshot.mix_rate) * 0.01))
+	var early_square_sum := 0.0
+	var tail_square_sum := 0.0
+	for sample_index in range(segment_samples):
+		var early_sample := float(gunshot.data.decode_s16(sample_index * 2)) / 32767.0
+		var tail_byte_index := gunshot.data.size() - (segment_samples - sample_index) * 2
+		var tail_sample := float(gunshot.data.decode_s16(tail_byte_index)) / 32767.0
+		early_square_sum += early_sample * early_sample
+		tail_square_sum += tail_sample * tail_sample
+	var early_rms := sqrt(early_square_sum / float(segment_samples))
+	var tail_rms := sqrt(tail_square_sum / float(segment_samples))
+	if early_rms < 0.18 or early_rms < tail_rms * 2.5:
+		_fail("gunshot envelope lacks a strong crack and fast tail decay (early %.3f, tail %.3f)." % [early_rms, tail_rms])
+		return
+	var light_hit := audio.streams.get("hit_light") as AudioStreamWAV
+	var heavy_hit := audio.streams.get("hit_heavy") as AudioStreamWAV
+	if light_hit == null or heavy_hit == null or light_hit == heavy_hit:
+		_fail("light and heavy enemy hit profiles are not distinct WAV streams.")
+		return
+	var light_duration := float(light_hit.data.size() / 2) / float(light_hit.mix_rate)
+	var heavy_duration := float(heavy_hit.data.size() / 2) / float(heavy_hit.mix_rate)
+	if light_duration > 0.055 or heavy_duration < 0.12 or heavy_duration > 0.14:
+		_fail("enemy weight hit durations are outside their light/heavy windows (%.3f/%.3f)." % [light_duration, heavy_duration])
+		return
 	if audio.get("bgm_profile_id") != &"industrial_hardcore_168":
 		_fail("BGM did not select the industrial hardcore 168 BPM profile.")
 		return
@@ -124,6 +156,12 @@ func _initialize() -> void:
 		EnemyScript.EnemyKind.BRUISER,
 	]
 	var base_coin_values: Array[int] = [1, 2, 3, 8]
+	var expected_feedback_weights: Array[int] = [
+		EnemyScript.FeedbackWeight.MEDIUM,
+		EnemyScript.FeedbackWeight.LIGHT,
+		EnemyScript.FeedbackWeight.LIGHT,
+		EnemyScript.FeedbackWeight.HEAVY,
+	]
 	var wave_enemies: Array[Node] = []
 	for kind_index in range(enemy_kinds.size()):
 		for wave_index in range(1, 9):
@@ -131,10 +169,22 @@ func _initialize() -> void:
 			wave_enemy.setup(enemy_kinds[kind_index], wave_index, root)
 			root.add_child(wave_enemy)
 			wave_enemies.append(wave_enemy)
-			var expected_coins: int = maxi(1, roundi(float(base_coin_values[kind_index]) * (1.0 + 0.15 * float(wave_index - 1))))
+			var actual_feedback_weight: Variant = wave_enemy.get("feedback_weight")
+			if actual_feedback_weight != expected_feedback_weights[kind_index]:
+				_fail("enemy kind %d has feedback weight %s instead of %d." % [enemy_kinds[kind_index], actual_feedback_weight, expected_feedback_weights[kind_index]])
+				return
+			var expected_coins: int = base_coin_values[kind_index]
 			if wave_enemy.coin_value != expected_coins:
 				_fail("enemy kind %d wave %d coin value was %d instead of %d." % [enemy_kinds[kind_index], wave_index, wave_enemy.coin_value, expected_coins])
 				return
+			if enemy_kinds[kind_index] == EnemyScript.EnemyKind.BRUISER and wave_index == 2:
+				if not is_equal_approx(wave_enemy.health.max_health, 378.0):
+					_fail("wave-two Bruiser health %.2f did not equal the 378 combat-weight target." % wave_enemy.health.max_health)
+					return
+				var base_weapon_ttk: float = wave_enemy.health.max_health / (10.0 * 13.0)
+				if base_weapon_ttk < 2.7 or base_weapon_ttk > 3.1:
+					_fail("wave-two Bruiser base-weapon TTK %.3fs escaped the 2.7-3.1s target." % base_weapon_ttk)
+					return
 
 	enemy.queue_free()
 	bgm = null

@@ -5,6 +5,7 @@ const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
 const CombatFeedbackScript = preload("res://scripts/systems/CombatFeedback.gd")
 const AudioManagerScript = preload("res://scripts/systems/AudioManager.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
@@ -66,9 +67,22 @@ func _initialize() -> void:
 	var feedback: Node = CombatFeedbackScript.new()
 	root.add_child(feedback)
 	feedback.setup(vfx, camera_effects, audio)
+	var light_enemy: Node = EnemyScript.new()
+	var medium_enemy: Node = EnemyScript.new()
+	var heavy_enemy: Node = EnemyScript.new()
+	root.add_child(light_enemy)
+	root.add_child(medium_enemy)
+	root.add_child(heavy_enemy)
+	light_enemy.setup(EnemyScript.EnemyKind.DASHER, 1, root)
+	medium_enemy.setup(EnemyScript.EnemyKind.SCRAPPER, 1, root)
+	heavy_enemy.setup(EnemyScript.EnemyKind.BRUISER, 1, root)
+	await process_frame
+	for enemy in [light_enemy, medium_enemy, heavy_enemy]:
+		enemy.set_physics_process(false)
+		enemy.health.set_process(false)
 	Engine.time_scale = 1.0
 	feedback.on_damage_resolved(
-		null,
+		medium_enemy,
 		DamageTypes.PROJECTILE,
 		10.0,
 		Vector2(30.0, 20.0),
@@ -79,9 +93,14 @@ func _initialize() -> void:
 		return
 	if not _assert_true(vfx.get_effect_count(CombatVfxScript.SPARK) == 1, "ordinary damage did not request one spark record"):
 		return
+	if not _assert_true(
+		not audio.play_hit(DamageTypes.PROJECTILE),
+		"legacy Enemy.hit playback was not suppressed after the damage fact played its cue"
+	):
+		return
 
 	feedback.on_damage_resolved(
-		null,
+		medium_enemy,
 		DamageTypes.PROJECTILE,
 		20.0,
 		Vector2(40.0, 20.0),
@@ -89,6 +108,8 @@ func _initialize() -> void:
 		true
 	)
 	if not _assert_true(Engine.time_scale < 1.0, "a kill did not trigger hit-stop"):
+		return
+	if not _assert_true(is_equal_approx(camera_effects.trauma, 0.8), "a medium kill did not preserve the current 0.80 trauma"):
 		return
 	if not _assert_true(
 		vfx.get_effect_count(CombatVfxScript.DEBRIS) >= 6
@@ -102,6 +123,46 @@ func _initialize() -> void:
 			kill_cue_assigned = true
 			break
 	if not _assert_true(kill_cue_assigned, "a kill did not play the dedicated confirmation cue"):
+		return
+	feedback.reset_all()
+	camera_effects.clear_all()
+	audio._process(1.0)
+	feedback.on_damage_resolved(
+		light_enemy,
+		DamageTypes.PROJECTILE,
+		20.0,
+		Vector2.ZERO,
+		Vector2.RIGHT,
+		true
+	)
+	if not _assert_true(is_equal_approx(camera_effects.trauma, 0.28), "a light kill did not use 0.28 trauma"):
+		return
+	var light_cue_assigned := false
+	for voice in audio.voice_pool:
+		if voice.stream == audio.streams.get("hit_light"):
+			light_cue_assigned = true
+			break
+	if not _assert_true(light_cue_assigned, "a light damage fact did not play the light hit cue"):
+		return
+	feedback.reset_all()
+	camera_effects.clear_all()
+	audio._process(1.0)
+	feedback.on_damage_resolved(
+		heavy_enemy,
+		DamageTypes.PROJECTILE,
+		20.0,
+		Vector2.ZERO,
+		Vector2.RIGHT,
+		true
+	)
+	if not _assert_true(is_equal_approx(camera_effects.trauma, 1.0), "a heavy kill did not use 1.00 trauma"):
+		return
+	var heavy_cue_assigned := false
+	for voice in audio.voice_pool:
+		if voice.stream == audio.streams.get("hit_heavy"):
+			heavy_cue_assigned = true
+			break
+	if not _assert_true(heavy_cue_assigned, "a heavy damage fact did not play the heavy hit cue"):
 		return
 	for request_index in range(20):
 		feedback.request_heavy_hit(Vector2.ZERO, Vector2.UP, 1.0)
@@ -138,6 +199,9 @@ func _initialize() -> void:
 	feedback.queue_free()
 	camera_effects.queue_free()
 	camera.queue_free()
+	light_enemy.queue_free()
+	medium_enemy.queue_free()
+	heavy_enemy.queue_free()
 	TestSupport.stop_audio(audio)
 	await create_timer(0.25).timeout
 	audio.queue_free()

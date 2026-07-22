@@ -3,6 +3,8 @@ class_name WaveDirector
 
 signal wave_changed(index: int, total: int, remaining: int)
 signal wave_cleared(completed_wave: int)
+signal wave_prepared(summary: Dictionary)
+signal wave_finished(summary: Dictionary)
 signal enemy_killed(enemy: Node, source: StringName, coin_value: int)
 signal damage_resolved(
 	enemy: Node,
@@ -25,6 +27,8 @@ var spawn_timer: float = 0.0
 var intermission: float = 1.2
 var active: bool = true
 var waiting_for_advance: bool = false
+var prepared_wave: bool = false
+var wave_running: bool = false
 var world_bounds: Rect2 = Rect2()
 var spawn_rng := RandomNumberGenerator.new()
 var active_enemies: Array[Node] = []
@@ -47,15 +51,12 @@ func setup(target_player: Node, enemies: Node, projectiles: Node) -> void:
 	player = target_player
 	enemy_parent = enemies
 	projectile_parent = projectiles
-	_start_next_wave()
+	prepare_next_wave()
 
 func _process(delta: float) -> void:
 	if not active or player == null:
 		return
-	if waiting_for_advance:
-		return
-	if intermission > 0.0:
-		intermission -= delta
+	if waiting_for_advance or prepared_wave or not wave_running:
 		return
 	if spawn_queue.is_empty():
 		if active_enemies.is_empty():
@@ -75,12 +76,14 @@ func _process_spawn_timer(delta: float) -> int:
 		_emit_wave_status()
 	return spawned
 
-func _start_next_wave() -> void:
+func prepare_next_wave() -> bool:
+	if player == null or prepared_wave or wave_running or waiting_for_advance:
+		return false
 	wave_index += 1
 	if wave_index >= waves.size():
+		wave_index = waves.size() - 1
 		active = false
-		victory.emit()
-		return
+		return false
 	spawn_queue.clear()
 	var wave := waves[wave_index]
 	for count in range(int(wave["scrapper"])):
@@ -92,29 +95,71 @@ func _start_next_wave() -> void:
 	for count in range(int(wave["bruiser"])):
 		spawn_queue.append(EnemyScript.EnemyKind.BRUISER)
 	spawn_queue.shuffle()
-	intermission = 1.5
+	prepared_wave = true
+	wave_running = false
+	active = true
+	intermission = 0.0
 	spawn_timer = 0.0
 	_emit_wave_status()
+	wave_prepared.emit(_get_wave_summary())
+	return true
+
+func begin_prepared_wave() -> bool:
+	if not active or not prepared_wave or wave_running or waiting_for_advance:
+		return false
+	prepared_wave = false
+	wave_running = true
+	spawn_timer = 0.0
+	return true
 
 func _finish_current_wave() -> void:
-	_emit_wave_status()
-	if wave_index >= waves.size() - 1:
-		active = false
-		victory.emit()
+	if waiting_for_advance or not wave_running:
 		return
+	_emit_wave_status()
+	wave_running = false
 	waiting_for_advance = true
-	wave_cleared.emit(wave_index + 1)
+	var summary := _get_wave_summary()
+	wave_finished.emit(summary)
+	if not bool(summary["is_final"]):
+		wave_cleared.emit(wave_index + 1)
 
-func advance_after_upgrade() -> bool:
-	if not waiting_for_advance or not active:
+func advance_after_settlement() -> bool:
+	if not can_advance_after_settlement():
 		return false
 	waiting_for_advance = false
-	_start_next_wave()
+	return prepare_next_wave()
+
+func can_advance_after_settlement() -> bool:
+	return (
+		waiting_for_advance
+		and active
+		and not prepared_wave
+		and not wave_running
+		and wave_index >= 0
+		and wave_index < waves.size() - 1
+	)
+
+func complete_final_wave() -> bool:
+	if not active or not waiting_for_advance or wave_index != waves.size() - 1:
+		return false
+	waiting_for_advance = false
+	active = false
+	victory.emit()
 	return true
+
+func _get_wave_summary() -> Dictionary:
+	return {
+		"wave": wave_index + 1,
+		"total": waves.size(),
+		"is_final": wave_index == waves.size() - 1,
+	}
 
 func _spawn_enemy(kind: int) -> void:
 	var enemy := EnemyScript.new()
-	enemy.global_position = sample_spawn_position(player.global_position, 24.0, 430.0, spawn_rng)
+	if kind == EnemyScript.EnemyKind.SPITTER:
+		enemy.global_position = sample_spitter_spawn_position(player.global_position, get_camera_safe_rect(), spawn_rng)
+	else:
+		enemy.global_position = sample_spawn_position(player.global_position, 24.0, 430.0, spawn_rng)
 	if world_bounds.size != Vector2.ZERO:
 		enemy.world_bounds = world_bounds
 	enemy.setup(kind, wave_index + 1, projectile_parent)
@@ -122,11 +167,6 @@ func _spawn_enemy(kind: int) -> void:
 	active_enemies.append(enemy)
 	enemy.tree_exiting.connect(_on_enemy_tree_exiting.bind(enemy), CONNECT_ONE_SHOT)
 	enemy.died.connect(_on_enemy_died)
-	if enemy.has_signal("hit"):
-		enemy.hit.connect(func(source: StringName) -> void:
-			if get_parent().has_method("_on_enemy_hit"):
-				get_parent()._on_enemy_hit(source)
-		)
 	if enemy.has_signal("damage_resolved"):
 		enemy.damage_resolved.connect(func(
 			resolved_enemy: Node,
@@ -145,6 +185,58 @@ func _spawn_enemy(kind: int) -> void:
 				killed
 			)
 		)
+
+func get_camera_safe_rect(margin: float = EnemyScript.RANGED_SAFE_MARGIN) -> Rect2:
+	var viewport := get_viewport()
+	var viewport_size := viewport.get_visible_rect().size
+	var camera := viewport.get_camera_2d()
+	var center: Vector2 = player.global_position if player != null else viewport.get_visible_rect().get_center()
+	var zoom := Vector2.ONE
+	if camera != null:
+		center = camera.get_screen_center_position()
+		zoom = camera.zoom.abs()
+	var visible_size := Vector2(
+		viewport_size.x / maxf(zoom.x, 0.001),
+		viewport_size.y / maxf(zoom.y, 0.001)
+	)
+	var safe_rect := Rect2(center - visible_size * 0.5, visible_size).grow(-margin)
+	if world_bounds.size != Vector2.ZERO:
+		safe_rect = safe_rect.intersection(world_bounds.grow(-24.0))
+	return safe_rect
+
+func sample_spitter_spawn_position(
+	player_position: Vector2,
+	safe_rect: Rect2,
+	rng: RandomNumberGenerator
+) -> Vector2:
+	var allowed_rect := safe_rect
+	if world_bounds.size != Vector2.ZERO:
+		allowed_rect = allowed_rect.intersection(world_bounds.grow(-24.0))
+	if allowed_rect.size.x <= 0.0 or allowed_rect.size.y <= 0.0:
+		return sample_spawn_position(player_position, 24.0, 430.0, rng)
+	var minimum_distance := EnemyScript.calculate_dynamic_ranged_min_distance(safe_rect)
+	var maximum_distance := EnemyScript.calculate_dynamic_ranged_max_distance(safe_rect)
+	var maximum := allowed_rect.end - Vector2(0.001, 0.001)
+	for attempt in range(128):
+		var candidate := Vector2(
+			rng.randf_range(allowed_rect.position.x, maximum.x),
+			rng.randf_range(allowed_rect.position.y, maximum.y)
+		)
+		var distance := candidate.distance_to(player_position)
+		if distance >= minimum_distance and distance <= maximum_distance:
+			return candidate
+	for y_step in range(17):
+		for x_step in range(17):
+			var candidate := Vector2(
+				lerpf(allowed_rect.position.x, maximum.x, float(x_step) / 16.0),
+				lerpf(allowed_rect.position.y, maximum.y, float(y_step) / 16.0)
+			)
+			var distance := candidate.distance_to(player_position)
+			if distance >= minimum_distance and distance <= maximum_distance:
+				return candidate
+	# Degenerate camera/world intersections are not expected in the game, but
+	# keep the fallback visible and inside world bounds rather than losing it.
+	return player_position.clamp(allowed_rect.position, maximum)
 
 func sample_spawn_position(
 	player_position: Vector2,

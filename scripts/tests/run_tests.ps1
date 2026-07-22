@@ -24,9 +24,12 @@ $tests = @(
     "DashTest",
     "MovementTest",
     "WaveTest",
+    "EnemyBehaviorTest",
     "UpgradeTest",
     "StateTest",
+    "GateFailureTest",
     "UITest",
+    "SettlementUITest",
     "PerformanceTest",
     "SmokeTest"
 )

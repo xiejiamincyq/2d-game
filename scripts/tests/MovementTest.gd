@@ -60,6 +60,7 @@ func _initialize() -> void:
 	root.add_child(scene)
 	await process_frame
 	scene._start_run()
+	scene.ui.wave_banner.finish_message()
 	var camera: Camera2D = scene.player.get_node("PlayerCamera")
 	if not _assert_true(camera.position_smoothing_enabled, "recommended camera profile disabled smoothing"):
 		return

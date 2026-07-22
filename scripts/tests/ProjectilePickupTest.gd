@@ -24,6 +24,7 @@ func _initialize() -> void:
 	await process_frame
 	scene._start_run()
 	await process_frame
+	scene.ui.wave_banner.finish_message()
 	scene.wave_director.active = false
 
 	var enemy: CharacterBody2D = EnemyScript.new()

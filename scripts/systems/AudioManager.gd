@@ -2,8 +2,10 @@ extends Node
 class_name AudioManager
 
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const HIT_COOLDOWN := 0.055
 const KILL_CONFIRM_COOLDOWN := 0.045
+const SHOOT_COOLDOWN := 0.02
 const VOICE_POOL_SIZE := 16
 const BGM_BPM := 168.0
 const BGM_BEATS_PER_BAR := 4
@@ -24,6 +26,7 @@ var hit_stream_names: Dictionary = {
 }
 var hit_cooldowns: Dictionary = {}
 var kill_confirm_cooldown: float = 0.0
+var shoot_cooldown: float = 0.0
 var laser_loop_player: AudioStreamPlayer
 var voice_pool: Array[AudioStreamPlayer] = []
 var voice_cursor: int = 0
@@ -31,12 +34,14 @@ var voice_cursor: int = 0
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	streams["bgm"] = _make_bgm_loop()
-	streams["shoot"] = _make_tone(660.0, 0.035, 0.18, 0.35)
+	streams["shoot"] = _make_gunshot()
 	streams["coin"] = _make_tone(1040.0, 0.07, 0.1, 0.34, 1.35)
 	streams["pickup"] = _make_tone(760.0, 0.06, 0.1, 0.28)
 	streams["upgrade"] = _make_tone(520.0, 0.18, 0.22, 0.45, 1.8)
 	streams["hit"] = _make_tone(180.0, 0.05, 0.18, 0.32)
 	streams["enemy_hit"] = _make_impact(0.075, 0.58, 820.0, 0.42)
+	streams["hit_light"] = _make_impact(0.045, 0.34, 1680.0, 520.0)
+	streams["hit_heavy"] = _make_heavy_impact()
 	streams["hit_projectile"] = _make_impact(0.055, 0.5, 980.0, 210.0)
 	streams["hit_laser"] = _make_harmonic_impact(0.1, 0.36, 720.0, 0.08)
 	streams["hit_arc"] = _make_harmonic_impact(0.12, 0.38, 430.0, 0.16)
@@ -61,13 +66,21 @@ func _process(delta: float) -> void:
 	for source in hit_cooldowns.keys():
 		hit_cooldowns[source] = maxf(0.0, float(hit_cooldowns[source]) - delta)
 	kill_confirm_cooldown = maxf(0.0, kill_confirm_cooldown - delta)
+	shoot_cooldown = maxf(0.0, shoot_cooldown - delta)
 
-func play_hit(source: StringName) -> bool:
+func play_hit(source: StringName, feedback_weight: int = EnemyScript.FeedbackWeight.MEDIUM) -> bool:
 	var resolved: StringName = source if hit_stream_names.has(source) else DamageTypes.GENERIC
 	if float(hit_cooldowns.get(resolved, 0.0)) > 0.0:
 		return false
 	hit_cooldowns[resolved] = HIT_COOLDOWN
-	play(String(hit_stream_names.get(resolved, "enemy_hit")))
+	play(_get_hit_stream_name(resolved, feedback_weight))
+	return true
+
+func play_shot() -> bool:
+	if shoot_cooldown > 0.0:
+		return false
+	shoot_cooldown = SHOOT_COOLDOWN
+	play("shoot")
 	return true
 
 func play_kill_confirm() -> bool:
@@ -76,6 +89,13 @@ func play_kill_confirm() -> bool:
 	kill_confirm_cooldown = KILL_CONFIRM_COOLDOWN
 	play("kill_confirm")
 	return true
+
+func _get_hit_stream_name(source: StringName, feedback_weight: int) -> String:
+	if feedback_weight == EnemyScript.FeedbackWeight.LIGHT:
+		return "hit_light"
+	if feedback_weight == EnemyScript.FeedbackWeight.HEAVY:
+		return "hit_heavy"
+	return String(hit_stream_names.get(source, "enemy_hit"))
 
 func set_laser_active(active: bool) -> void:
 	if active and not laser_loop_player.playing:
@@ -141,6 +161,33 @@ func _make_tone(freq: float, duration: float, attack: float, volume: float, swee
 		var sample := sin(TAU * current_freq * t) * env * volume
 		var value := int(clampf(sample, -1.0, 1.0) * 32767.0)
 		data.encode_s16(i * 2, value)
+	var wav := AudioStreamWAV.new()
+	wav.format = AudioStreamWAV.FORMAT_16_BITS
+	wav.mix_rate = sample_rate
+	wav.stereo = false
+	wav.data = data
+	return wav
+
+func _make_gunshot() -> AudioStreamWAV:
+	var sample_rate := 22050
+	var duration := 0.072
+	var sample_count := int(duration * sample_rate)
+	var data := PackedByteArray()
+	data.resize(sample_count * 2)
+	var noise_seed := 0x51A7B00
+	for i in range(sample_count):
+		noise_seed = int((1103515245 * noise_seed + 12345) & 0x7fffffff)
+		var t := float(i) / float(sample_rate)
+		var progress := float(i) / maxf(1.0, float(sample_count - 1))
+		var attack := minf(1.0, t / 0.0015)
+		var noise := (float(noise_seed % 2000) / 1000.0) - 1.0
+		var crack := noise * exp(-t * 165.0) * 0.88
+		var body_frequency := lerpf(145.0, 72.0, progress)
+		var body := sin(TAU * body_frequency * t) * exp(-t * 38.0) * 0.48
+		var snap_frequency := lerpf(1180.0, 260.0, progress)
+		var snap := sin(TAU * snap_frequency * t) * exp(-t * 62.0) * 0.38
+		var sample := (crack + body + snap) * attack * 0.82
+		data.encode_s16(i * 2, int(clampf(sample, -1.0, 1.0) * 32767.0))
 	var wav := AudioStreamWAV.new()
 	wav.format = AudioStreamWAV.FORMAT_16_BITS
 	wav.mix_rate = sample_rate
@@ -246,6 +293,32 @@ func _make_impact(duration: float, volume: float, start_freq: float, end_freq: f
 		var sample := (noise * 0.45 + tone + click) * env * volume
 		var value := int(clampf(sample, -1.0, 1.0) * 32767.0)
 		data.encode_s16(i * 2, value)
+	var wav := AudioStreamWAV.new()
+	wav.format = AudioStreamWAV.FORMAT_16_BITS
+	wav.mix_rate = sample_rate
+	wav.stereo = false
+	wav.data = data
+	return wav
+
+func _make_heavy_impact() -> AudioStreamWAV:
+	var sample_rate := 22050
+	var duration := 0.13
+	var sample_count := int(duration * sample_rate)
+	var data := PackedByteArray()
+	data.resize(sample_count * 2)
+	var noise_seed := 0x2F6E2B1
+	for i in range(sample_count):
+		noise_seed = int((1103515245 * noise_seed + 12345) & 0x7fffffff)
+		var t := float(i) / float(sample_rate)
+		var progress := float(i) / maxf(1.0, float(sample_count - 1))
+		var attack := minf(1.0, t / 0.002)
+		var envelope := attack * pow(1.0 - progress, 1.7)
+		var frequency := lerpf(180.0, 55.0, progress)
+		var low_body := sin(TAU * frequency * t) * 0.72
+		var low_harmonic := sin(TAU * frequency * 2.0 * t) * 0.22
+		var noise := ((float(noise_seed % 2000) / 1000.0) - 1.0) * exp(-t * 45.0) * 0.28
+		var sample := (low_body + low_harmonic + noise) * envelope * 0.74
+		data.encode_s16(i * 2, int(clampf(sample, -1.0, 1.0) * 32767.0))
 	var wav := AudioStreamWAV.new()
 	wav.format = AudioStreamWAV.FORMAT_16_BITS
 	wav.mix_rate = sample_rate

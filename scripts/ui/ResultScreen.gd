@@ -38,10 +38,18 @@ func _ready() -> void:
 	restart_button.pressed.connect(func() -> void: restart_requested.emit())
 	box.add_child(restart_button)
 
-func show_result(victory: bool, wave_text: String, kills: int, elapsed_seconds: float, level: int) -> void:
+func show_result(victory: bool, wave_text: String, kills: int, elapsed_seconds: float, progression_state: Dictionary) -> void:
 	var title := "清剿完成" if victory else "系统失效"
-	result_label.text = "%s\n%s\n击杀数量 %d\n作战用时 %02d:%02d\n最终等级 %d\n\n按 R 或按钮重新开始" % [
-		title, wave_text, kills, int(elapsed_seconds) / 60, int(elapsed_seconds) % 60, level
+	var levels: Dictionary = progression_state.get("family_levels", {})
+	result_label.text = "%s\n%s\n击杀数量 %d\n作战用时 %02d:%02d\n等级  火力:%d  机动:%d  工程:%d\n\n按 R 或按钮重新开始" % [
+		title,
+		wave_text,
+		kills,
+		int(elapsed_seconds) / 60,
+		int(elapsed_seconds) % 60,
+		int(levels.get("ballistics", 1)),
+		int(levels.get("mobility", 1)),
+		int(levels.get("automation", 1)),
 	]
 	visible = true
 	restart_button.grab_focus()

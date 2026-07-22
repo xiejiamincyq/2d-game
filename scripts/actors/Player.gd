@@ -18,6 +18,10 @@ const OVERDRIVE_MODIFIER: StringName = &"overdrive"
 const DASH_IMMUNITY_SOURCE: StringName = &"dash"
 const OVERDRIVE_FIRE_RATE_MULTIPLIER: float = 2.0
 const OVERDRIVE_DAMAGE_MULTIPLIER: float = 4.0
+const FAMILY_DAMAGE_PER_LEVEL: float = 1.05
+const ORBITAL_STORM_INTERVAL: int = 5
+const ORBITAL_STORM_PROJECTILES: int = 12
+const ORBITAL_STORM_DAMAGE_SCALE: float = 0.55
 
 var move_speed: float = 235.0
 var pickup_radius: float = 92.0
@@ -65,6 +69,13 @@ var enemy_provider: Callable
 var _fire_rate_modifiers: Dictionary = {}
 var _damage_modifiers: Dictionary = {}
 var _damage_immunity_sources: Dictionary = {}
+var build_family_levels: Dictionary = {
+	"ballistics": 1,
+	"mobility": 1,
+	"automation": 1,
+}
+var active_build_evolutions: Dictionary = {}
+var fire_volley_count: int = 0
 
 func _ready() -> void:
 	add_to_group("player")
@@ -157,7 +168,51 @@ func get_effective_damage_multiplier(source: StringName) -> float:
 	var multiplier := _multiply_damage_modifiers(ALL_DAMAGE_SOURCES)
 	if source != ALL_DAMAGE_SOURCES:
 		multiplier *= _multiply_damage_modifiers(source)
+	multiplier *= _get_build_family_damage_multiplier(source)
 	return multiplier
+
+func set_build_family_levels(levels: Dictionary) -> void:
+	for family_id in build_family_levels:
+		build_family_levels[family_id] = maxi(1, int(levels.get(family_id, 1)))
+
+func _get_build_family_damage_multiplier(source: StringName) -> float:
+	var family_id := ""
+	match source:
+		DamageTypes.PROJECTILE:
+			family_id = "ballistics"
+		DamageTypes.DASH, DamageTypes.SPIKE:
+			family_id = "mobility"
+		DamageTypes.LASER, DamageTypes.ARC:
+			family_id = "automation"
+	if family_id.is_empty():
+		return 1.0
+	return pow(FAMILY_DAMAGE_PER_LEVEL, float(int(build_family_levels.get(family_id, 1)) - 1))
+
+func activate_build_evolution(evolution_id: String) -> bool:
+	if active_build_evolutions.has(evolution_id):
+		return false
+	match evolution_id:
+		"orbital_storm":
+			active_build_evolutions[evolution_id] = true
+		"rift_overdrive":
+			active_build_evolutions[evolution_id] = true
+			mine_level = maxi(1, mine_level)
+			dash_cooldown = maxf(0.65, dash_cooldown * 0.55)
+			dash_distance *= 1.25
+			spike_spacing = maxf(20.0, spike_spacing * 0.65)
+			spike_damage *= 1.35
+			_reset_spike_path()
+		"thunder_matrix":
+			active_build_evolutions[evolution_id] = true
+			drone_count = maxi(2, drone_count + 1)
+			drone_damage *= 1.35
+			arc_pulse_level = maxi(1, arc_pulse_level)
+			arc_damage *= 1.35
+			arc_radius += 60.0
+		_:
+			return false
+	queue_redraw()
+	return true
 
 func set_damage_modifier(
 	modifier_id: StringName,
@@ -234,6 +289,11 @@ func _fire() -> void:
 	var start_offset := -spread_step * float(weapon_lines - 1) * 0.5
 	for line in range(weapon_lines):
 		_spawn_bullet(direction.rotated(start_offset + spread_step * line))
+	fire_volley_count += 1
+	if active_build_evolutions.has("orbital_storm") and fire_volley_count % ORBITAL_STORM_INTERVAL == 0:
+		for radial_index in range(ORBITAL_STORM_PROJECTILES):
+			var radial_direction := Vector2.RIGHT.rotated(TAU * float(radial_index) / float(ORBITAL_STORM_PROJECTILES))
+			_spawn_bullet(radial_direction, ORBITAL_STORM_DAMAGE_SCALE)
 
 func _update_fire(delta: float, wants_fire: bool) -> int:
 	var fired_count := 0
@@ -248,11 +308,11 @@ func _update_fire(delta: float, wants_fire: bool) -> int:
 		fired_count += 1
 	return fired_count
 
-func _spawn_bullet(direction: Vector2) -> void:
+func _spawn_bullet(direction: Vector2, damage_scale: float = 1.0) -> void:
 	var shot := ProjectileScript.new()
 	shot.global_position = global_position + direction * 25.0
 	shot.velocity = direction * projectile_speed
-	shot.damage = weapon_damage
+	shot.damage = weapon_damage * maxf(0.0, damage_scale)
 	shot.damage_multiplier_provider = Callable(
 		self,
 		"get_effective_damage_multiplier"

@@ -38,8 +38,9 @@
 
 ```text
 START -> WAVE_INTRO -> PLAYING -> WAVE_CLEAR -> SETTLEMENT -> WAVE_INTRO
-                            |                         |
-                            +-> PAUSED -> PLAYING     +-> RESULT（最终波）
+                       |            |
+                       |            +-> RESULT（最终波）
+                       +-> PAUSED -> PLAYING
 ```
 
 - `WAVE_INTRO`：世界暂停，显示“侦测到第 X 波敌人”；提示完成后显式开始波次。
@@ -55,7 +56,7 @@ START -> WAVE_INTRO -> PLAYING -> WAVE_CLEAR -> SETTLEMENT -> WAVE_INTRO
 signal wave_prepared(summary: Dictionary)
 signal wave_finished(summary: Dictionary)
 
-func prepare_next_wave() -> Dictionary
+func prepare_next_wave() -> bool
 func begin_prepared_wave() -> bool
 ```
 
