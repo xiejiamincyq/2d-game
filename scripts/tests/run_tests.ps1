@@ -25,6 +25,7 @@ $tests = @(
     "MovementTest",
     "WaveTest",
     "PortalTest",
+    "OverdriveTest",
     "EnemyBehaviorTest",
     "UpgradeTest",
     "StateTest",

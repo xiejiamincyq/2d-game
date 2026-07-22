@@ -15,6 +15,8 @@ const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
 const WORLD_BOUNDS := Rect2(-1400, -900, 2800, 1800)
 const CAMERA_SMOOTHING_CANDIDATES: Array[float] = [0.0, 8.0, 16.0, 20.0]
 const CAMERA_SMOOTHING_SPEED: float = 8.0
+const OVERDRIVE_COMBO_THRESHOLD := 30
+const OVERDRIVE_DURATION := 3.0
 
 enum RunState { START, WAVE_INTRO, PLAYING, WAVE_CLEAR, SETTLEMENT, PAUSED, RESULT }
 
@@ -39,6 +41,8 @@ var elapsed_seconds: float = 0.0
 var shield_drop_timer: float = 6.0
 var combo_count: int = 0
 var combo_timer: float = 0.0
+var overdrive_active: bool = false
+var overdrive_remaining: float = 0.0
 var run_state: RunState = RunState.START
 var pending_wave_summary: Dictionary = {}
 
@@ -291,6 +295,8 @@ func _on_enemy_killed(_enemy: Node, _source: StringName, _coin_value: int) -> vo
 	kill_count += 1
 	combo_count += 1
 	combo_timer = 3.0
+	if combo_count >= OVERDRIVE_COMBO_THRESHOLD and not overdrive_active:
+		_set_overdrive(true)
 	ui.set_combo(combo_count)
 	ui.set_run_stats(kill_count, elapsed_seconds)
 
@@ -377,6 +383,11 @@ func get_world_bounds() -> Rect2:
 	return WORLD_BOUNDS
 
 func _update_combo(delta: float) -> void:
+	if overdrive_active:
+		overdrive_remaining -= delta
+		ui.set_overdrive(true, overdrive_remaining)
+		if overdrive_remaining <= 0.0:
+			_set_overdrive(false)
 	if combo_count <= 0:
 		return
 	combo_timer -= delta
@@ -407,6 +418,7 @@ func _enforce_world_bounds() -> void:
 			pickup_node.global_position = pickup_node.global_position.clamp(WORLD_BOUNDS.position + Vector2(12, 12), WORLD_BOUNDS.end - Vector2(12, 12))
 
 func _reset_combat_feedback() -> void:
+	_set_overdrive(false)
 	if is_instance_valid(combat_feedback):
 		combat_feedback.reset_all()
 	if is_instance_valid(combat_vfx):
@@ -414,6 +426,20 @@ func _reset_combat_feedback() -> void:
 	if is_instance_valid(camera_effects):
 		camera_effects.clear_all()
 	Engine.time_scale = 1.0
+
+func _set_overdrive(active: bool) -> void:
+	overdrive_active = active
+	overdrive_remaining = OVERDRIVE_DURATION if active else 0.0
+	if player != null and player.has_method("set_overdrive_active"):
+		player.set_overdrive_active(active)
+		player.modulate = Color("ff571f") if active else Color.WHITE
+	if active:
+		ui.set_overdrive(true, overdrive_remaining)
+		audio.play("upgrade")
+		if is_instance_valid(combat_vfx):
+			combat_vfx.request_effect(&"ring", player.global_position, Vector2.UP, 2.0)
+		if is_instance_valid(camera_effects):
+			camera_effects.request_impact(0.55, Vector2.UP)
 
 func _exit_tree() -> void:
 	_reset_combat_feedback()

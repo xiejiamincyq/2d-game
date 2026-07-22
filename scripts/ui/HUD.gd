@@ -191,9 +191,17 @@ func set_run_stats(kills: int, elapsed_seconds: float) -> void:
 func set_combo(count: int) -> void:
 	combo_panel.visible = count > 1
 	combo_label.text = "连杀 x%d" % count
+	combo_label.add_theme_color_override("font_color", Color(0.86, 1.0, 1.0))
 
 func clear_combo() -> void:
 	combo_panel.visible = false
+
+func set_overdrive(active: bool, remaining: float = 0.0) -> void:
+	if not active:
+		return
+	combo_panel.visible = true
+	combo_label.text = "超载 %.1fs  无敌 · 火力 ×4" % maxf(0.0, remaining)
+	combo_label.add_theme_color_override("font_color", Color("ff571f"))
 
 func show_toast(text: String) -> void:
 	if toast_tween != null and toast_tween.is_valid():

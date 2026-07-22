@@ -47,6 +47,8 @@ func _initialize() -> void:
 	scene.wave_director.wave_index = 0
 	scene.wave_director.spawn_queue.clear()
 	scene.wave_director.active_enemies.clear()
+	for portal in scene.wave_director.active_portals.duplicate():
+		scene.wave_director._on_portal_closed(portal)
 	scene.wave_director.prepared_wave = false
 	scene.wave_director.wave_running = true
 	scene.wave_director.waiting_for_advance = false

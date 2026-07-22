@@ -190,6 +190,9 @@ func set_combo(count: int) -> void:
 func clear_combo() -> void:
 	hud.clear_combo()
 
+func set_overdrive(active: bool, remaining: float = 0.0) -> void:
+	hud.set_overdrive(active, remaining)
+
 func show_toast(text: String) -> void:
 	hud.show_toast(text)
 
