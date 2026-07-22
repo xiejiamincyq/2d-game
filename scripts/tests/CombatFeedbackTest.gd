@@ -66,10 +66,10 @@ func _initialize() -> void:
 		return
 	if not _assert_true(audio.streams.has("overdrive_kill"), "combat audio does not provide an overdrive kill confirmation cue"):
 		return
-	var overdrive_kill_stream: AudioStreamWAV = audio.streams["overdrive_kill"]
-	if not _assert_true(overdrive_kill_stream.data.size() >= 4400, "overdrive confirmation is too short to carry the metal strike and bright ring"):
+	var overdrive_kill_stream: AudioStream = audio.streams["overdrive_kill"]
+	if not _assert_true(overdrive_kill_stream.resource_path == "res://assets/audio/overdrive_sword_slice.mp3", "overdrive confirmation did not use the approved Sword Slice source"):
 		return
-	if not _assert_true(overdrive_kill_stream.data != (audio.streams["kill_confirm"] as AudioStreamWAV).data, "overdrive confirmation reused the ordinary kill cue"):
+	if not _assert_true(overdrive_kill_stream != audio.streams["kill_confirm"], "overdrive confirmation reused the ordinary kill cue"):
 		return
 	var feedback: Node = CombatFeedbackScript.new()
 	root.add_child(feedback)
