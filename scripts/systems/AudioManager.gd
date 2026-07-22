@@ -48,6 +48,7 @@ func _ready() -> void:
 	streams["hit_dash"] = _make_impact(0.09, 0.62, 310.0, 95.0)
 	streams["hit_spike"] = _make_impact(0.045, 0.24, 2050.0, 620.0)
 	streams["kill_confirm"] = _make_kill_confirm()
+	streams["overdrive_kill"] = _make_tone(1680.0, 0.065, 0.004, 0.52, 1.65)
 	streams["laser_loop"] = _make_laser_loop()
 	streams["start"] = _make_tone(360.0, 0.22, 0.18, 0.55, 2.2)
 	streams["victory"] = _make_tone(740.0, 0.35, 0.16, 0.55, 1.6)
@@ -88,6 +89,13 @@ func play_kill_confirm() -> bool:
 		return false
 	kill_confirm_cooldown = KILL_CONFIRM_COOLDOWN
 	play("kill_confirm")
+	return true
+
+func play_overdrive_kill() -> bool:
+	if kill_confirm_cooldown > 0.0:
+		return false
+	kill_confirm_cooldown = KILL_CONFIRM_COOLDOWN
+	play("overdrive_kill")
 	return true
 
 func _get_hit_stream_name(source: StringName, feedback_weight: int) -> String:

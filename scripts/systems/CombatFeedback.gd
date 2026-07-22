@@ -14,6 +14,7 @@ const HIT_STOP_TIME_SCALE: float = 0.05
 var combat_vfx: Node
 var camera_effects: Node
 var audio_manager: Node
+var overdrive_active_provider: Callable
 var _stop_reservations: Array[Dictionary] = []
 var _hit_stop_until_ms: float = 0.0
 var _owns_time_scale: bool = false
@@ -21,10 +22,11 @@ var _owns_time_scale: bool = false
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-func setup(vfx: Node, effects: Node, audio: Node = null) -> void:
+func setup(vfx: Node, effects: Node, audio: Node = null, overdrive_provider: Callable = Callable()) -> void:
 	combat_vfx = vfx
 	camera_effects = effects
 	audio_manager = audio
+	overdrive_active_provider = overdrive_provider
 
 func on_damage_resolved(
 	enemy: Node,
@@ -109,7 +111,11 @@ func _request_camera_impact(intensity: float, direction: Vector2) -> void:
 		camera_effects.request_impact(intensity, direction)
 
 func _request_kill_audio() -> void:
-	if is_instance_valid(audio_manager) and audio_manager.has_method("play_kill_confirm"):
+	if not is_instance_valid(audio_manager):
+		return
+	if overdrive_active_provider.is_valid() and bool(overdrive_active_provider.call()) and audio_manager.has_method("play_overdrive_kill"):
+		audio_manager.play_overdrive_kill()
+	elif audio_manager.has_method("play_kill_confirm"):
 		audio_manager.play_kill_confirm()
 
 func _request_hit_audio(source: StringName, feedback_weight: int) -> void:

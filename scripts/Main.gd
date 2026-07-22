@@ -183,7 +183,7 @@ func _start_run() -> void:
 	combat_feedback = CombatFeedbackScript.new()
 	combat_feedback.name = "CombatFeedback"
 	add_child(combat_feedback)
-	combat_feedback.setup(combat_vfx, camera_effects, audio)
+	combat_feedback.setup(combat_vfx, camera_effects, audio, func() -> bool: return overdrive_active)
 	player.fired.connect(func(projectile: Node) -> void:
 		projectile.process_mode = Node.PROCESS_MODE_PAUSABLE
 		projectile.world_bounds = WORLD_BOUNDS
