@@ -24,6 +24,9 @@ const PORTAL_MAX_SAFE_DISTANCE := 520.0
 const PORTAL_WORLD_MARGIN := 48.0
 const PORTAL_SPAWN_INTERVAL := 0.1
 const PORTAL_SPAWN_COUNT := 2
+const PORTAL_ENEMY_SPAWN_INNER_RADIUS := 24.0
+const PORTAL_ENEMY_SPAWN_OUTER_RADIUS := 104.0
+const PORTAL_ENEMY_CLEARANCE := 5.0
 
 var enemy_parent: Node
 var projectile_parent: Node
@@ -142,11 +145,11 @@ func _open_portal_attack() -> void:
 	spawn_queue.clear()
 	for index in range(portal_count):
 		var portal: Node = SpawnPortalScript.new()
-		portal.global_position = sample_portal_position(player.global_position, spawn_rng)
+		var portal_position := sample_portal_position(player.global_position, spawn_rng)
 		portal.set_process(false)
 		var burst_duration := maxf(1.2, ceilf(float(queues[index].size()) / float(PORTAL_SPAWN_COUNT)) * PORTAL_SPAWN_INTERVAL + 0.25)
-		portal.configure(portal.global_position, 0.7, burst_duration)
 		portal_parent.add_child(portal)
+		portal.configure(portal_position, 0.7, burst_duration)
 		active_portals.append(portal)
 		portal_spawn_queues[portal.get_instance_id()] = queues[index]
 		portal_spawn_timers[portal.get_instance_id()] = 0.0
@@ -167,7 +170,7 @@ func _process_portal_attack(delta: float) -> void:
 			continue
 		var queue: Array = portal_spawn_queues.get(portal_id, [])
 		for count in range(mini(PORTAL_SPAWN_COUNT, queue.size())):
-			_spawn_enemy_at(int(queue.pop_front()), portal.global_position)
+			_spawn_enemy_at(int(queue.pop_front()), portal.global_position, true)
 		portal_spawn_queues[portal_id] = queue
 		portal_spawn_timers[portal_id] = PORTAL_SPAWN_INTERVAL
 	if active_portals.is_empty() and active_enemies.is_empty() and spawn_queue.is_empty():
@@ -221,15 +224,21 @@ func _spawn_enemy(kind: int) -> void:
 	var position := sample_spitter_spawn_position(player.global_position, get_camera_safe_rect(), spawn_rng) if kind == EnemyScript.EnemyKind.SPITTER else sample_spawn_position(player.global_position, 24.0, 430.0, spawn_rng)
 	_spawn_enemy_at(kind, position)
 
-func _spawn_enemy_at(kind: int, position: Vector2) -> void:
+func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = false) -> void:
 	var enemy := EnemyScript.new()
 	if world_bounds.size != Vector2.ZERO:
 		enemy.world_bounds = world_bounds
 	enemy.setup(kind, wave_index + 1, projectile_parent, player as Node2D)
 	var spawn_bounds := world_bounds.grow(-enemy.body_radius) if world_bounds.size != Vector2.ZERO else Rect2()
-	enemy.global_position = position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2.ONE) if spawn_bounds.size != Vector2.ZERO else position
-	enemy.velocity = Vector2.ZERO
 	enemy_parent.add_child(enemy)
+	var spawn_position := position
+	if disperse_from_portal:
+		spawn_position = sample_clear_portal_enemy_position(position, enemy.body_radius)
+	elif spawn_bounds.size != Vector2.ZERO:
+		spawn_position = position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2(0.001, 0.001))
+	# global_position only has world-space meaning after the enemy is parented.
+	enemy.global_position = spawn_position
+	enemy.velocity = Vector2.ZERO
 	active_enemies.append(enemy)
 	enemy.tree_exiting.connect(_on_enemy_tree_exiting.bind(enemy), CONNECT_ONE_SHOT)
 	enemy.died.connect(_on_enemy_died)
@@ -251,6 +260,54 @@ func _spawn_enemy_at(kind: int, position: Vector2) -> void:
 				killed
 			)
 		)
+
+func sample_clear_portal_enemy_position(portal_position: Vector2, body_radius: float) -> Vector2:
+	var spawn_bounds := world_bounds.grow(-body_radius) if world_bounds.size != Vector2.ZERO else Rect2()
+	var maximum := spawn_bounds.end - Vector2(0.001, 0.001)
+	var fallback := portal_position
+	if spawn_bounds.size != Vector2.ZERO:
+		fallback = portal_position.clamp(spawn_bounds.position, maximum)
+	var best_position := fallback
+	var best_clearance := _get_enemy_spawn_clearance(fallback, body_radius)
+	var phase := spawn_rng.randf() * TAU
+	for ring_index in range(4):
+		var ring_fraction := float(ring_index) / 3.0
+		var distance := lerpf(
+			maxf(PORTAL_ENEMY_SPAWN_INNER_RADIUS, body_radius + PORTAL_ENEMY_CLEARANCE),
+			PORTAL_ENEMY_SPAWN_OUTER_RADIUS,
+			ring_fraction
+		)
+		for angle_index in range(16):
+			var angle := phase + TAU * float(angle_index) / 16.0
+			var candidate := portal_position + Vector2.RIGHT.rotated(angle) * distance
+			if spawn_bounds.size != Vector2.ZERO and not spawn_bounds.has_point(candidate):
+				continue
+			var clearance := _get_enemy_spawn_clearance(candidate, body_radius)
+			if clearance >= 0.0:
+				return candidate
+			if clearance > best_clearance:
+				best_clearance = clearance
+				best_position = candidate
+	return best_position
+
+func _get_enemy_spawn_clearance(candidate: Vector2, body_radius: float) -> float:
+	var clearance := INF
+	for other in active_enemies:
+		var other_node := other as Node2D
+		if other_node == null or not is_instance_valid(other_node) or other_node.is_queued_for_deletion():
+			continue
+		var other_radius := 14.0
+		var radius_value: Variant = other_node.get("body_radius")
+		if radius_value != null:
+			other_radius = float(radius_value)
+		clearance = minf(
+			clearance,
+			candidate.distance_to(other_node.global_position)
+			- body_radius
+			- other_radius
+			- PORTAL_ENEMY_CLEARANCE
+		)
+	return clearance
 
 func get_camera_safe_rect(margin: float = EnemyScript.RANGED_SAFE_MARGIN) -> Rect2:
 	var viewport := get_viewport()
