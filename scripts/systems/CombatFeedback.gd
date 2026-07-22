@@ -42,7 +42,7 @@ func on_damage_resolved(
 	_request_hit_audio(source, feedback_weight)
 	if killed:
 		_request_kill_burst(world_position, direction, maxf(0.8, intensity))
-		if source == DamageTypes.PROJECTILE:
+		if source == DamageTypes.PROJECTILE and feedback_weight == EnemyScript.FeedbackWeight.HEAVY:
 			_request_camera_impact(_get_kill_trauma(feedback_weight), direction)
 		_request_kill_audio()
 		request_hit_stop(KILL_STOP_MS)

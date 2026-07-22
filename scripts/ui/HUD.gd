@@ -106,7 +106,8 @@ func _build_hud() -> void:
 	overdrive_bar = _make_bar(Color("ff571f"))
 	overdrive_bar.max_value = 100.0
 	overdrive_bar.value = 0.0
-	overdrive_bar.position = Vector2(490, 18)
+	overdrive_bar.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	overdrive_bar.position = Vector2(-105, -54)
 	overdrive_bar.custom_minimum_size = Vector2(210, 12)
 	add_child(overdrive_bar)
 

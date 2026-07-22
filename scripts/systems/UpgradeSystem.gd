@@ -44,16 +44,16 @@ var upgrade_pool: Array[Dictionary] = [
 	# Mobility: six normal cards.
 	{"id": "move_speed", "label": "伺服腿甲", "description": "移速 +8%，地刺伤害 +6%", "family": "mobility", "kind": "support", "max_rank": 5, "base_cost": 30},
 	{"id": "mine", "label": "静滞地刺", "description": "首次解锁；后续强化伤害与持续时间", "family": "mobility", "kind": "core", "max_rank": 5, "base_cost": 52},
-	{"id": "spike_density", "label": "裂地密度", "description": "地刺间距 -12%", "family": "mobility", "kind": "core", "max_rank": 4, "base_cost": 38},
+	{"id": "spike_density", "label": "裂地密度", "description": "地刺间距 -12%", "family": "mobility", "kind": "core", "requires": "mine", "max_rank": 4, "base_cost": 38},
 	{"id": "dash_cooldown", "label": "冲刺冷却", "description": "冲刺冷却 -12%，冲刺伤害 +8%", "family": "mobility", "kind": "support", "max_rank": 4, "base_cost": 38},
 	{"id": "dash_impact", "label": "动能撞角", "description": "冲刺距离 +8%，冲刺伤害 +18%", "family": "mobility", "kind": "core", "max_rank": 4, "base_cost": 44},
 	{"id": "recovery_route", "label": "回收路线", "description": "拾取范围 +15%，移速 +4%", "family": "mobility", "kind": "support", "max_rank": 4, "base_cost": 26},
 
 	# Automation: six normal cards.
 	{"id": "drone", "label": "无人机部署", "description": "无人机 +1，单机伤害 +5%", "family": "automation", "kind": "core", "max_rank": 4, "base_cost": 58},
-	{"id": "drone_damage", "label": "激光放大器", "description": "无人机激光伤害 +18%", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 38},
+	{"id": "drone_damage", "label": "激光放大器", "description": "无人机激光伤害 +18%", "family": "automation", "kind": "core", "requires": "drone", "max_rank": 5, "base_cost": 38},
 	{"id": "arc", "label": "电弧启动器", "description": "首次解锁；后续强化伤害与半径", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 50},
-	{"id": "arc_capacitor", "label": "电弧电容", "description": "电弧伤害 +15%，半径 +14", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 40},
+	{"id": "arc_capacitor", "label": "电弧电容", "description": "电弧伤害 +15%，半径 +14", "family": "automation", "kind": "core", "requires": "arc", "max_rank": 5, "base_cost": 40},
 	{"id": "pickup", "label": "磁吸网格", "description": "拾取范围 +25%，电弧半径 +8", "family": "automation", "kind": "support", "max_rank": 4, "base_cost": 28},
 	{"id": "health", "label": "维修矩阵", "description": "最大生命 +20%，修复部分损伤", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 44},
 
@@ -102,6 +102,8 @@ func prepare_settlement(completed_wave: int) -> bool:
 		var family_cards: Array[Dictionary] = []
 		for card_value in upgrade_pool:
 			var card: Dictionary = card_value
+			if not _is_card_unlocked(card):
+				continue
 			if String(card.get("family", "")) != family_id or String(card.get("kind", "")) == "evolution":
 				continue
 			if not _is_upgrade_capped(String(card.get("id", ""))):
@@ -334,6 +336,10 @@ func _is_upgrade_capped(card_id: String) -> bool:
 	if card.is_empty():
 		return true
 	return int(upgrade_counts.get(card_id, 0)) >= int(card.get("max_rank", 1))
+
+func _is_card_unlocked(card: Dictionary) -> bool:
+	var prerequisite := String(card.get("requires", ""))
+	return prerequisite.is_empty() or int(upgrade_counts.get(prerequisite, 0)) > 0
 
 func _find_catalog_entry(card_id: String) -> Dictionary:
 	for card_value in upgrade_pool:

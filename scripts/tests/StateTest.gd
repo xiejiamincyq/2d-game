@@ -67,7 +67,7 @@ func _initialize() -> void:
 		"a real enemy kill did not produce a clearly readable bounded burst"
 	):
 		return
-	if not _assert_true(scene.camera_effects.trauma >= 0.25, "a light enemy kill did not produce its reduced camera impact"):
+	if not _assert_true(is_zero_approx(scene.camera_effects.trauma), "a light enemy kill triggered forbidden camera impact"):
 		return
 	scene._reset_combat_feedback()
 	var permanent_fire_rate: float = scene.player.fire_rate * 1.5
