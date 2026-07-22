@@ -85,6 +85,52 @@ func _initialize() -> void:
 	for enemy in attack_enemies.get_children():
 		if not _assert_true(director.world_bounds.has_point(enemy.global_position), "portal enemy spawned outside the map"):
 			return
+	# Portal and enemy layers may be nested under transformed world nodes in a
+	# gameplay scene. Their positions are world-space contracts, not local ones.
+	# This recreates the reported edge-flight symptom: assigning a global point
+	# before reparenting offsets the node and sends its first pursuit vector in
+	# the wrong direction.
+	var transformed_world := Node2D.new()
+	transformed_world.position = Vector2(260.0, -170.0)
+	var transformed_player := Node2D.new()
+	transformed_player.global_position = Vector2(120.0, 80.0)
+	var transformed_enemies := Node2D.new()
+	var transformed_projectiles := Node2D.new()
+	var transformed_portals := Node2D.new()
+	var transformed_director: Node = WaveDirectorScript.new()
+	root.add_child(transformed_world)
+	transformed_world.add_child(transformed_player)
+	transformed_world.add_child(transformed_enemies)
+	transformed_world.add_child(transformed_projectiles)
+	transformed_world.add_child(transformed_portals)
+	root.add_child(transformed_director)
+	transformed_director.set_process(false)
+	transformed_director.world_bounds = Rect2(-1400, -900, 2800, 1800)
+	transformed_director.player = transformed_player
+	transformed_director.enemy_parent = transformed_enemies
+	transformed_director.projectile_parent = transformed_projectiles
+	transformed_director.portal_parent = transformed_portals
+	transformed_director.wave_index = 0
+	var intended_enemy_position := Vector2(-315.0, 395.0)
+	var portal_seed := 0x51A7
+	var expected_portal_rng := RandomNumberGenerator.new()
+	expected_portal_rng.seed = portal_seed
+	var expected_portal_positions: Array[Vector2] = []
+	for index in range(3):
+		expected_portal_positions.append(transformed_director.sample_portal_position(transformed_player.global_position, expected_portal_rng))
+	transformed_director.spawn_rng.seed = portal_seed
+	transformed_director.spawn_queue.assign([0, 0, 0, 0, 0, 0, 0, 0, 0])
+	transformed_director.prepared_wave = true
+	if not _assert_true(transformed_director.begin_prepared_wave(), "transformed portal attack did not begin"):
+		return
+	for index in range(transformed_portals.get_child_count()):
+		var transformed_portal: Node2D = transformed_portals.get_child(index)
+		if not _assert_true(transformed_portal.global_position.distance_to(expected_portal_positions[index]) <= 0.01, "portal global spawn point shifted after entering a transformed layer"):
+			return
+	transformed_director._spawn_enemy_at(0, intended_enemy_position)
+	var transformed_enemy: Node2D = transformed_enemies.get_child(0)
+	if not _assert_true(transformed_enemy.global_position.distance_to(intended_enemy_position) <= 0.01, "enemy global spawn point shifted after entering a transformed layer"):
+		return
 	for enemy in attack_enemies.get_children():
 		enemy.queue_free()
 	await process_frame
@@ -95,6 +141,8 @@ func _initialize() -> void:
 	portal.queue_free()
 	director.queue_free()
 	fixture.queue_free()
+	transformed_world.queue_free()
+	transformed_director.queue_free()
 	await process_frame
 	print("TEST PASS: PortalTest %d" % assertions)
 	quit(0)

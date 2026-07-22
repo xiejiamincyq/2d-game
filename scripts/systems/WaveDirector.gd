@@ -142,11 +142,13 @@ func _open_portal_attack() -> void:
 	spawn_queue.clear()
 	for index in range(portal_count):
 		var portal: Node = SpawnPortalScript.new()
-		portal.global_position = sample_portal_position(player.global_position, spawn_rng)
+		var portal_position := sample_portal_position(player.global_position, spawn_rng)
 		portal.set_process(false)
 		var burst_duration := maxf(1.2, ceilf(float(queues[index].size()) / float(PORTAL_SPAWN_COUNT)) * PORTAL_SPAWN_INTERVAL + 0.25)
-		portal.configure(portal.global_position, 0.7, burst_duration)
 		portal_parent.add_child(portal)
+		# The portal layer can be transformed independently from the enemy layer.
+		# Attach first so this remains an actual world-space spawn point.
+		portal.configure(portal_position, 0.7, burst_duration)
 		active_portals.append(portal)
 		portal_spawn_queues[portal.get_instance_id()] = queues[index]
 		portal_spawn_timers[portal.get_instance_id()] = 0.0
@@ -227,9 +229,12 @@ func _spawn_enemy_at(kind: int, position: Vector2) -> void:
 		enemy.world_bounds = world_bounds
 	enemy.setup(kind, wave_index + 1, projectile_parent)
 	var spawn_bounds := world_bounds.grow(-enemy.body_radius) if world_bounds.size != Vector2.ZERO else Rect2()
+	enemy_parent.add_child(enemy)
+	# Set world coordinates after parenting. Otherwise a transformed world/layer
+	# silently interprets the portal position as local and can launch enemies
+	# toward an unrelated map edge on their first pursuit frame.
 	enemy.global_position = position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2.ONE) if spawn_bounds.size != Vector2.ZERO else position
 	enemy.velocity = Vector2.ZERO
-	enemy_parent.add_child(enemy)
 	active_enemies.append(enemy)
 	enemy.tree_exiting.connect(_on_enemy_tree_exiting.bind(enemy), CONNECT_ONE_SHOT)
 	enemy.died.connect(_on_enemy_died)
