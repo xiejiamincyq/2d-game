@@ -15,8 +15,10 @@ const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
 const WORLD_BOUNDS := Rect2(-1400, -900, 2800, 1800)
 const CAMERA_SMOOTHING_CANDIDATES: Array[float] = [0.0, 8.0, 16.0, 20.0]
 const CAMERA_SMOOTHING_SPEED: float = 8.0
-const OVERDRIVE_COMBO_THRESHOLD := 30
-const OVERDRIVE_DURATION := 3.0
+const OVERDRIVE_MAX_CHARGE := 100.0
+const OVERDRIVE_CHARGE_PER_KILL := 9.0
+const OVERDRIVE_CHARGE_DECAY_PER_SECOND := 7.0
+const OVERDRIVE_DRAIN_PER_SECOND := 34.0
 
 enum RunState { START, WAVE_INTRO, PLAYING, WAVE_CLEAR, SETTLEMENT, PAUSED, RESULT }
 
@@ -42,7 +44,7 @@ var shield_drop_timer: float = 6.0
 var combo_count: int = 0
 var combo_timer: float = 0.0
 var overdrive_active: bool = false
-var overdrive_remaining: float = 0.0
+var overdrive_charge: float = 0.0
 var run_state: RunState = RunState.START
 var pending_wave_summary: Dictionary = {}
 
@@ -295,8 +297,11 @@ func _on_enemy_killed(_enemy: Node, _source: StringName, _coin_value: int) -> vo
 	kill_count += 1
 	combo_count += 1
 	combo_timer = 3.0
-	if combo_count >= OVERDRIVE_COMBO_THRESHOLD and not overdrive_active:
+	if not overdrive_active:
+		overdrive_charge = minf(OVERDRIVE_MAX_CHARGE, overdrive_charge + OVERDRIVE_CHARGE_PER_KILL)
+	if is_equal_approx(overdrive_charge, OVERDRIVE_MAX_CHARGE) and not overdrive_active:
 		_set_overdrive(true)
+	ui.set_overdrive_charge(overdrive_charge, overdrive_active)
 	ui.set_combo(combo_count)
 	ui.set_run_stats(kill_count, elapsed_seconds)
 
@@ -384,10 +389,12 @@ func get_world_bounds() -> Rect2:
 
 func _update_combo(delta: float) -> void:
 	if overdrive_active:
-		overdrive_remaining -= delta
-		ui.set_overdrive(true, overdrive_remaining)
-		if overdrive_remaining <= 0.0:
+		overdrive_charge = maxf(0.0, overdrive_charge - OVERDRIVE_DRAIN_PER_SECOND * delta)
+		if is_zero_approx(overdrive_charge):
 			_set_overdrive(false)
+	else:
+		overdrive_charge = maxf(0.0, overdrive_charge - OVERDRIVE_CHARGE_DECAY_PER_SECOND * delta)
+	ui.set_overdrive_charge(overdrive_charge, overdrive_active)
 	if combo_count <= 0:
 		return
 	combo_timer -= delta
@@ -429,12 +436,11 @@ func _reset_combat_feedback() -> void:
 
 func _set_overdrive(active: bool) -> void:
 	overdrive_active = active
-	overdrive_remaining = OVERDRIVE_DURATION if active else 0.0
 	if player != null and player.has_method("set_overdrive_active"):
 		player.set_overdrive_active(active)
 		player.modulate = Color("ff571f") if active else Color.WHITE
 	if active:
-		ui.set_overdrive(true, overdrive_remaining)
+		ui.set_overdrive(true, overdrive_charge / OVERDRIVE_DRAIN_PER_SECOND)
 		audio.play("upgrade")
 		if is_instance_valid(combat_vfx):
 			combat_vfx.request_effect(&"ring", player.global_position, Vector2.UP, 2.0)

@@ -42,7 +42,8 @@ func on_damage_resolved(
 	_request_hit_audio(source, feedback_weight)
 	if killed:
 		_request_kill_burst(world_position, direction, maxf(0.8, intensity))
-		_request_camera_impact(_get_kill_trauma(feedback_weight), direction)
+		if source == DamageTypes.PROJECTILE:
+			_request_camera_impact(_get_kill_trauma(feedback_weight), direction)
 		_request_kill_audio()
 		request_hit_stop(KILL_STOP_MS)
 	elif source in [DamageTypes.DASH, DamageTypes.SPIKE] or amount >= 40.0:
@@ -123,11 +124,11 @@ func _resolve_feedback_weight(enemy: Node) -> int:
 func _get_kill_trauma(feedback_weight: int) -> float:
 	match feedback_weight:
 		EnemyScript.FeedbackWeight.LIGHT:
-			return 0.28
+			return 0.10
 		EnemyScript.FeedbackWeight.HEAVY:
-			return 1.0
+			return 0.45
 		_:
-			return 0.8
+			return 0.26
 
 func _request_kill_burst(world_position: Vector2, direction: Vector2, intensity: float) -> void:
 	var base_direction := direction.normalized()

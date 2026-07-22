@@ -193,6 +193,9 @@ func clear_combo() -> void:
 func set_overdrive(active: bool, remaining: float = 0.0) -> void:
 	hud.set_overdrive(active, remaining)
 
+func set_overdrive_charge(value: float, active: bool) -> void:
+	hud.set_overdrive_charge(value, active)
+
 func show_toast(text: String) -> void:
 	hud.show_toast(text)
 

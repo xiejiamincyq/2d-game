@@ -77,12 +77,18 @@ func _initialize() -> void:
 	if not _assert_true(attack_enemies.get_child_count() == 0, "enemies spawned before portal warning completed"):
 		return
 	attack_director._process(0.3)
-	if not _assert_true(attack_enemies.get_child_count() == 9, "portal burst did not release every assigned enemy"):
+	if not _assert_true(attack_enemies.get_child_count() == 6, "portal burst did not release the first paced enemy batch"):
 		return
+	attack_director._process(0.1)
+	if not _assert_true(attack_enemies.get_child_count() == 9, "portal burst did not release later enemy batches"):
+		return
+	for enemy in attack_enemies.get_children():
+		if not _assert_true(director.world_bounds.has_point(enemy.global_position), "portal enemy spawned outside the map"):
+			return
 	for enemy in attack_enemies.get_children():
 		enemy.queue_free()
 	await process_frame
-	attack_director._process(1.0)
+	attack_director._process(1.3)
 	if not _assert_true(attack_director.get_active_portal_count() == 0, "closed portals remained in the wave registry"):
 		return
 

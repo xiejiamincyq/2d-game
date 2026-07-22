@@ -22,7 +22,8 @@ const SpawnPortalScript = preload("res://scripts/world/SpawnPortal.gd")
 const PORTAL_MIN_SAFE_DISTANCE := 260.0
 const PORTAL_MAX_SAFE_DISTANCE := 520.0
 const PORTAL_WORLD_MARGIN := 48.0
-const PORTAL_SPAWN_BUDGET_PER_FRAME := 4
+const PORTAL_SPAWN_INTERVAL := 0.1
+const PORTAL_SPAWN_COUNT := 2
 
 var enemy_parent: Node
 var projectile_parent: Node
@@ -41,6 +42,7 @@ var spawn_rng := RandomNumberGenerator.new()
 var active_enemies: Array[Node] = []
 var active_portals: Array[Node] = []
 var portal_spawn_queues: Dictionary = {}
+var portal_spawn_timers: Dictionary = {}
 
 var waves: Array[Dictionary] = [
 	{"scrapper": 34, "dasher": 5, "spitter": 0, "bruiser": 0, "rate": 0.16},
@@ -142,11 +144,12 @@ func _open_portal_attack() -> void:
 		var portal: Node = SpawnPortalScript.new()
 		portal.global_position = sample_portal_position(player.global_position, spawn_rng)
 		portal.set_process(false)
-		var burst_duration := maxf(0.45, float(queues[index].size()) / float(PORTAL_SPAWN_BUDGET_PER_FRAME * 30))
+		var burst_duration := maxf(1.2, ceilf(float(queues[index].size()) / float(PORTAL_SPAWN_COUNT)) * PORTAL_SPAWN_INTERVAL + 0.25)
 		portal.configure(portal.global_position, 0.7, burst_duration)
 		portal_parent.add_child(portal)
 		active_portals.append(portal)
 		portal_spawn_queues[portal.get_instance_id()] = queues[index]
+		portal_spawn_timers[portal.get_instance_id()] = 0.0
 		portal.closed.connect(_on_portal_closed, CONNECT_ONE_SHOT)
 	_emit_wave_status()
 
@@ -158,10 +161,15 @@ func _process_portal_attack(delta: float) -> void:
 		portal.advance(delta)
 		if portal.state != portal.State.BURST:
 			continue
-		var queue: Array = portal_spawn_queues.get(portal.get_instance_id(), [])
-		for count in range(mini(PORTAL_SPAWN_BUDGET_PER_FRAME, queue.size())):
+		var portal_id: int = portal.get_instance_id()
+		portal_spawn_timers[portal_id] = float(portal_spawn_timers.get(portal_id, 0.0)) - delta
+		if float(portal_spawn_timers[portal_id]) > 0.0:
+			continue
+		var queue: Array = portal_spawn_queues.get(portal_id, [])
+		for count in range(mini(PORTAL_SPAWN_COUNT, queue.size())):
 			_spawn_enemy_at(int(queue.pop_front()), portal.global_position)
-		portal_spawn_queues[portal.get_instance_id()] = queue
+		portal_spawn_queues[portal_id] = queue
+		portal_spawn_timers[portal_id] = PORTAL_SPAWN_INTERVAL
 	if active_portals.is_empty() and active_enemies.is_empty() and spawn_queue.is_empty():
 		_finish_current_wave()
 	else:
@@ -215,10 +223,11 @@ func _spawn_enemy(kind: int) -> void:
 
 func _spawn_enemy_at(kind: int, position: Vector2) -> void:
 	var enemy := EnemyScript.new()
-	enemy.global_position = position
 	if world_bounds.size != Vector2.ZERO:
 		enemy.world_bounds = world_bounds
 	enemy.setup(kind, wave_index + 1, projectile_parent)
+	var spawn_bounds := world_bounds.grow(-enemy.body_radius) if world_bounds.size != Vector2.ZERO else Rect2()
+	enemy.global_position = position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2.ONE) if spawn_bounds.size != Vector2.ZERO else position
 	enemy_parent.add_child(enemy)
 	active_enemies.append(enemy)
 	enemy.tree_exiting.connect(_on_enemy_tree_exiting.bind(enemy), CONNECT_ONE_SHOT)
@@ -390,6 +399,7 @@ func _on_enemy_tree_exiting(enemy: Node) -> void:
 
 func _on_portal_closed(portal: Node) -> void:
 	portal_spawn_queues.erase(portal.get_instance_id())
+	portal_spawn_timers.erase(portal.get_instance_id())
 	active_portals.erase(portal)
 	portal.queue_free()
 

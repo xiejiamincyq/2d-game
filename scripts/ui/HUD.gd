@@ -15,6 +15,7 @@ var level_label: Label
 var stats_label: Label
 var combo_panel: PanelContainer
 var combo_label: Label
+var overdrive_bar: ProgressBar
 var pause_button: Button
 var bgm_toggle_button: Button
 var bgm_volume_slider: HSlider
@@ -102,6 +103,12 @@ func _build_hud() -> void:
 	combo_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	combo_panel.add_child(combo_label)
 	add_child(combo_panel)
+	overdrive_bar = _make_bar(Color("ff571f"))
+	overdrive_bar.max_value = 100.0
+	overdrive_bar.value = 0.0
+	overdrive_bar.position = Vector2(490, 18)
+	overdrive_bar.custom_minimum_size = Vector2(210, 12)
+	add_child(overdrive_bar)
 
 	toast_overlay = PanelContainer.new()
 	toast_overlay.visible = false
@@ -202,6 +209,10 @@ func set_overdrive(active: bool, remaining: float = 0.0) -> void:
 	combo_panel.visible = true
 	combo_label.text = "超载 %.1fs  无敌 · 火力 ×4" % maxf(0.0, remaining)
 	combo_label.add_theme_color_override("font_color", Color("ff571f"))
+
+func set_overdrive_charge(value: float, active: bool) -> void:
+	overdrive_bar.value = clampf(value, 0.0, 100.0)
+	overdrive_bar.modulate = Color("ff571f") if active else Color("33fff2")
 
 func show_toast(text: String) -> void:
 	if toast_tween != null and toast_tween.is_valid():

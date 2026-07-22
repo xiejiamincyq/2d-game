@@ -19,7 +19,7 @@ func _initialize() -> void:
 	await process_frame
 	scene._start_run()
 	scene._transition_to(scene.RunState.PLAYING)
-	scene.combo_count = scene.OVERDRIVE_COMBO_THRESHOLD - 1
+	scene.overdrive_charge = scene.OVERDRIVE_MAX_CHARGE - scene.OVERDRIVE_CHARGE_PER_KILL
 	var killed_enemy := Node.new()
 	scene._on_enemy_killed(killed_enemy, &"test", 0)
 	killed_enemy.free()
@@ -27,7 +27,7 @@ func _initialize() -> void:
 		return
 	if not _assert_true(is_equal_approx(scene.player.get_effective_fire_rate(), scene.player.fire_rate * 2.0), "overdrive did not double fire rate"):
 		return
-	scene._update_combo(scene.OVERDRIVE_DURATION + 0.1)
+	scene._update_combo(4.0)
 	if not _assert_true(not scene.overdrive_active and not scene.player.is_damage_immune(), "overdrive did not end and clear immunity"):
 		return
 	TestSupport.stop_audio(scene.audio)

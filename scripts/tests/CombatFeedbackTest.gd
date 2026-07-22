@@ -109,7 +109,7 @@ func _initialize() -> void:
 	)
 	if not _assert_true(Engine.time_scale < 1.0, "a kill did not trigger hit-stop"):
 		return
-	if not _assert_true(is_equal_approx(camera_effects.trauma, 0.8), "a medium kill did not preserve the current 0.80 trauma"):
+	if not _assert_true(is_equal_approx(camera_effects.trauma, 0.26), "a projectile medium kill did not use reduced trauma"):
 		return
 	if not _assert_true(
 		vfx.get_effect_count(CombatVfxScript.DEBRIS) >= 6
@@ -135,7 +135,7 @@ func _initialize() -> void:
 		Vector2.RIGHT,
 		true
 	)
-	if not _assert_true(is_equal_approx(camera_effects.trauma, 0.28), "a light kill did not use 0.28 trauma"):
+	if not _assert_true(is_equal_approx(camera_effects.trauma, 0.10), "a projectile light kill did not use reduced trauma"):
 		return
 	var light_cue_assigned := false
 	for voice in audio.voice_pool:
@@ -155,7 +155,7 @@ func _initialize() -> void:
 		Vector2.RIGHT,
 		true
 	)
-	if not _assert_true(is_equal_approx(camera_effects.trauma, 1.0), "a heavy kill did not use 1.00 trauma"):
+	if not _assert_true(is_equal_approx(camera_effects.trauma, 0.45), "a projectile heavy kill did not use reduced trauma"):
 		return
 	var heavy_cue_assigned := false
 	for voice in audio.voice_pool:

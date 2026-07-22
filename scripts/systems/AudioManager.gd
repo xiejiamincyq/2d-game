@@ -46,7 +46,7 @@ func _ready() -> void:
 	streams["hit_laser"] = _make_harmonic_impact(0.1, 0.36, 720.0, 0.08)
 	streams["hit_arc"] = _make_harmonic_impact(0.12, 0.38, 430.0, 0.16)
 	streams["hit_dash"] = _make_impact(0.09, 0.62, 310.0, 95.0)
-	streams["hit_spike"] = _make_impact(0.07, 0.48, 1450.0, 360.0)
+	streams["hit_spike"] = _make_impact(0.045, 0.24, 2050.0, 620.0)
 	streams["kill_confirm"] = _make_kill_confirm()
 	streams["laser_loop"] = _make_laser_loop()
 	streams["start"] = _make_tone(360.0, 0.22, 0.18, 0.55, 2.2)
