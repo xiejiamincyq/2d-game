@@ -56,12 +56,12 @@ func _initialize() -> void:
 	player.set_overdrive_active(true)
 	player.set_overdrive_active(true)
 	if not _assert_true(
-		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.PROJECTILE), 6.0),
+		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.PROJECTILE), 1.8),
 		"overdrive and source damage modifiers did not compose without stacking"
 	):
 		return
 	if not _assert_true(
-		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.LASER), 4.0),
+		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.LASER), 1.2),
 		"overdrive did not apply to all damage sources"
 	):
 		return
@@ -106,8 +106,22 @@ func _initialize() -> void:
 	var persistent_shot: Node = spawned_shots[0]
 	player.set_overdrive_active(true)
 	if not _assert_true(
-		is_equal_approx(persistent_shot.get_resolved_damage(), 40.0),
+		is_equal_approx(persistent_shot.get_resolved_damage(), 12.0),
 		"a projectile created before overdrive did not gain its active damage multiplier"
+	):
+		return
+	var shots_before_overdrive_volley := spawned_shots.size()
+	player.weapon_lines = 3
+	player._fire()
+	var overdrive_volley_count := spawned_shots.size() - shots_before_overdrive_volley
+	if not _assert_true(overdrive_volley_count == 6, "overdrive fired %d lines instead of double the configured three" % overdrive_volley_count):
+		return
+	var overdrive_shot: Node = spawned_shots[spawned_shots.size() - 1]
+	if not _assert_true(
+		overdrive_shot.get("overdrive_visual")
+		and overdrive_shot.tint.is_equal_approx(Color("b45cff"))
+		and overdrive_shot.get_node_or_null("OverdriveParticles") is GPUParticles2D,
+		"overdrive projectile did not receive the purple glowing particle treatment"
 	):
 		return
 	player.set_overdrive_active(false)
@@ -122,7 +136,7 @@ func _initialize() -> void:
 	var persistent_spike: Node = spawned_attacks.get_child(spawned_attacks.get_child_count() - 1)
 	player.set_overdrive_active(true)
 	if not _assert_true(
-		is_equal_approx(persistent_spike.get_resolved_damage(), 48.0),
+		is_equal_approx(persistent_spike.get_resolved_damage(), 14.4),
 		"a spike created before overdrive did not gain its active damage multiplier"
 	):
 		return

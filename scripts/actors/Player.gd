@@ -17,7 +17,7 @@ const ALL_DAMAGE_SOURCES: StringName = &"all"
 const OVERDRIVE_MODIFIER: StringName = &"overdrive"
 const DASH_IMMUNITY_SOURCE: StringName = &"dash"
 const OVERDRIVE_FIRE_RATE_MULTIPLIER: float = 2.0
-const OVERDRIVE_DAMAGE_MULTIPLIER: float = 4.0
+const OVERDRIVE_DAMAGE_MULTIPLIER: float = 1.2
 const FAMILY_DAMAGE_PER_LEVEL: float = 1.05
 const ORBITAL_STORM_INTERVAL: int = 5
 const ORBITAL_STORM_PROJECTILES: int = 12
@@ -76,6 +76,7 @@ var build_family_levels: Dictionary = {
 }
 var active_build_evolutions: Dictionary = {}
 var fire_volley_count: int = 0
+var overdrive_active: bool = false
 
 func _ready() -> void:
 	add_to_group("player")
@@ -250,6 +251,7 @@ func is_damage_immune() -> bool:
 	return not _damage_immunity_sources.is_empty()
 
 func set_overdrive_active(active: bool) -> void:
+	overdrive_active = active
 	if active:
 		set_fire_rate_modifier(OVERDRIVE_MODIFIER, OVERDRIVE_FIRE_RATE_MULTIPLIER)
 		set_damage_modifier(OVERDRIVE_MODIFIER, OVERDRIVE_DAMAGE_MULTIPLIER)
@@ -259,6 +261,7 @@ func set_overdrive_active(active: bool) -> void:
 	set_damage_immunity(OVERDRIVE_MODIFIER, active)
 
 func clear_runtime_modifiers() -> void:
+	overdrive_active = false
 	_fire_rate_modifiers.clear()
 	_damage_modifiers.clear()
 	_damage_immunity_sources.clear()
@@ -286,8 +289,9 @@ func _fire() -> void:
 	if direction == Vector2.ZERO:
 		direction = Vector2.RIGHT
 	var spread_step := deg_to_rad(7.5)
-	var start_offset := -spread_step * float(weapon_lines - 1) * 0.5
-	for line in range(weapon_lines):
+	var active_weapon_lines := weapon_lines * 2 if overdrive_active else weapon_lines
+	var start_offset := -spread_step * float(active_weapon_lines - 1) * 0.5
+	for line in range(active_weapon_lines):
 		_spawn_bullet(direction.rotated(start_offset + spread_step * line))
 	fire_volley_count += 1
 	if active_build_evolutions.has("orbital_storm") and fire_volley_count % ORBITAL_STORM_INTERVAL == 0:
@@ -320,7 +324,8 @@ func _spawn_bullet(direction: Vector2, damage_scale: float = 1.0) -> void:
 	shot.pierce = projectile_pierce
 	shot.lifetime = 6.0
 	shot.target_group = &"enemies"
-	shot.tint = Color(1.0, 0.35, 0.08)
+	shot.overdrive_visual = overdrive_active
+	shot.tint = Color("b45cff") if overdrive_active else Color(1.0, 0.35, 0.08)
 	shot.world_bounds = world_bounds
 	fired.emit(shot)
 
