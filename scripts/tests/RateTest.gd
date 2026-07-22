@@ -49,6 +49,13 @@ func _initialize() -> void:
 		"clearing a temporary fire-rate source changed the permanent value"
 	):
 		return
+	contract_player.set_fire_rate_modifier(&"stacked_overclock", 3.0)
+	contract_player.set_overdrive_active(true)
+	if not _assert_true(
+		is_equal_approx(contract_player.get_effective_fire_rate(), 78.0),
+		"effective fire rate exceeded the 400% cap"
+	):
+		return
 	contract_player.queue_free()
 	await process_frame
 

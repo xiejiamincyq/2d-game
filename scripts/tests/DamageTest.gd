@@ -116,6 +116,12 @@ func _initialize() -> void:
 	var overdrive_volley_count := spawned_shots.size() - shots_before_overdrive_volley
 	if not _assert_true(overdrive_volley_count == 6, "overdrive fired %d lines instead of double the configured three" % overdrive_volley_count):
 		return
+	player.weapon_lines = 5
+	var shots_before_capped_volley := spawned_shots.size()
+	player._fire()
+	var capped_overdrive_volley_count := spawned_shots.size() - shots_before_capped_volley
+	if not _assert_true(capped_overdrive_volley_count == 8, "overdrive exceeded the eight-line cap with %d shots" % capped_overdrive_volley_count):
+		return
 	var overdrive_shot: Node = spawned_shots[spawned_shots.size() - 1]
 	if not _assert_true(
 		overdrive_shot.get("overdrive_visual")

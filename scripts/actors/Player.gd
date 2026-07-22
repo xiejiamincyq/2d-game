@@ -18,6 +18,8 @@ const OVERDRIVE_MODIFIER: StringName = &"overdrive"
 const DASH_IMMUNITY_SOURCE: StringName = &"dash"
 const OVERDRIVE_FIRE_RATE_MULTIPLIER: float = 2.0
 const OVERDRIVE_DAMAGE_MULTIPLIER: float = 1.2
+const MAX_WEAPON_LINES: int = 8
+const MAX_FIRE_RATE_MULTIPLIER: float = 4.0
 const FAMILY_DAMAGE_PER_LEVEL: float = 1.05
 const ORBITAL_STORM_INTERVAL: int = 5
 const ORBITAL_STORM_PROJECTILES: int = 12
@@ -154,7 +156,11 @@ func get_effective_fire_rate() -> float:
 	var effective_rate := fire_rate
 	for modifier_id in _fire_rate_modifiers:
 		effective_rate *= float(_fire_rate_modifiers[modifier_id])
-	return effective_rate
+	return minf(effective_rate, fire_rate * MAX_FIRE_RATE_MULTIPLIER)
+
+func get_active_weapon_line_count() -> int:
+	var multiplier := 2 if overdrive_active else 1
+	return mini(MAX_WEAPON_LINES, maxi(1, weapon_lines * multiplier))
 
 func set_fire_rate_modifier(modifier_id: StringName, multiplier: float) -> void:
 	if multiplier <= 0.0:
@@ -289,7 +295,7 @@ func _fire() -> void:
 	if direction == Vector2.ZERO:
 		direction = Vector2.RIGHT
 	var spread_step := deg_to_rad(7.5)
-	var active_weapon_lines := weapon_lines * 2 if overdrive_active else weapon_lines
+	var active_weapon_lines := get_active_weapon_line_count()
 	var start_offset := -spread_step * float(active_weapon_lines - 1) * 0.5
 	for line in range(active_weapon_lines):
 		_spawn_bullet(direction.rotated(start_offset + spread_step * line))
