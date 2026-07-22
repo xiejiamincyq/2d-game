@@ -21,6 +21,7 @@ enum RunState { START, WAVE_INTRO, PLAYING, WAVE_CLEAR, SETTLEMENT, PAUSED, RESU
 var world: Node2D
 var enemies: Node2D
 var projectiles: Node2D
+var portals: Node2D
 var pickups: Node2D
 var player: Node
 var wave_director: Node
@@ -110,6 +111,10 @@ func _build_world() -> void:
 	projectiles.name = "Projectiles"
 	projectiles.process_mode = Node.PROCESS_MODE_PAUSABLE
 	world.add_child(projectiles)
+	portals = Node2D.new()
+	portals.name = "SpawnPortals"
+	portals.process_mode = Node.PROCESS_MODE_PAUSABLE
+	world.add_child(portals)
 	ui = GameUIScript.new()
 	add_child(ui)
 	audio = AudioManagerScript.new()
@@ -206,7 +211,7 @@ func _start_run() -> void:
 	wave_director.enemy_killed.connect(_on_enemy_killed)
 	wave_director.damage_resolved.connect(combat_feedback.on_damage_resolved)
 	wave_director.victory.connect(_on_victory)
-	wave_director.setup(player, enemies, projectiles)
+	wave_director.setup(player, enemies, projectiles, portals)
 	player.set_enemy_provider(wave_director.get_active_enemies)
 	ui.set_health(player.health.current_health, player.health.max_health)
 	ui.set_shield(player.shield, player.max_shield)

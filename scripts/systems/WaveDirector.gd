@@ -17,13 +17,16 @@ signal damage_resolved(
 signal victory
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
+const SpawnPortalScript = preload("res://scripts/world/SpawnPortal.gd")
 
 const PORTAL_MIN_SAFE_DISTANCE := 260.0
 const PORTAL_MAX_SAFE_DISTANCE := 520.0
 const PORTAL_WORLD_MARGIN := 48.0
+const PORTAL_SPAWN_BUDGET_PER_FRAME := 4
 
 var enemy_parent: Node
 var projectile_parent: Node
+var portal_parent: Node
 var player: Node
 var wave_index: int = -1
 var spawn_queue: Array[int] = []
@@ -36,6 +39,8 @@ var wave_running: bool = false
 var world_bounds: Rect2 = Rect2()
 var spawn_rng := RandomNumberGenerator.new()
 var active_enemies: Array[Node] = []
+var active_portals: Array[Node] = []
+var portal_spawn_queues: Dictionary = {}
 
 var waves: Array[Dictionary] = [
 	{"scrapper": 34, "dasher": 5, "spitter": 0, "bruiser": 0, "rate": 0.16},
@@ -51,16 +56,20 @@ var waves: Array[Dictionary] = [
 func _ready() -> void:
 	spawn_rng.randomize()
 
-func setup(target_player: Node, enemies: Node, projectiles: Node) -> void:
+func setup(target_player: Node, enemies: Node, projectiles: Node, portals: Node = null) -> void:
 	player = target_player
 	enemy_parent = enemies
 	projectile_parent = projectiles
+	portal_parent = portals if portals != null else enemies
 	prepare_next_wave()
 
 func _process(delta: float) -> void:
 	if not active or player == null:
 		return
 	if waiting_for_advance or prepared_wave or not wave_running:
+		return
+	if not active_portals.is_empty():
+		_process_portal_attack(delta)
 		return
 	if spawn_queue.is_empty():
 		if active_enemies.is_empty():
@@ -114,7 +123,49 @@ func begin_prepared_wave() -> bool:
 	prepared_wave = false
 	wave_running = true
 	spawn_timer = 0.0
+	_open_portal_attack()
 	return true
+
+func _open_portal_attack() -> void:
+	# Legacy callers without a dedicated portal layer retain the original
+	# direct-spawn behavior; the game passes a separate layer from Main.
+	if spawn_queue.is_empty() or portal_parent == null or portal_parent == enemy_parent:
+		return
+	var portal_count := clampi(ceili(float(spawn_queue.size()) / 40.0), 3, 5)
+	var queues: Array[Array] = []
+	for index in range(portal_count):
+		queues.append([])
+	for index in range(spawn_queue.size()):
+		queues[index % portal_count].append(spawn_queue[index])
+	spawn_queue.clear()
+	for index in range(portal_count):
+		var portal: Node = SpawnPortalScript.new()
+		portal.global_position = sample_portal_position(player.global_position, spawn_rng)
+		portal.set_process(false)
+		var burst_duration := maxf(0.45, float(queues[index].size()) / float(PORTAL_SPAWN_BUDGET_PER_FRAME * 30))
+		portal.configure(portal.global_position, 0.7, burst_duration)
+		portal_parent.add_child(portal)
+		active_portals.append(portal)
+		portal_spawn_queues[portal.get_instance_id()] = queues[index]
+		portal.closed.connect(_on_portal_closed, CONNECT_ONE_SHOT)
+	_emit_wave_status()
+
+func _process_portal_attack(delta: float) -> void:
+	for portal in active_portals.duplicate():
+		if not is_instance_valid(portal):
+			active_portals.erase(portal)
+			continue
+		portal.advance(delta)
+		if portal.state != portal.State.BURST:
+			continue
+		var queue: Array = portal_spawn_queues.get(portal.get_instance_id(), [])
+		for count in range(mini(PORTAL_SPAWN_BUDGET_PER_FRAME, queue.size())):
+			_spawn_enemy_at(int(queue.pop_front()), portal.global_position)
+		portal_spawn_queues[portal.get_instance_id()] = queue
+	if active_portals.is_empty() and active_enemies.is_empty() and spawn_queue.is_empty():
+		_finish_current_wave()
+	else:
+		_emit_wave_status()
 
 func _finish_current_wave() -> void:
 	if waiting_for_advance or not wave_running:
@@ -159,11 +210,12 @@ func _get_wave_summary() -> Dictionary:
 	}
 
 func _spawn_enemy(kind: int) -> void:
+	var position := sample_spitter_spawn_position(player.global_position, get_camera_safe_rect(), spawn_rng) if kind == EnemyScript.EnemyKind.SPITTER else sample_spawn_position(player.global_position, 24.0, 430.0, spawn_rng)
+	_spawn_enemy_at(kind, position)
+
+func _spawn_enemy_at(kind: int, position: Vector2) -> void:
 	var enemy := EnemyScript.new()
-	if kind == EnemyScript.EnemyKind.SPITTER:
-		enemy.global_position = sample_spitter_spawn_position(player.global_position, get_camera_safe_rect(), spawn_rng)
-	else:
-		enemy.global_position = sample_spawn_position(player.global_position, 24.0, 430.0, spawn_rng)
+	enemy.global_position = position
 	if world_bounds.size != Vector2.ZERO:
 		enemy.world_bounds = world_bounds
 	enemy.setup(kind, wave_index + 1, projectile_parent)
@@ -336,9 +388,20 @@ func _deferred_spawn_drops(position: Vector2, coin_value: int, shield_value: flo
 func _on_enemy_tree_exiting(enemy: Node) -> void:
 	active_enemies.erase(enemy)
 
+func _on_portal_closed(portal: Node) -> void:
+	portal_spawn_queues.erase(portal.get_instance_id())
+	active_portals.erase(portal)
+	portal.queue_free()
+
 func get_active_enemies() -> Array[Node]:
 	return active_enemies
 
+func get_active_portal_count() -> int:
+	return active_portals.size()
+
 func _emit_wave_status() -> void:
-	var remaining := spawn_queue.size() + active_enemies.size()
+	var portal_remaining := 0
+	for queue in portal_spawn_queues.values():
+		portal_remaining += (queue as Array).size()
+	var remaining := spawn_queue.size() + portal_remaining + active_enemies.size()
 	wave_changed.emit(wave_index + 1, waves.size(), remaining)

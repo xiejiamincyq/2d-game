@@ -53,8 +53,42 @@ func _initialize() -> void:
 	if not _assert_true(not portal.advance(1.0), "closed portal advanced a second time"):
 		return
 
+	var fixture := Node.new()
+	var attack_player := Node2D.new()
+	var attack_enemies := Node2D.new()
+	var attack_projectiles := Node2D.new()
+	var attack_portals := Node2D.new()
+	var attack_director: Node = WaveDirectorScript.new()
+	root.add_child(fixture)
+	fixture.add_child(attack_player)
+	fixture.add_child(attack_enemies)
+	fixture.add_child(attack_projectiles)
+	fixture.add_child(attack_portals)
+	fixture.add_child(attack_director)
+	attack_director.set_process(false)
+	attack_director.world_bounds = Rect2(-1400, -900, 2800, 1800)
+	attack_director.setup(attack_player, attack_enemies, attack_projectiles, attack_portals)
+	attack_director.spawn_queue.assign([0, 0, 0, 0, 0, 0, 0, 0, 0])
+	if not _assert_true(attack_director.begin_prepared_wave(), "portal attack did not begin a prepared wave"):
+		return
+	if not _assert_true(attack_director.get_active_portal_count() == 3, "wave did not open three portal warnings"):
+		return
+	attack_director._process(0.5)
+	if not _assert_true(attack_enemies.get_child_count() == 0, "enemies spawned before portal warning completed"):
+		return
+	attack_director._process(0.3)
+	if not _assert_true(attack_enemies.get_child_count() == 9, "portal burst did not release every assigned enemy"):
+		return
+	for enemy in attack_enemies.get_children():
+		enemy.queue_free()
+	await process_frame
+	attack_director._process(1.0)
+	if not _assert_true(attack_director.get_active_portal_count() == 0, "closed portals remained in the wave registry"):
+		return
+
 	portal.queue_free()
 	director.queue_free()
+	fixture.queue_free()
 	await process_frame
 	print("TEST PASS: PortalTest %d" % assertions)
 	quit(0)
