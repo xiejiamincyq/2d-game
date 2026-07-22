@@ -3,7 +3,7 @@ class_name AudioManager
 
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
-const OverdriveKillStream = preload("res://assets/audio/overdrive_sword_slice.mp3")
+const OverdriveKillStream = preload("res://assets/audio/overdrive_bone_breaking.mp3")
 const HIT_COOLDOWN := 0.055
 const KILL_CONFIRM_COOLDOWN := 0.045
 const SHOOT_COOLDOWN := 0.02

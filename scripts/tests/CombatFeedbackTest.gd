@@ -67,7 +67,7 @@ func _initialize() -> void:
 	if not _assert_true(audio.streams.has("overdrive_kill"), "combat audio does not provide an overdrive kill confirmation cue"):
 		return
 	var overdrive_kill_stream: AudioStream = audio.streams["overdrive_kill"]
-	if not _assert_true(overdrive_kill_stream.resource_path == "res://assets/audio/overdrive_sword_slice.mp3", "overdrive confirmation did not use the approved Sword Slice source"):
+	if not _assert_true(overdrive_kill_stream.resource_path == "res://assets/audio/overdrive_bone_breaking.mp3", "overdrive confirmation did not use the approved Bone Breaking source"):
 		return
 	if not _assert_true(overdrive_kill_stream != audio.streams["kill_confirm"], "overdrive confirmation reused the ordinary kill cue"):
 		return
