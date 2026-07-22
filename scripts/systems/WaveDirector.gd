@@ -18,6 +18,10 @@ signal victory
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 
+const PORTAL_MIN_SAFE_DISTANCE := 260.0
+const PORTAL_MAX_SAFE_DISTANCE := 520.0
+const PORTAL_WORLD_MARGIN := 48.0
+
 var enemy_parent: Node
 var projectile_parent: Node
 var player: Node
@@ -275,6 +279,39 @@ func sample_spawn_position(
 		if distance > farthest_distance:
 			farthest = candidate
 			farthest_distance = distance
+	return farthest
+
+func sample_portal_position(player_position: Vector2, rng: RandomNumberGenerator) -> Vector2:
+	if world_bounds.size == Vector2.ZERO:
+		return player_position + Vector2.RIGHT.rotated(rng.randf() * TAU) * PORTAL_MIN_SAFE_DISTANCE
+	var playable := world_bounds.grow(-PORTAL_WORLD_MARGIN)
+	var maximum := playable.end - Vector2(0.001, 0.001)
+	for attempt in range(128):
+		var candidate := Vector2(
+			rng.randf_range(playable.position.x, maximum.x),
+			rng.randf_range(playable.position.y, maximum.y)
+		)
+		var distance := candidate.distance_to(player_position)
+		if distance >= PORTAL_MIN_SAFE_DISTANCE and distance <= PORTAL_MAX_SAFE_DISTANCE:
+			return candidate
+	# Keep a concrete margin beyond the contract minimum so a border fallback
+	# cannot lose the safety guarantee to floating-point rounding.
+	var fallback_distance := PORTAL_MIN_SAFE_DISTANCE + 1.0
+	for step in range(48):
+		var angle := TAU * float(step) / 48.0
+		var candidate := player_position + Vector2.RIGHT.rotated(angle) * fallback_distance
+		if playable.has_point(candidate):
+			return candidate
+	var corners: Array[Vector2] = [
+		playable.position,
+		Vector2(maximum.x, playable.position.y),
+		maximum,
+		Vector2(playable.position.x, maximum.y),
+	]
+	var farthest := corners[0]
+	for candidate in corners.slice(1):
+		if candidate.distance_squared_to(player_position) > farthest.distance_squared_to(player_position):
+			farthest = candidate
 	return farthest
 
 func _on_enemy_died(enemy: Node, coin_value: int, source: StringName) -> void:
