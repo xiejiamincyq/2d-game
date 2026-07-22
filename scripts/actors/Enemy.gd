@@ -47,10 +47,12 @@ var ranged_keep_max: float = 520.0
 var attack_anchor_position: Vector2 = Vector2.ZERO
 var world_bounds: Rect2 = Rect2()
 var death_resolved: bool = false
+var target_player: Node2D
 
-func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node) -> void:
+func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	kind = enemy_kind
 	projectile_parent = projectiles
+	target_player = target
 	var scale_factor := 1.0 + float(wave_index) * 0.13
 	match kind:
 		EnemyKind.SCRAPPER:
@@ -93,7 +95,7 @@ func _ready() -> void:
 	add_child(shape)
 
 func _physics_process(delta: float) -> void:
-	var player := get_tree().get_first_node_in_group("player")
+	var player := get_target_player()
 	if player == null:
 		return
 	var to_player: Vector2 = player.global_position - global_position
@@ -117,6 +119,11 @@ func _physics_process(delta: float) -> void:
 	if flash_timer > 0.0:
 		flash_timer = maxf(0.0, flash_timer - delta)
 		queue_redraw()
+
+func get_target_player() -> Node2D:
+	if is_instance_valid(target_player):
+		return target_player
+	return get_tree().get_first_node_in_group("player") as Node2D
 
 func get_camera_safe_rect() -> Rect2:
 	var viewport := get_viewport()

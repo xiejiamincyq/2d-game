@@ -109,6 +109,30 @@ func _initialize() -> void:
 	):
 		return
 
+	# Enemy pursuit must not use whichever node happened to join the global
+	# player group first. During reloads or UI previews that can be a stale node
+	# near a map edge, which makes a newborn enemy sprint in the wrong direction.
+	var stale_player := Node2D.new()
+	stale_player.global_position = Vector2(0.0, -860.0)
+	stale_player.add_to_group("player")
+	fixture.add_child(stale_player)
+	var directed_enemy: Node = EnemyScript.new()
+	directed_enemy.setup(EnemyScript.EnemyKind.SCRAPPER, 1, projectiles)
+	directed_enemy.target_player = player
+	fixture.add_child(directed_enemy)
+	if not _assert_true(directed_enemy.get_target_player() == player, "enemy pursuit selected a stale global player instead of its wave owner"):
+		return
+	var wave_enemy_count := spawned_enemies.get_child_count()
+	sampler._spawn_enemy(EnemyScript.EnemyKind.SCRAPPER)
+	var wave_directed_enemy: Node = spawned_enemies.get_child(wave_enemy_count)
+	if not _assert_true(wave_directed_enemy.get_target_player() == player, "WaveDirector did not bind a spawned enemy to its wave owner"):
+		return
+	player.global_position = Vector2(280.0, 620.0)
+	wave_directed_enemy.global_position = Vector2(100.0, 100.0)
+	wave_directed_enemy._physics_process(0.1)
+	if not _assert_true(wave_directed_enemy.velocity.y > 0.0, "newborn enemy pursued the stale player above the map instead of its current wave owner"):
+		return
+
 	for child in projectiles.get_children():
 		child.queue_free()
 	fixture.queue_free()
