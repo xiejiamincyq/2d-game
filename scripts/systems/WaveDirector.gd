@@ -228,6 +228,7 @@ func _spawn_enemy_at(kind: int, position: Vector2) -> void:
 	enemy.setup(kind, wave_index + 1, projectile_parent)
 	var spawn_bounds := world_bounds.grow(-enemy.body_radius) if world_bounds.size != Vector2.ZERO else Rect2()
 	enemy.global_position = position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2.ONE) if spawn_bounds.size != Vector2.ZERO else position
+	enemy.velocity = Vector2.ZERO
 	enemy_parent.add_child(enemy)
 	active_enemies.append(enemy)
 	enemy.tree_exiting.connect(_on_enemy_tree_exiting.bind(enemy), CONNECT_ONE_SHOT)
