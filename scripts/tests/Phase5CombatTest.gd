@@ -143,11 +143,15 @@ func _initialize() -> void:
 	director.projectile_parent = projectiles
 	director.portal_parent = portal_layer
 	director.world_bounds = Rect2(-900, -600, 1800, 1200)
+	director.active_boss = boss
 	director._on_boss_reinforcements_requested(boss, 12)
 	var queued_reinforcements := 0
 	for queue in director.portal_spawn_queues.values():
-		queued_reinforcements += (queue as Array).size()
-	if not _assert_true(director.get_active_portal_count() >= 2 and queued_reinforcements == 12, "boss reinforcements did not arrive through multiple timed portals"):
+		for reinforcement_kind in queue:
+			queued_reinforcements += 1
+			if not _assert_true(int(reinforcement_kind) in [EnemyScript.EnemyKind.SCRAPPER, EnemyScript.EnemyKind.DASHER], "boss reinforcement portal queued a ranged enemy"):
+				return
+	if not _assert_true(director.get_active_portal_count() >= 2 and queued_reinforcements == 8, "boss reinforcements did not obey the two-portal eight-enemy cap"):
 		return
 
 	director.queue_free()

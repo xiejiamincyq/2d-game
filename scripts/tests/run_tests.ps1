@@ -30,6 +30,7 @@ $tests = @(
 	"BossHealthBarTest",
 	"BossTentacleTest",
 	"BossPatternTest",
+	"BossDirectorTest",
 	"SnapshotTest",
 	"ContinueTest",
     "OverdriveTest",

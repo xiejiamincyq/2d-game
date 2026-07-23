@@ -17,6 +17,7 @@ signal damage_resolved(
 signal boss_spawned(boss: Node, display_name: String, maximum_health: float)
 signal boss_health_changed(current: float, maximum: float, phase: int)
 signal boss_defeated(boss: Node)
+signal boss_cue(cue: StringName)
 signal victory
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
@@ -207,8 +208,9 @@ func _open_portals_for_queues(queues: Array[Array]) -> void:
 	_emit_wave_status()
 
 func _on_boss_reinforcements_requested(_boss: Node, count: int) -> void:
-	if count <= 0 or portal_parent == null or not is_instance_valid(player):
+	if _boss != active_boss or boss_defeat_pending or boss_defeated_for_wave or count <= 0 or portal_parent == null or not is_instance_valid(player):
 		return
+	count = mini(count, 8)
 	var portal_count := clampi(ceili(float(count) / 8.0), 2, 3)
 	var queues: Array[Array] = []
 	for index in range(portal_count):
@@ -216,7 +218,6 @@ func _on_boss_reinforcements_requested(_boss: Node, count: int) -> void:
 	var reinforcement_kinds: Array[int] = [
 		EnemyScript.EnemyKind.SCRAPPER,
 		EnemyScript.EnemyKind.DASHER,
-		EnemyScript.EnemyKind.SPITTER,
 	]
 	for index in range(count):
 		queues[index % portal_count].append(reinforcement_kinds[index % reinforcement_kinds.size()])
@@ -303,6 +304,8 @@ func _spawn_boss_at(position: Vector2) -> Node:
 	boss.setup(wave_index + 1, projectile_parent, player as Node2D)
 	boss.died.connect(_on_boss_died)
 	boss.damage_resolved.connect(_forward_damage_resolved)
+	boss.reinforcements_requested.connect(_on_boss_reinforcements_requested)
+	boss.combat_cue.connect(func(cue: StringName) -> void: boss_cue.emit(cue))
 	boss.tree_exiting.connect(_on_boss_tree_exiting.bind(boss), CONNECT_ONE_SHOT)
 	enemy_parent.add_child(boss)
 	var spawn_bounds := world_bounds.grow(-float(boss.body_radius)) if world_bounds.size != Vector2.ZERO else Rect2()

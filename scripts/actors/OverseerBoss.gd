@@ -4,6 +4,8 @@ class_name OverseerBoss
 signal died(boss: Node, coin_value: int, source: StringName)
 signal hit(source: StringName)
 signal health_changed(current: float, maximum: float, phase: int)
+signal reinforcements_requested(boss: Node, count: int)
+signal combat_cue(cue: StringName)
 signal damage_resolved(
 	boss: Node,
 	source: StringName,
@@ -16,6 +18,7 @@ signal damage_resolved(
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const TentacleAttackScript = preload("res://scripts/components/TentacleAttack.gd")
+const BossAttackDirectorScript = preload("res://scripts/components/BossAttackDirector.gd")
 
 const DISPLAY_NAME := "深渊监工 / OVERSEER"
 const BODY_RADIUS := 56.0
@@ -37,6 +40,7 @@ var world_bounds := Rect2()
 var flash_timer := 0.0
 var death_resolved := false
 var tentacle_attack: Node
+var attack_director: Node
 
 func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	projectile_parent = projectiles
@@ -45,6 +49,12 @@ func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	tentacle_attack.name = "TentacleAttack"
 	tentacle_attack.configure(self, target_player, projectile_parent)
 	add_child(tentacle_attack)
+	attack_director = BossAttackDirectorScript.new()
+	attack_director.name = "BossAttackDirector"
+	attack_director.reinforcements_requested.connect(func(count: int) -> void: reinforcements_requested.emit(self, count))
+	attack_director.combat_cue.connect(func(cue: StringName) -> void: combat_cue.emit(cue))
+	add_child(attack_director)
+	attack_director.configure(self, target_player, projectile_parent, tentacle_attack, 0x0B055)
 	health = HealthComponentScript.new()
 	health.max_health = BASE_MAX_HEALTH
 	health.health_changed.connect(_on_health_component_changed)
@@ -52,6 +62,9 @@ func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 
 func get_tentacle_attack() -> Node:
 	return tentacle_attack
+
+func get_attack_director() -> Node:
+	return attack_director
 
 func start_tentacle_sweep(target_position: Vector2) -> bool:
 	return tentacle_attack != null and tentacle_attack.start_sweep(target_position)
@@ -67,6 +80,10 @@ func cancel_tentacle_attack() -> void:
 	if tentacle_attack != null:
 		tentacle_attack.cancel_attack()
 
+func cancel_boss_attacks() -> void:
+	if attack_director != null:
+		attack_director.shutdown()
+
 func _ready() -> void:
 	add_to_group(&"enemies")
 	add_to_group(&"bosses")
@@ -78,9 +95,14 @@ func _ready() -> void:
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
+	if attack_director != null:
+		attack_director.advance(delta)
 	if flash_timer > 0.0:
 		flash_timer = maxf(0.0, flash_timer - delta)
 		queue_redraw()
+	if attack_director != null and attack_director.is_movement_locked():
+		velocity = Vector2.ZERO
+		return
 	var player := get_target_player()
 	if player == null:
 		velocity = Vector2.ZERO
@@ -114,9 +136,12 @@ func take_damage(
 	var health_before: float = health.current_health
 	if not health.damage(amount):
 		return false
+	var killed := float(health.current_health) <= 0.0
+	if attack_director != null and not killed:
+		var resolved_phase := _resolve_phase(float(health.current_health), float(health.max_health))
+		attack_director.set_health_phase(resolved_phase)
 	var resolved_source: StringName = DamageTypes.resolve(source)
 	var actual_damage := maxf(0.0, health_before - float(health.current_health))
-	var killed := float(health.current_health) <= 0.0
 	flash_timer = 0.08
 	queue_redraw()
 	damage_resolved.emit(self, resolved_source, actual_damage, global_position, hit_direction, killed)
@@ -128,7 +153,12 @@ func take_damage(
 func get_phase() -> int:
 	if health == null or float(health.max_health) <= 0.0:
 		return 1
-	var ratio: float = float(health.current_health) / float(health.max_health)
+	return _resolve_phase(float(health.current_health), float(health.max_health))
+
+func _resolve_phase(current: float, maximum: float) -> int:
+	if maximum <= 0.0:
+		return 1
+	var ratio := current / maximum
 	if ratio > 0.70:
 		return 1
 	if ratio > 0.35:
@@ -145,7 +175,7 @@ func _die(source: StringName) -> void:
 	if death_resolved:
 		return
 	death_resolved = true
-	cancel_tentacle_attack()
+	cancel_boss_attacks()
 	velocity = Vector2.ZERO
 	set_physics_process(false)
 	died.emit(self, coin_value, source)
