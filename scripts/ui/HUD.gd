@@ -5,6 +5,10 @@ signal pause_requested
 signal bgm_volume_changed(value: float)
 signal bgm_mute_changed(muted: bool)
 
+const DEFAULT_GRID_TOP_MARGIN := 12
+const BOSS_GRID_TOP_INSET := 54
+
+var grid_margin: MarginContainer
 var grid: GridContainer
 var health_bar: ProgressBar
 var health_value_label: Label
@@ -30,14 +34,14 @@ func _ready() -> void:
 	_build_hud()
 
 func _build_hud() -> void:
-	var margin := MarginContainer.new()
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 14)
-	margin.add_theme_constant_override("margin_top", 12)
-	margin.add_theme_constant_override("margin_right", 14)
-	margin.add_theme_constant_override("margin_bottom", 12)
-	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(margin)
+	grid_margin = MarginContainer.new()
+	grid_margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	grid_margin.add_theme_constant_override("margin_left", 14)
+	grid_margin.add_theme_constant_override("margin_top", DEFAULT_GRID_TOP_MARGIN)
+	grid_margin.add_theme_constant_override("margin_right", 14)
+	grid_margin.add_theme_constant_override("margin_bottom", 12)
+	grid_margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(grid_margin)
 
 	grid = GridContainer.new()
 	grid.columns = 4
@@ -45,7 +49,7 @@ func _build_hud() -> void:
 	grid.add_theme_constant_override("v_separation", 8)
 	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	grid.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-	margin.add_child(grid)
+	grid_margin.add_child(grid)
 
 	var health_box := _make_card()
 	health_value_label = _make_label("100 / 100")
@@ -168,6 +172,9 @@ func apply_viewport_size(viewport_size: Vector2) -> void:
 	grid.columns = 2 if viewport_size.x < 1100.0 else 4
 	for child in grid.get_children():
 		child.custom_minimum_size.x = 190.0 if grid.columns == 2 else 210.0
+
+func set_boss_layout_active(active: bool) -> void:
+	grid_margin.add_theme_constant_override("margin_top", BOSS_GRID_TOP_INSET if active else DEFAULT_GRID_TOP_MARGIN)
 
 func get_required_size() -> Vector2:
 	var minimum := grid.get_combined_minimum_size() + Vector2(28, 24)
