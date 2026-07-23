@@ -170,17 +170,20 @@ func _spawn_slam_projectiles(origin: Vector2) -> void:
 		return
 	for index in range(SLAM_PROJECTILE_COUNT):
 		var shot := ProjectileScript.new()
-		shot.global_position = origin
 		shot.velocity = Vector2.RIGHT.rotated(TAU * float(index) / float(SLAM_PROJECTILE_COUNT)) * SLAM_PROJECTILE_SPEED
 		shot.damage = SLAM_PROJECTILE_DAMAGE
 		shot.target_group = &"player"
 		shot.tint = WARNING_COLOR
 		shot.radius = 5.0
 		shot.lifetime = 3.0
+		var projectile_bounds: Rect2 = boss.get("world_bounds")
+		if projectile_bounds.size != Vector2.ZERO:
+			shot.world_bounds = projectile_bounds
 		shot.set_meta(&"boss_owner_id", boss.get_instance_id())
 		shot.add_to_group(get_projectile_group())
-		owned_projectiles.append(shot)
 		projectile_parent.add_child(shot)
+		shot.global_position = origin
+		owned_projectiles.append(shot)
 
 func _finish_attack() -> void:
 	attack_kind = AttackKind.NONE
