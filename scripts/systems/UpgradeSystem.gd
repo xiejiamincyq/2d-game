@@ -74,6 +74,79 @@ func get_progression_state() -> Dictionary:
 		"family_levels": family_levels.duplicate(true),
 	}
 
+func get_snapshot_state() -> Dictionary:
+	return {
+		"coins": coins,
+		"family_levels": family_levels.duplicate(true),
+		"upgrade_counts": upgrade_counts.duplicate(true),
+		"evolution": acquired_evolution_id,
+		"settlement": {
+			"wave": settlement_wave,
+			"generation": settlement_generation,
+			"offers": settlement_offers.duplicate(true),
+			"reward_claimed": settlement_reward_claimed,
+			"closed": settlement_closed,
+		},
+	}
+
+func restore_snapshot_state(state: Dictionary) -> bool:
+	if player == null or not _validate_snapshot_state(state):
+		return false
+	coins = int(state["coins"])
+	family_levels = (state["family_levels"] as Dictionary).duplicate(true)
+	upgrade_counts.clear()
+	var saved_counts: Dictionary = state["upgrade_counts"]
+	for card_value in upgrade_pool:
+		var card: Dictionary = card_value
+		var card_id := String(card.get("id", ""))
+		for rank in range(int(saved_counts.get(card_id, 0))):
+			_apply_upgrade_effect(card_id)
+		if int(saved_counts.get(card_id, 0)) > 0:
+			upgrade_counts[card_id] = int(saved_counts[card_id])
+	acquired_evolution_id = String(state["evolution"])
+	var settlement: Dictionary = state["settlement"]
+	settlement_wave = int(settlement["wave"])
+	settlement_generation = int(settlement["generation"])
+	settlement_reward_claimed = bool(settlement["reward_claimed"])
+	settlement_closed = bool(settlement["closed"])
+	settlement_offers.clear()
+	for offer_value in settlement["offers"]:
+		settlement_offers.append((offer_value as Dictionary).duplicate(true))
+	_sync_build_family_levels()
+	_emit_progression_changed()
+	_emit_settlement_changed()
+	return true
+
+func _validate_snapshot_state(state: Dictionary) -> bool:
+	for key in ["coins", "family_levels", "upgrade_counts", "evolution", "settlement"]:
+		if not state.has(key):
+			return false
+	if int(state["coins"]) < 0 or not state["family_levels"] is Dictionary or not state["upgrade_counts"] is Dictionary:
+		return false
+	var saved_levels: Dictionary = state["family_levels"]
+	if saved_levels.size() != FAMILY_IDS.size():
+		return false
+	for family_id in FAMILY_IDS:
+		if int(saved_levels.get(family_id, 0)) < 1:
+			return false
+	var saved_counts: Dictionary = state["upgrade_counts"]
+	for card_id_value in saved_counts:
+		var card_id := String(card_id_value)
+		var card := _find_catalog_entry(card_id)
+		var count := int(saved_counts[card_id_value])
+		if card.is_empty() or count < 1 or count > int(card.get("max_rank", 1)):
+			return false
+	var evolution := String(state["evolution"])
+	if not evolution.is_empty() and evolution not in ["orbital_storm", "rift_overdrive", "thunder_matrix"]:
+		return false
+	if not state["settlement"] is Dictionary:
+		return false
+	var settlement: Dictionary = state["settlement"]
+	for key in ["wave", "generation", "offers", "reward_claimed", "closed"]:
+		if not settlement.has(key):
+			return false
+	return settlement["offers"] is Array
+
 func add_coins(amount: int) -> bool:
 	if player == null or amount <= 0:
 		return false

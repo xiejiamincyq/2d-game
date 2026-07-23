@@ -152,6 +152,38 @@ func increase_max_health(amount: float) -> void:
 func heal(amount: float) -> void:
 	health.heal(amount)
 
+func get_snapshot_state() -> Dictionary:
+	return {
+		"position": [global_position.x, global_position.y],
+		"health": health.current_health,
+		"max_health": health.max_health,
+		"shield": shield,
+		"max_shield": max_shield,
+	}
+
+func restore_snapshot_state(state: Dictionary) -> bool:
+	if health == null or not state.has("position") or not state["position"] is Array:
+		return false
+	var position: Array = state["position"]
+	if position.size() != 2:
+		return false
+	var restored_max_health := float(state.get("max_health", 0.0))
+	var restored_health := float(state.get("health", -1.0))
+	var restored_max_shield := float(state.get("max_shield", -1.0))
+	var restored_shield := float(state.get("shield", -1.0))
+	if restored_max_health <= 0.0 or restored_health < 0.0 or restored_health > restored_max_health:
+		return false
+	if restored_max_shield < 0.0 or restored_shield < 0.0 or restored_shield > restored_max_shield:
+		return false
+	global_position = Vector2(float(position[0]), float(position[1]))
+	health.max_health = restored_max_health
+	health.current_health = restored_health
+	max_shield = restored_max_shield
+	shield = restored_shield
+	health.health_changed.emit(health.current_health, health.max_health)
+	shield_changed.emit(shield, max_shield)
+	return true
+
 func get_effective_fire_rate() -> float:
 	var effective_rate := fire_rate
 	for modifier_id in _fire_rate_modifiers:
