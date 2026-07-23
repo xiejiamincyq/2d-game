@@ -67,7 +67,7 @@ func _initialize() -> void:
 	director.enemy_parent = enemies
 	director.projectile_parent = projectiles
 	director.world_bounds = Rect2(-1400, -900, 2800, 1800)
-	director.wave_index = 7
+	director.wave_index = 4
 	for index in range(250):
 		director._spawn_enemy(EnemyScript.EnemyKind.SCRAPPER)
 	var registry: Variant = director.get("active_enemies")

@@ -23,12 +23,14 @@ func _initialize() -> void:
 	cleanup.queue_free()
 
 	var first: Node = MainScript.new()
+	first.audio_enabled = false
 	root.add_child(first)
 	await process_frame
 	if not _assert_true(not first.ui.continue_button.visible, "continue entry was shown without a valid snapshot"):
 		return
 	first._start_run()
 	await process_frame
+	TestSupport.stop_audio(first.audio)
 	first.upgrade_system.coins = 73
 	first.upgrade_system.family_levels = {"ballistics": 3, "mobility": 2, "automation": 1}
 	first.upgrade_system._apply_card("damage")
@@ -54,12 +56,14 @@ func _initialize() -> void:
 	await process_frame
 
 	var continued: Node = MainScript.new()
+	continued.audio_enabled = false
 	root.add_child(continued)
 	await process_frame
 	if not _assert_true(continued.ui.continue_button.visible and not continued.ui.continue_button.disabled, "valid snapshot did not expose Continue"):
 		return
 	continued._continue_run()
 	await process_frame
+	TestSupport.stop_audio(continued.audio)
 	if not _assert_true(continued.run_state == continued.RunState.SETTLEMENT and paused, "Continue did not restore the stable settlement boundary"):
 		return
 	if not _assert_true(
@@ -107,9 +111,11 @@ func _initialize() -> void:
 	await process_frame
 
 	var fresh: Node = MainScript.new()
+	fresh.audio_enabled = false
 	root.add_child(fresh)
 	await process_frame
 	fresh._start_run()
+	TestSupport.stop_audio(fresh.audio)
 	if not _assert_true(
 		int(fresh.snapshot_store.load_snapshot().get("pending_stage", 0)) == 1
 		and String(fresh.snapshot_store.load_snapshot().get("boundary", "")) == "wave_intro",

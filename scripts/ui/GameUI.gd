@@ -85,7 +85,7 @@ func _build_start_screen() -> void:
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	start_backdrop.add_child(center)
 	start_panel = PanelContainer.new()
-	start_panel.custom_minimum_size = Vector2(520, 310)
+	start_panel.custom_minimum_size = Vector2(520, 370)
 	center.add_child(start_panel)
 	var box := VBoxContainer.new()
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -176,7 +176,7 @@ func apply_viewport_size(viewport_size: Vector2) -> void:
 	settlement_screen.apply_viewport_size(viewport_size)
 	result_screen.apply_viewport_size(viewport_size)
 	wave_banner.apply_viewport_size(viewport_size)
-	start_panel.custom_minimum_size = Vector2(minf(520.0, viewport_size.x - 40.0), minf(310.0, viewport_size.y - 40.0))
+	start_panel.custom_minimum_size = Vector2(minf(520.0, viewport_size.x - 40.0), minf(370.0, viewport_size.y - 40.0))
 
 func set_health(current: float, maximum: float) -> void:
 	hud.set_health(current, maximum)

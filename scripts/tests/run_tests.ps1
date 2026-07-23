@@ -43,25 +43,32 @@ $failures = [System.Collections.Generic.List[string]]::new()
 $forbidden = "SCRIPT ERROR|ERROR:|TEST FAIL:|ObjectDB instances were leaked|RID.+leaked|resources still in use"
 
 foreach ($test in $tests) {
+	$logPath = Join-Path ([System.IO.Path]::GetTempPath()) ("five-minute-overdrive-{0}-{1}.log" -f $test, [guid]::NewGuid().ToString("N"))
     $startInfo = [System.Diagnostics.ProcessStartInfo]::new()
     $startInfo.FileName = $godot
     $startInfo.WorkingDirectory = $projectRoot
-    $startInfo.Arguments = "--headless --path . --script res://scripts/tests/$test.gd --quit-after 120"
+    # The Dummy driver prevents Windows audio playback handles from keeping a
+    # finished headless child process alive after its pass marker is emitted.
+	$startInfo.Arguments = "--headless --audio-driver Dummy --path . --log-file `"$logPath`" --script res://scripts/tests/$test.gd --quit-after 120"
     $startInfo.UseShellExecute = $false
-    $startInfo.RedirectStandardOutput = $true
-    $startInfo.RedirectStandardError = $true
     $startInfo.CreateNoWindow = $true
     $process = [System.Diagnostics.Process]::new()
     $process.StartInfo = $startInfo
     [void]$process.Start()
-    $stdout = $process.StandardOutput.ReadToEnd()
-    $stderr = $process.StandardError.ReadToEnd()
     if (-not $process.WaitForExit(120000)) {
-        $process.Kill()
+		# Process.Kill(Boolean) is unavailable in Windows PowerShell 5.1.
+		$process.Kill()
         $failures.Add("${test}: timed out after 120 seconds")
+		if (Test-Path -LiteralPath $logPath) {
+			Remove-Item -LiteralPath $logPath -Force
+		}
         continue
     }
-    $output = "$stdout`n$stderr"
+	$output = ""
+	if (Test-Path -LiteralPath $logPath) {
+		$output = Get-Content -Raw -LiteralPath $logPath
+		Remove-Item -LiteralPath $logPath -Force
+	}
     $matches = [regex]::Matches($output, "TEST PASS: $test ([1-9][0-9]*)")
     if ($process.ExitCode -ne 0) {
         $failures.Add("${test}: exited with $($process.ExitCode)")

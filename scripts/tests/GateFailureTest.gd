@@ -1,7 +1,6 @@
 extends SceneTree
 
 const MainScript = preload("res://scripts/Main.gd")
-const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
 
@@ -16,6 +15,7 @@ func _assert_true(condition: bool, message: String) -> bool:
 
 func _initialize() -> void:
 	var scene: Node = MainScript.new()
+	scene.audio_enabled = false
 	root.add_child(scene)
 	await process_frame
 	scene._start_run()
@@ -29,11 +29,8 @@ func _initialize() -> void:
 	if not _assert_true(scene.ui.result_screen.visible, "wave-start failure did not expose a safe result action"):
 		return
 
-	TestSupport.stop_audio(scene.audio)
-	# Let AudioStreamPlaybackWAV instances release after the forced defeat cue.
-	await create_timer(0.25).timeout
 	paused = false
-	scene.queue_free()
+	scene.free()
 	await process_frame
 	await process_frame
 	print("TEST PASS: GateFailureTest %d" % assertions)

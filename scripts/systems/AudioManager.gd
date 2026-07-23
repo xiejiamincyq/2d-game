@@ -31,9 +31,12 @@ var shoot_cooldown: float = 0.0
 var laser_loop_player: AudioStreamPlayer
 var voice_pool: Array[AudioStreamPlayer] = []
 var voice_cursor: int = 0
+var silent_mode := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	if silent_mode:
+		return
 	streams["bgm"] = _make_bgm_loop()
 	streams["shoot"] = _make_gunshot()
 	streams["coin"] = _make_tone(1040.0, 0.07, 0.1, 0.34, 1.35)
@@ -107,12 +110,17 @@ func _get_hit_stream_name(source: StringName, feedback_weight: int) -> String:
 	return String(hit_stream_names.get(source, "enemy_hit"))
 
 func set_laser_active(active: bool) -> void:
+	if not is_instance_valid(laser_loop_player):
+		laser_loop_player = null
+		return
 	if active and not laser_loop_player.playing:
 		laser_loop_player.play()
 	elif not active and laser_loop_player.playing:
 		laser_loop_player.stop()
 
 func play(name: String) -> void:
+	if silent_mode:
+		return
 	if not streams.has(name):
 		return
 	var voice: AudioStreamPlayer = null
@@ -129,6 +137,8 @@ func play(name: String) -> void:
 	voice.play()
 
 func play_bgm() -> void:
+	if silent_mode:
+		return
 	if bgm_player == null:
 		bgm_player = AudioStreamPlayer.new()
 		bgm_player.stream = streams["bgm"]

@@ -50,6 +50,7 @@ var overdrive_charge: float = 0.0
 var run_state: RunState = RunState.START
 var pending_wave_summary: Dictionary = {}
 var snapshot_store: Node
+var audio_enabled := true
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -132,6 +133,7 @@ func _build_world() -> void:
 	ui = GameUIScript.new()
 	add_child(ui)
 	audio = AudioManagerScript.new()
+	audio.silent_mode = not audio_enabled
 	add_child(audio)
 	ui.start_requested.connect(_start_run)
 	ui.continue_requested.connect(_continue_run)
@@ -241,6 +243,10 @@ func _begin_run(snapshot: Dictionary) -> void:
 			snapshot_store.clear_snapshot()
 			_restart_run()
 			return
+		player.global_position = player.global_position.clamp(
+			WORLD_BOUNDS.position + Vector2(13, 13),
+			WORLD_BOUNDS.end - Vector2(13, 13)
+		)
 	ui.settlement_offer_selected.connect(_on_settlement_offer_selected)
 	ui.settlement_close_requested.connect(_on_settlement_close_requested)
 	ui.wave_banner_finished.connect(_on_wave_banner_finished)

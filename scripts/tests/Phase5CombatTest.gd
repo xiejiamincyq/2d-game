@@ -31,6 +31,33 @@ func _initialize() -> void:
 			return
 	if not _assert_true(boss_kind >= 0, "final boss kind was not registered"):
 		return
+	# Standard-build pacing budget. Unit weights include expected aim/travel/TTK
+	# interaction time under the build curve; banners and four settlement choices
+	# are added separately. Phase 6 telemetry can tune the weights, while this
+	# contract prevents the five-stage table drifting outside 4:30-5:30.
+	var interaction_seconds := {
+		"scrapper": 0.28, "dasher": 0.24, "spitter": 0.65, "bruiser": 2.2,
+		"marksman": 0.85, "lobber": 1.2, "overseer": 12.0,
+	}
+	var previous_stage_seconds := 0.0
+	var estimated_combat_seconds := 0.0
+	var total_enemy_count := 0
+	for stage in director.waves:
+		var stage_seconds := 0.0
+		for enemy_id in interaction_seconds:
+			var count := int(stage.get(enemy_id, 0))
+			total_enemy_count += count
+			stage_seconds += float(count) * float(interaction_seconds[enemy_id])
+		if not _assert_true(stage_seconds > previous_stage_seconds, "stage pressure did not increase monotonically"):
+			return
+		previous_stage_seconds = stage_seconds
+		estimated_combat_seconds += stage_seconds
+	var estimated_run_seconds := estimated_combat_seconds + 28.0 + 11.0
+	if not _assert_true(total_enemy_count == 649, "five-stage content budget changed without pacing review"):
+		return
+	if not _assert_true(estimated_run_seconds >= 270.0 and estimated_run_seconds <= 330.0, "standard-build duration budget %.1fs escaped 4:30-5:30" % estimated_run_seconds):
+		return
+	print("PACING: standard_build_estimate_seconds=%.1f enemies=%d" % [estimated_run_seconds, total_enemy_count])
 
 	var fixture := Node2D.new()
 	root.add_child(fixture)

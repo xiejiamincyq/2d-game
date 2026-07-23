@@ -25,6 +25,8 @@ func _initialize() -> void:
 	ui.set_continue_available(true)
 	if not _assert_true(ui.continue_button.visible and not ui.continue_button.disabled, "valid-save state did not expose an enabled Continue button"):
 		return
+	if not _assert_true(ui.start_panel.get_combined_minimum_size().y <= 500.0, "start screen with Continue no longer fits the 960x540 safe height"):
+		return
 	ui.set_progression_state({"coins": 37, "family_levels": {"ballistics": 4, "mobility": 2, "automation": 3}})
 	if not _assert_true(ui.hud.coin_value_label.text == "金币 37" and ui.hud.level_label.text == "等级  火力:4  机动:2  工程:3", "HUD did not display family progression"):
 		return
@@ -75,7 +77,7 @@ func _initialize() -> void:
 
 	ui.show_result(
 		true,
-		"抵达波次 8/8",
+		"抵达阶段 5/5",
 		321,
 		299.0,
 		{"coins": 18, "family_levels": {"ballistics": 5, "mobility": 3, "automation": 2}}
