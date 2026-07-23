@@ -81,3 +81,8 @@
 - [ ] Task 6.3：可访问性与 Windows 发布回归
 - [ ] 完整测试连续通过
 - [ ] 最终 diff 只包含完成且相关的工作
+
+## Boss 重设计扩展（新需求，待执行）
+
+- [ ] 按 [boss-redesign-plan.md](boss-redesign-plan.md) 重构“深渊监工”
+- [ ] 详细进度见 [boss-redesign-todo.md](boss-redesign-todo.md)
