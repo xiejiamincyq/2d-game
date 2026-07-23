@@ -16,6 +16,7 @@ const PauseScene = preload("res://scenes/ui/PauseScreen.tscn")
 const SettlementScene = preload("res://scenes/ui/SettlementScreen.tscn")
 const ResultScene = preload("res://scenes/ui/ResultScreen.tscn")
 const WaveBannerScene = preload("res://scenes/ui/WaveBanner.tscn")
+const BossHealthBarScript = preload("res://scripts/ui/BossHealthBar.gd")
 const CyberTheme = preload("res://themes/CyberTheme.tres")
 
 var root: Control
@@ -24,6 +25,7 @@ var pause_screen: Control
 var settlement_screen: Control
 var result_screen: Control
 var wave_banner: Control
+var boss_health_bar: Control
 var start_backdrop: ColorRect
 var start_panel: PanelContainer
 var start_button: Button
@@ -64,11 +66,13 @@ func _ready() -> void:
 	settlement_screen = SettlementScene.instantiate()
 	result_screen = ResultScene.instantiate()
 	wave_banner = WaveBannerScene.instantiate()
+	boss_health_bar = BossHealthBarScript.new()
 	root.add_child(hud)
 	root.add_child(pause_screen)
 	root.add_child(settlement_screen)
 	root.add_child(result_screen)
 	root.add_child(wave_banner)
+	root.add_child(boss_health_bar)
 	_build_start_screen()
 	_connect_components()
 	_bind_compatibility_references()
@@ -176,6 +180,7 @@ func apply_viewport_size(viewport_size: Vector2) -> void:
 	settlement_screen.apply_viewport_size(viewport_size)
 	result_screen.apply_viewport_size(viewport_size)
 	wave_banner.apply_viewport_size(viewport_size)
+	boss_health_bar.apply_viewport_size(viewport_size)
 	start_panel.custom_minimum_size = Vector2(minf(520.0, viewport_size.x - 40.0), minf(370.0, viewport_size.y - 40.0))
 
 func set_health(current: float, maximum: float) -> void:
@@ -192,6 +197,15 @@ func set_settlement_state(state: Dictionary) -> void:
 
 func set_wave(index: int, total: int, remaining: int) -> void:
 	hud.set_wave(index, total, remaining)
+
+func show_boss_health(display_name: String, maximum_health: float) -> void:
+	boss_health_bar.show_boss(display_name, maximum_health)
+
+func set_boss_health(current: float, maximum: float, phase: int) -> void:
+	boss_health_bar.set_boss_health(current, maximum, phase)
+
+func hide_boss_health() -> void:
+	boss_health_bar.hide_boss()
 
 func set_run_stats(kills: int, elapsed_seconds: float) -> void:
 	hud.set_run_stats(kills, elapsed_seconds)
