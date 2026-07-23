@@ -14,9 +14,13 @@ signal damage_resolved(
 	direction: Vector2,
 	killed: bool
 )
+signal boss_spawned(boss: Node, display_name: String, maximum_health: float)
+signal boss_health_changed(current: float, maximum: float, phase: int)
+signal boss_defeated(boss: Node)
 signal victory
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
+const OverseerBossScript = preload("res://scripts/actors/OverseerBoss.gd")
 const SpawnPortalScript = preload("res://scripts/world/SpawnPortal.gd")
 
 const PORTAL_MIN_SAFE_DISTANCE := 260.0
@@ -27,6 +31,9 @@ const PORTAL_SPAWN_COUNT := 2
 const PORTAL_ENEMY_SPAWN_INNER_RADIUS := 24.0
 const PORTAL_ENEMY_SPAWN_OUTER_RADIUS := 104.0
 const PORTAL_ENEMY_CLEARANCE := 5.0
+const BOSS_PORTAL_WARNING_SECONDS := 1.1
+const BOSS_PORTAL_BURST_SECONDS := 0.65
+const BOSS_PORTAL_SCALE := 1.8
 
 var enemy_parent: Node
 var projectile_parent: Node
@@ -46,13 +53,18 @@ var active_enemies: Array[Node] = []
 var active_portals: Array[Node] = []
 var portal_spawn_queues: Dictionary = {}
 var portal_spawn_timers: Dictionary = {}
+var active_boss: Node
+var boss_portal: Node
+var boss_entrance_started := false
+var boss_defeat_pending := false
+var boss_defeated_for_wave := false
 
 var waves: Array[Dictionary] = [
 	{"scrapper": 54, "dasher": 12, "spitter": 4, "bruiser": 0, "marksman": 0, "lobber": 0, "overseer": 0, "rate": 0.13},
 	{"scrapper": 66, "dasher": 18, "spitter": 8, "bruiser": 2, "marksman": 4, "lobber": 0, "overseer": 0, "rate": 0.105},
 	{"scrapper": 76, "dasher": 26, "spitter": 12, "bruiser": 3, "marksman": 7, "lobber": 4, "overseer": 0, "rate": 0.085},
 	{"scrapper": 94, "dasher": 34, "spitter": 15, "bruiser": 5, "marksman": 10, "lobber": 8, "overseer": 0, "rate": 0.07},
-	{"scrapper": 104, "dasher": 38, "spitter": 16, "bruiser": 6, "marksman": 12, "lobber": 10, "overseer": 1, "rate": 0.055},
+	{"scrapper": 104, "dasher": 38, "spitter": 16, "bruiser": 6, "marksman": 12, "lobber": 10, "overseer": 0, "rate": 0.055},
 ]
 
 func _ready() -> void:
@@ -74,6 +86,7 @@ func restore_stable_boundary(pending_stage: int, boundary: String) -> bool:
 	active_portals.clear()
 	portal_spawn_queues.clear()
 	portal_spawn_timers.clear()
+	_reset_boss_tracking()
 	prepared_wave = false
 	wave_running = false
 	waiting_for_advance = false
@@ -93,12 +106,17 @@ func _process(delta: float) -> void:
 		return
 	if waiting_for_advance or prepared_wave or not wave_running:
 		return
+	if is_instance_valid(boss_portal):
+		_process_boss_entrance(delta)
+		return
 	if not active_portals.is_empty():
 		_process_portal_attack(delta)
 		return
+	if is_instance_valid(active_boss):
+		return
 	if spawn_queue.is_empty():
 		if active_enemies.is_empty():
-			_finish_current_wave()
+			_handle_combat_entities_cleared()
 		return
 	_process_spawn_timer(delta)
 
@@ -123,6 +141,7 @@ func prepare_next_wave() -> bool:
 		active = false
 		return false
 	spawn_queue.clear()
+	_reset_boss_tracking()
 	var wave := waves[wave_index]
 	for count in range(int(wave["scrapper"])):
 		spawn_queue.append(EnemyScript.EnemyKind.SCRAPPER)
@@ -221,12 +240,124 @@ func _process_portal_attack(delta: float) -> void:
 		portal_spawn_queues[portal_id] = queue
 		portal_spawn_timers[portal_id] = PORTAL_SPAWN_INTERVAL
 	if active_portals.is_empty() and active_enemies.is_empty() and spawn_queue.is_empty():
-		_finish_current_wave()
+		_handle_combat_entities_cleared()
 	else:
 		_emit_wave_status()
 
+func _handle_combat_entities_cleared() -> void:
+	if not wave_running or waiting_for_advance:
+		return
+	if not spawn_queue.is_empty() or not active_enemies.is_empty() or not active_portals.is_empty():
+		return
+	if is_instance_valid(boss_portal) or is_instance_valid(active_boss):
+		return
+	if wave_index == waves.size() - 1:
+		if boss_defeated_for_wave:
+			_finish_current_wave()
+		elif not boss_entrance_started:
+			_begin_boss_entrance()
+		return
+	_finish_current_wave()
+
+func _begin_boss_entrance() -> bool:
+	if (
+		boss_entrance_started
+		or boss_defeated_for_wave
+		or not wave_running
+		or wave_index != waves.size() - 1
+		or portal_parent == null
+		or not is_instance_valid(player)
+	):
+		return false
+	boss_entrance_started = true
+	var portal: Node = SpawnPortalScript.new()
+	portal.name = "OverseerEntrancePortal"
+	portal.scale = Vector2.ONE * BOSS_PORTAL_SCALE
+	portal.z_index = 4
+	portal.set_process(false)
+	portal_parent.add_child(portal)
+	portal.configure(sample_portal_position(player.global_position, spawn_rng), BOSS_PORTAL_WARNING_SECONDS, BOSS_PORTAL_BURST_SECONDS)
+	portal.burst_started.connect(_on_boss_portal_burst, CONNECT_ONE_SHOT)
+	portal.closed.connect(_on_boss_portal_closed, CONNECT_ONE_SHOT)
+	boss_portal = portal
+	_emit_wave_status()
+	return true
+
+func _process_boss_entrance(delta: float) -> void:
+	var portal := boss_portal
+	if not is_instance_valid(portal):
+		boss_portal = null
+		return
+	portal.advance(delta)
+
+func _on_boss_portal_burst(portal: Node) -> void:
+	if portal != boss_portal or is_instance_valid(active_boss) or boss_defeated_for_wave:
+		return
+	_spawn_boss_at(portal.global_position)
+
+func _spawn_boss_at(position: Vector2) -> Node:
+	if is_instance_valid(active_boss) or boss_defeated_for_wave or enemy_parent == null:
+		return null
+	var boss: Node = OverseerBossScript.new()
+	boss.world_bounds = world_bounds
+	boss.setup(wave_index + 1, projectile_parent, player as Node2D)
+	boss.died.connect(_on_boss_died)
+	boss.damage_resolved.connect(_forward_damage_resolved)
+	boss.tree_exiting.connect(_on_boss_tree_exiting.bind(boss), CONNECT_ONE_SHOT)
+	enemy_parent.add_child(boss)
+	var spawn_bounds := world_bounds.grow(-float(boss.body_radius)) if world_bounds.size != Vector2.ZERO else Rect2()
+	boss.global_position = position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2(0.001, 0.001)) if spawn_bounds.size != Vector2.ZERO else position
+	boss.velocity = Vector2.ZERO
+	active_boss = boss
+	active_enemies.append(boss)
+	boss.health_changed.connect(_on_boss_health_changed)
+	boss_spawned.emit(boss, OverseerBossScript.DISPLAY_NAME, float(boss.health.max_health))
+	boss_health_changed.emit(float(boss.health.current_health), float(boss.health.max_health), int(boss.get_phase()))
+	_emit_wave_status()
+	return boss
+
+func _on_boss_health_changed(current: float, maximum: float, phase: int) -> void:
+	if not boss_defeat_pending and not boss_defeated_for_wave:
+		boss_health_changed.emit(current, maximum, phase)
+
+func _on_boss_died(boss: Node, dropped_coins: int, source: StringName) -> void:
+	if boss != active_boss or boss_defeat_pending or boss_defeated_for_wave:
+		return
+	boss_defeat_pending = true
+	_on_enemy_died(boss, dropped_coins, source)
+
+func _on_boss_tree_exiting(boss: Node) -> void:
+	active_enemies.erase(boss)
+	if boss == active_boss:
+		active_boss = null
+	if boss_defeat_pending and not boss_defeated_for_wave:
+		boss_defeat_pending = false
+		boss_defeated_for_wave = true
+		boss_defeated.emit(boss)
+	_emit_wave_status()
+	call_deferred("_handle_combat_entities_cleared")
+
+func _on_boss_portal_closed(portal: Node) -> void:
+	if portal == boss_portal:
+		boss_portal = null
+	portal.queue_free()
+	_emit_wave_status()
+	call_deferred("_handle_combat_entities_cleared")
+
+func _forward_damage_resolved(
+	resolved_enemy: Node,
+	source: StringName,
+	amount: float,
+	world_position: Vector2,
+	direction: Vector2,
+	killed: bool
+) -> void:
+	damage_resolved.emit(resolved_enemy, source, amount, world_position, direction, killed)
+
 func _finish_current_wave() -> void:
 	if waiting_for_advance or not wave_running:
+		return
+	if wave_index == waves.size() - 1 and not boss_defeated_for_wave:
 		return
 	_emit_wave_status()
 	wave_running = false
@@ -253,7 +384,7 @@ func can_advance_after_settlement() -> bool:
 	)
 
 func complete_final_wave() -> bool:
-	if not active or not waiting_for_advance or wave_index != waves.size() - 1:
+	if not active or not waiting_for_advance or wave_index != waves.size() - 1 or not boss_defeated_for_wave:
 		return false
 	waiting_for_advance = false
 	active = false
@@ -514,6 +645,9 @@ func _on_portal_closed(portal: Node) -> void:
 func get_active_enemies() -> Array[Node]:
 	return active_enemies
 
+func get_active_boss() -> Node:
+	return active_boss if is_instance_valid(active_boss) else null
+
 func get_active_portal_count() -> int:
 	return active_portals.size()
 
@@ -521,5 +655,15 @@ func _emit_wave_status() -> void:
 	var portal_remaining := 0
 	for queue in portal_spawn_queues.values():
 		portal_remaining += (queue as Array).size()
+	var boss_remaining := 1 if wave_index == waves.size() - 1 and (prepared_wave or wave_running) and not boss_defeated_for_wave else 0
 	var remaining := spawn_queue.size() + portal_remaining + active_enemies.size()
+	if boss_remaining > 0 and not is_instance_valid(active_boss):
+		remaining += boss_remaining
 	wave_changed.emit(wave_index + 1, waves.size(), remaining)
+
+func _reset_boss_tracking() -> void:
+	active_boss = null
+	boss_portal = null
+	boss_entrance_started = false
+	boss_defeat_pending = false
+	boss_defeated_for_wave = false

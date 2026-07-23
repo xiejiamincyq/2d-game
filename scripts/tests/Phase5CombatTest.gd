@@ -1,6 +1,7 @@
 extends SceneTree
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
+const OverseerBossScript = preload("res://scripts/actors/OverseerBoss.gd")
 const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
 
 var assertions := 0
@@ -23,13 +24,12 @@ func _initialize() -> void:
 	for kind_name in ["MARKSMAN", "LOBBER", "OVERSEER"]:
 		if not _assert_true(EnemyScript.EnemyKind.has(kind_name), "enemy roster is missing %s" % kind_name):
 			return
-	var boss_kind := int(EnemyScript.EnemyKind.get("OVERSEER", -1))
 	for stage_index in range(director.waves.size()):
 		var stage: Dictionary = director.waves[stage_index]
 		var boss_count := int(stage.get("overseer", 0))
-		if not _assert_true(boss_count == (1 if stage_index == 4 else 0), "boss placement was invalid in stage %d" % (stage_index + 1)):
+		if not _assert_true(boss_count == 0, "independent Boss leaked into the regular spawn table in stage %d" % (stage_index + 1)):
 			return
-	if not _assert_true(boss_kind >= 0, "final boss kind was not registered"):
+	if not _assert_true(OverseerBossScript != EnemyScript, "final Boss did not use an independent script"):
 		return
 	# Standard-build pacing budget. Unit weights include expected aim/travel/TTK
 	# interaction time under the build curve; banners and four settlement choices
@@ -37,7 +37,7 @@ func _initialize() -> void:
 	# contract prevents the five-stage table drifting outside 4:30-5:30.
 	var interaction_seconds := {
 		"scrapper": 0.28, "dasher": 0.24, "spitter": 0.65, "bruiser": 2.2,
-		"marksman": 0.85, "lobber": 1.2, "overseer": 12.0,
+		"marksman": 0.85, "lobber": 1.2,
 	}
 	var previous_stage_seconds := 0.0
 	var estimated_combat_seconds := 0.0
@@ -52,7 +52,8 @@ func _initialize() -> void:
 			return
 		previous_stage_seconds = stage_seconds
 		estimated_combat_seconds += stage_seconds
-	var estimated_run_seconds := estimated_combat_seconds + 28.0 + 11.0
+	total_enemy_count += 1 # Independent Boss, outside the regular spawn table.
+	var estimated_run_seconds := estimated_combat_seconds + OverseerBossScript.B1_PACING_PLACEHOLDER_SECONDS + 28.0 + 11.0
 	if not _assert_true(total_enemy_count == 649, "five-stage content budget changed without pacing review"):
 		return
 	if not _assert_true(estimated_run_seconds >= 270.0 and estimated_run_seconds <= 330.0, "standard-build duration budget %.1fs escaped 4:30-5:30" % estimated_run_seconds):

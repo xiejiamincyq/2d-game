@@ -136,6 +136,10 @@ func _initialize() -> void:
 		return
 	gated_director.spawn_queue.clear()
 	gated_director.active_enemies.clear()
+	# BossTest owns the entrance/death integration coverage. This wave-level
+	# probe starts at the stable point immediately after Boss cleanup.
+	gated_director.boss_entrance_started = true
+	gated_director.boss_defeated_for_wave = true
 	gated_director.victory.connect(func() -> void: victory_count[0] += 1)
 	gated_director._process(0.016)
 	gated_director._process(0.016)
