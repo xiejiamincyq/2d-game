@@ -47,8 +47,11 @@ func _initialize() -> void:
 	var maximum: int = spawn_counts.max()
 	if not _assert_true(maximum - minimum <= 1, "30/60/120 Hz spawn counts diverged: %s" % [spawn_counts]):
 		return
+	var rate_probe: Node = WaveDirectorScript.new()
+	var expected_spawns := 10.0 / float(rate_probe.waves[0]["rate"])
+	rate_probe.free()
 	for count in spawn_counts:
-		if not _assert_true(count >= 62 and count <= 64, "spawn count %d was not near 62.5" % count):
+		if not _assert_true(absf(float(count) - expected_spawns) <= 1.0, "spawn count %d was not near configured expectation %.1f" % [count, expected_spawns]):
 			return
 
 	var sampler: Node = WaveDirectorScript.new()

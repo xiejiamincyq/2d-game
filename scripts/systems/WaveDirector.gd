@@ -48,14 +48,11 @@ var portal_spawn_queues: Dictionary = {}
 var portal_spawn_timers: Dictionary = {}
 
 var waves: Array[Dictionary] = [
-	{"scrapper": 34, "dasher": 5, "spitter": 0, "bruiser": 0, "rate": 0.16},
-	{"scrapper": 46, "dasher": 10, "spitter": 2, "bruiser": 1, "rate": 0.13},
-	{"scrapper": 58, "dasher": 16, "spitter": 4, "bruiser": 1, "rate": 0.11},
-	{"scrapper": 72, "dasher": 22, "spitter": 6, "bruiser": 2, "rate": 0.095},
-	{"scrapper": 88, "dasher": 28, "spitter": 8, "bruiser": 2, "rate": 0.08},
-	{"scrapper": 104, "dasher": 36, "spitter": 11, "bruiser": 3, "rate": 0.07},
-	{"scrapper": 124, "dasher": 44, "spitter": 14, "bruiser": 4, "rate": 0.06},
-	{"scrapper": 150, "dasher": 56, "spitter": 18, "bruiser": 5, "rate": 0.05}
+	{"scrapper": 54, "dasher": 12, "spitter": 4, "bruiser": 0, "marksman": 0, "lobber": 0, "overseer": 0, "rate": 0.13},
+	{"scrapper": 66, "dasher": 18, "spitter": 8, "bruiser": 2, "marksman": 4, "lobber": 0, "overseer": 0, "rate": 0.105},
+	{"scrapper": 76, "dasher": 26, "spitter": 12, "bruiser": 3, "marksman": 7, "lobber": 4, "overseer": 0, "rate": 0.085},
+	{"scrapper": 94, "dasher": 34, "spitter": 15, "bruiser": 5, "marksman": 10, "lobber": 8, "overseer": 0, "rate": 0.07},
+	{"scrapper": 104, "dasher": 38, "spitter": 16, "bruiser": 6, "marksman": 12, "lobber": 10, "overseer": 1, "rate": 0.055},
 ]
 
 func _ready() -> void:
@@ -112,6 +109,12 @@ func prepare_next_wave() -> bool:
 		spawn_queue.append(EnemyScript.EnemyKind.SPITTER)
 	for count in range(int(wave["bruiser"])):
 		spawn_queue.append(EnemyScript.EnemyKind.BRUISER)
+	for count in range(int(wave["marksman"])):
+		spawn_queue.append(EnemyScript.EnemyKind.MARKSMAN)
+	for count in range(int(wave["lobber"])):
+		spawn_queue.append(EnemyScript.EnemyKind.LOBBER)
+	for count in range(int(wave["overseer"])):
+		spawn_queue.append(EnemyScript.EnemyKind.OVERSEER)
 	spawn_queue.shuffle()
 	prepared_wave = true
 	wave_running = false
@@ -143,7 +146,12 @@ func _open_portal_attack() -> void:
 	for index in range(spawn_queue.size()):
 		queues[index % portal_count].append(spawn_queue[index])
 	spawn_queue.clear()
-	for index in range(portal_count):
+	_open_portals_for_queues(queues)
+
+func _open_portals_for_queues(queues: Array[Array]) -> void:
+	for index in range(queues.size()):
+		if queues[index].is_empty():
+			continue
 		var portal: Node = SpawnPortalScript.new()
 		var portal_position := sample_portal_position(player.global_position, spawn_rng)
 		portal.set_process(false)
@@ -155,6 +163,22 @@ func _open_portal_attack() -> void:
 		portal_spawn_timers[portal.get_instance_id()] = 0.0
 		portal.closed.connect(_on_portal_closed, CONNECT_ONE_SHOT)
 	_emit_wave_status()
+
+func _on_boss_reinforcements_requested(_boss: Node, count: int) -> void:
+	if count <= 0 or portal_parent == null or not is_instance_valid(player):
+		return
+	var portal_count := clampi(ceili(float(count) / 8.0), 2, 3)
+	var queues: Array[Array] = []
+	for index in range(portal_count):
+		queues.append([])
+	var reinforcement_kinds: Array[int] = [
+		EnemyScript.EnemyKind.SCRAPPER,
+		EnemyScript.EnemyKind.DASHER,
+		EnemyScript.EnemyKind.SPITTER,
+	]
+	for index in range(count):
+		queues[index % portal_count].append(reinforcement_kinds[index % reinforcement_kinds.size()])
+	_open_portals_for_queues(queues)
 
 func _process_portal_attack(delta: float) -> void:
 	for portal in active_portals.duplicate():
@@ -221,7 +245,8 @@ func _get_wave_summary() -> Dictionary:
 	}
 
 func _spawn_enemy(kind: int) -> void:
-	var position := sample_spitter_spawn_position(player.global_position, get_camera_safe_rect(), spawn_rng) if kind == EnemyScript.EnemyKind.SPITTER else sample_spawn_position(player.global_position, 24.0, 430.0, spawn_rng)
+	var ranged_kind := kind in [EnemyScript.EnemyKind.SPITTER, EnemyScript.EnemyKind.MARKSMAN, EnemyScript.EnemyKind.LOBBER]
+	var position := sample_spitter_spawn_position(player.global_position, get_camera_safe_rect(), spawn_rng) if ranged_kind else sample_spawn_position(player.global_position, 24.0, 430.0, spawn_rng)
 	_spawn_enemy_at(kind, position)
 
 func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = false) -> void:
@@ -242,6 +267,8 @@ func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = 
 	active_enemies.append(enemy)
 	enemy.tree_exiting.connect(_on_enemy_tree_exiting.bind(enemy), CONNECT_ONE_SHOT)
 	enemy.died.connect(_on_enemy_died)
+	if enemy.has_signal("reinforcements_requested"):
+		enemy.reinforcements_requested.connect(_on_boss_reinforcements_requested)
 	if enemy.has_signal("damage_resolved"):
 		enemy.damage_resolved.connect(func(
 			resolved_enemy: Node,
