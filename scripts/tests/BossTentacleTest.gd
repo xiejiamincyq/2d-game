@@ -29,6 +29,9 @@ func _initialize() -> void:
 	root.add_child(fixture)
 	var projectiles := Node2D.new()
 	fixture.add_child(projectiles)
+	projectiles.position = Vector2(73.0, -41.0)
+	projectiles.rotation = 0.18
+	projectiles.scale = Vector2(1.1, 0.9)
 	var player := DamageTarget.new()
 	fixture.add_child(player)
 	player.global_position = Vector2(240.0, 0.0)
@@ -36,6 +39,7 @@ func _initialize() -> void:
 	var boss: Node2D = OverseerBossScript.new()
 	fixture.add_child(boss)
 	boss.global_position = Vector2.ZERO
+	boss.world_bounds = Rect2(-640.0, -360.0, 1280.0, 720.0)
 	boss.setup(1, projectiles, player)
 	await process_frame
 	boss.set_physics_process(false)
@@ -106,6 +110,21 @@ func _initialize() -> void:
 			shot.is_in_group(attack.get_projectile_group())
 			and int(shot.get_meta(&"boss_owner_id", 0)) == boss.get_instance_id(),
 			"slam projectile was missing Boss ownership cleanup metadata"
+		):
+			return
+		var spawned_on_target := false
+		for target_position in warning_targets:
+			if shot.global_position.is_equal_approx(target_position):
+				spawned_on_target = true
+				break
+		if not _assert_true(
+			spawned_on_target,
+			"transformed projectile parent displaced a slam projectile from its target point"
+		):
+			return
+		if not _assert_true(
+			shot.world_bounds == boss.world_bounds,
+			"slam projectile did not inherit the Boss world bounds"
 		):
 			return
 
