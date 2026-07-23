@@ -113,7 +113,7 @@ func apply_viewport_size(viewport_size: Vector2) -> void:
 	position = Vector2(-size.x * 0.5, TOP_SAFE_OFFSET)
 	for marker_index in threshold_markers.size():
 		var marker := threshold_markers[marker_index]
-		marker.position = Vector2(size.x * thresholds[marker_index] - 1.0, 16.0)
+		marker.position = Vector2(3.0 + (size.x - 6.0) * thresholds[marker_index] - 1.0, 16.0)
 		marker.size = Vector2(2.0, BAR_HEIGHT - 19.0)
 	queue_redraw()
 

@@ -364,11 +364,9 @@ func _on_enemy_killed(_enemy: Node, _source: StringName, _coin_value: int) -> vo
 	ui.set_run_stats(kill_count, elapsed_seconds)
 
 func _on_player_died() -> void:
-	ui.hide_boss_health()
 	_end_run(false)
 
 func _on_victory() -> void:
-	ui.hide_boss_health()
 	_end_run(true)
 
 func _save_stable_snapshot(boundary: String, pending_stage: int) -> bool:
@@ -394,6 +392,7 @@ func _end_run(victory: bool) -> void:
 	if game_over:
 		return
 	game_over = true
+	ui.hide_boss_health()
 	snapshot_store.clear_snapshot()
 	if player != null:
 		player.set_physics_process(false)
@@ -413,7 +412,6 @@ func _toggle_manual_pause() -> void:
 
 func _restart_run() -> void:
 	manual_paused = false
-	ui.hide_boss_health()
 	if snapshot_store != null:
 		snapshot_store.clear_snapshot()
 	_reset_combat_feedback()
