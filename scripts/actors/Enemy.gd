@@ -22,6 +22,10 @@ const RANGED_SAFE_MARGIN := 48.0
 const RANGED_MIN_DISTANCE_FLOOR := 160.0
 const RANGED_MIN_VIEW_FRACTION := 0.38
 const RANGED_MAX_VIEW_FRACTION := 0.48
+const ENEMY_PROJECTILE_BASE_SPEED := 260.0
+const MARKSMAN_PROJECTILE_SPEED_MULTIPLIER := 3.5
+const MARKSMAN_TELEGRAPH_SECONDS := 0.5
+const MARKSMAN_TELEGRAPH_LENGTH := 1400.0
 
 enum EnemyKind { SCRAPPER, DASHER, SPITTER, BRUISER, MARKSMAN, LOBBER, OVERSEER }
 enum FeedbackWeight { LIGHT, MEDIUM, HEAVY }
@@ -98,7 +102,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 			contact_damage = 5.0
 			coin_value = 5
 			shoot_cooldown = randf_range(0.8, 1.4)
-			ranged_windup_duration = 0.48
+			ranged_windup_duration = MARKSMAN_TELEGRAPH_SECONDS
 			ranged_keep_min = 260.0
 			ranged_keep_max = 500.0
 			_add_health(44.0 * scale_factor)
@@ -292,9 +296,13 @@ func _draw() -> void:
 		draw_arc(Vector2.ZERO, attack_range, -PI * 0.85, PI * 0.85, 24, Color(1.0, 0.55, 0.15, 0.25 + p * 0.45), 4.0)
 	if ranged_is_winding_up:
 		var charge := 1.0 - clampf(ranged_windup_remaining / maxf(0.01, ranged_windup_duration), 0.0, 1.0)
-		var warning_color := Color("ff571f") if kind == EnemyKind.OVERSEER else accent
+		var warning_color := Color("ff571f") if kind in [EnemyKind.MARKSMAN, EnemyKind.OVERSEER] else accent
 		var target_local := to_local(ranged_target_position)
-		draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.25 + charge * 0.55), 2.0 + charge * 2.0)
+		if kind == EnemyKind.MARKSMAN:
+			draw_line(Vector2.ZERO, target_local, Color(0.02, 0.04, 0.06, 0.78), 5.0)
+			draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.32 + charge * 0.58), 1.5 + charge * 1.5)
+		else:
+			draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.25 + charge * 0.55), 2.0 + charge * 2.0)
 		if kind == EnemyKind.LOBBER:
 			draw_circle(target_local, 72.0, Color(warning_color, 0.06 + charge * 0.08))
 			draw_arc(target_local, 72.0, 0.0, TAU, 36, Color(warning_color, 0.5 + charge * 0.4), 2.0)
@@ -409,7 +417,13 @@ func _update_ranged_windup(delta: float, player: Node2D, attack_kind: int) -> vo
 		return
 	ranged_is_winding_up = true
 	ranged_windup_remaining = ranged_windup_duration
-	ranged_target_position = player.global_position
+	if attack_kind == EnemyKind.MARKSMAN:
+		var aim_direction := (player.global_position - global_position).normalized()
+		if aim_direction == Vector2.ZERO:
+			aim_direction = Vector2.RIGHT
+		ranged_target_position = global_position + aim_direction * MARKSMAN_TELEGRAPH_LENGTH
+	else:
+		ranged_target_position = player.global_position
 	shoot_cooldown = randf_range(1.7, 2.4) if attack_kind == EnemyKind.MARKSMAN else randf_range(2.2, 3.0)
 	queue_redraw()
 
@@ -419,7 +433,7 @@ func _fire_marksman(player: Node2D) -> void:
 	var shot := ProjectileScript.new()
 	projectile_parent.add_child(shot)
 	shot.global_position = global_position
-	shot.velocity = (ranged_target_position - global_position).normalized() * 620.0
+	shot.velocity = (ranged_target_position - global_position).normalized() * ENEMY_PROJECTILE_BASE_SPEED * MARKSMAN_PROJECTILE_SPEED_MULTIPLIER
 	shot.damage = 12.0
 	shot.radius = 3.0
 	shot.lifetime = 2.0

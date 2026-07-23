@@ -76,11 +76,29 @@ func _initialize() -> void:
 	marksman.global_position = Vector2((marksman.get_dynamic_ranged_min_distance(marksman_safe) + marksman.get_dynamic_ranged_max_distance(marksman_safe)) * 0.5, 0.0)
 	marksman.shoot_cooldown = 0.0
 	marksman._update_marksman(0.1, player)
-	if not _assert_true(marksman.ranged_is_winding_up and projectiles.get_child_count() == 0, "Marksman did not telegraph before firing"):
+	var locked_marksman_direction: Vector2 = (player.global_position - marksman.global_position).normalized()
+	if not _assert_true(
+		marksman.ranged_is_winding_up
+		and is_equal_approx(marksman.ranged_windup_duration, 0.5)
+		and marksman.global_position.distance_to(marksman.ranged_target_position) >= 1200.0
+		and projectiles.get_child_count() == 0,
+		"Marksman did not provide a long harmless 0.5 second trajectory warning"
+	):
 		return
-	marksman._update_marksman(marksman.ranged_windup_duration + 0.01, player)
-	if not _assert_true(projectiles.get_child_count() == 1, "Marksman telegraph did not resolve into a projectile"):
+	player.global_position = Vector2(0.0, 140.0)
+	marksman._update_marksman(marksman.ranged_windup_duration - 0.01, player)
+	if not _assert_true(projectiles.get_child_count() == 0, "Marksman fired before the 0.5 second dodge window elapsed"):
 		return
+	marksman._update_marksman(0.02, player)
+	var marksman_shot: Node = projectiles.get_child(0)
+	if not _assert_true(
+		projectiles.get_child_count() == 1
+		and is_equal_approx(marksman_shot.velocity.length(), EnemyScript.ENEMY_PROJECTILE_BASE_SPEED * 3.5)
+		and marksman_shot.velocity.normalized().dot(locked_marksman_direction) > 0.999,
+		"Marksman warning did not resolve into a locked 350% speed projectile"
+	):
+		return
+	player.global_position = Vector2.ZERO
 
 	var lobber: Node = EnemyScript.new()
 	lobber.setup(EnemyScript.EnemyKind.LOBBER, 2, projectiles, player)
