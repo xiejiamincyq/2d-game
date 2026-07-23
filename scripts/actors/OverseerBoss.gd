@@ -15,6 +15,7 @@ signal damage_resolved(
 
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
+const TentacleAttackScript = preload("res://scripts/components/TentacleAttack.gd")
 
 const DISPLAY_NAME := "深渊监工 / OVERSEER"
 const BODY_RADIUS := 56.0
@@ -35,14 +36,36 @@ var target_player: Node2D
 var world_bounds := Rect2()
 var flash_timer := 0.0
 var death_resolved := false
+var tentacle_attack: Node
 
 func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	projectile_parent = projectiles
 	target_player = target
+	tentacle_attack = TentacleAttackScript.new()
+	tentacle_attack.name = "TentacleAttack"
+	tentacle_attack.configure(self, target_player, projectile_parent)
+	add_child(tentacle_attack)
 	health = HealthComponentScript.new()
 	health.max_health = BASE_MAX_HEALTH
 	health.health_changed.connect(_on_health_component_changed)
 	add_child(health)
+
+func get_tentacle_attack() -> Node:
+	return tentacle_attack
+
+func start_tentacle_sweep(target_position: Vector2) -> bool:
+	return tentacle_attack != null and tentacle_attack.start_sweep(target_position)
+
+func start_tentacle_slam(target_positions: Array[Vector2]) -> bool:
+	return tentacle_attack != null and tentacle_attack.start_slam(target_positions)
+
+func advance_tentacle_attack(delta: float) -> void:
+	if tentacle_attack != null:
+		tentacle_attack.advance_attack(delta)
+
+func cancel_tentacle_attack() -> void:
+	if tentacle_attack != null:
+		tentacle_attack.cancel_attack()
 
 func _ready() -> void:
 	add_to_group(&"enemies")
@@ -122,6 +145,7 @@ func _die(source: StringName) -> void:
 	if death_resolved:
 		return
 	death_resolved = true
+	cancel_tentacle_attack()
 	velocity = Vector2.ZERO
 	set_physics_process(false)
 	died.emit(self, coin_value, source)
