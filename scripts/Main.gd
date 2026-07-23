@@ -3,6 +3,7 @@ extends Node2D
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
 const UpgradeSystemScript = preload("res://scripts/systems/UpgradeSystem.gd")
+const RunSnapshotStoreScript = preload("res://scripts/systems/RunSnapshotStore.gd")
 const GameUIScript = preload("res://scripts/ui/GameUI.gd")
 const CoinPickupScript = preload("res://scripts/pickups/CoinPickup.gd")
 const ShieldPickupScript = preload("res://scripts/pickups/ShieldPickup.gd")
@@ -19,6 +20,7 @@ const OVERDRIVE_MAX_CHARGE := 100.0
 const OVERDRIVE_CHARGE_PER_KILL := 9.0
 const OVERDRIVE_CHARGE_DECAY_PER_SECOND := 7.0
 const OVERDRIVE_DRAIN_PER_SECOND := 34.0
+const HEADLESS_SNAPSHOT_PATH := "user://five_minute_overdrive_run_test_v1.json"
 
 enum RunState { START, WAVE_INTRO, PLAYING, WAVE_CLEAR, SETTLEMENT, PAUSED, RESULT }
 
@@ -47,13 +49,19 @@ var overdrive_active: bool = false
 var overdrive_charge: float = 0.0
 var run_state: RunState = RunState.START
 var pending_wave_summary: Dictionary = {}
+var snapshot_store: Node
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	randomize()
 	RenderingServer.set_default_clear_color(Color(0.025, 0.032, 0.045))
+	snapshot_store = RunSnapshotStoreScript.new()
+	if DisplayServer.get_name() == "headless":
+		snapshot_store.save_path = HEADLESS_SNAPSHOT_PATH
+	add_child(snapshot_store)
 	_build_world()
 	ui.show_start_screen()
+	ui.set_continue_available(snapshot_store.has_valid_snapshot())
 
 func _unhandled_input(event: InputEvent) -> void:
 	if run_state == RunState.RESULT and event is InputEventKey and event.pressed and event.keycode == KEY_R:
@@ -126,6 +134,7 @@ func _build_world() -> void:
 	audio = AudioManagerScript.new()
 	add_child(audio)
 	ui.start_requested.connect(_start_run)
+	ui.continue_requested.connect(_continue_run)
 	ui.restart_requested.connect(_restart_run)
 	ui.pause_requested.connect(_toggle_manual_pause)
 	ui.bgm_volume_changed.connect(audio.set_bgm_volume)
@@ -146,12 +155,28 @@ func _draw_floor() -> void:
 func _start_run() -> void:
 	if run_started:
 		return
+	snapshot_store.clear_snapshot()
+	_begin_run({})
+
+func _continue_run() -> void:
+	if run_started:
+		return
+	var snapshot: Dictionary = snapshot_store.load_snapshot()
+	if snapshot.is_empty():
+		ui.set_continue_available(false)
+		return
+	_begin_run(snapshot)
+
+func _begin_run(snapshot: Dictionary) -> void:
+	if run_started:
+		return
 	Engine.time_scale = 1.0
 	run_started = true
-	kill_count = 0
-	elapsed_seconds = 0.0
+	kill_count = int(snapshot.get("kills", 0))
+	elapsed_seconds = float(snapshot.get("elapsed_seconds", 0.0))
 	shield_drop_timer = 4.0
 	game_over = false
+	ui.set_continue_available(false)
 	audio.play("start")
 	audio.play_bgm()
 	player = PlayerScript.new()
@@ -204,6 +229,18 @@ func _start_run() -> void:
 		audio.play("upgrade")
 	)
 	upgrade_system.setup(player)
+	if not snapshot.is_empty():
+		var growth_state := {
+			"coins": snapshot.get("coins", 0),
+			"family_levels": snapshot.get("family_levels", {}),
+			"upgrade_counts": snapshot.get("upgrade_counts", {}),
+			"evolution": snapshot.get("evolution", ""),
+			"settlement": snapshot.get("settlement", {}),
+		}
+		if not upgrade_system.restore_snapshot_state(growth_state) or not player.restore_snapshot_state(snapshot.get("player", {})):
+			snapshot_store.clear_snapshot()
+			_restart_run()
+			return
 	ui.settlement_offer_selected.connect(_on_settlement_offer_selected)
 	ui.settlement_close_requested.connect(_on_settlement_close_requested)
 	ui.wave_banner_finished.connect(_on_wave_banner_finished)
@@ -217,17 +254,29 @@ func _start_run() -> void:
 	wave_director.enemy_killed.connect(_on_enemy_killed)
 	wave_director.damage_resolved.connect(combat_feedback.on_damage_resolved)
 	wave_director.victory.connect(_on_victory)
-	wave_director.setup(player, enemies, projectiles, portals)
+	wave_director.setup(player, enemies, projectiles, portals, snapshot.is_empty())
 	player.set_enemy_provider(wave_director.get_active_enemies)
 	ui.set_health(player.health.current_health, player.health.max_health)
 	ui.set_shield(player.shield, player.max_shield)
 	ui.set_progression_state(upgrade_system.get_progression_state())
 	ui.set_run_stats(kill_count, elapsed_seconds)
+	if not snapshot.is_empty():
+		var boundary := String(snapshot.get("boundary", ""))
+		var pending_stage := int(snapshot.get("pending_stage", 0))
+		if not wave_director.restore_stable_boundary(pending_stage, boundary):
+			snapshot_store.clear_snapshot()
+			_restart_run()
+			return
+		if boundary == "settlement":
+			pending_wave_summary = {"wave": pending_stage - 1, "total": wave_director.waves.size(), "is_final": false}
+			_transition_to(RunState.SETTLEMENT)
+			ui.show_settlement()
 
 func _on_wave_prepared(summary: Dictionary) -> void:
 	pending_wave_summary = summary.duplicate(true)
 	if not _transition_to(RunState.WAVE_INTRO):
 		return
+	_save_stable_snapshot("wave_intro", int(summary.get("wave", 1)))
 	ui.show_wave_banner(
 		"侦测到第 %d 波敌人" % int(summary.get("wave", 0)),
 		&"wave_intro",
@@ -261,6 +310,7 @@ func _on_wave_banner_finished(context: StringName) -> void:
 	if upgrade_system.prepare_settlement(completed_wave):
 		_transition_to(RunState.SETTLEMENT)
 		ui.show_settlement()
+		_save_stable_snapshot("settlement", completed_wave + 1)
 	else:
 		_fail_progression_gate("波次结算生成失败")
 
@@ -268,10 +318,9 @@ func _on_settlement_offer_selected(offer: Dictionary) -> void:
 	if run_state != RunState.SETTLEMENT:
 		return
 	var state: Dictionary = upgrade_system.get_settlement_state()
-	if bool(state.get("reward_claimed", false)):
-		upgrade_system.purchase_settlement_offer(offer)
-	else:
-		upgrade_system.claim_free_offer(offer)
+	var changed: bool = upgrade_system.purchase_settlement_offer(offer) if bool(state.get("reward_claimed", false)) else upgrade_system.claim_free_offer(offer)
+	if changed:
+		_save_stable_snapshot("settlement", wave_director.wave_index + 2)
 
 func _on_settlement_close_requested() -> void:
 	if run_state != RunState.SETTLEMENT:
@@ -311,10 +360,30 @@ func _on_player_died() -> void:
 func _on_victory() -> void:
 	_end_run(true)
 
+func _save_stable_snapshot(boundary: String, pending_stage: int) -> bool:
+	if not run_started or player == null or upgrade_system == null or snapshot_store == null:
+		return false
+	var growth: Dictionary = upgrade_system.get_snapshot_state()
+	var snapshot := {
+		"version": RunSnapshotStoreScript.VERSION,
+		"boundary": boundary,
+		"pending_stage": pending_stage,
+		"coins": growth["coins"],
+		"family_levels": growth["family_levels"],
+		"upgrade_counts": growth["upgrade_counts"],
+		"evolution": growth["evolution"],
+		"settlement": growth["settlement"],
+		"player": player.get_snapshot_state(),
+		"kills": kill_count,
+		"elapsed_seconds": elapsed_seconds,
+	}
+	return snapshot_store.save_snapshot(snapshot)
+
 func _end_run(victory: bool) -> void:
 	if game_over:
 		return
 	game_over = true
+	snapshot_store.clear_snapshot()
 	if player != null:
 		player.set_physics_process(false)
 	audio.set_laser_active(false)
@@ -333,6 +402,8 @@ func _toggle_manual_pause() -> void:
 
 func _restart_run() -> void:
 	manual_paused = false
+	if snapshot_store != null:
+		snapshot_store.clear_snapshot()
 	_reset_combat_feedback()
 	get_tree().paused = false
 	get_tree().reload_current_scene()
@@ -341,7 +412,7 @@ func _transition_to(next_state: RunState) -> bool:
 	if next_state == run_state:
 		return true
 	var allowed: Dictionary = {
-		RunState.START: [RunState.WAVE_INTRO],
+		RunState.START: [RunState.WAVE_INTRO, RunState.SETTLEMENT],
 		RunState.WAVE_INTRO: [RunState.PLAYING, RunState.RESULT],
 		RunState.PLAYING: [RunState.WAVE_CLEAR, RunState.PAUSED, RunState.RESULT],
 		RunState.WAVE_CLEAR: [RunState.SETTLEMENT, RunState.RESULT],

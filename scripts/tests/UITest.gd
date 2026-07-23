@@ -20,6 +20,11 @@ func _initialize() -> void:
 		return
 	if not _assert_true(ui.get("settlement_screen") != null and ui.get("pause_screen") != null and ui.get("result_screen") != null, "GameUI did not instantiate focused modal screens"):
 		return
+	if not _assert_true(ui.continue_button != null and not ui.continue_button.visible, "Continue button did not start hidden"):
+		return
+	ui.set_continue_available(true)
+	if not _assert_true(ui.continue_button.visible and not ui.continue_button.disabled, "valid-save state did not expose an enabled Continue button"):
+		return
 	ui.set_progression_state({"coins": 37, "family_levels": {"ballistics": 4, "mobility": 2, "automation": 3}})
 	if not _assert_true(ui.hud.coin_value_label.text == "金币 37" and ui.hud.level_label.text == "等级  火力:4  机动:2  工程:3", "HUD did not display family progression"):
 		return

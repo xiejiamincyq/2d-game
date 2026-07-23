@@ -5,6 +5,7 @@ signal settlement_offer_selected(offer: Dictionary)
 signal settlement_close_requested
 signal wave_banner_finished(context: StringName)
 signal start_requested
+signal continue_requested
 signal restart_requested
 signal pause_requested
 signal bgm_volume_changed(value: float)
@@ -26,6 +27,7 @@ var wave_banner: Control
 var start_backdrop: ColorRect
 var start_panel: PanelContainer
 var start_button: Button
+var continue_button: Button
 
 # Compatibility references used by Main and focused tests.
 var hud_root: Control
@@ -95,7 +97,7 @@ func _build_start_screen() -> void:
 	title.add_theme_font_size_override("font_size", 34)
 	box.add_child(title)
 	var subtitle := Label.new()
-	subtitle.text = "移动、射击、冲刺，在八个波次中存活"
+	subtitle.text = "移动、射击、冲刺，在五个阶段中存活"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(subtitle)
 	start_button = Button.new()
@@ -104,6 +106,13 @@ func _build_start_screen() -> void:
 	start_button.focus_mode = Control.FOCUS_ALL
 	start_button.pressed.connect(func() -> void: start_requested.emit())
 	box.add_child(start_button)
+	continue_button = Button.new()
+	continue_button.text = "继续清剿"
+	continue_button.custom_minimum_size = Vector2(220, 48)
+	continue_button.focus_mode = Control.FOCUS_ALL
+	continue_button.pressed.connect(func() -> void: continue_requested.emit())
+	box.add_child(continue_button)
+	set_continue_available(false)
 
 func _connect_components() -> void:
 	hud.pause_requested.connect(func() -> void: pause_requested.emit())
@@ -139,6 +148,9 @@ func _bind_compatibility_references() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if start_panel.visible and event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_C and continue_button.visible and not continue_button.disabled:
+			continue_requested.emit()
+			return
 		if event.keycode in [KEY_ENTER, KEY_SPACE]:
 			start_requested.emit()
 			return
@@ -229,6 +241,12 @@ func show_start_screen() -> void:
 	start_backdrop.visible = true
 	start_panel.visible = true
 	start_button.grab_focus()
+
+func set_continue_available(available: bool) -> void:
+	if continue_button == null:
+		return
+	continue_button.visible = available
+	continue_button.disabled = not available
 
 func hide_start_screen() -> void:
 	hud.visible = true

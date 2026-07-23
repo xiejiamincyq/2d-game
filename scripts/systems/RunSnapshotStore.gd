@@ -139,6 +139,8 @@ func _validate_settlement(value: Variant, pending_stage: int, boundary: String) 
 		return false
 	if boundary == "settlement" and (int(settlement["wave"]) != pending_stage - 1 or bool(settlement["closed"])):
 		return false
+	if boundary == "settlement" and pending_stage <= 1:
+		return false
 	for offer_value in settlement["offers"]:
 		if not _validate_offer(offer_value, int(settlement["generation"])):
 			return false

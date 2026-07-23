@@ -58,12 +58,35 @@ var waves: Array[Dictionary] = [
 func _ready() -> void:
 	spawn_rng.randomize()
 
-func setup(target_player: Node, enemies: Node, projectiles: Node, portals: Node = null) -> void:
+func setup(target_player: Node, enemies: Node, projectiles: Node, portals: Node = null, prepare_initial: bool = true) -> void:
 	player = target_player
 	enemy_parent = enemies
 	projectile_parent = projectiles
 	portal_parent = portals if portals != null else enemies
-	prepare_next_wave()
+	if prepare_initial:
+		prepare_next_wave()
+
+func restore_stable_boundary(pending_stage: int, boundary: String) -> bool:
+	if pending_stage < 1 or pending_stage > waves.size() or boundary not in ["wave_intro", "settlement"]:
+		return false
+	spawn_queue.clear()
+	active_enemies.clear()
+	active_portals.clear()
+	portal_spawn_queues.clear()
+	portal_spawn_timers.clear()
+	prepared_wave = false
+	wave_running = false
+	waiting_for_advance = false
+	active = true
+	if boundary == "settlement":
+		if pending_stage <= 1:
+			return false
+		wave_index = pending_stage - 2
+		waiting_for_advance = true
+		_emit_wave_status()
+		return true
+	wave_index = pending_stage - 2
+	return prepare_next_wave()
 
 func _process(delta: float) -> void:
 	if not active or player == null:
