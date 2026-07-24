@@ -258,6 +258,7 @@ func _begin_run(snapshot: Dictionary) -> void:
 	wave_director.boss_spawned.connect(ui.show_boss_health)
 	wave_director.boss_health_changed.connect(ui.set_boss_health)
 	wave_director.boss_defeated.connect(func(_boss: Node) -> void: ui.hide_boss_health())
+	wave_director.boss_cue.connect(func(cue: StringName) -> void: audio.play_boss_cue(cue))
 	wave_director.wave_prepared.connect(_on_wave_prepared)
 	wave_director.wave_finished.connect(_on_wave_finished)
 	wave_director.enemy_killed.connect(_on_enemy_killed)

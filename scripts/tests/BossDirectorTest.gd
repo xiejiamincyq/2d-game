@@ -92,6 +92,8 @@ func _initialize() -> void:
 	boss.take_damage(boss.health.max_health, DamageTypes.PROJECTILE)
 	if not _assert_true(attack_director.get_state_name() == "DEATH" and not boss.get_tentacle_attack().is_attacking() and reinforcements == [6, 8], "lethal damage left an attack active or requested late reinforcements"):
 		return
+	if not _assert_true(projectiles.get_child_count() == 0 and not attack_director.get_pattern().is_pattern_active(), "Boss death left live projectiles or an active bullet pattern"):
+		return
 	fixture.queue_free()
 	await process_frame
 	print("TEST PASS: BossDirectorTest %d" % assertions)

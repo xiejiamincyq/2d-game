@@ -2,6 +2,7 @@ extends SceneTree
 
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
+const OverseerBossScript = preload("res://scripts/actors/OverseerBoss.gd")
 const AudioManagerScript = preload("res://scripts/systems/AudioManager.gd")
 const UpgradeSystemScript = preload("res://scripts/systems/UpgradeSystem.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
@@ -186,6 +187,50 @@ func _initialize() -> void:
 					_fail("wave-two Bruiser base-weapon TTK %.3fs escaped the 2.7-3.1s target." % base_weapon_ttk)
 					return
 
+	var boss_max_health: float = OverseerBossScript.BASE_MAX_HEALTH
+	if boss_max_health < 9000.0 or boss_max_health > 12000.0:
+		_fail("Boss max health %.1f escaped the 9000-12000 tuning band." % boss_max_health)
+		return
+	var standard_weapon_damage := 10.0 * pow(1.12, 2.0)
+	var standard_fire_rate := 13.0 * pow(1.10, 2.0)
+	var standard_build_dps := standard_weapon_damage * standard_fire_rate
+	var boss_ttk := boss_max_health / standard_build_dps
+	if boss_ttk < 45.0 or boss_ttk > 65.0:
+		_fail("standard-build Boss TTK %.2fs escaped the 45-65s target (dps %.2f)." % [boss_ttk, standard_build_dps])
+		return
+	var boss_cues: Array = ["boss_phase", "boss_transition", "boss_tentacle", "boss_barrage", "boss_death"]
+	var seen_boss_streams: Dictionary = {}
+	for cue in boss_cues:
+		var cue_stream := audio.streams.get(cue) as AudioStreamWAV
+		if cue_stream == null:
+			_fail("Boss cue stream %s is missing or not a WAV stream." % cue)
+			return
+		if seen_boss_streams.has(cue_stream):
+			_fail("Boss cue stream %s reuses another cue's stream." % cue)
+			return
+		seen_boss_streams[cue_stream] = true
+	if not audio.has_method("play_boss_cue"):
+		_fail("audio manager does not expose play_boss_cue.")
+		return
+	if not audio.play_boss_cue(&"boss_phase"):
+		_fail("first boss phase cue was unexpectedly rejected.")
+		return
+	if audio.play_boss_cue(&"boss_unknown_cue"):
+		_fail("unknown boss cue was accepted instead of a safe no-op.")
+		return
+	if not audio.play_boss_cue(&"boss_tentacle"):
+		_fail("first tentacle cue was unexpectedly throttled.")
+		return
+	if audio.play_boss_cue(&"boss_tentacle"):
+		_fail("repeated tentacle cue was not throttled.")
+		return
+	var boss_cue_children_before: int = audio.get_child_count()
+	audio.play_boss_cue(&"boss_barrage")
+	audio.play_boss_cue(&"boss_transition")
+	audio.play_boss_cue(&"boss_death")
+	if audio.get_child_count() != boss_cue_children_before:
+		_fail("boss cue playback grew the fixed audio voice pool.")
+		return
 	enemy.queue_free()
 	bgm = null
 	TestSupport.stop_audio(audio)
@@ -198,5 +243,5 @@ func _initialize() -> void:
 	await process_frame
 	await process_frame
 	await create_timer(0.1).timeout
-	print("TEST PASS: BalanceTest 71")
+	print("TEST PASS: BalanceTest 89")
 	quit(0)

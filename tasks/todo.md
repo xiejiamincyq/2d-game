@@ -84,5 +84,5 @@
 
 ## Boss 重设计扩展（新需求，待执行）
 
-- [ ] 按 [boss-redesign-plan.md](boss-redesign-plan.md) 重构“深渊监工”
-- [ ] 详细进度见 [boss-redesign-todo.md](boss-redesign-todo.md)
+- [x] 按 [boss-redesign-plan.md](boss-redesign-plan.md) 重构“深渊监工”（B1–B6 自动验证通过，人工试玩待验收）
+- [x] 详细进度见 [boss-redesign-todo.md](boss-redesign-todo.md)

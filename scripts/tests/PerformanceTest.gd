@@ -51,6 +51,14 @@ func _initialize() -> void:
 		audio.play_kill_confirm()
 	if not _assert_true(audio.get_child_count() == audio_children_before, "100 hit/kill cues grew audio nodes from %d to %d" % [audio_children_before, audio.get_child_count()]):
 		return
+	for index in range(100):
+		audio._process(0.05)
+		audio.play_boss_cue(&"boss_barrage")
+		audio.play_boss_cue(&"boss_tentacle")
+		audio.play_boss_cue(&"boss_phase")
+		audio.play_boss_cue(&"boss_transition")
+	if not _assert_true(audio.get_child_count() == audio_children_before, "400 boss cues grew audio nodes from %d to %d" % [audio_children_before, audio.get_child_count()]):
+		return
 
 	var fixture := Node.new()
 	root.add_child(fixture)

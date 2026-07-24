@@ -7,6 +7,7 @@ const OverdriveKillStream = preload("res://assets/audio/overdrive_bone_breaking.
 const HIT_COOLDOWN := 0.055
 const KILL_CONFIRM_COOLDOWN := 0.045
 const SHOOT_COOLDOWN := 0.02
+const BOSS_ATTACK_CUE_COOLDOWN := 0.4
 const VOICE_POOL_SIZE := 16
 const BGM_BPM := 168.0
 const BGM_BEATS_PER_BAR := 4
@@ -28,6 +29,7 @@ var hit_stream_names: Dictionary = {
 var hit_cooldowns: Dictionary = {}
 var kill_confirm_cooldown: float = 0.0
 var shoot_cooldown: float = 0.0
+var boss_cue_cooldowns: Dictionary = {}
 var laser_loop_player: AudioStreamPlayer
 var voice_pool: Array[AudioStreamPlayer] = []
 var voice_cursor: int = 0
@@ -57,6 +59,11 @@ func _ready() -> void:
 	streams["start"] = _make_tone(360.0, 0.22, 0.18, 0.55, 2.2)
 	streams["victory"] = _make_tone(740.0, 0.35, 0.16, 0.55, 1.6)
 	streams["defeat"] = _make_tone(120.0, 0.45, 0.2, 0.55, 0.55)
+	streams["boss_phase"] = _make_boss_phase_cue()
+	streams["boss_transition"] = _make_boss_transition_cue()
+	streams["boss_tentacle"] = _make_boss_tentacle_cue()
+	streams["boss_barrage"] = _make_boss_barrage_cue()
+	streams["boss_death"] = _make_boss_death_cue()
 	laser_loop_player = AudioStreamPlayer.new()
 	laser_loop_player.stream = streams["laser_loop"]
 	laser_loop_player.volume_db = -18.0
@@ -72,6 +79,8 @@ func _process(delta: float) -> void:
 		hit_cooldowns[source] = maxf(0.0, float(hit_cooldowns[source]) - delta)
 	kill_confirm_cooldown = maxf(0.0, kill_confirm_cooldown - delta)
 	shoot_cooldown = maxf(0.0, shoot_cooldown - delta)
+	for cue in boss_cue_cooldowns.keys():
+		boss_cue_cooldowns[cue] = maxf(0.0, float(boss_cue_cooldowns[cue]) - delta)
 
 func play_hit(source: StringName, feedback_weight: int = EnemyScript.FeedbackWeight.MEDIUM) -> bool:
 	var resolved: StringName = source if hit_stream_names.has(source) else DamageTypes.GENERIC
@@ -100,6 +109,17 @@ func play_overdrive_kill() -> bool:
 		return false
 	kill_confirm_cooldown = KILL_CONFIRM_COOLDOWN
 	play("overdrive_kill")
+	return true
+
+func play_boss_cue(cue: StringName) -> bool:
+	var key := String(cue)
+	if not streams.has(key):
+		return false
+	if key == "boss_tentacle" or key == "boss_barrage":
+		if float(boss_cue_cooldowns.get(key, 0.0)) > 0.0:
+			return false
+		boss_cue_cooldowns[key] = BOSS_ATTACK_CUE_COOLDOWN
+	play(key)
 	return true
 
 func _get_hit_stream_name(source: StringName, feedback_weight: int) -> String:
@@ -410,5 +430,112 @@ func _make_laser_loop() -> AudioStreamWAV:
 	wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
 	wav.loop_begin = 0
 	wav.loop_end = sample_count
+	wav.data = data
+	return wav
+
+func _make_boss_phase_cue() -> AudioStreamWAV:
+	var sample_rate := 22050
+	var duration := 0.5
+	var sample_count := int(duration * sample_rate)
+	var data := PackedByteArray()
+	data.resize(sample_count * 2)
+	for i in range(sample_count):
+		var t := float(i) / float(sample_rate)
+		var progress := float(i) / maxf(1.0, float(sample_count - 1))
+		var attack := minf(1.0, progress / 0.08)
+		var envelope := attack * pow(1.0 - progress, 1.4)
+		var frequency := lerpf(220.0, 660.0, progress)
+		var body := sin(TAU * frequency * t) * 0.6 + sin(TAU * frequency * 1.5 * t) * 0.25
+		var shimmer := sin(TAU * frequency * 3.0 * t) * exp(-progress * 4.0) * 0.2
+		data.encode_s16(i * 2, int(clampf((body + shimmer) * envelope * 0.6, -1.0, 1.0) * 32767.0))
+	var wav := AudioStreamWAV.new()
+	wav.format = AudioStreamWAV.FORMAT_16_BITS
+	wav.mix_rate = sample_rate
+	wav.stereo = false
+	wav.data = data
+	return wav
+
+func _make_boss_transition_cue() -> AudioStreamWAV:
+	var sample_rate := 22050
+	var duration := 0.45
+	var sample_count := int(duration * sample_rate)
+	var data := PackedByteArray()
+	data.resize(sample_count * 2)
+	for i in range(sample_count):
+		var t := float(i) / float(sample_rate)
+		var progress := float(i) / maxf(1.0, float(sample_count - 1))
+		var tone_freq := 440.0 if int(progress * 4.0) % 2 == 0 else 330.0
+		var envelope := pow(1.0 - progress, 1.2)
+		var body := sin(TAU * tone_freq * t) * 0.55 + sin(TAU * tone_freq * 2.0 * t) * 0.18
+		data.encode_s16(i * 2, int(clampf(body * envelope * 0.6, -1.0, 1.0) * 32767.0))
+	var wav := AudioStreamWAV.new()
+	wav.format = AudioStreamWAV.FORMAT_16_BITS
+	wav.mix_rate = sample_rate
+	wav.stereo = false
+	wav.data = data
+	return wav
+
+func _make_boss_tentacle_cue() -> AudioStreamWAV:
+	var sample_rate := 22050
+	var duration := 0.28
+	var sample_count := int(duration * sample_rate)
+	var data := PackedByteArray()
+	data.resize(sample_count * 2)
+	var noise_seed := 0x0B0551
+	for i in range(sample_count):
+		noise_seed = int((1103515245 * noise_seed + 12345) & 0x7fffffff)
+		var t := float(i) / float(sample_rate)
+		var progress := float(i) / maxf(1.0, float(sample_count - 1))
+		var envelope := pow(1.0 - progress, 1.5)
+		var sweep := sin(TAU * lerpf(1400.0, 260.0, progress) * t) * 0.4
+		var noise := ((float(noise_seed % 2000) / 1000.0) - 1.0) * 0.5
+		data.encode_s16(i * 2, int(clampf((sweep + noise) * envelope * 0.55, -1.0, 1.0) * 32767.0))
+	var wav := AudioStreamWAV.new()
+	wav.format = AudioStreamWAV.FORMAT_16_BITS
+	wav.mix_rate = sample_rate
+	wav.stereo = false
+	wav.data = data
+	return wav
+
+func _make_boss_barrage_cue() -> AudioStreamWAV:
+	var sample_rate := 22050
+	var duration := 0.22
+	var sample_count := int(duration * sample_rate)
+	var data := PackedByteArray()
+	data.resize(sample_count * 2)
+	for i in range(sample_count):
+		var t := float(i) / float(sample_rate)
+		var progress := float(i) / maxf(1.0, float(sample_count - 1))
+		var metallic := sin(TAU * 1870.0 * t) * 0.5 + sin(TAU * 2490.0 * t) * 0.3 + sin(TAU * 3110.0 * t) * 0.15
+		var envelope := exp(-progress * 6.0)
+		data.encode_s16(i * 2, int(clampf(metallic * envelope * 0.5, -1.0, 1.0) * 32767.0))
+	var wav := AudioStreamWAV.new()
+	wav.format = AudioStreamWAV.FORMAT_16_BITS
+	wav.mix_rate = sample_rate
+	wav.stereo = false
+	wav.data = data
+	return wav
+
+func _make_boss_death_cue() -> AudioStreamWAV:
+	var sample_rate := 22050
+	var duration := 0.85
+	var sample_count := int(duration * sample_rate)
+	var data := PackedByteArray()
+	data.resize(sample_count * 2)
+	var noise_seed := 0xDEA7
+	for i in range(sample_count):
+		noise_seed = int((1103515245 * noise_seed + 12345) & 0x7fffffff)
+		var t := float(i) / float(sample_rate)
+		var progress := float(i) / maxf(1.0, float(sample_count - 1))
+		var attack := minf(1.0, progress / 0.02)
+		var envelope := attack * pow(1.0 - progress, 1.6)
+		var frequency := lerpf(95.0, 28.0, progress)
+		var low := sin(TAU * frequency * t) * 0.8
+		var rumble := ((float(noise_seed % 2000) / 1000.0) - 1.0) * exp(-progress * 3.0) * 0.5
+		data.encode_s16(i * 2, int(clampf((low + rumble) * envelope * 0.7, -1.0, 1.0) * 32767.0))
+	var wav := AudioStreamWAV.new()
+	wav.format = AudioStreamWAV.FORMAT_16_BITS
+	wav.mix_rate = sample_rate
+	wav.stereo = false
 	wav.data = data
 	return wav
