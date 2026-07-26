@@ -21,6 +21,7 @@ godot --headless --audio-driver Dummy --path . --script res://scripts/tests/Dama
 | 套件 | 职责 |
 | --- | --- |
 | `BalanceTest` | 伤害来源、战斗反馈与基础数值边界 |
+| `EconomyBuildTest` | 192 局固定种子经济、购买力、路线成型、进化与 Boss TTK 代理样本 |
 | `DamageTest` | 护盾/生命原子受击、0.35 秒无敌窗口和拒绝命中不续期 |
 | `ProjectilePickupTest` | 真实物理碰撞击杀、金币/护盾掉落与拾取物单次结算 |
 | `RateTest` | 30/60/120Hz 下十秒持续射击的帧率一致性 |

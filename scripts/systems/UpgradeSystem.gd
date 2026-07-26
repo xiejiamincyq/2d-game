@@ -50,12 +50,12 @@ var upgrade_pool: Array[Dictionary] = [
 	{"id": "recovery_route", "label": "回收路线", "description": "拾取范围 +15%，移速 +4%", "family": "mobility", "kind": "support", "max_rank": 4, "base_cost": 26},
 
 	# Automation: six normal cards.
-	{"id": "drone", "label": "无人机部署", "description": "无人机 +1，单机伤害 +5%", "family": "automation", "kind": "core", "max_rank": 4, "base_cost": 58},
-	{"id": "drone_damage", "label": "激光放大器", "description": "无人机激光伤害 +18%", "family": "automation", "kind": "core", "requires": "drone", "max_rank": 5, "base_cost": 38},
-	{"id": "arc", "label": "电弧启动器", "description": "首次解锁；后续强化伤害与半径", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 50},
-	{"id": "arc_capacitor", "label": "电弧电容", "description": "电弧伤害 +15%，半径 +14", "family": "automation", "kind": "core", "requires": "arc", "max_rank": 5, "base_cost": 40},
-	{"id": "pickup", "label": "磁吸网格", "description": "拾取范围 +25%，电弧半径 +8", "family": "automation", "kind": "support", "max_rank": 4, "base_cost": 28},
-	{"id": "health", "label": "维修矩阵", "description": "最大生命 +20%，修复部分损伤", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 44},
+	{"id": "drone", "label": "无人机部署", "description": "无人机 +1，单机伤害 +5%", "family": "automation", "kind": "core", "max_rank": 4, "base_cost": 52},
+	{"id": "drone_damage", "label": "激光放大器", "description": "无人机激光伤害 +18%", "family": "automation", "kind": "core", "requires": "drone", "max_rank": 5, "base_cost": 34},
+	{"id": "arc", "label": "电弧启动器", "description": "首次解锁；后续强化伤害与半径", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 45},
+	{"id": "arc_capacitor", "label": "电弧电容", "description": "电弧伤害 +15%，半径 +14", "family": "automation", "kind": "core", "requires": "arc", "max_rank": 5, "base_cost": 36},
+	{"id": "pickup", "label": "磁吸网格", "description": "拾取范围 +25%，电弧半径 +8", "family": "automation", "kind": "support", "max_rank": 4, "base_cost": 25},
+	{"id": "health", "label": "维修矩阵", "description": "最大生命 +20%，修复部分损伤", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 40},
 
 	# Evolutions are guaranteed candidates only after their family qualifies.
 	{"id": "orbital_storm", "label": "轨道风暴", "description": "终极进化：周期性发射环形副弹幕", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
