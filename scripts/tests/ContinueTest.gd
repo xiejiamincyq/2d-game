@@ -110,6 +110,72 @@ func _initialize() -> void:
 	continued.free()
 	await process_frame
 
+	var boss_prep: Node = MainScript.new()
+	boss_prep.audio_enabled = false
+	root.add_child(boss_prep)
+	await process_frame
+	boss_prep._start_run()
+	await process_frame
+	TestSupport.stop_audio(boss_prep.audio)
+	boss_prep.wave_director.wave_index = boss_prep.wave_director.waves.size() - 1
+	boss_prep.wave_director.prepared_wave = false
+	boss_prep.wave_director.wave_running = false
+	boss_prep.wave_director.waiting_for_advance = true
+	boss_prep.wave_director.pre_boss_settlement_pending = true
+	boss_prep.pending_wave_summary = {
+		"wave": boss_prep.wave_director.waves.size(),
+		"total": boss_prep.wave_director.waves.size(),
+		"is_final": false,
+		"is_pre_boss_settlement": true,
+	}
+	if not _assert_true(boss_prep.upgrade_system.prepare_settlement(6), "Boss-preparation settlement fixture could not be prepared"):
+		return
+	boss_prep._transition_to(boss_prep.RunState.PLAYING)
+	boss_prep._transition_to(boss_prep.RunState.WAVE_CLEAR)
+	boss_prep._transition_to(boss_prep.RunState.SETTLEMENT)
+	var boss_offer: Dictionary = boss_prep.upgrade_system.settlement_offers[0]
+	boss_prep._on_settlement_offer_selected(boss_offer)
+	var saved_boss_boundary: Dictionary = boss_prep.snapshot_store.load_snapshot()
+	if not _assert_true(
+		String(saved_boss_boundary.get("boundary", "")) == "boss_settlement"
+		and int(saved_boss_boundary.get("pending_stage", 0)) == 6
+		and bool(saved_boss_boundary.get("settlement", {}).get("reward_claimed", false)),
+		"claiming a Boss-preparation offer did not persist the dedicated stable boundary"
+	):
+		return
+	paused = false
+	boss_prep.free()
+	await process_frame
+	await process_frame
+
+	var continued_boss: Node = MainScript.new()
+	continued_boss.audio_enabled = false
+	root.add_child(continued_boss)
+	await process_frame
+	continued_boss._continue_run()
+	await process_frame
+	TestSupport.stop_audio(continued_boss.audio)
+	if not _assert_true(
+		continued_boss.run_state == continued_boss.RunState.SETTLEMENT
+		and continued_boss.wave_director.wave_index == 5
+		and continued_boss.wave_director.is_pre_boss_settlement_pending(),
+		"Continue did not restore the Boss-preparation settlement"
+	):
+		return
+	continued_boss._on_settlement_close_requested()
+	await process_frame
+	if not _assert_true(
+		continued_boss.run_state in [continued_boss.RunState.PLAYING, continued_boss.RunState.BOSS_INTRO]
+		and continued_boss.wave_director.boss_entrance_started,
+		"closing a restored Boss-preparation settlement did not begin the Boss entrance"
+	):
+		return
+	continued_boss._end_run(false)
+	TestSupport.stop_audio(continued_boss.audio)
+	paused = false
+	continued_boss.free()
+	await process_frame
+
 	var fresh: Node = MainScript.new()
 	fresh.audio_enabled = false
 	root.add_child(fresh)

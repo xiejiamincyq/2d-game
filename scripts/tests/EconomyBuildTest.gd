@@ -132,7 +132,11 @@ func _estimate_signature_share(player: Node, family_id: String, total_output: fl
 			if player.arc_pulse_level <= 0:
 				return 0.0
 			family_multiplier = player.get_effective_damage_multiplier(&"arc")
-			return player.get_arc_pulse_damage() / player.get_arc_pulse_interval() * family_multiplier / total_output
+			# Thunder Matrix is a combined drone-and-arc signature. Count both halves
+			# now that the evolution explicitly transforms each mechanic.
+			var signature_output: float = player.drone_count * player.drone_damage * family_multiplier
+			signature_output += player.get_arc_pulse_damage() / player.get_arc_pulse_interval() * family_multiplier
+			return signature_output / total_output
 	return 0.0
 
 func _is_route_recognizable(player: Node, family_id: String) -> bool:

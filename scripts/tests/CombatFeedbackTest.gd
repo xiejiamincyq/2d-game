@@ -106,6 +106,49 @@ func _initialize() -> void:
 	):
 		return
 
+	feedback.reset_all()
+	camera_effects.clear_all()
+	audio._process(1.0)
+	for voice in audio.voice_pool:
+		voice.stop()
+	medium_enemy.add_to_group(&"bosses")
+	feedback.on_damage_resolved(medium_enemy, DamageTypes.SPIKE, 20.0, Vector2.ZERO, Vector2.RIGHT, false)
+	var boss_spike_audio := false
+	for voice in audio.voice_pool:
+		if voice.stream == audio.streams.get("hit_spike"):
+			boss_spike_audio = true
+			break
+	if not _assert_true(boss_spike_audio and is_zero_approx(camera_effects.trauma), "normal spike damage on the Boss did not play audio without shake"):
+		return
+	feedback.reset_all()
+	camera_effects.clear_all()
+	audio._process(1.0)
+	for voice in audio.voice_pool:
+		voice.stop()
+	feedback.on_damage_resolved(medium_enemy, DamageTypes.LASER, 50.0, Vector2.ZERO, Vector2.RIGHT, false)
+	var boss_laser_audio := false
+	for voice in audio.voice_pool:
+		if voice.stream == audio.streams.get("hit_laser"):
+			boss_laser_audio = true
+			break
+	if not _assert_true(boss_laser_audio and is_zero_approx(camera_effects.trauma), "normal laser damage on the Boss did not play audio without shake"):
+		return
+	feedback.reset_all()
+	camera_effects.clear_all()
+	audio._process(1.0)
+	feedback.on_damage_resolved(medium_enemy, DamageTypes.DASH, 30.0, Vector2.ZERO, Vector2.RIGHT, false)
+	if not _assert_true(camera_effects.trauma > 0.0, "black rift spike damage on the Boss did not retain heavy shake"):
+		return
+	feedback.reset_all()
+	camera_effects.clear_all()
+	feedback.on_damage_resolved(medium_enemy, DamageTypes.DASH, 30.0, Vector2.ZERO, Vector2.RIGHT, true)
+	if not _assert_true(camera_effects.trauma > 0.0, "a lethal black rift spike hit lost its heavy shake"):
+		return
+	medium_enemy.remove_from_group(&"bosses")
+	feedback.reset_all()
+	camera_effects.clear_all()
+	audio._process(1.0)
+
 	feedback.on_damage_resolved(
 		medium_enemy,
 		DamageTypes.PROJECTILE,

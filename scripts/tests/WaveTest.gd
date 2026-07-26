@@ -129,12 +129,12 @@ func _initialize() -> void:
 	gated_director.active_enemies.clear()
 	gated_director._process(0.016)
 	gated_director._process(0.016)
-	if not _assert_true(finished_summaries.is_empty() and collection_windows.size() == 1 and is_equal_approx(collection_windows[0]["duration"], 5.0), "wave clear did not begin one five-second collection window before settlement"):
+	if not _assert_true(finished_summaries.is_empty() and collection_windows.size() == 1 and is_equal_approx(collection_windows[0]["duration"], 3.0), "wave clear did not begin one three-second collection window before settlement"):
 		return
 	if not _assert_true(gated_director.wave_running and not gated_director.waiting_for_advance, "collection window paused or closed the running stage early"):
 		return
-	gated_director._process(4.9)
-	if not _assert_true(finished_summaries.is_empty() and collection_remaining_values[-1] > 0.0, "collection window ended before five seconds"):
+	gated_director._process(2.9)
+	if not _assert_true(finished_summaries.is_empty() and collection_remaining_values[-1] > 0.0, "collection window ended before three seconds"):
 		return
 	gated_director._process(0.11)
 	if not _assert_true(finished_summaries.size() == 1 and finished_summaries[0]["wave"] == 1 and not finished_summaries[0]["is_final"], "first wave did not publish one finished summary"):
@@ -163,14 +163,40 @@ func _initialize() -> void:
 		return
 	gated_director.spawn_queue.clear()
 	gated_director.active_enemies.clear()
+	gated_director._process(0.016)
+	if not _assert_true(
+		gated_director.collection_window_active
+		and not gated_director.boss_entrance_started,
+		"clearing the sixth regular stage skipped its final coin collection window"
+	):
+		return
+	gated_director._process(3.01)
+	if not _assert_true(
+		finished_summaries.size() == 2
+		and bool(finished_summaries[-1].get("is_pre_boss_settlement", false))
+		and not bool(finished_summaries[-1].get("is_final", true))
+		and gated_director.is_pre_boss_settlement_pending()
+		and gated_director.can_advance_after_settlement(),
+		"sixth-stage clear did not open a dedicated Boss-preparation settlement"
+	):
+		return
+	if not _assert_true(gated_director.advance_after_settlement(), "Boss-preparation settlement could not close"):
+		return
+	if not _assert_true(
+		gated_director.wave_running
+		and not gated_director.waiting_for_advance
+		and gated_director.boss_settlement_completed,
+		"closing the Boss-preparation settlement did not resume the final combat state"
+	):
+		return
 	# BossTest owns the entrance/death integration coverage. This wave-level
-	# probe starts at the stable point immediately after Boss cleanup.
+	# probe resumes at the stable point immediately after Boss cleanup.
 	gated_director.boss_entrance_started = true
 	gated_director.boss_defeated_for_wave = true
 	gated_director.victory.connect(func() -> void: victory_count[0] += 1)
 	gated_director._process(0.016)
 	gated_director._process(0.016)
-	if not _assert_true(finished_summaries.size() == 2 and finished_summaries[-1]["is_final"] and not gated_director.collection_window_active and victory_count[0] == 0, "final Boss clear did not skip collection and enter its clear banner gate"):
+	if not _assert_true(finished_summaries.size() == 3 and finished_summaries[-1]["is_final"] and not gated_director.collection_window_active and victory_count[0] == 0, "final Boss clear did not skip collection and enter its clear banner gate"):
 		return
 	if not _assert_true(gated_director.complete_final_wave() and victory_count[0] == 1 and not gated_director.active, "final wave did not resolve victory exactly once after its banner"):
 		return

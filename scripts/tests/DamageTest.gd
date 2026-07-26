@@ -55,14 +55,26 @@ func _initialize() -> void:
 		return
 	player.set_overdrive_active(true)
 	player.set_overdrive_active(true)
+	var normal_arc_interval: float = maxf(0.7, player.arc_base_interval - player.arc_pulse_level * 0.20)
 	if not _assert_true(
 		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.PROJECTILE), 1.8),
 		"overdrive and source damage modifiers did not compose without stacking"
 	):
 		return
 	if not _assert_true(
-		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.LASER), 1.2),
-		"overdrive did not apply to all damage sources"
+		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.SPIKE), 2.0)
+		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.LASER), 2.0)
+		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.ARC), 3.0),
+		"overdrive did not apply the requested spike, laser, and arc damage multipliers"
+	):
+		return
+	if not _assert_true(
+		is_equal_approx(player.get_effective_move_speed(), player.move_speed * 1.3)
+		and is_equal_approx(player.get_effective_dash_cooldown(), player.dash_cooldown * 0.7)
+		and is_equal_approx(player.get_arc_pulse_interval(), normal_arc_interval / 1.5)
+		and is_equal_approx(player.get_arc_pulse_radius(), player.arc_radius * 2.0)
+		and is_equal_approx(player.get_drone_laser_width(), 6.0),
+		"overdrive mobility, arc frequency/range, or drone beam width was incorrect"
 	):
 		return
 
@@ -84,6 +96,15 @@ func _initialize() -> void:
 		return
 	player.set_overdrive_active(false)
 	if not _assert_true(not player.is_damage_immune(), "immunity remained after all sources ended"):
+		return
+	if not _assert_true(
+		is_equal_approx(player.get_effective_move_speed(), player.move_speed)
+		and is_equal_approx(player.get_effective_dash_cooldown(), player.dash_cooldown)
+		and is_equal_approx(player.get_arc_pulse_interval(), normal_arc_interval)
+		and is_equal_approx(player.get_arc_pulse_radius(), player.arc_radius)
+		and is_equal_approx(player.get_drone_laser_width(), 4.0),
+		"ending overdrive did not restore movement, dash, arc, and laser geometry"
+	):
 		return
 	player.clear_damage_modifier(&"projectile_boost", DamageTypes.PROJECTILE)
 	if not _assert_true(
@@ -142,8 +163,16 @@ func _initialize() -> void:
 	var persistent_spike: Node = spawned_attacks.get_child(spawned_attacks.get_child_count() - 1)
 	player.set_overdrive_active(true)
 	if not _assert_true(
-		is_equal_approx(persistent_spike.get_resolved_damage(), 14.4),
+		is_equal_approx(persistent_spike.get_resolved_damage(), 24.0),
 		"a spike created before overdrive did not gain its active damage multiplier"
+	):
+		return
+	player._drop_spike_trap_at(Vector2(32.0, 0.0))
+	var overdrive_spike: Node = spawned_attacks.get_child(spawned_attacks.get_child_count() - 1)
+	if not _assert_true(
+		is_equal_approx(overdrive_spike.radius, player.spike_radius * 2.0)
+		and is_equal_approx(overdrive_spike.lifetime, player.spike_duration * 1.5),
+		"a spike generated during overdrive did not receive double size and 1.5x duration"
 	):
 		return
 	player.set_overdrive_active(false)
@@ -191,6 +220,28 @@ func _initialize() -> void:
 		return
 	if not _assert_true(not player.activate_build_evolution("rift_overdrive"), "duplicate evolution activation stacked"):
 		return
+	player._reset_spike_path()
+	player.global_position = Vector2.ZERO
+	player._update_spike_path(false)
+	var walking_spike: Node = spawned_attacks.get_child(spawned_attacks.get_child_count() - 1)
+	player.global_position = Vector2(player.spike_spacing * 1.1, 0.0)
+	player._update_spike_path(true)
+	var rift_dash_spike: Node = spawned_attacks.get_child(spawned_attacks.get_child_count() - 1)
+	if not _assert_true(
+		not walking_spike.rift_variant
+		and walking_spike.damage_source == DamageTypes.SPIKE
+		and is_equal_approx(walking_spike.damage, player.spike_damage),
+		"walking after the mobility evolution no longer produced the original spike"
+	):
+		return
+	if not _assert_true(
+		rift_dash_spike.rift_variant
+		and rift_dash_spike.damage_source == DamageTypes.DASH
+		and is_equal_approx(rift_dash_spike.damage, player.spike_damage * 3.0)
+		and rift_dash_spike.get_primary_color().get_luminance() < 0.08,
+		"mobility-evolution dash did not produce a visible black triple-damage spike"
+	):
+		return
 
 	var shots_before_storm := spawned_shots.size()
 	if not _assert_true(player.activate_build_evolution("orbital_storm"), "orbital evolution was rejected"):
@@ -205,14 +256,40 @@ func _initialize() -> void:
 		return
 
 	var drones_before_matrix: int = player.drone_count
+	var drone_damage_before_matrix: float = player.drone_damage
 	if not _assert_true(player.activate_build_evolution("thunder_matrix"), "thunder evolution was rejected"):
 		return
 	if not _assert_true(
 		player.drone_count >= maxi(2, drones_before_matrix + 1)
-		and player.arc_pulse_level >= 1,
-		"thunder evolution did not guarantee both drone and arc mechanics"
+		and player.arc_pulse_level >= 1
+		and is_equal_approx(player.drone_damage, drone_damage_before_matrix * 2.0)
+		and player.get_arc_pulse_radius() >= player.get_viewport_rect().size.length()
+		and player.get_drone_laser_color().is_equal_approx(Color("b45cff")),
+		"thunder evolution did not produce full-screen arcs and purple double-damage drones"
 	):
 		return
+
+	var target_a := Node2D.new()
+	var target_b := Node2D.new()
+	target_a.position = Vector2(10.0, 0.0)
+	target_b.position = Vector2(20.0, 0.0)
+	root.add_child(target_a)
+	root.add_child(target_b)
+	var target_pool: Array[Node] = [target_a, target_b]
+	var assigned_targets: Array[Node2D] = [target_a]
+	if not _assert_true(
+		player._nearest_unassigned_enemy(Vector2.ZERO, assigned_targets, target_pool) == target_b,
+		"a drone reused an assigned target while an unassigned target existed"
+	):
+		return
+	assigned_targets.append(target_b)
+	if not _assert_true(
+		player._nearest_unassigned_enemy(Vector2.ZERO, assigned_targets, target_pool) == target_a,
+		"a drone did not fall back to the nearest occupied target when no free target remained"
+	):
+		return
+	target_a.queue_free()
+	target_b.queue_free()
 
 	player.queue_free()
 	spawned_attacks.queue_free()

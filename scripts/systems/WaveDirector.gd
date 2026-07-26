@@ -44,7 +44,7 @@ const BOSS_PORTAL_SCALE := 1.8
 const BOSS_TRICKLE_INTERVAL := 4.6
 const BOSS_TRICKLE_COUNT := 18
 const BOSS_TRICKLE_MINION_CAP := 30
-const COLLECTION_WINDOW_SECONDS := 5.0
+const COLLECTION_WINDOW_SECONDS := 3.0
 
 var enemy_parent: Node
 var projectile_parent: Node
@@ -70,6 +70,8 @@ var boss_entrance_started := false
 var boss_defeat_pending := false
 var boss_trickle_timer := 0.0
 var boss_defeated_for_wave := false
+var pre_boss_settlement_pending := false
+var boss_settlement_completed := false
 var collection_window_active := false
 var collection_window_remaining := 0.0
 
@@ -94,7 +96,7 @@ func setup(target_player: Node, enemies: Node, projectiles: Node, portals: Node 
 		prepare_next_wave()
 
 func restore_stable_boundary(pending_stage: int, boundary: String) -> bool:
-	if pending_stage < 1 or pending_stage > waves.size() or boundary not in ["wave_intro", "settlement"]:
+	if pending_stage < 1 or pending_stage > waves.size() or boundary not in ["wave_intro", "settlement", "boss_settlement"]:
 		return false
 	spawn_queue.clear()
 	active_enemies.clear()
@@ -108,6 +110,14 @@ func restore_stable_boundary(pending_stage: int, boundary: String) -> bool:
 	wave_running = false
 	waiting_for_advance = false
 	active = true
+	if boundary == "boss_settlement":
+		if pending_stage != waves.size():
+			return false
+		wave_index = waves.size() - 1
+		waiting_for_advance = true
+		pre_boss_settlement_pending = true
+		_emit_wave_status()
+		return true
 	if boundary == "settlement":
 		if pending_stage <= 1:
 			return false
@@ -300,8 +310,11 @@ func _handle_combat_entities_cleared() -> void:
 	if wave_index == waves.size() - 1:
 		if boss_defeated_for_wave:
 			_finish_current_wave()
-		elif not boss_entrance_started:
+		elif boss_settlement_completed and not boss_entrance_started:
 			_begin_boss_entrance()
+		elif not pre_boss_settlement_pending:
+			pre_boss_settlement_pending = true
+			_begin_collection_window()
 		return
 	_begin_collection_window()
 
@@ -424,7 +437,12 @@ func _forward_damage_resolved(
 func _finish_current_wave() -> void:
 	if waiting_for_advance or not wave_running:
 		return
-	if wave_index == waves.size() - 1 and not boss_defeated_for_wave:
+	var is_pre_boss_settlement := (
+		wave_index == waves.size() - 1
+		and pre_boss_settlement_pending
+		and not boss_defeated_for_wave
+	)
+	if wave_index == waves.size() - 1 and not boss_defeated_for_wave and not is_pre_boss_settlement:
 		return
 	_emit_wave_status()
 	collection_window_active = false
@@ -433,13 +451,19 @@ func _finish_current_wave() -> void:
 	waiting_for_advance = true
 	var summary := _get_wave_summary()
 	wave_finished.emit(summary)
-	if not bool(summary["is_final"]):
+	if not bool(summary["is_final"]) and not bool(summary.get("is_pre_boss_settlement", false)):
 		wave_cleared.emit(wave_index + 1)
 
 func advance_after_settlement() -> bool:
 	if not can_advance_after_settlement():
 		return false
 	waiting_for_advance = false
+	if pre_boss_settlement_pending:
+		pre_boss_settlement_pending = false
+		boss_settlement_completed = true
+		wave_running = true
+		call_deferred("_handle_combat_entities_cleared")
+		return true
 	return prepare_next_wave()
 
 func can_advance_after_settlement() -> bool:
@@ -449,8 +473,11 @@ func can_advance_after_settlement() -> bool:
 		and not prepared_wave
 		and not wave_running
 		and wave_index >= 0
-		and wave_index < waves.size() - 1
+		and (wave_index < waves.size() - 1 or pre_boss_settlement_pending)
 	)
+
+func is_pre_boss_settlement_pending() -> bool:
+	return pre_boss_settlement_pending and waiting_for_advance
 
 func complete_final_wave() -> bool:
 	if not active or not waiting_for_advance or wave_index != waves.size() - 1 or not boss_defeated_for_wave:
@@ -461,10 +488,12 @@ func complete_final_wave() -> bool:
 	return true
 
 func _get_wave_summary() -> Dictionary:
+	var is_last_stage := wave_index == waves.size() - 1
 	return {
 		"wave": wave_index + 1,
 		"total": waves.size(),
-		"is_final": wave_index == waves.size() - 1,
+		"is_final": is_last_stage and boss_defeated_for_wave,
+		"is_pre_boss_settlement": is_last_stage and pre_boss_settlement_pending and not boss_defeated_for_wave,
 	}
 
 func _spawn_enemy(kind: int) -> void:
@@ -793,3 +822,5 @@ func _reset_boss_tracking() -> void:
 	boss_entrance_started = false
 	boss_defeat_pending = false
 	boss_defeated_for_wave = false
+	pre_boss_settlement_pending = false
+	boss_settlement_completed = false

@@ -63,6 +63,17 @@ func _initialize() -> void:
 		"valid snapshot did not preserve its progression state"
 	):
 		return
+	var boss_settlement_snapshot := snapshot.duplicate(true)
+	boss_settlement_snapshot["boundary"] = "boss_settlement"
+	boss_settlement_snapshot["pending_stage"] = 6
+	boss_settlement_snapshot["settlement"] = (snapshot["settlement"] as Dictionary).duplicate(true)
+	boss_settlement_snapshot["settlement"]["wave"] = 6
+	boss_settlement_snapshot["settlement"]["generation"] = 6
+	boss_settlement_snapshot["settlement"]["closed"] = false
+	for offer in boss_settlement_snapshot["settlement"]["offers"]:
+		offer["transaction"] = 6
+	if not _assert_true(store.validate_snapshot(boss_settlement_snapshot), "Boss-preparation settlement was not accepted as a resumable stable boundary"):
+		return
 	var serialized := FileAccess.get_file_as_string(store.save_path)
 	for runtime_key in ["enemies", "projectiles", "portals", "pickups", "vfx", "audio_loops", "camera_offset"]:
 		if not _assert_true(serialized.find(runtime_key) == -1, "runtime-only key %s leaked into the snapshot" % runtime_key):

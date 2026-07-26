@@ -27,6 +27,25 @@ func _initialize() -> void:
 		return
 	if not _assert_true(is_equal_approx(scene.player.get_effective_fire_rate(), scene.player.fire_rate * 2.0), "overdrive did not double fire rate"):
 		return
+	scene._transition_to(scene.RunState.WAVE_CLEAR)
+	if not _assert_true(
+		not scene.overdrive_active
+		and not scene.player.overdrive_active
+		and not scene.player.is_damage_immune(),
+		"entering the pre-upgrade flow did not immediately exit overdrive"
+	):
+		return
+	scene._set_overdrive(true)
+	scene._transition_to(scene.RunState.SETTLEMENT)
+	if not _assert_true(
+		not scene.overdrive_active
+		and not scene.player.overdrive_active
+		and not scene.player.is_damage_immune(),
+		"opening the upgrade page did not immediately exit overdrive"
+	):
+		return
+	scene._transition_to(scene.RunState.PLAYING)
+	scene._set_overdrive(true)
 	scene._update_combo(4.0)
 	if not _assert_true(not scene.overdrive_active and not scene.player.is_damage_immune(), "overdrive did not end and clear immunity"):
 		return

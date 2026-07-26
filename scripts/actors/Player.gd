@@ -18,6 +18,19 @@ const OVERDRIVE_MODIFIER: StringName = &"overdrive"
 const DASH_IMMUNITY_SOURCE: StringName = &"dash"
 const OVERDRIVE_FIRE_RATE_MULTIPLIER: float = 2.0
 const OVERDRIVE_DAMAGE_MULTIPLIER: float = 1.2
+const OVERDRIVE_SPIKE_DAMAGE_MULTIPLIER: float = 2.0
+const OVERDRIVE_LASER_DAMAGE_MULTIPLIER: float = 2.0
+const OVERDRIVE_ARC_DAMAGE_MULTIPLIER: float = 3.0
+const OVERDRIVE_MOVE_SPEED_MULTIPLIER: float = 1.3
+const OVERDRIVE_DASH_COOLDOWN_MULTIPLIER: float = 0.7
+const OVERDRIVE_SPIKE_RADIUS_MULTIPLIER: float = 2.0
+const OVERDRIVE_SPIKE_DURATION_MULTIPLIER: float = 1.5
+const OVERDRIVE_LASER_WIDTH_MULTIPLIER: float = 1.5
+const OVERDRIVE_ARC_RADIUS_MULTIPLIER: float = 2.0
+const OVERDRIVE_ARC_FREQUENCY_MULTIPLIER: float = 1.5
+const BASE_DRONE_LASER_WIDTH: float = 4.0
+const BASE_DRONE_LASER_COLOR := Color(0.2, 1.0, 0.95)
+const THUNDER_MATRIX_LASER_COLOR := Color("b45cff")
 const MAX_WEAPON_LINES: int = 8
 const MAX_FIRE_RATE_MULTIPLIER: float = 4.0
 const FAMILY_DAMAGE_PER_LEVEL: float = 1.05
@@ -111,9 +124,15 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 
 func _update_movement(input_vector: Vector2) -> void:
-	velocity = input_vector.limit_length(1.0) * move_speed
+	velocity = input_vector.limit_length(1.0) * get_effective_move_speed()
 	move_and_slide()
 	_clamp_to_world_bounds()
+
+func get_effective_move_speed() -> float:
+	return move_speed * (OVERDRIVE_MOVE_SPEED_MULTIPLIER if overdrive_active else 1.0)
+
+func get_effective_dash_cooldown() -> float:
+	return dash_cooldown * (OVERDRIVE_DASH_COOLDOWN_MULTIPLIER if overdrive_active else 1.0)
 
 func _draw() -> void:
 	draw_rect(Rect2(-10, -14, 20, 28), Color(0.1, 0.85, 0.95))
@@ -247,10 +266,8 @@ func activate_build_evolution(evolution_id: String) -> bool:
 		"thunder_matrix":
 			active_build_evolutions[evolution_id] = true
 			drone_count = maxi(2, drone_count + 1)
-			drone_damage *= 1.35
+			drone_damage *= 2.0
 			arc_pulse_level = maxi(1, arc_pulse_level)
-			arc_damage *= 1.35
-			arc_radius += 60.0
 		_:
 			return false
 	queue_redraw()
@@ -296,9 +313,27 @@ func set_overdrive_active(active: bool) -> void:
 	if active:
 		set_fire_rate_modifier(OVERDRIVE_MODIFIER, OVERDRIVE_FIRE_RATE_MULTIPLIER)
 		set_damage_modifier(OVERDRIVE_MODIFIER, OVERDRIVE_DAMAGE_MULTIPLIER)
+		set_damage_modifier(
+			OVERDRIVE_MODIFIER,
+			OVERDRIVE_SPIKE_DAMAGE_MULTIPLIER / OVERDRIVE_DAMAGE_MULTIPLIER,
+			DamageTypes.SPIKE
+		)
+		set_damage_modifier(
+			OVERDRIVE_MODIFIER,
+			OVERDRIVE_LASER_DAMAGE_MULTIPLIER / OVERDRIVE_DAMAGE_MULTIPLIER,
+			DamageTypes.LASER
+		)
+		set_damage_modifier(
+			OVERDRIVE_MODIFIER,
+			OVERDRIVE_ARC_DAMAGE_MULTIPLIER / OVERDRIVE_DAMAGE_MULTIPLIER,
+			DamageTypes.ARC
+		)
 	else:
 		clear_fire_rate_modifier(OVERDRIVE_MODIFIER)
 		clear_damage_modifier(OVERDRIVE_MODIFIER)
+		clear_damage_modifier(OVERDRIVE_MODIFIER, DamageTypes.SPIKE)
+		clear_damage_modifier(OVERDRIVE_MODIFIER, DamageTypes.LASER)
+		clear_damage_modifier(OVERDRIVE_MODIFIER, DamageTypes.ARC)
 	set_damage_immunity(OVERDRIVE_MODIFIER, active)
 
 func clear_runtime_modifiers() -> void:
@@ -381,9 +416,11 @@ func _start_dash(direction: Vector2) -> void:
 	dash_direction = direction.normalized()
 	dash_active = true
 	dash_timer = dash_duration
-	dash_cooldown_remaining = dash_cooldown
+	dash_cooldown_remaining = get_effective_dash_cooldown()
 	dash_hit_bodies.clear()
 	_apply_dash_melee_sweep(global_position, global_position)
+	if mine_level > 0 and active_build_evolutions.has("rift_overdrive"):
+		_update_spike_path(true)
 
 func _update_dash(delta: float) -> void:
 	if not dash_active:
@@ -395,6 +432,8 @@ func _update_dash(delta: float) -> void:
 	_clamp_to_world_bounds()
 	dash_timer -= step_time
 	_apply_dash_melee_sweep(start, global_position)
+	if mine_level > 0 and active_build_evolutions.has("rift_overdrive"):
+		_update_spike_path(true)
 	if dash_timer <= 0.0:
 		dash_active = false
 		velocity = Vector2.ZERO
@@ -460,8 +499,16 @@ func _update_drone_lasers(delta: float) -> void:
 		)
 		var beam := drone_lasers[index]
 		beam.visible = true
-		beam.setup(origin, target.global_position, Color(0.2, 1.0, 0.95), 4.0)
+		beam.setup(origin, target.global_position, get_drone_laser_color(), get_drone_laser_width())
 	_set_laser_audio_active(any_laser_active)
+
+func get_drone_laser_color() -> Color:
+	if active_build_evolutions.has("thunder_matrix"):
+		return THUNDER_MATRIX_LASER_COLOR
+	return BASE_DRONE_LASER_COLOR
+
+func get_drone_laser_width() -> float:
+	return BASE_DRONE_LASER_WIDTH * (OVERDRIVE_LASER_WIDTH_MULTIPLIER if overdrive_active else 1.0)
 
 func _damage_enemies_on_laser(origin: Vector2, direction: Vector2, length: float, damage: float, width: float) -> void:
 	for enemy in _get_enemies():
@@ -480,7 +527,7 @@ func _damage_enemies_on_laser(origin: Vector2, direction: Vector2, length: float
 			)
 
 func _emit_arc_pulse() -> void:
-	var radius := arc_radius + arc_pulse_level * 18.0
+	var radius := get_arc_pulse_radius()
 	for enemy in _get_enemies():
 		if global_position.distance_to(enemy.global_position) <= radius and enemy.has_method("take_damage"):
 			enemy.take_damage(
@@ -493,7 +540,18 @@ func _emit_arc_pulse() -> void:
 	projectile_parent.add_child(wave)
 
 func get_arc_pulse_interval() -> float:
-	return maxf(0.7, arc_base_interval - arc_pulse_level * 0.20)
+	var interval := maxf(0.7, arc_base_interval - arc_pulse_level * 0.20)
+	if overdrive_active:
+		interval /= OVERDRIVE_ARC_FREQUENCY_MULTIPLIER
+	return interval
+
+func get_arc_pulse_radius() -> float:
+	var radius := arc_radius + arc_pulse_level * 18.0
+	if active_build_evolutions.has("thunder_matrix"):
+		radius = maxf(radius, get_viewport_rect().size.length())
+	if overdrive_active:
+		radius *= OVERDRIVE_ARC_RADIUS_MULTIPLIER
+	return radius
 
 func get_arc_pulse_damage() -> float:
 	return arc_damage + arc_pulse_level * 12.0
@@ -506,29 +564,31 @@ func _drop_spike_trap() -> void:
 		self,
 		"get_effective_damage_multiplier"
 	).bind(DamageTypes.SPIKE)
-	trap.radius = spike_radius
+	trap.radius = spike_radius * (OVERDRIVE_SPIKE_RADIUS_MULTIPLIER if overdrive_active else 1.0)
 	trap.tick_interval = spike_tick_interval
-	trap.lifetime = spike_duration
+	trap.lifetime = spike_duration * (OVERDRIVE_SPIKE_DURATION_MULTIPLIER if overdrive_active else 1.0)
 	projectile_parent.add_child(trap)
 
-func _drop_spike_trap_at(position: Vector2) -> void:
+func _drop_spike_trap_at(position: Vector2, rift_dash_spike: bool = false) -> void:
 	var trap := SpikeTrapScript.new()
 	trap.global_position = position
-	trap.damage = spike_damage
+	trap.rift_variant = rift_dash_spike
+	trap.damage_source = DamageTypes.DASH if rift_dash_spike else DamageTypes.SPIKE
+	trap.damage = spike_damage * (3.0 if rift_dash_spike else 1.0)
 	trap.damage_multiplier_provider = Callable(
 		self,
 		"get_effective_damage_multiplier"
 	).bind(DamageTypes.SPIKE)
-	trap.radius = spike_radius
+	trap.radius = spike_radius * (OVERDRIVE_SPIKE_RADIUS_MULTIPLIER if overdrive_active else 1.0)
 	trap.tick_interval = spike_tick_interval
-	trap.lifetime = spike_duration
+	trap.lifetime = spike_duration * (OVERDRIVE_SPIKE_DURATION_MULTIPLIER if overdrive_active else 1.0)
 	projectile_parent.add_child(trap)
 
-func _update_spike_path() -> void:
+func _update_spike_path(rift_dash_spike: bool = false) -> void:
 	if not has_spike_position:
 		last_spike_position = global_position
 		has_spike_position = true
-		_drop_spike_trap_at(last_spike_position)
+		_drop_spike_trap_at(last_spike_position, rift_dash_spike)
 		return
 	var travel := global_position - last_spike_position
 	var distance := travel.length()
@@ -537,7 +597,7 @@ func _update_spike_path() -> void:
 	var direction := travel / distance
 	while distance >= spike_spacing:
 		last_spike_position += direction * spike_spacing
-		_drop_spike_trap_at(last_spike_position)
+		_drop_spike_trap_at(last_spike_position, rift_dash_spike)
 		distance = global_position.distance_to(last_spike_position)
 
 func _reset_spike_path() -> void:
@@ -611,6 +671,18 @@ func _nearest_unassigned_enemy(
 	for enemy in enemies:
 		var node := enemy as Node2D
 		if node == null or assigned.has(node):
+			continue
+		var distance := from_position.distance_squared_to(node.global_position)
+		if distance < best_distance:
+			best_distance = distance
+			best = node
+	if best != null:
+		return best
+	# All live enemies are already claimed. Reuse the nearest one so surplus
+	# drones still contribute against a lone Boss or the last enemy in a wave.
+	for enemy in enemies:
+		var node := enemy as Node2D
+		if node == null:
 			continue
 		var distance := from_position.distance_squared_to(node.global_position)
 		if distance < best_distance:

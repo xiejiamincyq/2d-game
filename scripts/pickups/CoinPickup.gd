@@ -4,9 +4,9 @@ class_name CoinPickup
 signal collected(value: int)
 
 @export var value: int = 1
-const INITIAL_HOMING_SPEED := 80.0
-const HOMING_ACCELERATION := 280.0
-const MAX_HOMING_SPEED := 900.0
+const INITIAL_HOMING_SPEED := 160.0
+const HOMING_ACCELERATION := 560.0
+const MAX_HOMING_SPEED := 1800.0
 
 var target_player: Node2D
 var homing_speed := INITIAL_HOMING_SPEED

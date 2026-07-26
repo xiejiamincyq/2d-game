@@ -3,9 +3,9 @@ class_name RunSnapshotStore
 
 const VERSION := 1
 const DEFAULT_PATH := "user://five_minute_overdrive_run_v1.json"
-const MAX_STAGE := 5
+const MAX_STAGE := 6
 const MAX_ELAPSED_SECONDS := 86400.0
-const BOUNDARIES: Array[String] = ["wave_intro", "settlement"]
+const BOUNDARIES: Array[String] = ["wave_intro", "settlement", "boss_settlement"]
 const FAMILY_IDS: Array[String] = ["ballistics", "mobility", "automation"]
 const EVOLUTION_IDS: Array[String] = ["", "orbital_storm", "rift_overdrive", "thunder_matrix"]
 const FORBIDDEN_RUNTIME_KEYS: Array[String] = [
@@ -131,7 +131,7 @@ func _validate_settlement(value: Variant, pending_stage: int, boundary: String) 
 	for key in ["wave", "generation", "offers", "reward_claimed", "closed"]:
 		if not settlement.has(key):
 			return false
-	if not _is_int_in_range(settlement["wave"], 0, MAX_STAGE - 1):
+	if not _is_int_in_range(settlement["wave"], 0, MAX_STAGE):
 		return false
 	if not _is_int_in_range(settlement["generation"], 0, MAX_STAGE):
 		return false
@@ -142,6 +142,12 @@ func _validate_settlement(value: Variant, pending_stage: int, boundary: String) 
 	if boundary == "settlement" and (int(settlement["wave"]) != pending_stage - 1 or bool(settlement["closed"])):
 		return false
 	if boundary == "settlement" and pending_stage <= 1:
+		return false
+	if boundary == "boss_settlement" and (
+		pending_stage != MAX_STAGE
+		or int(settlement["wave"]) != MAX_STAGE
+		or bool(settlement["closed"])
+	):
 		return false
 	for offer_value in settlement["offers"]:
 		if not _validate_offer(offer_value, int(settlement["generation"])):

@@ -40,14 +40,21 @@ func on_damage_resolved(
 		return
 	var intensity := clampf(amount / 40.0, 0.2, 1.0)
 	var feedback_weight := _resolve_feedback_weight(enemy)
+	var is_boss := is_instance_valid(enemy) and enemy.is_in_group(&"bosses")
 	_request_vfx(CombatVfx.SPARK, world_position, direction, intensity)
 	_request_hit_audio(source, feedback_weight)
 	if killed:
 		_request_kill_burst(world_position, direction, maxf(0.8, intensity))
-		if source == DamageTypes.PROJECTILE and feedback_weight == EnemyScript.FeedbackWeight.HEAVY:
+		if source == DamageTypes.DASH:
+			request_heavy_hit(world_position, direction, intensity)
+		elif source == DamageTypes.PROJECTILE and feedback_weight == EnemyScript.FeedbackWeight.HEAVY:
 			_request_camera_impact(_get_kill_trauma(feedback_weight), direction)
 		_request_kill_audio()
 		request_hit_stop(KILL_STOP_MS)
+	elif is_boss and source in [DamageTypes.SPIKE, DamageTypes.LASER]:
+		# Persistent Boss damage needs an audible tick without turning every
+		# overlapping spike/laser frame into camera noise.
+		return
 	elif source in [DamageTypes.DASH, DamageTypes.SPIKE] or amount >= 40.0:
 		request_heavy_hit(world_position, direction, intensity)
 

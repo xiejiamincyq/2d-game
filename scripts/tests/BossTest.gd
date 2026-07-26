@@ -76,7 +76,15 @@ func _initialize() -> void:
 	await process_frame
 
 	director._process(0.016)
-	if not _assert_true(director.boss_entrance_started and is_instance_valid(director.boss_portal), "final regular clear did not open the Boss entrance portal"):
+	if not _assert_true(director.collection_window_active and not director.boss_entrance_started, "final regular clear did not open the pre-Boss collection window"):
+		return
+	director._process(director.COLLECTION_WINDOW_SECONDS + 0.01)
+	if not _assert_true(director.is_pre_boss_settlement_pending() and finished_count[0] == 1, "pre-Boss collection did not resolve into one upgrade settlement"):
+		return
+	if not _assert_true(director.advance_after_settlement(), "pre-Boss upgrade settlement could not advance"):
+		return
+	director._handle_combat_entities_cleared()
+	if not _assert_true(director.boss_entrance_started and is_instance_valid(director.boss_portal), "closing the pre-Boss settlement did not open the Boss entrance portal"):
 		return
 	if not _assert_true(entrance_warnings == [OverseerBossScript.DISPLAY_NAME], "Boss entrance did not broadcast its warning banner contract"):
 		return
@@ -156,7 +164,7 @@ func _initialize() -> void:
 	director._process(1.0)
 	if not _assert_true(spawned_bosses.size() == 1, "Boss entrance created duplicate Boss instances"):
 		return
-	if not _assert_true(not director.complete_final_wave() and victory_count[0] == 0 and finished_count[0] == 0, "final victory was reachable while the Boss was alive"):
+	if not _assert_true(not director.complete_final_wave() and victory_count[0] == 0 and finished_count[0] == 1, "final victory was reachable while the Boss was alive"):
 		return
 
 	boss.take_damage(1.0, DamageTypes.PROJECTILE, Vector2.LEFT)
@@ -168,9 +176,9 @@ func _initialize() -> void:
 	director._process(0.016)
 	if not _assert_true(defeated_count[0] == 1 and not is_instance_valid(director.get_active_boss()), "Boss cleanup did not resolve exactly once"):
 		return
-	if not _assert_true(finished_count[0] == 1 and not director.collection_window_active and director.waiting_for_advance and victory_count[0] == 0, "Boss defeat did not skip collection and gate the final clear banner"):
+	if not _assert_true(finished_count[0] == 2 and not director.collection_window_active and director.waiting_for_advance and victory_count[0] == 0, "Boss defeat did not skip collection and gate the final clear banner"):
 		return
-	if not _assert_true(event_order.slice(0, 3) == ["spawned", "defeated", "finished"], "Boss lifecycle events were emitted out of order: %s" % [event_order]):
+	if not _assert_true(event_order.slice(0, 4) == ["finished", "spawned", "defeated", "finished"], "Boss lifecycle events were emitted out of order: %s" % [event_order]):
 		return
 	if not _assert_true(director.complete_final_wave() and victory_count[0] == 1 and not director.active, "cleared Boss wave did not resolve victory"):
 		return

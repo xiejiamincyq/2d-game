@@ -19,6 +19,13 @@ func _assert_true(condition: bool, message: String) -> bool:
 	return false
 
 func _initialize() -> void:
+	if not _assert_true(
+		is_equal_approx(CoinPickupScript.INITIAL_HOMING_SPEED, 160.0)
+		and is_equal_approx(CoinPickupScript.HOMING_ACCELERATION, 560.0)
+		and is_equal_approx(CoinPickupScript.MAX_HOMING_SPEED, 1800.0),
+		"coin homing speed, acceleration, and cap were not doubled"
+	):
+		return
 	var scene: Node = MainScript.new()
 	root.add_child(scene)
 	await process_frame

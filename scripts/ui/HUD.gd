@@ -232,7 +232,7 @@ func set_overdrive(active: bool, remaining: float = 0.0) -> void:
 	if not active:
 		return
 	combo_panel.visible = true
-	combo_label.text = "超载 %.1fs  无敌 · 火力 ×4" % maxf(0.0, remaining)
+	combo_label.text = "超载 %.1fs  无敌 · 全武器强化" % maxf(0.0, remaining)
 	combo_label.add_theme_color_override("font_color", Color("ff571f"))
 
 func set_overdrive_charge(value: float, active: bool) -> void:

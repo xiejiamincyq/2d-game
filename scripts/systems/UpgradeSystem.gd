@@ -64,7 +64,7 @@ var upgrade_pool: Array[Dictionary] = [
 	# Evolutions are guaranteed candidates only after their family qualifies.
 	{"id": "orbital_storm", "label": "轨道风暴", "description": "终极进化：周期性发射环形副弹幕", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
 	{"id": "rift_overdrive", "label": "裂地超载", "description": "终极进化：冲刺铺设毁灭性地刺走廊", "family": "mobility", "kind": "evolution", "max_rank": 1, "base_cost": 120},
-	{"id": "thunder_matrix", "label": "雷网矩阵", "description": "终极进化：无人机与电弧形成高频电网", "family": "automation", "kind": "evolution", "max_rank": 1, "base_cost": 120},
+	{"id": "thunder_matrix", "label": "雷网矩阵", "description": "终极进化：电弧覆盖全屏，无人机激光变为紫色且伤害翻倍", "family": "automation", "kind": "evolution", "max_rank": 1, "base_cost": 120},
 ]
 
 func setup(target_player: Node) -> void:

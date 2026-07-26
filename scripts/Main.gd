@@ -281,8 +281,14 @@ func _begin_run(snapshot: Dictionary) -> void:
 			snapshot_store.clear_snapshot()
 			_restart_run()
 			return
-		if boundary == "settlement":
-			pending_wave_summary = {"wave": pending_stage - 1, "total": wave_director.waves.size(), "is_final": false}
+		if boundary in ["settlement", "boss_settlement"]:
+			var completed_wave := pending_stage if boundary == "boss_settlement" else pending_stage - 1
+			pending_wave_summary = {
+				"wave": completed_wave,
+				"total": wave_director.waves.size(),
+				"is_final": false,
+				"is_pre_boss_settlement": boundary == "boss_settlement",
+			}
 			_transition_to(RunState.SETTLEMENT)
 			ui.show_settlement()
 
@@ -342,7 +348,7 @@ func _on_wave_banner_finished(context: StringName) -> void:
 	if upgrade_system.prepare_settlement(completed_wave):
 		_transition_to(RunState.SETTLEMENT)
 		ui.show_settlement()
-		_save_stable_snapshot("settlement", completed_wave + 1)
+		_save_current_settlement_snapshot(completed_wave)
 	else:
 		_fail_progression_gate("波次结算生成失败")
 
@@ -352,7 +358,17 @@ func _on_settlement_offer_selected(offer: Dictionary) -> void:
 	var state: Dictionary = upgrade_system.get_settlement_state()
 	var changed: bool = upgrade_system.purchase_settlement_offer(offer) if bool(state.get("reward_claimed", false)) else upgrade_system.claim_free_offer(offer)
 	if changed:
-		_save_stable_snapshot("settlement", wave_director.wave_index + 2)
+		_save_current_settlement_snapshot(int(state.get("wave", wave_director.wave_index + 1)))
+
+func _save_current_settlement_snapshot(completed_wave: int) -> bool:
+	var is_pre_boss_settlement: bool = bool(
+		bool(pending_wave_summary.get("is_pre_boss_settlement", false))
+		or wave_director.is_pre_boss_settlement_pending()
+	)
+	return _save_stable_snapshot(
+		"boss_settlement" if is_pre_boss_settlement else "settlement",
+		completed_wave if is_pre_boss_settlement else completed_wave + 1
+	)
 
 func _on_settlement_close_requested() -> void:
 	if run_state != RunState.SETTLEMENT:
@@ -366,8 +382,12 @@ func _on_settlement_close_requested() -> void:
 		ui.show_toast("结算尚未完成")
 		ui.show_settlement()
 		return
+	var advances_to_boss: bool = bool(wave_director.is_pre_boss_settlement_pending())
 	if not wave_director.advance_after_settlement():
 		_fail_progression_gate("下一波推进失败")
+		return
+	if advances_to_boss and not _transition_to(RunState.PLAYING):
+		_fail_progression_gate("Boss 战准备失败")
 
 func _fail_progression_gate(message: String) -> void:
 	push_warning(message)
@@ -451,7 +471,7 @@ func _transition_to(next_state: RunState) -> bool:
 		RunState.PLAYING: [RunState.BOSS_INTRO, RunState.WAVE_CLEAR, RunState.PAUSED, RunState.RESULT],
 		RunState.BOSS_INTRO: [RunState.PLAYING, RunState.RESULT],
 		RunState.WAVE_CLEAR: [RunState.SETTLEMENT, RunState.RESULT],
-		RunState.SETTLEMENT: [RunState.WAVE_INTRO, RunState.RESULT],
+		RunState.SETTLEMENT: [RunState.WAVE_INTRO, RunState.PLAYING, RunState.RESULT],
 		RunState.PAUSED: [RunState.PLAYING, RunState.RESULT],
 		RunState.RESULT: [],
 	}
