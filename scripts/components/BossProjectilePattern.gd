@@ -229,10 +229,14 @@ func _spawn_projectile(event: Dictionary) -> void:
 	shot.set_meta(&"boss_pattern", _active_pattern)
 	shot.add_to_group(&"boss_projectiles")
 	projectile_parent.add_child(shot)
+	shot.tree_exiting.connect(_on_spawned_projectile_tree_exiting.bind(shot), CONNECT_ONE_SHOT)
 	shot.global_position = global_position + Vector2(event.offset)
 	_spawned_projectiles.append(shot)
 	_spawn_budget = maxf(0.0, _spawn_budget - 1.0)
 	_total_spawned += 1
+
+func _on_spawned_projectile_tree_exiting(projectile: Node) -> void:
+	_spawned_projectiles.erase(projectile)
 
 func _get_global_boss_projectile_count() -> int:
 	if not is_inside_tree():

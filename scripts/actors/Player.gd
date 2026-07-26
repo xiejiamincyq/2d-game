@@ -437,12 +437,13 @@ func _update_drone_lasers(delta: float) -> void:
 	_sync_drone_lasers()
 	drone_targets.clear()
 	var assigned: Array[Node2D] = []
+	var enemies := _get_enemies()
 	var any_laser_active := false
 	for index in range(drone_count):
 		var origin := global_position
 		if index < drone_visuals.size():
 			origin = drone_visuals[index].global_position
-		var target := _nearest_unassigned_enemy(origin, assigned)
+		var target := _nearest_unassigned_enemy(origin, assigned, enemies)
 		drone_targets.append(target)
 		if target == null:
 			if index < drone_lasers.size():
@@ -589,10 +590,14 @@ func _nearest_enemy(from_position: Vector2) -> Node2D:
 			best = node
 	return best
 
-func _nearest_unassigned_enemy(from_position: Vector2, assigned: Array[Node2D]) -> Node2D:
+func _nearest_unassigned_enemy(
+	from_position: Vector2,
+	assigned: Array[Node2D],
+	enemies: Array[Node]
+) -> Node2D:
 	var best: Node2D = null
 	var best_distance := INF
-	for enemy in _get_enemies():
+	for enemy in enemies:
 		var node := enemy as Node2D
 		if node == null or assigned.has(node):
 			continue

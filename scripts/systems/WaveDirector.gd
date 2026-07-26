@@ -227,9 +227,11 @@ func _open_portals_for_queues(queues: Array[Array]) -> void:
 		portal.configure(portal_position, 0.7, burst_duration)
 		occupied_positions.append(portal_position)
 		active_portals.append(portal)
-		portal_spawn_queues[portal.get_instance_id()] = queues[index]
-		portal_spawn_timers[portal.get_instance_id()] = 0.0
+		var portal_id := portal.get_instance_id()
+		portal_spawn_queues[portal_id] = queues[index]
+		portal_spawn_timers[portal_id] = 0.0
 		portal.closed.connect(_on_portal_closed, CONNECT_ONE_SHOT)
+		portal.tree_exiting.connect(_on_portal_tree_exiting.bind(portal, portal_id), CONNECT_ONE_SHOT)
 	_emit_wave_status()
 
 func _process_boss_trickle(delta: float) -> void:
@@ -755,10 +757,16 @@ func _on_enemy_tree_exiting(enemy: Node) -> void:
 	active_enemies.erase(enemy)
 
 func _on_portal_closed(portal: Node) -> void:
-	portal_spawn_queues.erase(portal.get_instance_id())
-	portal_spawn_timers.erase(portal.get_instance_id())
-	active_portals.erase(portal)
+	_release_portal_state(portal, portal.get_instance_id())
 	portal.queue_free()
+
+func _on_portal_tree_exiting(portal: Node, portal_id: int) -> void:
+	_release_portal_state(portal, portal_id)
+
+func _release_portal_state(portal: Node, portal_id: int) -> void:
+	portal_spawn_queues.erase(portal_id)
+	portal_spawn_timers.erase(portal_id)
+	active_portals.erase(portal)
 
 func get_active_enemies() -> Array[Node]:
 	return active_enemies

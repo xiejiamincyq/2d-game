@@ -34,7 +34,7 @@ godot --headless --audio-driver Dummy --path . --script res://scripts/tests/Dama
 | `UpgradeTest` | 多级排队、事务令牌、伪造/重复选择和升级上限 |
 | `StateTest` | Main 状态机、合法转换和唯一暂停所有权 |
 | `UITest` | 四种分辨率、模态遮罩、焦点回收和 Toast Tween 生命周期 |
-| `PerformanceTest` | 敌人注册表、静态重绘、固定音频 voice 和 250 敌人基线 |
+| `PerformanceTest` | 250 敌人、五门生成、无人机索敌、Boss 弹幕/VFX 回收和固定音频 voice |
 | `SmokeTest` | START → WAVE_INTRO → PLAYING → SETTLEMENT → PAUSED → RESULT 生命周期 |
 
 ## 严格失败条件
@@ -65,8 +65,11 @@ HUD、升级面板、暂停面板和结算面板必须保持在视口内；升�
 `PerformanceTest` 使用 250 个终局强度敌人，验证：
 
 - WaveDirector 注册表与节点退出同步；
-- Player 在生产路径使用注册表，仅保留一个测试兼容扫描入口；
-- 100 次命中不会增加 AudioStreamPlayer 节点数；
+- Player 在生产路径使用注册表，四架无人机每帧只读取一次敌人快照；
+- 五个传送门在 30/60/120 Hz 下都生成 250 个敌人并释放门队列；
+- Boss 弹幕自然销毁后移出控制器追踪表，VFX 记录严格受容量限制；
+- 100 次命中和 400 次 Boss 提示不会增加 AudioStreamPlayer 节点数；
+- 压力夹具释放后节点数回到测试前基线；
 - Projectile、CoinPickup 和 ShieldPickup 不进行逐帧静态重绘。
 
 ## 推送前检查
