@@ -2,6 +2,16 @@ extends SceneTree
 
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const ArcPulseScript = preload("res://scripts/components/ArcPulseVisual.gd")
+
+class ArcTarget extends Node2D:
+	var hit_count: int = 0
+	var damage_received: float = 0.0
+
+	func take_damage(amount: float, _source: StringName = &"generic", _direction: Vector2 = Vector2.ZERO) -> bool:
+		hit_count += 1
+		damage_received += amount
+		return true
 
 var assertions := 0
 
@@ -64,7 +74,7 @@ func _initialize() -> void:
 	if not _assert_true(
 		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.SPIKE), 2.0)
 		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.LASER), 2.0)
-		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.ARC), 3.0),
+		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.ARC), 1.5),
 		"overdrive did not apply the requested spike, laser, and arc damage multipliers"
 	):
 		return
@@ -255,19 +265,56 @@ func _initialize() -> void:
 	):
 		return
 
+	player.drone_count = 1
+	player.arc_pulse_level = 1
 	var drones_before_matrix: int = player.drone_count
 	var drone_damage_before_matrix: float = player.drone_damage
 	if not _assert_true(player.activate_build_evolution("thunder_matrix"), "thunder evolution was rejected"):
 		return
 	if not _assert_true(
-		player.drone_count >= maxi(2, drones_before_matrix + 1)
-		and player.arc_pulse_level >= 1
+		player.drone_count == drones_before_matrix
 		and is_equal_approx(player.drone_damage, drone_damage_before_matrix * 2.0)
 		and player.get_arc_pulse_radius() >= player.get_viewport_rect().size.length()
+		and is_equal_approx(player.get_arc_pulse_expansion_speed_scale(), 0.3)
 		and player.get_drone_laser_color().is_equal_approx(Color("b45cff")),
-		"thunder evolution did not produce full-screen arcs and purple double-damage drones"
+		"thunder evolution changed drone count or lost its full-screen, slow arc and purple laser contract"
 	):
 		return
+
+	var near_target := ArcTarget.new()
+	var far_target := ArcTarget.new()
+	near_target.position = Vector2(24.0, 0.0)
+	far_target.position = Vector2(88.0, 0.0)
+	root.add_child(near_target)
+	root.add_child(far_target)
+	var arc_targets: Array[Node] = [near_target, far_target]
+	var wave: Node = ArcPulseScript.new()
+	root.add_child(wave)
+	wave.set_process(false)
+	wave.setup(100.0, 25.0, func() -> Array[Node]: return arc_targets, 0.3)
+	if not _assert_true(
+		is_equal_approx(wave.lifetime, 0.42 / 0.3)
+		and near_target.hit_count == 0
+		and far_target.hit_count == 0,
+		"slow arc wave damaged enemies instantly or used the wrong expansion duration"
+	):
+		return
+	wave._process(0.10)
+	if not _assert_true(near_target.hit_count == 1 and far_target.hit_count == 0, "arc wavefront did not damage only the enemy it reached"):
+		return
+	wave._process(1.10)
+	wave._process(0.05)
+	if not _assert_true(
+		near_target.hit_count == 1
+		and far_target.hit_count == 1
+		and is_equal_approx(near_target.damage_received, 25.0)
+		and is_equal_approx(far_target.damage_received, 25.0),
+		"one arc wave did not apply exactly one hit per touched enemy"
+	):
+		return
+	wave.queue_free()
+	near_target.queue_free()
+	far_target.queue_free()
 
 	var target_a := Node2D.new()
 	var target_b := Node2D.new()

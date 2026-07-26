@@ -20,7 +20,7 @@ const OVERDRIVE_FIRE_RATE_MULTIPLIER: float = 2.0
 const OVERDRIVE_DAMAGE_MULTIPLIER: float = 1.2
 const OVERDRIVE_SPIKE_DAMAGE_MULTIPLIER: float = 2.0
 const OVERDRIVE_LASER_DAMAGE_MULTIPLIER: float = 2.0
-const OVERDRIVE_ARC_DAMAGE_MULTIPLIER: float = 3.0
+const OVERDRIVE_ARC_DAMAGE_MULTIPLIER: float = 1.5
 const OVERDRIVE_MOVE_SPEED_MULTIPLIER: float = 1.3
 const OVERDRIVE_DASH_COOLDOWN_MULTIPLIER: float = 0.7
 const OVERDRIVE_SPIKE_RADIUS_MULTIPLIER: float = 2.0
@@ -31,6 +31,7 @@ const OVERDRIVE_ARC_FREQUENCY_MULTIPLIER: float = 1.5
 const BASE_DRONE_LASER_WIDTH: float = 4.0
 const BASE_DRONE_LASER_COLOR := Color(0.2, 1.0, 0.95)
 const THUNDER_MATRIX_LASER_COLOR := Color("b45cff")
+const THUNDER_MATRIX_ARC_EXPANSION_SPEED_SCALE: float = 0.3
 const MAX_WEAPON_LINES: int = 8
 const MAX_FIRE_RATE_MULTIPLIER: float = 4.0
 const FAMILY_DAMAGE_PER_LEVEL: float = 1.05
@@ -265,7 +266,6 @@ func activate_build_evolution(evolution_id: String) -> bool:
 			_reset_spike_path()
 		"thunder_matrix":
 			active_build_evolutions[evolution_id] = true
-			drone_count = maxi(2, drone_count + 1)
 			drone_damage *= 2.0
 			arc_pulse_level = maxi(1, arc_pulse_level)
 		_:
@@ -528,15 +528,14 @@ func _damage_enemies_on_laser(origin: Vector2, direction: Vector2, length: float
 
 func _emit_arc_pulse() -> void:
 	var radius := get_arc_pulse_radius()
-	for enemy in _get_enemies():
-		if global_position.distance_to(enemy.global_position) <= radius and enemy.has_method("take_damage"):
-			enemy.take_damage(
-				get_arc_pulse_damage() * get_effective_damage_multiplier(DamageTypes.ARC),
-				DamageTypes.ARC
-			)
 	var wave := ArcPulseVisualScript.new()
 	wave.global_position = global_position
-	wave.setup(radius)
+	wave.setup(
+		radius,
+		get_arc_pulse_damage() * get_effective_damage_multiplier(DamageTypes.ARC),
+		Callable(self, "_get_enemies"),
+		get_arc_pulse_expansion_speed_scale()
+	)
 	projectile_parent.add_child(wave)
 
 func get_arc_pulse_interval() -> float:
@@ -555,6 +554,9 @@ func get_arc_pulse_radius() -> float:
 
 func get_arc_pulse_damage() -> float:
 	return arc_damage + arc_pulse_level * 12.0
+
+func get_arc_pulse_expansion_speed_scale() -> float:
+	return THUNDER_MATRIX_ARC_EXPANSION_SPEED_SCALE if active_build_evolutions.has("thunder_matrix") else 1.0
 
 func _drop_spike_trap() -> void:
 	var trap := SpikeTrapScript.new()

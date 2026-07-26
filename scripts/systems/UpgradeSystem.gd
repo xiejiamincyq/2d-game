@@ -11,6 +11,11 @@ const FAMILY_LABELS: Dictionary = {
 	"mobility": "机动",
 	"automation": "工程",
 }
+const FAMILY_STARTER_CARD_IDS: Dictionary = {
+	"ballistics": [],
+	"mobility": [],
+	"automation": ["drone", "arc"],
+}
 const SETTLEMENT_PRICE_STEP := 0.55
 const EVOLUTION_MIN_WAVE := 4
 const EVOLUTION_MIN_FAMILY_LEVEL := 5
@@ -46,7 +51,7 @@ var upgrade_pool: Array[Dictionary] = [
 	{"id": "siege_rounds", "label": "攻城弹头", "description": "子弹伤害 +24%，射速 -7%", "family": "ballistics", "kind": "core", "max_rank": 3, "base_cost": 46},
 
 	# Mobility: six normal cards.
-	{"id": "move_speed", "label": "伺服腿甲", "description": "移速 +9%，地刺伤害 +8%", "family": "mobility", "kind": "support", "max_rank": 5, "base_cost": 30},
+	{"id": "move_speed", "label": "伺服腿甲", "description": "移速 +9%，地刺伤害 +8%", "family": "mobility", "kind": "support", "requires": "mine", "max_rank": 5, "base_cost": 30},
 	{"id": "mine", "label": "静滞地刺", "description": "首次解锁；后续伤害 +16%、持续时间 +0.6s、半径 +2", "family": "mobility", "kind": "core", "max_rank": 5, "base_cost": 52},
 	{"id": "spike_density", "label": "裂地密度", "description": "地刺间距 -16%，触发间隔 -3%", "family": "mobility", "kind": "core", "requires": "mine", "max_rank": 4, "base_cost": 38},
 	{"id": "dash_cooldown", "label": "冲刺冷却", "description": "冲刺冷却 -7%，冲刺伤害 +4%", "family": "mobility", "kind": "support", "max_rank": 4, "base_cost": 38},
@@ -63,8 +68,8 @@ var upgrade_pool: Array[Dictionary] = [
 
 	# Evolutions are guaranteed candidates only after their family qualifies.
 	{"id": "orbital_storm", "label": "轨道风暴", "description": "终极进化：周期性发射环形副弹幕", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
-	{"id": "rift_overdrive", "label": "裂地超载", "description": "终极进化：冲刺铺设毁灭性地刺走廊", "family": "mobility", "kind": "evolution", "max_rank": 1, "base_cost": 120},
-	{"id": "thunder_matrix", "label": "雷网矩阵", "description": "终极进化：电弧覆盖全屏，无人机激光变为紫色且伤害翻倍", "family": "automation", "kind": "evolution", "max_rank": 1, "base_cost": 120},
+	{"id": "rift_overdrive", "label": "裂地超载", "description": "终极进化：冲刺铺设毁灭性地刺走廊", "family": "mobility", "kind": "evolution", "requires": "mine", "max_rank": 1, "base_cost": 120},
+	{"id": "thunder_matrix", "label": "雷网矩阵", "description": "终极进化：电弧覆盖全屏，无人机激光变为紫色且伤害翻倍", "family": "automation", "kind": "evolution", "requires": ["drone", "arc"], "max_rank": 1, "base_cost": 120},
 ]
 
 func setup(target_player: Node) -> void:
@@ -210,10 +215,18 @@ func prepare_settlement(completed_wave: int) -> bool:
 				continue
 			if not _is_upgrade_capped(String(card.get("id", ""))):
 				family_cards.append(card)
-		family_cards.shuffle()
 		var family_selection: Array[Dictionary] = []
 		if not selected_evolution.is_empty() and String(selected_evolution.get("family", "")) == family_id:
 			family_selection.append(selected_evolution)
+		for starter_id_value in FAMILY_STARTER_CARD_IDS.get(family_id, []):
+			if family_selection.size() >= 2 or int(upgrade_counts.get(String(starter_id_value), 0)) > 0:
+				continue
+			for card_index in range(family_cards.size()):
+				if String(family_cards[card_index].get("id", "")) == String(starter_id_value):
+					family_selection.append(family_cards[card_index])
+					family_cards.remove_at(card_index)
+					break
+		family_cards.shuffle()
 		for card in family_cards:
 			if family_selection.size() >= 2:
 				break
@@ -353,7 +366,7 @@ func _select_evolution_candidate(completed_wave: int) -> Dictionary:
 		return {}
 	for card_value in upgrade_pool:
 		var card: Dictionary = card_value
-		if String(card.get("kind", "")) == "evolution" and String(card.get("family", "")) == selected_family and not _is_upgrade_capped(String(card.get("id", ""))):
+		if String(card.get("kind", "")) == "evolution" and String(card.get("family", "")) == selected_family and _is_card_unlocked(card) and not _is_upgrade_capped(String(card.get("id", ""))):
 			return card
 	return {}
 
@@ -445,7 +458,13 @@ func _is_upgrade_capped(card_id: String) -> bool:
 	return int(upgrade_counts.get(card_id, 0)) >= int(card.get("max_rank", 1))
 
 func _is_card_unlocked(card: Dictionary) -> bool:
-	var prerequisite := String(card.get("requires", ""))
+	var prerequisites: Variant = card.get("requires", "")
+	if prerequisites is Array:
+		for prerequisite_value in prerequisites:
+			if int(upgrade_counts.get(String(prerequisite_value), 0)) <= 0:
+				return false
+		return true
+	var prerequisite := String(prerequisites)
 	return prerequisite.is_empty() or int(upgrade_counts.get(prerequisite, 0)) > 0
 
 func _find_catalog_entry(card_id: String) -> Dictionary:

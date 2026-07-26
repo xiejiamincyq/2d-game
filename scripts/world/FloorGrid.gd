@@ -1,5 +1,7 @@
 extends Node2D
 
+const FLOOR_Z_INDEX: int = -100
+
 func _draw() -> void:
 	var tile := 64
 	var extent := 4096
@@ -25,4 +27,5 @@ func _draw() -> void:
 		draw_rect(Rect2(px, py, 18, 4), Color(0.85, 0.24, 0.12, 0.28))
 
 func _ready() -> void:
+	z_index = FLOOR_Z_INDEX
 	queue_redraw()

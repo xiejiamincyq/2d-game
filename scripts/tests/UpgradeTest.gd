@@ -2,6 +2,7 @@ extends SceneTree
 
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const UpgradeSystemScript = preload("res://scripts/systems/UpgradeSystem.gd")
+const FloorGridScript = preload("res://scripts/world/FloorGrid.gd")
 
 const FAMILY_IDS: Array[String] = ["ballistics", "mobility", "automation"]
 
@@ -41,6 +42,19 @@ func _initialize() -> void:
 	player.set_physics_process(false)
 	upgrades.setup(player)
 
+	for locked_card_id in ["move_speed", "spike_density", "spike_resonance", "drone_damage", "arc_capacitor", "arc_relay", "rift_overdrive", "thunder_matrix"]:
+		if not _assert_true(not upgrades._is_card_unlocked(_find_catalog_entry(upgrades, locked_card_id)), "%s appeared before its starter card was acquired" % locked_card_id):
+			return
+	var drone_count_before: int = player.drone_count
+	upgrades._apply_card("mine")
+	upgrades._apply_card("drone")
+	upgrades._apply_card("arc")
+	if not _assert_true(player.drone_count == drone_count_before + 1, "one drone card did not add exactly one drone"):
+		return
+	for unlocked_card_id in ["move_speed", "spike_density", "spike_resonance", "drone_damage", "arc_capacitor", "arc_relay", "rift_overdrive", "thunder_matrix"]:
+		if not _assert_true(upgrades._is_card_unlocked(_find_catalog_entry(upgrades, unlocked_card_id)), "%s remained locked after all required starter cards were acquired" % unlocked_card_id):
+			return
+
 	var normal_counts := {"ballistics": 0, "mobility": 0, "automation": 0}
 	for card_value in upgrades.upgrade_pool:
 		var card: Dictionary = card_value
@@ -62,12 +76,15 @@ func _initialize() -> void:
 	upgrades._apply_card("arc_relay")
 	if not _assert_true(player.pickup_radius == pickup_radius_before and player.arc_base_interval < arc_interval_before, "arc relay did not strengthen pulse frequency without pickup range"):
 		return
+	var floor: Node2D = FloorGridScript.new()
+	root.add_child(floor)
 	var trap: Node = player.SpikeTrapScript.new()
 	root.add_child(trap)
 	await process_frame
-	if not _assert_true(trap.z_index < 0, "spike visual layer was not below enemies"):
+	if not _assert_true(floor.z_index < trap.z_index and trap.z_index < 0, "render order was not floor < spike < enemy"):
 		return
 	trap.queue_free()
+	floor.queue_free()
 	if not _assert_true(upgrades.family_levels == {"ballistics": 1, "mobility": 1, "automation": 1}, "family levels did not start at one"):
 		return
 
