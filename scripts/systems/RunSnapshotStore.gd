@@ -15,9 +15,11 @@ const CARD_LIMITS: Dictionary = {
 	"damage": [5, "ballistics"], "fire_rate": [5, "ballistics"], "bullet_speed": [4, "ballistics"],
 	"pierce": [4, "ballistics"], "gun_lines": [2, "ballistics"], "siege_rounds": [3, "ballistics"],
 	"move_speed": [5, "mobility"], "mine": [5, "mobility"], "spike_density": [4, "mobility"],
-	"dash_cooldown": [4, "mobility"], "dash_impact": [4, "mobility"], "recovery_route": [4, "mobility"],
+	"dash_cooldown": [4, "mobility"], "dash_impact": [4, "mobility"], "spike_resonance": [4, "mobility"],
+	"recovery_route": [4, "mobility"],
 	"drone": [4, "automation"], "drone_damage": [5, "automation"], "arc": [5, "automation"],
-	"arc_capacitor": [5, "automation"], "pickup": [4, "automation"], "health": [3, "automation"],
+	"arc_capacitor": [5, "automation"], "arc_relay": [4, "automation"], "health": [3, "automation"],
+	"pickup": [4, "automation"],
 	"orbital_storm": [1, "ballistics"], "rift_overdrive": [1, "mobility"], "thunder_matrix": [1, "automation"],
 }
 

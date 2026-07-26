@@ -14,6 +14,10 @@ const FAMILY_LABELS: Dictionary = {
 const SETTLEMENT_PRICE_STEP := 0.55
 const EVOLUTION_MIN_WAVE := 4
 const EVOLUTION_MIN_FAMILY_LEVEL := 5
+const LEGACY_CARD_ID_MAP: Dictionary = {
+	"recovery_route": "spike_resonance",
+	"pickup": "arc_relay",
+}
 
 var player: Node
 var coins: int = 0
@@ -34,27 +38,27 @@ var settlement_closed: bool = true
 
 var upgrade_pool: Array[Dictionary] = [
 	# Ballistics: six normal cards.
-	{"id": "damage", "label": "超频弹芯", "description": "子弹伤害 +12%", "family": "ballistics", "kind": "core", "max_rank": 5, "base_cost": 32},
-	{"id": "fire_rate", "label": "灼热枪管", "description": "射速 +10%", "family": "ballistics", "kind": "core", "max_rank": 5, "base_cost": 34},
-	{"id": "bullet_speed", "label": "线圈加速器", "description": "弹速 +20%，子弹伤害 +5%", "family": "ballistics", "kind": "support", "max_rank": 4, "base_cost": 28},
-	{"id": "pierce", "label": "轨道穿甲", "description": "穿透 +1，子弹伤害 +4%", "family": "ballistics", "kind": "support", "max_rank": 4, "base_cost": 40},
-	{"id": "gun_lines", "label": "分裂枪膛", "description": "枪线 +1，单发伤害 -8%", "family": "ballistics", "kind": "core", "max_rank": 2, "base_cost": 62},
-	{"id": "siege_rounds", "label": "攻城弹头", "description": "子弹伤害 +20%，射速 -5%", "family": "ballistics", "kind": "core", "max_rank": 3, "base_cost": 46},
+	{"id": "damage", "label": "超频弹芯", "description": "子弹伤害 +14%", "family": "ballistics", "kind": "core", "max_rank": 5, "base_cost": 32},
+	{"id": "fire_rate", "label": "灼热枪管", "description": "射速 +9%", "family": "ballistics", "kind": "core", "max_rank": 5, "base_cost": 34},
+	{"id": "bullet_speed", "label": "线圈加速器", "description": "弹速 +18%，子弹伤害 +4%", "family": "ballistics", "kind": "support", "max_rank": 4, "base_cost": 28},
+	{"id": "pierce", "label": "轨道穿甲", "description": "穿透 +1，子弹伤害 +5%", "family": "ballistics", "kind": "support", "max_rank": 4, "base_cost": 40},
+	{"id": "gun_lines", "label": "分裂枪膛", "description": "枪线 +1，单发伤害 -12%", "family": "ballistics", "kind": "core", "max_rank": 2, "base_cost": 62},
+	{"id": "siege_rounds", "label": "攻城弹头", "description": "子弹伤害 +24%，射速 -7%", "family": "ballistics", "kind": "core", "max_rank": 3, "base_cost": 46},
 
 	# Mobility: six normal cards.
-	{"id": "move_speed", "label": "伺服腿甲", "description": "移速 +8%，地刺伤害 +6%", "family": "mobility", "kind": "support", "max_rank": 5, "base_cost": 30},
-	{"id": "mine", "label": "静滞地刺", "description": "首次解锁；后续强化伤害与持续时间", "family": "mobility", "kind": "core", "max_rank": 5, "base_cost": 52},
-	{"id": "spike_density", "label": "裂地密度", "description": "地刺间距 -12%", "family": "mobility", "kind": "core", "requires": "mine", "max_rank": 4, "base_cost": 38},
-	{"id": "dash_cooldown", "label": "冲刺冷却", "description": "冲刺冷却 -12%，冲刺伤害 +8%", "family": "mobility", "kind": "support", "max_rank": 4, "base_cost": 38},
-	{"id": "dash_impact", "label": "动能撞角", "description": "冲刺距离 +8%，冲刺伤害 +18%", "family": "mobility", "kind": "core", "max_rank": 4, "base_cost": 44},
-	{"id": "recovery_route", "label": "回收路线", "description": "拾取范围 +15%，移速 +4%", "family": "mobility", "kind": "support", "max_rank": 4, "base_cost": 26},
+	{"id": "move_speed", "label": "伺服腿甲", "description": "移速 +9%，地刺伤害 +8%", "family": "mobility", "kind": "support", "max_rank": 5, "base_cost": 30},
+	{"id": "mine", "label": "静滞地刺", "description": "首次解锁；后续伤害 +16%、持续时间 +0.6s、半径 +2", "family": "mobility", "kind": "core", "max_rank": 5, "base_cost": 52},
+	{"id": "spike_density", "label": "裂地密度", "description": "地刺间距 -16%，触发间隔 -3%", "family": "mobility", "kind": "core", "requires": "mine", "max_rank": 4, "base_cost": 38},
+	{"id": "dash_cooldown", "label": "冲刺冷却", "description": "冲刺冷却 -7%，冲刺伤害 +4%", "family": "mobility", "kind": "support", "max_rank": 4, "base_cost": 38},
+	{"id": "dash_impact", "label": "动能撞角", "description": "冲刺距离 +8%，冲刺伤害 +10%", "family": "mobility", "kind": "core", "max_rank": 4, "base_cost": 44},
+	{"id": "spike_resonance", "label": "地脉共振", "description": "地刺伤害 +8%、半径 +5、触发间隔 -10%", "family": "mobility", "kind": "support", "requires": "mine", "max_rank": 4, "base_cost": 30},
 
 	# Automation: six normal cards.
-	{"id": "drone", "label": "无人机部署", "description": "无人机 +1，单机伤害 +5%", "family": "automation", "kind": "core", "max_rank": 4, "base_cost": 52},
-	{"id": "drone_damage", "label": "激光放大器", "description": "无人机激光伤害 +18%", "family": "automation", "kind": "core", "requires": "drone", "max_rank": 5, "base_cost": 34},
+	{"id": "drone", "label": "无人机部署", "description": "无人机 +1，单机伤害 +3%", "family": "automation", "kind": "core", "max_rank": 4, "base_cost": 52},
+	{"id": "drone_damage", "label": "激光放大器", "description": "无人机激光伤害 +16%", "family": "automation", "kind": "core", "requires": "drone", "max_rank": 5, "base_cost": 34},
 	{"id": "arc", "label": "电弧启动器", "description": "首次解锁；后续强化伤害与半径", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 45},
-	{"id": "arc_capacitor", "label": "电弧电容", "description": "电弧伤害 +15%，半径 +14", "family": "automation", "kind": "core", "requires": "arc", "max_rank": 5, "base_cost": 36},
-	{"id": "pickup", "label": "磁吸网格", "description": "拾取范围 +25%，电弧半径 +8", "family": "automation", "kind": "support", "max_rank": 4, "base_cost": 25},
+	{"id": "arc_capacitor", "label": "电弧电容", "description": "电弧伤害 +18%、半径 +18、蓄能 -6%", "family": "automation", "kind": "core", "requires": "arc", "max_rank": 5, "base_cost": 36},
+	{"id": "arc_relay", "label": "电弧继电器", "description": "电弧伤害 +10%、半径 +8、蓄能 -16%", "family": "automation", "kind": "support", "requires": "arc", "max_rank": 4, "base_cost": 30},
 	{"id": "health", "label": "维修矩阵", "description": "最大生命 +20%，修复部分损伤", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 40},
 
 	# Evolutions are guaranteed candidates only after their family qualifies.
@@ -95,7 +99,7 @@ func restore_snapshot_state(state: Dictionary) -> bool:
 	coins = int(state["coins"])
 	family_levels = (state["family_levels"] as Dictionary).duplicate(true)
 	upgrade_counts.clear()
-	var saved_counts: Dictionary = state["upgrade_counts"]
+	var saved_counts := _canonicalize_upgrade_counts(state["upgrade_counts"] as Dictionary)
 	for card_value in upgrade_pool:
 		var card: Dictionary = card_value
 		var card_id := String(card.get("id", ""))
@@ -111,7 +115,17 @@ func restore_snapshot_state(state: Dictionary) -> bool:
 	settlement_closed = bool(settlement["closed"])
 	settlement_offers.clear()
 	for offer_value in settlement["offers"]:
-		settlement_offers.append((offer_value as Dictionary).duplicate(true))
+		var restored_offer := (offer_value as Dictionary).duplicate(true)
+		var restored_id := _canonical_card_id(String(restored_offer.get("id", "")))
+		if restored_id != String(restored_offer.get("id", "")):
+			var replacement := _find_catalog_entry(restored_id)
+			restored_offer["id"] = restored_id
+			for key in ["label", "description", "family", "kind", "max_rank", "requires"]:
+				if replacement.has(key):
+					restored_offer[key] = replacement[key]
+				else:
+					restored_offer.erase(key)
+		settlement_offers.append(restored_offer)
 	_sync_build_family_levels()
 	_emit_progression_changed()
 	_emit_settlement_changed()
@@ -131,10 +145,15 @@ func _validate_snapshot_state(state: Dictionary) -> bool:
 			return false
 	var saved_counts: Dictionary = state["upgrade_counts"]
 	for card_id_value in saved_counts:
-		var card_id := String(card_id_value)
+		var card_id := _canonical_card_id(String(card_id_value))
 		var card := _find_catalog_entry(card_id)
 		var count := int(saved_counts[card_id_value])
 		if card.is_empty() or count < 1 or count > int(card.get("max_rank", 1)):
+			return false
+	var canonical_counts := _canonicalize_upgrade_counts(saved_counts)
+	for card_id_value in canonical_counts:
+		var card := _find_catalog_entry(String(card_id_value))
+		if int(canonical_counts[card_id_value]) > int(card.get("max_rank", 1)):
 			return false
 	var evolution := String(state["evolution"])
 	if not evolution.is_empty() and evolution not in ["orbital_storm", "rift_overdrive", "thunder_matrix"]:
@@ -146,6 +165,16 @@ func _validate_snapshot_state(state: Dictionary) -> bool:
 		if not settlement.has(key):
 			return false
 	return settlement["offers"] is Array
+
+func _canonical_card_id(card_id: String) -> String:
+	return String(LEGACY_CARD_ID_MAP.get(card_id, card_id))
+
+func _canonicalize_upgrade_counts(saved_counts: Dictionary) -> Dictionary:
+	var canonical_counts: Dictionary = {}
+	for saved_id_value in saved_counts:
+		var canonical_id := _canonical_card_id(String(saved_id_value))
+		canonical_counts[canonical_id] = int(canonical_counts.get(canonical_id, 0)) + int(saved_counts[saved_id_value])
+	return canonical_counts
 
 func add_coins(amount: int) -> bool:
 	if player == null or amount <= 0:
@@ -339,61 +368,66 @@ func _apply_card(card_id: String) -> void:
 func _apply_upgrade_effect(card_id: String) -> void:
 	match card_id:
 		"damage":
-			player.weapon_damage *= 1.12
+			player.weapon_damage *= 1.14
 		"fire_rate":
-			player.fire_rate *= 1.10
+			player.fire_rate *= 1.09
 		"bullet_speed":
-			player.projectile_speed *= 1.20
-			player.weapon_damage *= 1.05
+			player.projectile_speed *= 1.18
+			player.weapon_damage *= 1.04
 		"pierce":
 			player.projectile_pierce += 1
-			player.weapon_damage *= 1.04
+			player.weapon_damage *= 1.05
 		"gun_lines":
 			player.weapon_lines += 1
-			player.weapon_damage *= 0.92
+			player.weapon_damage *= 0.88
 		"siege_rounds":
-			player.weapon_damage *= 1.20
-			player.fire_rate *= 0.95
+			player.weapon_damage *= 1.24
+			player.fire_rate *= 0.93
 		"move_speed":
-			player.move_speed *= 1.08
-			player.spike_damage *= 1.06
+			player.move_speed *= 1.09
+			player.spike_damage *= 1.08
 		"mine":
 			if player.mine_level <= 0:
 				player.mine_level = 1
 				player._reset_spike_path()
 			else:
 				player.mine_level += 1
-				player.spike_damage *= 1.15
-				player.spike_duration += 0.5
+				player.spike_damage *= 1.16
+				player.spike_duration += 0.6
+				player.spike_radius += 2.0
 		"spike_density":
-			player.spike_spacing = maxf(28.0, player.spike_spacing * 0.88)
+			player.spike_spacing = maxf(24.0, player.spike_spacing * 0.84)
+			player.spike_tick_interval = maxf(0.22, player.spike_tick_interval * 0.97)
 		"dash_cooldown":
-			player.dash_cooldown = maxf(1.0, player.dash_cooldown * 0.88)
-			player.dash_melee_damage *= 1.08
+			player.dash_cooldown = maxf(1.0, player.dash_cooldown * 0.93)
+			player.dash_melee_damage *= 1.04
 		"dash_impact":
 			player.dash_distance *= 1.08
-			player.dash_melee_damage *= 1.18
-		"recovery_route":
-			player.pickup_radius *= 1.15
-			player.move_speed *= 1.04
+			player.dash_melee_damage *= 1.10
+		"spike_resonance":
+			player.spike_damage *= 1.08
+			player.spike_radius += 5.0
+			player.spike_tick_interval = maxf(0.22, player.spike_tick_interval * 0.90)
 		"drone":
 			player.drone_count += 1
-			player.drone_damage *= 1.05
+			player.drone_damage *= 1.03
 		"drone_damage":
-			player.drone_damage *= 1.18
+			player.drone_damage *= 1.16
 		"arc":
 			if player.arc_pulse_level <= 0:
 				player.arc_pulse_level = 1
 			else:
 				player.arc_pulse_level += 1
-				player.arc_damage *= 1.12
-				player.arc_radius += 10.0
+				player.arc_damage *= 1.20
+				player.arc_radius += 14.0
 		"arc_capacitor":
-			player.arc_damage *= 1.15
-			player.arc_radius += 14.0
-		"pickup":
-			player.pickup_radius *= 1.25
+			player.arc_damage *= 1.18
+			player.arc_radius += 18.0
+			player.arc_base_interval = maxf(1.15, player.arc_base_interval * 0.94)
+		"arc_relay":
+			player.arc_damage *= 1.10
 			player.arc_radius += 8.0
+			player.arc_base_interval = maxf(1.15, player.arc_base_interval * 0.84)
 		"health":
 			var previous_max: float = player.health.max_health
 			var missing_health: float = maxf(0.0, previous_max - player.health.current_health)

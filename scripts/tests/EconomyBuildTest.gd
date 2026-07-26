@@ -96,15 +96,44 @@ func _estimate_sustained_output(player: Node) -> float:
 	var mobility_multiplier: float = player.get_effective_damage_multiplier(&"dash")
 	var mobility_output: float = player.dash_melee_damage / player.dash_cooldown * 0.75 * mobility_multiplier
 	if player.mine_level > 0:
-		# A five-second spike can tick every 0.35s. The conservative two-tick
-		# exposure models a moving Boss crossing a laid corridor.
-		mobility_output += player.spike_damage * player.move_speed / player.spike_spacing * 2.0 * mobility_multiplier
+		# Model a moving Boss spending 0.45s in each crossed trap. Radius and
+		# spacing both affect how consistently a laid corridor connects.
+		var spike_coverage: float = player.move_speed / player.spike_spacing
+		var spike_ticks: float = 0.45 / player.spike_tick_interval
+		var radius_factor: float = clampf(player.spike_radius / 26.0, 1.0, 1.15)
+		mobility_output += player.spike_damage * spike_coverage * spike_ticks * radius_factor * mobility_multiplier
 	var automation_multiplier: float = player.get_effective_damage_multiplier(&"laser")
 	var automation_output: float = player.drone_count * player.drone_damage * automation_multiplier
 	if player.arc_pulse_level > 0:
-		var arc_interval: float = maxf(0.9, 2.4 - player.arc_pulse_level * 0.24)
-		automation_output += (player.arc_damage + player.arc_pulse_level * 8.0) / arc_interval * automation_multiplier
+		automation_output += player.get_arc_pulse_damage() / player.get_arc_pulse_interval() * automation_multiplier
 	return projectile_output + mobility_output + automation_output
+
+func _estimate_signature_share(player: Node, family_id: String, total_output: float) -> float:
+	if total_output <= 0.0:
+		return 0.0
+	var family_multiplier: float
+	match family_id:
+		"ballistics":
+			family_multiplier = player.get_effective_damage_multiplier(&"projectile")
+			var expected_line_hits: float = 1.0 + float(player.weapon_lines - 1) * 0.5
+			var signature_output: float = player.weapon_damage * player.fire_rate * expected_line_hits * family_multiplier
+			if player.active_build_evolutions.has("orbital_storm"):
+				signature_output += player.weapon_damage * player.fire_rate * 0.55 / 5.0 * family_multiplier
+			return signature_output / total_output
+		"mobility":
+			if player.mine_level <= 0:
+				return 0.0
+			family_multiplier = player.get_effective_damage_multiplier(&"spike")
+			var coverage: float = player.move_speed / player.spike_spacing
+			var ticks: float = 0.45 / player.spike_tick_interval
+			var reliability: float = clampf(player.spike_radius / 26.0, 1.0, 1.15)
+			return player.spike_damage * coverage * ticks * reliability * family_multiplier / total_output
+		"automation":
+			if player.arc_pulse_level <= 0:
+				return 0.0
+			family_multiplier = player.get_effective_damage_multiplier(&"arc")
+			return player.get_arc_pulse_damage() / player.get_arc_pulse_interval() * family_multiplier / total_output
+	return 0.0
 
 func _is_route_recognizable(player: Node, family_id: String) -> bool:
 	match family_id:
@@ -127,6 +156,7 @@ func _initialize() -> void:
 	var route_median_outputs: Dictionary = {}
 	var route_median_ttks: Dictionary = {}
 	var route_median_paid: Dictionary = {}
+	var route_median_signature_share: Dictionary = {}
 	for family_index in range(FAMILY_IDS.size()):
 		var family_id := FAMILY_IDS[family_index]
 		var paid_counts: Array[int] = []
@@ -135,6 +165,7 @@ func _initialize() -> void:
 		var buyout_windows := 0
 		var evolution_runs := 0
 		var route_outputs: Array[float] = []
+		var signature_shares: Array[float] = []
 		var boss_ttks: Array[float] = []
 		var paid_by_stage: Array[Array] = [[], [], [], [], []]
 		var recognizable_by_second := 0
@@ -190,6 +221,7 @@ func _initialize() -> void:
 				evolution_runs += 1
 			var sustained_output := _estimate_sustained_output(player)
 			route_outputs.append(sustained_output)
+			signature_shares.append(_estimate_signature_share(player, family_id, sustained_output))
 			var boss_ttk: float = OverseerBossScript.BASE_MAX_HEALTH / sustained_output
 			boss_ttks.append(boss_ttk)
 			if boss_ttk >= 15.0 and boss_ttk <= 45.0:
@@ -204,6 +236,7 @@ func _initialize() -> void:
 		var median_paid := _median(paid_counts)
 		var median_output := _median_float(route_outputs)
 		var median_boss_ttk := _median_float(boss_ttks)
+		var median_signature_share := _median_float(signature_shares)
 		var stage_paid_medians: Array[float] = []
 		for stage_values_value in paid_by_stage:
 			var stage_values: Array[int] = []
@@ -212,7 +245,8 @@ func _initialize() -> void:
 		route_median_outputs[family_id] = median_output
 		route_median_ttks[family_id] = median_boss_ttk
 		route_median_paid[family_id] = median_paid
-		print("ECONOMY: family=%s samples=%d stage_paid=%s median_paid=%.2f double_rate=%.3f no_purchase_rate=%.3f buyout_rate=%.3f recognizable_rate=%.3f evolution_rate=%.3f output=%.1f boss_ttk=%.1fs viable_rate=%.3f" % [family_id, SAMPLE_RUNS, stage_paid_medians, median_paid, double_rate, no_purchase_rate, buyout_rate, float(recognizable_by_second) / float(SAMPLE_RUNS), float(evolution_runs) / float(SAMPLE_RUNS), median_output, median_boss_ttk, float(viable_ttk_runs) / float(SAMPLE_RUNS)])
+		route_median_signature_share[family_id] = median_signature_share
+		print("ECONOMY: family=%s samples=%d stage_paid=%s median_paid=%.2f double_rate=%.3f no_purchase_rate=%.3f buyout_rate=%.3f recognizable_rate=%.3f evolution_rate=%.3f output=%.1f signature_share=%.3f boss_ttk=%.1fs viable_rate=%.3f" % [family_id, SAMPLE_RUNS, stage_paid_medians, median_paid, double_rate, no_purchase_rate, buyout_rate, float(recognizable_by_second) / float(SAMPLE_RUNS), float(evolution_runs) / float(SAMPLE_RUNS), median_output, median_signature_share, median_boss_ttk, float(viable_ttk_runs) / float(SAMPLE_RUNS)])
 		if not _assert_true(median_paid >= 1.0 and median_paid <= 2.0, "%s median paid purchases %.2f escaped the one-to-two target" % [family_id, median_paid]):
 			return
 		if not _assert_true(double_rate >= 0.20, "%s did not offer a meaningful save-for-two purchase rate: %.3f" % [family_id, double_rate]):
@@ -229,6 +263,9 @@ func _initialize() -> void:
 			return
 		if not _assert_true(float(viable_ttk_runs) / float(SAMPLE_RUNS) >= 0.80, "%s focused-build Boss TTK viability rate was below 80%%" % family_id):
 			return
+		var minimum_signature_share: float = {"ballistics": 0.50, "mobility": 0.25, "automation": 0.20}[family_id]
+		if not _assert_true(median_signature_share >= minimum_signature_share, "%s signature mechanic contributed only %.1f%% of focused output" % [family_id, median_signature_share * 100.0]):
+			return
 	var output_values: Array[float] = []
 	var paid_values: Array[float] = []
 	for family_id in FAMILY_IDS:
@@ -239,7 +276,7 @@ func _initialize() -> void:
 	if not _assert_true(paid_values[-1] - paid_values[0] <= 0.5, "focused routes had unequal purchase access: %s" % [route_median_paid]):
 		return
 	var output_ratio := output_values[-1] / output_values[0]
-	if not _assert_true(output_ratio <= 1.75, "focused route output ratio %.3f exceeded the 1.75 balance band: %s" % [output_ratio, route_median_outputs]):
+	if not _assert_true(output_ratio <= 1.35, "focused route output ratio %.3f exceeded the 1.35 balance band: %s" % [output_ratio, route_median_outputs]):
 		return
 	for family_id in FAMILY_IDS:
 		var median_ttk := float(route_median_ttks[family_id])

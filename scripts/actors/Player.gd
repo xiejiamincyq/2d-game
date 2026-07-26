@@ -36,12 +36,15 @@ var drone_count: int = 0
 var drone_damage: float = 24.0
 var drone_fire_interval: float = 0.28
 var arc_pulse_level: int = 0
-var arc_damage: float = 18.0
-var arc_radius: float = 125.0
+var arc_damage: float = 34.0
+var arc_radius: float = 140.0
+var arc_base_interval: float = 1.85
 var mine_level: int = 0
-var spike_damage: float = 8.0
+var spike_damage: float = 10.0
 var spike_duration: float = 5.0
 var spike_spacing: float = 48.0
+var spike_radius: float = 26.0
+var spike_tick_interval: float = 0.32
 var dash_distance: float = 165.0
 var dash_duration: float = 0.16
 var dash_cooldown: float = 2.0
@@ -236,10 +239,10 @@ func activate_build_evolution(evolution_id: String) -> bool:
 		"rift_overdrive":
 			active_build_evolutions[evolution_id] = true
 			mine_level = maxi(1, mine_level)
-			dash_cooldown = maxf(0.65, dash_cooldown * 0.55)
-			dash_distance *= 1.25
-			spike_spacing = maxf(20.0, spike_spacing * 0.65)
-			spike_damage *= 1.35
+			dash_cooldown = maxf(0.8, dash_cooldown * 0.70)
+			dash_distance *= 1.15
+			spike_spacing = maxf(22.0, spike_spacing * 0.70)
+			spike_damage *= 1.28
 			_reset_spike_path()
 		"thunder_matrix":
 			active_build_evolutions[evolution_id] = true
@@ -428,7 +431,7 @@ func _update_passives(delta: float) -> void:
 	if arc_pulse_level > 0:
 		arc_timer -= delta
 		if arc_timer <= 0.0:
-			arc_timer = maxf(0.9, 2.4 - arc_pulse_level * 0.24)
+			arc_timer = get_arc_pulse_interval()
 			_emit_arc_pulse()
 	if mine_level > 0:
 		_update_spike_path()
@@ -481,13 +484,19 @@ func _emit_arc_pulse() -> void:
 	for enemy in _get_enemies():
 		if global_position.distance_to(enemy.global_position) <= radius and enemy.has_method("take_damage"):
 			enemy.take_damage(
-				(arc_damage + arc_pulse_level * 8.0) * get_effective_damage_multiplier(DamageTypes.ARC),
+				get_arc_pulse_damage() * get_effective_damage_multiplier(DamageTypes.ARC),
 				DamageTypes.ARC
 			)
 	var wave := ArcPulseVisualScript.new()
 	wave.global_position = global_position
 	wave.setup(radius)
 	projectile_parent.add_child(wave)
+
+func get_arc_pulse_interval() -> float:
+	return maxf(0.7, arc_base_interval - arc_pulse_level * 0.20)
+
+func get_arc_pulse_damage() -> float:
+	return arc_damage + arc_pulse_level * 12.0
 
 func _drop_spike_trap() -> void:
 	var trap := SpikeTrapScript.new()
@@ -497,7 +506,8 @@ func _drop_spike_trap() -> void:
 		self,
 		"get_effective_damage_multiplier"
 	).bind(DamageTypes.SPIKE)
-	trap.radius = 22.0
+	trap.radius = spike_radius
+	trap.tick_interval = spike_tick_interval
 	trap.lifetime = spike_duration
 	projectile_parent.add_child(trap)
 
@@ -509,7 +519,8 @@ func _drop_spike_trap_at(position: Vector2) -> void:
 		self,
 		"get_effective_damage_multiplier"
 	).bind(DamageTypes.SPIKE)
-	trap.radius = 22.0
+	trap.radius = spike_radius
+	trap.tick_interval = spike_tick_interval
 	trap.lifetime = spike_duration
 	projectile_parent.add_child(trap)
 

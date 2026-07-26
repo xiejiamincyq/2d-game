@@ -48,6 +48,26 @@ func _initialize() -> void:
 			normal_counts[String(card.get("family", ""))] = int(normal_counts.get(String(card.get("family", "")), 0)) + 1
 	if not _assert_true(normal_counts == {"ballistics": 6, "mobility": 6, "automation": 6}, "catalog did not contain six balanced cards per family: %s" % [normal_counts]):
 		return
+	if not _assert_true(_find_catalog_entry(upgrades, "recovery_route").is_empty() and _find_catalog_entry(upgrades, "pickup").is_empty(), "pickup-range cards remained in the catalog"):
+		return
+	if not _assert_true(not _find_catalog_entry(upgrades, "spike_resonance").is_empty() and not _find_catalog_entry(upgrades, "arc_relay").is_empty(), "signature spike/arc mechanic cards did not replace pickup-range cards"):
+		return
+	var pickup_radius_before: float = player.pickup_radius
+	var spike_radius_before: float = player.spike_radius
+	var spike_interval_before: float = player.spike_tick_interval
+	upgrades._apply_card("spike_resonance")
+	if not _assert_true(player.pickup_radius == pickup_radius_before and player.spike_radius > spike_radius_before and player.spike_tick_interval < spike_interval_before, "spike resonance did not strengthen radius/frequency without pickup range"):
+		return
+	var arc_interval_before: float = player.arc_base_interval
+	upgrades._apply_card("arc_relay")
+	if not _assert_true(player.pickup_radius == pickup_radius_before and player.arc_base_interval < arc_interval_before, "arc relay did not strengthen pulse frequency without pickup range"):
+		return
+	var trap: Node = player.SpikeTrapScript.new()
+	root.add_child(trap)
+	await process_frame
+	if not _assert_true(trap.z_index < 0, "spike visual layer was not below enemies"):
+		return
+	trap.queue_free()
 	if not _assert_true(upgrades.family_levels == {"ballistics": 1, "mobility": 1, "automation": 1}, "family levels did not start at one"):
 		return
 

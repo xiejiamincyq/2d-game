@@ -4,8 +4,6 @@ class_name ShieldPickup
 signal collected(value: float)
 
 @export var value: float = 9.0
-var drift_speed: float = 420.0
-var magnetized: bool = false
 var collected_once: bool = false
 
 func _ready() -> void:
@@ -16,18 +14,11 @@ func _ready() -> void:
 	shape.shape = circle
 	add_child(shape)
 	body_entered.connect(_on_body_entered)
+	set_physics_process(false)
 
-func _physics_process(delta: float) -> void:
-	var player := get_tree().get_first_node_in_group("player")
-	if player == null:
-		return
-	var distance := global_position.distance_to(player.global_position)
-	if distance <= player.pickup_radius:
-		magnetized = true
-	if magnetized:
-		global_position = global_position.move_toward(player.global_position, drift_speed * delta)
-	if distance <= 18.0:
-		_try_collect()
+func _physics_process(_delta: float) -> void:
+	# Shield drops are intentionally stationary and require direct contact.
+	pass
 
 func _draw() -> void:
 	draw_polygon(PackedVector2Array([

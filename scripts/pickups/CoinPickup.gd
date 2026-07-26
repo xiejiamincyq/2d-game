@@ -4,8 +4,12 @@ class_name CoinPickup
 signal collected(value: int)
 
 @export var value: int = 1
-var drift_speed: float = 460.0
-var magnetized: bool = false
+const INITIAL_HOMING_SPEED := 80.0
+const HOMING_ACCELERATION := 280.0
+const MAX_HOMING_SPEED := 900.0
+
+var target_player: Node2D
+var homing_speed := INITIAL_HOMING_SPEED
 var collected_once: bool = false
 
 func _ready() -> void:
@@ -18,15 +22,13 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
 func _physics_process(delta: float) -> void:
-	var player := get_tree().get_first_node_in_group("player")
-	if player == null:
+	if not is_instance_valid(target_player):
+		target_player = get_tree().get_first_node_in_group("player") as Node2D
+	if not is_instance_valid(target_player):
 		return
-	var distance := global_position.distance_to(player.global_position)
-	if distance <= player.pickup_radius:
-		magnetized = true
-	if magnetized:
-		global_position = global_position.move_toward(player.global_position, drift_speed * delta)
-	if distance <= 18.0:
+	homing_speed = minf(MAX_HOMING_SPEED, homing_speed + HOMING_ACCELERATION * maxf(delta, 0.0))
+	global_position = global_position.move_toward(target_player.global_position, homing_speed * maxf(delta, 0.0))
+	if global_position.distance_to(target_player.global_position) <= 18.0:
 		_try_collect()
 
 func _draw() -> void:

@@ -27,6 +27,32 @@ func _initialize() -> void:
 	scene.ui.wave_banner.finish_message()
 	scene.wave_director.active = false
 
+	var acceleration_coin: Area2D = CoinPickupScript.new()
+	acceleration_coin.global_position = scene.player.global_position + Vector2(640.0, 0.0)
+	scene.pickups.add_child(acceleration_coin)
+	await process_frame
+	var coin_start := acceleration_coin.global_position
+	acceleration_coin._physics_process(0.25)
+	var early_distance := coin_start.distance_to(acceleration_coin.global_position)
+	var early_position := acceleration_coin.global_position
+	acceleration_coin._physics_process(0.25)
+	var later_distance := early_position.distance_to(acceleration_coin.global_position)
+	if not _assert_true(early_distance > 0.0, "coin outside the old pickup radius did not automatically fly toward the player"):
+		return
+	if not _assert_true(later_distance > early_distance, "coin homing speed did not increase smoothly with drop age"):
+		return
+	acceleration_coin.queue_free()
+
+	var stationary_shield: Area2D = ShieldPickupScript.new()
+	stationary_shield.global_position = scene.player.global_position + Vector2(60.0, 0.0)
+	scene.pickups.add_child(stationary_shield)
+	await process_frame
+	var shield_drop_position := stationary_shield.global_position
+	stationary_shield._physics_process(0.5)
+	if not _assert_true(stationary_shield.global_position.is_equal_approx(shield_drop_position), "shield pickup moved instead of staying where it dropped"):
+		return
+	stationary_shield.queue_free()
+
 	var enemy: CharacterBody2D = EnemyScript.new()
 	enemy.setup(EnemyScript.EnemyKind.BRUISER, 1, scene.projectiles)
 	enemy.global_position = Vector2(420.0, 180.0)

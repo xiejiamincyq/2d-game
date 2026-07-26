@@ -12,6 +12,7 @@ var radius: float = 38.0
 var damage_multiplier_provider: Callable
 
 func _ready() -> void:
+	z_index = -10
 	max_lifetime = lifetime
 	monitoring = true
 	monitorable = false

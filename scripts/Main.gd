@@ -80,6 +80,7 @@ func spawn_coins(position: Vector2, value: int) -> void:
 	var coin := CoinPickupScript.new()
 	coin.global_position = position
 	coin.value = value
+	coin.target_player = player
 	pickups.add_child(coin)
 	coin.collected.connect(func(amount: int) -> void:
 		upgrade_system.add_coins(amount)

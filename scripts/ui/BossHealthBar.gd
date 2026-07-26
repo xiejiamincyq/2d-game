@@ -20,7 +20,7 @@ var threshold_markers: Array[ColorRect] = []
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	set_anchors_preset(Control.PRESET_CENTER_TOP)
+	set_anchors_preset(Control.PRESET_TOP_LEFT)
 	_build()
 	apply_viewport_size(get_viewport().get_visible_rect().size)
 	visible = false
@@ -122,7 +122,9 @@ func apply_viewport_size(viewport_size: Vector2) -> void:
 	var minimum_width := viewport_size.x * MIN_WIDTH_RATIO
 	var maximum_width := viewport_size.x * MAX_WIDTH_RATIO
 	size = Vector2(clampf(target_width, minimum_width, maximum_width), BAR_HEIGHT)
-	position = Vector2(-size.x * 0.5, TOP_SAFE_OFFSET)
+	# Use an explicit screen-space left edge. This remains exactly centered even
+	# when the parent Control has a custom stretch mode or non-default anchors.
+	position = Vector2((viewport_size.x - size.x) * 0.5, TOP_SAFE_OFFSET)
 	for marker_index in threshold_markers.size():
 		var marker := threshold_markers[marker_index]
 		marker.position = Vector2(3.0 + (size.x - 6.0) * thresholds[marker_index] - 1.5, 16.0)

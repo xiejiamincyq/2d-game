@@ -49,16 +49,17 @@ func _initialize() -> void:
 	if not _assert_true(attack != null, "OverseerBoss did not expose its TentacleAttack component"):
 		return
 	if not _assert_true(
-		is_equal_approx(attack.SWEEP_WARNING_SECONDS, 0.65)
+		is_equal_approx(attack.SWEEP_WARNING_SECONDS, 1.0)
 		and is_equal_approx(attack.SWEEP_RANGE, 300.0)
-		and is_equal_approx(attack.SWEEP_ARC_DEGREES, 78.0)
+		and is_equal_approx(attack.SWEEP_ARC_DEGREES, 54.0)
+		and is_equal_approx(attack.SLAM_WARNING_SECONDS, 1.1)
 		and is_equal_approx(attack.SWEEP_DAMAGE, 18.0),
 		"sweep combat constants did not match the contract"
 	):
 		return
 	if not _assert_true(boss.start_tentacle_sweep(player.global_position), "Boss rejected a valid sweep start"):
 		return
-	attack.advance_attack(0.64)
+	attack.advance_attack(0.99)
 	if not _assert_true(player.damage_events.is_empty(), "sweep damaged during its warning"):
 		return
 	if not _assert_true(attack.is_point_in_sweep(player.global_position), "sweep warning geometry excluded a visibly warned point"):
@@ -94,7 +95,7 @@ func _initialize() -> void:
 	if not _assert_true(boss.start_tentacle_slam(locked_targets), "Boss rejected valid slam targets"):
 		return
 	var warning_targets: Array[Vector2] = attack.get_slam_targets()
-	attack.advance_attack(0.74)
+	attack.advance_attack(1.09)
 	if not _assert_true(player.damage_events.is_empty() and projectiles.get_child_count() == 0, "slam damaged or spawned projectiles during warning"):
 		return
 	player.global_position += Vector2(300.0, 0.0)

@@ -4,12 +4,12 @@ class_name TentacleAttack
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
 
 const WARNING_COLOR := Color("ff571f")
-const SWEEP_WARNING_SECONDS := 0.65
+const SWEEP_WARNING_SECONDS := 1.0
 const SWEEP_ACTIVE_SECONDS := 0.22
 const SWEEP_RANGE := 300.0
-const SWEEP_ARC_DEGREES := 78.0
+const SWEEP_ARC_DEGREES := 54.0
 const SWEEP_DAMAGE := 18.0
-const SLAM_WARNING_SECONDS := 0.75
+const SLAM_WARNING_SECONDS := 1.1
 const SLAM_DIAMETER := 90.0
 const SLAM_RADIUS := SLAM_DIAMETER * 0.5
 const SLAM_DAMAGE := 20.0

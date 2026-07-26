@@ -134,6 +134,21 @@ func _initialize() -> void:
 		return
 	if not _assert_true(is_equal_approx(player_two.health.current_health, 61.0) and is_equal_approx(player_two.shield, 17.0), "health or shield was not restored after card effects"):
 		return
+	var legacy_progression := progression_snapshot.duplicate(true)
+	legacy_progression["upgrade_counts"] = {"recovery_route": 1, "pickup": 1}
+	legacy_progression["settlement"] = {"wave": 0, "generation": 0, "offers": [], "reward_claimed": false, "closed": true}
+	var legacy_player: Node = PlayerScript.new()
+	var legacy_upgrades: Node = UpgradeSystemScript.new()
+	root.add_child(legacy_player)
+	root.add_child(legacy_upgrades)
+	await process_frame
+	legacy_upgrades.setup(legacy_player)
+	if not _assert_true(legacy_upgrades.restore_snapshot_state(legacy_progression), "legacy pickup-range cards could not migrate to the replacement mechanics"):
+		return
+	if not _assert_true(legacy_upgrades.upgrade_counts == {"spike_resonance": 1, "arc_relay": 1}, "legacy card ranks were not canonicalized during restore"):
+		return
+	legacy_player.queue_free()
+	legacy_upgrades.queue_free()
 	player_one.queue_free()
 	player_two.queue_free()
 	upgrade_one.queue_free()

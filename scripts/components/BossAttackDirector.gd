@@ -9,7 +9,8 @@ const BossProjectilePatternScript = preload("res://scripts/components/BossProjec
 
 const ENTRANCE_SECONDS := 1.4
 const TRANSITION_SECONDS := 0.65
-const ATTACK_GAP_SECONDS := 0.35
+const INITIAL_ATTACK_DELAY_SECONDS := 0.65
+const ATTACK_RECOVERY_SECONDS := 1.0
 const MELEE_ZONE_MAX := 230.0
 const RANGED_ZONE_MIN := 310.0
 
@@ -27,6 +28,7 @@ var state_elapsed := 0.0
 var attack_gap := 0.0
 var attack_index := 0
 var last_attack_class: StringName = &"none"
+var waiting_for_attack_completion := false
 
 func configure(owner: Node2D, target: Node2D, projectiles: Node, tentacle: Node, seed_value: int) -> void:
 	boss = owner
@@ -56,8 +58,12 @@ func advance(delta: float) -> void:
 		and boss.global_position.distance_to(target_player.global_position) <= MELEE_ZONE_MAX
 	):
 		pattern.clear()
-		attack_gap = maxf(attack_gap, ATTACK_GAP_SECONDS)
+		attack_gap = maxf(attack_gap, ATTACK_RECOVERY_SECONDS)
 	pattern.advance(delta)
+	var attack_is_active: bool = pattern.is_pattern_active() or tentacle_attack.is_attacking()
+	if waiting_for_attack_completion and not attack_is_active:
+		waiting_for_attack_completion = false
+		attack_gap = maxf(attack_gap, ATTACK_RECOVERY_SECONDS)
 	state_elapsed += delta
 	if state == State.ENTRANCE:
 		if state_elapsed >= ENTRANCE_SECONDS:
@@ -102,8 +108,9 @@ func _enter_phase(phase: int) -> void:
 	current_phase = phase
 	state = [State.PHASE_1, State.PHASE_2, State.PHASE_3][phase - 1]
 	state_elapsed = 0.0
-	attack_gap = 0.0
+	attack_gap = INITIAL_ATTACK_DELAY_SECONDS
 	attack_index = 0
+	waiting_for_attack_completion = false
 	phase_changed.emit(phase)
 	combat_cue.emit(&"boss_phase")
 	if requested_phase > current_phase:
@@ -126,6 +133,7 @@ func _cancel_active_attacks() -> void:
 		pattern.clear()
 	if is_instance_valid(tentacle_attack):
 		tentacle_attack.cancel_attack()
+	waiting_for_attack_completion = false
 
 func _schedule_attack() -> void:
 	if attack_gap > 0.0 or not is_instance_valid(target_player):
@@ -139,7 +147,7 @@ func _schedule_attack() -> void:
 		last_attack_class = &"melee" if choose_melee else &"ranged"
 		combat_cue.emit(&"boss_tentacle" if choose_melee else &"boss_barrage")
 		attack_index += 1
-		attack_gap = ATTACK_GAP_SECONDS
+		waiting_for_attack_completion = true
 
 func _start_melee_attack() -> bool:
 	if current_phase == 2 or (current_phase == 3 and attack_index % 2 == 1):

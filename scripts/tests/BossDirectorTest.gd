@@ -63,6 +63,16 @@ func _initialize() -> void:
 	attack_director.advance(0.01)
 	if not _assert_true(attack_director.get_last_attack_class() == &"melee" and boss.get_tentacle_attack().is_attacking() and not attack_director.get_pattern().is_pattern_active(), "close-range Boss scheduling did not reserve a telegraphed melee-only window"):
 		return
+	boss.get_tentacle_attack().advance_attack(boss.get_tentacle_attack().SWEEP_WARNING_SECONDS + boss.get_tentacle_attack().SWEEP_ACTIVE_SECONDS + 0.01)
+	attack_director.advance(0.01)
+	if not _assert_true(not boss.get_tentacle_attack().is_attacking(), "Boss restarted melee immediately when its previous attack ended"):
+		return
+	attack_director.advance(attack_director.ATTACK_RECOVERY_SECONDS - 0.03)
+	if not _assert_true(not boss.get_tentacle_attack().is_attacking(), "Boss ignored the post-attack recovery window"):
+		return
+	attack_director.advance(0.03)
+	if not _assert_true(boss.get_tentacle_attack().is_attacking(), "Boss did not resume attacking after its recovery window"):
+		return
 	attack_director._cancel_active_attacks()
 	attack_director.get_pattern().advance(attack_director.get_pattern().PATTERN_BLANK_WINDOW_SECONDS + 0.01)
 	boss.global_position = player.global_position + Vector2(430.0, 0.0)
@@ -106,8 +116,11 @@ func _initialize() -> void:
 	attack_director.advance(attack_director.TRANSITION_SECONDS + 0.01)
 	if not _assert_true(attack_director.get_state_name() == "PHASE_3" and phases == [1, 2, 3], "phase jump did not resolve every combat phase exactly once"):
 		return
-	attack_director.advance(0.01)
-	if not _assert_true(attack_director.get_pattern().is_pattern_active() and not boss.get_tentacle_attack().is_attacking(), "phase three did not begin with a mutually exclusive Broken Ring pattern"):
+	attack_director.advance(attack_director.INITIAL_ATTACK_DELAY_SECONDS - 0.01)
+	if not _assert_true(not attack_director.get_pattern().is_pattern_active() and not boss.get_tentacle_attack().is_attacking(), "phase three ignored its initial attack grace period"):
+		return
+	attack_director.advance(0.02)
+	if not _assert_true(attack_director.get_pattern().is_pattern_active() and not boss.get_tentacle_attack().is_attacking(), "phase three did not begin with a mutually exclusive Broken Ring pattern after its grace period"):
 		return
 	attack_director.set_health_phase(3)
 	if not _assert_true(reinforcements == [6, 8], "repeated health update duplicated reinforcements"):

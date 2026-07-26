@@ -51,7 +51,8 @@ func _initialize() -> void:
 		var maximum_width: float = viewport_size.x * 0.90
 		if not _assert_true(bar.size.x >= minimum_width - 0.01 and bar.size.x <= maximum_width + 0.01, "Boss bar width %s did not stay inside the 72-90%% responsive range at %s" % [bar.size.x, viewport_size]):
 			return
-		if not _assert_true(bar.anchor_left == 0.5 and bar.anchor_right == 0.5 and is_equal_approx(bar.position.x, -bar.size.x * 0.5), "Boss bar was not centered inside viewport %s" % viewport_size):
+		var expected_left: float = (viewport_size.x - bar.size.x) * 0.5
+		if not _assert_true(bar.anchor_left == 0.0 and bar.anchor_right == 0.0 and is_equal_approx(bar.position.x, expected_left), "Boss bar was not centered in screen pixels at %s" % viewport_size):
 			return
 		if not _assert_true(bar.threshold_markers.size() == 2 and bar.threshold_markers[0].size.x >= 3.0 and bar.threshold_markers[0].size.y >= 12.0, "phase divider lines did not span the Boss bar fill height at %s" % viewport_size):
 			return
@@ -82,6 +83,8 @@ func _initialize() -> void:
 		await process_frame
 		var boss_rect: Rect2 = layout_boss.get_global_rect()
 		var hud_grid_rect: Rect2 = layout_hud.grid.get_global_rect()
+		if not _assert_true(is_equal_approx(boss_rect.get_center().x, viewport_size.x * 0.5), "Boss bar center %s did not match viewport center %s" % [boss_rect.get_center().x, viewport_size.x * 0.5]):
+			return
 		if not _assert_true(not boss_rect.intersects(hud_grid_rect), "Boss bar %s overlapped HUD grid %s at %s" % [boss_rect, hud_grid_rect, viewport_size]):
 			return
 		if not _assert_true(is_equal_approx(hud_grid_rect.position.y, default_grid_top), "Boss health display moved the player HUD at %s" % viewport_size):
