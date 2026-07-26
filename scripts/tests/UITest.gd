@@ -33,10 +33,10 @@ func _initialize() -> void:
 	if not _assert_true(ui.hud.get("xp_bar") == null and ui.hud.get("xp_value_label") == null, "HUD retained the removed XP progress controls"):
 		return
 	ui.set_collection_window(5.0, 5.0)
-	if not _assert_true(ui.hud.collection_panel.visible and ui.hud.collection_label.text.contains("5.0") and is_equal_approx(ui.hud.collection_bar.value, 5.0), "HUD did not show the five-second coin collection countdown"):
+	if not _assert_true(ui.hud.collection_panel.visible and ui.hud.collection_label.text == "倒计时：5.0s" and is_equal_approx(ui.hud.collection_bar.value, 5.0), "HUD did not show only the requested five-second countdown text"):
 		return
 	ui.set_collection_window(2.4, 5.0)
-	if not _assert_true(ui.hud.collection_label.text.contains("2.4") and is_equal_approx(ui.hud.collection_bar.value, 2.4), "collection countdown did not update smoothly"):
+	if not _assert_true(ui.hud.collection_label.text == "倒计时：2.4s" and is_equal_approx(ui.hud.collection_bar.value, 2.4), "collection countdown text did not update smoothly"):
 		return
 	ui.set_collection_window(0.0, 5.0)
 	if not _assert_true(not ui.hud.collection_panel.visible, "collection countdown remained visible after the upgrade transition"):
@@ -50,6 +50,10 @@ func _initialize() -> void:
 	for size in [Vector2(960, 540), Vector2(1280, 720), Vector2(1920, 1080), Vector2(2560, 1080)]:
 		ui.apply_viewport_size(size)
 		await process_frame
+		ui.show_boss_intro("深渊监工 / OVERSEER", 1.4)
+		if not _assert_true(ui.boss_entrance_overlay.visible and ui.boss_entrance_overlay.get_intro_center().distance_to(size * 0.5) <= 0.01, "Boss entrance overlay was not centered at %s" % size):
+			return
+		ui.hide_boss_intro()
 		var hud_required: Vector2 = ui.hud.get_required_size()
 		var settlement_required: Vector2 = ui.settlement_screen.get_required_size()
 		var pause_required: Vector2 = ui.pause_screen.get_required_size()

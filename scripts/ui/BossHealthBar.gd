@@ -13,6 +13,7 @@ const BORDER_COLOR := Color("33fff2")
 
 var name_label: Label
 var phase_label: Label
+var health_value_label: Label
 var health_bar: ProgressBar
 var thresholds: Array[float] = [0.70, 0.35]
 var threshold_markers: Array[ColorRect] = []
@@ -66,6 +67,17 @@ func _build() -> void:
 	phase_label.offset_right = -8.0
 	phase_label.offset_bottom = 16.0
 	add_child(phase_label)
+
+	health_value_label = _make_label("0 / 0", HORIZONTAL_ALIGNMENT_CENTER)
+	health_value_label.name = "HealthValueLabel"
+	health_value_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	health_value_label.offset_left = 8.0
+	health_value_label.offset_top = 15.0
+	health_value_label.offset_right = -8.0
+	health_value_label.offset_bottom = -2.0
+	health_value_label.add_theme_color_override("font_color", Color.WHITE)
+	health_value_label.add_theme_font_size_override("font_size", 11)
+	add_child(health_value_label)
 
 func _make_label(text: String, alignment: HorizontalAlignment) -> Label:
 	var label := Label.new()
@@ -121,12 +133,14 @@ func show_boss(display_name: String, maximum_health: float) -> void:
 	name_label.text = display_name
 	health_bar.max_value = maxf(maximum_health, 1.0)
 	health_bar.value = health_bar.max_value
+	_set_health_text(health_bar.value, health_bar.max_value)
 	_set_phase(1)
 	visible = true
 
 func set_boss_health(current: float, maximum: float, phase: int) -> void:
 	health_bar.max_value = maxf(maximum, 1.0)
 	health_bar.value = clampf(current, 0.0, health_bar.max_value)
+	_set_health_text(health_bar.value, health_bar.max_value)
 	_set_phase(phase)
 
 func hide_boss() -> void:
@@ -134,3 +148,8 @@ func hide_boss() -> void:
 
 func _set_phase(phase: int) -> void:
 	phase_label.text = "PHASE %s" % ["I", "II", "III"][clampi(phase, 1, 3) - 1]
+
+func _set_health_text(current: float, maximum: float) -> void:
+	var displayed_current := int(ceil(maxf(current, 0.0)))
+	var displayed_maximum := int(ceil(maxf(maximum, 1.0)))
+	health_value_label.text = "%d / %d" % [displayed_current, displayed_maximum]

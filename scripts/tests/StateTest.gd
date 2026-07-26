@@ -38,9 +38,13 @@ func _initialize() -> void:
 	var intro_boss: Node = scene.wave_director._spawn_boss_at(scene.player.global_position + Vector2(320.0, 0.0))
 	if not _assert_true(intro_boss != null and scene.run_state == scene.RunState.BOSS_INTRO and paused, "Boss spawn did not pause the combat tree for its entrance reveal"):
 		return
+	if not _assert_true(not intro_boss.visible and scene.ui.boss_entrance_overlay.visible, "Boss entrance did not replace the world Boss with a centered screen-space reveal"):
+		return
+	if not _assert_true(scene.ui.boss_entrance_overlay.get_intro_center().distance_to(scene.ui.root.size * 0.5) <= 0.01, "Boss entrance reveal was not centered in the viewport"):
+		return
 	intro_boss.set_physics_process(false)
 	intro_boss._physics_process(intro_boss.get_attack_director().ENTRANCE_SECONDS + 0.01)
-	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "Boss entrance completion did not resume combat"):
+	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused and intro_boss.visible and not scene.ui.boss_entrance_overlay.visible, "Boss entrance completion did not reveal the world Boss and resume combat"):
 		return
 	intro_boss.cancel_boss_attacks()
 	intro_boss.queue_free()

@@ -68,6 +68,8 @@ func _initialize() -> void:
 	attack_director.set_process(false)
 	attack_director.world_bounds = Rect2(-1400, -900, 2800, 1800)
 	attack_director.setup(attack_player, attack_enemies, attack_projectiles, attack_portals)
+	if not _assert_true(is_equal_approx(attack_director.PORTAL_SPAWN_IMPULSE_SPEED, 140.0), "portal enemy birth impulse was not reduced by 50 percent"):
+		return
 	attack_director.spawn_queue.assign([0, 0, 0, 0, 0, 0, 0, 0, 0])
 	if not _assert_true(attack_director.begin_prepared_wave(), "portal attack did not begin a prepared wave"):
 		return
@@ -127,7 +129,7 @@ func _initialize() -> void:
 	impulse_probe.set_physics_process(false)
 	impulse_probe._physics_process(0.1)
 	var impulse_displacement := impulse_probe.global_position - impulse_origin
-	if not _assert_true(impulse_probe.velocity.distance_to(expected_impulse) <= 0.01 and impulse_displacement.length() > 3.0 and impulse_displacement.normalized().dot(expected_impulse.normalized()) > 0.99, "spawn impulse was overwritten by pursuit before its separation window ended (velocity=%s expected=%s moved=%s)" % [impulse_probe.velocity, expected_impulse, impulse_displacement]):
+	if not _assert_true(impulse_probe.velocity.distance_to(expected_impulse) <= 0.01 and impulse_displacement.length() > 1.0 and impulse_displacement.normalized().dot(expected_impulse.normalized()) > 0.99, "spawn impulse was overwritten by pursuit before its separation window ended (velocity=%s expected=%s moved=%s)" % [impulse_probe.velocity, expected_impulse, impulse_displacement]):
 		return
 	attack_director._process(0.2)
 	if not _assert_true(attack_enemies.get_child_count() == 6, "portal did not wait 0.2 seconds before releasing the next enemy"):

@@ -25,9 +25,19 @@ func _initialize() -> void:
 		return
 	if not _assert_true(bar.health_bar.value == 1000.0 and bar.phase_label.text.contains("PHASE I"), "Boss spawn did not initialize health and phase"):
 		return
+	if not _assert_true(bar.health_value_label.text == "1000 / 1000", "Boss bar did not show exact full health"):
+		return
 
 	bar.set_boss_health(620.0, 1000.0, 2)
 	if not _assert_true(is_equal_approx(bar.health_bar.value, 620.0) and bar.phase_label.text.contains("PHASE II"), "Boss damage did not update health and phase"):
+		return
+	if not _assert_true(bar.health_value_label.text == "620 / 1000", "Boss bar exact health did not follow damage"):
+		return
+	bar.set_boss_health(0.4, 1000.0, 3)
+	if not _assert_true(bar.health_value_label.text == "1 / 1000" and bar.health_bar.value > 0.0, "living Boss appeared to have zero health"):
+		return
+	bar.set_boss_health(0.0, 1000.0, 3)
+	if not _assert_true(bar.health_value_label.text == "0 / 1000" and is_zero_approx(bar.health_bar.value), "dead Boss did not display exact zero health"):
 		return
 	if not _assert_true(bar.thresholds == [0.70, 0.35], "Boss bar lost the 70% and 35% phase markers"):
 		return

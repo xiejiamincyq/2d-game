@@ -289,11 +289,17 @@ func _on_boss_spawned(boss: Node, display_name: String, maximum_health: float) -
 	ui.show_boss_health(boss, display_name, maximum_health)
 	if run_state != RunState.PLAYING or not boss.has_signal("entrance_finished"):
 		return
-	boss.entrance_finished.connect(_on_boss_entrance_finished, CONNECT_ONE_SHOT)
+	boss.visible = false
+	boss.entrance_finished.connect(_on_boss_entrance_finished.bind(boss), CONNECT_ONE_SHOT)
 	if _transition_to(RunState.BOSS_INTRO):
-		ui.show_wave_banner("深渊监工\n接管战场", &"boss_reveal", 1.4)
+		ui.show_boss_intro(display_name, 1.4)
+	else:
+		boss.visible = true
 
-func _on_boss_entrance_finished() -> void:
+func _on_boss_entrance_finished(boss: Node) -> void:
+	if is_instance_valid(boss):
+		boss.visible = true
+	ui.hide_boss_intro()
 	if run_state == RunState.BOSS_INTRO:
 		_transition_to(RunState.PLAYING)
 
@@ -409,6 +415,7 @@ func _end_run(victory: bool) -> void:
 		return
 	game_over = true
 	ui.hide_boss_health()
+	ui.hide_boss_intro()
 	snapshot_store.clear_snapshot()
 	if player != null:
 		player.set_physics_process(false)

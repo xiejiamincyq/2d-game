@@ -168,10 +168,7 @@ func _initialize() -> void:
 	director._process(0.016)
 	if not _assert_true(defeated_count[0] == 1 and not is_instance_valid(director.get_active_boss()), "Boss cleanup did not resolve exactly once"):
 		return
-	if not _assert_true(finished_count[0] == 0 and director.collection_window_active, "Boss defeat skipped the final five-second collection window"):
-		return
-	director._process(director.COLLECTION_WINDOW_SECONDS)
-	if not _assert_true(finished_count[0] == 1 and director.waiting_for_advance and victory_count[0] == 0, "Boss cleanup did not gate the final clear banner before victory"):
+	if not _assert_true(finished_count[0] == 1 and not director.collection_window_active and director.waiting_for_advance and victory_count[0] == 0, "Boss defeat did not skip collection and gate the final clear banner"):
 		return
 	if not _assert_true(event_order.slice(0, 3) == ["spawned", "defeated", "finished"], "Boss lifecycle events were emitted out of order: %s" % [event_order]):
 		return

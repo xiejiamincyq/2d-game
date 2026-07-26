@@ -33,7 +33,7 @@ const PORTAL_WORLD_MARGIN := 48.0
 const PORTAL_SPAWN_INTERVAL := 0.2
 const PORTAL_SPAWN_COUNT := 1
 const PORTAL_MIN_SEPARATION := 160.0
-const PORTAL_SPAWN_IMPULSE_SPEED := 280.0
+const PORTAL_SPAWN_IMPULSE_SPEED := 140.0
 const PORTAL_SPAWN_IMPULSE_SECONDS := 0.32
 const PORTAL_ENEMY_SPAWN_INNER_RADIUS := 24.0
 const PORTAL_ENEMY_SPAWN_OUTER_RADIUS := 104.0
@@ -297,7 +297,7 @@ func _handle_combat_entities_cleared() -> void:
 		return
 	if wave_index == waves.size() - 1:
 		if boss_defeated_for_wave:
-			_begin_collection_window()
+			_finish_current_wave()
 		elif not boss_entrance_started:
 			_begin_boss_entrance()
 		return

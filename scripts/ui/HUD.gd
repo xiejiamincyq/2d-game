@@ -125,7 +125,7 @@ func _build_hud() -> void:
 	collection_panel.custom_minimum_size = Vector2(380, 58)
 	var collection_box := VBoxContainer.new()
 	collection_box.add_theme_constant_override("separation", 5)
-	collection_label = _make_title("战场回收 5.0s · 收集金币")
+	collection_label = _make_title("倒计时：5.0s")
 	collection_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	collection_bar = _make_bar(Color("33fff2"))
 	collection_bar.custom_minimum_size = Vector2(350, 8)
@@ -242,7 +242,7 @@ func set_collection_window(remaining: float, duration: float) -> void:
 	var safe_duration := maxf(duration, 0.01)
 	collection_bar.max_value = safe_duration
 	collection_bar.value = clampf(remaining, 0.0, safe_duration)
-	collection_label.text = "战场回收 %.1fs · 收集金币" % maxf(0.0, remaining)
+	collection_label.text = "倒计时：%.1fs" % maxf(0.0, remaining)
 	collection_panel.visible = remaining > 0.0
 	collection_panel.modulate.a = clampf(remaining / 0.35, 0.0, 1.0)
 

@@ -170,10 +170,7 @@ func _initialize() -> void:
 	gated_director.victory.connect(func() -> void: victory_count[0] += 1)
 	gated_director._process(0.016)
 	gated_director._process(0.016)
-	if not _assert_true(finished_summaries.size() == 1 and gated_director.collection_window_active, "final clear bypassed its five-second collection window"):
-		return
-	gated_director._process(5.0)
-	if not _assert_true(finished_summaries[-1]["is_final"] and victory_count[0] == 0, "final wave bypassed its clear banner gate"):
+	if not _assert_true(finished_summaries.size() == 2 and finished_summaries[-1]["is_final"] and not gated_director.collection_window_active and victory_count[0] == 0, "final Boss clear did not skip collection and enter its clear banner gate"):
 		return
 	if not _assert_true(gated_director.complete_final_wave() and victory_count[0] == 1 and not gated_director.active, "final wave did not resolve victory exactly once after its banner"):
 		return
