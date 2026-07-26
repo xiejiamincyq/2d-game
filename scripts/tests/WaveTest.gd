@@ -96,6 +96,8 @@ func _initialize() -> void:
 	var cleared_waves: Array[int] = []
 	var prepared_summaries: Array[Dictionary] = []
 	var finished_summaries: Array[Dictionary] = []
+	var collection_windows: Array[Dictionary] = []
+	var collection_remaining_values: Array[float] = []
 	var remaining_statuses: Array[int] = []
 	var gated_director: Node = WaveDirectorScript.new()
 	var gated_fixture := Node.new()
@@ -110,6 +112,8 @@ func _initialize() -> void:
 	gated_director.set_process(false)
 	gated_director.wave_prepared.connect(func(summary: Dictionary) -> void: prepared_summaries.append(summary.duplicate(true)))
 	gated_director.wave_finished.connect(func(summary: Dictionary) -> void: finished_summaries.append(summary.duplicate(true)))
+	gated_director.collection_window_started.connect(func(summary: Dictionary, duration: float) -> void: collection_windows.append({"summary": summary.duplicate(true), "duration": duration}))
+	gated_director.collection_window_changed.connect(func(remaining: float, _duration: float) -> void: collection_remaining_values.append(remaining))
 	gated_director.wave_cleared.connect(func(completed_wave: int) -> void: cleared_waves.append(completed_wave))
 	gated_director.wave_changed.connect(func(_index: int, _total: int, remaining: int) -> void: remaining_statuses.append(remaining))
 	gated_director.setup(gated_player, gated_enemies, gated_projectiles)
@@ -125,6 +129,14 @@ func _initialize() -> void:
 	gated_director.active_enemies.clear()
 	gated_director._process(0.016)
 	gated_director._process(0.016)
+	if not _assert_true(finished_summaries.is_empty() and collection_windows.size() == 1 and is_equal_approx(collection_windows[0]["duration"], 5.0), "wave clear did not begin one five-second collection window before settlement"):
+		return
+	if not _assert_true(gated_director.wave_running and not gated_director.waiting_for_advance, "collection window paused or closed the running stage early"):
+		return
+	gated_director._process(4.9)
+	if not _assert_true(finished_summaries.is_empty() and collection_remaining_values[-1] > 0.0, "collection window ended before five seconds"):
+		return
+	gated_director._process(0.11)
 	if not _assert_true(finished_summaries.size() == 1 and finished_summaries[0]["wave"] == 1 and not finished_summaries[0]["is_final"], "first wave did not publish one finished summary"):
 		return
 	if not _assert_true(cleared_waves == [1], "one cleared wave emitted compatibility rewards %s" % [cleared_waves]):
@@ -158,6 +170,9 @@ func _initialize() -> void:
 	gated_director.victory.connect(func() -> void: victory_count[0] += 1)
 	gated_director._process(0.016)
 	gated_director._process(0.016)
+	if not _assert_true(finished_summaries.size() == 1 and gated_director.collection_window_active, "final clear bypassed its five-second collection window"):
+		return
+	gated_director._process(5.0)
 	if not _assert_true(finished_summaries[-1]["is_final"] and victory_count[0] == 0, "final wave bypassed its clear banner gate"):
 		return
 	if not _assert_true(gated_director.complete_final_wave() and victory_count[0] == 1 and not gated_director.active, "final wave did not resolve victory exactly once after its banner"):

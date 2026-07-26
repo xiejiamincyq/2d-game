@@ -6,6 +6,7 @@ signal hit(source: StringName)
 signal health_changed(current: float, maximum: float, phase: int)
 signal reinforcements_requested(boss: Node, count: int)
 signal combat_cue(cue: StringName)
+signal entrance_finished
 signal damage_resolved(
 	boss: Node,
 	source: StringName,
@@ -25,9 +26,10 @@ const BODY_RADIUS := 56.0
 const VISUAL_RADIUS := 80.0
 const BASE_MAX_HEALTH := 10800.0
 const EXPECTED_STANDARD_TTK_SECONDS := 55.0
-const KEEP_DISTANCE_MIN := 210.0
-const KEEP_DISTANCE_MAX := 340.0
-const MOVE_SPEED := 46.0
+const KEEP_DISTANCE_MIN := 260.0
+const KEEP_DISTANCE_MAX := 390.0
+const MOVE_SPEED := 58.0
+const CAMERA_SAFE_MARGIN := 112.0
 
 var body_radius := BODY_RADIUS
 var feedback_weight := 2
@@ -41,8 +43,14 @@ var flash_timer := 0.0
 var death_resolved := false
 var tentacle_attack: Node
 var attack_director: Node
+var entrance_progress := 0.0
+var entrance_resolved := false
 
 func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	scale = Vector2.ONE * 0.12
+	rotation = -0.28
+	modulate.a = 0.0
 	projectile_parent = projectiles
 	target_player = target
 	tentacle_attack = TentacleAttackScript.new()
@@ -97,6 +105,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if attack_director != null:
 		attack_director.advance(delta)
+	_update_entrance_reveal()
 	if flash_timer > 0.0:
 		flash_timer = maxf(0.0, flash_timer - delta)
 		queue_redraw()
@@ -107,19 +116,67 @@ func _physics_process(delta: float) -> void:
 	if player == null:
 		velocity = Vector2.ZERO
 		return
-	var to_player := player.global_position - global_position
-	var distance := to_player.length()
-	var direction := Vector2.ZERO
-	if distance > 0.01:
-		if distance < KEEP_DISTANCE_MIN:
-			direction = -to_player / distance
-		elif distance > KEEP_DISTANCE_MAX:
-			direction = to_player / distance
-		else:
-			direction = (to_player / distance).orthogonal() * 0.35
+	var direction := get_combat_movement_direction(player)
 	velocity = direction * MOVE_SPEED
 	move_and_slide()
 	_clamp_to_world_bounds()
+
+func get_combat_movement_direction(player: Node2D) -> Vector2:
+	var safe_rect := get_combat_safe_rect()
+	if safe_rect.size != Vector2.ZERO and not safe_rect.has_point(global_position):
+		var return_target := global_position.clamp(safe_rect.position, safe_rect.end - Vector2(0.001, 0.001))
+		if return_target.distance_squared_to(global_position) <= 0.001:
+			return_target = safe_rect.get_center()
+		return (return_target - global_position).normalized()
+	var to_player := player.global_position - global_position
+	var distance := to_player.length()
+	if distance <= 0.01:
+		return Vector2.RIGHT
+	var toward_player := to_player / distance
+	if distance < KEEP_DISTANCE_MIN:
+		return -toward_player
+	if distance > KEEP_DISTANCE_MAX:
+		return toward_player
+	return toward_player.orthogonal() * 0.35
+
+func get_combat_safe_rect() -> Rect2:
+	var viewport := get_viewport()
+	var viewport_size := viewport.get_visible_rect().size
+	var camera := viewport.get_camera_2d()
+	var center := target_player.global_position if is_instance_valid(target_player) else global_position
+	var zoom := Vector2.ONE
+	if camera != null:
+		center = camera.get_screen_center_position()
+		zoom = camera.zoom.abs()
+	var visible_size := Vector2(
+		viewport_size.x / maxf(zoom.x, 0.001),
+		viewport_size.y / maxf(zoom.y, 0.001)
+	)
+	var safe_rect := Rect2(center - visible_size * 0.5, visible_size).grow(-CAMERA_SAFE_MARGIN)
+	if world_bounds.size != Vector2.ZERO:
+		safe_rect = safe_rect.intersection(world_bounds.grow(-body_radius))
+	return safe_rect
+
+func _update_entrance_reveal() -> void:
+	if entrance_resolved or attack_director == null:
+		return
+	var duration: float = maxf(attack_director.ENTRANCE_SECONDS, 0.01)
+	entrance_progress = clampf(float(attack_director.state_elapsed) / duration, 0.0, 1.0)
+	var eased := smoothstep(0.0, 1.0, entrance_progress)
+	var overshoot := sin(entrance_progress * PI) * 0.12
+	var visual_scale := lerpf(0.12, 1.0, eased) + overshoot
+	scale = Vector2.ONE * visual_scale
+	rotation = lerpf(-0.28, 0.0, eased)
+	modulate.a = clampf(entrance_progress * 2.6, 0.0, 1.0)
+	queue_redraw()
+	if attack_director.get_state_name() != "ENTRANCE":
+		entrance_resolved = true
+		entrance_progress = 1.0
+		scale = Vector2.ONE
+		rotation = 0.0
+		modulate.a = 1.0
+		process_mode = Node.PROCESS_MODE_PAUSABLE
+		entrance_finished.emit()
 
 func get_target_player() -> Node2D:
 	if is_instance_valid(target_player):
@@ -131,7 +188,7 @@ func take_damage(
 	source: StringName = DamageTypes.GENERIC,
 	hit_direction: Vector2 = Vector2.ZERO
 ) -> bool:
-	if health == null or death_resolved:
+	if health == null or death_resolved or not entrance_resolved:
 		return false
 	var health_before: float = health.current_health
 	if not health.damage(amount):
@@ -205,3 +262,7 @@ func _draw() -> void:
 		var start := Vector2.RIGHT.rotated(angle) * 35.0
 		var finish := Vector2.RIGHT.rotated(angle) * 61.0
 		draw_line(start, finish, Color(cyan, 0.72), 5.0)
+	if not entrance_resolved:
+		var reveal_radius := lerpf(150.0, 88.0, entrance_progress)
+		draw_arc(Vector2.ZERO, reveal_radius, -PI * 0.5, PI * 1.5, 64, Color(cyan, 0.9 - entrance_progress * 0.35), 5.0)
+		draw_arc(Vector2.ZERO, reveal_radius + 18.0, PI * 0.5, PI * 2.5, 64, Color(magenta, 0.75 - entrance_progress * 0.25), 3.0)

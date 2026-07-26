@@ -22,7 +22,7 @@ const OVERDRIVE_CHARGE_DECAY_PER_SECOND := 7.0
 const OVERDRIVE_DRAIN_PER_SECOND := 34.0
 const HEADLESS_SNAPSHOT_PATH := "user://five_minute_overdrive_run_test_v1.json"
 
-enum RunState { START, WAVE_INTRO, PLAYING, WAVE_CLEAR, SETTLEMENT, PAUSED, RESULT }
+enum RunState { START, WAVE_INTRO, PLAYING, BOSS_INTRO, WAVE_CLEAR, SETTLEMENT, PAUSED, RESULT }
 
 var world: Node2D
 var enemies: Node2D
@@ -255,12 +255,14 @@ func _begin_run(snapshot: Dictionary) -> void:
 	wave_director.world_bounds = WORLD_BOUNDS
 	add_child(wave_director)
 	wave_director.wave_changed.connect(ui.set_wave)
-	wave_director.boss_spawned.connect(ui.show_boss_health)
+	wave_director.boss_spawned.connect(_on_boss_spawned)
 	wave_director.boss_health_changed.connect(ui.set_boss_health)
 	wave_director.boss_defeated.connect(func(_boss: Node) -> void: ui.hide_boss_health())
 	wave_director.boss_cue.connect(func(cue: StringName) -> void: audio.play_boss_cue(cue))
 	wave_director.boss_entrance_warning.connect(func(display_name: String) -> void: ui.show_wave_banner("警告：侦测到最终 Boss —— %s" % display_name, &"boss_entrance", 1.4))
 	wave_director.wave_prepared.connect(_on_wave_prepared)
+	wave_director.collection_window_started.connect(func(_summary: Dictionary, duration: float) -> void: ui.set_collection_window(duration, duration))
+	wave_director.collection_window_changed.connect(ui.set_collection_window)
 	wave_director.wave_finished.connect(_on_wave_finished)
 	wave_director.enemy_killed.connect(_on_enemy_killed)
 	wave_director.damage_resolved.connect(combat_feedback.on_damage_resolved)
@@ -282,6 +284,18 @@ func _begin_run(snapshot: Dictionary) -> void:
 			pending_wave_summary = {"wave": pending_stage - 1, "total": wave_director.waves.size(), "is_final": false}
 			_transition_to(RunState.SETTLEMENT)
 			ui.show_settlement()
+
+func _on_boss_spawned(boss: Node, display_name: String, maximum_health: float) -> void:
+	ui.show_boss_health(boss, display_name, maximum_health)
+	if run_state != RunState.PLAYING or not boss.has_signal("entrance_finished"):
+		return
+	boss.entrance_finished.connect(_on_boss_entrance_finished, CONNECT_ONE_SHOT)
+	if _transition_to(RunState.BOSS_INTRO):
+		ui.show_wave_banner("深渊监工\n接管战场", &"boss_reveal", 1.4)
+
+func _on_boss_entrance_finished() -> void:
+	if run_state == RunState.BOSS_INTRO:
+		_transition_to(RunState.PLAYING)
 
 func _on_wave_prepared(summary: Dictionary) -> void:
 	pending_wave_summary = summary.duplicate(true)
@@ -426,7 +440,8 @@ func _transition_to(next_state: RunState) -> bool:
 	var allowed: Dictionary = {
 		RunState.START: [RunState.WAVE_INTRO, RunState.SETTLEMENT],
 		RunState.WAVE_INTRO: [RunState.PLAYING, RunState.RESULT],
-		RunState.PLAYING: [RunState.WAVE_CLEAR, RunState.PAUSED, RunState.RESULT],
+		RunState.PLAYING: [RunState.BOSS_INTRO, RunState.WAVE_CLEAR, RunState.PAUSED, RunState.RESULT],
+		RunState.BOSS_INTRO: [RunState.PLAYING, RunState.RESULT],
 		RunState.WAVE_CLEAR: [RunState.SETTLEMENT, RunState.RESULT],
 		RunState.SETTLEMENT: [RunState.WAVE_INTRO, RunState.RESULT],
 		RunState.PAUSED: [RunState.PLAYING, RunState.RESULT],
@@ -440,6 +455,7 @@ func _transition_to(next_state: RunState) -> bool:
 	manual_paused = run_state == RunState.PAUSED
 	get_tree().paused = run_state in [
 		RunState.WAVE_INTRO,
+		RunState.BOSS_INTRO,
 		RunState.WAVE_CLEAR,
 		RunState.SETTLEMENT,
 		RunState.PAUSED,
@@ -454,6 +470,8 @@ func _transition_to(next_state: RunState) -> bool:
 		RunState.WAVE_INTRO:
 			ui.hide_start_screen()
 			ui.hide_settlement()
+			ui.hide_manual_pause()
+		RunState.BOSS_INTRO:
 			ui.hide_manual_pause()
 		RunState.WAVE_CLEAR:
 			ui.hide_manual_pause()

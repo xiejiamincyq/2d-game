@@ -35,6 +35,16 @@ func _initialize() -> void:
 	scene.ui.wave_banner.finish_message()
 	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "wave banner did not enter PLAYING"):
 		return
+	var intro_boss: Node = scene.wave_director._spawn_boss_at(scene.player.global_position + Vector2(320.0, 0.0))
+	if not _assert_true(intro_boss != null and scene.run_state == scene.RunState.BOSS_INTRO and paused, "Boss spawn did not pause the combat tree for its entrance reveal"):
+		return
+	intro_boss.set_physics_process(false)
+	intro_boss._physics_process(intro_boss.get_attack_director().ENTRANCE_SECONDS + 0.01)
+	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "Boss entrance completion did not resume combat"):
+		return
+	intro_boss.cancel_boss_attacks()
+	intro_boss.queue_free()
+	await process_frame
 	if not _assert_true(
 		is_instance_valid(scene.combat_feedback)
 		and is_instance_valid(scene.combat_vfx)

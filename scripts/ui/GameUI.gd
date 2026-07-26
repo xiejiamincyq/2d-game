@@ -200,17 +200,18 @@ func set_wave(index: int, total: int, remaining: int) -> void:
 
 func show_boss_health(_boss: Node, display_name: String, maximum_health: float) -> void:
 	boss_health_bar.show_boss(display_name, maximum_health)
-	hud.set_boss_layout_active(true)
 
 func set_boss_health(current: float, maximum: float, phase: int) -> void:
 	boss_health_bar.set_boss_health(current, maximum, phase)
 
 func hide_boss_health() -> void:
 	boss_health_bar.hide_boss()
-	hud.set_boss_layout_active(false)
 
 func set_run_stats(kills: int, elapsed_seconds: float) -> void:
 	hud.set_run_stats(kills, elapsed_seconds)
+
+func set_collection_window(remaining: float, duration: float) -> void:
+	hud.set_collection_window(remaining, duration)
 
 func set_combo(count: int) -> void:
 	hud.set_combo(count)

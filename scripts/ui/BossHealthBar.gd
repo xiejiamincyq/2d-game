@@ -3,7 +3,7 @@ class_name BossHealthBar
 
 const BASE_WIDTH := 760.0
 const BAR_HEIGHT := 34.0
-const TOP_SAFE_OFFSET := 76.0
+const TOP_SAFE_OFFSET := 126.0
 const MIN_WIDTH_RATIO := 0.72
 const MAX_WIDTH_RATIO := 0.90
 const BACKGROUND_COLOR := Color("061019e8")

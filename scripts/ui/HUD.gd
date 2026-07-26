@@ -6,7 +6,6 @@ signal bgm_volume_changed(value: float)
 signal bgm_mute_changed(muted: bool)
 
 const DEFAULT_GRID_TOP_MARGIN := 12
-const BOSS_GRID_TOP_INSET := 122
 
 var grid_margin: MarginContainer
 var grid: GridContainer
@@ -26,6 +25,9 @@ var bgm_volume_slider: HSlider
 var toast_overlay: PanelContainer
 var toast_label: Label
 var toast_tween: Tween
+var collection_panel: PanelContainer
+var collection_label: Label
+var collection_bar: ProgressBar
 var layout_viewport_size := Vector2(1280, 720)
 
 func _ready() -> void:
@@ -115,6 +117,23 @@ func _build_hud() -> void:
 	overdrive_bar.custom_minimum_size = Vector2(210, 12)
 	add_child(overdrive_bar)
 
+	collection_panel = PanelContainer.new()
+	collection_panel.visible = false
+	collection_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	collection_panel.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	collection_panel.position = Vector2(-190, -118)
+	collection_panel.custom_minimum_size = Vector2(380, 58)
+	var collection_box := VBoxContainer.new()
+	collection_box.add_theme_constant_override("separation", 5)
+	collection_label = _make_title("战场回收 5.0s · 收集金币")
+	collection_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	collection_bar = _make_bar(Color("33fff2"))
+	collection_bar.custom_minimum_size = Vector2(350, 8)
+	collection_box.add_child(collection_label)
+	collection_box.add_child(collection_bar)
+	collection_panel.add_child(collection_box)
+	add_child(collection_panel)
+
 	toast_overlay = PanelContainer.new()
 	toast_overlay.visible = false
 	toast_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -169,12 +188,9 @@ func _make_bar(color: Color) -> ProgressBar:
 
 func apply_viewport_size(viewport_size: Vector2) -> void:
 	layout_viewport_size = viewport_size
-	grid.columns = 2 if viewport_size.x < 1100.0 else 4
+	grid.columns = 2 if viewport_size.x < 900.0 else 4
 	for child in grid.get_children():
 		child.custom_minimum_size.x = 190.0 if grid.columns == 2 else 210.0
-
-func set_boss_layout_active(active: bool) -> void:
-	grid_margin.add_theme_constant_override("margin_top", BOSS_GRID_TOP_INSET if active else DEFAULT_GRID_TOP_MARGIN)
 
 func get_required_size() -> Vector2:
 	var minimum := grid.get_combined_minimum_size() + Vector2(28, 24)
@@ -221,6 +237,14 @@ func set_overdrive(active: bool, remaining: float = 0.0) -> void:
 func set_overdrive_charge(value: float, active: bool) -> void:
 	overdrive_bar.value = clampf(value, 0.0, 100.0)
 	overdrive_bar.modulate = Color("ff571f") if active else Color("33fff2")
+
+func set_collection_window(remaining: float, duration: float) -> void:
+	var safe_duration := maxf(duration, 0.01)
+	collection_bar.max_value = safe_duration
+	collection_bar.value = clampf(remaining, 0.0, safe_duration)
+	collection_label.text = "战场回收 %.1fs · 收集金币" % maxf(0.0, remaining)
+	collection_panel.visible = remaining > 0.0
+	collection_panel.modulate.a = clampf(remaining / 0.35, 0.0, 1.0)
 
 func show_toast(text: String) -> void:
 	if toast_tween != null and toast_tween.is_valid():

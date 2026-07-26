@@ -35,7 +35,7 @@ func _initialize() -> void:
 	for viewport_size in [Vector2(960, 540), Vector2(1280, 720), Vector2(1920, 1080), Vector2(2560, 1080)]:
 		bar.apply_viewport_size(viewport_size)
 		await process_frame
-		if not _assert_true(bar.position.y == 76.0 and bar.size.y == 34.0, "Boss bar did not sit below the HUD at its 34px height at %s" % viewport_size):
+		if not _assert_true(bar.position.y == 126.0 and bar.size.y == 34.0, "Boss bar did not sit below the player status row at its 34px height at %s" % viewport_size):
 			return
 		var minimum_width: float = viewport_size.x * 0.72
 		var maximum_width: float = viewport_size.x * 0.90
@@ -68,21 +68,22 @@ func _initialize() -> void:
 		layout_boss.apply_viewport_size(viewport_size)
 		await process_frame
 		var default_grid_top: float = layout_hud.grid.get_global_rect().position.y
-		layout_hud.set_boss_layout_active(true)
 		layout_boss.show_boss("深渊监工 / OVERSEER", 1000.0)
 		await process_frame
 		var boss_rect: Rect2 = layout_boss.get_global_rect()
 		var hud_grid_rect: Rect2 = layout_hud.grid.get_global_rect()
 		if not _assert_true(not boss_rect.intersects(hud_grid_rect), "Boss bar %s overlapped HUD grid %s at %s" % [boss_rect, hud_grid_rect, viewport_size]):
 			return
-		if not _assert_true(hud_grid_rect.position.y > default_grid_top, "HUD grid did not move below the enlarged Boss bar at %s" % viewport_size):
+		if not _assert_true(is_equal_approx(hud_grid_rect.position.y, default_grid_top), "Boss health display moved the player HUD at %s" % viewport_size):
 			return
-		layout_hud.set_boss_layout_active(false)
 		layout_boss.hide_boss()
 		await process_frame
 		if not _assert_true(is_equal_approx(layout_hud.grid.get_global_rect().position.y, default_grid_top), "HUD grid did not restore its top inset after Boss hide at %s" % viewport_size):
 			return
 		layout_root.queue_free()
 		await process_frame
+	var game_ui_source := FileAccess.get_file_as_string("res://scripts/ui/GameUI.gd")
+	if not _assert_true(game_ui_source.find("set_boss_layout_active") == -1, "GameUI still shifts the HUD when the Boss bar is shown"):
+		return
 	print("TEST PASS: BossHealthBarTest %d" % assertions)
 	quit(0)

@@ -30,21 +30,27 @@ func configure(world_position: Vector2, warning_seconds: float = 0.7, burst_seco
 func advance(delta: float) -> bool:
 	if state == State.CLOSED:
 		return false
-	state_time += maxf(0.0, delta)
-	var duration := warning_duration if state == State.WARNING else burst_duration
-	if state_time + 0.0001 < duration:
-		queue_redraw()
-		return false
-	state_time = 0.0
-	if state == State.WARNING:
-		state = State.BURST
-		burst_started.emit(self)
-	else:
-		state = State.CLOSED
-		visible = false
-		closed.emit(self)
+	var remaining := maxf(0.0, delta)
+	var transitioned := false
+	while remaining > 0.0001 and state != State.CLOSED:
+		var duration := warning_duration if state == State.WARNING else burst_duration
+		var until_transition := maxf(0.0, duration - state_time)
+		var step := minf(remaining, until_transition)
+		state_time += step
+		remaining -= step
+		if state_time + 0.0001 < duration:
+			break
+		state_time = 0.0
+		transitioned = true
+		if state == State.WARNING:
+			state = State.BURST
+			burst_started.emit(self)
+		else:
+			state = State.CLOSED
+			visible = false
+			closed.emit(self)
 	queue_redraw()
-	return true
+	return transitioned
 
 func _process(delta: float) -> void:
 	advance(delta)

@@ -54,6 +54,12 @@ func _initialize() -> void:
 	scene.wave_director.waiting_for_advance = false
 	scene.wave_director._process(0.016)
 	if not _assert_true(
+		scene.run_state == scene.RunState.PLAYING and not paused and scene.wave_director.collection_window_active and scene.ui.hud.collection_panel.visible,
+		"cleared wave did not keep gameplay active during the coin collection window"
+	):
+		return
+	scene.wave_director._process(scene.wave_director.COLLECTION_WINDOW_SECONDS)
+	if not _assert_true(
 		scene.run_state == scene.RunState.WAVE_CLEAR and paused and scene.wave_director.waiting_for_advance,
 		"cleared wave did not enter the clear banner gate"
 	):

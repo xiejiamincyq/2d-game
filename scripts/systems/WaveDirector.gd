@@ -5,6 +5,8 @@ signal wave_changed(index: int, total: int, remaining: int)
 signal wave_cleared(completed_wave: int)
 signal wave_prepared(summary: Dictionary)
 signal wave_finished(summary: Dictionary)
+signal collection_window_started(summary: Dictionary, duration: float)
+signal collection_window_changed(remaining: float, duration: float)
 signal enemy_killed(enemy: Node, source: StringName, coin_value: int)
 signal damage_resolved(
 	enemy: Node,
@@ -28,8 +30,11 @@ const SpawnPortalScript = preload("res://scripts/world/SpawnPortal.gd")
 const PORTAL_MIN_SAFE_DISTANCE := 260.0
 const PORTAL_MAX_SAFE_DISTANCE := 520.0
 const PORTAL_WORLD_MARGIN := 48.0
-const PORTAL_SPAWN_INTERVAL := 0.1
-const PORTAL_SPAWN_COUNT := 2
+const PORTAL_SPAWN_INTERVAL := 0.2
+const PORTAL_SPAWN_COUNT := 1
+const PORTAL_MIN_SEPARATION := 160.0
+const PORTAL_SPAWN_IMPULSE_SPEED := 280.0
+const PORTAL_SPAWN_IMPULSE_SECONDS := 0.32
 const PORTAL_ENEMY_SPAWN_INNER_RADIUS := 24.0
 const PORTAL_ENEMY_SPAWN_OUTER_RADIUS := 104.0
 const PORTAL_ENEMY_CLEARANCE := 5.0
@@ -39,6 +44,7 @@ const BOSS_PORTAL_SCALE := 1.8
 const BOSS_TRICKLE_INTERVAL := 4.6
 const BOSS_TRICKLE_COUNT := 18
 const BOSS_TRICKLE_MINION_CAP := 30
+const COLLECTION_WINDOW_SECONDS := 5.0
 
 var enemy_parent: Node
 var projectile_parent: Node
@@ -64,6 +70,8 @@ var boss_entrance_started := false
 var boss_defeat_pending := false
 var boss_trickle_timer := 0.0
 var boss_defeated_for_wave := false
+var collection_window_active := false
+var collection_window_remaining := 0.0
 
 var waves: Array[Dictionary] = [
 	{"scrapper": 32, "dasher": 7, "spitter": 2, "bruiser": 0, "marksman": 0, "lobber": 0, "overseer": 0, "rate": 0.13},
@@ -94,6 +102,8 @@ func restore_stable_boundary(pending_stage: int, boundary: String) -> bool:
 	portal_spawn_queues.clear()
 	portal_spawn_timers.clear()
 	_reset_boss_tracking()
+	collection_window_active = false
+	collection_window_remaining = 0.0
 	prepared_wave = false
 	wave_running = false
 	waiting_for_advance = false
@@ -112,6 +122,9 @@ func _process(delta: float) -> void:
 	if not active or player == null:
 		return
 	if waiting_for_advance or prepared_wave or not wave_running:
+		return
+	if collection_window_active:
+		_process_collection_window(delta)
 		return
 	if is_instance_valid(boss_portal):
 		_process_boss_entrance(delta)
@@ -199,15 +212,20 @@ func _open_portal_attack() -> void:
 	_open_portals_for_queues(queues)
 
 func _open_portals_for_queues(queues: Array[Array]) -> void:
+	var occupied_positions: Array[Vector2] = []
+	for existing_portal in active_portals:
+		if is_instance_valid(existing_portal):
+			occupied_positions.append(existing_portal.global_position)
 	for index in range(queues.size()):
 		if queues[index].is_empty():
 			continue
 		var portal: Node = SpawnPortalScript.new()
-		var portal_position := sample_portal_position(player.global_position, spawn_rng)
+		var portal_position := sample_portal_position_avoiding(player.global_position, spawn_rng, occupied_positions)
 		portal.set_process(false)
-		var burst_duration := maxf(1.2, ceilf(float(queues[index].size()) / float(PORTAL_SPAWN_COUNT)) * PORTAL_SPAWN_INTERVAL + 0.25)
+		var burst_duration := float(queues[index].size()) * PORTAL_SPAWN_INTERVAL
 		portal_parent.add_child(portal)
 		portal.configure(portal_position, 0.7, burst_duration)
+		occupied_positions.append(portal_position)
 		active_portals.append(portal)
 		portal_spawn_queues[portal.get_instance_id()] = queues[index]
 		portal_spawn_timers[portal.get_instance_id()] = 0.0
@@ -252,18 +270,19 @@ func _process_portal_attack(delta: float) -> void:
 		if not is_instance_valid(portal):
 			active_portals.erase(portal)
 			continue
-		portal.advance(delta)
-		if portal.state != portal.State.BURST:
-			continue
 		var portal_id: int = portal.get_instance_id()
-		portal_spawn_timers[portal_id] = float(portal_spawn_timers.get(portal_id, 0.0)) - delta
-		if float(portal_spawn_timers[portal_id]) > 0.0:
-			continue
 		var queue: Array = portal_spawn_queues.get(portal_id, [])
-		for count in range(mini(PORTAL_SPAWN_COUNT, queue.size())):
-			_spawn_enemy_at(int(queue.pop_front()), portal.global_position, true)
+		var burst_delta: float = _get_portal_burst_overlap(portal, delta)
+		var enters_burst: bool = portal.state == portal.State.WARNING and portal.state_time + maxf(0.0, delta) + 0.0001 >= portal.warning_duration
+		var timer: float = float(portal_spawn_timers.get(portal_id, 0.0)) - burst_delta
+		if burst_delta > 0.0 or enters_burst or portal.state == portal.State.BURST:
+			while timer <= 0.0001 and not queue.is_empty():
+				var spawn_age: float = maxf(0.0, -timer)
+				_spawn_enemy_at(int(queue.pop_front()), portal.global_position, true, spawn_age)
+				timer += PORTAL_SPAWN_INTERVAL
 		portal_spawn_queues[portal_id] = queue
-		portal_spawn_timers[portal_id] = PORTAL_SPAWN_INTERVAL
+		portal_spawn_timers[portal_id] = timer
+		portal.advance(delta)
 	if active_portals.is_empty() and active_enemies.is_empty() and spawn_queue.is_empty():
 		_handle_combat_entities_cleared()
 	else:
@@ -278,11 +297,28 @@ func _handle_combat_entities_cleared() -> void:
 		return
 	if wave_index == waves.size() - 1:
 		if boss_defeated_for_wave:
-			_finish_current_wave()
+			_begin_collection_window()
 		elif not boss_entrance_started:
 			_begin_boss_entrance()
 		return
-	_finish_current_wave()
+	_begin_collection_window()
+
+func _begin_collection_window() -> bool:
+	if collection_window_active or not wave_running or waiting_for_advance:
+		return false
+	collection_window_active = true
+	collection_window_remaining = COLLECTION_WINDOW_SECONDS
+	var summary := _get_wave_summary()
+	collection_window_started.emit(summary, COLLECTION_WINDOW_SECONDS)
+	collection_window_changed.emit(collection_window_remaining, COLLECTION_WINDOW_SECONDS)
+	return true
+
+func _process_collection_window(delta: float) -> void:
+	collection_window_remaining = maxf(0.0, collection_window_remaining - maxf(0.0, delta))
+	collection_window_changed.emit(collection_window_remaining, COLLECTION_WINDOW_SECONDS)
+	if is_zero_approx(collection_window_remaining):
+		collection_window_active = false
+		_finish_current_wave()
 
 func _begin_boss_entrance() -> bool:
 	if (
@@ -389,6 +425,8 @@ func _finish_current_wave() -> void:
 	if wave_index == waves.size() - 1 and not boss_defeated_for_wave:
 		return
 	_emit_wave_status()
+	collection_window_active = false
+	collection_window_remaining = 0.0
 	wave_running = false
 	waiting_for_advance = true
 	var summary := _get_wave_summary()
@@ -432,7 +470,7 @@ func _spawn_enemy(kind: int) -> void:
 	var position := sample_spitter_spawn_position(player.global_position, get_camera_safe_rect(), spawn_rng) if ranged_kind else sample_spawn_position(player.global_position, 24.0, 430.0, spawn_rng)
 	_spawn_enemy_at(kind, position)
 
-func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = false) -> void:
+func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = false, spawn_age: float = 0.0) -> void:
 	var enemy := EnemyScript.new()
 	if world_bounds.size != Vector2.ZERO:
 		enemy.world_bounds = world_bounds
@@ -441,12 +479,17 @@ func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = 
 	enemy_parent.add_child(enemy)
 	var spawn_position := position
 	if disperse_from_portal:
-		spawn_position = sample_clear_portal_enemy_position(position, enemy.body_radius)
+		spawn_position = position
 	elif spawn_bounds.size != Vector2.ZERO:
 		spawn_position = position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2(0.001, 0.001))
 	# global_position only has world-space meaning after the enemy is parented.
 	enemy.global_position = spawn_position
-	enemy.velocity = Vector2.ZERO
+	if disperse_from_portal:
+		var impulse_direction := Vector2.RIGHT.rotated(spawn_rng.randf() * TAU)
+		enemy.apply_spawn_impulse(impulse_direction * PORTAL_SPAWN_IMPULSE_SPEED, PORTAL_SPAWN_IMPULSE_SECONDS, spawn_age)
+		enemy._clamp_to_world_bounds()
+	else:
+		enemy.velocity = Vector2.ZERO
 	active_enemies.append(enemy)
 	enemy.tree_exiting.connect(_on_enemy_tree_exiting.bind(enemy), CONNECT_ONE_SHOT)
 	enemy.died.connect(_on_enemy_died)
@@ -470,6 +513,15 @@ func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = 
 				killed
 			)
 		)
+
+func _get_portal_burst_overlap(portal: Node, delta: float) -> float:
+	var safe_delta := maxf(0.0, delta)
+	if portal.state == portal.State.BURST:
+		return minf(safe_delta, maxf(0.0, portal.burst_duration - portal.state_time))
+	if portal.state != portal.State.WARNING:
+		return 0.0
+	var warning_remaining := maxf(0.0, portal.warning_duration - portal.state_time)
+	return minf(maxf(0.0, safe_delta - warning_remaining), portal.burst_duration)
 
 func sample_clear_portal_enemy_position(portal_position: Vector2, body_radius: float) -> Vector2:
 	var spawn_bounds := world_bounds.grow(-body_radius) if world_bounds.size != Vector2.ZERO else Rect2()
@@ -611,26 +663,20 @@ func sample_spawn_position(
 	return farthest
 
 func sample_portal_position(player_position: Vector2, rng: RandomNumberGenerator) -> Vector2:
+	var target_distance := get_portal_spawn_distance()
 	if world_bounds.size == Vector2.ZERO:
-		return player_position + Vector2.RIGHT.rotated(rng.randf() * TAU) * PORTAL_MIN_SAFE_DISTANCE
+		return player_position + Vector2.RIGHT.rotated(rng.randf() * TAU) * target_distance
 	var playable := world_bounds.grow(-PORTAL_WORLD_MARGIN)
-	var maximum := playable.end - Vector2(0.001, 0.001)
 	for attempt in range(128):
-		var candidate := Vector2(
-			rng.randf_range(playable.position.x, maximum.x),
-			rng.randf_range(playable.position.y, maximum.y)
-		)
-		var distance := candidate.distance_to(player_position)
-		if distance >= PORTAL_MIN_SAFE_DISTANCE and distance <= PORTAL_MAX_SAFE_DISTANCE:
-			return candidate
-	# Keep a concrete margin beyond the contract minimum so a border fallback
-	# cannot lose the safety guarantee to floating-point rounding.
-	var fallback_distance := PORTAL_MIN_SAFE_DISTANCE + 1.0
-	for step in range(48):
-		var angle := TAU * float(step) / 48.0
-		var candidate := player_position + Vector2.RIGHT.rotated(angle) * fallback_distance
+		var candidate := player_position + Vector2.RIGHT.rotated(rng.randf() * TAU) * target_distance
 		if playable.has_point(candidate):
 			return candidate
+	for step in range(48):
+		var angle := TAU * float(step) / 48.0
+		var candidate := player_position + Vector2.RIGHT.rotated(angle) * target_distance
+		if playable.has_point(candidate):
+			return candidate
+	var maximum := playable.end - Vector2(0.001, 0.001)
 	var corners: Array[Vector2] = [
 		playable.position,
 		Vector2(maximum.x, playable.position.y),
@@ -642,6 +688,49 @@ func sample_portal_position(player_position: Vector2, rng: RandomNumberGenerator
 		if candidate.distance_squared_to(player_position) > farthest.distance_squared_to(player_position):
 			farthest = candidate
 	return farthest
+
+func get_portal_spawn_distance() -> float:
+	var viewport := get_viewport()
+	if viewport == null and is_inside_tree():
+		viewport = get_tree().root
+	var viewport_size := viewport.get_visible_rect().size if viewport != null else Vector2(1280.0, 720.0)
+	var camera := viewport.get_camera_2d() if viewport != null else null
+	var zoom := camera.zoom.abs() if camera != null else Vector2.ONE
+	var visible_size := Vector2(
+		viewport_size.x / maxf(zoom.x, 0.001),
+		viewport_size.y / maxf(zoom.y, 0.001)
+	)
+	return maxf(PORTAL_MIN_SAFE_DISTANCE, minf(visible_size.x, visible_size.y) * 0.5)
+
+func sample_portal_position_avoiding(
+	player_position: Vector2,
+	rng: RandomNumberGenerator,
+	occupied_positions: Array[Vector2]
+) -> Vector2:
+	for attempt in range(96):
+		var candidate := sample_portal_position(player_position, rng)
+		var separated := true
+		for occupied in occupied_positions:
+			if candidate.distance_to(occupied) < PORTAL_MIN_SEPARATION:
+				separated = false
+				break
+		if separated:
+			return candidate
+	var radius := get_portal_spawn_distance()
+	var phase := rng.randf() * TAU
+	for step in range(64):
+		var candidate := player_position + Vector2.RIGHT.rotated(phase + TAU * float(step) / 64.0) * radius
+		var playable := world_bounds.grow(-PORTAL_WORLD_MARGIN)
+		if world_bounds.size != Vector2.ZERO and not playable.has_point(candidate):
+			continue
+		var separated := true
+		for occupied in occupied_positions:
+			if candidate.distance_to(occupied) < PORTAL_MIN_SEPARATION:
+				separated = false
+				break
+		if separated:
+			return candidate
+	return sample_portal_position(player_position, rng)
 
 func _on_enemy_died(enemy: Node, coin_value: int, source: StringName) -> void:
 	if enemy.get_meta(&"kill_resolved", false):

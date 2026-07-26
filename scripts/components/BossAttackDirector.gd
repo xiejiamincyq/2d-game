@@ -7,9 +7,11 @@ signal combat_cue(cue: StringName)
 
 const BossProjectilePatternScript = preload("res://scripts/components/BossProjectilePattern.gd")
 
-const ENTRANCE_SECONDS := 1.1
+const ENTRANCE_SECONDS := 1.4
 const TRANSITION_SECONDS := 0.65
 const ATTACK_GAP_SECONDS := 0.35
+const MELEE_ZONE_MAX := 230.0
+const RANGED_ZONE_MIN := 310.0
 
 enum State { ENTRANCE, PHASE_1, TRANSITION_1, PHASE_2, TRANSITION_2, PHASE_3, DEATH }
 
@@ -24,6 +26,7 @@ var requested_phase := 1
 var state_elapsed := 0.0
 var attack_gap := 0.0
 var attack_index := 0
+var last_attack_class: StringName = &"none"
 
 func configure(owner: Node2D, target: Node2D, projectiles: Node, tentacle: Node, seed_value: int) -> void:
 	boss = owner
@@ -45,6 +48,15 @@ func advance(delta: float) -> void:
 		return
 	if is_instance_valid(boss):
 		pattern.global_position = boss.global_position
+	if (
+		state in [State.PHASE_1, State.PHASE_2, State.PHASE_3]
+		and is_instance_valid(boss)
+		and is_instance_valid(target_player)
+		and pattern.is_pattern_active()
+		and boss.global_position.distance_to(target_player.global_position) <= MELEE_ZONE_MAX
+	):
+		pattern.clear()
+		attack_gap = maxf(attack_gap, ATTACK_GAP_SECONDS)
 	pattern.advance(delta)
 	state_elapsed += delta
 	if state == State.ENTRANCE:
@@ -79,6 +91,9 @@ func get_pattern() -> Node2D:
 
 func get_state_name() -> String:
 	return State.keys()[state]
+
+func get_last_attack_class() -> StringName:
+	return last_attack_class
 
 func is_movement_locked() -> bool:
 	return state in [State.ENTRANCE, State.TRANSITION_1, State.TRANSITION_2, State.DEATH]
@@ -117,14 +132,24 @@ func _schedule_attack() -> void:
 		return
 	if pattern.is_pattern_active() or tentacle_attack.is_attacking():
 		return
-	var started := false
-	if current_phase == 1:
-		started = tentacle_attack.start_sweep(target_player.global_position) if attack_index % 2 == 0 else pattern.start_pattern(pattern.AIMED_FAN)
-	elif current_phase == 2:
-		started = tentacle_attack.start_slam(tentacle_attack.make_slam_targets(target_player.global_position, 3)) if attack_index % 2 == 0 else pattern.start_pattern(pattern.TWIN_SPIRAL)
-	elif current_phase == 3:
-		started = pattern.start_pattern(pattern.BROKEN_RING) if attack_index % 2 == 0 else tentacle_attack.start_sweep(target_player.global_position)
+	var distance := boss.global_position.distance_to(target_player.global_position) if is_instance_valid(boss) else INF
+	var choose_melee := distance <= MELEE_ZONE_MAX or (distance < RANGED_ZONE_MIN and attack_index % 2 == 0)
+	var started := _start_melee_attack() if choose_melee else _start_ranged_attack()
 	if started:
-		combat_cue.emit(&"boss_tentacle" if tentacle_attack.is_attacking() else &"boss_barrage")
+		last_attack_class = &"melee" if choose_melee else &"ranged"
+		combat_cue.emit(&"boss_tentacle" if choose_melee else &"boss_barrage")
 		attack_index += 1
 		attack_gap = ATTACK_GAP_SECONDS
+
+func _start_melee_attack() -> bool:
+	if current_phase == 2 or (current_phase == 3 and attack_index % 2 == 1):
+		var target_count := 3 if current_phase == 2 else 4
+		return tentacle_attack.start_slam(tentacle_attack.make_slam_targets(target_player.global_position, target_count))
+	return tentacle_attack.start_sweep(target_player.global_position)
+
+func _start_ranged_attack() -> bool:
+	if current_phase == 1:
+		return pattern.start_pattern(pattern.AIMED_FAN)
+	if current_phase == 2:
+		return pattern.start_pattern(pattern.TWIN_SPIRAL)
+	return pattern.start_pattern(pattern.BROKEN_RING if attack_index % 2 == 0 else pattern.TWIN_SPIRAL)

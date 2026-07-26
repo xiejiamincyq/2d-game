@@ -32,6 +32,15 @@ func _initialize() -> void:
 		return
 	if not _assert_true(ui.hud.get("xp_bar") == null and ui.hud.get("xp_value_label") == null, "HUD retained the removed XP progress controls"):
 		return
+	ui.set_collection_window(5.0, 5.0)
+	if not _assert_true(ui.hud.collection_panel.visible and ui.hud.collection_label.text.contains("5.0") and is_equal_approx(ui.hud.collection_bar.value, 5.0), "HUD did not show the five-second coin collection countdown"):
+		return
+	ui.set_collection_window(2.4, 5.0)
+	if not _assert_true(ui.hud.collection_label.text.contains("2.4") and is_equal_approx(ui.hud.collection_bar.value, 2.4), "collection countdown did not update smoothly"):
+		return
+	ui.set_collection_window(0.0, 5.0)
+	if not _assert_true(not ui.hud.collection_panel.visible, "collection countdown remained visible after the upgrade transition"):
+		return
 	var ui_font := ui.root.theme.default_font as SystemFont
 	if not _assert_true(ui_font != null, "shared UI theme does not provide the CJK system font"):
 		return

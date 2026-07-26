@@ -90,6 +90,7 @@ func _initialize() -> void:
 		return
 
 	var boss: Node = spawned_bosses[0]
+	boss.set_physics_process(false)
 	if not _assert_true(boss.get_script() == OverseerBossScript and boss.get_script() != EnemyScript, "Boss still used the generic Enemy implementation"):
 		return
 	if not _assert_true(is_equal_approx(float(boss.body_radius), 56.0), "Boss collision radius did not match the independent large-body contract"):
@@ -99,6 +100,11 @@ func _initialize() -> void:
 		return
 	if not _assert_true(not health_events.is_empty() and int(health_events[-1][2]) == 1, "Boss did not publish its initial health/phase contract"):
 		return
+	var entrance_health_events := health_events.size()
+	boss.take_damage(1.0, DamageTypes.PROJECTILE, Vector2.LEFT)
+	if not _assert_true(health_events.size() == entrance_health_events, "Boss took damage during its paused entrance reveal"):
+		return
+	boss._physics_process(boss.get_attack_director().ENTRANCE_SECONDS + 0.01)
 
 	director._process(director.BOSS_PORTAL_BURST_SECONDS + 0.01)
 	if not _assert_true(director.BOSS_TRICKLE_COUNT >= 18 and director.BOSS_TRICKLE_INTERVAL <= 4.7 and director.BOSS_TRICKLE_MINION_CAP >= 30, "Boss trickle did not triple its count, speed up its interval 1.5x, and raise its live-minion cap"):
@@ -162,6 +168,9 @@ func _initialize() -> void:
 	director._process(0.016)
 	if not _assert_true(defeated_count[0] == 1 and not is_instance_valid(director.get_active_boss()), "Boss cleanup did not resolve exactly once"):
 		return
+	if not _assert_true(finished_count[0] == 0 and director.collection_window_active, "Boss defeat skipped the final five-second collection window"):
+		return
+	director._process(director.COLLECTION_WINDOW_SECONDS)
 	if not _assert_true(finished_count[0] == 1 and director.waiting_for_advance and victory_count[0] == 0, "Boss cleanup did not gate the final clear banner before victory"):
 		return
 	if not _assert_true(event_order.slice(0, 3) == ["spawned", "defeated", "finished"], "Boss lifecycle events were emitted out of order: %s" % [event_order]):

@@ -59,6 +59,8 @@ var ranged_windup_duration := 0.5
 var ranged_windup_remaining := 0.0
 var ranged_target_position := Vector2.ZERO
 var boss_reinforcement_mask := 0
+var spawn_impulse_velocity := Vector2.ZERO
+var spawn_impulse_remaining := 0.0
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	kind = enemy_kind
@@ -137,6 +139,14 @@ func _ready() -> void:
 	add_child(shape)
 
 func _physics_process(delta: float) -> void:
+	if spawn_impulse_remaining > 0.0:
+		velocity = spawn_impulse_velocity
+		move_and_slide()
+		_clamp_to_world_bounds()
+		spawn_impulse_remaining = maxf(0.0, spawn_impulse_remaining - delta)
+		if is_zero_approx(spawn_impulse_remaining):
+			spawn_impulse_velocity = Vector2.ZERO
+		return
 	var player := get_target_player()
 	if player == null:
 		return
@@ -170,6 +180,13 @@ func _physics_process(delta: float) -> void:
 	if flash_timer > 0.0:
 		flash_timer = maxf(0.0, flash_timer - delta)
 		queue_redraw()
+
+func apply_spawn_impulse(initial_velocity: Vector2, duration: float, elapsed: float = 0.0) -> void:
+	var simulated_elapsed := clampf(elapsed, 0.0, maxf(0.0, duration))
+	global_position += initial_velocity * simulated_elapsed
+	spawn_impulse_velocity = initial_velocity
+	spawn_impulse_remaining = maxf(0.0, duration - simulated_elapsed)
+	velocity = initial_velocity if spawn_impulse_remaining > 0.0 else Vector2.ZERO
 
 func get_target_player() -> Node2D:
 	if is_instance_valid(target_player):
