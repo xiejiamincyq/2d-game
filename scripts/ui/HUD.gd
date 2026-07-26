@@ -94,6 +94,7 @@ func _build_hud() -> void:
 	audio_row.add_child(bgm_volume_slider)
 	pause_button = Button.new()
 	pause_button.text = "暂停"
+	pause_button.custom_minimum_size = Vector2(120, 44)
 	pause_button.focus_mode = Control.FOCUS_ALL
 	pause_button.pressed.connect(func() -> void: pause_requested.emit())
 	controls_box.add_child(audio_row)

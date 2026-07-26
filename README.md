@@ -48,11 +48,15 @@ powershell -ExecutionPolicy Bypass -File scripts/tests/run_tests.ps1
 ## 导出 Windows 版本
 
 1. 在 Godot 中选择 `Editor > Manage Export Templates`，安装与 Godot 4.7 匹配的导出模板。
-2. 选择 `Project > Export`。
-3. 点击 `Add...`，选择 `Windows Desktop`。
-4. 设置产品名称、图标和输出路径，例如 `build/windows/WastelandProtocol.exe`。
-5. 保持 `Embed PCK` 或使用默认的独立 `.pck` 均可；不要把本机调试路径写入导出配置。
-6. 点击 `Export Project`，然后在干净目录中启动导出的 `.exe` 做一次启动、暂停、升级和结算检查。
+2. 仓库已经提供 `Windows Desktop` 导出预设；选择 `Project > Export` 后直接检查输出路径即可，不要写入本机调试路径。
+3. 命令行发布前先运行数据包与主场景冒烟：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/tests/run_release_checks.ps1
+```
+
+4. 安装模板后可用 Godot UI 导出，或执行 `godot --headless --path . --export-release "Windows Desktop" build/windows/WastelandProtocol.exe`。
+5. 在干净目录中启动导出的 `.exe`，人工检查开始、暂停、升级、Boss 战和最终结算。
 
 ## 代码结构
 

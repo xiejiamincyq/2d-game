@@ -46,6 +46,22 @@ func _initialize() -> void:
 		return
 	if not _assert_true(ui_font.font_names.has("Microsoft YaHei UI") and ui_font.font_names.has("Noto Sans CJK SC"), "shared UI theme lost its Chinese font fallback chain"):
 		return
+	if not _assert_true(ui.root.theme.default_font_size >= 16, "shared UI theme body text fell below 16px"):
+		return
+	var dark_backdrop := Color(0.015, 0.025, 0.04)
+	var label_color: Color = ui.root.theme.get_color("font_color", "Label")
+	var button_color: Color = ui.root.theme.get_color("font_color", "Button")
+	var button_background := dark_backdrop
+	var button_style: StyleBox = ui.start_button.get_theme_stylebox("normal")
+	if button_style is StyleBoxFlat:
+		button_background = button_style.bg_color
+	if not _assert_true(_contrast_ratio(label_color, dark_backdrop) >= 4.5, "default label contrast fell below 4.5:1"):
+		return
+	if not _assert_true(_contrast_ratio(button_color, button_background) >= 4.5, "default button contrast fell below 4.5:1"):
+		return
+	for button in [ui.start_button, ui.continue_button, ui.hud.pause_button, ui.pause_screen.resume_button, ui.result_screen.restart_button, ui.settlement_screen.close_button]:
+		if not _assert_true(button.get_combined_minimum_size().y >= 44.0 and button.focus_mode == Control.FOCUS_ALL, "%s lost its 44px keyboard-focusable target" % button.name):
+			return
 
 	for size in [Vector2(960, 540), Vector2(1280, 720), Vector2(1920, 1080), Vector2(2560, 1080)]:
 		ui.apply_viewport_size(size)
@@ -57,11 +73,16 @@ func _initialize() -> void:
 		var hud_required: Vector2 = ui.hud.get_required_size()
 		var settlement_required: Vector2 = ui.settlement_screen.get_required_size()
 		var pause_required: Vector2 = ui.pause_screen.get_required_size()
+		if not _assert_true(ui.result_screen.has_method("get_required_size"), "result screen does not expose the shared viewport-size contract"):
+			return
+		var result_required: Vector2 = ui.result_screen.get_required_size()
 		if not _assert_true(hud_required.x <= size.x and hud_required.y <= size.y, "HUD minimum %s exceeded viewport %s" % [hud_required, size]):
 			return
 		if not _assert_true(settlement_required.x <= size.x and settlement_required.y <= size.y, "settlement minimum %s exceeded viewport %s" % [settlement_required, size]):
 			return
 		if not _assert_true(pause_required.x <= size.x and pause_required.y <= size.y, "pause minimum %s exceeded viewport %s" % [pause_required, size]):
+			return
+		if not _assert_true(result_required.x <= size.x and result_required.y <= size.y, "result minimum %s exceeded viewport %s" % [result_required, size]):
 			return
 
 	if not _assert_true(ui.settlement_screen.mouse_filter == Control.MOUSE_FILTER_STOP, "settlement overlay does not stop mouse input"):
@@ -116,3 +137,18 @@ func _initialize() -> void:
 	await process_frame
 	print("TEST PASS: UITest %d" % assertions)
 	quit(0)
+
+func _contrast_ratio(first: Color, second: Color) -> float:
+	var lighter := maxf(_relative_luminance(first), _relative_luminance(second))
+	var darker := minf(_relative_luminance(first), _relative_luminance(second))
+	return (lighter + 0.05) / (darker + 0.05)
+
+func _relative_luminance(color: Color) -> float:
+	return (
+		0.2126 * _linear_channel(color.r)
+		+ 0.7152 * _linear_channel(color.g)
+		+ 0.0722 * _linear_channel(color.b)
+	)
+
+func _linear_channel(value: float) -> float:
+	return value / 12.92 if value <= 0.04045 else pow((value + 0.055) / 1.055, 2.4)

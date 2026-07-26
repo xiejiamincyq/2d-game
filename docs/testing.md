@@ -76,9 +76,12 @@ HUD、升级面板、暂停面板和结算面板必须保持在视口内；升�
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/tests/run_tests.ps1
+powershell -ExecutionPolicy Bypass -File scripts/tests/run_release_checks.ps1
 git diff --check
 rg -n 'get_tree\(\)\.paused\s*=' scripts -g '*.gd'
 git status --short
 ```
 
 暂停赋值只能出现在 `scripts/Main.gd`。提交不得包含密钥、`.godot` 本地状态、临时输出或无关 `.superpowers/sdd` 文件。
+
+`run_release_checks.ps1` 使用版本化的 `Windows Desktop` 预设在系统临时目录生成 PCK，再从该 PCK 启动主场景 120 帧。它不需要导出模板；生成正式独立 EXE 前仍需安装与 Godot 4.7 完全匹配的官方模板。

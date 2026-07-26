@@ -34,6 +34,7 @@ func _ready() -> void:
 	box.add_child(result_label)
 	restart_button = Button.new()
 	restart_button.text = "重新开始"
+	restart_button.custom_minimum_size = Vector2(220, 48)
 	restart_button.focus_mode = Control.FOCUS_ALL
 	restart_button.pressed.connect(func() -> void: restart_requested.emit())
 	box.add_child(restart_button)
@@ -59,3 +60,6 @@ func hide_screen() -> void:
 
 func apply_viewport_size(viewport_size: Vector2) -> void:
 	panel.custom_minimum_size = Vector2(minf(520.0, viewport_size.x - 40.0), minf(340.0, viewport_size.y - 40.0))
+
+func get_required_size() -> Vector2:
+	return panel.get_combined_minimum_size() + Vector2(40, 40)
