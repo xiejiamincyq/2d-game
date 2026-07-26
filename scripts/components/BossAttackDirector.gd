@@ -35,6 +35,7 @@ func configure(owner: Node2D, target: Node2D, projectiles: Node, tentacle: Node,
 	add_child(pattern)
 	var bounds: Rect2 = boss.get("world_bounds")
 	pattern.configure(projectile_parent, bounds, target_player, boss.get_instance_id(), seed_value)
+	pattern.global_position = boss.global_position
 	pattern.set_process(false)
 	state = State.ENTRANCE
 	state_elapsed = 0.0
@@ -42,6 +43,8 @@ func configure(owner: Node2D, target: Node2D, projectiles: Node, tentacle: Node,
 func advance(delta: float) -> void:
 	if delta <= 0.0 or state == State.DEATH:
 		return
+	if is_instance_valid(boss):
+		pattern.global_position = boss.global_position
 	pattern.advance(delta)
 	state_elapsed += delta
 	if state == State.ENTRANCE:

@@ -35,11 +35,18 @@ func _initialize() -> void:
 	for viewport_size in [Vector2(960, 540), Vector2(1280, 720), Vector2(1920, 1080), Vector2(2560, 1080)]:
 		bar.apply_viewport_size(viewport_size)
 		await process_frame
-		if not _assert_true(bar.position.y == 18.0 and bar.size.y == 28.0, "Boss bar did not retain its top-safe 28px height at %s" % viewport_size):
+		if not _assert_true(bar.position.y == 76.0 and bar.size.y == 34.0, "Boss bar did not sit below the HUD at its 34px height at %s" % viewport_size):
 			return
-		if not _assert_true(bar.size.x >= viewport_size.x * 0.60 and bar.size.x <= viewport_size.x * 0.78, "Boss bar width %s did not stay inside the 60-78%% responsive range at %s" % [bar.size.x, viewport_size]):
+		var minimum_width: float = viewport_size.x * 0.72
+		var maximum_width: float = viewport_size.x * 0.90
+		if not _assert_true(bar.size.x >= minimum_width - 0.01 and bar.size.x <= maximum_width + 0.01, "Boss bar width %s did not stay inside the 72-90%% responsive range at %s" % [bar.size.x, viewport_size]):
 			return
-		if not _assert_true(bar.anchor_left == 0.5 and bar.anchor_right == 0.5 and bar.position.x == -bar.size.x * 0.5, "Boss bar was not centered inside viewport %s" % viewport_size):
+		if not _assert_true(bar.anchor_left == 0.5 and bar.anchor_right == 0.5 and is_equal_approx(bar.position.x, -bar.size.x * 0.5), "Boss bar was not centered inside viewport %s" % viewport_size):
+			return
+		if not _assert_true(bar.threshold_markers.size() == 2 and bar.threshold_markers[0].size.x >= 3.0 and bar.threshold_markers[0].size.y >= 12.0, "phase divider lines did not span the Boss bar fill height at %s" % viewport_size):
+			return
+		var expected_marker_x: float = 3.0 + (bar.size.x - 6.0) * 0.70 - 1.5
+		if not _assert_true(absf(bar.threshold_markers[0].position.x - expected_marker_x) < 1.0, "70% phase divider was not drawn at its fill ratio"):
 			return
 
 	bar.hide_boss()
@@ -60,7 +67,7 @@ func _initialize() -> void:
 		layout_hud.apply_viewport_size(viewport_size)
 		layout_boss.apply_viewport_size(viewport_size)
 		await process_frame
-		var restored_grid_top: float = layout_hud.grid.get_global_rect().position.y
+		var default_grid_top: float = layout_hud.grid.get_global_rect().position.y
 		layout_hud.set_boss_layout_active(true)
 		layout_boss.show_boss("深渊监工 / OVERSEER", 1000.0)
 		await process_frame
@@ -68,10 +75,12 @@ func _initialize() -> void:
 		var hud_grid_rect: Rect2 = layout_hud.grid.get_global_rect()
 		if not _assert_true(not boss_rect.intersects(hud_grid_rect), "Boss bar %s overlapped HUD grid %s at %s" % [boss_rect, hud_grid_rect, viewport_size]):
 			return
+		if not _assert_true(hud_grid_rect.position.y > default_grid_top, "HUD grid did not move below the enlarged Boss bar at %s" % viewport_size):
+			return
 		layout_hud.set_boss_layout_active(false)
 		layout_boss.hide_boss()
 		await process_frame
-		if not _assert_true(is_equal_approx(layout_hud.grid.get_global_rect().position.y, restored_grid_top), "HUD grid did not restore its top inset after Boss hide at %s" % viewport_size):
+		if not _assert_true(is_equal_approx(layout_hud.grid.get_global_rect().position.y, default_grid_top), "HUD grid did not restore its top inset after Boss hide at %s" % viewport_size):
 			return
 		layout_root.queue_free()
 		await process_frame

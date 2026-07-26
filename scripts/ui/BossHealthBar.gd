@@ -2,10 +2,10 @@ extends Control
 class_name BossHealthBar
 
 const BASE_WIDTH := 760.0
-const BAR_HEIGHT := 28.0
-const TOP_SAFE_OFFSET := 18.0
-const MIN_WIDTH_RATIO := 0.60
-const MAX_WIDTH_RATIO := 0.78
+const BAR_HEIGHT := 34.0
+const TOP_SAFE_OFFSET := 76.0
+const MIN_WIDTH_RATIO := 0.72
+const MAX_WIDTH_RATIO := 0.90
 const BACKGROUND_COLOR := Color("061019e8")
 const FILL_COLOR := Color("f559bf")
 const MARKER_COLOR := Color("ff571f")
@@ -113,8 +113,8 @@ func apply_viewport_size(viewport_size: Vector2) -> void:
 	position = Vector2(-size.x * 0.5, TOP_SAFE_OFFSET)
 	for marker_index in threshold_markers.size():
 		var marker := threshold_markers[marker_index]
-		marker.position = Vector2(3.0 + (size.x - 6.0) * thresholds[marker_index] - 1.0, 16.0)
-		marker.size = Vector2(2.0, BAR_HEIGHT - 19.0)
+		marker.position = Vector2(3.0 + (size.x - 6.0) * thresholds[marker_index] - 1.5, 16.0)
+		marker.size = Vector2(3.0, BAR_HEIGHT - 19.0)
 	queue_redraw()
 
 func show_boss(display_name: String, maximum_health: float) -> void:

@@ -19,7 +19,7 @@ func _initialize() -> void:
 	var director: Node = WaveDirectorScript.new()
 	root.add_child(director)
 	director.set_process(false)
-	if not _assert_true(director.waves.size() == 5, "phase table did not contain exactly five stages"):
+	if not _assert_true(director.waves.size() == 6, "phase table did not contain exactly six stages"):
 		return
 	for kind_name in ["MARKSMAN", "LOBBER", "OVERSEER"]:
 		if not _assert_true(EnemyScript.EnemyKind.has(kind_name), "enemy roster is missing %s" % kind_name):
@@ -53,8 +53,8 @@ func _initialize() -> void:
 		previous_stage_seconds = stage_seconds
 		estimated_combat_seconds += stage_seconds
 	total_enemy_count += 1 # Independent Boss, outside the regular spawn table.
-	var estimated_run_seconds := estimated_combat_seconds + OverseerBossScript.B1_PACING_PLACEHOLDER_SECONDS + 28.0 + 11.0
-	if not _assert_true(total_enemy_count == 649, "five-stage content budget changed without pacing review"):
+	var estimated_run_seconds := estimated_combat_seconds + OverseerBossScript.EXPECTED_STANDARD_TTK_SECONDS + 28.0 + 11.0
+	if not _assert_true(total_enemy_count == 517, "six-stage content budget changed without pacing review"):
 		return
 	if not _assert_true(estimated_run_seconds >= 270.0 and estimated_run_seconds <= 330.0, "standard-build duration budget %.1fs escaped 4:30-5:30" % estimated_run_seconds):
 		return

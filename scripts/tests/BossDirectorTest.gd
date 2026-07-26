@@ -49,6 +49,15 @@ func _initialize() -> void:
 	attack_director.advance(attack_director.ENTRANCE_SECONDS + 0.01)
 	if not _assert_true(attack_director.get_state_name() == "PHASE_1" and phases == [1], "entrance did not resolve into phase one"):
 		return
+	var anchor_pattern: Node2D = attack_director.get_pattern()
+	boss.global_position = Vector2(640.0, 512.0)
+	attack_director.advance(0.016)
+	if not _assert_true(anchor_pattern.global_position.distance_to(boss.global_position) < 0.01, "bullet pattern did not anchor to the Boss position"):
+		return
+	boss.global_position = Vector2(-420.0, 300.0)
+	attack_director.advance(0.016)
+	if not _assert_true(anchor_pattern.global_position.distance_to(boss.global_position) < 0.01, "bullet pattern did not follow the Boss after it moved"):
+		return
 
 	attack_director.get_pattern().start_pattern(attack_director.get_pattern().AIMED_FAN)
 	attack_director.get_pattern().advance(0.46)

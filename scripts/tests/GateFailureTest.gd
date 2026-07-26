@@ -19,7 +19,7 @@ func _initialize() -> void:
 	root.add_child(scene)
 	await process_frame
 	scene._start_run()
-	scene.ui.show_boss_health("深渊监工 / OVERSEER", 1000.0)
+	scene.ui.show_boss_health(null, "深渊监工 / OVERSEER", 1000.0)
 	if not _assert_true(scene.ui.boss_health_bar.visible, "fixture did not expose the Boss health bar before the failure gate"):
 		return
 	scene.wave_director.prepared_wave = false

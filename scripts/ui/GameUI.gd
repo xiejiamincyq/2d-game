@@ -198,7 +198,7 @@ func set_settlement_state(state: Dictionary) -> void:
 func set_wave(index: int, total: int, remaining: int) -> void:
 	hud.set_wave(index, total, remaining)
 
-func show_boss_health(display_name: String, maximum_health: float) -> void:
+func show_boss_health(_boss: Node, display_name: String, maximum_health: float) -> void:
 	boss_health_bar.show_boss(display_name, maximum_health)
 	hud.set_boss_layout_active(true)
 

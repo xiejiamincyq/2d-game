@@ -18,6 +18,7 @@ signal boss_spawned(boss: Node, display_name: String, maximum_health: float)
 signal boss_health_changed(current: float, maximum: float, phase: int)
 signal boss_defeated(boss: Node)
 signal boss_cue(cue: StringName)
+signal boss_entrance_warning(display_name: String)
 signal victory
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
@@ -35,6 +36,9 @@ const PORTAL_ENEMY_CLEARANCE := 5.0
 const BOSS_PORTAL_WARNING_SECONDS := 1.1
 const BOSS_PORTAL_BURST_SECONDS := 0.65
 const BOSS_PORTAL_SCALE := 1.8
+const BOSS_TRICKLE_INTERVAL := 4.6
+const BOSS_TRICKLE_COUNT := 18
+const BOSS_TRICKLE_MINION_CAP := 30
 
 var enemy_parent: Node
 var projectile_parent: Node
@@ -58,14 +62,16 @@ var active_boss: Node
 var boss_portal: Node
 var boss_entrance_started := false
 var boss_defeat_pending := false
+var boss_trickle_timer := 0.0
 var boss_defeated_for_wave := false
 
 var waves: Array[Dictionary] = [
-	{"scrapper": 54, "dasher": 12, "spitter": 4, "bruiser": 0, "marksman": 0, "lobber": 0, "overseer": 0, "rate": 0.13},
-	{"scrapper": 66, "dasher": 18, "spitter": 8, "bruiser": 2, "marksman": 4, "lobber": 0, "overseer": 0, "rate": 0.105},
-	{"scrapper": 76, "dasher": 26, "spitter": 12, "bruiser": 3, "marksman": 7, "lobber": 4, "overseer": 0, "rate": 0.085},
-	{"scrapper": 94, "dasher": 34, "spitter": 15, "bruiser": 5, "marksman": 10, "lobber": 8, "overseer": 0, "rate": 0.07},
-	{"scrapper": 104, "dasher": 38, "spitter": 16, "bruiser": 6, "marksman": 12, "lobber": 10, "overseer": 0, "rate": 0.055},
+	{"scrapper": 32, "dasher": 7, "spitter": 2, "bruiser": 0, "marksman": 0, "lobber": 0, "overseer": 0, "rate": 0.13},
+	{"scrapper": 40, "dasher": 11, "spitter": 5, "bruiser": 1, "marksman": 2, "lobber": 0, "overseer": 0, "rate": 0.105},
+	{"scrapper": 46, "dasher": 16, "spitter": 7, "bruiser": 2, "marksman": 4, "lobber": 2, "overseer": 0, "rate": 0.085},
+	{"scrapper": 56, "dasher": 20, "spitter": 9, "bruiser": 3, "marksman": 6, "lobber": 5, "overseer": 0, "rate": 0.07},
+	{"scrapper": 62, "dasher": 23, "spitter": 10, "bruiser": 4, "marksman": 7, "lobber": 6, "overseer": 0, "rate": 0.055},
+	{"scrapper": 70, "dasher": 26, "spitter": 12, "bruiser": 5, "marksman": 8, "lobber": 7, "overseer": 0, "rate": 0.05},
 ]
 
 func _ready() -> void:
@@ -114,6 +120,7 @@ func _process(delta: float) -> void:
 		_process_portal_attack(delta)
 		return
 	if is_instance_valid(active_boss):
+		_process_boss_trickle(delta)
 		return
 	if spawn_queue.is_empty():
 		if active_enemies.is_empty():
@@ -207,10 +214,27 @@ func _open_portals_for_queues(queues: Array[Array]) -> void:
 		portal.closed.connect(_on_portal_closed, CONNECT_ONE_SHOT)
 	_emit_wave_status()
 
-func _on_boss_reinforcements_requested(_boss: Node, count: int) -> void:
+func _process_boss_trickle(delta: float) -> void:
+	if boss_defeat_pending or boss_defeated_for_wave:
+		return
+	boss_trickle_timer = maxf(0.0, boss_trickle_timer - delta)
+	if boss_trickle_timer > 0.0:
+		return
+	boss_trickle_timer = BOSS_TRICKLE_INTERVAL
+	var minions := 0
+	for enemy in active_enemies:
+		if enemy != active_boss:
+			minions += 1
+	var remaining_capacity := BOSS_TRICKLE_MINION_CAP - minions
+	if remaining_capacity <= 0:
+		return
+	var trickle_count := mini(BOSS_TRICKLE_COUNT, remaining_capacity)
+	_on_boss_reinforcements_requested(active_boss, trickle_count, BOSS_TRICKLE_COUNT)
+
+func _on_boss_reinforcements_requested(_boss: Node, count: int, count_limit: int = 8) -> void:
 	if _boss != active_boss or boss_defeat_pending or boss_defeated_for_wave or count <= 0 or portal_parent == null or not is_instance_valid(player):
 		return
-	count = mini(count, 8)
+	count = mini(count, maxi(0, count_limit))
 	var portal_count := clampi(ceili(float(count) / 8.0), 2, 3)
 	var queues: Array[Array] = []
 	for index in range(portal_count):
@@ -281,6 +305,7 @@ func _begin_boss_entrance() -> bool:
 	portal.burst_started.connect(_on_boss_portal_burst, CONNECT_ONE_SHOT)
 	portal.closed.connect(_on_boss_portal_closed, CONNECT_ONE_SHOT)
 	boss_portal = portal
+	boss_entrance_warning.emit(OverseerBossScript.DISPLAY_NAME)
 	_emit_wave_status()
 	return true
 
@@ -312,6 +337,7 @@ func _spawn_boss_at(position: Vector2) -> Node:
 	boss.global_position = position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2(0.001, 0.001)) if spawn_bounds.size != Vector2.ZERO else position
 	boss.velocity = Vector2.ZERO
 	active_boss = boss
+	boss_trickle_timer = BOSS_TRICKLE_INTERVAL
 	active_enemies.append(boss)
 	boss.health_changed.connect(_on_boss_health_changed)
 	boss_spawned.emit(boss, OverseerBossScript.DISPLAY_NAME, float(boss.health.max_health))

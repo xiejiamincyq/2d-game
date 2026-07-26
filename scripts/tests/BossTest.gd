@@ -62,6 +62,8 @@ func _initialize() -> void:
 		victory_count[0] += 1
 		event_order.append("victory")
 	)
+	var entrance_warnings: Array[String] = []
+	director.boss_entrance_warning.connect(func(display_name: String) -> void: entrance_warnings.append(display_name))
 
 	var regular_enemy := Node2D.new()
 	enemies.add_child(regular_enemy)
@@ -75,6 +77,8 @@ func _initialize() -> void:
 
 	director._process(0.016)
 	if not _assert_true(director.boss_entrance_started and is_instance_valid(director.boss_portal), "final regular clear did not open the Boss entrance portal"):
+		return
+	if not _assert_true(entrance_warnings == [OverseerBossScript.DISPLAY_NAME], "Boss entrance did not broadcast its warning banner contract"):
 		return
 	if not _assert_true(director.boss_portal.scale.x >= 1.5 and spawned_bosses.is_empty(), "Boss portal was not visibly larger or spawned the Boss without warning"):
 		return
@@ -97,6 +101,52 @@ func _initialize() -> void:
 		return
 
 	director._process(director.BOSS_PORTAL_BURST_SECONDS + 0.01)
+	if not _assert_true(director.BOSS_TRICKLE_COUNT >= 18 and director.BOSS_TRICKLE_INTERVAL <= 4.7 and director.BOSS_TRICKLE_MINION_CAP >= 30, "Boss trickle did not triple its count, speed up its interval 1.5x, and raise its live-minion cap"):
+		return
+	var trickle_portal_count: int = director.active_portals.size()
+	director._process(director.BOSS_TRICKLE_INTERVAL + 0.01)
+	if not _assert_true(director.active_portals.size() > trickle_portal_count, "Boss fight did not trickle reinforcement portals on its interval"):
+		return
+	var queued_trickle_minions := 0
+	for queue in director.portal_spawn_queues.values():
+		queued_trickle_minions += queue.size()
+	if not _assert_true(queued_trickle_minions == director.BOSS_TRICKLE_COUNT, "Boss trickle queued %d minions instead of %d" % [queued_trickle_minions, director.BOSS_TRICKLE_COUNT]):
+		return
+	director._process(director.BOSS_TRICKLE_INTERVAL + 0.01)
+	var trickle_minions := 0
+	for enemy in director.active_enemies:
+		if enemy != boss:
+			trickle_minions += 1
+	if not _assert_true(trickle_minions > 0, "Boss trickle portals did not deploy any minions"):
+		return
+	var flush_guard := 0
+	while not director.active_portals.is_empty() and flush_guard < 8:
+		director._process(2.0)
+		flush_guard += 1
+	if not _assert_true(director.active_portals.is_empty(), "trickle portals did not drain before the cap probe"):
+		return
+	var fillers: Array[Node] = []
+	while director.active_enemies.size() - 1 < director.BOSS_TRICKLE_MINION_CAP:
+		var filler := Node2D.new()
+		enemies.add_child(filler)
+		director.active_enemies.append(filler)
+		fillers.append(filler)
+	var capped_portal_count: int = director.active_portals.size()
+	director._process(director.BOSS_TRICKLE_INTERVAL + 0.01)
+	if not _assert_true(director.active_portals.size() == capped_portal_count, "Boss trickle ignored its live-minion cap"):
+		return
+	for filler in fillers:
+		director.active_enemies.erase(filler)
+		filler.queue_free()
+	for trickle_enemy in director.active_enemies.duplicate():
+		if trickle_enemy != boss:
+			director.active_enemies.erase(trickle_enemy)
+			trickle_enemy.queue_free()
+	for leftover_portal in director.active_portals.duplicate():
+		director.portal_spawn_queues.erase(leftover_portal.get_instance_id())
+		director.active_portals.erase(leftover_portal)
+		leftover_portal.queue_free()
+	await process_frame
 	director._process(1.0)
 	if not _assert_true(spawned_bosses.size() == 1, "Boss entrance created duplicate Boss instances"):
 		return

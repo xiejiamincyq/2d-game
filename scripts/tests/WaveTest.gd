@@ -14,6 +14,21 @@ func _assert_true(condition: bool, message: String) -> bool:
 	return false
 
 func _initialize() -> void:
+	var wave_probe: Node = WaveDirectorScript.new()
+	var final_wave_index: int = wave_probe.waves.size() - 1
+	if not _assert_true(wave_probe.waves.size() == 6, "run did not gain a dedicated final stage before the Boss (got %d waves)" % wave_probe.waves.size()):
+		return
+	var final_budget := 0
+	var previous_budget := 0
+	for key in wave_probe.waves[final_wave_index].keys():
+		if key != "rate":
+			final_budget += int(wave_probe.waves[final_wave_index][key])
+	for key in wave_probe.waves[final_wave_index - 1].keys():
+		if key != "rate":
+			previous_budget += int(wave_probe.waves[final_wave_index - 1][key])
+	if not _assert_true(final_budget > previous_budget, "final stage budget %d did not exceed stage five %d" % [final_budget, previous_budget]):
+		return
+	wave_probe.free()
 	var spawn_counts: Array[int] = []
 	for hz in [30, 60, 120]:
 		var fixture := Node.new()

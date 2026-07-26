@@ -6,7 +6,7 @@ signal bgm_volume_changed(value: float)
 signal bgm_mute_changed(muted: bool)
 
 const DEFAULT_GRID_TOP_MARGIN := 12
-const BOSS_GRID_TOP_INSET := 54
+const BOSS_GRID_TOP_INSET := 122
 
 var grid_margin: MarginContainer
 var grid: GridContainer
