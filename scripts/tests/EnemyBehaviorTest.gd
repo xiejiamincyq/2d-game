@@ -3,6 +3,11 @@ extends SceneTree
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
 
+class StealthPlayer extends Node2D:
+	var stealth_active := true
+	func is_stealthed() -> bool:
+		return stealth_active
+
 var assertions := 0
 
 func _assert_true(condition: bool, message: String) -> bool:
@@ -34,6 +39,31 @@ func _initialize() -> void:
 	spitter.world_bounds = Rect2(-1400, -900, 2800, 1800)
 	fixture.add_child(spitter)
 	await process_frame
+	if not _assert_true(is_equal_approx(spitter.speed, 68.2), "Spitter base movement speed did not receive the global 10 percent increase"):
+		return
+
+	var bruiser: Node = EnemyScript.new()
+	bruiser.setup(EnemyScript.EnemyKind.BRUISER, 1, projectiles)
+	fixture.add_child(bruiser)
+	await process_frame
+	var bruiser_health_before: float = bruiser.health.current_health
+	bruiser.take_damage(30.0)
+	if not _assert_true(
+		is_equal_approx(bruiser.speed, 61.05)
+		and bruiser.get_health_ratio() < 1.0
+		and is_equal_approx(bruiser.get_health_ratio(), (bruiser_health_before - 30.0) / bruiser.health.max_health),
+		"Bruiser speed or live health-bar ratio did not update after damage"
+	):
+		return
+	var speed_before_burn: float = bruiser.speed
+	var health_before_burn: float = bruiser.health.current_health
+	bruiser.apply_burn(12.0, 4.0, 0.30)
+	if not _assert_true(is_equal_approx(bruiser.get_effective_move_speed(), speed_before_burn * 0.70), "purple fire did not slow a large enemy by 30 percent"):
+		return
+	bruiser._update_burn(1.0)
+	if not _assert_true(is_equal_approx(bruiser.health.current_health, health_before_burn - 12.0), "burn did not deal one second of configured attack damage"):
+		return
+	bruiser.queue_free()
 	await process_frame
 
 	var safe_rect: Rect2 = spitter.get_camera_safe_rect()
@@ -122,6 +152,15 @@ func _initialize() -> void:
 	fixture.add_child(directed_enemy)
 	if not _assert_true(directed_enemy.get_target_player() == player, "enemy pursuit selected a stale global player instead of its wave owner"):
 		return
+	var stealth_player := StealthPlayer.new()
+	fixture.add_child(stealth_player)
+	directed_enemy.target_player = stealth_player
+	if not _assert_true(directed_enemy.get_target_player() == null, "enemy continued targeting a stealthed player"):
+		return
+	stealth_player.stealth_active = false
+	if not _assert_true(directed_enemy.get_target_player() == stealth_player, "enemy did not reacquire the player after stealth ended"):
+		return
+	directed_enemy.target_player = player
 	var wave_enemy_count := spawned_enemies.get_child_count()
 	sampler._spawn_enemy(EnemyScript.EnemyKind.SCRAPPER)
 	var wave_directed_enemy: Node = spawned_enemies.get_child(wave_enemy_count)

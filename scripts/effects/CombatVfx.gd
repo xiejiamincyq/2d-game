@@ -5,6 +5,7 @@ const SPARK: StringName = &"spark"
 const DEBRIS: StringName = &"debris"
 const RING: StringName = &"ring"
 const AFTERIMAGE: StringName = &"afterimage"
+const BLAST: StringName = &"blast"
 
 const MAX_SPARKS: int = 96
 const MAX_DEBRIS: int = 48
@@ -55,6 +56,23 @@ func request_effect(
 				"radius": 8.0,
 				"growth": 90.0 + 45.0 * strength,
 			}, MAX_RINGS)
+		BLAST:
+			_append_bounded(_rings, {
+				"position": world_position,
+				"life": 0.28,
+				"max_life": 0.28,
+				"radius": 12.0,
+				"growth": 250.0 * strength,
+			}, MAX_RINGS)
+			for spark_index in range(8):
+				var spark_direction := Vector2.RIGHT.rotated(TAU * float(spark_index) / 8.0)
+				_append_bounded(_sparks, {
+					"position": world_position,
+					"velocity": spark_direction * (150.0 + 80.0 * strength),
+					"life": 0.18,
+					"max_life": 0.18,
+					"size": 10.0,
+				}, MAX_SPARKS)
 		AFTERIMAGE:
 			_append_bounded(_afterimages, {
 				"position": world_position,

@@ -28,7 +28,7 @@ const BASE_MAX_HEALTH := 10800.0
 const EXPECTED_STANDARD_TTK_SECONDS := 55.0
 const KEEP_DISTANCE_MIN := 260.0
 const KEEP_DISTANCE_MAX := 390.0
-const MOVE_SPEED := 58.0
+const MOVE_SPEED := 63.8
 const CAMERA_SAFE_MARGIN := 112.0
 
 var body_radius := BODY_RADIUS
@@ -45,6 +45,9 @@ var tentacle_attack: Node
 var attack_director: Node
 var entrance_progress := 0.0
 var entrance_resolved := false
+var burn_damage_per_second := 0.0
+var burn_remaining := 0.0
+var burn_slow_fraction := 0.0
 
 func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -103,7 +106,12 @@ func _ready() -> void:
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
+	_update_burn(delta)
+	if death_resolved:
+		return
+	var player := get_target_player()
 	if attack_director != null:
+		attack_director.set_target_hidden(player == null and entrance_resolved)
 		attack_director.advance(delta)
 	_update_entrance_reveal()
 	if flash_timer > 0.0:
@@ -112,12 +120,11 @@ func _physics_process(delta: float) -> void:
 	if attack_director != null and attack_director.is_movement_locked():
 		velocity = Vector2.ZERO
 		return
-	var player := get_target_player()
 	if player == null:
 		velocity = Vector2.ZERO
 		return
 	var direction := get_combat_movement_direction(player)
-	velocity = direction * MOVE_SPEED
+	velocity = direction * MOVE_SPEED * (1.0 - burn_slow_fraction if burn_remaining > 0.0 else 1.0)
 	move_and_slide()
 	_clamp_to_world_bounds()
 
@@ -179,9 +186,25 @@ func _update_entrance_reveal() -> void:
 		entrance_finished.emit()
 
 func get_target_player() -> Node2D:
-	if is_instance_valid(target_player):
-		return target_player
-	return get_tree().get_first_node_in_group(&"player") as Node2D
+	var target := target_player if is_instance_valid(target_player) else get_tree().get_first_node_in_group(&"player") as Node2D
+	if target != null and target.has_method("is_stealthed") and bool(target.call("is_stealthed")):
+		return null
+	return target
+
+func apply_burn(damage_per_second: float, duration: float, slow_fraction: float = 0.30) -> void:
+	burn_damage_per_second = maxf(burn_damage_per_second, damage_per_second)
+	burn_remaining = maxf(burn_remaining, duration)
+	burn_slow_fraction = maxf(burn_slow_fraction, clampf(slow_fraction, 0.0, 0.95))
+
+func _update_burn(delta: float) -> void:
+	if burn_remaining <= 0.0 or delta <= 0.0:
+		return
+	var active_time := minf(delta, burn_remaining)
+	burn_remaining = maxf(0.0, burn_remaining - delta)
+	take_damage(burn_damage_per_second * active_time, DamageTypes.DASH)
+	if burn_remaining <= 0.0:
+		burn_damage_per_second = 0.0
+		burn_slow_fraction = 0.0
 
 func take_damage(
 	amount: float,

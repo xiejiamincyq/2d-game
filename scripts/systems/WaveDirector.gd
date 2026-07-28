@@ -45,6 +45,7 @@ const BOSS_TRICKLE_INTERVAL := 4.6
 const BOSS_TRICKLE_COUNT := 18
 const BOSS_TRICKLE_MINION_CAP := 30
 const COLLECTION_WINDOW_SECONDS := 3.0
+const HEART_DROP_CHANCE := 0.05
 
 var enemy_parent: Node
 var projectile_parent: Node
@@ -507,14 +508,16 @@ func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = 
 		enemy.world_bounds = world_bounds
 	enemy.setup(kind, wave_index + 1, projectile_parent, player as Node2D)
 	var spawn_bounds := world_bounds.grow(-enemy.body_radius) if world_bounds.size != Vector2.ZERO else Rect2()
-	enemy_parent.add_child(enemy)
 	var spawn_position := position
 	if disperse_from_portal:
 		spawn_position = position
 	elif spawn_bounds.size != Vector2.ZERO:
 		spawn_position = position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2(0.001, 0.001))
-	# global_position only has world-space meaning after the enemy is parented.
-	enemy.global_position = spawn_position
+	# CharacterBody2D must enter the physics tree at its final spawn position.
+	# Moving it from the parent origin after add_child can resolve a transient
+	# overlap against the player and appear to teleport the player to the portal.
+	enemy.position = enemy_parent.to_local(spawn_position)
+	enemy_parent.add_child(enemy)
 	if disperse_from_portal:
 		var impulse_direction := Vector2.RIGHT.rotated(spawn_rng.randf() * TAU)
 		enemy.apply_spawn_impulse(impulse_direction * PORTAL_SPAWN_IMPULSE_SPEED, PORTAL_SPAWN_IMPULSE_SECONDS, spawn_age)
@@ -769,11 +772,15 @@ func _on_enemy_died(enemy: Node, coin_value: int, source: StringName) -> void:
 	enemy.set_meta(&"kill_resolved", true)
 	var death_position: Vector2 = enemy.global_position
 	var shield_value: float = enemy.shield_drop_value
+	var drops_heart := should_drop_heart(spawn_rng.randf())
 	enemy_killed.emit(enemy, source, coin_value)
-	call_deferred("_deferred_spawn_drops", death_position, coin_value, shield_value)
+	call_deferred("_deferred_spawn_drops", death_position, coin_value, shield_value, drops_heart)
 	_emit_wave_status()
 
-func _deferred_spawn_drops(position: Vector2, coin_value: int, shield_value: float) -> void:
+static func should_drop_heart(roll: float) -> bool:
+	return roll >= 0.0 and roll < HEART_DROP_CHANCE
+
+func _deferred_spawn_drops(position: Vector2, coin_value: int, shield_value: float, drops_heart: bool = false) -> void:
 	var owner := get_parent()
 	if not is_instance_valid(owner):
 		return
@@ -781,6 +788,8 @@ func _deferred_spawn_drops(position: Vector2, coin_value: int, shield_value: flo
 		owner.spawn_coins(position, coin_value)
 	if shield_value > 0.0 and owner.has_method("spawn_shield"):
 		owner.spawn_shield(position, shield_value)
+	if drops_heart and owner.has_method("spawn_heart"):
+		owner.spawn_heart(position, 20.0)
 
 func _on_enemy_tree_exiting(enemy: Node) -> void:
 	active_enemies.erase(enemy)

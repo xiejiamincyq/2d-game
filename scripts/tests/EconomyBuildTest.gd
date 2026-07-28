@@ -88,11 +88,10 @@ func _estimate_sustained_output(player: Node) -> float:
 	# At the Boss engagement distance, the center line lands reliably while
 	# each additional 7.5-degree side line connects about half the time.
 	var expected_line_hits: float = 1.0 + float(player.weapon_lines - 1) * 0.5
-	var projectile_output: float = player.weapon_damage * player.fire_rate * expected_line_hits * projectile_multiplier
-	if player.active_build_evolutions.has("orbital_storm"):
-		# The radial evolution fires in every direction; against one Boss-sized
-		# target, approximately one of the twelve projectiles connects per proc.
-		projectile_output += player.weapon_damage * player.fire_rate * 0.55 / 5.0 * projectile_multiplier
+	# Grenades trade 70% fire rate for 300% base damage. This assumes one
+	# explosion connects per projectile and excludes incidental splash targets.
+	var grenade_output_multiplier: float = 0.9 if player.active_build_evolutions.has("orbital_storm") else 1.0
+	var projectile_output: float = player.weapon_damage * player.fire_rate * expected_line_hits * projectile_multiplier * grenade_output_multiplier
 	var mobility_multiplier: float = player.get_effective_damage_multiplier(&"dash")
 	var mobility_output: float = player.dash_melee_damage / player.dash_cooldown * 0.75 * mobility_multiplier
 	if player.mine_level > 0:
@@ -102,6 +101,9 @@ func _estimate_sustained_output(player: Node) -> float:
 		var spike_ticks: float = 0.45 / player.spike_tick_interval
 		var radius_factor: float = clampf(player.spike_radius / 26.0, 1.0, 1.15)
 		mobility_output += player.spike_damage * spike_coverage * spike_ticks * radius_factor * mobility_multiplier
+	if player.active_build_evolutions.has("rift_overdrive"):
+		var burn_uptime: float = minf(1.0, 4.0 / maxf(0.01, player.dash_cooldown))
+		mobility_output += player.weapon_damage * burn_uptime * mobility_multiplier
 	var automation_multiplier: float = player.get_effective_damage_multiplier(&"laser")
 	var automation_output: float = player.drone_count * player.drone_damage * automation_multiplier
 	if player.arc_pulse_level > 0:
@@ -116,9 +118,8 @@ func _estimate_signature_share(player: Node, family_id: String, total_output: fl
 		"ballistics":
 			family_multiplier = player.get_effective_damage_multiplier(&"projectile")
 			var expected_line_hits: float = 1.0 + float(player.weapon_lines - 1) * 0.5
-			var signature_output: float = player.weapon_damage * player.fire_rate * expected_line_hits * family_multiplier
-			if player.active_build_evolutions.has("orbital_storm"):
-				signature_output += player.weapon_damage * player.fire_rate * 0.55 / 5.0 * family_multiplier
+			var grenade_multiplier: float = 0.9 if player.active_build_evolutions.has("orbital_storm") else 1.0
+			var signature_output: float = player.weapon_damage * player.fire_rate * expected_line_hits * family_multiplier * grenade_multiplier
 			return signature_output / total_output
 		"mobility":
 			if player.mine_level <= 0:
@@ -127,7 +128,10 @@ func _estimate_signature_share(player: Node, family_id: String, total_output: fl
 			var coverage: float = player.move_speed / player.spike_spacing
 			var ticks: float = 0.45 / player.spike_tick_interval
 			var reliability: float = clampf(player.spike_radius / 26.0, 1.0, 1.15)
-			return player.spike_damage * coverage * ticks * reliability * family_multiplier / total_output
+			var signature_output: float = player.spike_damage * coverage * ticks * reliability * family_multiplier
+			if player.active_build_evolutions.has("rift_overdrive"):
+				signature_output += player.weapon_damage * minf(1.0, 4.0 / maxf(0.01, player.dash_cooldown)) * family_multiplier
+			return signature_output / total_output
 		"automation":
 			if player.arc_pulse_level <= 0:
 				return 0.0

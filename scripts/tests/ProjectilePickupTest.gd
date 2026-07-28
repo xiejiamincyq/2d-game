@@ -5,6 +5,8 @@ const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
 const CoinPickupScript = preload("res://scripts/pickups/CoinPickup.gd")
 const ShieldPickupScript = preload("res://scripts/pickups/ShieldPickup.gd")
+const HeartPickupScript = preload("res://scripts/pickups/HeartPickup.gd")
+const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
@@ -33,8 +35,40 @@ func _initialize() -> void:
 	await process_frame
 	scene.ui.wave_banner.finish_message()
 	scene.wave_director.active = false
+	if not _assert_true(
+		WaveDirectorScript.should_drop_heart(0.049999) and not WaveDirectorScript.should_drop_heart(0.05),
+		"heart drop boundary was not exactly five percent"
+	):
+		return
+
+	var full_shield_pickup: Area2D = ShieldPickupScript.new()
+	var full_shield_collections := [0]
+	scene.player.shield = scene.player.max_shield
+	full_shield_pickup.collected.connect(func(_amount: float) -> void: full_shield_collections[0] += 1)
+	scene.pickups.add_child(full_shield_pickup)
+	full_shield_pickup._on_body_entered(scene.player)
+	if not _assert_true(full_shield_collections[0] == 0 and not full_shield_pickup.collected_once, "full shield player consumed a shield pickup"):
+		return
+	full_shield_pickup.queue_free()
+
+	var heart: Area2D = HeartPickupScript.new()
+	var heart_collections := [0]
+	heart.collected.connect(func(amount: float) -> void:
+		heart_collections[0] += 1
+		scene.player.heal(amount)
+	)
+	scene.pickups.add_child(heart)
+	heart._on_body_entered(scene.player)
+	if not _assert_true(heart_collections[0] == 0, "full-health player consumed a heart pickup"):
+		return
+	scene.player.health.current_health = 50.0
+	heart._on_body_entered(scene.player)
+	if not _assert_true(heart_collections[0] == 1 and is_equal_approx(scene.player.health.current_health, 70.0), "small heart did not restore exactly 20 health"):
+		return
+	scene.player.health.current_health = scene.player.health.max_health
 
 	var physical_shield_collections := [0]
+	scene.player.shield = 0.0
 	var physical_shield: Area2D = ShieldPickupScript.new()
 	physical_shield.global_position = scene.player.global_position
 	physical_shield.collected.connect(func(amount: float) -> void:

@@ -26,6 +26,7 @@ const ENEMY_PROJECTILE_BASE_SPEED := 260.0
 const MARKSMAN_PROJECTILE_SPEED_MULTIPLIER := 3.5
 const MARKSMAN_TELEGRAPH_SECONDS := 0.5
 const MARKSMAN_TELEGRAPH_LENGTH := 1400.0
+const BASE_MOVE_SPEED_MULTIPLIER := 1.10
 
 enum EnemyKind { SCRAPPER, DASHER, SPITTER, BRUISER, MARKSMAN, LOBBER, OVERSEER }
 enum FeedbackWeight { LIGHT, MEDIUM, HEAVY }
@@ -61,6 +62,9 @@ var ranged_target_position := Vector2.ZERO
 var boss_reinforcement_mask := 0
 var spawn_impulse_velocity := Vector2.ZERO
 var spawn_impulse_remaining := 0.0
+var burn_damage_per_second := 0.0
+var burn_remaining := 0.0
+var burn_slow_fraction := 0.0
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	kind = enemy_kind
@@ -129,6 +133,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 			shoot_cooldown = 2.4
 			ranged_windup_duration = 0.9
 			_add_health(1800.0 * scale_factor)
+	speed *= BASE_MOVE_SPEED_MULTIPLIER
 
 func _ready() -> void:
 	add_to_group("enemies")
@@ -139,6 +144,9 @@ func _ready() -> void:
 	add_child(shape)
 
 func _physics_process(delta: float) -> void:
+	_update_burn(delta)
+	if death_resolved:
+		return
 	if spawn_impulse_remaining > 0.0:
 		velocity = spawn_impulse_velocity
 		move_and_slide()
@@ -167,7 +175,7 @@ func _physics_process(delta: float) -> void:
 				flash_timer -= delta
 			queue_redraw()
 			return
-	velocity = desired * speed
+	velocity = desired * get_effective_move_speed()
 	move_and_slide()
 	_clamp_to_world_bounds()
 	match kind:
@@ -189,9 +197,28 @@ func apply_spawn_impulse(initial_velocity: Vector2, duration: float, elapsed: fl
 	velocity = initial_velocity if spawn_impulse_remaining > 0.0 else Vector2.ZERO
 
 func get_target_player() -> Node2D:
-	if is_instance_valid(target_player):
-		return target_player
-	return get_tree().get_first_node_in_group("player") as Node2D
+	var target := target_player if is_instance_valid(target_player) else get_tree().get_first_node_in_group("player") as Node2D
+	if target != null and target.has_method("is_stealthed") and bool(target.call("is_stealthed")):
+		return null
+	return target
+
+func get_effective_move_speed() -> float:
+	return speed * (1.0 - burn_slow_fraction if burn_remaining > 0.0 else 1.0)
+
+func apply_burn(damage_per_second: float, duration: float, slow_fraction: float = 0.30) -> void:
+	burn_damage_per_second = maxf(burn_damage_per_second, damage_per_second)
+	burn_remaining = maxf(burn_remaining, duration)
+	burn_slow_fraction = maxf(burn_slow_fraction, clampf(slow_fraction, 0.0, 0.95))
+
+func _update_burn(delta: float) -> void:
+	if burn_remaining <= 0.0 or delta <= 0.0:
+		return
+	var active_time := minf(delta, burn_remaining)
+	burn_remaining = maxf(0.0, burn_remaining - delta)
+	take_damage(burn_damage_per_second * active_time, DamageTypes.DASH)
+	if burn_remaining <= 0.0:
+		burn_damage_per_second = 0.0
+		burn_slow_fraction = 0.0
 
 func is_ranged_kind() -> bool:
 	return kind in [EnemyKind.SPITTER, EnemyKind.MARKSMAN, EnemyKind.LOBBER]
@@ -306,7 +333,13 @@ func _draw() -> void:
 		body_color = Color.WHITE
 	var size := body_radius * 1.7
 	draw_rect(Rect2(Vector2(-size * 0.5, -size * 0.5), Vector2(size, size)), body_color)
-	draw_rect(Rect2(-body_radius * 0.55, -body_radius - 3, body_radius * 1.1, 5), accent)
+	if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER]:
+		var bar_width := body_radius * 1.6
+		var bar_rect := Rect2(-bar_width * 0.5, -body_radius - 12.0, bar_width, 6.0)
+		draw_rect(bar_rect, Color("061019"))
+		draw_rect(Rect2(bar_rect.position + Vector2.ONE, Vector2((bar_width - 2.0) * get_health_ratio(), 4.0)), accent)
+	else:
+		draw_rect(Rect2(-body_radius * 0.55, -body_radius - 3, body_radius * 1.1, 5), accent)
 	draw_rect(Rect2(-body_radius - 2, -3, (body_radius + 2) * 2.0, 6), body_color.darkened(0.25))
 	if is_attacking:
 		var p := 1.0 - clampf(attack_timer / maxf(0.01, attack_windup), 0.0, 1.0)
@@ -363,6 +396,11 @@ func _add_health(max_health: float) -> void:
 
 func get_feedback_weight() -> int:
 	return feedback_weight
+
+func get_health_ratio() -> float:
+	if health == null or float(health.max_health) <= 0.0:
+		return 0.0
+	return clampf(float(health.current_health) / float(health.max_health), 0.0, 1.0)
 
 func _die(source: StringName) -> void:
 	if death_resolved:

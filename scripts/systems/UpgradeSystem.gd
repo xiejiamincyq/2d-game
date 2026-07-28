@@ -58,18 +58,19 @@ var upgrade_pool: Array[Dictionary] = [
 	{"id": "dash_impact", "label": "动能撞角", "description": "冲刺距离 +8%，冲刺伤害 +10%", "family": "mobility", "kind": "core", "max_rank": 4, "base_cost": 44},
 	{"id": "spike_resonance", "label": "地脉共振", "description": "地刺伤害 +8%、半径 +5、触发间隔 -10%", "family": "mobility", "kind": "support", "requires": "mine", "max_rank": 4, "base_cost": 30},
 
-	# Automation: six normal cards.
+	# Automation: seven normal cards.
 	{"id": "drone", "label": "无人机部署", "description": "无人机 +1，单机伤害 +3%", "family": "automation", "kind": "core", "max_rank": 4, "base_cost": 52},
 	{"id": "drone_damage", "label": "激光放大器", "description": "无人机激光伤害 +16%", "family": "automation", "kind": "core", "requires": "drone", "max_rank": 5, "base_cost": 34},
 	{"id": "arc", "label": "电弧启动器", "description": "首次解锁；后续强化伤害与半径", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 45},
-	{"id": "arc_capacitor", "label": "电弧电容", "description": "电弧伤害 +18%、半径 +18、蓄能 -6%", "family": "automation", "kind": "core", "requires": "arc", "max_rank": 5, "base_cost": 36},
-	{"id": "arc_relay", "label": "电弧继电器", "description": "电弧伤害 +10%、半径 +8、蓄能 -16%", "family": "automation", "kind": "support", "requires": "arc", "max_rank": 4, "base_cost": 30},
+	{"id": "arc_capacitor", "label": "电弧电容", "description": "电弧伤害 +14%、半径 +18、蓄能 -6%", "family": "automation", "kind": "core", "requires": "arc", "max_rank": 5, "base_cost": 36},
+	{"id": "arc_relay", "label": "电弧继电器", "description": "电弧伤害 +8%、半径 +8、蓄能 -16%", "family": "automation", "kind": "support", "requires": "arc", "max_rank": 4, "base_cost": 30},
 	{"id": "health", "label": "维修矩阵", "description": "最大生命 +20%，修复部分损伤", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 40},
+	{"id": "shield_capacity", "label": "护盾扩容", "description": "护盾上限 +20，并立即补满护盾", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 42},
 
 	# Evolutions are guaranteed candidates only after their family qualifies.
-	{"id": "orbital_storm", "label": "轨道风暴", "description": "终极进化：周期性发射环形副弹幕", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
-	{"id": "rift_overdrive", "label": "裂地超载", "description": "终极进化：冲刺铺设毁灭性地刺走廊", "family": "mobility", "kind": "evolution", "requires": "mine", "max_rank": 1, "base_cost": 120},
-	{"id": "thunder_matrix", "label": "雷网矩阵", "description": "终极进化：电弧覆盖全屏，无人机激光变为紫色且伤害翻倍", "family": "automation", "kind": "evolution", "requires": ["drone", "arc"], "max_rank": 1, "base_cost": 120},
+	{"id": "orbital_storm", "label": "榴弹协议", "description": "终极进化：射速与弹速 -70%，榴弹近敌爆炸造成 300% 小范围伤害", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
+	{"id": "rift_overdrive", "label": "顶级刺客", "description": "终极进化：冲刺后隐身加速，并留下减速燃烧的紫焰路径", "family": "mobility", "kind": "evolution", "requires": "mine", "max_rank": 1, "base_cost": 120},
+	{"id": "thunder_matrix", "label": "雷网矩阵", "description": "终极进化：电弧覆盖全屏但伤害 -30%，无人机激光变紫且伤害 +80%", "family": "automation", "kind": "evolution", "requires": ["drone", "arc"], "max_rank": 1, "base_cost": 120},
 ]
 
 func setup(target_player: Node) -> void:
@@ -431,14 +432,14 @@ func _apply_upgrade_effect(card_id: String) -> void:
 				player.arc_pulse_level = 1
 			else:
 				player.arc_pulse_level += 1
-				player.arc_damage *= 1.20
+				player.arc_damage *= 1.16
 				player.arc_radius += 14.0
 		"arc_capacitor":
-			player.arc_damage *= 1.18
+			player.arc_damage *= 1.14
 			player.arc_radius += 18.0
 			player.arc_base_interval = maxf(1.15, player.arc_base_interval * 0.94)
 		"arc_relay":
-			player.arc_damage *= 1.10
+			player.arc_damage *= 1.08
 			player.arc_radius += 8.0
 			player.arc_base_interval = maxf(1.15, player.arc_base_interval * 0.84)
 		"health":
@@ -447,6 +448,8 @@ func _apply_upgrade_effect(card_id: String) -> void:
 			var added_health := previous_max * 0.20
 			player.increase_max_health(added_health)
 			player.heal(added_health + missing_health * 0.20)
+		"shield_capacity":
+			player.increase_max_shield(20.0, true)
 		"orbital_storm", "rift_overdrive", "thunder_matrix":
 			if player.has_method("activate_build_evolution"):
 				player.call("activate_build_evolution", card_id)

@@ -40,8 +40,11 @@ func _draw() -> void:
 	]), Color(0.85, 1.0, 0.82), 2.0)
 
 func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("player"):
-		_try_collect()
+	if not body.is_in_group("player"):
+		return
+	if float(body.get("shield")) >= float(body.get("max_shield")):
+		return
+	_try_collect()
 
 func _try_collect() -> bool:
 	if collected_once:

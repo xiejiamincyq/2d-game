@@ -60,7 +60,14 @@ func _initialize() -> void:
 		var card: Dictionary = card_value
 		if String(card.get("kind", "")) != "evolution":
 			normal_counts[String(card.get("family", ""))] = int(normal_counts.get(String(card.get("family", "")), 0)) + 1
-	if not _assert_true(normal_counts == {"ballistics": 6, "mobility": 6, "automation": 6}, "catalog did not contain six balanced cards per family: %s" % [normal_counts]):
+	if not _assert_true(normal_counts == {"ballistics": 6, "mobility": 6, "automation": 7}, "catalog did not contain the expected cards per family: %s" % [normal_counts]):
+		return
+	player.shield = 3.0
+	upgrades._apply_card("shield_capacity")
+	if not _assert_true(
+		is_equal_approx(player.max_shield, 40.0) and is_equal_approx(player.shield, 40.0),
+		"shield capacity card did not add 20 maximum shield and refill it"
+	):
 		return
 	if not _assert_true(_find_catalog_entry(upgrades, "recovery_route").is_empty() and _find_catalog_entry(upgrades, "pickup").is_empty(), "pickup-range cards remained in the catalog"):
 		return

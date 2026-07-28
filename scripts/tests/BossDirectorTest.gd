@@ -5,6 +5,11 @@ const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const OverseerBossScript = preload("res://scripts/actors/OverseerBoss.gd")
 const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
 
+class StealthPlayer extends Node2D:
+	var stealth_active := false
+	func is_stealthed() -> bool:
+		return stealth_active
+
 var assertions := 0
 
 func _assert_true(condition: bool, message: String) -> bool:
@@ -18,7 +23,7 @@ func _assert_true(condition: bool, message: String) -> bool:
 func _initialize() -> void:
 	var fixture := Node2D.new()
 	root.add_child(fixture)
-	var player := Node2D.new()
+	var player := StealthPlayer.new()
 	var projectiles := Node2D.new()
 	var enemies := Node2D.new()
 	var portals := Node2D.new()
@@ -57,6 +62,17 @@ func _initialize() -> void:
 	if not _assert_true(attack_director.get_state_name() == "PHASE_1" and phases == [1], "entrance did not resolve into phase one"):
 		return
 	if not _assert_true(entrance_finished_count[0] == 1 and boss.process_mode == Node.PROCESS_MODE_PAUSABLE and boss.scale.is_equal_approx(Vector2.ONE) and is_equal_approx(boss.modulate.a, 1.0), "Boss reveal did not resume normal combat exactly once (count=%s mode=%s scale=%s alpha=%s)" % [entrance_finished_count[0], boss.process_mode, boss.scale, boss.modulate.a]):
+		return
+	if not _assert_true(is_equal_approx(OverseerBossScript.MOVE_SPEED, 63.8), "Boss did not receive the global 10 percent movement-speed increase"):
+		return
+	player.stealth_active = true
+	attack_director.attack_gap = 0.0
+	boss._physics_process(0.2)
+	if not _assert_true(attack_director.target_hidden and not boss.get_tentacle_attack().is_attacking() and not attack_director.get_pattern().is_pattern_active(), "Boss retained targeting while the player was invisible"):
+		return
+	player.stealth_active = false
+	boss._physics_process(0.01)
+	if not _assert_true(not attack_director.target_hidden, "Boss did not reacquire the player after invisibility ended"):
 		return
 	boss.global_position = player.global_position + Vector2(120.0, 0.0)
 	attack_director.attack_gap = 0.0

@@ -187,8 +187,18 @@ func _initialize() -> void:
 	transformed_director.projectile_parent = transformed_projectiles
 	transformed_director.wave_index = 0
 	var requested_spawn := Vector2(-320.0, 410.0)
+	var entered_tree_positions: Array[Vector2] = []
+	transformed_enemies.child_entered_tree.connect(func(child: Node) -> void:
+		entered_tree_positions.append((child as Node2D).global_position)
+	)
 	transformed_director._spawn_enemy_at(0, requested_spawn)
 	var transformed_enemy: Node2D = transformed_enemies.get_child(0)
+	if not _assert_true(
+		entered_tree_positions.size() == 1
+		and entered_tree_positions[0].distance_to(requested_spawn) <= 0.01,
+		"enemy entered the physics tree away from its portal: %s -> %s" % [entered_tree_positions[0] if not entered_tree_positions.is_empty() else Vector2.INF, requested_spawn]
+	):
+		return
 	if not _assert_true(
 		transformed_enemy.global_position.distance_to(requested_spawn) <= 0.01,
 		"enemy spawn world position drifted under a transformed parent: %s -> %s" % [requested_spawn, transformed_enemy.global_position]

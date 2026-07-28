@@ -7,6 +7,7 @@ const RunSnapshotStoreScript = preload("res://scripts/systems/RunSnapshotStore.g
 const GameUIScript = preload("res://scripts/ui/GameUI.gd")
 const CoinPickupScript = preload("res://scripts/pickups/CoinPickup.gd")
 const ShieldPickupScript = preload("res://scripts/pickups/ShieldPickup.gd")
+const HeartPickupScript = preload("res://scripts/pickups/HeartPickup.gd")
 const AudioManagerScript = preload("res://scripts/systems/AudioManager.gd")
 const WorldBoundaryScript = preload("res://scripts/world/WorldBoundary.gd")
 const CombatFeedbackScript = preload("res://scripts/systems/CombatFeedback.gd")
@@ -96,6 +97,17 @@ func spawn_shield(position: Vector2, value: float = 9.0) -> void:
 		if player != null and player.has_method("add_shield"):
 			player.add_shield(amount)
 			audio.play("pickup")
+	)
+
+func spawn_heart(position: Vector2, value: float = 20.0) -> void:
+	var heart := HeartPickupScript.new()
+	heart.global_position = position
+	heart.value = value
+	pickups.add_child(heart)
+	heart.collected.connect(func(amount: float) -> void:
+		if player != null and player.has_method("heal"):
+			player.heal(amount)
+			audio.play("heart")
 	)
 
 func _update_random_shield_drop(delta: float) -> void:
@@ -218,6 +230,11 @@ func _begin_run(snapshot: Dictionary) -> void:
 		projectile.process_mode = Node.PROCESS_MODE_PAUSABLE
 		projectile.world_bounds = WORLD_BOUNDS
 		projectiles.add_child(projectile)
+		if projectile.has_signal("exploded"):
+			projectile.exploded.connect(func(position: Vector2, _radius: float) -> void:
+				audio.play("explosion")
+				combat_vfx.request_effect(&"blast", position, Vector2.UP, 1.4)
+			)
 		audio.play_shot()
 	)
 	player.laser_active_changed.connect(audio.set_laser_active)

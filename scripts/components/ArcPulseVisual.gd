@@ -1,13 +1,13 @@
 extends Node2D
 class_name ArcPulseVisual
 
-const BASE_LIFETIME: float = 0.42
+const BASE_EXPANSION_SPEED: float = 340.0
 const START_RADIUS: float = 18.0
 const HIT_HALF_WIDTH: float = 6.0
 const MINIMUM_DAMAGE_MULTIPLIER: float = 0.25
 
 var max_radius: float = 160.0
-var lifetime: float = BASE_LIFETIME
+var lifetime: float = 0.42
 var age: float = 0.0
 var tint: Color = Color(0.18, 1.0, 0.95)
 var damage: float = 0.0
@@ -15,20 +15,25 @@ var damage_source: StringName = &"arc"
 var enemy_provider: Callable
 var expansion_speed_scale: float = 1.0
 var hit_enemy_ids: Dictionary = {}
+var follow_target: Node2D
 
 func setup(
 	radius: float,
 	pulse_damage: float = 0.0,
 	provider: Callable = Callable(),
-	speed_scale: float = 1.0
+	speed_scale: float = 1.0,
+	target: Node2D = null
 ) -> void:
 	max_radius = radius
 	damage = maxf(0.0, pulse_damage)
 	enemy_provider = provider
 	expansion_speed_scale = maxf(0.01, speed_scale)
-	lifetime = BASE_LIFETIME / expansion_speed_scale
+	follow_target = target
+	lifetime = maxf(0.01, (max_radius - START_RADIUS) / get_expansion_speed())
 
 func _process(delta: float) -> void:
+	if is_instance_valid(follow_target):
+		global_position = follow_target.global_position
 	var previous_radius := get_current_radius()
 	age += delta
 	var current_radius := get_current_radius()
@@ -38,8 +43,10 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func get_current_radius() -> float:
-	var progress := clampf(age / maxf(0.01, lifetime), 0.0, 1.0)
-	return lerpf(START_RADIUS, max_radius, progress)
+	return minf(max_radius, START_RADIUS + age * get_expansion_speed())
+
+func get_expansion_speed() -> float:
+	return BASE_EXPANSION_SPEED * expansion_speed_scale
 
 func _damage_crossed_enemies(previous_radius: float, current_radius: float) -> void:
 	if damage <= 0.0 or not enemy_provider.is_valid():

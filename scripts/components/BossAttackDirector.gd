@@ -29,6 +29,7 @@ var attack_gap := 0.0
 var attack_index := 0
 var last_attack_class: StringName = &"none"
 var waiting_for_attack_completion := false
+var target_hidden := false
 
 func configure(owner: Node2D, target: Node2D, projectiles: Node, tentacle: Node, seed_value: int) -> void:
 	boss = owner
@@ -50,6 +51,8 @@ func advance(delta: float) -> void:
 		return
 	if is_instance_valid(boss):
 		pattern.global_position = boss.global_position
+	if target_hidden and state in [State.PHASE_1, State.PHASE_2, State.PHASE_3]:
+		return
 	if (
 		state in [State.PHASE_1, State.PHASE_2, State.PHASE_3]
 		and is_instance_valid(boss)
@@ -80,6 +83,14 @@ func set_health_phase(health_phase: int) -> void:
 	requested_phase = maxi(requested_phase, clampi(health_phase, 1, 3))
 	if current_phase > 0 and requested_phase > current_phase and (state == State.PHASE_1 or state == State.PHASE_2 or state == State.PHASE_3):
 		_start_next_transition()
+
+func set_target_hidden(hidden: bool) -> void:
+	if target_hidden == hidden:
+		return
+	target_hidden = hidden
+	if hidden:
+		_cancel_active_attacks()
+		attack_gap = maxf(attack_gap, ATTACK_RECOVERY_SECONDS)
 
 func shutdown() -> void:
 	if state == State.DEATH:

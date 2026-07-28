@@ -13,6 +13,14 @@ class ArcTarget extends Node2D:
 		damage_received += amount
 		return true
 
+class BurnTarget extends ArcTarget:
+	var burn_applications := 0
+	var burn_dps := 0.0
+
+	func apply_burn(damage_per_second: float, _duration: float, _slow: float) -> void:
+		burn_applications += 1
+		burn_dps = damage_per_second
+
 var assertions := 0
 
 func _assert_true(condition: bool, message: String) -> bool:
@@ -32,8 +40,10 @@ func _initialize() -> void:
 	player.shield = 20.0
 	player.arc_pulse_level = 1
 	if not _assert_true(
-		is_equal_approx(player.arc_damage, 17.0)
-		and is_equal_approx(player.get_arc_pulse_damage(), 23.0)
+		is_equal_approx(player.arc_damage, 20.4)
+		and is_equal_approx(player.get_arc_pulse_damage(), 25.8)
+		and is_equal_approx(player.drone_damage, 28.8)
+		and is_equal_approx(player.max_shield, 20.0)
 		and is_equal_approx(player.spike_spacing, 96.0)
 		and is_equal_approx(player.get_arc_pulse_expansion_speed_scale(), 0.5),
 		"base arc damage, spike density, or global arc expansion speed did not match the phase 17 contract"
@@ -244,38 +254,64 @@ func _initialize() -> void:
 		return
 	player._reset_spike_path()
 	player.global_position = Vector2.ZERO
-	player._update_spike_path(false)
+	player._update_spike_path()
 	var walking_spike: Node = spawned_attacks.get_child(spawned_attacks.get_child_count() - 1)
 	player.global_position = Vector2(player.spike_spacing * 1.1, 0.0)
-	player._update_spike_path(true)
-	var rift_dash_spike: Node = spawned_attacks.get_child(spawned_attacks.get_child_count() - 1)
 	if not _assert_true(
-		not walking_spike.rift_variant
-		and walking_spike.damage_source == DamageTypes.SPIKE
+		walking_spike.damage_source == DamageTypes.SPIKE
 		and is_equal_approx(walking_spike.damage, player.spike_damage),
 		"walking after the mobility evolution no longer produced the original spike"
 	):
 		return
+	player.dash_cooldown_remaining = 0.0
+	player._start_dash(Vector2.RIGHT)
+	player._update_dash(player.dash_duration)
 	if not _assert_true(
-		rift_dash_spike.rift_variant
-		and rift_dash_spike.damage_source == DamageTypes.DASH
-		and is_equal_approx(rift_dash_spike.damage, player.spike_damage * 3.0)
-		and rift_dash_spike.get_primary_color().get_luminance() < 0.08,
-		"mobility-evolution dash did not produce a visible black triple-damage spike"
+		player.is_stealthed()
+		and is_equal_approx(player.get_effective_move_speed(), player.move_speed * 1.3)
+		and spawned_attacks.get_children().any(func(child: Node) -> bool: return child.get_script() == player.FlameTrailScript),
+		"top assassin dash did not create a purple flame path and three-second speed stealth"
 	):
 		return
 
 	var shots_before_storm := spawned_shots.size()
 	if not _assert_true(player.activate_build_evolution("orbital_storm"), "orbital evolution was rejected"):
 		return
-	for volley in range(5):
-		player._fire()
+	var grenade_rate: float = player.get_effective_fire_rate()
+	player._fire()
 	var storm_shot_count := spawned_shots.size() - shots_before_storm
 	if not _assert_true(
-		storm_shot_count == player.weapon_lines * 5 + 12,
-		"orbital evolution spawned %d shots instead of five volleys plus 12 radial shots" % storm_shot_count
+		storm_shot_count == player.weapon_lines
+		and is_equal_approx(grenade_rate, player.fire_rate * 0.3)
+		and spawned_shots[-1].get_script() == player.GrenadeProjectileScript
+		and is_equal_approx(spawned_shots[-1].velocity.length(), player.projectile_speed * 0.3)
+		and is_equal_approx(spawned_shots[-1].damage, player.weapon_damage * 3.0),
+		"ballistics evolution did not replace each shot with a 30%-rate/30%-speed/300%-damage grenade"
 	):
 		return
+	var grenade: Node = spawned_shots[-1]
+	var blast_near := ArcTarget.new()
+	var blast_edge := ArcTarget.new()
+	var blast_far := ArcTarget.new()
+	blast_near.global_position = Vector2(10.0, 0.0)
+	blast_edge.global_position = Vector2(80.0, 0.0)
+	blast_far.global_position = Vector2(100.0, 0.0)
+	for blast_target in [blast_near, blast_edge, blast_far]:
+		root.add_child(blast_target)
+	var blast_targets: Array[Node] = [blast_near, blast_edge, blast_far]
+	grenade.global_position = Vector2.ZERO
+	grenade.enemy_provider = func() -> Array[Node]: return blast_targets
+	var expected_blast_damage: float = grenade.get_resolved_damage()
+	grenade._explode()
+	if not _assert_true(
+		is_equal_approx(blast_near.damage_received, expected_blast_damage)
+		and is_equal_approx(blast_edge.damage_received, expected_blast_damage)
+		and is_zero_approx(blast_far.damage_received),
+		"grenade explosion did not apply one 300%-base-damage hit inside its small radius"
+	):
+		return
+	for blast_target in blast_targets:
+		blast_target.queue_free()
 
 	player.drone_count = 1
 	player.arc_pulse_level = 1
@@ -285,13 +321,30 @@ func _initialize() -> void:
 		return
 	if not _assert_true(
 		player.drone_count == drones_before_matrix
-		and is_equal_approx(player.drone_damage, drone_damage_before_matrix * 2.0)
+		and is_equal_approx(player.drone_damage, drone_damage_before_matrix * 1.8)
 		and player.get_arc_pulse_radius() >= player.get_viewport_rect().size.length()
 		and is_equal_approx(player.get_arc_pulse_expansion_speed_scale(), 0.5)
 		and player.get_drone_laser_color().is_equal_approx(Color("b45cff")),
 		"thunder evolution changed drone count or lost its full-screen, slow arc and purple laser contract"
 	):
 		return
+	if not _assert_true(
+		is_equal_approx(player.get_arc_pulse_damage(), (player.arc_damage + player.arc_pulse_level * player.ARC_DAMAGE_PER_LEVEL) * 0.70),
+		"thunder matrix did not reduce its full-screen arc result by 30 percent"
+	):
+		return
+
+	var burn_target := BurnTarget.new()
+	root.add_child(burn_target)
+	player._update_drone_burn_lock(0, burn_target, 0.3)
+	player._update_drone_burn_lock(0, burn_target, 0.31)
+	player._update_drone_burn_lock(0, burn_target, 1.0)
+	if not _assert_true(
+		burn_target.burn_applications == 1 and burn_target.burn_dps > 0.0,
+		"one drone did not apply exactly one burn after maintaining its target for 0.6 seconds"
+	):
+		return
+	burn_target.queue_free()
 
 	var near_target := ArcTarget.new()
 	var far_target := ArcTarget.new()
@@ -303,28 +356,42 @@ func _initialize() -> void:
 	var wave: Node = ArcPulseScript.new()
 	root.add_child(wave)
 	wave.set_process(false)
-	wave.setup(100.0, 25.0, func() -> Array[Node]: return arc_targets, 0.3)
+	var moving_center := Node2D.new()
+	root.add_child(moving_center)
+	wave.setup(100.0, 25.0, func() -> Array[Node]: return arc_targets, 0.3, moving_center)
+	var larger_wave: Node = ArcPulseScript.new()
+	root.add_child(larger_wave)
+	larger_wave.set_process(false)
+	larger_wave.setup(240.0, 0.0, Callable(), 0.3)
 	if not _assert_true(
-		is_equal_approx(wave.lifetime, 0.42 / 0.3)
+		is_equal_approx(wave.get_expansion_speed(), 102.0)
+		and is_equal_approx(larger_wave.get_expansion_speed(), wave.get_expansion_speed())
+		and larger_wave.lifetime > wave.lifetime
+		and is_equal_approx(wave.lifetime, 82.0 / 102.0)
 		and near_target.hit_count == 0
 		and far_target.hit_count == 0,
 		"slow arc wave damaged enemies instantly or used the wrong expansion duration"
 	):
 		return
+	moving_center.global_position = Vector2(4.0, 0.0)
 	wave._process(0.10)
 	if not _assert_true(near_target.hit_count == 1 and far_target.hit_count == 0, "arc wavefront did not damage only the enemy it reached"):
 		return
-	wave._process(1.10)
+	if not _assert_true(wave.global_position.is_equal_approx(moving_center.global_position), "arc wave stopped following the player during expansion"):
+		return
+	wave._process(0.65)
 	wave._process(0.05)
 	if not _assert_true(
 		near_target.hit_count == 1
 		and far_target.hit_count == 1
-		and is_equal_approx(near_target.damage_received, 20.5)
-		and is_equal_approx(far_target.damage_received, 8.5),
+		and is_equal_approx(near_target.damage_received, 21.25)
+		and is_equal_approx(far_target.damage_received, 9.25),
 		"one arc wave did not apply exactly one distance-decayed hit per touched enemy"
 	):
 		return
 	wave.queue_free()
+	larger_wave.queue_free()
+	moving_center.queue_free()
 	near_target.queue_free()
 	far_target.queue_free()
 
