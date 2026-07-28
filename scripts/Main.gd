@@ -187,6 +187,8 @@ func _begin_run(snapshot: Dictionary) -> void:
 	player.global_position = Vector2.ZERO
 	player.projectile_parent = projectiles
 	player.world_bounds = WORLD_BOUNDS
+	player.begin_spawn_input_guard()
+	player.set_physics_process(false)
 	world.add_child(player)
 	var camera := Camera2D.new()
 	camera.name = "PlayerCamera"
@@ -244,10 +246,8 @@ func _begin_run(snapshot: Dictionary) -> void:
 			snapshot_store.clear_snapshot()
 			_restart_run()
 			return
-		player.global_position = player.global_position.clamp(
-			WORLD_BOUNDS.position + Vector2(13, 13),
-			WORLD_BOUNDS.end - Vector2(13, 13)
-		)
+		var player_margin: Vector2 = Vector2.ONE * float(player.get_body_radius())
+		player.global_position = player.global_position.clamp(WORLD_BOUNDS.position + player_margin, WORLD_BOUNDS.end - player_margin)
 	ui.settlement_offer_selected.connect(_on_settlement_offer_selected)
 	ui.settlement_close_requested.connect(_on_settlement_close_requested)
 	ui.wave_banner_finished.connect(_on_wave_banner_finished)
@@ -481,6 +481,8 @@ func _transition_to(next_state: RunState) -> bool:
 		_reset_combat_feedback()
 	run_state = next_state
 	manual_paused = run_state == RunState.PAUSED
+	if player != null:
+		player.set_physics_process(run_state == RunState.PLAYING)
 	get_tree().paused = run_state in [
 		RunState.WAVE_INTRO,
 		RunState.BOSS_INTRO,
@@ -511,6 +513,7 @@ func _transition_to(next_state: RunState) -> bool:
 		RunState.RESULT:
 			ui.hide_settlement()
 			ui.hide_manual_pause()
+	ui.set_aim_reticle_visible(run_state == RunState.PLAYING)
 	return true
 
 func get_world_bounds() -> Rect2:
@@ -534,7 +537,8 @@ func _update_combo(delta: float) -> void:
 
 func _enforce_world_bounds() -> void:
 	if player != null:
-		player.global_position = player.global_position.clamp(WORLD_BOUNDS.position + Vector2(13, 13), WORLD_BOUNDS.end - Vector2(13, 13))
+		var player_margin: Vector2 = Vector2.ONE * float(player.get_body_radius())
+		player.global_position = player.global_position.clamp(WORLD_BOUNDS.position + player_margin, WORLD_BOUNDS.end - player_margin)
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		var enemy_node := enemy as Node2D
 		if enemy_node == null:

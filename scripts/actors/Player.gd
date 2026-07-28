@@ -31,7 +31,12 @@ const OVERDRIVE_ARC_FREQUENCY_MULTIPLIER: float = 1.5
 const BASE_DRONE_LASER_WIDTH: float = 4.0
 const BASE_DRONE_LASER_COLOR := Color(0.2, 1.0, 0.95)
 const THUNDER_MATRIX_LASER_COLOR := Color("b45cff")
-const THUNDER_MATRIX_ARC_EXPANSION_SPEED_SCALE: float = 0.3
+const ARC_EXPANSION_SPEED_SCALE: float = 0.5
+const ARC_DAMAGE_PER_LEVEL: float = 6.0
+const PLAYER_SIZE_SCALE: float = 1.3
+const BASE_BODY_RADIUS: float = 13.0
+const BODY_RADIUS: float = BASE_BODY_RADIUS * PLAYER_SIZE_SCALE
+const PROJECTILE_SPAWN_OFFSET: float = 25.0 * PLAYER_SIZE_SCALE
 const MAX_WEAPON_LINES: int = 8
 const MAX_FIRE_RATE_MULTIPLIER: float = 4.0
 const FAMILY_DAMAGE_PER_LEVEL: float = 1.05
@@ -50,13 +55,13 @@ var drone_count: int = 0
 var drone_damage: float = 24.0
 var drone_fire_interval: float = 0.28
 var arc_pulse_level: int = 0
-var arc_damage: float = 34.0
+var arc_damage: float = 17.0
 var arc_radius: float = 140.0
 var arc_base_interval: float = 1.85
 var mine_level: int = 0
 var spike_damage: float = 10.0
 var spike_duration: float = 5.0
-var spike_spacing: float = 48.0
+var spike_spacing: float = 96.0
 var spike_radius: float = 26.0
 var spike_tick_interval: float = 0.32
 var dash_distance: float = 165.0
@@ -96,12 +101,14 @@ var build_family_levels: Dictionary = {
 var active_build_evolutions: Dictionary = {}
 var fire_volley_count: int = 0
 var overdrive_active: bool = false
+var spawn_input_guard_active: bool = false
 
 func _ready() -> void:
 	add_to_group("player")
 	var shape := CollisionShape2D.new()
+	shape.name = "PlayerCollision"
 	var circle := CircleShape2D.new()
-	circle.radius = 13.0
+	circle.radius = BODY_RADIUS
 	shape.shape = circle
 	add_child(shape)
 	health = HealthComponentScript.new()
@@ -113,12 +120,17 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	gun_angle = (get_global_mouse_position() - global_position).angle()
 	dash_cooldown_remaining = maxf(0.0, dash_cooldown_remaining - delta)
-	if not dash_active and Input.is_action_just_pressed("dash_melee"):
+	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var wants_dash := Input.is_action_just_pressed("dash_melee")
+	var controls_were_guarded := spawn_input_guard_active
+	input_vector = _filter_spawn_movement_input(input_vector, Input.is_action_pressed("dash_melee"))
+	if controls_were_guarded:
+		wants_dash = false
+	if not dash_active and wants_dash:
 		_start_dash((get_global_mouse_position() - global_position).normalized())
 	if dash_active:
 		_update_dash(delta)
 	else:
-		var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		_update_movement(input_vector)
 	_update_fire(delta, Input.is_action_pressed("fire"))
 	_update_passives(delta)
@@ -129,6 +141,21 @@ func _update_movement(input_vector: Vector2) -> void:
 	move_and_slide()
 	_clamp_to_world_bounds()
 
+func begin_spawn_input_guard() -> void:
+	spawn_input_guard_active = true
+	velocity = Vector2.ZERO
+	dash_active = false
+
+func _filter_spawn_movement_input(input_vector: Vector2, dash_pressed: bool) -> Vector2:
+	if not spawn_input_guard_active:
+		return input_vector
+	if input_vector == Vector2.ZERO and not dash_pressed:
+		spawn_input_guard_active = false
+	return Vector2.ZERO
+
+func get_body_radius() -> float:
+	return BODY_RADIUS
+
 func get_effective_move_speed() -> float:
 	return move_speed * (OVERDRIVE_MOVE_SPEED_MULTIPLIER if overdrive_active else 1.0)
 
@@ -136,12 +163,13 @@ func get_effective_dash_cooldown() -> float:
 	return dash_cooldown * (OVERDRIVE_DASH_COOLDOWN_MULTIPLIER if overdrive_active else 1.0)
 
 func _draw() -> void:
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE * PLAYER_SIZE_SCALE)
 	draw_rect(Rect2(-10, -14, 20, 28), Color(0.1, 0.85, 0.95))
 	draw_rect(Rect2(-7, -18, 14, 7), Color(0.96, 0.92, 0.55))
 	draw_rect(Rect2(-14, -6, 28, 8), Color(0.05, 0.28, 0.34))
 	draw_rect(Rect2(-7, 8, 5, 10), Color(0.06, 0.08, 0.1))
 	draw_rect(Rect2(2, 8, 5, 10), Color(0.06, 0.08, 0.1))
-	draw_set_transform(Vector2.ZERO, gun_angle, Vector2.ONE)
+	draw_set_transform(Vector2.ZERO, gun_angle, Vector2.ONE * PLAYER_SIZE_SCALE)
 	draw_rect(Rect2(8, -3, 22, 6), Color(1.0, 0.32, 0.12))
 	draw_rect(Rect2(25, -2, 8, 4), Color(0.75, 1.0, 1.0))
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
@@ -390,7 +418,7 @@ func _update_fire(delta: float, wants_fire: bool) -> int:
 
 func _spawn_bullet(direction: Vector2, damage_scale: float = 1.0) -> void:
 	var shot := ProjectileScript.new()
-	shot.global_position = global_position + direction * 25.0
+	shot.global_position = global_position + direction * PROJECTILE_SPAWN_OFFSET
 	shot.velocity = direction * projectile_speed
 	shot.damage = weapon_damage * maxf(0.0, damage_scale)
 	shot.damage_multiplier_provider = Callable(
@@ -553,10 +581,10 @@ func get_arc_pulse_radius() -> float:
 	return radius
 
 func get_arc_pulse_damage() -> float:
-	return arc_damage + arc_pulse_level * 12.0
+	return arc_damage + arc_pulse_level * ARC_DAMAGE_PER_LEVEL
 
 func get_arc_pulse_expansion_speed_scale() -> float:
-	return THUNDER_MATRIX_ARC_EXPANSION_SPEED_SCALE if active_build_evolutions.has("thunder_matrix") else 1.0
+	return ARC_EXPANSION_SPEED_SCALE
 
 func _drop_spike_trap() -> void:
 	var trap := SpikeTrapScript.new()
@@ -707,5 +735,5 @@ func _get_enemies() -> Array[Node]:
 func _clamp_to_world_bounds() -> void:
 	if world_bounds.size == Vector2.ZERO:
 		return
-	var playable := world_bounds.grow(-13.0)
+	var playable := world_bounds.grow(-BODY_RADIUS)
 	global_position = global_position.clamp(playable.position, playable.end)

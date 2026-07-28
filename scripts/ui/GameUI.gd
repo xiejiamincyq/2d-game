@@ -18,6 +18,7 @@ const ResultScene = preload("res://scenes/ui/ResultScreen.tscn")
 const WaveBannerScene = preload("res://scenes/ui/WaveBanner.tscn")
 const BossHealthBarScript = preload("res://scripts/ui/BossHealthBar.gd")
 const BossEntranceOverlayScript = preload("res://scripts/ui/BossEntranceOverlay.gd")
+const AimReticleScript = preload("res://scripts/ui/AimReticle.gd")
 const CyberTheme = preload("res://themes/CyberTheme.tres")
 
 var root: Control
@@ -28,6 +29,7 @@ var result_screen: Control
 var wave_banner: Control
 var boss_health_bar: Control
 var boss_entrance_overlay: Control
+var aim_reticle: Control
 var start_backdrop: ColorRect
 var start_panel: PanelContainer
 var start_button: Button
@@ -70,6 +72,7 @@ func _ready() -> void:
 	wave_banner = WaveBannerScene.instantiate()
 	boss_health_bar = BossHealthBarScript.new()
 	boss_entrance_overlay = BossEntranceOverlayScript.new()
+	aim_reticle = AimReticleScript.new()
 	root.add_child(hud)
 	root.add_child(pause_screen)
 	root.add_child(settlement_screen)
@@ -77,6 +80,7 @@ func _ready() -> void:
 	root.add_child(wave_banner)
 	root.add_child(boss_health_bar)
 	root.add_child(boss_entrance_overlay)
+	root.add_child(aim_reticle)
 	_build_start_screen()
 	_connect_components()
 	_bind_compatibility_references()
@@ -280,3 +284,13 @@ func hide_start_screen() -> void:
 	hud.visible = true
 	start_backdrop.visible = false
 	start_panel.visible = false
+
+func set_aim_reticle_visible(active: bool) -> void:
+	if aim_reticle != null and aim_reticle.has_method("set_active"):
+		aim_reticle.call("set_active", active)
+	if DisplayServer.get_name() != "headless":
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN if active else Input.MOUSE_MODE_VISIBLE
+
+func _exit_tree() -> void:
+	if DisplayServer.get_name() != "headless":
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

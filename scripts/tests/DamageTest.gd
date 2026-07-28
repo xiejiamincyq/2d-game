@@ -30,6 +30,16 @@ func _initialize() -> void:
 	player.set_physics_process(false)
 	player.health.set_process(false)
 	player.shield = 20.0
+	player.arc_pulse_level = 1
+	if not _assert_true(
+		is_equal_approx(player.arc_damage, 17.0)
+		and is_equal_approx(player.get_arc_pulse_damage(), 23.0)
+		and is_equal_approx(player.spike_spacing, 96.0)
+		and is_equal_approx(player.get_arc_pulse_expansion_speed_scale(), 0.5),
+		"base arc damage, spike density, or global arc expansion speed did not match the phase 17 contract"
+	):
+		return
+	player.arc_pulse_level = 0
 
 	var accepted: Array[Variant] = []
 	accepted.append(player.take_damage(8.0))
@@ -135,6 +145,8 @@ func _initialize() -> void:
 	player.set_overdrive_active(false)
 	player._spawn_bullet(Vector2.RIGHT)
 	var persistent_shot: Node = spawned_shots[0]
+	if not _assert_true(is_equal_approx(persistent_shot.global_position.x, 32.5), "projectile muzzle offset did not follow the 30% larger player visual"):
+		return
 	player.set_overdrive_active(true)
 	if not _assert_true(
 		is_equal_approx(persistent_shot.get_resolved_damage(), 12.0),
@@ -275,7 +287,7 @@ func _initialize() -> void:
 		player.drone_count == drones_before_matrix
 		and is_equal_approx(player.drone_damage, drone_damage_before_matrix * 2.0)
 		and player.get_arc_pulse_radius() >= player.get_viewport_rect().size.length()
-		and is_equal_approx(player.get_arc_pulse_expansion_speed_scale(), 0.3)
+		and is_equal_approx(player.get_arc_pulse_expansion_speed_scale(), 0.5)
 		and player.get_drone_laser_color().is_equal_approx(Color("b45cff")),
 		"thunder evolution changed drone count or lost its full-screen, slow arc and purple laser contract"
 	):
@@ -307,9 +319,9 @@ func _initialize() -> void:
 	if not _assert_true(
 		near_target.hit_count == 1
 		and far_target.hit_count == 1
-		and is_equal_approx(near_target.damage_received, 25.0)
-		and is_equal_approx(far_target.damage_received, 25.0),
-		"one arc wave did not apply exactly one hit per touched enemy"
+		and is_equal_approx(near_target.damage_received, 20.5)
+		and is_equal_approx(far_target.damage_received, 8.5),
+		"one arc wave did not apply exactly one distance-decayed hit per touched enemy"
 	):
 		return
 	wave.queue_free()

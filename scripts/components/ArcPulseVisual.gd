@@ -4,6 +4,7 @@ class_name ArcPulseVisual
 const BASE_LIFETIME: float = 0.42
 const START_RADIUS: float = 18.0
 const HIT_HALF_WIDTH: float = 6.0
+const MINIMUM_DAMAGE_MULTIPLIER: float = 0.25
 
 var max_radius: float = 160.0
 var lifetime: float = BASE_LIFETIME
@@ -60,7 +61,11 @@ func _damage_crossed_enemies(previous_radius: float, current_radius: float) -> v
 			continue
 		hit_enemy_ids[enemy_id] = true
 		var hit_direction := (enemy.global_position - global_position).normalized()
-		enemy.take_damage(damage, damage_source, hit_direction)
+		enemy.take_damage(damage * get_damage_multiplier_at_distance(distance), damage_source, hit_direction)
+
+func get_damage_multiplier_at_distance(distance: float) -> float:
+	var normalized_distance := clampf(distance / maxf(1.0, max_radius), 0.0, 1.0)
+	return lerpf(1.0, MINIMUM_DAMAGE_MULTIPLIER, normalized_distance)
 
 func _draw() -> void:
 	var p := clampf(age / lifetime, 0.0, 1.0)

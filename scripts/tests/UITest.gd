@@ -18,6 +18,24 @@ func _initialize() -> void:
 	await process_frame
 	if not _assert_true(ui.get("hud") != null, "GameUI did not instantiate a HUD component"):
 		return
+	var aim_reticle := ui.get("aim_reticle") as Control
+	if not _assert_true(
+		aim_reticle != null
+		and aim_reticle.mouse_filter == Control.MOUSE_FILTER_IGNORE
+		and aim_reticle.size.x >= 48.0
+		and aim_reticle.size.y >= 48.0,
+		"GameUI did not provide a conspicuous mouse-transparent aim reticle"
+	):
+		return
+	aim_reticle.call("set_screen_position", Vector2(320.0, 180.0))
+	if not _assert_true(aim_reticle.get_rect().get_center().distance_to(Vector2(320.0, 180.0)) <= 0.01, "aim reticle was not centered on the mouse position"):
+		return
+	ui.set_aim_reticle_visible(true)
+	if not _assert_true(aim_reticle.visible, "aim reticle did not become visible for gameplay"):
+		return
+	ui.set_aim_reticle_visible(false)
+	if not _assert_true(not aim_reticle.visible, "aim reticle remained visible over a modal screen"):
+		return
 	if not _assert_true(ui.get("settlement_screen") != null and ui.get("pause_screen") != null and ui.get("result_screen") != null, "GameUI did not instantiate focused modal screens"):
 		return
 	if not _assert_true(ui.continue_button != null and not ui.continue_button.visible, "Continue button did not start hidden"):
