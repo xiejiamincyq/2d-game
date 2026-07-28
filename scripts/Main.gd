@@ -493,6 +493,11 @@ func _transition_to(next_state: RunState) -> bool:
 	]
 	match run_state:
 		RunState.PLAYING:
+			var camera := player.get_node_or_null("PlayerCamera") as Camera2D if player != null else null
+			if camera != null:
+				# A restored/spawned player may have moved while the camera was
+				# paused. Do not animate that setup correction as player movement.
+				camera.reset_smoothing()
 			ui.hide_start_screen()
 			ui.hide_settlement()
 			ui.hide_manual_pause()

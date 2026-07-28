@@ -2,6 +2,7 @@ extends SceneTree
 
 const MainScript = preload("res://scripts/Main.gd")
 const PlayerScript = preload("res://scripts/actors/Player.gd")
+const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
@@ -64,6 +65,36 @@ func _initialize() -> void:
 		player.queue_free()
 		await process_frame
 
+	var overlap_player: Node = PlayerScript.new()
+	overlap_player.world_bounds = Rect2(-1000.0, -1000.0, 2000.0, 2000.0)
+	root.add_child(overlap_player)
+	await process_frame
+	overlap_player.set_physics_process(false)
+	var overlapping_enemy: Node = EnemyScript.new()
+	overlapping_enemy.setup(EnemyScript.EnemyKind.SCRAPPER, 1, root, overlap_player)
+	root.add_child(overlapping_enemy)
+	overlapping_enemy.set_physics_process(false)
+	overlapping_enemy.global_position = Vector2(10.0, 0.0)
+	await physics_frame
+	var overlap_spawn_position: Vector2 = overlap_player.global_position
+	overlap_player._update_movement(Vector2.ZERO)
+	if not _assert_true(
+		overlap_player.global_position == overlap_spawn_position,
+		"zero-input collision recovery displaced the player from its spawn position"
+	):
+		return
+	var health_before_contact: float = overlap_player.health.current_health
+	overlapping_enemy._update_melee_attack(0.0, overlap_player, 10.0)
+	overlapping_enemy._update_melee_attack(overlapping_enemy.attack_windup, overlap_player, 10.0)
+	if not _assert_true(
+		overlap_player.health.current_health < health_before_contact,
+		"collision isolation disabled explicit enemy contact damage"
+	):
+		return
+	overlapping_enemy.queue_free()
+	overlap_player.queue_free()
+	await process_frame
+
 	var scene: Node = MainScript.new()
 	root.add_child(scene)
 	await process_frame
@@ -84,6 +115,15 @@ func _initialize() -> void:
 	if not _assert_true(scene.player.global_position.x > 0.0, "spawn input guard did not release after a neutral movement frame"):
 		return
 	var camera: Camera2D = scene.player.get_node("PlayerCamera")
+	scene._transition_to(scene.RunState.PAUSED)
+	scene.player.global_position = Vector2(420.0, -180.0)
+	scene._transition_to(scene.RunState.PLAYING)
+	await physics_frame
+	if not _assert_true(
+		camera.get_screen_center_position().distance_to(scene.player.global_position) <= 0.5,
+		"camera smoothing made the player appear to move after a restored spawn"
+	):
+		return
 	if not _assert_true(camera.position_smoothing_enabled, "recommended camera profile disabled smoothing"):
 		return
 	if not _assert_true(
