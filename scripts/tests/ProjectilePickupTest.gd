@@ -34,6 +34,38 @@ func _initialize() -> void:
 	scene.ui.wave_banner.finish_message()
 	scene.wave_director.active = false
 
+	var physical_shield_collections := [0]
+	var physical_shield: Area2D = ShieldPickupScript.new()
+	physical_shield.global_position = scene.player.global_position
+	physical_shield.collected.connect(func(amount: float) -> void:
+		physical_shield_collections[0] += 1
+		scene.player.add_shield(amount)
+	)
+	scene.pickups.add_child(physical_shield)
+	await physics_frame
+	await physics_frame
+	if not _assert_true(
+		physical_shield_collections[0] == 1 and scene.player.shield > 0.0,
+		"player collision body did not physically collect a shield pickup"
+	):
+		return
+
+	scene.player.shield = 0.0
+	scene.player.health.invulnerable_time = 0.0
+	var health_before_physical_projectile: float = scene.player.health.current_health
+	var physical_hostile_projectile: Area2D = ProjectileScript.new()
+	physical_hostile_projectile.damage = 3.0
+	physical_hostile_projectile.target_group = &"player"
+	physical_hostile_projectile.global_position = scene.player.global_position
+	scene.projectiles.add_child(physical_hostile_projectile)
+	await physics_frame
+	await physics_frame
+	if not _assert_true(
+		scene.player.health.current_health < health_before_physical_projectile,
+		"hostile projectile did not physically collide with the player"
+	):
+		return
+
 	var acceleration_coin: Area2D = CoinPickupScript.new()
 	acceleration_coin.global_position = scene.player.global_position + Vector2(640.0, 0.0)
 	scene.pickups.add_child(acceleration_coin)

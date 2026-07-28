@@ -37,8 +37,6 @@ const PLAYER_SIZE_SCALE: float = 1.3
 const BASE_BODY_RADIUS: float = 13.0
 const BODY_RADIUS: float = BASE_BODY_RADIUS * PLAYER_SIZE_SCALE
 const PROJECTILE_SPAWN_OFFSET: float = 25.0 * PLAYER_SIZE_SCALE
-const PLAYER_COLLISION_LAYER: int = 2
-const PLAYER_COLLISION_MASK: int = 0
 const MAX_WEAPON_LINES: int = 8
 const MAX_FIRE_RATE_MULTIPLIER: float = 4.0
 const FAMILY_DAMAGE_PER_LEVEL: float = 1.05
@@ -107,11 +105,6 @@ var spawn_input_guard_active: bool = false
 
 func _ready() -> void:
 	add_to_group("player")
-	# Enemy contact damage is resolved explicitly by attack distance. Keeping the
-	# player out of body collision prevents CharacterBody recovery from shoving
-	# an idle player when a newly spawned or charging enemy overlaps them.
-	collision_layer = PLAYER_COLLISION_LAYER
-	collision_mask = PLAYER_COLLISION_MASK
 	var shape := CollisionShape2D.new()
 	shape.name = "PlayerCollision"
 	var circle := CircleShape2D.new()

@@ -3,6 +3,7 @@ extends SceneTree
 const MainScript = preload("res://scripts/Main.gd")
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
+const OverseerBossScript = preload("res://scripts/actors/OverseerBoss.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
@@ -65,36 +66,6 @@ func _initialize() -> void:
 		player.queue_free()
 		await process_frame
 
-	var overlap_player: Node = PlayerScript.new()
-	overlap_player.world_bounds = Rect2(-1000.0, -1000.0, 2000.0, 2000.0)
-	root.add_child(overlap_player)
-	await process_frame
-	overlap_player.set_physics_process(false)
-	var overlapping_enemy: Node = EnemyScript.new()
-	overlapping_enemy.setup(EnemyScript.EnemyKind.SCRAPPER, 1, root, overlap_player)
-	root.add_child(overlapping_enemy)
-	overlapping_enemy.set_physics_process(false)
-	overlapping_enemy.global_position = Vector2(10.0, 0.0)
-	await physics_frame
-	var overlap_spawn_position: Vector2 = overlap_player.global_position
-	overlap_player._update_movement(Vector2.ZERO)
-	if not _assert_true(
-		overlap_player.global_position == overlap_spawn_position,
-		"zero-input collision recovery displaced the player from its spawn position"
-	):
-		return
-	var health_before_contact: float = overlap_player.health.current_health
-	overlapping_enemy._update_melee_attack(0.0, overlap_player, 10.0)
-	overlapping_enemy._update_melee_attack(overlapping_enemy.attack_windup, overlap_player, 10.0)
-	if not _assert_true(
-		overlap_player.health.current_health < health_before_contact,
-		"collision isolation disabled explicit enemy contact damage"
-	):
-		return
-	overlapping_enemy.queue_free()
-	overlap_player.queue_free()
-	await process_frame
-
 	var scene: Node = MainScript.new()
 	root.add_child(scene)
 	await process_frame
@@ -114,6 +85,51 @@ func _initialize() -> void:
 	Input.action_release("move_right")
 	if not _assert_true(scene.player.global_position.x > 0.0, "spawn input guard did not release after a neutral movement frame"):
 		return
+	scene.wave_director.active = false
+	scene.player.global_position = Vector2.ZERO
+	scene.player.velocity = Vector2.ZERO
+	var blocking_enemy: Node = EnemyScript.new()
+	blocking_enemy.setup(EnemyScript.EnemyKind.SCRAPPER, 1, scene.projectiles, scene.player)
+	scene.enemies.add_child(blocking_enemy)
+	blocking_enemy.set_physics_process(false)
+	blocking_enemy.global_position = Vector2(50.0, 0.0)
+	await physics_frame
+	if not _assert_true(
+		scene.player.test_move(scene.player.global_transform, Vector2.RIGHT * 100.0),
+		"physics space did not register the enemy body in the player's movement path"
+	):
+		return
+	var enemy_collision: KinematicCollision2D = scene.player.move_and_collide(
+		Vector2.RIGHT * 100.0,
+		true
+	)
+	if not _assert_true(
+		enemy_collision != null and enemy_collision.get_collider() == blocking_enemy,
+		"player movement path was not physically blocked by the enemy body"
+	):
+		return
+	blocking_enemy.queue_free()
+	await process_frame
+	scene.player.global_position = Vector2.ZERO
+	scene.player.velocity = Vector2.ZERO
+	var blocking_boss: Node = OverseerBossScript.new()
+	blocking_boss.setup(6, scene.projectiles, scene.player)
+	scene.enemies.add_child(blocking_boss)
+	blocking_boss.scale = Vector2.ONE
+	blocking_boss.global_position = Vector2(90.0, 0.0)
+	blocking_boss.set_physics_process(false)
+	await physics_frame
+	var boss_collision: KinematicCollision2D = scene.player.move_and_collide(
+		Vector2.RIGHT * 120.0,
+		true
+	)
+	if not _assert_true(
+		boss_collision != null and boss_collision.get_collider() == blocking_boss,
+		"player movement path was not physically blocked by the Boss body"
+	):
+		return
+	blocking_boss.queue_free()
+	await process_frame
 	var camera: Camera2D = scene.player.get_node("PlayerCamera")
 	scene._transition_to(scene.RunState.PAUSED)
 	scene.player.global_position = Vector2(420.0, -180.0)
@@ -137,7 +153,6 @@ func _initialize() -> void:
 		"camera profiles lost the stable 8.0 baseline or selected a jitter-prone profile"
 	):
 		return
-
 	TestSupport.stop_audio(scene.audio)
 	await create_timer(0.25).timeout
 	scene.queue_free()
