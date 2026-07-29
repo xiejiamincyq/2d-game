@@ -58,13 +58,13 @@ func _initialize() -> void:
 	lock_target.global_position = Vector2(0.0, 300.0)
 	root.add_child(lock_target)
 	var swept_target := DroneTarget.new()
-	swept_target.global_position = Vector2.RIGHT.rotated(deg_to_rad(30.0)) * 600.0
+	swept_target.global_position = Vector2.RIGHT.rotated(deg_to_rad(15.0)) * 600.0
 	root.add_child(swept_target)
 	await physics_frame
 	player.set_enemy_provider(func() -> Array[Node]: return [lock_target, swept_target])
 	player.drone_aim_directions[0] = Vector2.RIGHT
 	player._update_drone_lasers(0.1)
-	if not _assert_true(absf(player.drone_aim_directions[0].angle_to(Vector2.RIGHT.rotated(deg_to_rad(30.0)))) < 0.001, "drone did not turn at 300 degrees per second"):
+	if not _assert_true(absf(player.drone_aim_directions[0].angle_to(Vector2.RIGHT.rotated(deg_to_rad(15.0)))) < 0.001, "drone did not turn at 150 degrees per second"):
 		return
 	if not _assert_true(swept_target.damage_received > 0.0 and is_zero_approx(lock_target.damage_received), "turning laser did not hit the enemy actually crossed by the ray"):
 		return

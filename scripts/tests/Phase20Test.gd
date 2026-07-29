@@ -177,13 +177,13 @@ func _initialize() -> void:
 	var first_direction: Vector2 = player.drone_aim_directions[0]
 	var first_turn := absf(first_direction.angle_to(Vector2.RIGHT))
 	if not _assert_true(
-		first_turn <= deg_to_rad(30.0) + 0.001
-		and first_turn >= deg_to_rad(29.0)
+		first_turn <= deg_to_rad(15.0) + 0.001
+		and first_turn >= deg_to_rad(14.0)
 		and is_zero_approx(drone_target.damage_received),
-		"drone laser exceeded 300 degrees per second or damaged before aiming"
+		"drone laser exceeded 150 degrees per second or damaged before aiming"
 	):
 		return
-	player._update_drone_lasers(0.3)
+	player._update_drone_lasers(0.6)
 	if not _assert_true(drone_target.damage_received > 0.0, "drone laser failed to damage after completing its limited turn"):
 		return
 
