@@ -46,6 +46,12 @@ func _initialize() -> void:
 		"pause menu did not expose a keyboard-focusable restart option"
 	):
 		return
+	if not _assert_true(
+		String(ui.pause_screen.resume_button.focus_neighbor_bottom) != ""
+		and String(pause_restart_button.focus_neighbor_top) != "",
+		"pause menu did not link resume and restart in its focus chain"
+	):
+		return
 	var pause_restart_requests := [0]
 	ui.restart_requested.connect(func() -> void: pause_restart_requests[0] += 1)
 	pause_restart_button.pressed.emit()
