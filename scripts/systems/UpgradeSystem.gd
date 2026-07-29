@@ -69,8 +69,8 @@ var upgrade_pool: Array[Dictionary] = [
 	{"id": "shield_capacity", "label": "护盾扩容", "description": "护盾上限 +20，并立即补满护盾", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 42},
 
 	# Evolutions are guaranteed candidates only after their family qualifies.
-	{"id": "orbital_storm", "label": "榴弹协议", "description": "终极进化：射速 -80%、弹速 -75%，榴弹近敌爆炸造成 300% 小范围伤害", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
-	{"id": "rift_overdrive", "label": "顶级刺客", "description": "终极进化：冲刺后获得 1.2s 隐身与 30% 移速，并留下 4s 减速叠层灼烧紫焰", "family": "mobility", "kind": "evolution", "requires": "mine", "max_rank": 1, "base_cost": 120},
+	{"id": "orbital_storm", "label": "榴弹协议", "description": "终极进化：射速 -80%、弹速 -60%，榴弹近敌爆炸造成 300% 小范围伤害", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
+	{"id": "rift_overdrive", "label": "顶级刺客", "description": "终极进化：冲刺距离与冷却各 +20%；冲刺后获得 1.2s 无碰撞隐身、30% 移速与灼烧紫焰", "family": "mobility", "kind": "evolution", "requires": "mine", "max_rank": 1, "base_cost": 120},
 	{"id": "thunder_matrix", "label": "雷网矩阵", "description": "终极进化：电弧覆盖全屏但伤害 -30%，无人机激光变紫且伤害 +80%", "family": "automation", "kind": "evolution", "requires": ["drone", "arc"], "max_rank": 1, "base_cost": 120},
 ]
 

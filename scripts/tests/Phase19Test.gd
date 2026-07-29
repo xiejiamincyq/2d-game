@@ -49,18 +49,18 @@ func _initialize() -> void:
 		burn.apply_stack(10.0, 4.0, 0.30)
 	if not _assert_true(
 		burn.get_stack_count() == 5
-		and is_equal_approx(burn.get_damage_per_second(), 15.0)
+		and is_equal_approx(burn.get_damage_per_second(), 30.0)
 		and is_equal_approx(burn.get_slow_fraction(), 0.30),
-		"burn did not cap at five 30%-base-attack stacks"
+		"burn did not cap at five 60%-base-attack stacks"
 	):
 		return
 	if not _assert_true(
-		is_equal_approx(burn.advance(1.0), 15.0) and burn.get_stack_count() == 5,
+		is_equal_approx(burn.advance(1.0), 30.0) and burn.get_stack_count() == 5,
 		"burn did not deal one second of stacked damage"
 	):
 		return
 	if not _assert_true(
-		is_equal_approx(burn.advance(3.1), 45.0)
+		is_equal_approx(burn.advance(3.1), 90.0)
 		and burn.get_stack_count() == 0
 		and is_zero_approx(burn.get_slow_fraction()),
 		"burn stacks did not expire and release their slow after four seconds"
@@ -101,8 +101,8 @@ func _initialize() -> void:
 	player._spawn_bullet(Vector2.RIGHT)
 	if not _assert_true(
 		is_equal_approx(player.get_effective_fire_rate(), player.fire_rate * 0.20)
-		and fired[-1].velocity.is_equal_approx(Vector2(255.0, 50.0)),
-		"grenade did not use 20% fire rate, 25% muzzle speed, and player inertia"
+		and fired[-1].velocity.is_equal_approx(Vector2(348.0, 50.0)),
+		"grenade did not use 20% fire rate, 40% muzzle speed, and player inertia"
 	):
 		return
 
@@ -175,10 +175,16 @@ func _initialize() -> void:
 		target.queue_free()
 	player.set_enemy_provider(Callable())
 
-	for kind in [EnemyScript.EnemyKind.SCRAPPER, EnemyScript.EnemyKind.DASHER, EnemyScript.EnemyKind.SPITTER, EnemyScript.EnemyKind.MARKSMAN, EnemyScript.EnemyKind.LOBBER]:
+	for kind in [EnemyScript.EnemyKind.SCRAPPER, EnemyScript.EnemyKind.DASHER]:
 		var enemy: Node = EnemyScript.new()
 		enemy.setup(kind, 5, projectiles)
-		if not _assert_true(is_equal_approx(enemy.speed, PlayerScript.BASE_MOVE_SPEED * 1.05), "non-large enemy kind %d did not use 105%% player speed" % kind):
+		if not _assert_true(is_equal_approx(enemy.speed, PlayerScript.BASE_MOVE_SPEED * 0.90), "melee enemy kind %d did not use 90%% player speed" % kind):
+			return
+		enemy.queue_free()
+	for kind in [EnemyScript.EnemyKind.SPITTER, EnemyScript.EnemyKind.MARKSMAN, EnemyScript.EnemyKind.LOBBER]:
+		var enemy: Node = EnemyScript.new()
+		enemy.setup(kind, 5, projectiles)
+		if not _assert_true(is_equal_approx(enemy.speed, PlayerScript.BASE_MOVE_SPEED * 0.60), "ranged enemy kind %d did not use 60%% player speed" % kind):
 			return
 		enemy.queue_free()
 	if not _assert_true(

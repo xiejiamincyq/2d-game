@@ -19,7 +19,7 @@ class BurnTarget extends ArcTarget:
 
 	func apply_burn_stack(base_attack: float, _duration: float, _slow: float) -> void:
 		burn_applications += 1
-		burn_dps = base_attack * 0.30
+		burn_dps = base_attack * 0.60
 
 var assertions := 0
 
@@ -94,7 +94,7 @@ func _initialize() -> void:
 	if not _assert_true(
 		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.SPIKE), 2.0)
 		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.LASER), 2.0)
-		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.ARC), 1.5),
+		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.ARC), 1.0),
 		"overdrive did not apply the requested spike, laser, and arc damage multipliers"
 	):
 		return
@@ -244,8 +244,8 @@ func _initialize() -> void:
 		return
 	if not _assert_true(
 		player.mine_level >= 1
-		and player.dash_cooldown < original_dash_cooldown
-		and player.dash_distance > original_dash_distance
+		and is_equal_approx(player.dash_cooldown, original_dash_cooldown * 1.20)
+		and is_equal_approx(player.dash_distance, original_dash_distance * 1.20)
 		and player.spike_spacing < original_spike_spacing,
 		"rift evolution did not unlock and strengthen its linked mobility mechanics"
 	):
@@ -284,9 +284,9 @@ func _initialize() -> void:
 		storm_shot_count == player.weapon_lines
 		and is_equal_approx(grenade_rate, player.fire_rate * 0.2)
 		and spawned_shots[-1].get_script() == player.GrenadeProjectileScript
-		and is_equal_approx(spawned_shots[-1].velocity.length(), player.projectile_speed * 0.25)
+		and is_equal_approx(spawned_shots[-1].velocity.length(), player.projectile_speed * 0.40)
 		and is_equal_approx(spawned_shots[-1].damage, player.weapon_damage * 3.0),
-		"ballistics evolution did not replace each shot with a 20%-rate/25%-speed/300%-damage grenade"
+		"ballistics evolution did not replace each shot with a 20%-rate/40%-speed/300%-damage grenade"
 	):
 		return
 	var grenade: Node = spawned_shots[-1]

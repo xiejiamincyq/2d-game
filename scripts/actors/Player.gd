@@ -23,7 +23,7 @@ const OVERDRIVE_FIRE_RATE_MULTIPLIER: float = 2.0
 const OVERDRIVE_DAMAGE_MULTIPLIER: float = 1.2
 const OVERDRIVE_SPIKE_DAMAGE_MULTIPLIER: float = 2.0
 const OVERDRIVE_LASER_DAMAGE_MULTIPLIER: float = 2.0
-const OVERDRIVE_ARC_DAMAGE_MULTIPLIER: float = 1.5
+const OVERDRIVE_ARC_DAMAGE_MULTIPLIER: float = 1.0
 const OVERDRIVE_MOVE_SPEED_MULTIPLIER: float = 1.3
 const OVERDRIVE_DASH_COOLDOWN_MULTIPLIER: float = 0.7
 const OVERDRIVE_SPIKE_RADIUS_MULTIPLIER: float = 2.0
@@ -38,6 +38,7 @@ const THUNDER_MATRIX_DRONE_DAMAGE_MULTIPLIER := 1.8
 const THUNDER_MATRIX_ARC_DAMAGE_MULTIPLIER := 0.70
 const DRONE_BURN_STACK_INTERVAL := 0.20
 const DRONE_BURN_SECONDS := 4.0
+const DRONE_MAX_TURN_SPEED_RADIANS := PI / 6.0
 const ARC_EXPANSION_SPEED_SCALE: float = 0.5
 const ARC_DAMAGE_PER_LEVEL: float = 5.4
 const PLAYER_SIZE_SCALE: float = 1.3
@@ -48,7 +49,7 @@ const MAX_WEAPON_LINES: int = 8
 const MAX_FIRE_RATE_MULTIPLIER: float = 4.0
 const FAMILY_DAMAGE_PER_LEVEL: float = 1.05
 const GRENADE_RATE_MULTIPLIER := 0.20
-const GRENADE_SPEED_MULTIPLIER := 0.25
+const GRENADE_SPEED_MULTIPLIER := 0.40
 const GRENADE_DAMAGE_MULTIPLIER := 3.0
 const ASSASSIN_STEALTH_SECONDS := 1.2
 const ASSASSIN_SPEED_MULTIPLIER := 1.30
@@ -92,12 +93,14 @@ var dash_timer: float = 0.0
 var dash_cooldown_remaining: float = 0.0
 var gun_angle: float = 0.0
 var health: Node
+var player_collision: CollisionShape2D
 var shield: float = 0.0
 var max_shield: float = 20.0
 var projectile_parent: Node
 var drone_visuals: Array[Node2D] = []
 var drone_lasers: Array[Node2D] = []
 var drone_targets: Array[Node2D] = []
+var drone_aim_directions: Array[Vector2] = []
 var drone_lock_target_ids: Array[int] = []
 var drone_lock_durations: Array[float] = []
 var drone_laser_piercing := false
@@ -126,15 +129,19 @@ var entrance_active := false
 var entrance_elapsed := 0.0
 var entrance_visual_offset := 0.0
 var entrance_fall_height := ENTRANCE_MIN_FALL_HEIGHT
+var normal_collision_layer: int = 1
+var normal_collision_mask: int = 1
 
 func _ready() -> void:
 	add_to_group("player")
-	var shape := CollisionShape2D.new()
-	shape.name = "PlayerCollision"
+	normal_collision_layer = collision_layer
+	normal_collision_mask = collision_mask
+	player_collision = CollisionShape2D.new()
+	player_collision.name = "PlayerCollision"
 	var circle := CircleShape2D.new()
 	circle.radius = BODY_RADIUS
-	shape.shape = circle
-	add_child(shape)
+	player_collision.shape = circle
+	add_child(player_collision)
 	health = HealthComponentScript.new()
 	health.max_health = 100.0
 	add_child(health)
@@ -382,8 +389,8 @@ func activate_build_evolution(evolution_id: String) -> bool:
 		"rift_overdrive":
 			active_build_evolutions[evolution_id] = true
 			mine_level = maxi(1, mine_level)
-			dash_cooldown = maxf(0.8, dash_cooldown * 0.70)
-			dash_distance *= 1.15
+			dash_cooldown *= 1.20
+			dash_distance *= 1.20
 			spike_spacing = maxf(22.0, spike_spacing * 0.70)
 			spike_damage *= 1.28
 			_reset_spike_path()
@@ -466,6 +473,7 @@ func clear_runtime_modifiers() -> void:
 	_damage_immunity_sources.clear()
 	stealth_remaining = 0.0
 	self_modulate.a = 1.0
+	_set_stealth_collision_disabled(false)
 
 func _multiply_damage_modifiers(source: StringName) -> float:
 	var multiplier := 1.0
@@ -578,12 +586,14 @@ func _update_dash(delta: float) -> void:
 func _activate_assassin_stealth() -> void:
 	stealth_remaining = ASSASSIN_STEALTH_SECONDS
 	self_modulate.a = 0.42
+	_set_stealth_collision_disabled(true)
 
 func _break_stealth() -> void:
 	if stealth_remaining <= 0.0:
 		return
 	stealth_remaining = 0.0
 	self_modulate.a = 1.0
+	_set_stealth_collision_disabled(false)
 
 func _update_stealth(delta: float) -> void:
 	if stealth_remaining <= 0.0:
@@ -591,9 +601,16 @@ func _update_stealth(delta: float) -> void:
 	stealth_remaining = maxf(0.0, stealth_remaining - delta)
 	if stealth_remaining <= 0.0:
 		self_modulate.a = 1.0
+		_set_stealth_collision_disabled(false)
 
 func is_stealthed() -> bool:
 	return stealth_remaining > 0.0
+
+func _set_stealth_collision_disabled(disabled: bool) -> void:
+	collision_layer = 0 if disabled else normal_collision_layer
+	collision_mask = 0 if disabled else normal_collision_mask
+	if is_instance_valid(player_collision):
+		player_collision.set_deferred("disabled", disabled)
 
 func _update_assassin_flame_path() -> void:
 	if projectile_parent == null:
@@ -675,24 +692,60 @@ func _update_drone_lasers(delta: float) -> void:
 			continue
 		assigned.append(target)
 		any_laser_active = true
-		var direction := (target.global_position - origin).normalized()
-		if direction == Vector2.ZERO:
-			direction = Vector2.RIGHT.rotated(gun_angle)
-		var beam_end := target.global_position
+		var desired_direction := (target.global_position - origin).normalized()
+		if desired_direction == Vector2.ZERO:
+			desired_direction = Vector2.RIGHT.rotated(gun_angle)
+		var direction := _turn_drone_toward(index, desired_direction, delta)
+		if index < drone_visuals.size():
+			drone_visuals[index].rotation = direction.angle()
+		var target_distance := origin.distance_to(target.global_position)
+		var target_radius_value: Variant = target.get("body_radius")
+		var target_radius := float(target_radius_value) if target_radius_value != null else 0.0
+		var beam_length := target_distance + target_radius
 		if drone_laser_piercing:
-			var beam_length := get_drone_pierce_length()
-			beam_end = origin + direction * beam_length
+			beam_length = get_drone_pierce_length()
 			_damage_enemies_on_laser(origin, direction, beam_length, drone_damage * delta, get_drone_laser_width(), enemies)
-		else:
+		var primary_target_hit := _is_target_on_laser(target, origin, direction, beam_length, get_drone_laser_width())
+		if not drone_laser_piercing and primary_target_hit:
 			target.take_damage(
 				drone_damage * delta * get_effective_damage_multiplier(DamageTypes.LASER),
 				DamageTypes.LASER
 			)
-		_update_drone_burn_lock(index, target, delta)
+		if primary_target_hit:
+			_update_drone_burn_lock(index, target, delta)
+		else:
+			_reset_drone_burn_lock(index)
 		var beam := drone_lasers[index]
 		beam.visible = true
-		beam.setup(origin, beam_end, get_drone_laser_color(), get_drone_laser_width())
+		beam.setup(origin, origin + direction * beam_length, get_drone_laser_color(), get_drone_laser_width())
 	_set_laser_audio_active(any_laser_active)
+
+func _turn_drone_toward(index: int, desired_direction: Vector2, delta: float) -> Vector2:
+	while drone_aim_directions.size() <= index:
+		drone_aim_directions.append(Vector2.RIGHT)
+	var current_direction: Vector2 = drone_aim_directions[index]
+	if current_direction == Vector2.ZERO:
+		current_direction = Vector2.RIGHT
+	var angle_delta := current_direction.angle_to(desired_direction)
+	var max_delta := DRONE_MAX_TURN_SPEED_RADIANS * maxf(0.0, delta)
+	var resolved := current_direction.rotated(clampf(angle_delta, -max_delta, max_delta)).normalized()
+	drone_aim_directions[index] = resolved
+	return resolved
+
+func _is_target_on_laser(
+	target: Node2D,
+	origin: Vector2,
+	direction: Vector2,
+	length: float,
+	width: float
+) -> bool:
+	var relative := target.global_position - origin
+	var along := relative.dot(direction)
+	if along < 0.0 or along > length:
+		return false
+	var radius_value: Variant = target.get("body_radius")
+	var target_radius := float(radius_value) if radius_value != null else 0.0
+	return (origin + direction * along).distance_to(target.global_position) <= width + target_radius
 
 func get_drone_laser_color() -> Color:
 	if active_build_evolutions.has("thunder_matrix"):
@@ -834,6 +887,10 @@ func _sync_drone_visuals() -> void:
 	while drone_visuals.size() > drone_count:
 		var drone: Node2D = drone_visuals.pop_back()
 		drone.queue_free()
+	while drone_aim_directions.size() < drone_count:
+		drone_aim_directions.append(Vector2.RIGHT)
+	while drone_aim_directions.size() > drone_count:
+		drone_aim_directions.pop_back()
 	_sync_drone_lasers()
 
 func _sync_drone_lasers() -> void:

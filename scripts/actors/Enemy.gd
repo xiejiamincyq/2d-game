@@ -28,7 +28,8 @@ const MARKSMAN_PROJECTILE_SPEED_MULTIPLIER := 3.5
 const MARKSMAN_TELEGRAPH_SECONDS := 0.5
 const MARKSMAN_TELEGRAPH_LENGTH := 1400.0
 const BASE_MOVE_SPEED_MULTIPLIER := 1.10
-const STANDARD_ENEMY_SPEED := 235.0 * 1.05
+const MELEE_ENEMY_SPEED := 235.0 * 0.90
+const RANGED_ENEMY_SPEED := 235.0 * 0.60
 const HIDDEN_DISPERSAL_SPEED_SCALE := 0.72
 
 enum EnemyKind { SCRAPPER, DASHER, SPITTER, BRUISER, MARKSMAN, LOBBER, OVERSEER }
@@ -138,8 +139,10 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 			_add_health(1800.0 * scale_factor)
 	if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER]:
 		speed *= BASE_MOVE_SPEED_MULTIPLIER
+	elif is_ranged_kind():
+		speed = RANGED_ENEMY_SPEED
 	else:
-		speed = STANDARD_ENEMY_SPEED
+		speed = MELEE_ENEMY_SPEED
 
 func _ready() -> void:
 	add_to_group("enemies")

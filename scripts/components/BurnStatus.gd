@@ -2,7 +2,7 @@ extends RefCounted
 class_name BurnStatus
 
 const MAX_STACKS := 5
-const DAMAGE_PER_STACK_RATIO := 0.30
+const DAMAGE_PER_STACK_RATIO := 0.60
 
 var stacks: Array[Dictionary] = []
 
