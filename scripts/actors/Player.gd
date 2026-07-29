@@ -150,6 +150,10 @@ func _ready() -> void:
 	health.died.connect(func() -> void: died.emit())
 
 func _physics_process(delta: float) -> void:
+	if entrance_active:
+		velocity = Vector2.ZERO
+		dash_active = false
+		return
 	_update_stealth(delta)
 	gun_angle = (get_global_mouse_position() - global_position).angle()
 	dash_cooldown_remaining = maxf(0.0, dash_cooldown_remaining - delta)
@@ -191,6 +195,8 @@ func begin_entrance() -> void:
 	entrance_fall_height = maxf(ENTRANCE_MIN_FALL_HEIGHT, get_viewport_rect().size.y * 0.52)
 	entrance_visual_offset = -entrance_fall_height
 	velocity = Vector2.ZERO
+	dash_active = false
+	dash_timer = 0.0
 	queue_redraw()
 
 func advance_entrance(delta: float) -> void:

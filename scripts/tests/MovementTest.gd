@@ -66,6 +66,26 @@ func _initialize() -> void:
 		player.queue_free()
 		await process_frame
 
+	var entrance_player: Node = PlayerScript.new()
+	root.add_child(entrance_player)
+	await process_frame
+	entrance_player.set_physics_process(false)
+	entrance_player.begin_entrance()
+	Input.action_press("move_right")
+	Input.action_press("dash_melee")
+	entrance_player._physics_process(0.05)
+	Input.action_release("dash_melee")
+	Input.action_release("move_right")
+	if not _assert_true(
+		entrance_player.global_position == Vector2.ZERO
+		and entrance_player.velocity == Vector2.ZERO
+		and not entrance_player.dash_active,
+		"player accepted movement or dash input while the landing animation was active"
+	):
+		return
+	entrance_player.queue_free()
+	await process_frame
+
 	var scene: Node = MainScript.new()
 	root.add_child(scene)
 	await process_frame
