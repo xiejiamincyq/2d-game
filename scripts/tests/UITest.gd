@@ -38,6 +38,19 @@ func _initialize() -> void:
 		return
 	if not _assert_true(ui.get("settlement_screen") != null and ui.get("pause_screen") != null and ui.get("result_screen") != null, "GameUI did not instantiate focused modal screens"):
 		return
+	var pause_restart_button := ui.pause_screen.get("restart_button") as Button
+	if not _assert_true(
+		pause_restart_button != null
+		and pause_restart_button.get_combined_minimum_size().y >= 44.0
+		and pause_restart_button.focus_mode == Control.FOCUS_ALL,
+		"pause menu did not expose a keyboard-focusable restart option"
+	):
+		return
+	var pause_restart_requests := [0]
+	ui.restart_requested.connect(func() -> void: pause_restart_requests[0] += 1)
+	pause_restart_button.pressed.emit()
+	if not _assert_true(pause_restart_requests[0] == 1, "pause restart button did not reuse GameUI's restart request"):
+		return
 	if not _assert_true(ui.continue_button != null and not ui.continue_button.visible, "Continue button did not start hidden"):
 		return
 	ui.set_continue_available(true)
@@ -77,7 +90,7 @@ func _initialize() -> void:
 		return
 	if not _assert_true(_contrast_ratio(button_color, button_background) >= 4.5, "default button contrast fell below 4.5:1"):
 		return
-	for button in [ui.start_button, ui.continue_button, ui.hud.pause_button, ui.pause_screen.resume_button, ui.result_screen.restart_button, ui.settlement_screen.close_button]:
+	for button in [ui.start_button, ui.continue_button, ui.hud.pause_button, ui.pause_screen.resume_button, pause_restart_button, ui.result_screen.restart_button, ui.settlement_screen.close_button]:
 		if not _assert_true(button.get_combined_minimum_size().y >= 44.0 and button.focus_mode == Control.FOCUS_ALL, "%s lost its 44px keyboard-focusable target" % button.name):
 			return
 

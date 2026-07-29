@@ -131,6 +131,7 @@ func _connect_components() -> void:
 	hud.bgm_volume_changed.connect(func(value: float) -> void: bgm_volume_changed.emit(value))
 	hud.bgm_mute_changed.connect(func(muted: bool) -> void: bgm_mute_changed.emit(muted))
 	pause_screen.resume_requested.connect(func() -> void: pause_requested.emit())
+	pause_screen.restart_requested.connect(func() -> void: restart_requested.emit())
 	settlement_screen.offer_selected.connect(func(offer: Dictionary) -> void: settlement_offer_selected.emit(offer))
 	settlement_screen.close_requested.connect(func() -> void: settlement_close_requested.emit())
 	wave_banner.finished.connect(func(context: StringName) -> void: wave_banner_finished.emit(context))

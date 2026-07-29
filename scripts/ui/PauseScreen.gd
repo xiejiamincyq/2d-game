@@ -2,9 +2,11 @@ extends Control
 class_name PauseScreen
 
 signal resume_requested
+signal restart_requested
 
 var panel: PanelContainer
 var resume_button: Button
+var restart_button: Button
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -23,7 +25,7 @@ func _ready() -> void:
 	add_child(center)
 
 	panel = PanelContainer.new()
-	panel.custom_minimum_size = Vector2(500, 260)
+	panel.custom_minimum_size = Vector2(500, 330)
 	center.add_child(panel)
 
 	var box := VBoxContainer.new()
@@ -50,6 +52,15 @@ func _ready() -> void:
 	resume_button.pressed.connect(func() -> void: resume_requested.emit())
 	box.add_child(resume_button)
 
+	restart_button = Button.new()
+	restart_button.text = "重新开始"
+	restart_button.custom_minimum_size = Vector2(220, 48)
+	restart_button.focus_mode = Control.FOCUS_ALL
+	restart_button.pressed.connect(func() -> void: restart_requested.emit())
+	box.add_child(restart_button)
+	resume_button.focus_neighbor_bottom = resume_button.get_path_to(restart_button)
+	restart_button.focus_neighbor_top = restart_button.get_path_to(resume_button)
+
 func show_screen() -> void:
 	visible = true
 	resume_button.grab_focus()
@@ -60,7 +71,7 @@ func hide_screen() -> void:
 func apply_viewport_size(viewport_size: Vector2) -> void:
 	panel.custom_minimum_size = Vector2(
 		minf(500.0, viewport_size.x - 32.0),
-		minf(260.0, viewport_size.y - 32.0)
+		minf(330.0, viewport_size.y - 32.0)
 	)
 
 func get_required_size() -> Vector2:
