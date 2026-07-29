@@ -526,6 +526,7 @@ func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = 
 	else:
 		enemy.velocity = Vector2.ZERO
 	active_enemies.append(enemy)
+	enemy.set_neighbor_provider(get_active_enemies)
 	enemy.tree_exiting.connect(_on_enemy_tree_exiting.bind(enemy), CONNECT_ONE_SHOT)
 	enemy.died.connect(_on_enemy_died)
 	if enemy.has_signal("reinforcements_requested"):

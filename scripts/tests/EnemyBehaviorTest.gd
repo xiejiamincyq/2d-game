@@ -172,6 +172,53 @@ func _initialize() -> void:
 	if not _assert_true(wave_directed_enemy.velocity.y > 0.0, "newborn enemy pursued the stale player above the map instead of its current wave owner"):
 		return
 
+	player.global_position = Vector2.ZERO
+	var upper_melee: Node = EnemyScript.new()
+	var lower_melee: Node = EnemyScript.new()
+	upper_melee.setup(EnemyScript.EnemyKind.SCRAPPER, 0, projectiles, player)
+	lower_melee.setup(EnemyScript.EnemyKind.SCRAPPER, 0, projectiles, player)
+	upper_melee.global_position = Vector2(150.0, -6.0)
+	lower_melee.global_position = Vector2(150.0, 6.0)
+	upper_melee.set_physics_process(false)
+	lower_melee.set_physics_process(false)
+	fixture.add_child(upper_melee)
+	fixture.add_child(lower_melee)
+	await physics_frame
+	upper_melee._physics_process(0.016)
+	lower_melee._physics_process(0.016)
+	if not _assert_true(
+		upper_melee.velocity.y < 0.0 and lower_melee.velocity.y > 0.0,
+		"nearby melee enemies converged into a clump instead of separating: %s / %s" % [upper_melee.velocity, lower_melee.velocity]
+	):
+		return
+
+	upper_melee.queue_free()
+	lower_melee.queue_free()
+	await physics_frame
+	var surrounders: Array[Node] = []
+	for index in range(6):
+		var surrounder: Node = EnemyScript.new()
+		surrounder.setup(EnemyScript.EnemyKind.SCRAPPER, 0, projectiles, player)
+		surrounder.global_position = Vector2.RIGHT.rotated(TAU * float(index) / 6.0) * 180.0
+		surrounder.set_physics_process(false)
+		fixture.add_child(surrounder)
+		surrounders.append(surrounder)
+	await physics_frame
+	var surrounding_motion_count := 0
+	for surrounder in surrounders:
+		var toward_player: Vector2 = (player.global_position - surrounder.global_position).normalized()
+		surrounder._physics_process(0.016)
+		var movement_direction: Vector2 = surrounder.velocity.normalized()
+		if absf(toward_player.cross(movement_direction)) >= 0.12:
+			surrounding_motion_count += 1
+	if not _assert_true(
+		surrounding_motion_count >= 4,
+		"melee formation still moved as one radial blob instead of occupying angles around the player (%d/6)" % surrounding_motion_count
+	):
+		return
+	for surrounder in surrounders:
+		surrounder.queue_free()
+
 	for child in projectiles.get_children():
 		child.queue_free()
 	fixture.queue_free()

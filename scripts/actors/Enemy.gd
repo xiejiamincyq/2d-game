@@ -31,6 +31,11 @@ const BASE_MOVE_SPEED_MULTIPLIER := 1.10
 const MELEE_ENEMY_SPEED := 235.0 * 0.90
 const RANGED_ENEMY_SPEED := 235.0 * 0.60
 const HIDDEN_DISPERSAL_SPEED_SCALE := 0.72
+const MELEE_SEPARATION_PADDING := 10.0
+const MELEE_SEPARATION_WEIGHT := 1.35
+const MELEE_SURROUND_DISTANCE := 320.0
+const MELEE_SURROUND_MAX_BLEND := 0.72
+const GOLDEN_ANGLE := 2.399963229728653
 
 enum EnemyKind { SCRAPPER, DASHER, SPITTER, BRUISER, MARKSMAN, LOBBER, OVERSEER }
 enum FeedbackWeight { LIGHT, MEDIUM, HEAVY }
@@ -69,6 +74,7 @@ var spawn_impulse_remaining := 0.0
 var burn_status: RefCounted = BurnStatusScript.new()
 var hidden_dispersion_direction := Vector2.ZERO
 var hidden_dispersion_timer := 0.0
+var neighbor_provider: Callable
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	kind = enemy_kind
@@ -189,6 +195,7 @@ func _physics_process(delta: float) -> void:
 				flash_timer -= delta
 			queue_redraw()
 			return
+		desired = _get_melee_desired_velocity(to_player)
 	velocity = desired * get_effective_move_speed()
 	move_and_slide()
 	_clamp_to_world_bounds()
@@ -230,6 +237,60 @@ func _update_hidden_target_dispersion(delta: float) -> void:
 
 func get_effective_move_speed() -> float:
 	return speed * (1.0 - burn_status.get_slow_fraction())
+
+func set_neighbor_provider(provider: Callable) -> void:
+	neighbor_provider = provider
+
+func _get_melee_desired_velocity(to_player: Vector2) -> Vector2:
+	var distance := to_player.length()
+	if distance <= 0.001:
+		return _get_melee_separation_direction()
+	var pursuit := to_player / distance
+	var slot_angle := fposmod(float(get_instance_id() % 64) * GOLDEN_ANGLE, TAU)
+	var current_radial := -pursuit
+	var slot_angle_error := wrapf(slot_angle - current_radial.angle(), -PI, PI)
+	var orbit_direction := current_radial.orthogonal() * signf(slot_angle_error)
+	var surround_progress := 1.0 - clampf(
+		(distance - attack_range) / maxf(1.0, MELEE_SURROUND_DISTANCE - attack_range),
+		0.0,
+		1.0
+	)
+	var angular_urgency := clampf(absf(slot_angle_error) / (PI * 0.5), 0.0, 1.0)
+	var formation_direction := (
+		pursuit
+		+ orbit_direction * angular_urgency * surround_progress * MELEE_SURROUND_MAX_BLEND
+	).normalized()
+	var separation := _get_melee_separation_direction()
+	return (formation_direction + separation * MELEE_SEPARATION_WEIGHT).normalized()
+
+func _get_melee_separation_direction() -> Vector2:
+	var separation := Vector2.ZERO
+	for candidate in _get_neighbor_candidates():
+		var other := candidate as Node2D
+		if other == null or other == self or not is_instance_valid(other):
+			continue
+		var other_radius_value: Variant = other.get("body_radius")
+		if other_radius_value == null:
+			continue
+		var desired_gap := body_radius + float(other_radius_value) + MELEE_SEPARATION_PADDING
+		var offset := global_position - other.global_position
+		var distance := offset.length()
+		if distance >= desired_gap:
+			continue
+		if distance <= 0.001:
+			offset = Vector2.RIGHT if get_instance_id() < other.get_instance_id() else Vector2.LEFT
+			distance = 0.0
+		separation += offset.normalized() * (1.0 - distance / desired_gap)
+	return separation.limit_length(1.0)
+
+func _get_neighbor_candidates() -> Array[Node]:
+	if neighbor_provider.is_valid():
+		var provided: Variant = neighbor_provider.call()
+		if provided is Array:
+			var neighbors: Array[Node] = []
+			neighbors.assign(provided)
+			return neighbors
+	return get_tree().get_nodes_in_group("enemies")
 
 func apply_burn_stack(
 	base_attack: float,
