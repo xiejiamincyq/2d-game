@@ -58,7 +58,8 @@ var upgrade_pool: Array[Dictionary] = [
 	{"id": "dash_impact", "label": "动能撞角", "description": "冲刺距离 +8%，冲刺伤害 +10%", "family": "mobility", "kind": "core", "max_rank": 4, "base_cost": 44},
 	{"id": "spike_resonance", "label": "地脉共振", "description": "地刺伤害 +8%、半径 +5、触发间隔 -10%", "family": "mobility", "kind": "support", "requires": "mine", "max_rank": 4, "base_cost": 30},
 
-	# Automation: seven normal cards.
+	# Automation: eight normal cards.
+	{"id": "drone_pierce", "label": "穿透棱镜", "description": "无人机激光贯穿沿途敌人", "family": "automation", "kind": "support", "requires": "drone", "max_rank": 1, "base_cost": 48},
 	{"id": "drone", "label": "无人机部署", "description": "无人机 +1，单机伤害 +3%", "family": "automation", "kind": "core", "max_rank": 4, "base_cost": 52},
 	{"id": "drone_damage", "label": "激光放大器", "description": "无人机激光伤害 +16%", "family": "automation", "kind": "core", "requires": "drone", "max_rank": 5, "base_cost": 34},
 	{"id": "arc", "label": "电弧启动器", "description": "首次解锁；后续强化伤害与半径", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 45},
@@ -68,8 +69,8 @@ var upgrade_pool: Array[Dictionary] = [
 	{"id": "shield_capacity", "label": "护盾扩容", "description": "护盾上限 +20，并立即补满护盾", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 42},
 
 	# Evolutions are guaranteed candidates only after their family qualifies.
-	{"id": "orbital_storm", "label": "榴弹协议", "description": "终极进化：射速与弹速 -70%，榴弹近敌爆炸造成 300% 小范围伤害", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
-	{"id": "rift_overdrive", "label": "顶级刺客", "description": "终极进化：冲刺后隐身加速，并留下减速燃烧的紫焰路径", "family": "mobility", "kind": "evolution", "requires": "mine", "max_rank": 1, "base_cost": 120},
+	{"id": "orbital_storm", "label": "榴弹协议", "description": "终极进化：射速 -80%、弹速 -75%，榴弹近敌爆炸造成 300% 小范围伤害", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
+	{"id": "rift_overdrive", "label": "顶级刺客", "description": "终极进化：冲刺后获得 1.2s 隐身与 30% 移速，并留下 4s 减速叠层灼烧紫焰", "family": "mobility", "kind": "evolution", "requires": "mine", "max_rank": 1, "base_cost": 120},
 	{"id": "thunder_matrix", "label": "雷网矩阵", "description": "终极进化：电弧覆盖全屏但伤害 -30%，无人机激光变紫且伤害 +80%", "family": "automation", "kind": "evolution", "requires": ["drone", "arc"], "max_rank": 1, "base_cost": 120},
 ]
 
@@ -427,6 +428,8 @@ func _apply_upgrade_effect(card_id: String) -> void:
 			player.drone_damage *= 1.03
 		"drone_damage":
 			player.drone_damage *= 1.16
+		"drone_pierce":
+			player.drone_laser_piercing = true
 		"arc":
 			if player.arc_pulse_level <= 0:
 				player.arc_pulse_level = 1

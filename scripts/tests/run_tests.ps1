@@ -35,6 +35,7 @@ $tests = @(
 	"SnapshotTest",
 	"ContinueTest",
     "OverdriveTest",
+	"Phase19Test",
     "EnemyBehaviorTest",
     "UpgradeTest",
     "StateTest",

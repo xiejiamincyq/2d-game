@@ -33,11 +33,13 @@ func _initialize() -> void:
 	await process_frame
 	scene._start_run()
 	await process_frame
+	scene.player.advance_entrance(scene.player.get_entrance_duration() + 0.01)
 	scene.ui.wave_banner.finish_message()
 	scene.wave_director.active = false
 	if not _assert_true(
-		WaveDirectorScript.should_drop_heart(0.049999) and not WaveDirectorScript.should_drop_heart(0.05),
-		"heart drop boundary was not exactly five percent"
+		WaveDirectorScript.should_drop_heart(0.024999) and not WaveDirectorScript.should_drop_heart(0.025)
+		and WaveDirectorScript.should_drop_shield(0.699999) and not WaveDirectorScript.should_drop_shield(0.70),
+		"heart or shield drop boundary was incorrect"
 	):
 		return
 
@@ -144,6 +146,15 @@ func _initialize() -> void:
 	await process_frame
 	enemy.health.current_health = 1.0
 	enemy.shield_drop_value = 20.0
+	var shield_seed := 0
+	var drop_probe := RandomNumberGenerator.new()
+	while true:
+		drop_probe.seed = shield_seed
+		drop_probe.randf()
+		if WaveDirectorScript.should_drop_shield(drop_probe.randf()):
+			break
+		shield_seed += 1
+	scene.wave_director.spawn_rng.seed = shield_seed
 
 	var projectile: Area2D = ProjectileScript.new()
 	projectile.damage = 2.0

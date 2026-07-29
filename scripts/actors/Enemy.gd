@@ -17,6 +17,7 @@ const ProjectileScript = preload("res://scripts/components/Projectile.gd")
 const LobbedProjectileScript = preload("res://scripts/components/LobbedProjectile.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
 
 const RANGED_SAFE_MARGIN := 48.0
 const RANGED_MIN_DISTANCE_FLOOR := 160.0
@@ -27,6 +28,8 @@ const MARKSMAN_PROJECTILE_SPEED_MULTIPLIER := 3.5
 const MARKSMAN_TELEGRAPH_SECONDS := 0.5
 const MARKSMAN_TELEGRAPH_LENGTH := 1400.0
 const BASE_MOVE_SPEED_MULTIPLIER := 1.10
+const STANDARD_ENEMY_SPEED := 235.0 * 1.05
+const HIDDEN_DISPERSAL_SPEED_SCALE := 0.72
 
 enum EnemyKind { SCRAPPER, DASHER, SPITTER, BRUISER, MARKSMAN, LOBBER, OVERSEER }
 enum FeedbackWeight { LIGHT, MEDIUM, HEAVY }
@@ -62,9 +65,9 @@ var ranged_target_position := Vector2.ZERO
 var boss_reinforcement_mask := 0
 var spawn_impulse_velocity := Vector2.ZERO
 var spawn_impulse_remaining := 0.0
-var burn_damage_per_second := 0.0
-var burn_remaining := 0.0
-var burn_slow_fraction := 0.0
+var burn_status: RefCounted = BurnStatusScript.new()
+var hidden_dispersion_direction := Vector2.ZERO
+var hidden_dispersion_timer := 0.0
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	kind = enemy_kind
@@ -133,7 +136,10 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 			shoot_cooldown = 2.4
 			ranged_windup_duration = 0.9
 			_add_health(1800.0 * scale_factor)
-	speed *= BASE_MOVE_SPEED_MULTIPLIER
+	if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER]:
+		speed *= BASE_MOVE_SPEED_MULTIPLIER
+	else:
+		speed = STANDARD_ENEMY_SPEED
 
 func _ready() -> void:
 	add_to_group("enemies")
@@ -157,7 +163,12 @@ func _physics_process(delta: float) -> void:
 		return
 	var player := get_target_player()
 	if player == null:
+		if is_target_hidden():
+			_update_hidden_target_dispersion(delta)
+		else:
+			velocity = Vector2.ZERO
 		return
+	hidden_dispersion_timer = 0.0
 	var to_player: Vector2 = player.global_position - global_position
 	var desired: Vector2 = to_player.normalized()
 	if kind == EnemyKind.OVERSEER:
@@ -202,23 +213,31 @@ func get_target_player() -> Node2D:
 		return null
 	return target
 
-func get_effective_move_speed() -> float:
-	return speed * (1.0 - burn_slow_fraction if burn_remaining > 0.0 else 1.0)
+func is_target_hidden() -> bool:
+	return is_instance_valid(target_player) and target_player.has_method("is_stealthed") and bool(target_player.call("is_stealthed"))
 
-func apply_burn(damage_per_second: float, duration: float, slow_fraction: float = 0.30) -> void:
-	burn_damage_per_second = maxf(burn_damage_per_second, damage_per_second)
-	burn_remaining = maxf(burn_remaining, duration)
-	burn_slow_fraction = maxf(burn_slow_fraction, clampf(slow_fraction, 0.0, 0.95))
+func _update_hidden_target_dispersion(delta: float) -> void:
+	hidden_dispersion_timer -= delta
+	if hidden_dispersion_timer <= 0.0 or hidden_dispersion_direction == Vector2.ZERO:
+		hidden_dispersion_direction = Vector2.RIGHT.rotated(randf() * TAU)
+		hidden_dispersion_timer = randf_range(0.7, 1.35)
+	velocity = hidden_dispersion_direction * get_effective_move_speed() * HIDDEN_DISPERSAL_SPEED_SCALE
+	move_and_slide()
+	_clamp_to_world_bounds()
+
+func get_effective_move_speed() -> float:
+	return speed * (1.0 - burn_status.get_slow_fraction())
+
+func apply_burn_stack(base_attack: float, duration: float, slow_fraction: float = 0.0) -> bool:
+	return burn_status.apply_stack(base_attack, duration, slow_fraction)
+
+func get_burn_stack_count() -> int:
+	return burn_status.get_stack_count()
 
 func _update_burn(delta: float) -> void:
-	if burn_remaining <= 0.0 or delta <= 0.0:
-		return
-	var active_time := minf(delta, burn_remaining)
-	burn_remaining = maxf(0.0, burn_remaining - delta)
-	take_damage(burn_damage_per_second * active_time, DamageTypes.DASH)
-	if burn_remaining <= 0.0:
-		burn_damage_per_second = 0.0
-		burn_slow_fraction = 0.0
+	var burn_damage: float = burn_status.advance(delta)
+	if burn_damage > 0.0:
+		take_damage(burn_damage, DamageTypes.BURN)
 
 func is_ranged_kind() -> bool:
 	return kind in [EnemyKind.SPITTER, EnemyKind.MARKSMAN, EnemyKind.LOBBER]

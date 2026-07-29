@@ -241,6 +241,7 @@ func _begin_run(snapshot: Dictionary) -> void:
 	player.health_changed.connect(ui.set_health)
 	player.shield_changed.connect(ui.set_shield)
 	player.died.connect(_on_player_died)
+	player.entrance_finished.connect(_on_player_entrance_finished)
 	upgrade_system = UpgradeSystemScript.new()
 	upgrade_system.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(upgrade_system)
@@ -285,13 +286,16 @@ func _begin_run(snapshot: Dictionary) -> void:
 	wave_director.enemy_killed.connect(_on_enemy_killed)
 	wave_director.damage_resolved.connect(combat_feedback.on_damage_resolved)
 	wave_director.victory.connect(_on_victory)
-	wave_director.setup(player, enemies, projectiles, portals, snapshot.is_empty())
+	wave_director.setup(player, enemies, projectiles, portals, false)
 	player.set_enemy_provider(wave_director.get_active_enemies)
 	ui.set_health(player.health.current_health, player.health.max_health)
 	ui.set_shield(player.shield, player.max_shield)
 	ui.set_progression_state(upgrade_system.get_progression_state())
 	ui.set_run_stats(kill_count, elapsed_seconds)
-	if not snapshot.is_empty():
+	if snapshot.is_empty():
+		ui.hide_start_screen()
+		player.begin_entrance()
+	else:
 		var boundary := String(snapshot.get("boundary", ""))
 		var pending_stage := int(snapshot.get("pending_stage", 0))
 		if not wave_director.restore_stable_boundary(pending_stage, boundary):
@@ -308,6 +312,12 @@ func _begin_run(snapshot: Dictionary) -> void:
 			}
 			_transition_to(RunState.SETTLEMENT)
 			ui.show_settlement()
+
+func _on_player_entrance_finished() -> void:
+	if run_state != RunState.START or wave_director == null:
+		return
+	if not wave_director.prepare_next_wave():
+		_fail_progression_gate("玩家入场后首波准备失败")
 
 func _on_boss_spawned(boss: Node, display_name: String, maximum_health: float) -> void:
 	ui.show_boss_health(boss, display_name, maximum_health)

@@ -17,9 +17,9 @@ class BurnTarget extends ArcTarget:
 	var burn_applications := 0
 	var burn_dps := 0.0
 
-	func apply_burn(damage_per_second: float, _duration: float, _slow: float) -> void:
+	func apply_burn_stack(base_attack: float, _duration: float, _slow: float) -> void:
 		burn_applications += 1
-		burn_dps = damage_per_second
+		burn_dps = base_attack * 0.30
 
 var assertions := 0
 
@@ -270,7 +270,7 @@ func _initialize() -> void:
 		player.is_stealthed()
 		and is_equal_approx(player.get_effective_move_speed(), player.move_speed * 1.3)
 		and spawned_attacks.get_children().any(func(child: Node) -> bool: return child.get_script() == player.FlameTrailScript),
-		"top assassin dash did not create a purple flame path and three-second speed stealth"
+		"top assassin dash did not create a purple flame path and 1.2-second speed stealth"
 	):
 		return
 
@@ -282,11 +282,11 @@ func _initialize() -> void:
 	var storm_shot_count := spawned_shots.size() - shots_before_storm
 	if not _assert_true(
 		storm_shot_count == player.weapon_lines
-		and is_equal_approx(grenade_rate, player.fire_rate * 0.3)
+		and is_equal_approx(grenade_rate, player.fire_rate * 0.2)
 		and spawned_shots[-1].get_script() == player.GrenadeProjectileScript
-		and is_equal_approx(spawned_shots[-1].velocity.length(), player.projectile_speed * 0.3)
+		and is_equal_approx(spawned_shots[-1].velocity.length(), player.projectile_speed * 0.25)
 		and is_equal_approx(spawned_shots[-1].damage, player.weapon_damage * 3.0),
-		"ballistics evolution did not replace each shot with a 30%-rate/30%-speed/300%-damage grenade"
+		"ballistics evolution did not replace each shot with a 20%-rate/25%-speed/300%-damage grenade"
 	):
 		return
 	var grenade: Node = spawned_shots[-1]
@@ -340,8 +340,8 @@ func _initialize() -> void:
 	player._update_drone_burn_lock(0, burn_target, 0.31)
 	player._update_drone_burn_lock(0, burn_target, 1.0)
 	if not _assert_true(
-		burn_target.burn_applications == 1 and burn_target.burn_dps > 0.0,
-		"one drone did not apply exactly one burn after maintaining its target for 0.6 seconds"
+		burn_target.burn_applications == 8 and burn_target.burn_dps > 0.0,
+		"one drone did not apply one burn stack per 0.2 seconds"
 	):
 		return
 	burn_target.queue_free()
@@ -356,9 +356,7 @@ func _initialize() -> void:
 	var wave: Node = ArcPulseScript.new()
 	root.add_child(wave)
 	wave.set_process(false)
-	var moving_center := Node2D.new()
-	root.add_child(moving_center)
-	wave.setup(100.0, 25.0, func() -> Array[Node]: return arc_targets, 0.3, moving_center)
+	wave.setup(100.0, 25.0, func() -> Array[Node]: return arc_targets, 0.3)
 	var larger_wave: Node = ArcPulseScript.new()
 	root.add_child(larger_wave)
 	larger_wave.set_process(false)
@@ -373,25 +371,23 @@ func _initialize() -> void:
 		"slow arc wave damaged enemies instantly or used the wrong expansion duration"
 	):
 		return
-	moving_center.global_position = Vector2(4.0, 0.0)
 	wave._process(0.10)
 	if not _assert_true(near_target.hit_count == 1 and far_target.hit_count == 0, "arc wavefront did not damage only the enemy it reached"):
 		return
-	if not _assert_true(wave.global_position.is_equal_approx(moving_center.global_position), "arc wave stopped following the player during expansion"):
+	if not _assert_true(wave.global_position.is_equal_approx(Vector2.ZERO), "arc wave moved away from its emission center"):
 		return
 	wave._process(0.65)
 	wave._process(0.05)
 	if not _assert_true(
 		near_target.hit_count == 1
 		and far_target.hit_count == 1
-		and is_equal_approx(near_target.damage_received, 21.25)
-		and is_equal_approx(far_target.damage_received, 9.25),
+		and is_equal_approx(near_target.damage_received, 20.5)
+		and is_equal_approx(far_target.damage_received, 8.5),
 		"one arc wave did not apply exactly one distance-decayed hit per touched enemy"
 	):
 		return
 	wave.queue_free()
 	larger_wave.queue_free()
-	moving_center.queue_free()
 	near_target.queue_free()
 	far_target.queue_free()
 

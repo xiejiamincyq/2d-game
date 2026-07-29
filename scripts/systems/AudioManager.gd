@@ -25,6 +25,7 @@ var hit_stream_names: Dictionary = {
 	DamageTypes.ARC: "hit_arc",
 	DamageTypes.DASH: "hit_dash",
 	DamageTypes.SPIKE: "hit_spike",
+	DamageTypes.BURN: "hit_laser",
 }
 var hit_cooldowns: Dictionary = {}
 var kill_confirm_cooldown: float = 0.0

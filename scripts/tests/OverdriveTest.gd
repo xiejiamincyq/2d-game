@@ -18,6 +18,7 @@ func _initialize() -> void:
 	root.add_child(scene)
 	await process_frame
 	scene._start_run()
+	scene.player.advance_entrance(scene.player.get_entrance_duration() + 0.01)
 	scene._transition_to(scene.RunState.PLAYING)
 	scene.overdrive_charge = scene.OVERDRIVE_MAX_CHARGE - scene.OVERDRIVE_CHARGE_PER_KILL
 	var killed_enemy := Node.new()

@@ -17,6 +17,7 @@ signal damage_resolved(
 )
 
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const TentacleAttackScript = preload("res://scripts/components/TentacleAttack.gd")
 const BossAttackDirectorScript = preload("res://scripts/components/BossAttackDirector.gd")
@@ -30,6 +31,7 @@ const KEEP_DISTANCE_MIN := 260.0
 const KEEP_DISTANCE_MAX := 390.0
 const MOVE_SPEED := 63.8
 const CAMERA_SAFE_MARGIN := 112.0
+const HIDDEN_DISPERSAL_SPEED_SCALE := 0.72
 
 var body_radius := BODY_RADIUS
 var feedback_weight := 2
@@ -45,9 +47,9 @@ var tentacle_attack: Node
 var attack_director: Node
 var entrance_progress := 0.0
 var entrance_resolved := false
-var burn_damage_per_second := 0.0
-var burn_remaining := 0.0
-var burn_slow_fraction := 0.0
+var burn_status: RefCounted = BurnStatusScript.new()
+var hidden_dispersion_direction := Vector2.ZERO
+var hidden_dispersion_timer := 0.0
 
 func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -121,10 +123,14 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		return
 	if player == null:
-		velocity = Vector2.ZERO
+		if is_target_hidden():
+			_update_hidden_target_dispersion(delta)
+		else:
+			velocity = Vector2.ZERO
 		return
+	hidden_dispersion_timer = 0.0
 	var direction := get_combat_movement_direction(player)
-	velocity = direction * MOVE_SPEED * (1.0 - burn_slow_fraction if burn_remaining > 0.0 else 1.0)
+	velocity = direction * MOVE_SPEED * (1.0 - burn_status.get_slow_fraction())
 	move_and_slide()
 	_clamp_to_world_bounds()
 
@@ -191,20 +197,28 @@ func get_target_player() -> Node2D:
 		return null
 	return target
 
-func apply_burn(damage_per_second: float, duration: float, slow_fraction: float = 0.30) -> void:
-	burn_damage_per_second = maxf(burn_damage_per_second, damage_per_second)
-	burn_remaining = maxf(burn_remaining, duration)
-	burn_slow_fraction = maxf(burn_slow_fraction, clampf(slow_fraction, 0.0, 0.95))
+func is_target_hidden() -> bool:
+	return is_instance_valid(target_player) and target_player.has_method("is_stealthed") and bool(target_player.call("is_stealthed"))
+
+func _update_hidden_target_dispersion(delta: float) -> void:
+	hidden_dispersion_timer -= delta
+	if hidden_dispersion_timer <= 0.0 or hidden_dispersion_direction == Vector2.ZERO:
+		hidden_dispersion_direction = Vector2.RIGHT.rotated(randf() * TAU)
+		hidden_dispersion_timer = randf_range(0.7, 1.35)
+	velocity = hidden_dispersion_direction * MOVE_SPEED * HIDDEN_DISPERSAL_SPEED_SCALE * (1.0 - burn_status.get_slow_fraction())
+	move_and_slide()
+	_clamp_to_world_bounds()
+
+func apply_burn_stack(base_attack: float, duration: float, slow_fraction: float = 0.0) -> bool:
+	return burn_status.apply_stack(base_attack, duration, slow_fraction)
+
+func get_burn_stack_count() -> int:
+	return burn_status.get_stack_count()
 
 func _update_burn(delta: float) -> void:
-	if burn_remaining <= 0.0 or delta <= 0.0:
-		return
-	var active_time := minf(delta, burn_remaining)
-	burn_remaining = maxf(0.0, burn_remaining - delta)
-	take_damage(burn_damage_per_second * active_time, DamageTypes.DASH)
-	if burn_remaining <= 0.0:
-		burn_damage_per_second = 0.0
-		burn_slow_fraction = 0.0
+	var burn_damage: float = burn_status.advance(delta)
+	if burn_damage > 0.0:
+		take_damage(burn_damage, DamageTypes.BURN)
 
 func take_damage(
 	amount: float,

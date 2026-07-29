@@ -24,6 +24,7 @@ func _initialize() -> void:
 		return
 
 	scene._start_run()
+	scene.player.advance_entrance(scene.player.get_entrance_duration() + 0.01)
 	await process_frame
 	if not _assert_true(
 		scene.run_state == scene.RunState.WAVE_INTRO and paused and scene.ui.wave_banner.visible,

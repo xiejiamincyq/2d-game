@@ -42,7 +42,7 @@ func _initialize() -> void:
 	player.set_physics_process(false)
 	upgrades.setup(player)
 
-	for locked_card_id in ["move_speed", "spike_density", "spike_resonance", "drone_damage", "arc_capacitor", "arc_relay", "rift_overdrive", "thunder_matrix"]:
+	for locked_card_id in ["move_speed", "spike_density", "spike_resonance", "drone_damage", "drone_pierce", "arc_capacitor", "arc_relay", "rift_overdrive", "thunder_matrix"]:
 		if not _assert_true(not upgrades._is_card_unlocked(_find_catalog_entry(upgrades, locked_card_id)), "%s appeared before its starter card was acquired" % locked_card_id):
 			return
 	var drone_count_before: int = player.drone_count
@@ -51,7 +51,7 @@ func _initialize() -> void:
 	upgrades._apply_card("arc")
 	if not _assert_true(player.drone_count == drone_count_before + 1, "one drone card did not add exactly one drone"):
 		return
-	for unlocked_card_id in ["move_speed", "spike_density", "spike_resonance", "drone_damage", "arc_capacitor", "arc_relay", "rift_overdrive", "thunder_matrix"]:
+	for unlocked_card_id in ["move_speed", "spike_density", "spike_resonance", "drone_damage", "drone_pierce", "arc_capacitor", "arc_relay", "rift_overdrive", "thunder_matrix"]:
 		if not _assert_true(upgrades._is_card_unlocked(_find_catalog_entry(upgrades, unlocked_card_id)), "%s remained locked after all required starter cards were acquired" % unlocked_card_id):
 			return
 
@@ -60,7 +60,7 @@ func _initialize() -> void:
 		var card: Dictionary = card_value
 		if String(card.get("kind", "")) != "evolution":
 			normal_counts[String(card.get("family", ""))] = int(normal_counts.get(String(card.get("family", "")), 0)) + 1
-	if not _assert_true(normal_counts == {"ballistics": 6, "mobility": 6, "automation": 7}, "catalog did not contain the expected cards per family: %s" % [normal_counts]):
+	if not _assert_true(normal_counts == {"ballistics": 6, "mobility": 6, "automation": 8}, "catalog did not contain the expected cards per family: %s" % [normal_counts]):
 		return
 	player.shield = 3.0
 	upgrades._apply_card("shield_capacity")

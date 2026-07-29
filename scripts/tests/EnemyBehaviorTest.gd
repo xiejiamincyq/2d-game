@@ -39,7 +39,7 @@ func _initialize() -> void:
 	spitter.world_bounds = Rect2(-1400, -900, 2800, 1800)
 	fixture.add_child(spitter)
 	await process_frame
-	if not _assert_true(is_equal_approx(spitter.speed, 68.2), "Spitter base movement speed did not receive the global 10 percent increase"):
+	if not _assert_true(is_equal_approx(spitter.speed, 246.75), "Spitter base speed was not 105 percent of player base speed"):
 		return
 
 	var bruiser: Node = EnemyScript.new()
@@ -57,7 +57,7 @@ func _initialize() -> void:
 		return
 	var speed_before_burn: float = bruiser.speed
 	var health_before_burn: float = bruiser.health.current_health
-	bruiser.apply_burn(12.0, 4.0, 0.30)
+	bruiser.apply_burn_stack(40.0, 4.0, 0.30)
 	if not _assert_true(is_equal_approx(bruiser.get_effective_move_speed(), speed_before_burn * 0.70), "purple fire did not slow a large enemy by 30 percent"):
 		return
 	bruiser._update_burn(1.0)

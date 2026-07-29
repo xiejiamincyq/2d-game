@@ -15,25 +15,20 @@ var damage_source: StringName = &"arc"
 var enemy_provider: Callable
 var expansion_speed_scale: float = 1.0
 var hit_enemy_ids: Dictionary = {}
-var follow_target: Node2D
 
 func setup(
 	radius: float,
 	pulse_damage: float = 0.0,
 	provider: Callable = Callable(),
-	speed_scale: float = 1.0,
-	target: Node2D = null
+	speed_scale: float = 1.0
 ) -> void:
 	max_radius = radius
 	damage = maxf(0.0, pulse_damage)
 	enemy_provider = provider
 	expansion_speed_scale = maxf(0.01, speed_scale)
-	follow_target = target
 	lifetime = maxf(0.01, (max_radius - START_RADIUS) / get_expansion_speed())
 
 func _process(delta: float) -> void:
-	if is_instance_valid(follow_target):
-		global_position = follow_target.global_position
 	var previous_radius := get_current_radius()
 	age += delta
 	var current_radius := get_current_radius()

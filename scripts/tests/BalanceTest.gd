@@ -96,9 +96,10 @@ func _initialize() -> void:
 		DamageTypes.ARC,
 		DamageTypes.DASH,
 		DamageTypes.SPIKE,
+		DamageTypes.BURN,
 	]
 	if DamageTypes.ALL != expected_sources:
-		_fail("damage source collection does not contain exactly the five requested sources in order.")
+		_fail("damage source collection does not contain the six combat sources in order.")
 		return
 	for source in expected_sources:
 		if not audio.hit_stream_names.has(source):

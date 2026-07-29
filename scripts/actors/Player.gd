@@ -6,6 +6,7 @@ signal shield_changed(current: float, maximum: float)
 signal died
 signal fired(projectile: Node)
 signal laser_active_changed(active: bool)
+signal entrance_finished
 
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
 const GrenadeProjectileScript = preload("res://scripts/components/GrenadeProjectile.gd")
@@ -35,7 +36,7 @@ const BASE_DRONE_LASER_COLOR := Color(0.2, 1.0, 0.95)
 const THUNDER_MATRIX_LASER_COLOR := Color("b45cff")
 const THUNDER_MATRIX_DRONE_DAMAGE_MULTIPLIER := 1.8
 const THUNDER_MATRIX_ARC_DAMAGE_MULTIPLIER := 0.70
-const DRONE_BURN_LOCK_SECONDS := 0.6
+const DRONE_BURN_STACK_INTERVAL := 0.20
 const DRONE_BURN_SECONDS := 4.0
 const ARC_EXPANSION_SPEED_SCALE: float = 0.5
 const ARC_DAMAGE_PER_LEVEL: float = 5.4
@@ -46,15 +47,19 @@ const PROJECTILE_SPAWN_OFFSET: float = 25.0 * PLAYER_SIZE_SCALE
 const MAX_WEAPON_LINES: int = 8
 const MAX_FIRE_RATE_MULTIPLIER: float = 4.0
 const FAMILY_DAMAGE_PER_LEVEL: float = 1.05
-const GRENADE_RATE_MULTIPLIER := 0.30
-const GRENADE_SPEED_MULTIPLIER := 0.30
+const GRENADE_RATE_MULTIPLIER := 0.20
+const GRENADE_SPEED_MULTIPLIER := 0.25
 const GRENADE_DAMAGE_MULTIPLIER := 3.0
-const ASSASSIN_STEALTH_SECONDS := 3.0
+const ASSASSIN_STEALTH_SECONDS := 1.2
 const ASSASSIN_SPEED_MULTIPLIER := 1.30
 const ASSASSIN_FLAME_SPACING := 30.0
 const DASH_BAR_WIDTH := 54.0
+const BASE_MOVE_SPEED := 235.0
+const ENTRANCE_FALL_SECONDS := 0.72
+const ENTRANCE_SMOKE_SECONDS := 0.38
+const ENTRANCE_MIN_FALL_HEIGHT := 280.0
 
-var move_speed: float = 235.0
+var move_speed: float = BASE_MOVE_SPEED
 var pickup_radius: float = 92.0
 var weapon_damage: float = 10.0
 var fire_rate: float = 13.0
@@ -95,7 +100,7 @@ var drone_lasers: Array[Node2D] = []
 var drone_targets: Array[Node2D] = []
 var drone_lock_target_ids: Array[int] = []
 var drone_lock_durations: Array[float] = []
-var drone_burn_applied: Array[bool] = []
+var drone_laser_piercing := false
 var world_bounds: Rect2 = Rect2()
 var last_spike_position: Vector2 = Vector2.ZERO
 var has_spike_position: bool = false
@@ -117,6 +122,10 @@ var spawn_input_guard_active: bool = false
 var stealth_remaining := 0.0
 var last_assassin_flame_position := Vector2.ZERO
 var has_assassin_flame_position := false
+var entrance_active := false
+var entrance_elapsed := 0.0
+var entrance_visual_offset := 0.0
+var entrance_fall_height := ENTRANCE_MIN_FALL_HEIGHT
 
 func _ready() -> void:
 	add_to_group("player")
@@ -152,6 +161,10 @@ func _physics_process(delta: float) -> void:
 	_update_passives(delta)
 	queue_redraw()
 
+func _process(delta: float) -> void:
+	if entrance_active:
+		advance_entrance(delta)
+
 func _update_movement(input_vector: Vector2) -> void:
 	velocity = input_vector.limit_length(1.0) * get_effective_move_speed()
 	move_and_slide()
@@ -161,6 +174,35 @@ func begin_spawn_input_guard() -> void:
 	spawn_input_guard_active = true
 	velocity = Vector2.ZERO
 	dash_active = false
+
+func begin_entrance() -> void:
+	entrance_active = true
+	entrance_elapsed = 0.0
+	entrance_fall_height = maxf(ENTRANCE_MIN_FALL_HEIGHT, get_viewport_rect().size.y * 0.52)
+	entrance_visual_offset = -entrance_fall_height
+	velocity = Vector2.ZERO
+	queue_redraw()
+
+func advance_entrance(delta: float) -> void:
+	if not entrance_active or delta <= 0.0:
+		return
+	entrance_elapsed = minf(get_entrance_duration(), entrance_elapsed + delta)
+	if entrance_elapsed < ENTRANCE_FALL_SECONDS:
+		var progress := entrance_elapsed / ENTRANCE_FALL_SECONDS
+		var eased := 1.0 - pow(1.0 - progress, 3.0)
+		entrance_visual_offset = lerpf(-entrance_fall_height, 0.0, eased)
+	else:
+		entrance_visual_offset = 0.0
+	queue_redraw()
+	if entrance_elapsed >= get_entrance_duration():
+		entrance_active = false
+		entrance_finished.emit()
+
+func get_entrance_duration() -> float:
+	return ENTRANCE_FALL_SECONDS + ENTRANCE_SMOKE_SECONDS
+
+func is_entrance_active() -> bool:
+	return entrance_active
 
 func _filter_spawn_movement_input(input_vector: Vector2, dash_pressed: bool) -> Vector2:
 	if not spawn_input_guard_active:
@@ -182,26 +224,42 @@ func get_effective_dash_cooldown() -> float:
 	return dash_cooldown * (OVERDRIVE_DASH_COOLDOWN_MULTIPLIER if overdrive_active else 1.0)
 
 func _draw() -> void:
-	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE * PLAYER_SIZE_SCALE)
+	draw_set_transform(Vector2(0.0, entrance_visual_offset), 0.0, Vector2.ONE * PLAYER_SIZE_SCALE)
 	draw_rect(Rect2(-10, -14, 20, 28), Color(0.1, 0.85, 0.95))
 	draw_rect(Rect2(-7, -18, 14, 7), Color(0.96, 0.92, 0.55))
 	draw_rect(Rect2(-14, -6, 28, 8), Color(0.05, 0.28, 0.34))
 	draw_rect(Rect2(-7, 8, 5, 10), Color(0.06, 0.08, 0.1))
 	draw_rect(Rect2(2, 8, 5, 10), Color(0.06, 0.08, 0.1))
-	draw_set_transform(Vector2.ZERO, gun_angle, Vector2.ONE * PLAYER_SIZE_SCALE)
+	draw_set_transform(Vector2(0.0, entrance_visual_offset), gun_angle, Vector2.ONE * PLAYER_SIZE_SCALE)
 	draw_rect(Rect2(8, -3, 22, 6), Color(1.0, 0.32, 0.12))
 	draw_rect(Rect2(25, -2, 8, 4), Color(0.75, 1.0, 1.0))
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	if entrance_elapsed >= ENTRANCE_FALL_SECONDS and entrance_elapsed < get_entrance_duration():
+		_draw_landing_smoke((entrance_elapsed - ENTRANCE_FALL_SECONDS) / ENTRANCE_SMOKE_SECONDS)
 	if dash_active:
 		draw_arc(Vector2.ZERO, dash_melee_radius, -PI * 0.2, PI * 1.2, 28, Color(1.0, 0.76, 0.18, 0.65), 4.0)
 		draw_line(-dash_direction * 28.0, dash_direction * 34.0, Color(0.25, 1.0, 1.0, 0.85), 4.0)
 	if arc_pulse_level > 0:
 		draw_arc(Vector2.ZERO, 78.0 + arc_pulse_level * 16.0, 0.0, TAU, 48, Color(0.25, 1.0, 1.0, 0.18), 2.0)
+	if entrance_active:
+		return
 	var dash_ratio := get_dash_charge_ratio()
 	var bar_position := Vector2(-DASH_BAR_WIDTH * 0.5, BODY_RADIUS + 9.0)
 	draw_rect(Rect2(bar_position, Vector2(DASH_BAR_WIDTH, 5.0)), Color("061019"))
 	draw_rect(Rect2(bar_position, Vector2(DASH_BAR_WIDTH * dash_ratio, 5.0)), Color("ff571f") if dash_ratio >= 0.999 else Color("33fff2"))
 	draw_rect(Rect2(bar_position - Vector2.ONE, Vector2(DASH_BAR_WIDTH + 2.0, 7.0)), Color(0.71, 0.36, 1.0, 0.72), false, 1.0)
+
+func _draw_landing_smoke(progress: float) -> void:
+	var resolved := clampf(progress, 0.0, 1.0)
+	var alpha := 1.0 - resolved
+	var foot := Vector2(0.0, BODY_RADIUS + 5.0)
+	draw_arc(foot, lerpf(12.0, 58.0, resolved), PI, TAU, 40, Color(0.2, 1.0, 0.95, alpha * 0.72), 3.0)
+	for index in range(7):
+		var side := -1.0 if index % 2 == 0 else 1.0
+		var lane := float(index / 2 + 1)
+		var center := foot + Vector2(side * lane * lerpf(7.0, 18.0, resolved), -resolved * (8.0 + lane * 2.0))
+		var radius := lerpf(7.0, 15.0, resolved) - lane * 0.6
+		draw_circle(center, maxf(3.0, radius), Color(0.35, 0.42, 0.52, alpha * 0.42))
 
 func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> bool:
 	if health == null or amount <= 0.0 or is_damage_immune() or not health.can_accept_damage():
@@ -431,6 +489,7 @@ func _fire() -> void:
 	var direction := (get_global_mouse_position() - global_position).normalized()
 	if direction == Vector2.ZERO:
 		direction = Vector2.RIGHT
+	_break_stealth()
 	var spread_step := deg_to_rad(7.5)
 	var active_weapon_lines := get_active_weapon_line_count()
 	var start_offset := -spread_step * float(active_weapon_lines - 1) * 0.5
@@ -454,7 +513,7 @@ func _spawn_bullet(direction: Vector2, damage_scale: float = 1.0) -> void:
 	if active_build_evolutions.has("orbital_storm"):
 		var grenade := GrenadeProjectileScript.new()
 		grenade.global_position = global_position + direction * PROJECTILE_SPAWN_OFFSET
-		grenade.velocity = direction * projectile_speed * GRENADE_SPEED_MULTIPLIER
+		grenade.velocity = velocity + direction * projectile_speed * GRENADE_SPEED_MULTIPLIER
 		grenade.damage = weapon_damage * GRENADE_DAMAGE_MULTIPLIER * maxf(0.0, damage_scale)
 		grenade.damage_multiplier_provider = Callable(self, "get_effective_damage_multiplier").bind(DamageTypes.PROJECTILE)
 		grenade.enemy_provider = Callable(self, "_get_enemies")
@@ -463,7 +522,7 @@ func _spawn_bullet(direction: Vector2, damage_scale: float = 1.0) -> void:
 		return
 	var shot := ProjectileScript.new()
 	shot.global_position = global_position + direction * PROJECTILE_SPAWN_OFFSET
-	shot.velocity = direction * projectile_speed
+	shot.velocity = velocity + direction * projectile_speed
 	shot.damage = weapon_damage * maxf(0.0, damage_scale)
 	shot.damage_multiplier_provider = Callable(
 		self,
@@ -512,10 +571,19 @@ func _update_dash(delta: float) -> void:
 		velocity = Vector2.ZERO
 		if active_build_evolutions.has("rift_overdrive"):
 			_activate_assassin_stealth()
+		if mine_level > 0:
+			last_spike_position = global_position
+			has_spike_position = true
 
 func _activate_assassin_stealth() -> void:
 	stealth_remaining = ASSASSIN_STEALTH_SECONDS
 	self_modulate.a = 0.42
+
+func _break_stealth() -> void:
+	if stealth_remaining <= 0.0:
+		return
+	stealth_remaining = 0.0
+	self_modulate.a = 1.0
 
 func _update_stealth(delta: float) -> void:
 	if stealth_remaining <= 0.0:
@@ -548,7 +616,7 @@ func _update_assassin_flame_path() -> void:
 func _drop_assassin_flame(world_position: Vector2) -> void:
 	var flame := FlameTrailScript.new()
 	flame.position = projectile_parent.to_local(world_position)
-	flame.burn_damage_per_second = weapon_damage * get_effective_damage_multiplier(DamageTypes.DASH)
+	flame.burn_base_attack = weapon_damage * get_effective_damage_multiplier(DamageTypes.DASH)
 	projectile_parent.add_child(flame)
 
 func _apply_dash_melee_sweep(start: Vector2, end: Vector2) -> void:
@@ -585,7 +653,7 @@ func _update_passives(delta: float) -> void:
 		if arc_timer <= 0.0:
 			arc_timer = get_arc_pulse_interval()
 			_emit_arc_pulse()
-	if mine_level > 0:
+	if mine_level > 0 and not dash_active:
 		_update_spike_path()
 
 func _update_drone_lasers(delta: float) -> void:
@@ -607,14 +675,23 @@ func _update_drone_lasers(delta: float) -> void:
 			continue
 		assigned.append(target)
 		any_laser_active = true
-		target.take_damage(
-			drone_damage * delta * get_effective_damage_multiplier(DamageTypes.LASER),
-			DamageTypes.LASER
-		)
+		var direction := (target.global_position - origin).normalized()
+		if direction == Vector2.ZERO:
+			direction = Vector2.RIGHT.rotated(gun_angle)
+		var beam_end := target.global_position
+		if drone_laser_piercing:
+			var beam_length := get_drone_pierce_length()
+			beam_end = origin + direction * beam_length
+			_damage_enemies_on_laser(origin, direction, beam_length, drone_damage * delta, get_drone_laser_width(), enemies)
+		else:
+			target.take_damage(
+				drone_damage * delta * get_effective_damage_multiplier(DamageTypes.LASER),
+				DamageTypes.LASER
+			)
 		_update_drone_burn_lock(index, target, delta)
 		var beam := drone_lasers[index]
 		beam.visible = true
-		beam.setup(origin, target.global_position, get_drone_laser_color(), get_drone_laser_width())
+		beam.setup(origin, beam_end, get_drone_laser_color(), get_drone_laser_width())
 	_set_laser_audio_active(any_laser_active)
 
 func get_drone_laser_color() -> Color:
@@ -625,21 +702,24 @@ func get_drone_laser_color() -> Color:
 func get_drone_laser_width() -> float:
 	return BASE_DRONE_LASER_WIDTH * (OVERDRIVE_LASER_WIDTH_MULTIPLIER if overdrive_active else 1.0)
 
+func get_drone_pierce_length() -> float:
+	if world_bounds.size != Vector2.ZERO:
+		return world_bounds.size.length()
+	return maxf(1200.0, get_viewport_rect().size.length() * 1.5)
+
 func _update_drone_burn_lock(index: int, target: Node2D, delta: float) -> void:
 	while drone_lock_target_ids.size() <= index:
 		drone_lock_target_ids.append(0)
 		drone_lock_durations.append(0.0)
-		drone_burn_applied.append(false)
 	var target_id := target.get_instance_id()
 	if drone_lock_target_ids[index] != target_id:
 		drone_lock_target_ids[index] = target_id
 		drone_lock_durations[index] = 0.0
-		drone_burn_applied[index] = false
 	drone_lock_durations[index] += delta
-	if not drone_burn_applied[index] and drone_lock_durations[index] >= DRONE_BURN_LOCK_SECONDS:
-		drone_burn_applied[index] = true
-		if target.has_method("apply_burn"):
-			target.apply_burn(
+	while drone_lock_durations[index] >= DRONE_BURN_STACK_INTERVAL:
+		drone_lock_durations[index] -= DRONE_BURN_STACK_INTERVAL
+		if target.has_method("apply_burn_stack"):
+			target.apply_burn_stack(
 				drone_damage * get_effective_damage_multiplier(DamageTypes.LASER),
 				DRONE_BURN_SECONDS,
 				0.0
@@ -650,10 +730,17 @@ func _reset_drone_burn_lock(index: int) -> void:
 		return
 	drone_lock_target_ids[index] = 0
 	drone_lock_durations[index] = 0.0
-	drone_burn_applied[index] = false
 
-func _damage_enemies_on_laser(origin: Vector2, direction: Vector2, length: float, damage: float, width: float) -> void:
-	for enemy in _get_enemies():
+func _damage_enemies_on_laser(
+	origin: Vector2,
+	direction: Vector2,
+	length: float,
+	damage: float,
+	width: float,
+	candidates: Array = []
+) -> void:
+	var enemies: Array = candidates if not candidates.is_empty() else _get_enemies()
+	for enemy in enemies:
 		var node := enemy as Node2D
 		if node == null or not enemy.has_method("take_damage"):
 			continue
@@ -662,7 +749,9 @@ func _damage_enemies_on_laser(origin: Vector2, direction: Vector2, length: float
 		if along < 0.0 or along > length:
 			continue
 		var closest := origin + direction * along
-		if closest.distance_to(node.global_position) <= width:
+		var radius_value: Variant = enemy.get("body_radius")
+		var target_radius := float(radius_value) if radius_value != null else 0.0
+		if closest.distance_to(node.global_position) <= width + target_radius:
 			enemy.take_damage(
 				damage * get_effective_damage_multiplier(DamageTypes.LASER),
 				DamageTypes.LASER
@@ -676,8 +765,7 @@ func _emit_arc_pulse() -> void:
 		radius,
 		get_arc_pulse_damage() * get_effective_damage_multiplier(DamageTypes.ARC),
 		Callable(self, "_get_enemies"),
-		get_arc_pulse_expansion_speed_scale(),
-		self
+		get_arc_pulse_expansion_speed_scale()
 	)
 	projectile_parent.add_child(wave)
 
@@ -770,7 +858,6 @@ func _clear_drone_lasers() -> void:
 	drone_targets.clear()
 	drone_lock_target_ids.clear()
 	drone_lock_durations.clear()
-	drone_burn_applied.clear()
 
 func _set_laser_audio_active(active: bool) -> void:
 	if laser_audio_active == active:

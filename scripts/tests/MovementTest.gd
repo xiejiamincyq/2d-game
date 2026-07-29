@@ -71,6 +71,7 @@ func _initialize() -> void:
 	await process_frame
 	Input.action_press("move_right")
 	scene._start_run()
+	scene.player.advance_entrance(scene.player.get_entrance_duration() + 0.01)
 	await process_frame
 	if not _assert_true(not scene.player.is_physics_processing() and scene.player.global_position == Vector2.ZERO, "player processed movement during the spawn intro"):
 		return

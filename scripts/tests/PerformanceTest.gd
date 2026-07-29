@@ -115,6 +115,7 @@ func _initialize() -> void:
 	fixture.add_child(automation_player)
 	automation_player.projectile_parent = projectiles
 	automation_player.drone_count = 4
+	automation_player.drone_laser_piercing = true
 	provided_enemies.clear()
 	for index in range(250):
 		var stress_enemy := StressEnemy.new()

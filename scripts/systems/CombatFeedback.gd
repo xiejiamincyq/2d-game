@@ -55,7 +55,7 @@ func on_damage_resolved(
 		# Persistent Boss damage needs an audible tick without turning every
 		# overlapping spike/laser frame into camera noise.
 		return
-	elif source in [DamageTypes.DASH, DamageTypes.SPIKE] or amount >= 40.0:
+	elif source not in [DamageTypes.SPIKE, DamageTypes.BURN] and (source == DamageTypes.DASH or amount >= 40.0):
 		request_heavy_hit(world_position, direction, intensity)
 
 func request_heavy_hit(

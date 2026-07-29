@@ -29,6 +29,7 @@ func _initialize() -> void:
 	if not _assert_true(not first.ui.continue_button.visible, "continue entry was shown without a valid snapshot"):
 		return
 	first._start_run()
+	first.player.advance_entrance(first.player.get_entrance_duration() + 0.01)
 	await process_frame
 	TestSupport.stop_audio(first.audio)
 	first.upgrade_system.coins = 73
@@ -115,6 +116,7 @@ func _initialize() -> void:
 	root.add_child(boss_prep)
 	await process_frame
 	boss_prep._start_run()
+	boss_prep.player.advance_entrance(boss_prep.player.get_entrance_duration() + 0.01)
 	await process_frame
 	TestSupport.stop_audio(boss_prep.audio)
 	boss_prep.wave_director.wave_index = boss_prep.wave_director.waves.size() - 1
@@ -181,6 +183,7 @@ func _initialize() -> void:
 	root.add_child(fresh)
 	await process_frame
 	fresh._start_run()
+	fresh.player.advance_entrance(fresh.player.get_entrance_duration() + 0.01)
 	TestSupport.stop_audio(fresh.audio)
 	if not _assert_true(
 		int(fresh.snapshot_store.load_snapshot().get("pending_stage", 0)) == 1
