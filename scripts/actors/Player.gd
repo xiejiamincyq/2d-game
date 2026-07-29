@@ -12,6 +12,8 @@ const ProjectileScript = preload("res://scripts/components/Projectile.gd")
 const GrenadeProjectileScript = preload("res://scripts/components/GrenadeProjectile.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const LaserBeamScript = preload("res://scripts/components/LaserBeam.gd")
+const DroneLaserResolverScript = preload("res://scripts/components/DroneLaserResolver.gd")
+const DroneLockReticleScript = preload("res://scripts/ui/DroneLockReticle.gd")
 const SpikeTrapScript = preload("res://scripts/components/SpikeTrap.gd")
 const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd")
 const FlameTrailScript = preload("res://scripts/components/FlameTrail.gd")
@@ -36,9 +38,7 @@ const BASE_DRONE_LASER_COLOR := Color(0.2, 1.0, 0.95)
 const THUNDER_MATRIX_LASER_COLOR := Color("b45cff")
 const THUNDER_MATRIX_DRONE_DAMAGE_MULTIPLIER := 1.8
 const THUNDER_MATRIX_ARC_DAMAGE_MULTIPLIER := 0.70
-const DRONE_BURN_STACK_INTERVAL := 0.20
-const DRONE_BURN_SECONDS := 4.0
-const DRONE_MAX_TURN_SPEED_RADIANS := PI / 6.0
+const DRONE_MAX_TURN_SPEED_RADIANS := deg_to_rad(300.0)
 const ARC_EXPANSION_SPEED_SCALE: float = 0.5
 const ARC_DAMAGE_PER_LEVEL: float = 5.4
 const PLAYER_SIZE_SCALE: float = 1.3
@@ -99,16 +99,17 @@ var max_shield: float = 20.0
 var projectile_parent: Node
 var drone_visuals: Array[Node2D] = []
 var drone_lasers: Array[Node2D] = []
+var drone_reticles: Array[Node2D] = []
 var drone_targets: Array[Node2D] = []
 var drone_aim_directions: Array[Vector2] = []
-var drone_lock_target_ids: Array[int] = []
-var drone_lock_durations: Array[float] = []
+var drone_laser_resolver: RefCounted = DroneLaserResolverScript.new()
 var drone_laser_piercing := false
 var world_bounds: Rect2 = Rect2()
 var last_spike_position: Vector2 = Vector2.ZERO
 var has_spike_position: bool = false
 var dash_active: bool = false
 var dash_direction: Vector2 = Vector2.RIGHT
+var last_movement_direction: Vector2 = Vector2.RIGHT
 var dash_hit_bodies: Array[Node] = []
 var enemy_provider: Callable
 var _fire_rate_modifiers: Dictionary = {}
@@ -159,7 +160,7 @@ func _physics_process(delta: float) -> void:
 	if controls_were_guarded:
 		wants_dash = false
 	if not dash_active and wants_dash:
-		_start_dash((get_global_mouse_position() - global_position).normalized())
+		_start_dash(_resolve_dash_direction(input_vector))
 	if dash_active:
 		_update_dash(delta)
 	else:
@@ -173,6 +174,8 @@ func _process(delta: float) -> void:
 		advance_entrance(delta)
 
 func _update_movement(input_vector: Vector2) -> void:
+	if input_vector != Vector2.ZERO:
+		last_movement_direction = input_vector.normalized()
 	velocity = input_vector.limit_length(1.0) * get_effective_move_speed()
 	move_and_slide()
 	_clamp_to_world_bounds()
@@ -474,6 +477,7 @@ func clear_runtime_modifiers() -> void:
 	stealth_remaining = 0.0
 	self_modulate.a = 1.0
 	_set_stealth_collision_disabled(false)
+	_clear_drone_burn_tracks()
 
 func _multiply_damage_modifiers(source: StringName) -> float:
 	var multiplier := 1.0
@@ -551,7 +555,7 @@ func _start_dash(direction: Vector2) -> void:
 	if dash_active or dash_cooldown_remaining > 0.0:
 		return
 	if direction == Vector2.ZERO:
-		direction = Vector2.RIGHT.rotated(gun_angle)
+		direction = last_movement_direction
 	dash_direction = direction.normalized()
 	dash_active = true
 	dash_timer = dash_duration
@@ -561,6 +565,13 @@ func _start_dash(direction: Vector2) -> void:
 	if active_build_evolutions.has("rift_overdrive"):
 		has_assassin_flame_position = false
 		_update_assassin_flame_path()
+
+func _resolve_dash_direction(input_vector: Vector2) -> Vector2:
+	if input_vector != Vector2.ZERO:
+		return input_vector.normalized()
+	if velocity != Vector2.ZERO:
+		return velocity.normalized()
+	return last_movement_direction.normalized() if last_movement_direction != Vector2.ZERO else Vector2.RIGHT
 
 func _update_dash(delta: float) -> void:
 	if not dash_active:
@@ -686,11 +697,13 @@ func _update_drone_lasers(delta: float) -> void:
 		var target := _nearest_unassigned_enemy(origin, assigned, enemies)
 		drone_targets.append(target)
 		if target == null:
-			_reset_drone_burn_lock(index)
+			_update_drone_burn_tracks(index, [], delta)
+			_set_drone_reticle(index, null)
 			if index < drone_lasers.size():
 				drone_lasers[index].visible = false
 			continue
 		assigned.append(target)
+		_set_drone_reticle(index, target)
 		any_laser_active = true
 		var desired_direction := (target.global_position - origin).normalized()
 		if desired_direction == Vector2.ZERO:
@@ -698,26 +711,19 @@ func _update_drone_lasers(delta: float) -> void:
 		var direction := _turn_drone_toward(index, desired_direction, delta)
 		if index < drone_visuals.size():
 			drone_visuals[index].rotation = direction.angle()
-		var target_distance := origin.distance_to(target.global_position)
-		var target_radius_value: Variant = target.get("body_radius")
-		var target_radius := float(target_radius_value) if target_radius_value != null else 0.0
-		var beam_length := target_distance + target_radius
-		if drone_laser_piercing:
-			beam_length = get_drone_pierce_length()
-			_damage_enemies_on_laser(origin, direction, beam_length, drone_damage * delta, get_drone_laser_width(), enemies)
-		var primary_target_hit := _is_target_on_laser(target, origin, direction, beam_length, get_drone_laser_width())
-		if not drone_laser_piercing and primary_target_hit:
-			target.take_damage(
+		var width := get_drone_laser_width()
+		var ray_result := _resolve_drone_ray(origin, direction, width, enemies)
+		var hit_targets: Array = ray_result["targets"]
+		for hit_target in hit_targets:
+			if is_instance_valid(hit_target) and hit_target.has_method("take_damage"):
+				hit_target.take_damage(
 				drone_damage * delta * get_effective_damage_multiplier(DamageTypes.LASER),
 				DamageTypes.LASER
 			)
-		if primary_target_hit:
-			_update_drone_burn_lock(index, target, delta)
-		else:
-			_reset_drone_burn_lock(index)
+		_update_drone_burn_tracks(index, hit_targets, delta)
 		var beam := drone_lasers[index]
 		beam.visible = true
-		beam.setup(origin, origin + direction * beam_length, get_drone_laser_color(), get_drone_laser_width())
+		beam.setup(origin, ray_result["end"], get_drone_laser_color(), width)
 	_set_laser_audio_active(any_laser_active)
 
 func _turn_drone_toward(index: int, desired_direction: Vector2, delta: float) -> Vector2:
@@ -739,13 +745,7 @@ func _is_target_on_laser(
 	length: float,
 	width: float
 ) -> bool:
-	var relative := target.global_position - origin
-	var along := relative.dot(direction)
-	if along < 0.0 or along > length:
-		return false
-	var radius_value: Variant = target.get("body_radius")
-	var target_radius := float(radius_value) if radius_value != null else 0.0
-	return (origin + direction * along).distance_to(target.global_position) <= width + target_radius
+	return drone_laser_resolver.is_target_on_ray(target, origin, direction, length, width)
 
 func get_drone_laser_color() -> Color:
 	if active_build_evolutions.has("thunder_matrix"):
@@ -756,33 +756,35 @@ func get_drone_laser_width() -> float:
 	return BASE_DRONE_LASER_WIDTH * (OVERDRIVE_LASER_WIDTH_MULTIPLIER if overdrive_active else 1.0)
 
 func get_drone_pierce_length() -> float:
-	if world_bounds.size != Vector2.ZERO:
-		return world_bounds.size.length()
-	return maxf(1200.0, get_viewport_rect().size.length() * 1.5)
+	return get_drone_ray_length(global_position)
 
-func _update_drone_burn_lock(index: int, target: Node2D, delta: float) -> void:
-	while drone_lock_target_ids.size() <= index:
-		drone_lock_target_ids.append(0)
-		drone_lock_durations.append(0.0)
-	var target_id := target.get_instance_id()
-	if drone_lock_target_ids[index] != target_id:
-		drone_lock_target_ids[index] = target_id
-		drone_lock_durations[index] = 0.0
-	drone_lock_durations[index] += delta
-	while drone_lock_durations[index] >= DRONE_BURN_STACK_INTERVAL:
-		drone_lock_durations[index] -= DRONE_BURN_STACK_INTERVAL
-		if target.has_method("apply_burn_stack"):
-			target.apply_burn_stack(
-				drone_damage * get_effective_damage_multiplier(DamageTypes.LASER),
-				DRONE_BURN_SECONDS,
-				0.0
-			)
+func get_drone_ray_length(origin: Vector2) -> float:
+	return drone_laser_resolver.get_ray_length(origin, world_bounds, get_viewport_rect().size)
 
-func _reset_drone_burn_lock(index: int) -> void:
-	if index >= drone_lock_target_ids.size():
-		return
-	drone_lock_target_ids[index] = 0
-	drone_lock_durations[index] = 0.0
+func _resolve_drone_ray(origin: Vector2, direction: Vector2, width: float, enemies: Array) -> Dictionary:
+	return drone_laser_resolver.resolve_ray(
+		self,
+		get_world_2d(),
+		origin,
+		direction,
+		width,
+		enemies,
+		drone_laser_piercing,
+		world_bounds,
+		get_viewport_rect().size
+	)
+
+func _update_drone_burn_tracks(index: int, hit_targets: Array, delta: float) -> void:
+	drone_laser_resolver.update_burn_tracks(
+		index,
+		hit_targets,
+		delta,
+		drone_laser_piercing,
+		drone_damage * get_effective_damage_multiplier(DamageTypes.LASER)
+	)
+
+func _clear_drone_burn_tracks() -> void:
+	drone_laser_resolver.clear_burn_tracks()
 
 func _damage_enemies_on_laser(
 	origin: Vector2,
@@ -793,22 +795,12 @@ func _damage_enemies_on_laser(
 	candidates: Array = []
 ) -> void:
 	var enemies: Array = candidates if not candidates.is_empty() else _get_enemies()
-	for enemy in enemies:
-		var node := enemy as Node2D
-		if node == null or not enemy.has_method("take_damage"):
-			continue
-		var relative := node.global_position - origin
-		var along := relative.dot(direction)
-		if along < 0.0 or along > length:
-			continue
-		var closest := origin + direction * along
-		var radius_value: Variant = enemy.get("body_radius")
-		var target_radius := float(radius_value) if radius_value != null else 0.0
-		if closest.distance_to(node.global_position) <= width + target_radius:
-			enemy.take_damage(
-				damage * get_effective_damage_multiplier(DamageTypes.LASER),
-				DamageTypes.LASER
-			)
+	for hit in drone_laser_resolver.collect_ray_hits(origin, direction, length, width, enemies):
+		var enemy: Node2D = hit["node"]
+		enemy.take_damage(
+			damage * get_effective_damage_multiplier(DamageTypes.LASER),
+			DamageTypes.LASER
+		)
 
 func _emit_arc_pulse() -> void:
 	var radius := get_arc_pulse_radius()
@@ -905,16 +897,38 @@ func _sync_drone_lasers() -> void:
 	while drone_lasers.size() > drone_count:
 		var beam: Node2D = drone_lasers.pop_back()
 		beam.queue_free()
+	while drone_reticles.size() < drone_count:
+		var reticle := DroneLockReticleScript.new()
+		reticle.visible = false
+		projectile_parent.add_child(reticle)
+		drone_reticles.append(reticle)
+	while drone_reticles.size() > drone_count:
+		var reticle: Node2D = drone_reticles.pop_back()
+		reticle.queue_free()
+	drone_laser_resolver.sync_track_count(drone_count)
+
+func _set_drone_reticle(index: int, target: Node2D) -> void:
+	if index >= drone_reticles.size():
+		return
+	var reticle := drone_reticles[index]
+	if not is_instance_valid(target):
+		reticle.visible = false
+		return
+	reticle.global_position = target.global_position
+	reticle.visible = true
 
 func _clear_drone_lasers() -> void:
 	_set_laser_audio_active(false)
 	for beam in drone_lasers:
 		if is_instance_valid(beam):
 			beam.queue_free()
+	for reticle in drone_reticles:
+		if is_instance_valid(reticle):
+			reticle.queue_free()
 	drone_lasers.clear()
+	drone_reticles.clear()
 	drone_targets.clear()
-	drone_lock_target_ids.clear()
-	drone_lock_durations.clear()
+	drone_laser_resolver.sync_track_count(0)
 
 func _set_laser_audio_active(active: bool) -> void:
 	if laser_audio_active == active:

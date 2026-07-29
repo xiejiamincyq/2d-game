@@ -6,13 +6,19 @@ const DAMAGE_PER_STACK_RATIO := 0.60
 
 var stacks: Array[Dictionary] = []
 
-func apply_stack(base_attack: float, duration: float, slow_fraction: float = 0.0) -> bool:
+func apply_stack(
+	base_attack: float,
+	duration: float,
+	slow_fraction: float = 0.0,
+	damage_source: StringName = &"burn"
+) -> bool:
 	if base_attack <= 0.0 or duration <= 0.0:
 		return false
 	var stack := {
 		"damage_per_second": base_attack * DAMAGE_PER_STACK_RATIO,
 		"remaining": duration,
 		"slow_fraction": clampf(slow_fraction, 0.0, 0.95),
+		"damage_source": damage_source,
 	}
 	if stacks.size() < MAX_STACKS:
 		stacks.append(stack)
@@ -28,13 +34,21 @@ func apply_stack(base_attack: float, duration: float, slow_fraction: float = 0.0
 	return false
 
 func advance(delta: float) -> float:
+	var by_source := advance_by_source(delta)
+	var total := 0.0
+	for amount in by_source.values():
+		total += float(amount)
+	return total
+
+func advance_by_source(delta: float) -> Dictionary:
 	if delta <= 0.0 or stacks.is_empty():
-		return 0.0
-	var resolved_damage := 0.0
+		return {}
+	var resolved_damage: Dictionary = {}
 	for index in range(stacks.size() - 1, -1, -1):
 		var stack: Dictionary = stacks[index]
 		var remaining := float(stack["remaining"])
-		resolved_damage += float(stack["damage_per_second"]) * minf(delta, remaining)
+		var source: StringName = stack.get("damage_source", &"burn")
+		resolved_damage[source] = float(resolved_damage.get(source, 0.0)) + float(stack["damage_per_second"]) * minf(delta, remaining)
 		remaining = maxf(0.0, remaining - delta)
 		if remaining <= 0.0:
 			stacks.remove_at(index)

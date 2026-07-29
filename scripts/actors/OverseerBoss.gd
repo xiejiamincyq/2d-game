@@ -209,16 +209,23 @@ func _update_hidden_target_dispersion(delta: float) -> void:
 	move_and_slide()
 	_clamp_to_world_bounds()
 
-func apply_burn_stack(base_attack: float, duration: float, slow_fraction: float = 0.0) -> bool:
-	return burn_status.apply_stack(base_attack, duration, slow_fraction)
+func apply_burn_stack(
+	base_attack: float,
+	duration: float,
+	slow_fraction: float = 0.0,
+	damage_source: StringName = DamageTypes.BURN
+) -> bool:
+	return burn_status.apply_stack(base_attack, duration, slow_fraction, damage_source)
 
 func get_burn_stack_count() -> int:
 	return burn_status.get_stack_count()
 
 func _update_burn(delta: float) -> void:
-	var burn_damage: float = burn_status.advance(delta)
-	if burn_damage > 0.0:
-		take_damage(burn_damage, DamageTypes.BURN)
+	var damage_by_source: Dictionary = burn_status.advance_by_source(delta)
+	for damage_source in damage_by_source:
+		var burn_damage := float(damage_by_source[damage_source])
+		if burn_damage > 0.0:
+			take_damage(burn_damage, damage_source)
 
 func take_damage(
 	amount: float,

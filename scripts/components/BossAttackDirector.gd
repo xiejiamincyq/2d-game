@@ -60,7 +60,7 @@ func advance(delta: float) -> void:
 		and pattern.is_pattern_active()
 		and boss.global_position.distance_to(target_player.global_position) <= MELEE_ZONE_MAX
 	):
-		pattern.clear()
+		pattern.cancel(false)
 		attack_gap = maxf(attack_gap, ATTACK_RECOVERY_SECONDS)
 	pattern.advance(delta)
 	var attack_is_active: bool = pattern.is_pattern_active() or tentacle_attack.is_attacking()
@@ -141,7 +141,7 @@ func _finish_transition() -> void:
 
 func _cancel_active_attacks() -> void:
 	if is_instance_valid(pattern):
-		pattern.clear()
+		pattern.cancel(false)
 	if is_instance_valid(tentacle_attack):
 		tentacle_attack.cancel_attack()
 	waiting_for_attack_completion = false

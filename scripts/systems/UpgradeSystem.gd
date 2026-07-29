@@ -59,7 +59,7 @@ var upgrade_pool: Array[Dictionary] = [
 	{"id": "spike_resonance", "label": "地脉共振", "description": "地刺伤害 +8%、半径 +5、触发间隔 -10%", "family": "mobility", "kind": "support", "requires": "mine", "max_rank": 4, "base_cost": 30},
 
 	# Automation: eight normal cards.
-	{"id": "drone_pierce", "label": "穿透棱镜", "description": "无人机激光贯穿沿途敌人", "family": "automation", "kind": "support", "requires": "drone", "max_rank": 1, "base_cost": 48},
+	{"id": "drone_pierce", "label": "穿透棱镜", "description": "激光无视遮挡，点燃阈值降至 0.3 秒", "family": "automation", "kind": "support", "requires": "drone", "max_rank": 1, "base_cost": 48},
 	{"id": "drone", "label": "无人机部署", "description": "无人机 +1，单机伤害 +3%", "family": "automation", "kind": "core", "max_rank": 4, "base_cost": 52},
 	{"id": "drone_damage", "label": "激光放大器", "description": "无人机激光伤害 +16%", "family": "automation", "kind": "core", "requires": "drone", "max_rank": 5, "base_cost": 34},
 	{"id": "arc", "label": "电弧启动器", "description": "首次解锁；后续强化伤害与半径", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 45},

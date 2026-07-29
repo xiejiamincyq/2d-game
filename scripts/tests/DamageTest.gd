@@ -16,10 +16,12 @@ class ArcTarget extends Node2D:
 class BurnTarget extends ArcTarget:
 	var burn_applications := 0
 	var burn_dps := 0.0
+	var last_source: StringName = &""
 
-	func apply_burn_stack(base_attack: float, _duration: float, _slow: float) -> void:
+	func apply_burn_stack(base_attack: float, _duration: float, _slow: float, source: StringName = DamageTypes.BURN) -> void:
 		burn_applications += 1
 		burn_dps = base_attack * 0.60
+		last_source = source
 
 var assertions := 0
 
@@ -336,12 +338,14 @@ func _initialize() -> void:
 
 	var burn_target := BurnTarget.new()
 	root.add_child(burn_target)
-	player._update_drone_burn_lock(0, burn_target, 0.3)
-	player._update_drone_burn_lock(0, burn_target, 0.31)
-	player._update_drone_burn_lock(0, burn_target, 1.0)
+	player._update_drone_burn_tracks(0, [burn_target], 0.3)
+	player._update_drone_burn_tracks(0, [burn_target], 0.31)
+	player._update_drone_burn_tracks(0, [burn_target], 1.0)
 	if not _assert_true(
-		burn_target.burn_applications == 8 and burn_target.burn_dps > 0.0,
-		"one drone did not apply one burn stack per 0.2 seconds"
+		burn_target.burn_applications == 6
+		and burn_target.burn_dps > 0.0
+		and burn_target.last_source == DamageTypes.SILENT_BURN,
+		"one drone burn timing/source was wrong (applications=%d source=%s dps=%.2f)" % [burn_target.burn_applications, burn_target.last_source, burn_target.burn_dps]
 	):
 		return
 	burn_target.queue_free()

@@ -96,9 +96,13 @@ func _initialize() -> void:
 	attack_director.advance(0.01)
 	if not _assert_true(attack_director.get_last_attack_class() == &"ranged" and attack_director.get_pattern().is_pattern_active() and not boss.get_tentacle_attack().is_attacking(), "long-range Boss scheduling did not choose a readable projectile pattern"):
 		return
+	attack_director.get_pattern().advance(0.46)
+	var interrupted_projectile_count := projectiles.get_child_count()
+	if not _assert_true(interrupted_projectile_count >= 5, "ranged interruption fixture did not fire projectiles before cancellation"):
+		return
 	boss.global_position = player.global_position + Vector2(120.0, 0.0)
 	attack_director.advance(0.01)
-	if not _assert_true(not attack_director.get_pattern().is_pattern_active() and projectiles.get_child_count() == 0, "Boss kept an unavoidable ranged pattern active after the player entered melee range"):
+	if not _assert_true(not attack_director.get_pattern().is_pattern_active() and projectiles.get_child_count() == interrupted_projectile_count, "Boss interruption removed bullets that had already been fired"):
 		return
 	var outside_safe_rect: Vector2 = boss.get_combat_safe_rect().end + Vector2(180.0, 120.0)
 	boss.global_position = outside_safe_rect
@@ -120,11 +124,12 @@ func _initialize() -> void:
 	attack_director.get_pattern().advance(0.46)
 	if not _assert_true(projectiles.get_child_count() >= 5, "fixture did not create owned Boss projectiles"):
 		return
+	var transition_projectile_count := projectiles.get_child_count()
 	boss.take_damage(boss.health.max_health * 0.66, DamageTypes.PROJECTILE)
 	if not _assert_true(attack_director.get_state_name() == "TRANSITION_1" and reinforcements == [6], "large threshold hit skipped transition one or its six reinforcements"):
 		return
 	await process_frame
-	if not _assert_true(projectiles.get_child_count() == 0 and not attack_director.get_pattern().is_pattern_active(), "phase transition left Boss projectiles alive"):
+	if not _assert_true(projectiles.get_child_count() == transition_projectile_count and not attack_director.get_pattern().is_pattern_active(), "phase transition removed bullets that were already in flight"):
 		return
 	attack_director.advance(attack_director.TRANSITION_SECONDS + 0.01)
 	if not _assert_true(attack_director.get_state_name() == "TRANSITION_2" and reinforcements == [6, 8], "large threshold hit did not preserve transition two and its eight reinforcements"):
@@ -159,9 +164,11 @@ func _initialize() -> void:
 		return
 
 	boss.take_damage(boss.health.max_health, DamageTypes.PROJECTILE)
-	if not _assert_true(attack_director.get_state_name() == "DEATH" and not boss.get_tentacle_attack().is_attacking() and reinforcements == [6, 8], "lethal damage left an attack active or requested late reinforcements"):
+	var death_cleared_pattern: bool = not attack_director.get_pattern().is_pattern_active()
+	if not _assert_true(attack_director.get_state_name() == "DEATH" and death_cleared_pattern and not boss.get_tentacle_attack().is_attacking() and reinforcements == [6, 8], "lethal damage left an attack active or requested late reinforcements"):
 		return
-	if not _assert_true(projectiles.get_child_count() == 0 and not attack_director.get_pattern().is_pattern_active(), "Boss death left live projectiles or an active bullet pattern"):
+	await process_frame
+	if not _assert_true(projectiles.get_child_count() == 0, "Boss death left live projectiles"):
 		return
 	fixture.queue_free()
 	await process_frame
