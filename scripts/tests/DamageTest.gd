@@ -23,6 +23,9 @@ class BurnTarget extends ArcTarget:
 		burn_dps = base_attack * 0.60
 		last_source = source
 
+	func get_burn_stack_count() -> int:
+		return burn_applications
+
 var assertions := 0
 
 func _assert_true(condition: bool, message: String) -> bool:
@@ -89,15 +92,15 @@ func _initialize() -> void:
 	player.set_overdrive_active(true)
 	var normal_arc_interval: float = maxf(0.7, player.arc_base_interval - player.arc_pulse_level * 0.20)
 	if not _assert_true(
-		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.PROJECTILE), 1.8),
-		"overdrive and source damage modifiers did not compose without stacking"
+		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.PROJECTILE), 1.5),
+		"overdrive changed an independently configured projectile damage modifier"
 	):
 		return
 	if not _assert_true(
-		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.SPIKE), 2.0)
-		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.LASER), 2.0)
+		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.SPIKE), 1.0)
+		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.LASER), 1.0)
 		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.ARC), 1.0),
-		"overdrive did not apply the requested spike, laser, and arc damage multipliers"
+		"overdrive still applied a direct spike, laser, or arc damage multiplier"
 	):
 		return
 	if not _assert_true(
@@ -161,8 +164,8 @@ func _initialize() -> void:
 		return
 	player.set_overdrive_active(true)
 	if not _assert_true(
-		is_equal_approx(persistent_shot.get_resolved_damage(), 12.0),
-		"a projectile created before overdrive did not gain its active damage multiplier"
+		is_equal_approx(persistent_shot.get_resolved_damage(), 10.0),
+		"a projectile created before overdrive gained a direct damage multiplier"
 	):
 		return
 	var shots_before_overdrive_volley := spawned_shots.size()
@@ -197,8 +200,8 @@ func _initialize() -> void:
 	var persistent_spike: Node = spawned_attacks.get_child(spawned_attacks.get_child_count() - 1)
 	player.set_overdrive_active(true)
 	if not _assert_true(
-		is_equal_approx(persistent_spike.get_resolved_damage(), 24.0),
-		"a spike created before overdrive did not gain its active damage multiplier"
+		is_equal_approx(persistent_spike.get_resolved_damage(), 12.0),
+		"a spike created before overdrive gained a direct damage multiplier"
 	):
 		return
 	player._drop_spike_trap_at(Vector2(32.0, 0.0))
@@ -416,6 +419,28 @@ func _initialize() -> void:
 		return
 	target_a.queue_free()
 	target_b.queue_free()
+
+	var first_burn_target := BurnTarget.new()
+	var fresh_burn_target := BurnTarget.new()
+	first_burn_target.position = Vector2(10.0, 0.0)
+	fresh_burn_target.position = Vector2(60.0, 0.0)
+	root.add_child(first_burn_target)
+	root.add_child(fresh_burn_target)
+	var burn_target_pool: Array[Node] = [first_burn_target, fresh_burn_target]
+	var no_assigned_targets: Array[Node2D] = []
+	if not _assert_true(
+		player._nearest_unassigned_enemy(Vector2.ZERO, no_assigned_targets, burn_target_pool) == first_burn_target,
+		"a drone did not initially select the nearest unlit target"
+	):
+		return
+	first_burn_target.burn_applications = 1
+	if not _assert_true(
+		player._nearest_unassigned_enemy(Vector2.ZERO, no_assigned_targets, burn_target_pool) == fresh_burn_target,
+		"a drone kept staring at an ignited target instead of switching to an unlit enemy"
+	):
+		return
+	first_burn_target.queue_free()
+	fresh_burn_target.queue_free()
 
 	player.queue_free()
 	spawned_attacks.queue_free()

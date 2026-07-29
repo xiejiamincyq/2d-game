@@ -22,10 +22,6 @@ const ALL_DAMAGE_SOURCES: StringName = &"all"
 const OVERDRIVE_MODIFIER: StringName = &"overdrive"
 const DASH_IMMUNITY_SOURCE: StringName = &"dash"
 const OVERDRIVE_FIRE_RATE_MULTIPLIER: float = 2.0
-const OVERDRIVE_DAMAGE_MULTIPLIER: float = 1.2
-const OVERDRIVE_SPIKE_DAMAGE_MULTIPLIER: float = 2.0
-const OVERDRIVE_LASER_DAMAGE_MULTIPLIER: float = 2.0
-const OVERDRIVE_ARC_DAMAGE_MULTIPLIER: float = 1.0
 const OVERDRIVE_MOVE_SPEED_MULTIPLIER: float = 1.3
 const OVERDRIVE_DASH_COOLDOWN_MULTIPLIER: float = 0.7
 const OVERDRIVE_SPIKE_RADIUS_MULTIPLIER: float = 2.0
@@ -451,28 +447,14 @@ func set_overdrive_active(active: bool) -> void:
 	overdrive_active = active
 	if active:
 		set_fire_rate_modifier(OVERDRIVE_MODIFIER, OVERDRIVE_FIRE_RATE_MULTIPLIER)
-		set_damage_modifier(OVERDRIVE_MODIFIER, OVERDRIVE_DAMAGE_MULTIPLIER)
-		set_damage_modifier(
-			OVERDRIVE_MODIFIER,
-			OVERDRIVE_SPIKE_DAMAGE_MULTIPLIER / OVERDRIVE_DAMAGE_MULTIPLIER,
-			DamageTypes.SPIKE
-		)
-		set_damage_modifier(
-			OVERDRIVE_MODIFIER,
-			OVERDRIVE_LASER_DAMAGE_MULTIPLIER / OVERDRIVE_DAMAGE_MULTIPLIER,
-			DamageTypes.LASER
-		)
-		set_damage_modifier(
-			OVERDRIVE_MODIFIER,
-			OVERDRIVE_ARC_DAMAGE_MULTIPLIER / OVERDRIVE_DAMAGE_MULTIPLIER,
-			DamageTypes.ARC
-		)
 	else:
 		clear_fire_rate_modifier(OVERDRIVE_MODIFIER)
-		clear_damage_modifier(OVERDRIVE_MODIFIER)
-		clear_damage_modifier(OVERDRIVE_MODIFIER, DamageTypes.SPIKE)
-		clear_damage_modifier(OVERDRIVE_MODIFIER, DamageTypes.LASER)
-		clear_damage_modifier(OVERDRIVE_MODIFIER, DamageTypes.ARC)
+	# Overdrive is a cadence, geometry, mobility, and immunity state. Clear the
+	# legacy keys defensively so it never contributes a direct damage multiplier.
+	clear_damage_modifier(OVERDRIVE_MODIFIER)
+	clear_damage_modifier(OVERDRIVE_MODIFIER, DamageTypes.SPIKE)
+	clear_damage_modifier(OVERDRIVE_MODIFIER, DamageTypes.LASER)
+	clear_damage_modifier(OVERDRIVE_MODIFIER, DamageTypes.ARC)
 	set_damage_immunity(OVERDRIVE_MODIFIER, active)
 
 func clear_runtime_modifiers() -> void:
@@ -968,28 +950,36 @@ func _nearest_unassigned_enemy(
 	enemies: Array[Node]
 ) -> Node2D:
 	var best: Node2D = null
+	var best_assignment_rank := 2
+	var best_ignition_rank := 2
 	var best_distance := INF
-	for enemy in enemies:
-		var node := enemy as Node2D
-		if node == null or assigned.has(node):
-			continue
-		var distance := from_position.distance_squared_to(node.global_position)
-		if distance < best_distance:
-			best_distance = distance
-			best = node
-	if best != null:
-		return best
-	# All live enemies are already claimed. Reuse the nearest one so surplus
-	# drones still contribute against a lone Boss or the last enemy in a wave.
 	for enemy in enemies:
 		var node := enemy as Node2D
 		if node == null:
 			continue
+		var assignment_rank := 1 if assigned.has(node) else 0
+		var ignition_rank := 1 if _is_drone_target_ignited(node) else 0
 		var distance := from_position.distance_squared_to(node.global_position)
-		if distance < best_distance:
+		if (
+			assignment_rank < best_assignment_rank
+			or (assignment_rank == best_assignment_rank and ignition_rank < best_ignition_rank)
+			or (
+				assignment_rank == best_assignment_rank
+				and ignition_rank == best_ignition_rank
+				and distance < best_distance
+			)
+		):
+			best_assignment_rank = assignment_rank
+			best_ignition_rank = ignition_rank
 			best_distance = distance
 			best = node
 	return best
+
+func _is_drone_target_ignited(target: Node2D) -> bool:
+	return (
+		target.has_method("get_burn_stack_count")
+		and int(target.call("get_burn_stack_count")) > 0
+	)
 
 func set_enemy_provider(provider: Callable) -> void:
 	enemy_provider = provider

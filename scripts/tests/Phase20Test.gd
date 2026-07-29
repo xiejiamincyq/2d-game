@@ -69,8 +69,8 @@ func _initialize() -> void:
 	player.set_overdrive_active(true)
 	if not _assert_true(
 		is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.ARC), 1.0)
-		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.LASER), 2.0),
-		"overdrive did not keep arc at base damage while retaining doubled drone laser damage"
+		and is_equal_approx(player.get_effective_damage_multiplier(DamageTypes.LASER), 1.0),
+		"overdrive still applied a direct arc or drone laser damage multiplier"
 	):
 		return
 	player.set_overdrive_active(false)
