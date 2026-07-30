@@ -218,6 +218,50 @@ func _initialize() -> void:
 		return
 	for surrounder in surrounders:
 		surrounder.queue_free()
+	await physics_frame
+
+	var portal_cluster: Array[Node] = []
+	for index in range(8):
+		var clustered_enemy: Node = EnemyScript.new()
+		clustered_enemy.setup(EnemyScript.EnemyKind.SCRAPPER, 0, projectiles, player)
+		clustered_enemy.global_position = (
+			Vector2(430.0, 0.0)
+			+ Vector2.RIGHT.rotated(TAU * float(index) / 8.0) * 44.0
+		)
+		clustered_enemy.set_physics_process(false)
+		fixture.add_child(clustered_enemy)
+		portal_cluster.append(clustered_enemy)
+	for clustered_enemy in portal_cluster:
+		clustered_enemy.set_neighbor_provider(func() -> Array[Node]: return portal_cluster)
+	await physics_frame
+	for frame in range(72):
+		for clustered_enemy in portal_cluster:
+			clustered_enemy._physics_process(1.0 / 60.0)
+	var minimum_cluster_angle := INF
+	var maximum_cluster_angle := -INF
+	var minimum_cluster_spacing := INF
+	var total_cluster_distance := 0.0
+	for index in range(portal_cluster.size()):
+		var cluster_angle: float = portal_cluster[index].global_position.angle()
+		minimum_cluster_angle = minf(minimum_cluster_angle, cluster_angle)
+		maximum_cluster_angle = maxf(maximum_cluster_angle, cluster_angle)
+		total_cluster_distance += portal_cluster[index].global_position.length()
+		for other_index in range(index + 1, portal_cluster.size()):
+			minimum_cluster_spacing = minf(
+				minimum_cluster_spacing,
+				portal_cluster[index].global_position.distance_to(portal_cluster[other_index].global_position)
+			)
+	var cluster_angle_span := maximum_cluster_angle - minimum_cluster_angle
+	var average_cluster_distance := total_cluster_distance / float(portal_cluster.size())
+	if not _assert_true(
+		cluster_angle_span >= 0.9
+		and minimum_cluster_spacing >= 44.0
+		and average_cluster_distance <= 340.0,
+		"portal melee pack trajectory was ineffective after 1.2s (span %.3f rad, spacing %.2fpx, distance %.2fpx)" % [cluster_angle_span, minimum_cluster_spacing, average_cluster_distance]
+	):
+		return
+	for clustered_enemy in portal_cluster:
+		clustered_enemy.queue_free()
 
 	for child in projectiles.get_children():
 		child.queue_free()

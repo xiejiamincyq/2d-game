@@ -175,12 +175,16 @@ func _initialize() -> void:
 		target.queue_free()
 	player.set_enemy_provider(Callable())
 
-	for kind in [EnemyScript.EnemyKind.SCRAPPER, EnemyScript.EnemyKind.DASHER]:
-		var enemy: Node = EnemyScript.new()
-		enemy.setup(kind, 5, projectiles)
-		if not _assert_true(is_equal_approx(enemy.speed, PlayerScript.BASE_MOVE_SPEED * 0.90), "melee enemy kind %d did not use 90%% player speed" % kind):
-			return
-		enemy.queue_free()
+	var scrapper: Node = EnemyScript.new()
+	scrapper.setup(EnemyScript.EnemyKind.SCRAPPER, 5, projectiles)
+	if not _assert_true(is_equal_approx(scrapper.speed, PlayerScript.BASE_MOVE_SPEED * 0.90), "Scrapper did not use 90% player speed"):
+		return
+	scrapper.queue_free()
+	var dasher: Node = EnemyScript.new()
+	dasher.setup(EnemyScript.EnemyKind.DASHER, 5, projectiles)
+	if not _assert_true(is_equal_approx(dasher.speed, PlayerScript.BASE_MOVE_SPEED * 1.10), "pink Dasher did not use 110% player speed"):
+		return
+	dasher.queue_free()
 	for kind in [EnemyScript.EnemyKind.SPITTER, EnemyScript.EnemyKind.MARKSMAN, EnemyScript.EnemyKind.LOBBER]:
 		var enemy: Node = EnemyScript.new()
 		enemy.setup(kind, 5, projectiles)

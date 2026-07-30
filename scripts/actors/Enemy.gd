@@ -29,12 +29,13 @@ const MARKSMAN_TELEGRAPH_SECONDS := 0.5
 const MARKSMAN_TELEGRAPH_LENGTH := 1400.0
 const BASE_MOVE_SPEED_MULTIPLIER := 1.10
 const MELEE_ENEMY_SPEED := 235.0 * 0.90
+const DASHER_ENEMY_SPEED := 235.0 * 1.10
 const RANGED_ENEMY_SPEED := 235.0 * 0.60
 const HIDDEN_DISPERSAL_SPEED_SCALE := 0.72
-const MELEE_SEPARATION_PADDING := 10.0
-const MELEE_SEPARATION_WEIGHT := 1.35
-const MELEE_SURROUND_DISTANCE := 320.0
-const MELEE_SURROUND_MAX_BLEND := 0.72
+const MELEE_SEPARATION_PADDING := 48.0
+const MELEE_SEPARATION_WEIGHT := 3.00
+const MELEE_SURROUND_DISTANCE := 560.0
+const MELEE_SURROUND_MAX_BLEND := 1.20
 const GOLDEN_ANGLE := 2.399963229728653
 
 enum EnemyKind { SCRAPPER, DASHER, SPITTER, BRUISER, MARKSMAN, LOBBER, OVERSEER }
@@ -145,6 +146,8 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 			_add_health(1800.0 * scale_factor)
 	if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER]:
 		speed *= BASE_MOVE_SPEED_MULTIPLIER
+	elif kind == EnemyKind.DASHER:
+		speed = DASHER_ENEMY_SPEED
 	elif is_ranged_kind():
 		speed = RANGED_ENEMY_SPEED
 	else:

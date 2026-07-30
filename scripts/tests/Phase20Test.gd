@@ -41,12 +41,16 @@ func _initialize() -> void:
 	if not _assert_true(is_equal_approx(burn.get_damage_per_second(), 6.0), "burn damage was not doubled to 60% base attack per stack"):
 		return
 
-	for kind in [EnemyScript.EnemyKind.SCRAPPER, EnemyScript.EnemyKind.DASHER]:
-		var melee: Node = EnemyScript.new()
-		melee.setup(kind, 6, projectiles)
-		if not _assert_true(is_equal_approx(melee.speed, PlayerScript.BASE_MOVE_SPEED * 0.90), "melee enemy %d did not use 90%% player speed" % kind):
-			return
-		melee.queue_free()
+	var scrapper: Node = EnemyScript.new()
+	scrapper.setup(EnemyScript.EnemyKind.SCRAPPER, 6, projectiles)
+	if not _assert_true(is_equal_approx(scrapper.speed, PlayerScript.BASE_MOVE_SPEED * 0.90), "Scrapper did not use 90% player speed"):
+		return
+	scrapper.queue_free()
+	var dasher: Node = EnemyScript.new()
+	dasher.setup(EnemyScript.EnemyKind.DASHER, 6, projectiles)
+	if not _assert_true(is_equal_approx(dasher.speed, PlayerScript.BASE_MOVE_SPEED * 1.10), "pink Dasher did not use 110% player speed"):
+		return
+	dasher.queue_free()
 	for kind in [EnemyScript.EnemyKind.SPITTER, EnemyScript.EnemyKind.MARKSMAN, EnemyScript.EnemyKind.LOBBER]:
 		var ranged: Node = EnemyScript.new()
 		ranged.setup(kind, 6, projectiles)
