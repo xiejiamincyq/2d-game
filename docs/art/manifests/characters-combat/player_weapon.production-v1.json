@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_weapon",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Production candidate for the independently rotating player primary weapon.",
+  "runtime_path": "res://assets/art/actors/player/player_weapon.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "top-down three-quarter compatible side profile",
+  "facing": "right-facing horizontal master with muzzle to the right",
+  "palette": ["#061019", "#33fff2", "#ff571f"],
+  "lighting": "controlled cyan rim light with restrained warm-orange energy emission",
+  "prompt": "Use case: stylized-concept. Asset type: production candidate for an independently rotating 2D Godot primary-weapon sprite master. Use the approved A style-lock reference for bold tactical graphic illustration, clean hard-surface planes, restrained hand-painted cel shading, worn dark composite and oxidized metal. Create one compact sci-fi rifle isolated by itself, horizontal with stock at left and muzzle at right, pivot-friendly centerline, warm-orange energy chamber and muzzle accents, a small cool-cyan rim, chunky readable proportions, no hands and no character. Keep the weapon silhouette clear at a 64x64 bounding box and leave enough empty space around it for rotation. Generate on a perfectly flat solid #00ff00 chroma-key background for local removal; the background must have no gradients, shadows, texture, reflections, floor plane, or lighting variation. Do not use #00ff00 in the weapon. No text, border, watermark, scenery, cast shadow, contact shadow, reflection, loose cable, excessive bloom, or opaque halo.",
+  "negative_constraints": [
+    "no character, hands, arms, or body",
+    "no embedded text or labels",
+    "no cropped muzzle or stock",
+    "no diagonal presentation or perspective mismatch",
+    "no acid green in the weapon",
+    "no cast or contact shadow",
+    "no border, scenery, watermark, excessive bloom, or opaque halo"
+  ],
+  "references": [
+    {
+      "path": "docs/art/previews/characters-combat/style-lock-a-v1.png",
+      "role": "user-approved A style-lock reference"
+    },
+    {
+      "id": 27303,
+      "title": "Sci-Fi Tactical Soldier Character Sheet",
+      "role": "original tactical hard-surface material reference only",
+      "sample": "https://cms-assets.youmind.com/media/1782977581873_lsp4b6_HMJMlz6XMAAhDY1.jpg"
+    }
+  ],
+  "generation_model": "imagegen",
+  "license_review_state": "pending",
+  "review_state": "style-approved"
+}
