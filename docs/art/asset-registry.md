@@ -13,7 +13,7 @@
 
 | Asset ID | 类别 | 用途 | 源尺寸 | 运行时目标 | 目标路径 | 状态 |
 |---|---|---|---:|---:|---|---|
-| `player_base` | actor | 玩家机体主体 | 1024×1024 | 64×64 | `res://assets/art/actors/player/player_base.png` | preview |
+| `player_base` | actor | 玩家机体主体 | 1024×1024 | 64×64 | `res://assets/art/actors/player/player_base.png` | style-lock-draft |
 | `player_weapon` | actor | 独立旋转的主武器 | 1024×1024 | 64×64 | `res://assets/art/actors/player/player_weapon.png` | planned |
 | `enemy_scrapper` | enemy | 标准追击敌人 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_scrapper.png` | preview-set |
 | `enemy_dasher` | enemy | 高速疾冲敌人 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_dasher.png` | planned |

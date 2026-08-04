@@ -3,7 +3,7 @@
 ## 状态
 
 - 风格门：`Checkpoint ART-A`
-- 当前状态：等待用户选择
+- 当前状态：用户已选择 A；修正后的风格锁定稿已生成，等待最终批准
 - 可选方向：`A`、`B`、`C`，也可指定组合特征或要求新一轮预览
 - `review_state`：`draft`
 - 禁止事项：用户选择前不得扩展正式角色批次
@@ -65,7 +65,22 @@
 
 ## 用户决定
 
-- 选择：待定
-- 保留特征：待定
-- 拒绝特征：待定
-- 需要重做：待定
+- 选择：A，战术图形插画
+- 保留特征：干净外轮廓、清晰装甲分面、克制的手绘赛璐璐明暗、玩家青/敌人洋红/武器橙的职责分离、Bruiser 的明显体量层级
+- 拒绝特征：Scrapper 持枪、敌方远程装备误导、过多微细节、过量 bloom
+- 需要重做：以 A 为参考生成一张修正后的最小风格锁定稿；Scrapper 必须是无枪近战追击单位，Bruiser 不得持枪
+
+## A 风格锁定候选 v1
+
+![A 风格锁定候选](../previews/characters-combat/style-lock-a-v1.png)
+
+运行时缩小检查：
+
+![A 风格锁定候选缩小图](../previews/characters-combat/style-lock-a-runtime-v1.png)
+
+- Manifest：`../manifests/characters-combat/player_base.style-lock-v1.json`
+- 保留：A 的战术图形插画、干净分面、克制赛璐璐明暗、青/洋红/橙职责分离。
+- 修正：Scrapper 改为短刀近战追击单位，不再持枪；Bruiser 只保留盾臂和重拳。
+- 缩小检查：玩家、Scrapper 和 Bruiser 的轮廓及体量层级可辨；基础命中火花保持最高瞬时亮度。
+- 技术状态：预览为 1536×1024 RGB 不透明风格板，不代表最终透明运行时 PNG。
+- 审查状态：`draft`，等待用户明确批准后才可进入 `style-approved`。
