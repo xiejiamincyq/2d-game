@@ -20,6 +20,26 @@
 ## 预览状态
 
 - 三份生成清单已建立并通过 manifest 校验。
-- 计划预览：每个方案各一张 4×2 八方向真实转身板，不生成完整 72 帧。
-- 2026-08-04 图像生成服务连续返回网络错误，随后明确返回 HTTP 403；因此本轮没有把旧平面旋转图冒充为真实多视角预览。
-- 当前等待图像服务恢复后生成 A/B/C 预览，再交由用户选择；未获选择前不得开始正式 72 帧制作。
+- 2026-08-04 已生成每个方案各一张 4×2 八方向真实转身板；没有提前生成完整 72 帧。
+- 三套预览均保持角色直立，并能辨认正面、左右侧面、背面与四个斜向视角，没有用屏幕平面旋转冒充转身。
+- 运行时缩尺对比中，三套方案的朝向与玩家青色识别色仍可读。
+- 这些图片用于比较目标外观与制作路线，不代表已完成可重复渲染的生产模型；正式制作仍须建立稳定模型或多视角母版。
+- 当前等待用户选择 A、B 或 C；未获选择前不得开始正式 72 帧制作。
+
+## A：卡通渲染 3D 模型转台（推荐）
+
+![A 方案八方向预览](../previews/characters-combat/player-turnaround-preview-a-v1.png)
+
+## B：纯 2D 手绘多方向
+
+![B 方案八方向预览](../previews/characters-combat/player-turnaround-preview-b-v1.png)
+
+## C：3D 底模 + 2D 绘制
+
+![C 方案八方向预览](../previews/characters-combat/player-turnaround-preview-c-v1.png)
+
+## 运行时缩尺对比
+
+从左至右为 A、B、C：
+
+![A、B、C 运行时缩尺对比](../previews/characters-combat/player-turnaround-runtime-comparison-v1.png)

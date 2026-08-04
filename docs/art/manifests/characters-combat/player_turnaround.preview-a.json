@@ -27,6 +27,12 @@
     {"prompt_library_id": 27303, "role": "previously selected YouMind sci-fi tactical soldier character-sheet prompt lineage"}
   ],
   "generation_model": "imagegen",
+  "preview_output": {
+    "path": "docs/art/previews/characters-combat/player-turnaround-preview-a-v1.png",
+    "width": 1717,
+    "height": 916,
+    "mode": "RGB"
+  },
   "license_review_state": "pending",
   "review_state": "draft"
 }
