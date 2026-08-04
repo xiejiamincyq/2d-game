@@ -13,6 +13,14 @@ const LaserBeamScript = preload("res://scripts/components/LaserBeam.gd")
 const SpikeTrapScript = preload("res://scripts/components/SpikeTrap.gd")
 const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const PLAYER_DIRECTIONAL_ATLAS_PATH := "res://assets/art/actors/player/player_directional_atlas.png"
+const PLAYER_WEAPON_TEXTURE_PATH := "res://assets/art/actors/player/player_weapon.png"
+
+const DIRECTION_FRAME_COUNT := 72
+const DIRECTION_STEP_DEGREES := 5.0
+const DIRECTION_ATLAS_COLUMNS := 9
+const DIRECTION_FRAME_SIZE := Vector2(64.0, 64.0)
+const WEAPON_DRAW_RECT := Rect2(Vector2(-25.0, -34.0), Vector2(64.0, 64.0))
 
 var move_speed: float = 235.0
 var pickup_radius: float = 92.0
@@ -57,9 +65,14 @@ var dash_active: bool = false
 var dash_direction: Vector2 = Vector2.RIGHT
 var dash_hit_bodies: Array[Node] = []
 var enemy_provider: Callable
+var player_directional_atlas: ImageTexture
+var player_weapon_texture: ImageTexture
 
 func _ready() -> void:
 	add_to_group("player")
+	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	player_directional_atlas = _load_png_texture(PLAYER_DIRECTIONAL_ATLAS_PATH)
+	player_weapon_texture = _load_png_texture(PLAYER_WEAPON_TEXTURE_PATH)
 	var shape := CollisionShape2D.new()
 	var circle := CircleShape2D.new()
 	circle.radius = 13.0
@@ -88,20 +101,37 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	draw_rect(Rect2(-10, -14, 20, 28), Color(0.1, 0.85, 0.95))
-	draw_rect(Rect2(-7, -18, 14, 7), Color(0.96, 0.92, 0.55))
-	draw_rect(Rect2(-14, -6, 28, 8), Color(0.05, 0.28, 0.34))
-	draw_rect(Rect2(-7, 8, 5, 10), Color(0.06, 0.08, 0.1))
-	draw_rect(Rect2(2, 8, 5, 10), Color(0.06, 0.08, 0.1))
+	var destination := Rect2(-DIRECTION_FRAME_SIZE * 0.5, DIRECTION_FRAME_SIZE)
+	var source := direction_frame_rect(direction_frame_index(gun_angle))
+	draw_texture_rect_region(player_directional_atlas, destination, source)
 	draw_set_transform(Vector2.ZERO, gun_angle, Vector2.ONE)
-	draw_rect(Rect2(8, -3, 22, 6), Color(1.0, 0.32, 0.12))
-	draw_rect(Rect2(25, -2, 8, 4), Color(0.75, 1.0, 1.0))
+	draw_texture_rect(player_weapon_texture, WEAPON_DRAW_RECT, false)
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	if dash_active:
 		draw_arc(Vector2.ZERO, dash_melee_radius, -PI * 0.2, PI * 1.2, 28, Color(1.0, 0.76, 0.18, 0.65), 4.0)
 		draw_line(-dash_direction * 28.0, dash_direction * 34.0, Color(0.25, 1.0, 1.0, 0.85), 4.0)
 	if arc_pulse_level > 0:
 		draw_arc(Vector2.ZERO, 78.0 + arc_pulse_level * 16.0, 0.0, TAU, 48, Color(0.25, 1.0, 1.0, 0.18), 2.0)
+
+func direction_frame_index(angle_radians: float) -> int:
+	var raw_index := roundi(rad_to_deg(angle_radians) / DIRECTION_STEP_DEGREES)
+	return ((raw_index % DIRECTION_FRAME_COUNT) + DIRECTION_FRAME_COUNT) % DIRECTION_FRAME_COUNT
+
+func direction_frame_rect(frame_index: int) -> Rect2:
+	var normalized := ((frame_index % DIRECTION_FRAME_COUNT) + DIRECTION_FRAME_COUNT) % DIRECTION_FRAME_COUNT
+	var column := normalized % DIRECTION_ATLAS_COLUMNS
+	var row := floori(float(normalized) / float(DIRECTION_ATLAS_COLUMNS))
+	return Rect2(
+		Vector2(column, row) * DIRECTION_FRAME_SIZE,
+		DIRECTION_FRAME_SIZE
+	)
+
+func _load_png_texture(path: String) -> ImageTexture:
+	var image := Image.load_from_file(path)
+	if image.is_empty():
+		push_error("Player art texture could not be loaded: " + path)
+		return ImageTexture.new()
+	return ImageTexture.create_from_image(image)
 
 func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> bool:
 	if health == null or amount <= 0.0 or not health.can_accept_damage():

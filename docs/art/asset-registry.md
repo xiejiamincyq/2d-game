@@ -14,6 +14,7 @@
 | Asset ID | 类别 | 用途 | 源尺寸 | 运行时目标 | 目标路径 | 状态 |
 |---|---|---|---:|---:|---|---|
 | `player_base` | actor | 玩家机体主体 | 1024×1024 | 64×64 | `res://assets/art/actors/player/player_base.png` | style-approved |
+| `player_directional_atlas` | actor | 玩家射击朝向 72 帧图集，每 5° 一帧 | 1024×1024 母图 | 64×64/帧 | `res://assets/art/actors/player/player_directional_atlas.png` | style-approved |
 | `player_weapon` | actor | 独立旋转的主武器 | 1024×1024 | 64×64 | `res://assets/art/actors/player/player_weapon.png` | style-approved |
 | `enemy_scrapper` | enemy | 标准追击敌人 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_scrapper.png` | style-approved |
 | `enemy_dasher` | enemy | 高速疾冲敌人 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_dasher.png` | planned |
@@ -34,3 +35,10 @@
 - 固定色彩职责：友方青、敌方洋红、武器和命中橙；本轮不使用酸绿。
 - 预览方向：A 战术图形插画、B 废土手绘工业、C 微缩 PBR 模型。
 - 用户选择前，`player_base` 和预览集不得进入 `style-approved`。
+
+## 方向帧与敌人朝向合同
+
+- 玩家完整覆盖 360°，按每 5° 一帧计算为 72 帧；帧 0 面向右方，后续帧按顺时针排列。
+- 玩家方向帧必须从同一批准母图确定性生成，不允许逐帧重画造成身份、装甲、色板或光照漂移。
+- 玩家独立主武器继续按实际射击角度连续旋转，玩家机体选择最接近的 5° 帧。
+- 普通敌人和 Bruiser 暂时只制作一张面向右方的透明母图；当玩家位于敌人左侧时运行时水平翻转，使敌人始终朝向玩家。

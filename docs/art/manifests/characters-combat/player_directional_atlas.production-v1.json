@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_directional_atlas",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Runtime atlas containing 72 deterministic player-facing frames at five-degree intervals for aiming.",
+  "runtime_path": "res://assets/art/actors/player/player_directional_atlas.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "screen-plane rotation of the approved top-down three-quarter master",
+  "facing": "frame 0 faces right; 72 clockwise frames cover 0 through 355 degrees in five-degree steps",
+  "palette": ["#061019", "#33fff2", "#f559bf"],
+  "lighting": "inherited unchanged from the approved player_base production master",
+  "prompt": "Deterministic derivative with no new generative prompt: crop the approved transparent player_base master, normalize its visible diagonal to 60 pixels, center it in a 64x64 cell, and rotate clockwise from the unchanged base at exact five-degree intervals. Pack frames in row-major order into a 9x8 atlas.",
+  "negative_constraints": [
+    "no generative redraw between angles",
+    "no identity, palette, material, lighting, or silhouette drift",
+    "no frame clipping",
+    "no nontransparent corner pixels",
+    "no collision or gameplay value changes"
+  ],
+  "references": [
+    {
+      "path": "assets/art/actors/player/player_base.png",
+      "role": "user-approved transparent production master"
+    },
+    {
+      "path": "docs/art/previews/characters-combat/style-lock-a-v1.png",
+      "role": "user-approved A style-lock reference"
+    }
+  ],
+  "generation_model": "deterministic-pillow-rotation",
+  "license_review_state": "pending",
+  "review_state": "style-approved"
+}
