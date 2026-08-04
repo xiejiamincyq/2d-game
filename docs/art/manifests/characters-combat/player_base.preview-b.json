@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_base",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Preview-only characters-combat style board for selecting a rugged painterly industrial direction before producing the player master asset.",
+  "runtime_path": "res://assets/art/actors/player/player_base.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "opaque",
+  "camera": "consistent top-down three-quarter",
+  "facing": "right-facing neutral masters in a fixed comparison grid",
+  "palette": ["#061019", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "dusty cool cyan rim light, subtle magenta plane separation, localized warm orange emission",
+  "prompt": "Use case: stylized-concept. Asset type: preview-only 2D game character style board. Create four isolated subjects in a clean fixed 2x2 comparison grid on a flat low-contrast black-blue field: top-left a compact player operative with cyan faction light and a separate warm-orange rifle; top-right a smaller Scrapper enemy with angular magenta salvage armor; bottom-left a massive Bruiser enemy with broad dark ceramic plates and restrained magenta energy; bottom-right a compact orange-white radial hit spark. Style direction B: rugged cyber-wasteland painterly concept art, layered oxidized scrap metal, dusty synthetic fabric, worn composite armor, visible repairs, broad confident brush shapes, strong silhouette with moderate internal texture. Consistent top-down three-quarter camera and neutral right-facing pose for all actors. No labels, no text, no borders, no scenery, no cropped anatomy, no loose cables, no acid green, no excessive bloom, no watermark.",
+  "negative_constraints": [
+    "no embedded text or labels",
+    "no cropped anatomy",
+    "no mixed camera angles",
+    "no noisy silhouette or dangling wires",
+    "no glossy showroom cyberpunk",
+    "no acid green in this preview",
+    "no excessive bloom or opaque halos"
+  ],
+  "references": [
+    {
+      "id": 25446,
+      "title": "Archive Recovery Operative Character Sheet",
+      "role": "industrial equipment layering and character-sheet composition reference only",
+      "sample": "https://cms-assets.youmind.com/media/1781424051793_bqtprz_HKuz485WUAAVbHj.jpg"
+    }
+  ],
+  "generation_model": "imagegen",
+  "license_review_state": "pending",
+  "review_state": "draft"
+}

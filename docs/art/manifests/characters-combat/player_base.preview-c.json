@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_base",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Preview-only characters-combat style board for selecting a miniature PBR maquette direction before producing the player master asset.",
+  "runtime_path": "res://assets/art/actors/player/player_base.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "opaque",
+  "camera": "consistent top-down three-quarter",
+  "facing": "right-facing neutral masters in a fixed comparison grid",
+  "palette": ["#061019", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "soft global illumination with controlled cyan rim, restrained magenta bounce, crisp warm orange emission",
+  "prompt": "Use case: stylized-concept. Asset type: preview-only 2D game character style board. Create four isolated subjects in a clean fixed 2x2 comparison grid on a flat low-contrast black-blue field: top-left a compact player operative with cyan faction light and a separate warm-orange rifle; top-right a smaller Scrapper enemy with angular magenta salvage armor; bottom-left a massive Bruiser enemy with broad dark ceramic plates and restrained magenta energy; bottom-right a compact orange-white radial hit spark. Style direction C: high-end miniature PBR game maquettes rendered for 2D use, chunky simplified proportions, tactile worn metal and matte ceramic, subtle oxidation and scratches, crisp controlled edges, restrained realistic depth, readable like premium tabletop miniatures at small scale. Consistent top-down three-quarter camera and neutral right-facing pose for all actors. No labels, no text, no borders, no scenery, no cropped anatomy, no loose cables, no acid green, no excessive bloom, no watermark.",
+  "negative_constraints": [
+    "no embedded text or labels",
+    "no cropped anatomy",
+    "no mixed camera angles",
+    "no toy packaging or display plinths",
+    "no glossy plastic skin",
+    "no acid green in this preview",
+    "no excessive bloom or opaque halos"
+  ],
+  "references": [
+    {
+      "id": 12837,
+      "title": "Hyper-Realistic 3D CGI Collectible Figurine Prompt for Nano Banana 2",
+      "role": "PBR material and maquette rendering reference only",
+      "sample": "https://cms-assets.youmind.com/media/1774594332114_zl9vzz_HEWyiftbYAEdOXn.jpg"
+    }
+  ],
+  "generation_model": "imagegen",
+  "license_review_state": "pending",
+  "review_state": "draft"
+}
