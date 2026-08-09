@@ -7,6 +7,12 @@ signal hit(source: StringName)
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const DASHER_TEXTURES := [
+	preload("res://assets/art/actors/enemies/enemy_dasher_a.png"),
+	preload("res://assets/art/actors/enemies/enemy_dasher_b.png"),
+]
+
+const DASHER_RUNTIME_SCALE := Vector2(0.0625, 0.0625)
 
 enum EnemyKind { SCRAPPER, DASHER, SPITTER, BRUISER }
 
@@ -31,6 +37,8 @@ var ranged_keep_min: float = 320.0
 var ranged_keep_max: float = 520.0
 var attack_anchor_position: Vector2 = Vector2.ZERO
 var world_bounds: Rect2 = Rect2()
+var dasher_variant_index: int = 0
+var dasher_visual: Sprite2D
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node) -> void:
 	kind = enemy_kind
@@ -46,6 +54,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node) -> void:
 			speed = 145.0 + wave_index * 4.0
 			contact_damage = 6.0
 			xp_value = 2
+			dasher_variant_index = randi_range(0, DASHER_TEXTURES.size() - 1)
 			_add_health(22.0 * scale_factor)
 		EnemyKind.SPITTER:
 			speed = 58.0 + wave_index * 2.0
@@ -68,6 +77,8 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node) -> void:
 
 func _ready() -> void:
 	add_to_group("enemies")
+	if kind == EnemyKind.DASHER:
+		_create_dasher_visual()
 	var shape := CollisionShape2D.new()
 	var circle := CircleShape2D.new()
 	circle.radius = body_radius
@@ -115,6 +126,11 @@ func _get_ranged_desired_velocity(to_player: Vector2) -> Vector2:
 	return toward_player.orthogonal() * strafe_side * 0.28
 
 func _draw() -> void:
+	if kind == EnemyKind.DASHER and dasher_visual != null:
+		if is_attacking:
+			var dash_progress := 1.0 - clampf(attack_timer / maxf(0.01, attack_windup), 0.0, 1.0)
+			draw_arc(Vector2.ZERO, attack_range, -PI * 0.85, PI * 0.85, 24, Color(1.0, 0.55, 0.15, 0.25 + dash_progress * 0.45), 4.0)
+		return
 	var body_color := Color(0.84, 0.18, 0.16)
 	var accent := Color(1.0, 0.72, 0.1)
 	if kind == EnemyKind.DASHER:
@@ -137,6 +153,20 @@ func _draw() -> void:
 		draw_arc(Vector2.ZERO, attack_range, -PI * 0.85, PI * 0.85, 24, Color(1.0, 0.55, 0.15, 0.25 + p * 0.45), 4.0)
 	draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
 	draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
+
+func set_dasher_variant(index: int) -> void:
+	dasher_variant_index = posmod(index, DASHER_TEXTURES.size())
+	if dasher_visual != null:
+		dasher_visual.texture = DASHER_TEXTURES[dasher_variant_index]
+
+func _create_dasher_visual() -> void:
+	dasher_visual = Sprite2D.new()
+	dasher_visual.name = "DasherVisual"
+	dasher_visual.centered = true
+	dasher_visual.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	dasher_visual.scale = DASHER_RUNTIME_SCALE
+	dasher_visual.texture = DASHER_TEXTURES[dasher_variant_index]
+	add_child(dasher_visual)
 
 func take_damage(amount: float, source: StringName = DamageTypes.GENERIC) -> void:
 	if health == null:
