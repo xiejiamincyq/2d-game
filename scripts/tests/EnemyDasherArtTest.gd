@@ -53,7 +53,31 @@ func _initialize() -> void:
 		return
 	if not _assert_true(is_equal_approx(enemy.contact_damage, 6.0), "art integration changed Dasher contact damage"):
 		return
+	if not _assert_true(visual.material is ShaderMaterial, "Dasher visual does not have a white hit-flash material"):
+		return
 
+	var player := Node2D.new()
+	player.add_to_group("player")
+	root.add_child(player)
+	enemy.global_position = Vector2.ZERO
+	player.global_position = Vector2(120.0, 0.0)
+	enemy._physics_process(0.0)
+	if not _assert_true(not visual.flip_h, "right-facing master flipped while the player was to the right"):
+		return
+	player.global_position = Vector2(-120.0, 0.0)
+	enemy._physics_process(0.0)
+	if not _assert_true(visual.flip_h, "Dasher did not flip toward a player on its left"):
+		return
+
+	var flash_material := visual.material as ShaderMaterial
+	enemy.take_damage(1.0)
+	if not _assert_true(float(flash_material.get_shader_parameter("flash_amount")) > 0.99, "Dasher hit flash did not activate immediately"):
+		return
+	enemy._physics_process(0.1)
+	if not _assert_true(is_zero_approx(float(flash_material.get_shader_parameter("flash_amount"))), "Dasher hit flash did not clear after its timer"):
+		return
+
+	player.queue_free()
 	enemy.queue_free()
 	await process_frame
 	print("TEST PASS: EnemyDasherArtTest %d" % assertions)

@@ -13,6 +13,17 @@ const DASHER_TEXTURES := [
 ]
 
 const DASHER_RUNTIME_SCALE := Vector2(0.0625, 0.0625)
+const DASHER_FLASH_SHADER_CODE := """
+shader_type canvas_item;
+
+uniform float flash_amount : hint_range(0.0, 1.0) = 0.0;
+
+void fragment() {
+	vec4 base_color = texture(TEXTURE, UV) * COLOR;
+	base_color.rgb = mix(base_color.rgb, vec3(1.0), flash_amount * base_color.a);
+	COLOR = base_color;
+}
+"""
 
 enum EnemyKind { SCRAPPER, DASHER, SPITTER, BRUISER }
 
@@ -39,6 +50,7 @@ var attack_anchor_position: Vector2 = Vector2.ZERO
 var world_bounds: Rect2 = Rect2()
 var dasher_variant_index: int = 0
 var dasher_visual: Sprite2D
+var dasher_flash_material: ShaderMaterial
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node) -> void:
 	kind = enemy_kind
@@ -91,6 +103,7 @@ func _physics_process(delta: float) -> void:
 		return
 	var to_player: Vector2 = player.global_position - global_position
 	var desired: Vector2 = to_player.normalized()
+	_update_dasher_facing(player.global_position)
 	if kind != EnemyKind.SPITTER:
 		_update_melee_attack(delta, player, to_player.length())
 		if is_attacking:
@@ -98,6 +111,7 @@ func _physics_process(delta: float) -> void:
 			global_position = attack_anchor_position
 			if flash_timer > 0.0:
 				flash_timer -= delta
+			_update_dasher_hit_flash()
 			queue_redraw()
 			return
 	else:
@@ -110,6 +124,7 @@ func _physics_process(delta: float) -> void:
 	if flash_timer > 0.0:
 		flash_timer = maxf(0.0, flash_timer - delta)
 		queue_redraw()
+	_update_dasher_hit_flash()
 
 func _get_ranged_desired_velocity(to_player: Vector2) -> Vector2:
 	var distance := to_player.length()
@@ -166,12 +181,29 @@ func _create_dasher_visual() -> void:
 	dasher_visual.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	dasher_visual.scale = DASHER_RUNTIME_SCALE
 	dasher_visual.texture = DASHER_TEXTURES[dasher_variant_index]
+	var flash_shader := Shader.new()
+	flash_shader.code = DASHER_FLASH_SHADER_CODE
+	dasher_flash_material = ShaderMaterial.new()
+	dasher_flash_material.shader = flash_shader
+	dasher_flash_material.set_shader_parameter("flash_amount", 0.0)
+	dasher_visual.material = dasher_flash_material
 	add_child(dasher_visual)
+
+func _update_dasher_facing(target_global_position: Vector2) -> void:
+	if dasher_visual == null:
+		return
+	dasher_visual.flip_h = target_global_position.x < global_position.x
+
+func _update_dasher_hit_flash() -> void:
+	if dasher_flash_material == null:
+		return
+	dasher_flash_material.set_shader_parameter("flash_amount", 1.0 if flash_timer > 0.0 else 0.0)
 
 func take_damage(amount: float, source: StringName = DamageTypes.GENERIC) -> void:
 	if health == null:
 		return
 	flash_timer = 0.08
+	_update_dasher_hit_flash()
 	queue_redraw()
 	health.damage(amount)
 	hit.emit(source)
