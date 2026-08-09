@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "asset_id": "enemy_dasher",
+  "batch": "characters-combat",
+  "asset_class": "enemy",
+  "purpose": "Preview B for the Dasher enemy: a low-slung scrap runner mech.",
+  "runtime_path": "res://assets/art/actors/enemies/enemy_dasher.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "opaque",
+  "camera": "fixed top-down three-quarter orthographic game camera",
+  "facing": "single neutral right-facing master suitable for runtime horizontal flipping",
+  "palette": ["#061019", "#f559bf", "#33fff2"],
+  "lighting": "controlled cyan rim light with restrained magenta bounce, matching approved style A",
+  "prompt": "Use case: stylized-concept. Asset type: preview-only 2D game enemy concept. Using the approved reference only for visual style, create one isolated full-body Dasher enemy: a low-slung scrap runner mech facing right, with a pointed armored head, compact central chassis, two long reverse-jointed blade-like legs, small stabilizer arms, rear magenta turbine housings, and one restrained cyan speed sensor. The silhouette must communicate acceleration without motion effects. Match the reference's bold tactical graphic illustration, worn oxidized metal, chunky hard-surface planes, crisp silhouette, restrained cel shading, and cyan rim light. Center the complete body on a flat low-contrast #061019 field. No rider, no weapon, no motion trail, no text, no border, no scenery, no shadow, no cropped parts.",
+  "negative_constraints": ["no rider, weapon, or projectile", "no wheels, motion blur, or speed trail", "no mixed camera angle", "no cropped parts, loose cables, or noisy silhouette", "no text, border, scenery, watermark, or gameplay changes"],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/style-lock-a-v1.png", "role": "approved project style reference"},
+    {"prompt_library_id": 27737, "role": "mechanical action and speed reference"}
+  ],
+  "generation_model": "imagegen",
+  "preview_output": {"path": "docs/art/previews/characters-combat/enemy-dasher-preview-b-v1.png", "width": 1254, "height": 1254, "mode": "RGB"},
+  "license_review_state": "pending",
+  "review_state": "draft"
+}

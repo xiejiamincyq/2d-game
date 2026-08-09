@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "asset_id": "enemy_dasher",
+  "batch": "characters-combat",
+  "asset_class": "enemy",
+  "purpose": "Preview A for the Dasher enemy: a compact humanoid tactical sprinter.",
+  "runtime_path": "res://assets/art/actors/enemies/enemy_dasher.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "opaque",
+  "camera": "fixed top-down three-quarter orthographic game camera",
+  "facing": "single neutral right-facing master suitable for runtime horizontal flipping",
+  "palette": ["#061019", "#f559bf", "#33fff2"],
+  "lighting": "controlled cyan rim light with restrained magenta bounce, matching approved style A",
+  "prompt": "Use case: stylized-concept. Asset type: preview-only 2D game enemy concept. Using the approved reference only for visual style, create one isolated full-body Dasher enemy: a compact humanoid tactical sprinter in a deep forward-leaning ready pose, facing right, with a wedge helmet, faceless magenta visor, narrow worn dark-composite torso armor, long reverse-jointed sprint legs, compact forearms, and a small cyan dash capacitor. Match the reference's bold tactical graphic illustration, chunky hard-surface planes, crisp outer silhouette, restrained cel shading, cyan rim light, and dark cyber-wasteland materials. Center the complete body on a flat low-contrast #061019 field. No weapon, no motion trail, no text, no border, no scenery, no shadow, no cropped anatomy.",
+  "negative_constraints": ["no weapon or projectile", "no motion blur or speed trail", "no mixed camera angle", "no cropped anatomy or noisy silhouette", "no text, border, scenery, watermark, or gameplay changes"],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/style-lock-a-v1.png", "role": "approved project style reference"},
+    {"prompt_library_id": 27303, "role": "tactical character-sheet composition reference"}
+  ],
+  "generation_model": "imagegen",
+  "preview_output": {"path": "docs/art/previews/characters-combat/enemy-dasher-preview-a-v1.png", "width": 1254, "height": 1254, "mode": "RGB"},
+  "license_review_state": "pending",
+  "review_state": "draft"
+}
