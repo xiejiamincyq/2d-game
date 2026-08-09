@@ -42,6 +42,7 @@
     "assets/art/actors/player/samples/player_b_sample_weapon_8dir.png",
     "assets/art/actors/player/samples/player_b_sample_composite_8dir.png"
   ],
+  "runtime_capture": "docs/art/previews/characters-combat/player-b-8dir-runtime-board-v1.png",
   "license_review_state": "pending",
   "review_state": "preview"
 }
