@@ -13,12 +13,12 @@ const LaserBeamScript = preload("res://scripts/components/LaserBeam.gd")
 const SpikeTrapScript = preload("res://scripts/components/SpikeTrap.gd")
 const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
-const PLAYER_DIRECTIONAL_ATLAS_PATH := "res://assets/art/actors/player/player_directional_atlas.png"
+const PLAYER_DIRECTIONAL_ATLAS_PATH := "res://assets/art/actors/player/player_turnaround_atlas.png"
 const PLAYER_WEAPON_TEXTURE_PATH := "res://assets/art/actors/player/player_weapon.png"
 
-const DIRECTION_FRAME_COUNT := 72
-const DIRECTION_STEP_DEGREES := 5.0
-const DIRECTION_ATLAS_COLUMNS := 9
+const DIRECTION_FRAME_COUNT := 120
+const DIRECTION_STEP_DEGREES := 3.0
+const DIRECTION_ATLAS_COLUMNS := 12
 const DIRECTION_FRAME_SIZE := Vector2(64.0, 64.0)
 const WEAPON_DRAW_RECT := Rect2(Vector2(-25.0, -34.0), Vector2(64.0, 64.0))
 
@@ -65,8 +65,8 @@ var dash_active: bool = false
 var dash_direction: Vector2 = Vector2.RIGHT
 var dash_hit_bodies: Array[Node] = []
 var enemy_provider: Callable
-var player_directional_atlas: ImageTexture
-var player_weapon_texture: ImageTexture
+var player_directional_atlas: Texture2D
+var player_weapon_texture: Texture2D
 
 func _ready() -> void:
 	add_to_group("player")
@@ -126,12 +126,12 @@ func direction_frame_rect(frame_index: int) -> Rect2:
 		DIRECTION_FRAME_SIZE
 	)
 
-func _load_png_texture(path: String) -> ImageTexture:
-	var image := Image.load_from_file(path)
-	if image.is_empty():
-		push_error("Player art texture could not be loaded: " + path)
-		return ImageTexture.new()
-	return ImageTexture.create_from_image(image)
+func _load_png_texture(path: String) -> Texture2D:
+	var resource := ResourceLoader.load(path, "Texture2D")
+	if resource is Texture2D:
+		return resource as Texture2D
+	push_error("Player art texture could not be loaded: " + path)
+	return ImageTexture.new()
 
 func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> bool:
 	if health == null or amount <= 0.0 or not health.can_accept_damage():

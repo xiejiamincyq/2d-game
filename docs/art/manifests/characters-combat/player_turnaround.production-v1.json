@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_turnaround",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Runtime atlas containing 120 true player turnaround frames at three-degree intervals for shooting-direction changes.",
+  "runtime_path": "res://assets/art/actors/player/player_turnaround_atlas.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "fixed top-down three-quarter orthographic camera; one stable model rotates only around its vertical axis",
+  "facing": "frame 0 faces right; 120 clockwise frames cover 0 through 357 degrees in three-degree steps",
+  "palette": ["#061019", "#33fff2", "#f559bf"],
+  "lighting": "approved A tactical illustration rendered through eight aligned view projections with adjacent-view blending",
+  "prompt": "Generate one stable Hunyuan3D 2.1 player mesh from the approved A tactical illustration reference using seed 20260805, 30 diffusion steps, and 256 octree resolution. Align the eight approved front, rear, side, and diagonal views to the model projection, rotate that same model at exact three-degree intervals in Godot, blend adjacent approved views, crop against transparent background, and pack row-major into a 12x10 atlas.",
+  "negative_constraints": [
+    "no independently generated per-frame characters",
+    "no planar screen rotation presented as a body turn",
+    "no identity, armor, palette, proportion, or lighting drift",
+    "no opaque background fallback or frame clipping",
+    "no collision, weapon-angle, movement, or damage changes"
+  ],
+  "references": [
+    {
+      "path": "docs/art/previews/characters-combat/player-turnaround-preview-a-v1.png",
+      "role": "user-approved A true-turnaround visual reference"
+    },
+    {
+      "path": "assets/art/source/player/player_turnaround_model_v1.glb",
+      "role": "single stable 3D geometry source for every frame"
+    },
+    {
+      "path": "assets/art/source/player/player_turnaround_projection_atlas_v1.png",
+      "role": "aligned eight-view projection source"
+    }
+  ],
+  "generation_model": "Hunyuan3D-2.1 shape plus deterministic Godot eight-view projection renderer",
+  "license_review_state": "pending",
+  "review_state": "gameplay-approved"
+}

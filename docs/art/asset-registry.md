@@ -15,7 +15,7 @@
 |---|---|---|---:|---:|---|---|
 | `player_base` | actor | 玩家机体主体 | 1024×1024 | 64×64 | `res://assets/art/actors/player/player_base.png` | style-approved |
 | `player_directional_atlas` | actor | 旧版屏幕平面旋转 72 帧图集，暂作可回退版本 | 1024×1024 母图 | 64×64/帧 | `res://assets/art/actors/player/player_directional_atlas.png` | style-approved |
-| `player_turnaround` | actor | 玩家真实正、侧、背多视角转身，目标每 5° 一帧 | 1024×1024/关键视角 | 64×64/帧 | `res://assets/art/actors/player/player_turnaround.png` | preview |
+| `player_turnaround` | actor | 玩家真实正、侧、背多视角转身，每 3° 一帧，共 120 帧 | 1024×1024/关键视角 | 64×64/帧 | `res://assets/art/actors/player/player_turnaround_atlas.png` | gameplay-approved |
 | `player_weapon` | actor | 独立旋转的主武器 | 1024×1024 | 64×64 | `res://assets/art/actors/player/player_weapon.png` | style-approved |
 | `enemy_scrapper` | enemy | 标准追击敌人 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_scrapper.png` | style-approved |
 | `enemy_dasher` | enemy | 高速疾冲敌人 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_dasher.png` | planned |
@@ -39,9 +39,9 @@
 
 ## 真实多视角与敌人朝向合同
 
-- 玩家完整覆盖 360°，按每 5° 一帧计算为 72 帧；帧 0 面向右方，后续帧按顺时针排列。
+- 玩家完整覆盖 360°，按每 3° 一帧计算为 120 帧；帧 0 面向右方，后续帧按顺时针排列。
 - 镜头固定为俯视三分之四正交视角，角色始终直立，只绕竖直轴改变朝向；必须真实显示正面、左右侧面与背面结构，禁止用屏幕平面旋转冒充转身。
-- 玩家方向帧必须来自同一稳定模型或多视角母版，不允许 72 张相互独立的生成图造成身份、装甲、色板、比例或光照漂移。
-- 玩家独立主武器继续按实际射击角度连续旋转，玩家机体选择最接近的 5° 帧。
+- 玩家方向帧必须来自同一稳定模型或多视角母版，不允许 120 张相互独立的生成图造成身份、装甲、色板、比例或光照漂移。
+- 玩家独立主武器继续按实际射击角度连续旋转，玩家机体选择最接近的 3° 帧。
 - 现有 `player_directional_atlas` 在真实多视角版本通过 Godot 验收前继续保留作回退资源，不删除、不覆盖。
 - 普通敌人和 Bruiser 暂时只制作一张面向右方的透明母图；当玩家位于敌人左侧时运行时水平翻转，使敌人始终朝向玩家。
