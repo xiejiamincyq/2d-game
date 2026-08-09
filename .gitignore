@@ -1,6 +1,10 @@
 .godot/
 *.tmp
+*.import
+__pycache__/
+tmp/
 .worktrees/
+.superpowers/art-pipeline-evidence/
 
 # Downloaded at runtime by the third-party image prompt skill.
 .agents/skills/ai-image-prompts-skill/references/*.json

@@ -37,5 +37,5 @@
   ],
   "generation_model": "Hunyuan3D-2.1 shape plus deterministic Godot eight-view projection renderer",
   "license_review_state": "pending",
-  "review_state": "gameplay-approved"
+  "review_state": "draft"
 }

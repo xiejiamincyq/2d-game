@@ -4,8 +4,12 @@
 
 ## Phase 0：止损
 
-- [ ] V0.1 降级错误审批状态并校正缺失资产
+- [x] V0.1 降级错误审批状态并校正缺失资产
 - [ ] V0.2 清理 source/runtime/archive 边界与工作区噪声
+  - [x] 明确 source、runtime、preview、review 与临时目录职责
+  - [x] 忽略 `.import`、`__pycache__` 和 `tmp/` 本地生成物
+  - [ ] 跟踪应提交的 Godot `.uid`，清点剩余本地证据文件
+  - [ ] 新玩家方案接入后移除旧 72/120 帧运行时加载
 - [ ] Checkpoint A：用户确认状态和目录合同
 
 ## Phase 1：视觉合同与预览

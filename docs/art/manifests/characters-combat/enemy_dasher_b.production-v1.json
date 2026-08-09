@@ -30,5 +30,5 @@
   "runtime_output": {"path": "assets/art/actors/enemies/enemy_dasher_b.png", "width": 1024, "height": 1024, "mode": "RGBA"},
   "runtime_preview": {"path": "docs/art/previews/characters-combat/enemy-dasher-b-production-runtime-v1.png", "width": 64, "height": 64, "mode": "RGBA"},
   "license_review_state": "pending",
-  "review_state": "gameplay-approved"
+  "review_state": "draft"
 }
