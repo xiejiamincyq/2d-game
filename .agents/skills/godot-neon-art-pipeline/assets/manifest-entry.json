@@ -23,6 +23,11 @@
   ],
   "references": [],
   "generation_model": "imagegen",
+  "runtime_evidence": {
+    "gameplay_capture": "",
+    "alpha_report": "",
+    "review_document": ""
+  },
   "license_review_state": "pending",
   "review_state": "draft"
 }

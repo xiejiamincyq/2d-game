@@ -13,6 +13,13 @@ Read `references/style-guide.md` for visual constraints and `references/godot-im
 python .agents/skills/godot-neon-art-pipeline/scripts/validate_manifest.py <manifest.json>
 ```
 
+Before advancing any registry entry, also validate that its runtime file,
+production manifest, approval state, and runtime evidence agree:
+
+```powershell
+python scripts/art/validate_asset_registry.py
+```
+
 Do not generate final art until the manifest is valid and the current batch has an approved style-lock set.
 
 ## Batch Order
@@ -52,6 +59,10 @@ Finish and approve the current batch gate before starting the next batch.
 - `final`: gameplay approval is complete and usage rights have been reviewed.
 
 `validate_manifest.py` validates only the manifest's current declarations and the compatibility of `final` with the license gate; it does not store or prove review history. Before setting `review_state` to `final`, the operator must explicitly confirm that the `style-approved` and `gameplay-approved` reviews were actually completed.
+
+`gameplay-approved` and `final` production manifests must also provide existing
+workspace-relative `runtime_evidence` paths for a gameplay capture, alpha report,
+and review document. Structural tests do not replace those runtime artifacts.
 
 ## Safety
 
