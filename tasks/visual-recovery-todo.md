@@ -8,7 +8,7 @@
 - [ ] V0.2 清理 source/runtime/archive 边界与工作区噪声
   - [x] 明确 source、runtime、preview、review 与临时目录职责
   - [x] 忽略 `.import`、`__pycache__` 和 `tmp/` 本地生成物
-  - [ ] 跟踪应提交的 Godot `.uid`，清点剩余本地证据文件
+  - [x] 跟踪 18 个应提交的 Godot `.uid`；保留用户已有的 `.superpowers/sdd` 与 `CLAUDE.md` 不动
   - [ ] 新玩家方案接入后移除旧 72/120 帧运行时加载
 - [ ] Checkpoint A：用户确认状态和目录合同
 
