@@ -22,5 +22,5 @@
   "generation_model": "imagegen",
   "preview_output": {"path": "docs/art/previews/characters-combat/enemy-dasher-preview-a-v1.png", "width": 1254, "height": 1254, "mode": "RGB"},
   "license_review_state": "pending",
-  "review_state": "draft"
+  "review_state": "style-approved"
 }

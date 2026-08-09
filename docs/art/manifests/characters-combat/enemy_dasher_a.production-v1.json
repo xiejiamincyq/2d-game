@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "asset_id": "enemy_dasher_a",
+  "batch": "characters-combat",
+  "asset_class": "enemy",
+  "purpose": "Production master for retained Dasher A: a compact humanoid tactical sprinter using the existing Dasher gameplay role.",
+  "runtime_path": "res://assets/art/actors/enemies/enemy_dasher_a.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "fixed top-down three-quarter orthographic game camera",
+  "facing": "single right-facing master; flip horizontally at runtime when the player is to the left",
+  "palette": ["#f559bf", "#33fff2", "#191922", "#4b4650"],
+  "lighting": "controlled cyan rim light with restrained magenta emission, matching approved style A",
+  "prompt": "Use case: background-extraction. Asset type: production 2D game enemy master. Input images: Image 1 is the approved Dasher A identity and silhouette reference; Image 2 is the approved project style reference. Preserve the approved compact humanoid tactical sprinter design, wedge helmet, faceless magenta visor, worn dark composite armor, cyan back capacitor, long sprint legs, full anatomy, proportions, top-down three-quarter camera, and right-facing ready pose. Render one isolated full-body subject centered on a perfectly flat solid #00ff00 chroma-key background for local background removal. The background must be one uniform color with no shadow, gradient, texture, reflection, floor plane, or lighting variation. Keep the entire subject inside frame with crisp edges and less than 10 percent padding. Do not use #00ff00 anywhere in the subject. No weapon, motion trail, cast shadow, contact shadow, text, border, scenery, watermark, cropped anatomy, or extra objects.",
+  "negative_constraints": [
+    "no redesign or identity drift from approved Dasher A",
+    "no weapon, projectile, motion blur, or speed trail",
+    "no shadow, floor plane, scenery, text, border, or watermark",
+    "no green pixels in the subject, cropped anatomy, loose cables, or noisy silhouette",
+    "do not change gameplay collision, speed, health, damage, or behavior"
+  ],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/enemy-dasher-preview-a-v1.png", "role": "approved character identity and silhouette reference"},
+    {"path": "docs/art/previews/characters-combat/style-lock-a-v1.png", "role": "approved project style reference"}
+  ],
+  "generation_model": "imagegen built-in with local chroma-key removal",
+  "source_output": {"path": "assets/art/source/enemies/enemy_dasher_a_chroma_v1.png", "width": 1024, "height": 1024, "mode": "RGB"},
+  "runtime_output": {"path": "assets/art/actors/enemies/enemy_dasher_a.png", "width": 1024, "height": 1024, "mode": "RGBA"},
+  "runtime_preview": {"path": "docs/art/previews/characters-combat/enemy-dasher-a-production-runtime-v1.png", "width": 64, "height": 64, "mode": "RGBA"},
+  "license_review_state": "pending",
+  "review_state": "style-approved"
+}
