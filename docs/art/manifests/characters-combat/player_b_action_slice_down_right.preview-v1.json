@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_b_action_slice_down_right",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "One-direction layered gameplay slice for the selected B motion language; validates body animation, weapon occlusion, grip and muzzle sockets before 24-direction expansion.",
+  "runtime_path": "res://assets/art/actors/player/action_slices/player_b_action_slice_down_right_composite.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "single orthographic camera pitched downward exactly 45 degrees; locked for every action frame",
+  "facing": "down-right at 45 degrees clockwise from screen-right, direction index 3 of the approved 24-direction contract",
+  "palette": ["#061019", "#34343b", "#d2c8be", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "stable controlled cyan rim light, tiny magenta functional accents, warm orange weapon emission",
+  "prompt": "Edit the selected B 6-column by 5-row motion sheet into a rigorously aligned body-only technical animation sheet. Preserve the exact chronological poses, compact armored identity, down-right yaw, 45-degree orthographic camera, proportions, scale, and B motion cadence for idle, run, fire, dash, and hit. Remove only the rifle, muzzle flashes, shells, speed trails, dust, and hit bursts. Reconstruct the hidden torso and forearms. Keep both gloved hands posed around the same invisible two-hand rifle grip so a separate rifle layer can be placed back into the hands. Use a perfectly flat solid #00ff00 chroma-key background with no shadows, text, dividers, borders, or extra objects.",
+  "negative_constraints": [
+    "no camera, yaw, identity, action order, or cadence changes",
+    "no rifle, muzzle flash, shell, trail, dust, hit burst, or extra object",
+    "no relaxed arms; hands must retain a credible two-hand firing grip",
+    "no duplicated frames or bob-only animation",
+    "no translucent armor interiors",
+    "no green inside the subject, cast shadow, text, watermark, border, or grid line"
+  ],
+  "references": [
+    {"path": "assets/art/source/player/action_previews/player_b_action_motion_preview_b_chroma_v1.png", "role": "selected B action cadence, exact row order, poses, and fixed down-right projection"},
+    {"path": "assets/art/source/player/player_b_8dir_sample_alpha_v1.png", "role": "approved body-only identity and matching down-right weapon projection"},
+    {"path": "tmp/prompt-references/27303-tactical-soldier-sheet.jpg", "role": "YouMind 27303 tactical armor and weapon-hand relationship reference"},
+    {"path": "tmp/prompt-references/26830-three-view-consistency.jpg", "role": "YouMind 26830 character consistency wording reference"}
+  ],
+  "generation_model": "imagegen built-in plus local chroma-key removal and deterministic Pillow layer/socket packing",
+  "weapon_prompt": "Create one isolated orange-and-black compact sci-fi rifle matching the approved player weapon. Show the rifle alone with no hands, character, effects, muzzle flash, shadow, or stand. Lock the same down-right yaw and exact 45-degree orthographic camera used by the selected player frame, so the barrel points toward screen-right with the correct slight vertical foreshortening. Use a perfectly flat solid #00ff00 chroma-key background and keep the complete weapon centered with generous padding.",
+  "frame_contract": {
+    "columns": 6,
+    "rows": ["idle", "run", "fire", "dash", "hit"],
+    "frame_size": {"width": 64, "height": 64},
+    "pivot": {"x": 32, "y": 32},
+    "layer_order": ["weapon_behind", "body", "weapon_front"],
+    "sockets": ["grip", "muzzle"]
+  },
+  "planned_outputs": [
+    "assets/art/source/player/action_slices/player_b_action_slice_down_right_weapon_alpha_v1.png",
+    "assets/art/actors/player/action_slices/player_b_action_slice_down_right_body.png",
+    "assets/art/actors/player/action_slices/player_b_action_slice_down_right_weapon_behind.png",
+    "assets/art/actors/player/action_slices/player_b_action_slice_down_right_weapon_front.png",
+    "assets/art/actors/player/action_slices/player_b_action_slice_down_right_composite.png",
+    "assets/art/actors/player/action_slices/player_b_action_slice_down_right_sockets.json",
+    "docs/art/previews/characters-combat/player-b-action-slice-down-right-runtime-v1.png"
+  ],
+  "generation_canvas_dimensions": {
+    "body": {"width": 1370, "height": 1148},
+    "weapon": {"width": 1536, "height": 1024}
+  },
+  "source_outputs": [
+    "assets/art/source/player/action_slices/player_b_action_slice_down_right_body_chroma_v1.png",
+    "assets/art/source/player/action_slices/player_b_action_slice_down_right_body_alpha_v1.png",
+    "assets/art/source/player/action_slices/player_b_action_slice_down_right_weapon_chroma_v1.png",
+    "assets/art/source/player/action_slices/player_b_action_slice_down_right_weapon_alpha_v1.png"
+  ],
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/characters-combat/player-b-action-slice-down-right-runtime-v1.png",
+    "alpha_report": "docs/art/reports/player-b-action-slice-down-right-alpha-v1.json",
+    "review_document": "docs/art/reviews/characters-combat-player-action-slice-down-right-v1.md"
+  },
+  "license_review_state": "pending",
+  "review_state": "draft"
+}
