@@ -3,6 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from PIL import Image
+
 import yaml
 
 
@@ -24,6 +26,22 @@ def load_script():
 
 
 class GeneratePlayerTurnaroundModelMVTest(unittest.TestCase):
+    def test_validate_reference_alpha_rejects_fully_opaque_input(self):
+        module = load_script()
+        image = Image.new("RGBA", (32, 32), (255, 255, 255, 255))
+
+        with self.assertRaisesRegex(RuntimeError, "fully opaque"):
+            module.validate_reference_alpha(image, "front")
+
+    def test_validate_reference_alpha_accepts_real_cutout(self):
+        module = load_script()
+        image = Image.new("RGBA", (32, 32), (255, 255, 255, 0))
+        for x in range(8, 24):
+            for y in range(4, 28):
+                image.putpixel((x, y), (40, 40, 40, 255))
+
+        module.validate_reference_alpha(image, "front")
+
     def test_prune_unused_vae_encoder_removes_unpublished_generation_weights(self):
         module = load_script()
 

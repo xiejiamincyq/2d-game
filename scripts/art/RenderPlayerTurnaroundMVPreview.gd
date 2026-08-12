@@ -1,8 +1,8 @@
 extends SceneTree
 
-const DEFAULT_MODEL_PATH := "res://assets/art/source/player/player_turnaround_model_mv_preview_v1.glb"
-const DEFAULT_RUNTIME_PATH := "res://assets/art/actors/player/technical_previews/player_turnaround_mv_technical_preview.png"
-const DEFAULT_PREVIEW_PATH := "res://docs/art/previews/characters-combat/player-turnaround-mv-12-angle-technical-preview-v1.png"
+const DEFAULT_MODEL_PATH := "res://assets/art/source/player/player_turnaround_model_mv_a_alpha_v3.glb"
+const DEFAULT_RUNTIME_PATH := "res://assets/art/actors/player/technical_previews/player_turnaround_mv_a_alpha_v3.png"
+const DEFAULT_PREVIEW_PATH := "res://docs/art/previews/characters-combat/player-turnaround-mv-12-angle-a-alpha-v3.png"
 const SOURCE_SIZE := Vector2i(512, 512)
 const FRAME_SIZE := Vector2i(64, 64)
 const PREVIEW_FRAME_SIZE := Vector2i(256, 256)
@@ -124,9 +124,9 @@ func _load_model() -> Node3D:
 	model.position = Vector3(-center.x, -bounds.position.y, -center.z) * model_scale
 
 	var material := StandardMaterial3D.new()
-	material.albedo_color = Color("7f8790")
-	material.metallic = 0.18
-	material.roughness = 0.72
+	material.albedo_color = Color("aab4be")
+	material.metallic = 0.06
+	material.roughness = 0.58
 	for mesh_instance in meshes:
 		mesh_instance.material_override = material
 		mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
@@ -148,8 +148,8 @@ func _build_viewport() -> SubViewport:
 	environment_resource.background_mode = Environment.BG_COLOR
 	environment_resource.background_color = Color(0, 0, 0, 0)
 	environment_resource.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	environment_resource.ambient_light_color = Color("708399")
-	environment_resource.ambient_light_energy = 0.48
+	environment_resource.ambient_light_color = Color("a9bdd0")
+	environment_resource.ambient_light_energy = 0.82
 	environment_resource.ssao_enabled = true
 	environment_resource.ssao_radius = 1.25
 	environment_resource.ssao_intensity = 2.0
@@ -172,20 +172,20 @@ func _build_viewport() -> SubViewport:
 
 	var key_light := DirectionalLight3D.new()
 	key_light.light_color = Color("d8ecff")
-	key_light.light_energy = 1.65
+	key_light.light_energy = 1.35
 	key_light.rotation_degrees = Vector3(-45, -32, 0)
 	key_light.shadow_enabled = true
 	viewport.add_child(key_light)
 
 	var fill_light := DirectionalLight3D.new()
 	fill_light.light_color = Color("f2d6e8")
-	fill_light.light_energy = 0.32
+	fill_light.light_energy = 0.58
 	fill_light.rotation_degrees = Vector3(-35, 145, 0)
 	viewport.add_child(fill_light)
 
 	var cyan_rim := OmniLight3D.new()
 	cyan_rim.light_color = Color("33fff2")
-	cyan_rim.light_energy = 1.25
+	cyan_rim.light_energy = 0.62
 	cyan_rim.omni_range = 8.0
 	cyan_rim.position = Vector3(-3.5, 4.5, -3.0)
 	viewport.add_child(cyan_rim)

@@ -14,9 +14,9 @@
       when the side-view label changes
 - [x] PREVIEW: create three eye-level orthographic modeling-sheet candidates
 - [x] REVIEW: Candidate A selected as the canonical modeling sheet
-- [ ] BUILD: reconstruct the body from the approved canonical modeling sheet
+- [x] BUILD: reconstruct the body from Candidate A with validated transparent inputs
 - [ ] BUILD: author the rifle as an independent 3D object and attachment layer
 - [x] PROBE: render the failed reconstruction as an exact-camera 12-angle board
-- [ ] PREVIEW: render the corrected exact-camera 12-angle diagnostic board
+- [x] PREVIEW: render the corrected exact-camera 12-angle body diagnostic board
 - [ ] REVIEW: obtain corrected mesh approval before generating 120 production frames
 - [ ] INTEGRATE: update runtime assets only after approval and regression tests

@@ -79,6 +79,19 @@ views. Candidate A emphasizes hard-surface armor, B preserves the compact tactic
 identity and 64-pixel readability, and C emphasizes animation joint clearance. No
 candidate has been promoted; the next reconstruction is blocked on explicit choice.
 
+Candidate A was explicitly selected and split into canonical front, right-profile,
+and back views. The first reconstruction from those files failed because their Alpha
+channel was fully opaque: the official multi-view processor uses Alpha as its mask
+and reconstructed the studio background as a rectangular plane. That v2 output was
+deleted after reproduction.
+
+The repair adds deterministic soft-matte background removal plus a generator gate
+that rejects fully opaque references. The corrected v3 reconstruction has 94,652
+vertices and 189,296 faces. Its width/height ratio is 0.5175 and depth/height ratio
+is 0.3001; the 12-angle Godot board contains real front, side, and rear volume with
+no background plane. The result remains a gray body-only geometry preview awaiting
+explicit approval before a separate rifle/depth-layer preview is built.
+
 ## Recovery gate
 
 Create three review-only modeling-sheet candidates first. Each candidate must show

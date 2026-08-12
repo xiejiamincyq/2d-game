@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_turnaround_mv_a_alpha_v3",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Review-only body geometry reconstructed from the selected Candidate A orthographic sheet and rendered as twelve true-yaw views before weapon, texture, animation, or runtime production.",
+  "runtime_path": "res://assets/art/actors/player/technical_previews/player_turnaround_mv_a_alpha_v3.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "measured 45-degree-pitch orthographic gameplay camera",
+  "facing": "twelve true-yaw body views at 30-degree steps; front, side, and rear are real geometry rather than sprite rotation",
+  "palette": ["#061019", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "neutral high-fill clay diagnostic lighting; no production texture or emission",
+  "prompt": "Reconstruct Candidate A as one coherent body-only mesh with the official tencent/Hunyuan3D-2mv checkpoint from the approved transparent front, back, and exact right-profile orthographic views. Use seed 20260812, 30 diffusion steps, and 256 octree resolution. Preserve real front-to-back volume, helmet, armor mass, limbs, and backpack. Keep all weapon geometry separate.",
+  "negative_constraints": [
+    "no opaque input background, background plane, screen-space projection, or whole-sprite rotation",
+    "no rifle, weapon geometry, invisible grip pose, or fused weapon layer",
+    "no production texture, 120-frame atlas, animation, or Player.gd integration before explicit mesh approval",
+    "no claim that clay lighting proves final armor detail, palette, or gameplay readability"
+  ],
+  "references": [
+    {
+      "path": "assets/art/source/player/modeling_views_a_alpha_v1/player_a_modeling_front_alpha_v1.png",
+      "role": "selected Candidate A front orthographic body cutout"
+    },
+    {
+      "path": "assets/art/source/player/modeling_views_a_alpha_v1/player_a_modeling_back_alpha_v1.png",
+      "role": "selected Candidate A rear orthographic body cutout"
+    },
+    {
+      "path": "assets/art/source/player/modeling_views_a_alpha_v1/player_a_modeling_right_alpha_v1.png",
+      "role": "selected Candidate A exact right-profile body cutout"
+    }
+  ],
+  "generation_model": "official tencent/Hunyuan3D-2mv shape checkpoint, seed 20260812, 30 steps, octree 256, component-streamed CPU offload",
+  "geometry_report": {
+    "vertices": 94652,
+    "faces": 189296,
+    "extent_width_height_ratio": 0.5175,
+    "extent_depth_height_ratio": 0.3001,
+    "background_plane_gate": "pass"
+  },
+  "runtime_evidence": {
+    "gameplay_capture": "",
+    "alpha_report": "assets/art/source/player/modeling_views_a_alpha_v1/player_a_modeling_front_alpha_v1.png",
+    "review_document": "docs/art/reviews/characters-combat-player-turnaround-mv-a-alpha-v3.md"
+  },
+  "promotion_blocked": true,
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

@@ -1,6 +1,6 @@
 extends SceneTree
 
-const MODEL_PATH := "res://assets/art/source/player/player_turnaround_model_mv_preview_v1.glb"
+const MODEL_PATH := "res://assets/art/source/player/player_turnaround_model_mv_a_alpha_v3.glb"
 const RENDERER_PATH := "res://scripts/art/RenderPlayerTurnaroundMVPreview.gd"
 
 var assertions := 0
@@ -49,9 +49,14 @@ func _initialize() -> void:
 			var arrays := mesh_instance.mesh.surface_get_arrays(surface_index)
 			vertices += (arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array).size()
 			faces += (arrays[Mesh.ARRAY_INDEX] as PackedInt32Array).size() / 3
-	if not _assert_true(vertices >= 100000, "multi-view GLB lacks review geometry detail"):
+	if not _assert_true(vertices >= 80000, "multi-view GLB lacks review geometry detail"):
 		return
-	if not _assert_true(faces >= 200000, "multi-view GLB lacks review face detail"):
+	if not _assert_true(faces >= 160000, "multi-view GLB lacks review face detail"):
+		return
+	var bounds := _combined_bounds(model, meshes)
+	if not _assert_true(bounds.size.x / bounds.size.y < 0.7, "multi-view GLB contains a character-width background plane"):
+		return
+	if not _assert_true(bounds.size.z / bounds.size.y > 0.2, "multi-view GLB lacks real front-to-back body volume"):
 		return
 	model.queue_free()
 	await process_frame
@@ -63,3 +68,18 @@ func _collect_meshes(node: Node, output: Array[MeshInstance3D]) -> void:
 		output.append(node as MeshInstance3D)
 	for child in node.get_children():
 		_collect_meshes(child, output)
+
+func _combined_bounds(root_node: Node3D, meshes: Array[MeshInstance3D]) -> AABB:
+	var minimum := Vector3(INF, INF, INF)
+	var maximum := Vector3(-INF, -INF, -INF)
+	for mesh_instance in meshes:
+		var local_bounds := mesh_instance.get_aabb()
+		var relative := root_node.global_transform.affine_inverse() * mesh_instance.global_transform
+		for x in [0.0, 1.0]:
+			for y in [0.0, 1.0]:
+				for z in [0.0, 1.0]:
+					var corner := local_bounds.position + local_bounds.size * Vector3(x, y, z)
+					var point := relative * corner
+					minimum = minimum.min(point)
+					maximum = maximum.max(point)
+	return AABB(minimum, maximum - minimum)

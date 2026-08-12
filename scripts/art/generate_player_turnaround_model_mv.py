@@ -8,6 +8,8 @@ import os
 import sys
 from pathlib import Path
 
+from PIL import Image
+
 
 MODEL_SUBFOLDER = "hunyuan3d-dit-v2-mv"
 
@@ -82,6 +84,17 @@ def validate_source_root(source_root: Path) -> None:
             "Official Hunyuan3D-2 source must contain hy3dgen/shapegen; "
             f"got {source_root}"
         )
+
+
+def validate_reference_alpha(image: Image.Image, view: str) -> None:
+    alpha = image.convert("RGBA").getchannel("A")
+    alpha_min, alpha_max = alpha.getextrema()
+    if alpha_min == 255:
+        raise RuntimeError(
+            f"{view} reference is fully opaque; remove the background before reconstruction"
+        )
+    if alpha_max == 0:
+        raise RuntimeError(f"{view} reference has an empty alpha mask")
 
 
 def component_key_map(keys: list[str], component_name: str) -> dict[str, str]:
@@ -160,7 +173,6 @@ def main() -> int:
     os.environ.setdefault("HY3DGEN_MODELS", str(args.model_root.parent.parent))
 
     import torch
-    from PIL import Image
     from hy3dgen.shapegen import Hunyuan3DDiTFlowMatchingPipeline
     from hy3dgen.shapegen.pipelines import instantiate_from_config
 
@@ -173,6 +185,8 @@ def main() -> int:
         view: Image.open(path).convert("RGBA")
         for view, path in image_paths.items()
     }
+    for view, image in images.items():
+        validate_reference_alpha(image, view)
     with torch.device("meta"):
         model = instantiate_from_config(config["model"])
         vae = instantiate_from_config(config["vae"])
