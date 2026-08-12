@@ -5,7 +5,8 @@
   "asset_class": "actor",
   "purpose": "Front, right-side, and rear layered player previews used to approve true body turning and weapon occlusion before any multi-direction production expansion.",
   "runtime_path": "res://assets/art/actors/player/direction_previews/player_b_cardinal_layered_preview_composite.png",
-  "source_dimensions": {"width": 1254, "height": 1254},
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "actual_generation_dimensions": {"width": 1254, "height": 1254},
   "runtime_target": {"width": 64, "height": 64},
   "aspect_ratio": "1:1",
   "background": "transparent",
@@ -29,6 +30,12 @@
     {"path": "tmp/prompt-references/26830-three-view-consistency.jpg", "role": "YouMind 26830 strict front-side-back consistency structure"}
   ],
   "generation_model": "imagegen built-in plus local chroma-key removal and deterministic Pillow/Godot preview composition",
+  "style_approval": {
+    "status": "approved",
+    "approved_on": "2026-08-12",
+    "approved_options": ["A", "B", "C"],
+    "decision": "可以通过"
+  },
   "planned_outputs": [
     "assets/art/source/player/direction_previews/player_b_front_body_chroma_preview_v1.png",
     "assets/art/source/player/direction_previews/player_b_side_right_body_chroma_preview_v1.png",
@@ -43,5 +50,5 @@
     "docs/art/previews/characters-combat/player-b-cardinal-layered-runtime-comparison-v1.png"
   ],
   "license_review_state": "pending",
-  "review_state": "draft"
+  "review_state": "style-approved"
 }

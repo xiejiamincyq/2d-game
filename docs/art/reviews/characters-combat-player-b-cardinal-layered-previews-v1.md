@@ -1,8 +1,8 @@
-# Player B cardinal layered previews v1
+# Player B cardinal layered previews v1 — style approved
 
 ## Scope
 
-This batch is an approval gate for three true-yaw directions only: front, right-side profile, and rear. It does not add these previews to `Player.gd`, expand the full direction set, or claim production-ready animation coverage.
+This batch covers three true-yaw directions only: front, right-side profile, and rear. On 2026-08-12 the user explicitly approved A/front, B/right side, and C/rear with the decision `可以通过`. This approval locks the visual direction but does not add the previews to `Player.gd` or claim production-ready animation coverage.
 
 ## Preview contract
 
@@ -17,18 +17,19 @@ This batch is an approval gate for three true-yaw directions only: front, right-
 
 The front, profile, and rear silhouettes are materially different constructions rather than rotated copies. All source bodies have real transparent backgrounds and complete alpha bounds; the runtime atlases have transparent corners and no full-frame haze. At 64px the visor, backpack, stance, and cardinal yaw remain readable.
 
-The raster output cannot independently prove a numerical camera pitch, so the 45-degree camera match remains a human visual approval item. The board deliberately exposes this instead of treating the prompt text as proof.
+The raster output cannot independently prove a numerical camera pitch, so the review board exposed the 45-degree target for human judgment instead of treating the prompt text as proof. The user accepted that visual result; it is now the camera reference for further Player B direction work.
 
 ## Deliberate limitations
 
 - These are neutral pose direction samples, not run, fire, dash, hit, or enemy motion animations.
 - Left-side mirroring is not approved by this batch; only the right profile is shown.
 - The rear rifle is mostly occluded in the composite by design, but remains inspectable in the separated layer row.
-- Intermediate yaws and the final multi-direction count remain blocked until this preview gate is approved.
-- License review is pending, so the asset manifest remains `draft`.
+- Intermediate yaws may now be developed against this style lock, but each new angle still requires anatomy, silhouette, camera, and occlusion review.
+- Gameplay integration, motion coverage, pivot behavior, and collision readability outside these three static samples remain unapproved.
+- License review is pending, so the asset cannot advance to `final`.
 
-## Approval gate
+## Approval result
 
-The board labels the directions as A/front, B/right side, and C/rear. The user may approve all three or identify any letter that needs camera, anatomy, silhouette, equipment, or weapon-occlusion revision before production expansion.
+`style-approved`: A/front, B/right side, and C/rear are accepted as the production reference for Player B's true-yaw body turn and `weapon_behind -> body -> weapon_front` occlusion model.
 
 Prompt lineage uses the local YouMind community prompt references `27303` and `26830`, adapted to the project's camera, palette, identity, and runtime-layer contract.
