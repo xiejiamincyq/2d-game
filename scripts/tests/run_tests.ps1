@@ -21,6 +21,7 @@ $tests = @(
     "ProjectilePickupTest",
     "RateTest",
     "DashTest",
+    "PlayerActionSliceCombatTest",
     "PlayerTurnaroundModelTest",
     "PlayerDirectionalArtTest",
     "WaveTest",

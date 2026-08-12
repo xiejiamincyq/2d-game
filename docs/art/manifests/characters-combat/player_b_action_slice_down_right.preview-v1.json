@@ -45,7 +45,8 @@
     "assets/art/actors/player/action_slices/player_b_action_slice_down_right_weapon_front.png",
     "assets/art/actors/player/action_slices/player_b_action_slice_down_right_composite.png",
     "assets/art/actors/player/action_slices/player_b_action_slice_down_right_sockets.json",
-    "docs/art/previews/characters-combat/player-b-action-slice-down-right-runtime-v1.png"
+    "docs/art/previews/characters-combat/player-b-action-slice-down-right-runtime-v1.png",
+    "docs/art/previews/characters-combat/player-b-action-slice-combat-runtime-v1.png"
   ],
   "generation_canvas_dimensions": {
     "body": {"width": 1370, "height": 1148},
@@ -58,7 +59,7 @@
     "assets/art/source/player/action_slices/player_b_action_slice_down_right_weapon_alpha_v1.png"
   ],
   "runtime_evidence": {
-    "gameplay_capture": "docs/art/previews/characters-combat/player-b-action-slice-down-right-runtime-v1.png",
+    "gameplay_capture": "docs/art/previews/characters-combat/player-b-action-slice-combat-runtime-v1.png",
     "alpha_report": "docs/art/reports/player-b-action-slice-down-right-alpha-v1.json",
     "review_document": "docs/art/reviews/characters-combat-player-action-slice-down-right-v1.md"
   },

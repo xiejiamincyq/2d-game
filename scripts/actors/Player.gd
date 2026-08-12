@@ -15,6 +15,24 @@ const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const PLAYER_DIRECTIONAL_ATLAS_PATH := "res://assets/art/actors/player/player_turnaround_atlas.png"
 const PLAYER_WEAPON_TEXTURE_PATH := "res://assets/art/actors/player/player_weapon.png"
+const ACTION_SLICE_LAYER_PATHS := {
+	"weapon_behind": "res://assets/art/actors/player/action_slices/player_b_action_slice_down_right_weapon_behind.png",
+	"body": "res://assets/art/actors/player/action_slices/player_b_action_slice_down_right_body.png",
+	"weapon_front": "res://assets/art/actors/player/action_slices/player_b_action_slice_down_right_weapon_front.png",
+}
+const ACTION_SLICE_LAYER_ORDER := ["weapon_behind", "body", "weapon_front"]
+const ACTION_SLICE_ACTIONS := ["idle", "run", "fire", "dash", "hit"]
+const ACTION_SLICE_FPS := {
+	"idle": 6.0,
+	"run": 10.0,
+	"fire": 12.0,
+	"dash": 36.0,
+	"hit": 10.0,
+}
+const ACTION_SLICE_FACING := PI / 4.0
+const ACTION_SLICE_HALF_SLOT := PI / 24.0
+const ACTION_SLICE_FRAME_COUNT := 6
+const ACTION_SLICE_FRAME_SIZE := Vector2(64.0, 64.0)
 
 const DIRECTION_FRAME_COUNT := 120
 const DIRECTION_STEP_DEGREES := 3.0
@@ -67,12 +85,20 @@ var dash_hit_bodies: Array[Node] = []
 var enemy_provider: Callable
 var player_directional_atlas: Texture2D
 var player_weapon_texture: Texture2D
+var action_slice_preview_enabled: bool = true
+var action_slice_textures: Dictionary = {}
+var action_slice_current_action: String = "idle"
+var action_slice_elapsed: float = 0.0
+var action_slice_fire_timer: float = 0.0
+var action_slice_hit_timer: float = 0.0
 
 func _ready() -> void:
 	add_to_group("player")
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	player_directional_atlas = _load_png_texture(PLAYER_DIRECTIONAL_ATLAS_PATH)
 	player_weapon_texture = _load_png_texture(PLAYER_WEAPON_TEXTURE_PATH)
+	for layer in ACTION_SLICE_LAYER_ORDER:
+		action_slice_textures[layer] = _load_png_texture(ACTION_SLICE_LAYER_PATHS[layer])
 	var shape := CollisionShape2D.new()
 	var circle := CircleShape2D.new()
 	circle.radius = 13.0
@@ -98,15 +124,19 @@ func _physics_process(delta: float) -> void:
 		_clamp_to_world_bounds()
 	_update_fire(delta, Input.is_action_pressed("fire"))
 	_update_passives(delta)
+	_update_action_slice_animation(delta)
 	queue_redraw()
 
 func _draw() -> void:
-	var destination := Rect2(-DIRECTION_FRAME_SIZE * 0.5, DIRECTION_FRAME_SIZE)
-	var source := direction_frame_rect(direction_frame_index(gun_angle))
-	draw_texture_rect_region(player_directional_atlas, destination, source)
-	draw_set_transform(Vector2.ZERO, gun_angle, Vector2.ONE)
-	draw_texture_rect(player_weapon_texture, WEAPON_DRAW_RECT, false)
-	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	if uses_action_slice(gun_angle):
+		_draw_action_slice()
+	else:
+		var destination := Rect2(-DIRECTION_FRAME_SIZE * 0.5, DIRECTION_FRAME_SIZE)
+		var source := direction_frame_rect(direction_frame_index(gun_angle))
+		draw_texture_rect_region(player_directional_atlas, destination, source)
+		draw_set_transform(Vector2.ZERO, gun_angle, Vector2.ONE)
+		draw_texture_rect(player_weapon_texture, WEAPON_DRAW_RECT, false)
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	if dash_active:
 		draw_arc(Vector2.ZERO, dash_melee_radius, -PI * 0.2, PI * 1.2, 28, Color(1.0, 0.76, 0.18, 0.65), 4.0)
 		draw_line(-dash_direction * 28.0, dash_direction * 34.0, Color(0.25, 1.0, 1.0, 0.85), 4.0)
@@ -125,6 +155,61 @@ func direction_frame_rect(frame_index: int) -> Rect2:
 		Vector2(column, row) * DIRECTION_FRAME_SIZE,
 		DIRECTION_FRAME_SIZE
 	)
+
+func uses_action_slice(angle_radians: float) -> bool:
+	if not action_slice_preview_enabled:
+		return false
+	var difference := wrapf(angle_radians - ACTION_SLICE_FACING, -PI, PI)
+	return absf(difference) <= ACTION_SLICE_HALF_SLOT
+
+static func resolve_action_slice_action(moving: bool, firing: bool, dashing: bool, hit: bool) -> String:
+	if hit:
+		return "hit"
+	if dashing:
+		return "dash"
+	if firing:
+		return "fire"
+	if moving:
+		return "run"
+	return "idle"
+
+static func action_slice_frame(action: String, time_seconds: float) -> int:
+	var fps: float = ACTION_SLICE_FPS.get(action, 1.0)
+	return posmod(floori(maxf(time_seconds, 0.0) * fps), ACTION_SLICE_FRAME_COUNT)
+
+static func action_slice_source_rect(action: String, frame_index: int) -> Rect2:
+	var action_index := ACTION_SLICE_ACTIONS.find(action)
+	if action_index < 0:
+		action_index = 0
+	return Rect2(
+		Vector2(posmod(frame_index, ACTION_SLICE_FRAME_COUNT), action_index) * ACTION_SLICE_FRAME_SIZE,
+		ACTION_SLICE_FRAME_SIZE
+	)
+
+func _update_action_slice_animation(delta: float) -> void:
+	action_slice_fire_timer = maxf(0.0, action_slice_fire_timer - delta)
+	action_slice_hit_timer = maxf(0.0, action_slice_hit_timer - delta)
+	var next_action := resolve_action_slice_action(
+		velocity.length_squared() > 1.0,
+		action_slice_fire_timer > 0.0,
+		dash_active,
+		action_slice_hit_timer > 0.0
+	)
+	if next_action != action_slice_current_action:
+		action_slice_current_action = next_action
+		action_slice_elapsed = 0.0
+	else:
+		action_slice_elapsed += delta
+
+func _draw_action_slice() -> void:
+	var frame_index := action_slice_frame(action_slice_current_action, action_slice_elapsed)
+	var source := action_slice_source_rect(action_slice_current_action, frame_index)
+	var destination := Rect2(-ACTION_SLICE_FRAME_SIZE * 0.5, ACTION_SLICE_FRAME_SIZE)
+	for layer in ACTION_SLICE_LAYER_ORDER:
+		var tint := Color.WHITE
+		if layer == "body" and action_slice_current_action == "hit":
+			tint = Color(1.0, 0.62, 0.62)
+		draw_texture_rect_region(action_slice_textures[layer], destination, source, tint)
 
 func _load_png_texture(path: String) -> Texture2D:
 	var resource := ResourceLoader.load(path, "Texture2D")
@@ -145,6 +230,7 @@ func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> bo
 	if remaining > 0.0:
 		health.damage(remaining, true)
 	health.begin_invulnerability(0.35)
+	action_slice_hit_timer = 0.6
 	return true
 
 func add_shield(amount: float) -> void:
@@ -182,6 +268,7 @@ func _update_fire(delta: float, wants_fire: bool) -> int:
 	return fired_count
 
 func _spawn_bullet(direction: Vector2) -> void:
+	action_slice_fire_timer = 0.5
 	var shot := ProjectileScript.new()
 	shot.global_position = global_position + direction * 25.0
 	shot.velocity = direction * projectile_speed
