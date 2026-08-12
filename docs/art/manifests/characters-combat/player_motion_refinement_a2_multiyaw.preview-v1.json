@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_motion_refinement_a2_multiyaw",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Review-only multi-yaw deformation proof for selected refinement A2 across front, side, rear, and intermediate world rotations at four key motion states.",
+  "runtime_path": "res://assets/art/actors/player/technical_previews/player_motion_refinement_a2_multiyaw.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 768, "height": 256},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "one measured orthographic gameplay camera pitched downward exactly 45 degrees",
+  "facing": "twelve real world-yaw samples from 0 through 330 degrees in 30-degree steps",
+  "palette": ["#061019", "#aab4be", "#c66a32", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "approved neutral diagnostic body and orange independent rifle under identical controlled preview lighting",
+  "prompt": "No generated imagery is used. Render selected mechanics refinement A2 at twelve true world-yaw rotations and four bounded motion states: left step, right step, four-degree peak recoil, and two-stage recovery tail. Preserve the exact 45-degree orthographic camera, complete approved source topology, independent rifle depth, floor contact, and both-hand plus shoulder-stock constraints.",
+  "negative_constraints": [
+    "no whole-body pose spin in screen space; world yaw must rotate real 3D body and weapon geometry together",
+    "no camera pitch, camera scale, identity, material, lighting, framing, topology, or weapon-geometry drift between samples",
+    "no detached hand, floating stock, foot penetration, collapsed side or rear anatomy, broad translucency, or cropped silhouette",
+    "no 120-frame expansion, production atlas replacement, Player.gd change, collision change, or gameplay integration before review"
+  ],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/player-motion-refinement-a2-v1.png", "role": "selected A2 mechanics and motion language"},
+    {"path": "docs/art/previews/characters-combat/player-grip-rig-a-36-frame-v7.png", "role": "approved grip deformation and depth proof"},
+    {"path": "assets/art/source/player/player_turnaround_model_mv_a_alpha_v3.glb", "role": "approved body geometry and complete topology"},
+    {"path": "assets/art/source/player/player_weapon_model_mv_v1.glb", "role": "approved independent rifle geometry"}
+  ],
+  "generation_model": "Godot 4.7 inherited Skeleton3D A2 review rig, retained analytic arm and leg constraints, independent BoneAttachment3D rifle, and deterministic SubViewport rendering",
+  "sample_matrix": {
+    "selected_refinement": "A2",
+    "yaw_count": 12,
+    "yaw_step_degrees": 30,
+    "motion_states": ["GAIT_LEFT", "GAIT_RIGHT", "RECOIL_PEAK", "RECOVERY_TAIL"],
+    "sample_count": 48,
+    "contact_tolerance": 0.006,
+    "minimum_opaque_visible_ratio_gate": 0.85
+  },
+  "technical_pipeline": {
+    "skinned_mesh_cache": "assets/art/source/player/player_motion_review_skinned_mesh_v1.res",
+    "cache_schema_version": 1,
+    "cache_topology": {"vertices": 94652, "indices": 567888},
+    "renderer": "Windows display driver with OpenGL3 compatibility renderer on NVIDIA GPU; never Godot headless/dummy for 3D capture",
+    "batching": "four recoverable twelve-angle state batches, each submitted as twelve SubViewports in one render frame, followed by a no-render assembly step"
+  },
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/characters-combat/player-motion-refinement-a2-48-frame-v1.png",
+    "alpha_report": "docs/art/reviews/characters-combat-player-motion-refinement-a2-multiyaw-metrics-v1.json",
+    "review_document": "docs/art/reviews/characters-combat-player-motion-refinement-a2-multiyaw-v1.md"
+  },
+  "selection_approval": {
+    "status": "a2-approved-for-bounded-multiyaw-proof",
+    "approved_on": "2026-08-13",
+    "decision": "A2",
+    "scope": "twelve directions and four key motion states only; not production integration"
+  },
+  "promotion_blocked": true,
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

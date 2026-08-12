@@ -48,9 +48,9 @@
     "review_document": "docs/art/reviews/characters-combat-player-motion-refinement-a-v1.md"
   },
   "selection_approval": {
-    "status": "awaiting-user-selection",
-    "approved_on": "",
-    "decision": "",
+    "status": "approved-for-multiyaw-validation",
+    "approved_on": "2026-08-13",
+    "decision": "A2",
     "scope": "hip weight transfer, pelvis and torso counter-rotation, lateral lean, recoil torso response, and recovery curve only"
   },
   "promotion_blocked": true,

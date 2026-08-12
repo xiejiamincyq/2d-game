@@ -41,5 +41,8 @@
       and two-hand plus shoulder-stock contact across A1/A2/A3
 - [x] PREVIEW: render three separate A-refinement sheets and one exact-45-degree
       comparison board, six gait plus six recoil phases per option
-- [ ] REVIEW: obtain user selection of refinement A1, A2, or A3
+- [x] REVIEW: obtain user selection of refinement A1, A2, or A3 (A2 selected)
+- [x] PROVE: render A2 at twelve real 30-degree world-yaw angles across left step,
+      right step, peak recoil, and two-stage recovery tail
+- [ ] REVIEW: obtain explicit pass or return on the 48-frame A2 multi-yaw board
 - [ ] INTEGRATE: update runtime assets only after approval and regression tests

@@ -1,7 +1,7 @@
 # Player Motion Profile A Refinement v1 Review
 
 Date: 2026-08-13
-Review state: awaiting A1, A2, or A3 selection
+Review state: A2 selected for multi-yaw validation
 
 ## Outputs
 
@@ -75,3 +75,9 @@ final interpolation, backpack secondary motion, landing settle, reload, dash, hi
 death, enemies, or production texturing. `Player.gd`, collision, gameplay behavior,
 and production atlases remain unchanged. Selecting A1/A2/A3 still does not authorize
 120-frame generation or runtime integration.
+
+## Selection record
+
+The user continued after the A2 recommendation on 2026-08-13. That response locks
+A2 only for the next twelve-direction deformation proof. It does not approve final
+materials, retopology, a 120-frame atlas, or runtime integration.

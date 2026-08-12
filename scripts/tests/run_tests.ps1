@@ -33,6 +33,7 @@ $tests = @(
     "PlayerMotionRecoilPreviewTest",
     "PlayerMotionRefinementRigTest",
     "PlayerMotionRefinementPreviewTest",
+    "PlayerMotionRefinementA2MultiYawTest",
     "PlayerDirectionalArtTest",
     "WaveTest",
     "UpgradeTest",

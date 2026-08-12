@@ -73,7 +73,9 @@ static func build_viewport(
 	source_size: Vector2i,
 	body_height: float,
 	camera_pitch_degrees: float,
-	camera_distance: float
+	camera_distance: float,
+	enable_msaa: bool = true,
+	enable_screen_space_aa: bool = true
 ) -> SubViewport:
 	var viewport := SubViewport.new()
 	viewport.name = viewport_name
@@ -81,8 +83,8 @@ static func build_viewport(
 	viewport.transparent_bg = true
 	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
-	viewport.msaa_3d = Viewport.MSAA_4X
-	viewport.screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA
+	viewport.msaa_3d = Viewport.MSAA_4X if enable_msaa else Viewport.MSAA_DISABLED
+	viewport.screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA if enable_screen_space_aa else Viewport.SCREEN_SPACE_AA_DISABLED
 	viewport.world_3d = World3D.new()
 	var environment := WorldEnvironment.new()
 	var environment_resource := Environment.new()

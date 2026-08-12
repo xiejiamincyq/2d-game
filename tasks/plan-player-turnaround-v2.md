@@ -201,3 +201,67 @@ production sampling or runtime integration.
 - A2 is recommended for its readable natural load transfer without A3's larger
   silhouette disturbance. Selection remains pending, and production integration is
   still blocked.
+
+## A2 multi-yaw motion acceptance gate
+
+The user continued after A2 was explicitly recommended, so A2 is selected for a
+technical deformation proof. This does not create or approve a new visual style.
+It checks the approved identity, separate rifle, exact camera, and A2 mechanics at
+front, side, rear, and intermediate world rotations before any 120-frame expansion.
+
+### Task 1: Lock the bounded sample matrix
+
+**Acceptance criteria:**
+
+- Exactly twelve world-yaw samples cover 0 through 330 degrees in 30-degree steps.
+- Exactly four key motion states are sampled: left step, right step, peak recoil,
+  and the A2 two-stage recovery tail.
+- The camera remains orthographic at exactly 45 degrees downward, while only the
+  rig's world yaw changes between directions.
+
+**Verification:** The renderer constants and generated metrics agree on 48 samples.
+
+**Dependencies:** User selection of refinement A2.
+
+### Task 2: Render and measure the 48-frame proof
+
+**Acceptance criteria:**
+
+- A transparent 12-column by 4-row technical atlas and an opaque six-column review
+  board exist, with every frame visibly populated.
+- Complete source topology, A2 base amplitudes, floor clearance, high-opacity share,
+  and both-hand plus shoulder-stock contact remain inside their previous gates.
+- The independent rifle remains under `BoneAttachment3D`; no production player
+  script, collision, gameplay behavior, or production atlas is changed.
+
+**Verification:** `PlayerMotionRefinementA2MultiYawTest.gd`, manifest validation,
+alpha metrics, and original-resolution visual inspection.
+
+**Dependencies:** Task 1.
+
+### Checkpoint: Multi-yaw review
+
+Stop for explicit pass or return after the 48-frame board is delivered. A pass only
+authorizes the next production-retopology decision; it does not itself authorize a
+120-frame atlas or runtime integration.
+
+## A2 multi-yaw motion result
+
+- Forty-eight review samples cover twelve real world-yaw angles in 30-degree steps
+  across left step, right step, peak recoil, and A2 recovery tail.
+- Every frame uses the same exact 45-degree orthographic camera. The full 94,652-
+  vertex body and independent `BoneAttachment3D` rifle rotate in world space; no
+  screen-space weapon spin or 2D directional mirroring is used.
+- Firing-hand, support-hand, and shoulder-stock errors remain below 0.00000014
+  world units against a 0.006 tolerance. Feet remain inside the 0.0001 floor
+  tolerance, all visible subject pixels are fully opaque, and transparent atlas
+  corners remain zero alpha.
+- Original-resolution inspection confirms distinct front, profile, rear, and
+  intermediate silhouettes, reversed left/right gait loading, separate weapon
+  depth, and no broad translucency, detached gun, mesh spike, or screen-space spin.
+- The previous slow renderer was not a model-cost problem: Godot `--headless`
+  forces the dummy rendering driver on this Windows setup. A versioned 4.9 MB
+  deterministic skinned-mesh cache reduces rig initialization to about 0.28 seconds,
+  and the Windows/OpenGL3/NVIDIA path renders each twelve-angle state batch in
+  about 2.7 to 2.8 seconds. Four recoverable batches are assembled without rendering.
+- Production integration remains blocked pending explicit review of this board.
