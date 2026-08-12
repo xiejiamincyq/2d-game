@@ -44,5 +44,12 @@
 - [x] REVIEW: obtain user selection of refinement A1, A2, or A3 (A2 selected)
 - [x] PROVE: render A2 at twelve real 30-degree world-yaw angles across left step,
       right step, peak recoil, and two-stage recovery tail
-- [ ] REVIEW: obtain explicit pass or return on the 48-frame A2 multi-yaw board
+- [x] REVIEW: obtain explicit pass or return on the 48-frame A2 multi-yaw board
+- [x] BUILD: generate a compact automatic LOD topology candidate from the approved
+      skinned mesh without claiming it is hand-authored production retopology
+- [x] PROVE: compare source and candidate at twelve real yaw angles under the exact
+      45-degree camera with minimum silhouette IoU of at least 0.97
+- [x] PREVIEW: render M1/M2/M3 on the same candidate, pose, separate rifle, camera,
+      lighting, and four cardinal world-yaw samples
+- [ ] REVIEW: obtain explicit M1, M2, or M3 final-material selection
 - [ ] INTEGRATE: update runtime assets only after approval and regression tests

@@ -1,7 +1,7 @@
 # Player Motion Refinement A2 Multi-Yaw v1 Review
 
 Date: 2026-08-13
-Review state: awaiting explicit pass or return
+Review state: accepted for the next bounded preview gate
 
 ## Output and reading order
 
@@ -80,7 +80,8 @@ weighting-algorithm change must increment the cache schema and regenerate the ca
 
 ## Gate and limits
 
-This board is ready for a binary technical decision: pass or return. Passing it
-only authorizes the next production-retopology and final-material preview gate. It
-does not authorize a 120-frame production atlas, `Player.gd` integration, collision
-changes, combat changes, enemy animation work, or final texturing.
+The user continued after delivery on 2026-08-13, accepting this technical proof.
+That acceptance only authorizes the next bounded topology-candidate and final-
+material preview gate. It does not authorize a 120-frame production atlas,
+`Player.gd` integration, collision changes, combat changes, enemy animation work,
+or automatic promotion of an LOD candidate as hand-authored retopology.

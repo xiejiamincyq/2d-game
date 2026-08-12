@@ -1,0 +1,230 @@
+{
+  "asset_id": "player_production_topology_material_candidates",
+  "camera_pitch_degrees": 45.0,
+  "material_ids": [
+    "M1",
+    "M2",
+    "M3"
+  ],
+  "material_reference_generation": "built-in image generation, preview-only three-panel material language board; deterministic Godot renders are the review outputs",
+  "material_reports": [
+    {
+      "camera_pitch_degrees": 45.0,
+      "cyan_visible_ratio": 0.0874546397096941,
+      "magenta_visible_ratio": 0.0,
+      "material_id": "M1",
+      "max_firing_hand_error": 0.00000013411045074,
+      "max_stock_contact_error": 0.0,
+      "max_support_hand_error": 0.00000007450580596,
+      "mean_visible_luminance": 0.241623053248727,
+      "minimum_opaque_visible_ratio": 0.924539170506912,
+      "runtime_corner_alpha_max": 0.0,
+      "weapon_attachment": "BoneAttachment3D:firing_hand",
+      "yaw_degrees": [
+        0.0,
+        90.0,
+        180.0,
+        270.0
+      ]
+    },
+    {
+      "camera_pitch_degrees": 45.0,
+      "cyan_visible_ratio": 0.115552099533437,
+      "magenta_visible_ratio": 0.0,
+      "material_id": "M2",
+      "max_firing_hand_error": 0.00000013411045074,
+      "max_stock_contact_error": 0.0,
+      "max_support_hand_error": 0.00000007450580596,
+      "mean_visible_luminance": 0.467872696589657,
+      "minimum_opaque_visible_ratio": 0.924539170506912,
+      "runtime_corner_alpha_max": 0.0,
+      "weapon_attachment": "BoneAttachment3D:firing_hand",
+      "yaw_degrees": [
+        0.0,
+        90.0,
+        180.0,
+        270.0
+      ]
+    },
+    {
+      "camera_pitch_degrees": 45.0,
+      "cyan_visible_ratio": 0.0785381026438569,
+      "magenta_visible_ratio": 0.0168481078278901,
+      "material_id": "M3",
+      "max_firing_hand_error": 0.00000013411045074,
+      "max_stock_contact_error": 0.0,
+      "max_support_hand_error": 0.00000007450580596,
+      "mean_visible_luminance": 0.199883329465241,
+      "minimum_opaque_visible_ratio": 0.924539170506912,
+      "runtime_corner_alpha_max": 0.0,
+      "weapon_attachment": "BoneAttachment3D:firing_hand",
+      "yaw_degrees": [
+        0.0,
+        90.0,
+        180.0,
+        270.0
+      ]
+    }
+  ],
+  "material_yaw_degrees": [
+    0.0,
+    90.0,
+    180.0,
+    270.0
+  ],
+  "max_firing_hand_error": 0.00000013411045074,
+  "max_stock_contact_error": 0.0,
+  "max_support_hand_error": 0.00000007450580596,
+  "minimum_opaque_visible_ratio": 0.924539170506912,
+  "minimum_required_silhouette_iou": 0.97,
+  "minimum_silhouette_iou": 0.995535714285714,
+  "production_integration": false,
+  "runtime_corner_alpha_max": 0.0,
+  "schema_version": 1,
+  "topology_build": {
+    "asset_id": "player_production_lod_topology_candidate_v1",
+    "candidate_indices": 283944.0,
+    "candidate_triangles": 94648.0,
+    "candidate_vertices": 47326.0,
+    "classification": "automatic LOD topology candidate; not hand-authored production retopology",
+    "four_slot_bones": true,
+    "four_slot_weights": true,
+    "generated_lods": [
+      {
+        "activation_size": 0.0160096026957035,
+        "index_count": 283944.0,
+        "index_ratio": 0.5,
+        "lod_index": 0.0
+      },
+      {
+        "activation_size": 0.0295673254877329,
+        "index_count": 141972.0,
+        "index_ratio": 0.25,
+        "lod_index": 1.0
+      },
+      {
+        "activation_size": 0.0443509928882122,
+        "index_count": 70986.0,
+        "index_ratio": 0.125,
+        "lod_index": 2.0
+      },
+      {
+        "activation_size": 0.0665264800190926,
+        "index_count": 35490.0,
+        "index_ratio": 0.0624947172681937,
+        "lod_index": 3.0
+      },
+      {
+        "activation_size": 0.0997897237539291,
+        "index_count": 17742.0,
+        "index_ratio": 0.0312420759022906,
+        "lod_index": 4.0
+      },
+      {
+        "activation_size": 0.149684593081474,
+        "index_count": 8868.0,
+        "index_ratio": 0.015615755219339,
+        "lod_index": 5.0
+      },
+      {
+        "activation_size": 0.224526882171631,
+        "index_count": 4434.0,
+        "index_ratio": 0.00780787760966951,
+        "lod_index": 6.0
+      },
+      {
+        "activation_size": 0.336790323257446,
+        "index_count": 2214.0,
+        "index_ratio": 0.00389865607302848,
+        "lod_index": 7.0
+      },
+      {
+        "activation_size": 0.505185484886169,
+        "index_count": 1104.0,
+        "index_ratio": 0.00194404530470797,
+        "lod_index": 8.0
+      },
+      {
+        "activation_size": 0.757778167724609,
+        "index_count": 552.0,
+        "index_ratio": 0.00097202265235398,
+        "lod_index": 9.0
+      },
+      {
+        "activation_size": 1.13666725158691,
+        "index_count": 264.0,
+        "index_ratio": 0.0004648803989519,
+        "lod_index": 10.0
+      },
+      {
+        "activation_size": 1.70500099658966,
+        "index_count": 132.0,
+        "index_ratio": 0.00023244019947595,
+        "lod_index": 11.0
+      }
+    ],
+    "index_ratio": 0.5,
+    "method": "Godot ImporterMesh.generate_lods backed by meshoptimizer, followed by deterministic referenced-vertex compaction",
+    "normal_merge_angle_degrees": 60.0,
+    "schema_version": 1.0,
+    "selected_lod_index": 0.0,
+    "source_indices": 567888.0,
+    "source_triangles": 189296.0,
+    "source_vertices": 94652.0,
+    "vertex_ratio": 0.5
+  },
+  "topology_classification": "automatic LOD topology candidate; not hand-authored production retopology",
+  "topology_yaw_count": 12,
+  "topology_yaw_metrics": [
+    {
+      "silhouette_iou": 0.995535714285714,
+      "yaw_degrees": 0.0
+    },
+    {
+      "silhouette_iou": 0.996788438378161,
+      "yaw_degrees": 30.0
+    },
+    {
+      "silhouette_iou": 0.998714102014574,
+      "yaw_degrees": 60.0
+    },
+    {
+      "silhouette_iou": 0.997885835095137,
+      "yaw_degrees": 90.0
+    },
+    {
+      "silhouette_iou": 0.998547416476447,
+      "yaw_degrees": 120.0
+    },
+    {
+      "silhouette_iou": 0.997787165560249,
+      "yaw_degrees": 150.0
+    },
+    {
+      "silhouette_iou": 0.997647981183849,
+      "yaw_degrees": 180.0
+    },
+    {
+      "silhouette_iou": 0.998069498069498,
+      "yaw_degrees": 210.0
+    },
+    {
+      "silhouette_iou": 0.997164269799473,
+      "yaw_degrees": 240.0
+    },
+    {
+      "silhouette_iou": 0.998050682261209,
+      "yaw_degrees": 270.0
+    },
+    {
+      "silhouette_iou": 0.998006202924236,
+      "yaw_degrees": 300.0
+    },
+    {
+      "silhouette_iou": 0.998378268801946,
+      "yaw_degrees": 330.0
+    }
+  ],
+  "topology_yaw_step_degrees": 30.0,
+  "weapon_attachment": "BoneAttachment3D:firing_hand"
+}

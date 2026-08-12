@@ -265,3 +265,76 @@ authorizes the next production-retopology decision; it does not itself authorize
   and the Windows/OpenGL3/NVIDIA path renders each twelve-angle state batch in
   about 2.7 to 2.8 seconds. Four recoverable batches are assembled without rendering.
 - Production integration remains blocked pending explicit review of this board.
+
+## Production-topology and final-material preview gate
+
+The user continued after delivery of the A2 multi-yaw board on 2026-08-13, so the
+48-frame A2 technical proof is accepted for the next bounded gate. This approval
+does not authorize the 120-frame atlas or runtime integration.
+
+### Task 1: Reproducible topology candidate
+
+**Acceptance criteria:**
+
+- Generate one versioned compact mesh candidate from the approved skinned review
+  mesh using Godot's meshoptimizer-backed `ImporterMesh.generate_lods()` path.
+- Preserve four-slot bone indices and weights, while reducing both referenced
+  vertices and triangle indices. Label this honestly as an automatic LOD topology
+  candidate, not hand-authored production retopology.
+- Compare source and candidate silhouettes at twelve real 30-degree world-yaw
+  samples under the same exact 45-degree orthographic camera. Minimum silhouette
+  intersection-over-union must be at least 0.97.
+
+**Verification:** `PlayerProductionTopologyMaterialPreviewTest.gd`, topology
+metrics, and original-resolution source/candidate board inspection.
+
+**Dependencies:** Accepted A2 multi-yaw technical proof.
+
+### Task 2: Three final-material directions
+
+**Acceptance criteria:**
+
+- Render M1 charcoal composite, M2 industrial salvage alloy, and M3 smoked ceramic
+  on the same topology candidate, rig pose, separate rifle, lighting, framing, and
+  exact 45-degree camera.
+- Each direction shows four real world-yaw samples (front, right profile, rear,
+  and left profile); generated references may guide material language but may not
+  alter body geometry, weapon geometry, pose, or camera.
+- Every visible subject pixel remains opaque, atlas corners remain transparent,
+  and the rifle stays under `BoneAttachment3D:firing_hand`.
+
+**Verification:** material atlas and comparison board inspection, alpha metrics,
+manifest validation, and the full Godot/Python regression suites.
+
+**Dependencies:** Task 1 passes its silhouette gate.
+
+### Checkpoint: Material selection
+
+Stop for explicit M1, M2, or M3 selection. Do not promote the automatic LOD mesh
+as hand-authored production retopology, expand to 120 frames, or modify `Player.gd`
+until the selected material and the remaining topology-production decision pass.
+
+## Production-topology and final-material preview result
+
+- Godot generated twelve meshoptimizer LOD levels from the approved source. The
+  bounded candidate selects the first 50-percent index level, then compacts unused
+  vertices: 94,652 vertices / 189,296 triangles become 47,326 vertices / 94,648
+  triangles while retaining four-slot bone indices and weights.
+- Twelve source/candidate pairs cover 0 through 330 degrees under the same exact
+  45-degree orthographic camera. Body-only minimum silhouette IoU is 0.995536
+  against the
+  declared 0.97 gate; no front, profile, rear, or intermediate collapse is visible.
+- M1/M2/M3 each render four cardinal world-yaw views on the same candidate, pose,
+  independent rifle, fixed-world lighting, framing, and camera. M2 is deliberately
+  lightest for gameplay readability; M3 carries a measured 1.68-percent magenta
+  visible accent so it remains visually distinct from M1 at review scale.
+- Minimum high-opacity share is 92.45 percent, with partial alpha limited to MSAA
+  silhouette edges; atlas corner alpha is zero. Both-hand and shoulder-stock errors
+  remain below 0.00000014 world units against the 0.006 tolerance.
+- The generated material-language board was used only as a preview reference. It
+  did not alter geometry and is not a shipped or project-referenced asset. The
+  deterministic Godot boards are the review source of truth.
+- M2 is recommended for the next material pass because it survives 64-pixel scale
+  and fixed-world shadow best. Selection remains pending; the automatic LOD mesh is
+  still not classified as hand-authored production retopology, and integration is
+  still blocked.

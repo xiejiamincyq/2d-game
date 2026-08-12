@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_production_topology_material_candidates",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Review-only comparison of one reproducible automatic LOD topology candidate and three final-material directions on the approved A2 player rig before production retopology, 120-frame sampling, or runtime integration.",
+  "runtime_path": "res://assets/art/actors/player/technical_previews/player_production_material_candidates.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 256, "height": 192},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "one measured orthographic gameplay camera pitched downward exactly 45 degrees",
+  "facing": "twelve 30-degree source/candidate topology samples plus four cardinal world-yaw samples per material direction",
+  "palette": ["#061019", "#111a22", "#29343c", "#aeb8bc", "#33fff2", "#f559bf", "#ff7a24"],
+  "lighting": "identical controlled fixed-world key, fill, and rim lighting for every topology and material sample",
+  "prompt": "Use the approved player identity and separate rifle without changing geometry, pose, camera, or framing. First validate a compact Godot meshoptimizer LOD topology candidate against the full source at twelve real yaws. Then render three bounded PBR material directions on the same passing candidate: M1 charcoal tactical composite with restrained cyan identifiers, M2 weathered light industrial salvage alloy with blue conduits, and M3 smoked ceramic stealth armor with concentrated cyan and magenta energy accents plus an amber-orange independent rifle.",
+  "negative_constraints": [
+    "no claim that automatic LOD generation is hand-authored production retopology",
+    "no identity, body geometry, weapon geometry, grip, pose, scale, camera, framing, lighting, or world-yaw drift between material options",
+    "no screen-space weapon rotation, baked-in rifle, broad translucency, collapsed side or rear anatomy, detached hand, floating stock, or cropped silhouette",
+    "no 120-frame expansion, production atlas replacement, Player.gd change, collision change, or gameplay integration before review"
+  ],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/player-motion-refinement-a2-48-frame-v1.png", "role": "accepted A2 multi-yaw geometry, deformation, grip, and exact-camera proof"},
+    {"path": "assets/art/source/player/player_motion_review_skinned_mesh_v1.res", "role": "approved complete skinned source topology"},
+    {"path": "https://cms-assets.youmind.com/media/1782977581873_lsp4b6_HMJMlz6XMAAhDY1.jpg", "role": "prompt-library sample 27303: matte-black brutalist tactical composite and restrained visor reference"},
+    {"path": "https://cms-assets.youmind.com/media/1781424051793_bqtprz_HKuz485WUAAVbHj.jpg", "role": "prompt-library sample 25446: light/dark industrial recovery-unit material blocking reference"},
+    {"path": "https://cms-assets.youmind.com/media/1782721359639_pbxt1j_HL3ii75bQAAABwv.jpg", "role": "prompt-library sample 27028: cyan and amber low-key material-light separation reference"}
+  ],
+  "candidate_outputs": [
+    {"id": "M1", "path": "docs/art/previews/characters-combat/player-production-material-m1-v1.png", "focus": "charcoal tactical composite, restrained cyan identity marks, warm independent rifle"},
+    {"id": "M2", "path": "docs/art/previews/characters-combat/player-production-material-m2-v1.png", "focus": "weathered light industrial salvage alloy, dark underlayer, blue conduits, warm independent rifle"},
+    {"id": "M3", "path": "docs/art/previews/characters-combat/player-production-material-m3-v1.png", "focus": "smoked ceramic stealth armor, concentrated cyan and magenta energy accents, amber independent rifle"}
+  ],
+  "generation_model": "Godot 4.7 ImporterMesh meshoptimizer LOD generation, deterministic compact-array rebuild, inherited A2 Skeleton3D rig, procedural PBR ShaderMaterial previews, separate BoneAttachment3D rifle, and SubViewport rendering; built-in image generation is used only for a preview-only material-language reference board",
+  "style_lock_reference": {
+    "mode": "built-in image generation, preview-only and not retained as a project asset",
+    "use_case": "stylized-concept material language board",
+    "prompt_summary": "three equal PBR armor-surface panels: worn charcoal tactical composite with cyan identifier, weathered light industrial salvage alloy with blue conduit, and smoked ceramic stealth armor with cyan/magenta energy plus amber-orange metal",
+    "invariants": "material samples only; no character, body, helmet, weapon, geometry, pose, camera, text, logo, or watermark"
+  },
+  "topology_gate": {
+    "source_vertices": 94652,
+    "source_indices": 567888,
+    "target_index_ratio_min": 0.20,
+    "target_index_ratio_max": 0.65,
+    "minimum_silhouette_iou": 0.97,
+    "sample_yaw_count": 12,
+    "sample_yaw_step_degrees": 30,
+    "silhouette_subject": "body only; unchanged rifle is hidden so it cannot bias source/candidate IoU"
+  },
+  "topology_result": {
+    "method_classification": "automatic LOD topology candidate; not hand-authored production retopology",
+    "source_vertices": 94652,
+    "source_triangles": 189296,
+    "candidate_vertices": 47326,
+    "candidate_triangles": 94648,
+    "vertex_ratio": 0.5,
+    "index_ratio": 0.5,
+    "minimum_silhouette_iou": 0.995535714285714,
+    "four_slot_bones_preserved": true,
+    "four_slot_weights_preserved": true
+  },
+  "material_preview_result": {
+    "material_ids": ["M1", "M2", "M3"],
+    "yaw_degrees": [0, 90, 180, 270],
+    "minimum_opaque_visible_ratio": 0.924539170506912,
+    "runtime_corner_alpha_max": 0.0,
+    "maximum_contact_error": 0.00000013411045074,
+    "recommended_for_gameplay_readability": "M2"
+  },
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/characters-combat/player-production-material-comparison-v1.png",
+    "topology_capture": "docs/art/previews/characters-combat/player-production-topology-comparison-v1.png",
+    "alpha_report": "docs/art/reviews/characters-combat-player-production-topology-material-metrics-v1.json",
+    "review_document": "docs/art/reviews/characters-combat-player-production-topology-material-v1.md"
+  },
+  "selection_approval": {
+    "status": "awaiting-material-selection",
+    "approved_on": "",
+    "decision": "",
+    "scope": "M1, M2, or M3 material direction only after topology-candidate evidence is reviewed"
+  },
+  "promotion_blocked": true,
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

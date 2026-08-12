@@ -49,10 +49,10 @@
     "review_document": "docs/art/reviews/characters-combat-player-motion-refinement-a2-multiyaw-v1.md"
   },
   "selection_approval": {
-    "status": "a2-approved-for-bounded-multiyaw-proof",
+    "status": "approved-for-production-topology-material-preview-gate",
     "approved_on": "2026-08-13",
     "decision": "A2",
-    "scope": "twelve directions and four key motion states only; not production integration"
+    "scope": "twelve directions and four key motion states accepted; next bounded topology and material previews only, not production integration"
   },
   "promotion_blocked": true,
   "license_review_state": "pending",
