@@ -29,6 +29,8 @@ $tests = @(
     "PlayerGripPosePreviewTest",
     "PlayerGripRigTest",
     "PlayerGripRigPreviewTest",
+    "PlayerMotionRigTest",
+    "PlayerMotionRecoilPreviewTest",
     "PlayerDirectionalArtTest",
     "WaveTest",
     "UpgradeTest",

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_motion_recoil_candidates",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Three review-only lower-body gait and independent-rifle recoil profiles built on the approved grip rig before production animation or runtime integration.",
+  "runtime_path": "res://assets/art/actors/player/technical_previews/player_motion_recoil_candidates.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 384, "height": 384},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "one measured orthographic gameplay camera pitched downward exactly 45 degrees",
+  "facing": "fixed down-right three-quarter gameplay yaw for all gait and recoil samples",
+  "palette": ["#061019", "#aab4be", "#c66a32", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "the approved neutral diagnostic body and orange independent rifle under identical controlled preview lighting",
+  "prompt": "No generated imagery is used in this motion stage. Inherit the approved eight-bone PlayerGripRig, add left and right thigh, shin, and foot chains with continuous lower-body skin weights, keep the rifle as an independent BoneAttachment3D child of firing_hand, and render three deterministic profiles with six gait phases and six recoil phases each under the exact 45-degree orthographic camera.",
+  "negative_constraints": [
+    "no whole-body horizontal spin, screen-space gun rotation, one-handed recoil, floating stock, or detached support hand",
+    "no rigid leg regions, knee spikes, source-triangle deletion, proxy-sphere limbs, foot-floor penetration, or identical left and right foot travel",
+    "no identity, camera, yaw, scale, material, framing, or weapon-geometry drift between candidates",
+    "no 120-frame expansion, production atlas replacement, Player.gd change, collision change, or gameplay integration before selection"
+  ],
+  "references": [
+    {"path": "assets/art/source/player/player_turnaround_model_mv_a_alpha_v3.glb", "role": "approved body geometry and complete topology"},
+    {"path": "assets/art/source/player/player_weapon_model_mv_v1.glb", "role": "approved independent rifle geometry"},
+    {"path": "docs/art/previews/characters-combat/player-grip-rig-a-36-frame-v7.png", "role": "approved grip deformation, weapon depth, and exact-camera proof"},
+    {"path": "assets/art/source/player/grip_pose_candidates/player_grip_pose_a_alpha_v1.png", "role": "approved standard shoulder-weld action language"}
+  ],
+  "candidate_outputs": [
+    {"id": "A", "path": "docs/art/previews/characters-combat/player-motion-recoil-candidate-a-v1.png", "focus": "stable tactical stride with moderate lift and moderate recoil"},
+    {"id": "B", "path": "docs/art/previews/characters-combat/player-motion-recoil-candidate-b-v1.png", "focus": "compact shuffle with the smallest silhouette change and recoil"},
+    {"id": "C", "path": "docs/art/previews/characters-combat/player-motion-recoil-candidate-c-v1.png", "focus": "aggressive advance with the largest stride, lift, and recoil"}
+  ],
+  "generation_model": "Godot 4.7 inherited Skeleton3D review rig, generated continuous four-slot leg weights, analytic two-bone leg solving, retained analytic arm constraints, and deterministic SubViewport rendering",
+  "motion_report": {
+    "bones": 14,
+    "source_vertices_preserved": 94652,
+    "source_indices_preserved": 567888,
+    "sample_count": 36,
+    "gait_frames_per_candidate": 6,
+    "recoil_frames_per_candidate": 6,
+    "contact_tolerance": 0.006,
+    "underweighted_leg_region_limit": 0.02,
+    "minimum_opaque_visible_ratio_gate": 0.85
+  },
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/characters-combat/player-motion-recoil-candidates-comparison-v1.png",
+    "alpha_report": "docs/art/reviews/characters-combat-player-motion-recoil-metrics-v1.json",
+    "review_document": "docs/art/reviews/characters-combat-player-motion-recoil-candidates-v1.md"
+  },
+  "selection_approval": {
+    "status": "awaiting-user-selection",
+    "approved_on": "",
+    "decision": "",
+    "scope": "gait amplitude, foot lift, shoulder bob, and independent-rifle recoil profile only"
+  },
+  "promotion_blocked": true,
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

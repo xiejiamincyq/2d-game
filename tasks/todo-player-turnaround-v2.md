@@ -27,5 +27,12 @@
       weapon attachment from the approved separate meshes
 - [x] PROVE: render READY/MOVE/FIRE through 12 true-yaw samples and measure both
       hand contacts plus shoulder-stock contact
-- [ ] REVIEW: obtain skeletal deformation and two-hand constraint approval
+- [x] REVIEW: obtain skeletal deformation and two-hand constraint approval
+- [x] BUILD: add an inherited six-bone lower-body review rig without changing the
+      approved eight-bone grip proof or source topology
+- [x] PROVE: test continuous leg weights, alternating foot travel, floor clearance,
+      ordered A/B/C profile amplitudes, and retained two-hand/stock contact
+- [x] PREVIEW: render three separate six-frame gait plus six-frame recoil candidates
+      and one exact-45-degree comparison board
+- [ ] REVIEW: obtain user selection of motion profile A, B, or C
 - [ ] INTEGRATE: update runtime assets only after approval and regression tests

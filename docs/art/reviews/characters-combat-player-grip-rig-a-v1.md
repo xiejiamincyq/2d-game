@@ -1,7 +1,7 @@
 # Player Grip Rig A v1 Review
 
-Date: 2026-08-12
-Review state: awaiting skeletal deformation and two-hand constraint approval
+Date: 2026-08-12; approved 2026-08-13
+Review state: technical rig gate approved; motion preview authorized
 
 ## Output
 
@@ -73,3 +73,11 @@ Approve only if the body/rifle front-behind relationship, shoulder weld, and bot
 silhouette remain believable across front, side, and rear yaw. Approval authorizes
 the next small preview: locomotion leg cycle plus recoil on this same rig. It does
 not authorize final 120-frame generation or runtime integration.
+
+## Approval record
+
+The user answered `继续` on 2026-08-13. This approves the v7 grip structure,
+independent-rifle depth behavior, exact 45-degree camera, skeletal deformation, and
+both-hand plus shoulder-stock constraint as the basis for the next bounded preview.
+It does not approve the neutral diagnostic material as final art, formal production
+topology, 120-frame generation, or runtime integration.

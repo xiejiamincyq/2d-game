@@ -6,8 +6,11 @@ The failed single-image proof was rejected and removed. Candidate A v3 body geom
 independent rifle volume/depth architecture, and grip/action candidate A are approved.
 The approved body GLB began as an unskinned static mesh. A review-only eight-bone
 skeleton, continuous four-weight skin, two-hand constraint, and independent rifle
-attachment now produce a clean 36-sample v7 proof. Production integration remains
-unchanged pending user review.
+attachment now produce a clean 36-sample v7 proof. The user approved this technical
+gate on 2026-08-13 by asking to continue. That approval covers grip structure,
+two-hand contact, weapon depth, and the measured camera only; it does not approve
+the neutral diagnostic materials as final art. Production integration remains
+unchanged pending the next motion review.
 
 ## Locked requirements
 
@@ -46,6 +49,15 @@ unchanged pending user review.
    same camera. Measure firing-hand, support-hand, and stock-contact error in 3D.
 10. Stop again for rig/deformation approval. Do not expand to 120 frames or modify
     `Player.gd` until the proof passes visually and structurally.
+11. After rig approval, extend the review rig non-destructively with left/right
+    thigh, shin, and foot chains. Preserve the approved eight-bone grip rig and
+    complete source topology rather than rewriting the accepted proof.
+12. Produce three motion profiles at one fixed down-right yaw: six gait phases and
+    six recoil phases per profile. A is a stable tactical stride, B is a compact
+    shuffle, and C is an aggressive advance.
+13. Render one independent preview per profile plus one comparison board under the
+    same exact 45-degree orthographic camera. Stop for user selection before any
+    production animation, 120-frame expansion, or `Player.gd` change.
 
 ## Acceptance gates
 
@@ -60,6 +72,12 @@ unchanged pending user review.
   and an independent rifle under `BoneAttachment3D`.
 - All three contact errors remain within the declared tolerance at every sampled
   action and yaw; test assertions and a rendered review board must agree.
+- The motion proof adds exactly two three-bone leg chains and continuous lower-body
+  weights while preserving all 94,652 vertices and 567,888 source indices.
+- Each candidate contains six non-empty gait frames and six non-empty recoil frames;
+  the candidate ordering is measurable: C stride/recoil > A > B.
+- Feet never penetrate below the declared floor contact in sampled gait phases, and
+  both hand contacts plus stock contact remain inside the 0.006-unit tolerance.
 
 ## Stop conditions
 
@@ -71,6 +89,9 @@ unchanged pending user review.
   partial transparency, or camera drift.
 - Stop if automatic weight regions pull the torso, legs, or backpack into an arm
   bone, or if rigid-joint deformation creates a visibly broken silhouette.
+- Stop if the gait reads as whole-body yaw spinning, skating without alternating
+  foot travel, foot-floor penetration, detached weapon motion, or a one-handed
+  recoil pose.
 
 ## Rig proof result
 
@@ -83,3 +104,64 @@ unchanged pending user review.
   below two percent.
 - The proof covers only upper-body grip stability for READY/MOVE/FIRE. MOVE does not
   yet include a leg cycle, and the diagnostic materials are not final texturing.
+
+## Motion preview tasks
+
+### Task 1: Additive lower-body review rig
+
+**Acceptance criteria:**
+
+- The approved `PlayerGripRig` remains an eight-bone proof and produces the same
+  grip behavior; `PlayerMotionRig` adds six leg bones through inheritance.
+- Lower-body vertices receive normalized four-slot continuous weights without
+  removing source triangles or changing the independent rifle attachment.
+- Rig tests prove topology preservation, lower-body coverage, alternating feet,
+  profile ordering, and hand/stock contact tolerance.
+
+**Verification:** `PlayerGripRigTest.gd` and `PlayerMotionRigTest.gd` pass.
+
+**Dependencies:** Approved v7 grip proof.
+
+### Task 2: Three bounded motion candidates
+
+**Acceptance criteria:**
+
+- A: stable tactical stride with moderate lift and recoil.
+- B: compact shuffle with the smallest silhouette change and recoil.
+- C: aggressive advance with the largest stride, lift, and recoil.
+- Every option uses six gait phases and six recoil phases at fixed down-right yaw;
+  no extra directions or production frames are generated.
+
+**Verification:** Render metrics contain 36 samples and ordered profile parameters.
+
+**Dependencies:** Task 1.
+
+### Task 3: Visual review gate
+
+**Acceptance criteria:**
+
+- Three separate transparent preview sheets and one opaque comparison board exist.
+- The board uses one exact 45-degree orthographic camera and an independent rifle
+  attached to the firing hand for every sample.
+- `Player.gd`, collision, combat behavior, and production atlases remain unchanged.
+
+**Verification:** `PlayerMotionRecoilPreviewTest.gd`, manifest validation, alpha and
+original-resolution visual inspection.
+
+**Dependencies:** Task 2.
+
+## Motion preview result
+
+- The inherited review rig contains fourteen bones while the approved grip proof
+  remains eight bones and independently testable.
+- All 94,652 source vertices and 567,888 indices remain present. The declared leg
+  region contains 26,749 vertices with zero underweighted vertices; 25,696 vertices
+  use continuous multi-bone or pelvis blend weights.
+- Thirty-six bounded samples were rendered at one fixed 45-degree down-right yaw
+  under the exact 45-degree orthographic camera.
+- A/B/C follow the required amplitude order, foot targets alternate without floor
+  penetration beyond floating-point tolerance, and the rifle stays constrained to
+  both hands and the shoulder.
+- Visible subject pixels are at least 96.52 percent fully opaque across the sampled
+  captures, and every transparent output has zero-alpha corners.
+- Production integration remains blocked pending user selection of A, B, or C.

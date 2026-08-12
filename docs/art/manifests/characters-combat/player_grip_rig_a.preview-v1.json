@@ -40,6 +40,12 @@
     "alpha_report": "docs/art/reviews/characters-combat-player-grip-rig-a-metrics-v7.json",
     "review_document": "docs/art/reviews/characters-combat-player-grip-rig-a-v1.md"
   },
+  "rig_approval": {
+    "status": "approved",
+    "approved_on": "2026-08-13",
+    "decision": "continue",
+    "scope": "grip structure, independent-rifle depth, exact 45-degree camera, skeletal deformation, and two-hand plus stock contact; neutral diagnostic materials and production integration remain unapproved"
+  },
   "promotion_blocked": true,
   "license_review_state": "pending",
   "review_state": "preview"
