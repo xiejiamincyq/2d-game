@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_b_cardinal_layered_previews",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Front, right-side, and rear layered player previews used to approve true body turning and weapon occlusion before any multi-direction production expansion.",
+  "runtime_path": "res://assets/art/actors/player/direction_previews/player_b_cardinal_layered_preview_composite.png",
+  "source_dimensions": {"width": 1254, "height": 1254},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "one orthographic camera pitched downward exactly 45 degrees; camera and character elevation remain locked for front, right-side, and rear yaw",
+  "facing": "three discrete true-yaw previews: front/toward camera, right-side/profile, and rear/away from camera",
+  "palette": ["#061019", "#34343b", "#d2c8be", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "stable cyan rim light, restrained magenta equipment accents, warm orange weapon emission",
+  "prompt": "Using the approved Player B body reference, create one isolated full-body gameplay character at the requested yaw under the exact same orthographic camera pitched downward 45 degrees. Preserve the same compact armored identity, helmet, cyan visor, backpack, body proportions, worn composite materials, palette, lighting, scale, and neutral two-hand rifle-ready stance. Remove the rifle only and reconstruct any hidden armor and forearms while keeping both hands around a credible invisible grip. Use a perfectly flat solid #00ff00 chroma-key background.",
+  "negative_constraints": [
+    "no horizontal eye-level camera or camera roll",
+    "no whole-sprite rotation, mirrored anatomy, identity drift, outfit change, or proportion change",
+    "no rifle, effect, muzzle flash, shell, text, watermark, border, divider, ground, or shadow",
+    "no translucent armor interior or green within the subject",
+    "do not crop helmet, backpack, hands, legs, or boots"
+  ],
+  "references": [
+    {"path": "assets/art/source/player/player_b_8dir_sample_alpha_v1.png", "role": "approved Player B identity and true front, side, rear body construction"},
+    {"path": "assets/art/source/player/action_slices/player_b_action_slice_down_right_body_alpha_v1.png", "role": "approved body-only rendering, 45-degree camera, and two-hand invisible grip"},
+    {"path": "assets/art/source/player/action_slices/player_b_action_slice_down_right_weapon_alpha_v1.png", "role": "approved separate rifle identity"},
+    {"path": "tmp/prompt-references/27303-tactical-soldier-sheet.jpg", "role": "YouMind 27303 tactical armor and weapon-hand relationship"},
+    {"path": "tmp/prompt-references/26830-three-view-consistency.jpg", "role": "YouMind 26830 strict front-side-back consistency structure"}
+  ],
+  "generation_model": "imagegen built-in plus local chroma-key removal and deterministic Pillow/Godot preview composition",
+  "planned_outputs": [
+    "assets/art/source/player/direction_previews/player_b_front_body_chroma_preview_v1.png",
+    "assets/art/source/player/direction_previews/player_b_side_right_body_chroma_preview_v1.png",
+    "assets/art/source/player/direction_previews/player_b_rear_body_chroma_preview_v1.png",
+    "assets/art/source/player/direction_previews/player_b_front_body_alpha_preview_v1.png",
+    "assets/art/source/player/direction_previews/player_b_side_right_body_alpha_preview_v1.png",
+    "assets/art/source/player/direction_previews/player_b_rear_body_alpha_preview_v1.png",
+    "assets/art/actors/player/direction_previews/player_b_cardinal_layered_preview_body.png",
+    "assets/art/actors/player/direction_previews/player_b_cardinal_layered_preview_weapon_behind.png",
+    "assets/art/actors/player/direction_previews/player_b_cardinal_layered_preview_weapon_front.png",
+    "assets/art/actors/player/direction_previews/player_b_cardinal_layered_preview_composite.png",
+    "docs/art/previews/characters-combat/player-b-cardinal-layered-runtime-comparison-v1.png"
+  ],
+  "license_review_state": "pending",
+  "review_state": "draft"
+}
