@@ -77,9 +77,16 @@ func apply_action(action: String) -> void:
 	_apply_weapon_pose(weapon_angle, shoulder_offset)
 
 func _apply_weapon_pose(weapon_angle: float, shoulder_offset: Vector3) -> void:
+	_apply_weapon_pose_transformed(weapon_angle, shoulder_offset, Transform3D.IDENTITY)
+
+func _apply_weapon_pose_transformed(
+	weapon_angle: float,
+	shoulder_offset: Vector3,
+	body_transform: Transform3D
+) -> void:
 	_current_weapon_angle_degrees = weapon_angle
-	_stock_contact = Vector3(-0.285, 1.50, 0.235) + shoulder_offset
-	var weapon_basis := Basis(Vector3.FORWARD, deg_to_rad(weapon_angle))
+	_stock_contact = body_transform * (Vector3(-0.285, 1.50, 0.235) + shoulder_offset)
+	var weapon_basis := body_transform.basis * Basis(Vector3.FORWARD, deg_to_rad(weapon_angle))
 	_weapon_transform = Transform3D(
 		weapon_basis,
 		_stock_contact - weapon_basis * STOCK_ANCHOR
@@ -90,22 +97,22 @@ func _apply_weapon_pose(weapon_angle: float, shoulder_offset: Vector3) -> void:
 		FIRING_UPPER_BONE,
 		FIRING_FORE_BONE,
 		FIRING_HAND_BONE,
-		FIRING_SHOULDER,
-		FIRING_ELBOW_REST,
-		FIRING_HAND_REST,
+		body_transform * FIRING_SHOULDER,
+		body_transform * FIRING_ELBOW_REST,
+		body_transform * FIRING_HAND_REST,
 		firing_target,
-		Vector3(-0.62, 1.26, 0.30),
+		body_transform * Vector3(-0.62, 1.26, 0.30),
 		weapon_basis
 	)
 	_pose_arm(
 		SUPPORT_UPPER_BONE,
 		SUPPORT_FORE_BONE,
 		SUPPORT_HAND_BONE,
-		SUPPORT_SHOULDER,
-		SUPPORT_ELBOW_REST,
-		SUPPORT_HAND_REST,
+		body_transform * SUPPORT_SHOULDER,
+		body_transform * SUPPORT_ELBOW_REST,
+		body_transform * SUPPORT_HAND_REST,
 		support_target,
-		Vector3(0.64, 1.28, 0.31),
+		body_transform * Vector3(0.64, 1.28, 0.31),
 		weapon_basis
 	)
 	var firing_hand_pose := Transform3D(weapon_basis, firing_target)
