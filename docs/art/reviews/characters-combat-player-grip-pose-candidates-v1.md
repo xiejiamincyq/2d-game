@@ -1,7 +1,15 @@
 # Player Grip and Action-Language Candidates v1 Review
 
 Date: 2026-08-12
-Review state: awaiting A/B/C grip-pose selection
+Review state: candidate A approved for review-rig construction
+
+User decision: A, approved on 2026-08-12. The locked direction is the standard
+shoulder weld with balanced elbow clearance. This approval unlocks only the
+non-destructive skeleton and cross-yaw constraint proof described below.
+
+The resulting v7 rig proof is documented in
+`docs/art/reviews/characters-combat-player-grip-rig-a-v1.md`; it is awaiting a
+separate technical-deformation approval.
 
 ## Scope
 

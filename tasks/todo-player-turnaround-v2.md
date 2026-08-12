@@ -20,5 +20,12 @@
 - [x] PREVIEW: render the corrected exact-camera 12-angle body diagnostic board
 - [x] REVIEW: obtain corrected body mesh approval before generating 120 production frames
 - [x] REVIEW: obtain independent rifle volume and attachment-depth approval
-- [ ] REVIEW: select one two-hand grip and action-language candidate (A/B/C)
+- [x] REVIEW: select grip/action candidate A (standard shoulder weld)
+- [x] AUDIT: confirm approved body/weapon GLBs contain no skeleton, skin weights,
+      or animations
+- [x] BUILD: create a non-destructive review skeleton, arm weights, and firing-hand
+      weapon attachment from the approved separate meshes
+- [x] PROVE: render READY/MOVE/FIRE through 12 true-yaw samples and measure both
+      hand contacts plus shoulder-stock contact
+- [ ] REVIEW: obtain skeletal deformation and two-hand constraint approval
 - [ ] INTEGRATE: update runtime assets only after approval and regression tests

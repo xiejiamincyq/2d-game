@@ -41,7 +41,13 @@
     "alpha_report": "all three 1254x1254 source sheets have transparent corners; deterministic extraction produced nine non-empty RGBA frames at 64x64",
     "review_document": "docs/art/reviews/characters-combat-player-grip-pose-candidates-v1.md"
   },
+  "selection_approval": {
+    "status": "approved",
+    "approved_on": "2026-08-12",
+    "decision": "A",
+    "scope": "standard shoulder weld and two-hand action language"
+  },
   "promotion_blocked": true,
   "license_review_state": "pending",
-  "review_state": "preview"
+  "review_state": "style-approved"
 }
