@@ -47,7 +47,12 @@
     "alpha_report": "assets/art/source/player/modeling_views_a_alpha_v1/player_a_modeling_front_alpha_v1.png",
     "review_document": "docs/art/reviews/characters-combat-player-turnaround-mv-a-alpha-v3.md"
   },
+  "geometry_approval": {
+    "status": "approved",
+    "approved_on": "2026-08-12",
+    "decision": "继续"
+  },
   "promotion_blocked": true,
   "license_review_state": "pending",
-  "review_state": "preview"
+  "review_state": "style-approved"
 }

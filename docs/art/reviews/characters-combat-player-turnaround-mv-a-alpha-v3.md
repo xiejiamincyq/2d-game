@@ -1,7 +1,7 @@
 # Player Turnaround — Candidate A Alpha v3 Review
 
 Date: 2026-08-12
-Review state: awaiting geometry approval
+Review state: geometry approved
 
 ## Output
 
@@ -36,8 +36,9 @@ generator reject fully opaque references. The v3 board contains no background pl
 
 ## What this approval means
 
-Approve only the body volume, proportions, backpack volume, and real front/side/rear
-turn. This is a neutral gray geometry proof. It does not approve textures, armor
+The user continued from this gate on 2026-08-12, approving the body volume,
+proportions, backpack volume, and real front/side/rear turn. This is a neutral gray
+geometry proof. It does not approve textures, armor
 micro-detail, emissive colors, animation, the separate rifle, the 120-frame atlas,
 or gameplay integration.
 

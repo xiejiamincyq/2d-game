@@ -15,8 +15,9 @@
 - [x] PREVIEW: create three eye-level orthographic modeling-sheet candidates
 - [x] REVIEW: Candidate A selected as the canonical modeling sheet
 - [x] BUILD: reconstruct the body from Candidate A with validated transparent inputs
-- [ ] BUILD: author the rifle as an independent 3D object and attachment layer
+- [x] BUILD: author the rifle as an independent 3D object and attachment/depth preview
 - [x] PROBE: render the failed reconstruction as an exact-camera 12-angle board
 - [x] PREVIEW: render the corrected exact-camera 12-angle body diagnostic board
-- [ ] REVIEW: obtain corrected mesh approval before generating 120 production frames
+- [x] REVIEW: obtain corrected body mesh approval before generating 120 production frames
+- [ ] REVIEW: obtain independent rifle volume and attachment-depth approval
 - [ ] INTEGRATE: update runtime assets only after approval and regression tests

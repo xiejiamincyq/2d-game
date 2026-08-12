@@ -2,9 +2,9 @@
 
 ## Status
 
-The first proof was rejected and removed. It demonstrated that neither the existing
-single-image mesh nor a procedural proxy with screen-space artwork projection can
-produce a believable full-body turn. Production integration remains unchanged.
+The failed single-image proof was rejected and removed. Candidate A v3 body geometry
+is now approved, and an independent rifle mesh plus 12-angle attachment-depth probe
+is ready for review. Production integration remains unchanged.
 
 ## Locked requirements
 
