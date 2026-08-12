@@ -24,6 +24,39 @@ def load_script():
 
 
 class GeneratePlayerTurnaroundModelMVTest(unittest.TestCase):
+    def test_prune_unused_vae_encoder_removes_unpublished_generation_weights(self):
+        module = load_script()
+
+        class FakeVAE:
+            def __init__(self):
+                self.encoder = object()
+                self.pre_kl = object()
+
+        vae = FakeVAE()
+        module.prune_unused_vae_encoder(vae)
+
+        self.assertFalse(hasattr(vae, "encoder"))
+        self.assertFalse(hasattr(vae, "pre_kl"))
+
+    def test_component_key_map_strips_only_the_requested_prefix(self):
+        module = load_script()
+        keys = [
+            "conditioner.encoder.weight",
+            "model.blocks.0.weight",
+            "model.blocks.0.bias",
+            "vae.decoder.weight",
+        ]
+
+        result = module.component_key_map(keys, "model")
+
+        self.assertEqual(
+            result,
+            {
+                "blocks.0.weight": "model.blocks.0.weight",
+                "blocks.0.bias": "model.blocks.0.bias",
+            },
+        )
+
     def test_validate_source_root_requires_official_hy3dgen_package(self):
         module = load_script()
         with tempfile.TemporaryDirectory() as directory:

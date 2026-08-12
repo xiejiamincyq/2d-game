@@ -37,9 +37,18 @@ the next proof. The repository publishes a dedicated 1.1B multi-view model and t
 local Hunyuan code includes `MVImageProcessorV2`. The cached Hunyuan3D-2.1 model is
 configured with a single-image encoder and must not be used as a silent fallback.
 
-The first checkpoint acquisition attempt was stopped after ten minutes because the
-Xet transfer had not completed. Only metadata and resumable cache fragments exist
-outside the repository; no incomplete weights or generated model were committed.
+The official 4,928,151,562-byte checkpoint was subsequently acquired in the external
+Codex cache. Its SHA256 matches the published value
+`d36f5881bcdc56726b73e517cd444c13c60732431622da7268145355c8d38e9c`.
+No model weights were committed.
+
+The official loader exceeded the machine's practical memory limit because it held
+the checkpoint and a second initialized parameter set at once. The project loader
+now constructs Meta tensors, assigns the safetensors one component at a time, and
+removes the VAE training-only encoder omitted from the official generation weights.
+The load-only gate passed with 2,463,968,065 parameters and the approved front,
+back, and right views; it did not mirror a left view or fall back to single-image
+conditioning.
 
 ## Recovery gate
 

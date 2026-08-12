@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import gc
 import os
 import sys
 from pathlib import Path
@@ -80,6 +81,50 @@ def validate_source_root(source_root: Path) -> None:
         )
 
 
+def component_key_map(keys: list[str], component_name: str) -> dict[str, str]:
+    prefix = component_name + "."
+    return {
+        key[len(prefix) :]: key
+        for key in keys
+        if key.startswith(prefix)
+    }
+
+
+def prune_unused_vae_encoder(vae) -> None:
+    """Remove training-only modules omitted from the official generation weights."""
+    del vae.encoder
+    del vae.pre_kl
+
+
+def load_component_from_safetensors(
+    component,
+    checkpoint_path: Path,
+    component_name: str,
+    *,
+    strict: bool = True,
+):
+    from safetensors import safe_open
+
+    with safe_open(checkpoint_path, framework="pt", device="cpu") as checkpoint:
+        key_map = component_key_map(list(checkpoint.keys()), component_name)
+        if not key_map:
+            raise RuntimeError(
+                f"Checkpoint contains no tensors for component: {component_name}"
+            )
+        state_dict = {
+            local_key: checkpoint.get_tensor(checkpoint_key)
+            for local_key, checkpoint_key in key_map.items()
+        }
+    incompatible = component.load_state_dict(
+        state_dict,
+        strict=strict,
+        assign=True,
+    )
+    del state_dict
+    gc.collect()
+    return incompatible
+
+
 def main() -> int:
     args = parse_args()
     image_paths = build_image_paths(
@@ -114,6 +159,7 @@ def main() -> int:
     import torch
     from PIL import Image
     from hy3dgen.shapegen import Hunyuan3DDiTFlowMatchingPipeline
+    from hy3dgen.shapegen.pipelines import instantiate_from_config
 
     if not torch.cuda.is_available():
         raise RuntimeError("A CUDA GPU is required for Hunyuan3D shape generation")
@@ -124,13 +170,55 @@ def main() -> int:
         view: Image.open(path).convert("RGBA")
         for view, path in image_paths.items()
     }
-    pipeline = Hunyuan3DDiTFlowMatchingPipeline.from_pretrained(
-        str(args.model_root),
+    with torch.device("meta"):
+        model = instantiate_from_config(config["model"])
+        vae = instantiate_from_config(config["vae"])
+        conditioner = instantiate_from_config(config["conditioner"])
+    load_component_from_safetensors(model, checkpoint_path, "model")
+    load_component_from_safetensors(
+        vae,
+        checkpoint_path,
+        "vae",
+        strict=False,
+    )
+    prune_unused_vae_encoder(vae)
+    load_component_from_safetensors(conditioner, checkpoint_path, "conditioner")
+    vae.fourier_embedder.frequencies = 2.0 ** torch.arange(
+        config["vae"]["params"]["num_freqs"],
+        dtype=torch.float32,
+    )
+    for component_name, component in (
+        ("model", model),
+        ("vae", vae),
+        ("conditioner", conditioner),
+    ):
+        unresolved = [
+            name
+            for name, tensor in (*component.named_parameters(), *component.named_buffers())
+            if tensor.is_meta
+        ]
+        if unresolved:
+            raise RuntimeError(
+                f"{component_name} retained unresolved meta tensors: {unresolved[:5]}"
+            )
+    image_processor = instantiate_from_config(config["image_processor"])
+    scheduler = instantiate_from_config(config["scheduler"])
+    pipeline = Hunyuan3DDiTFlowMatchingPipeline(
+        vae=vae,
+        model=model,
+        scheduler=scheduler,
+        conditioner=conditioner,
+        image_processor=image_processor,
         device="cpu",
         dtype=torch.float16,
-        use_safetensors=True,
-        variant="fp16",
-        subfolder=MODEL_SUBFOLDER,
+        from_pretrained_kwargs={
+            "model_path": str(args.model_root),
+            "subfolder": MODEL_SUBFOLDER,
+            "use_safetensors": True,
+            "variant": "fp16",
+            "dtype": torch.float16,
+            "device": "cpu",
+        },
     )
     if pipeline.image_processor.__class__.__name__ != "MVImageProcessorV2":
         raise RuntimeError("Loaded pipeline silently fell back to a single-view processor")
