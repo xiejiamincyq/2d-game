@@ -24,6 +24,21 @@ def load_script():
 
 
 class GeneratePlayerTurnaroundModelMVTest(unittest.TestCase):
+    def test_validate_source_root_requires_official_hy3dgen_package(self):
+        module = load_script()
+        with tempfile.TemporaryDirectory() as directory:
+            source_root = Path(directory)
+            official_package = source_root / "hy3dgen" / "shapegen"
+            official_package.mkdir(parents=True)
+            (official_package / "__init__.py").write_text("", encoding="utf-8")
+
+            module.validate_source_root(source_root)
+
+            wrong_root = source_root / "renamed-2.1-source"
+            (wrong_root / "hy3dshape").mkdir(parents=True)
+            with self.assertRaisesRegex(RuntimeError, "hy3dgen/shapegen"):
+                module.validate_source_root(wrong_root)
+
     def test_build_image_paths_uses_three_approved_views_without_mirroring(self):
         module = load_script()
         paths = {

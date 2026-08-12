@@ -21,7 +21,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--source-root",
         type=Path,
-        default=Path.home() / ".codex/cache/Hunyuan3D-2.1-src/hy3dshape",
+        default=Path.home() / ".codex/cache/Hunyuan3D-2-src",
     )
     parser.add_argument(
         "--model-root",
@@ -71,6 +71,15 @@ def validate_multiview_config(config: dict) -> None:
         )
 
 
+def validate_source_root(source_root: Path) -> None:
+    package = source_root / "hy3dgen" / "shapegen" / "__init__.py"
+    if not package.is_file():
+        raise RuntimeError(
+            "Official Hunyuan3D-2 source must contain hy3dgen/shapegen; "
+            f"got {source_root}"
+        )
+
+
 def main() -> int:
     args = parse_args()
     image_paths = build_image_paths(
@@ -84,8 +93,7 @@ def main() -> int:
             raise FileNotFoundError(f"{view} reference not found: {path}")
     if not args.load_only and args.output is None:
         raise ValueError("--output is required unless --load-only is used")
-    if not args.source_root.is_dir():
-        raise FileNotFoundError(f"Hunyuan3D source not found: {args.source_root}")
+    validate_source_root(args.source_root)
 
     config_path = args.model_root / MODEL_SUBFOLDER / "config.yaml"
     checkpoint_path = args.model_root / MODEL_SUBFOLDER / "model.fp16.safetensors"
@@ -105,7 +113,7 @@ def main() -> int:
 
     import torch
     from PIL import Image
-    from hy3dshape.pipelines import Hunyuan3DDiTFlowMatchingPipeline
+    from hy3dgen.shapegen import Hunyuan3DDiTFlowMatchingPipeline
 
     if not torch.cuda.is_available():
         raise RuntimeError("A CUDA GPU is required for Hunyuan3D shape generation")
