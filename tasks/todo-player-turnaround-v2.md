@@ -34,5 +34,12 @@
       ordered A/B/C profile amplitudes, and retained two-hand/stock contact
 - [x] PREVIEW: render three separate six-frame gait plus six-frame recoil candidates
       and one exact-45-degree comparison board
-- [ ] REVIEW: obtain user selection of motion profile A, B, or C
+- [x] REVIEW: obtain user selection of motion profile A, B, or C (A selected)
+- [x] BUILD: add a review-only refinement layer for hip weight shift, torso
+      counter-rotation, lateral lean, and asymmetric recoil recovery
+- [x] PROVE: preserve A's stride/lift/recoil values, floor clearance, topology,
+      and two-hand plus shoulder-stock contact across A1/A2/A3
+- [x] PREVIEW: render three separate A-refinement sheets and one exact-45-degree
+      comparison board, six gait plus six recoil phases per option
+- [ ] REVIEW: obtain user selection of refinement A1, A2, or A3
 - [ ] INTEGRATE: update runtime assets only after approval and regression tests

@@ -49,10 +49,11 @@
     "review_document": "docs/art/reviews/characters-combat-player-motion-recoil-candidates-v1.md"
   },
   "selection_approval": {
-    "status": "awaiting-user-selection",
-    "approved_on": "",
-    "decision": "",
-    "scope": "gait amplitude, foot lift, shoulder bob, and independent-rifle recoil profile only"
+    "status": "approved-for-refinement",
+    "approved_on": "2026-08-13",
+    "decision": "A",
+    "scope": "balanced tactical stride, 0.15 stride, 0.085 foot lift, 0.010 shoulder bob, and four-degree independent-rifle recoil; production integration remains unapproved",
+    "evidence": "The user answered 继续 after the result recommended A; this is treated as acceptance of the recommended bounded preview direction."
   },
   "promotion_blocked": true,
   "license_review_state": "pending",

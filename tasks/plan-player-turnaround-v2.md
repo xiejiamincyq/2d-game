@@ -165,3 +165,39 @@ original-resolution visual inspection.
 - Visible subject pixels are at least 96.52 percent fully opaque across the sampled
   captures, and every transparent output has zero-alpha corners.
 - Production integration remains blocked pending user selection of A, B, or C.
+
+## Candidate A mechanics-refinement gate
+
+The user continued after A was explicitly recommended, so A's balanced stride,
+foot lift, shoulder bob, and four-degree recoil are locked for a smaller mechanics
+comparison. The next preview changes only weight-transfer and recovery language:
+
+- A1 restrained stability: subtle hip shift, small counter-rotation, minimal lean,
+  and fast recoil recovery;
+- A2 realistic load transfer: moderate hip shift and lean, readable torso counter-
+  rotation, and a two-stage recoil recovery;
+- A3 strong motion statement: the largest weight transfer and counter-rotation,
+  with a slower overshoot recovery while preserving the same four-degree peak.
+
+All options remain six gait frames plus six recoil frames at one fixed down-right
+yaw under the exact 45-degree orthographic camera. A's leg target amplitudes cannot
+change. The proof must expose and test pelvis/torso transforms, keep both feet above
+the declared floor, retain all source topology, and keep the rifle constrained to
+both hands and the shoulder. It stops again for A1/A2/A3 selection before any
+production sampling or runtime integration.
+
+## Candidate A mechanics-refinement result
+
+- A1/A2/A3 preserve profile A's 0.15 stride, 0.085 lift, 0.010 shoulder bob, and
+  four-degree peak recoil. All 94,652 vertices and 567,888 indices remain present.
+- Hip shift, pelvis yaw, torso counter-yaw, and lateral lean are measured in the
+  intended A3 greater than A2 greater than A1 order. A1 returns early, A2 uses a
+  positive two-stage tail, and A3 reaches a controlled -0.1339 overshoot.
+- Thirty-six samples retain alternating feet, floor clearance inside a 0.0001
+  floating-point tolerance, and both-hand plus shoulder-stock errors below 0.00000028.
+- Visible subject pixels are at least 96.50 percent fully opaque, all transparent
+  outputs have zero-alpha corners, and original-resolution inspection found no spin,
+  detached weapon, mesh hole, limb spike, or broad translucency.
+- A2 is recommended for its readable natural load transfer without A3's larger
+  silhouette disturbance. Selection remains pending, and production integration is
+  still blocked.

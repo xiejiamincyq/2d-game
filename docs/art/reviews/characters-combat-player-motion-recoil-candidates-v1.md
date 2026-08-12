@@ -1,7 +1,7 @@
 # Player Motion and Recoil Candidates v1 Review
 
 Date: 2026-08-13
-Review state: awaiting candidate A, B, or C selection
+Review state: candidate A approved for bounded mechanics refinement
 
 ## Outputs
 
@@ -89,3 +89,10 @@ body and pivots around the shoulder stock contact.
 Choose A for balanced tactical movement, B for compact stability, or C for a more
 aggressive advance. A selection locks only motion amplitude and recoil language for
 the next refinement pass.
+
+## Selection record
+
+The user answered `继续` after the result explicitly recommended A. This is recorded
+as approval of A's balanced tactical stride, foot lift, shoulder bob, and four-degree
+recoil for the next bounded refinement preview. It does not approve production
+animation, 120-frame expansion, final materials, or runtime integration.
