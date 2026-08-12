@@ -2,13 +2,13 @@
   "schema_version": 1,
   "asset_id": "player_weapon_model_mv_v1",
   "batch": "characters-combat",
-  "asset_class": "actor-weapon",
+  "asset_class": "actor",
   "purpose": "Review-only independent rifle geometry and body-relative depth attachment rendered through twelve true-yaw views before rigging or runtime integration.",
   "runtime_path": "res://assets/art/actors/player/technical_previews/player_weapon_model_mv_v1.png",
   "source_dimensions": {"width": 1024, "height": 1024},
   "actual_generation_dimensions": {"width": 2172, "height": 724},
   "runtime_target": {"width": 64, "height": 64},
-  "aspect_ratio": "1:1 per isolated multiview input",
+  "aspect_ratio": "1:1",
   "background": "transparent",
   "camera": "measured 45-degree-pitch orthographic gameplay camera",
   "facing": "twelve true-yaw weapon views at 30-degree steps plus twelve body-relative attachment-depth probes",
@@ -36,6 +36,12 @@
     "extent_thickness_length_ratio": 0.1308,
     "non_flat_gate": "pass"
   },
+  "geometry_approval": {
+    "status": "approved",
+    "approved_on": "2026-08-12",
+    "decision": "A",
+    "scope": "independent rifle volume and body-relative depth architecture"
+  },
   "runtime_evidence": {
     "gameplay_capture": "",
     "alpha_report": "three transparent orthographic inputs with transparent corners and non-empty subject masks",
@@ -43,5 +49,5 @@
   },
   "promotion_blocked": true,
   "license_review_state": "pending",
-  "review_state": "preview"
+  "review_state": "style-approved"
 }

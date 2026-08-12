@@ -1,7 +1,11 @@
 # Independent Player Rifle Model v1 Review
 
 Date: 2026-08-12
-Review state: awaiting weapon geometry and attachment-depth approval
+Review state: approved for independent weapon volume and attachment-depth architecture
+
+User decision: A, approved on 2026-08-12. This approval unlocks grip-pose
+exploration only; production materials, final rigging, animation expansion, and
+runtime integration remain gated separately.
 
 ## Output
 

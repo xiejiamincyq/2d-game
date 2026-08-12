@@ -19,5 +19,6 @@
 - [x] PROBE: render the failed reconstruction as an exact-camera 12-angle board
 - [x] PREVIEW: render the corrected exact-camera 12-angle body diagnostic board
 - [x] REVIEW: obtain corrected body mesh approval before generating 120 production frames
-- [ ] REVIEW: obtain independent rifle volume and attachment-depth approval
+- [x] REVIEW: obtain independent rifle volume and attachment-depth approval
+- [ ] REVIEW: select one two-hand grip and action-language candidate (A/B/C)
 - [ ] INTEGRATE: update runtime assets only after approval and regression tests
