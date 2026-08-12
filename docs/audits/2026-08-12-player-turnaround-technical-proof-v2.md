@@ -4,8 +4,12 @@ Date: 2026-08-12
 
 ## Outcome
 
-The attempted repair was not promoted. All experimental renderer code and generated
-preview assets were removed, and the production player path was left untouched.
+The original single-image repair was not promoted. A later official multi-view
+reconstruction proved that the checkpoint, component-streamed loader, true-yaw
+renderer, and exact 45-degree gameplay camera can run on this machine. Its visual
+result was still rejected: both side-label variants produced nearly identical,
+round, squat geometry that lost the approved armor identity. The production player
+path remains untouched.
 
 ## What the proof established
 
@@ -50,9 +54,31 @@ The load-only gate passed with 2,463,968,065 parameters and the approved front,
 back, and right views; it did not mirror a left view or fall back to single-image
 conditioning.
 
+## Multi-view reconstruction result
+
+Two review-only meshes were generated from the approved front, rear, and right-side
+body references. Variant A treated the side reference as right; variant B treated
+the same source as left. Both reconstructed coherent front/side/rear volume and
+rendered twelve true-yaw frames at a measured 45-degree orthographic pitch. This
+proves the technical path, but not the art.
+
+Both variants failed the visual gate for the same reasons:
+
+1. the armor planes collapsed into rounded, clay-like masses;
+2. the body became too short and wide compared with the approved Player B identity;
+3. the source views' gameplay-camera foreshortening was baked into the anatomy;
+4. changing the side-view label did not materially change the failure.
+
+The root input problem is now isolated: the approved images are gameplay views at a
+45-degree pitch, not eye-level orthographic modeling views. They remain valid style
+and gameplay references, but must not be used directly as canonical geometry views.
+
 ## Recovery gate
 
-Resume only when the official multi-view weights are complete and load successfully.
-Then create a review-only 12-angle board at exact 45-degree pitch. It must show body,
-separate rifle/depth, composite, and alpha diagnostics. Do not generate the 120-frame
-runtime set or change `Player.gd` until that board receives explicit approval.
+Create three review-only modeling-sheet candidates first. Each candidate must show
+the same body-only character at eye level in exact orthographic front, right-profile,
+and back views, with consistent scale and an empty neutral A-pose. After one sheet is
+approved, use it for a new body reconstruction and render a 12-angle board at exact
+45-degree gameplay pitch. Add the rifle only as a separate object/layer. Do not
+generate the 120-frame runtime set or change `Player.gd` until that board receives
+explicit approval.

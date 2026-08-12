@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_turnaround_mv_technical_preview",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Rejected review-only multi-view body mesh retained as technical evidence that true-yaw geometry and the exact 45-degree camera work, while gameplay-perspective inputs do not preserve the approved character anatomy.",
+  "runtime_path": "res://assets/art/actors/player/technical_previews/player_turnaround_mv_technical_preview.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "actual_generation_dimensions": {"width": 1254, "height": 1254},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "input references use the approved 45-degree orthographic top-down three-quarter camera; review rendering must use a measured 45-degree orthographic camera",
+  "facing": "one coherent body reconstructed from approved front, back, and right profile views; no mirrored left view",
+  "palette": ["#061019", "#34343b", "#d2c8be", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "geometry proof uses neutral clay lighting; this rejected result must not be promoted or palette-finished",
+  "prompt": "Reconstruct one coherent Player B body mesh with the official tencent/Hunyuan3D-2mv checkpoint using the approved body-only front, rear, and right-profile RGBA references, seed 20260812, 30 diffusion steps, and 256 octree resolution. Preserve the same compact armored anatomy, helmet, backpack, neutral two-hand invisible grip, and real front-side-rear volume. Keep the rifle out of the body mesh.",
+  "negative_constraints": [
+    "no single-image fallback, mirrored left reference, screen-space texture projection, or whole-sprite rotation",
+    "no rifle or weapon geometry fused into the body mesh",
+    "no identity, armor, proportion, pose, or camera drift between references",
+    "no production atlas generation or Player.gd integration before human review",
+    "no claim of final texture, gameplay approval, or license approval from the clay geometry proof"
+  ],
+  "references": [
+    {
+      "path": "assets/art/source/player/direction_previews/player_b_front_body_alpha_preview_v1.png",
+      "role": "style-approved front body and 45-degree camera reference"
+    },
+    {
+      "path": "assets/art/source/player/direction_previews/player_b_rear_body_alpha_preview_v1.png",
+      "role": "style-approved rear body, backpack, and 45-degree camera reference"
+    },
+    {
+      "path": "assets/art/source/player/direction_previews/player_b_side_right_body_alpha_preview_v1.png",
+      "role": "style-approved right-profile body volume and 45-degree camera reference"
+    }
+  ],
+  "generation_model": "official tencent/Hunyuan3D-2mv shape checkpoint with verified SHA256 and component-streamed CPU offload",
+  "rejection_reasons": [
+    "armor planes collapsed into rounded clay-like masses",
+    "body proportions became too short and wide",
+    "45-degree gameplay-camera foreshortening was baked into the geometry",
+    "right-versus-left side label comparison did not materially change the result"
+  ],
+  "comparison_outputs": [
+    "assets/art/source/player/player_turnaround_model_mv_preview_b_v1.glb",
+    "docs/art/previews/characters-combat/player-turnaround-mv-12-angle-technical-preview-b-v1.png"
+  ],
+  "planned_outputs": [
+    "assets/art/source/player/player_turnaround_model_mv_preview_v1.glb",
+    "assets/art/actors/player/technical_previews/player_turnaround_mv_technical_preview.png",
+    "docs/art/previews/characters-combat/player-turnaround-mv-12-angle-technical-preview-v1.png"
+  ],
+  "license_review_state": "pending",
+  "promotion_blocked": true,
+  "review_state": "preview"
+}

@@ -17,7 +17,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--front", type=Path, required=True)
     parser.add_argument("--left", type=Path)
     parser.add_argument("--back", type=Path, required=True)
-    parser.add_argument("--right", type=Path, required=True)
+    parser.add_argument("--right", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument(
         "--source-root",
@@ -42,13 +42,16 @@ def build_image_paths(
     front: Path,
     left: Path | None,
     back: Path,
-    right: Path,
+    right: Path | None,
 ) -> dict[str, Path]:
+    if left is None and right is None:
+        raise ValueError("at least one side view (--left or --right) is required")
     paths = {"front": front}
     if left is not None:
         paths["left"] = left
     paths["back"] = back
-    paths["right"] = right
+    if right is not None:
+        paths["right"] = right
     return paths
 
 

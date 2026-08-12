@@ -96,6 +96,17 @@ class GeneratePlayerTurnaroundModelMVTest(unittest.TestCase):
 
         self.assertEqual(list(result), ["front", "left", "back", "right"])
 
+    def test_build_image_paths_requires_at_least_one_side_view(self):
+        module = load_script()
+
+        with self.assertRaisesRegex(ValueError, "at least one side view"):
+            module.build_image_paths(
+                front=Path("front.png"),
+                left=None,
+                back=Path("back.png"),
+                right=None,
+            )
+
     def test_validate_config_requires_multiview_processor_and_encoder(self):
         module = load_script()
         valid = {
