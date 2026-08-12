@@ -14,6 +14,10 @@ func _assert_true(condition: bool, message: String) -> bool:
 	return false
 
 func _initialize() -> void:
+	if not _assert_true(MotionRig.REVIEW_SKINNED_MESH_CACHE_SCHEMA_VERSION == 1, "motion review cache schema version drifted"):
+		return
+	if not _assert_true(FileAccess.file_exists(MotionRig.REVIEW_SKINNED_MESH_CACHE_PATH), "versioned motion review cache is missing"):
+		return
 	var rig := MotionRig.new()
 	root.add_child(rig)
 	if not _assert_true(rig.initialize(), "motion review rig could not initialize"):

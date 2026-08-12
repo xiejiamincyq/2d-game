@@ -1,6 +1,13 @@
 extends "res://scripts/art/PlayerGripRig.gd"
 class_name PlayerMotionRig
 
+const REVIEW_SKINNED_MESH_CACHE_SCHEMA_VERSION := 1
+const REVIEW_SKINNED_MESH_CACHE_PATH := "res://assets/art/source/player/player_motion_review_skinned_mesh_v1.res"
+const CACHED_LEG_WEIGHTED_VERTEX_COUNT := 32255
+const CACHED_BLENDED_LEG_VERTEX_COUNT := 25696
+const CACHED_LEG_REGION_VERTEX_COUNT := 26749
+const CACHED_UNDERWEIGHTED_LEG_VERTEX_COUNT := 0
+
 const CANDIDATES := ["A", "B", "C"]
 
 const LEFT_THIGH_BONE := 8
@@ -116,7 +123,32 @@ func _build_skinned_body() -> MeshInstance3D:
 	blended_leg_vertex_count = 0
 	leg_region_vertex_count = 0
 	underweighted_leg_vertex_count = 0
-	return super._build_skinned_body()
+	if ResourceLoader.exists(REVIEW_SKINNED_MESH_CACHE_PATH):
+		var cached_mesh := ResourceLoader.load(REVIEW_SKINNED_MESH_CACHE_PATH, "ArrayMesh") as ArrayMesh
+		if cached_mesh != null and cached_mesh.get_surface_count() == 1:
+			leg_weighted_vertex_count = CACHED_LEG_WEIGHTED_VERTEX_COUNT
+			blended_leg_vertex_count = CACHED_BLENDED_LEG_VERTEX_COUNT
+			leg_region_vertex_count = CACHED_LEG_REGION_VERTEX_COUNT
+			underweighted_leg_vertex_count = CACHED_UNDERWEIGHTED_LEG_VERTEX_COUNT
+			return _create_cached_body_instance(cached_mesh)
+	var generated := super._build_skinned_body()
+	if generated != null:
+		var save_error := ResourceSaver.save(generated.mesh, REVIEW_SKINNED_MESH_CACHE_PATH)
+		if save_error != OK:
+			push_warning("Could not save deterministic motion review mesh cache: %s" % error_string(save_error))
+	return generated
+
+func _create_cached_body_instance(mesh: ArrayMesh) -> MeshInstance3D:
+	var result := MeshInstance3D.new()
+	result.name = "ApprovedBodySkinnedReviewMesh"
+	result.mesh = mesh
+	result.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	var material := StandardMaterial3D.new()
+	material.albedo_color = Color("aab4be")
+	material.metallic = 0.06
+	material.roughness = 0.58
+	result.material_override = material
+	return result
 
 func _bone_influences(point: Vector3) -> PackedFloat32Array:
 	if not _uses_leg_influences(point):
