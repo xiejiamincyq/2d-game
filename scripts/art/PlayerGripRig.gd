@@ -37,6 +37,7 @@ var arm_region_vertex_count := 0
 var underweighted_arm_vertex_count := 0
 var _weapon_transform := Transform3D.IDENTITY
 var _stock_contact := Vector3.ZERO
+var _current_weapon_angle_degrees := 0.0
 
 func initialize() -> bool:
 	if skeleton != null:
@@ -73,6 +74,10 @@ func apply_action(action: String) -> void:
 	elif action == "FIRE":
 		weapon_angle = 4.0
 		shoulder_offset = Vector3(0.0, -0.005, 0.0)
+	_apply_weapon_pose(weapon_angle, shoulder_offset)
+
+func _apply_weapon_pose(weapon_angle: float, shoulder_offset: Vector3) -> void:
+	_current_weapon_angle_degrees = weapon_angle
 	_stock_contact = Vector3(-0.285, 1.50, 0.235) + shoulder_offset
 	var weapon_basis := Basis(Vector3.FORWARD, deg_to_rad(weapon_angle))
 	_weapon_transform = Transform3D(
@@ -128,6 +133,9 @@ func support_hand_position() -> Vector3:
 func stock_contact_position() -> Vector3:
 	return _stock_contact
 
+func current_weapon_angle_degrees() -> float:
+	return _current_weapon_angle_degrees
+
 func _build_skeleton() -> Skeleton3D:
 	var result := Skeleton3D.new()
 	result.name = "PlayerGripReviewSkeleton"
@@ -182,16 +190,9 @@ func _build_skinned_body() -> MeshInstance3D:
 			var point := source_transform * vertices[vertex_index] + offset
 			transformed_vertices[vertex_index] = point
 			var influences := _bone_influences(point)
-			if influences[1] + influences[2] + influences[3] > 0.25:
-				arm_weighted_vertex_count += 1
-			if absf(point.x) > 0.30 and point.y > 0.78 and point.y < 1.66:
-				arm_region_vertex_count += 1
-				if influences[1] + influences[2] + influences[3] < 0.80:
-					underweighted_arm_vertex_count += 1
-			if influences[0] > 0.001 and influences[0] < 0.999:
-				blended_vertex_count += 1
+			_record_influence_metrics(point, influences)
 			var base := vertex_index * 4
-			var side_bones := [FIRING_UPPER_BONE, FIRING_FORE_BONE, FIRING_HAND_BONE] if point.x < 0.0 else [SUPPORT_UPPER_BONE, SUPPORT_FORE_BONE, SUPPORT_HAND_BONE]
+			var side_bones := _influence_bones(point)
 			bone_indices[base] = TORSO_BONE
 			bone_weights[base] = influences[0]
 			for influence_index in range(3):
@@ -217,6 +218,21 @@ func _build_skinned_body() -> MeshInstance3D:
 	material.roughness = 0.58
 	result.material_override = material
 	return result
+
+func _influence_bones(point: Vector3) -> PackedInt32Array:
+	if point.x < 0.0:
+		return PackedInt32Array([FIRING_UPPER_BONE, FIRING_FORE_BONE, FIRING_HAND_BONE])
+	return PackedInt32Array([SUPPORT_UPPER_BONE, SUPPORT_FORE_BONE, SUPPORT_HAND_BONE])
+
+func _record_influence_metrics(point: Vector3, influences: PackedFloat32Array) -> void:
+	if influences[1] + influences[2] + influences[3] > 0.25:
+		arm_weighted_vertex_count += 1
+	if absf(point.x) > 0.30 and point.y > 0.78 and point.y < 1.66:
+		arm_region_vertex_count += 1
+		if influences[1] + influences[2] + influences[3] < 0.80:
+			underweighted_arm_vertex_count += 1
+	if influences[0] > 0.001 and influences[0] < 0.999:
+		blended_vertex_count += 1
 
 func _bone_influences(point: Vector3) -> PackedFloat32Array:
 	var shoulder := FIRING_SHOULDER if point.x < 0.0 else SUPPORT_SHOULDER
