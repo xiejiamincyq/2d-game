@@ -1,7 +1,7 @@
 # Player Modeling Sheet Candidates v1
 
 Date: 2026-08-12
-Review state: awaiting user selection
+Review state: Candidate A explicitly selected
 
 ## Shared hard locks
 
@@ -20,6 +20,9 @@ Path: `docs/art/previews/characters-combat/player-turnaround-modeling-sheet-a-v1
 Strongest armor planes, largest protective shapes, and most heroic silhouette. It is
 the clearest hard-surface modeling source, but also moves furthest toward a realistic
 heavy soldier and carries the most small armor detail.
+
+Selection: approved as the canonical modeling source. This approval locks the
+body-only orthographic sheet, not the reconstructed mesh or runtime sprites.
 
 ## Candidate B — compact tactical
 
@@ -49,8 +52,8 @@ crisp hard-surface armor planes; B emphasized the original compact tactical mass
 
 ## Approval gate
 
-Select A, B, or C before any new 3D reconstruction. After selection, the approved
-sheet becomes geometry input; the body is reconstructed alone, then reviewed as a
+Candidate A is selected. The approved sheet becomes geometry input; the body is
+reconstructed alone, then reviewed as a
 12-angle true-yaw board at exact 45-degree gameplay pitch. The rifle remains a
 separate object and layer. No 120-frame production render or `Player.gd` integration
 is allowed before that review passes.

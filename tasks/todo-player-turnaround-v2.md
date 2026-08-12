@@ -13,7 +13,7 @@
 - [x] REJECT: gameplay-perspective references produce round, squat geometry even
       when the side-view label changes
 - [x] PREVIEW: create three eye-level orthographic modeling-sheet candidates
-- [ ] REVIEW: obtain modeling-sheet approval before another reconstruction
+- [x] REVIEW: Candidate A selected as the canonical modeling sheet
 - [ ] BUILD: reconstruct the body from the approved canonical modeling sheet
 - [ ] BUILD: author the rifle as an independent 3D object and attachment layer
 - [x] PROBE: render the failed reconstruction as an exact-camera 12-angle board

@@ -7,6 +7,8 @@
   "runtime_path": "res://assets/art/actors/player/technical_previews/player_modeling_sheet_candidates.png",
   "source_dimensions": {"width": 1024, "height": 1024},
   "actual_generation_dimensions": {"width": 1536, "height": 1024},
+  "selected_candidate": "A",
+  "selection_reason": "Explicit user selection; use the hard-surface hero sheet as the canonical body-only reconstruction input.",
   "runtime_target": {"width": 1536, "height": 1024},
   "aspect_ratio": "1:1",
   "background": "opaque",
@@ -54,5 +56,5 @@
     "review_document": "docs/art/reviews/characters-combat-player-modeling-sheet-candidates-v1.md"
   },
   "license_review_state": "pending",
-  "review_state": "preview"
+  "review_state": "style-approved"
 }
