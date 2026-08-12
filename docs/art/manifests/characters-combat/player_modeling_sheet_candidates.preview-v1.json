@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_modeling_sheet_candidates",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Review-only eye-level orthographic modeling-sheet candidates used to select canonical Player B body proportions before multi-view reconstruction.",
+  "runtime_path": "res://assets/art/actors/player/technical_previews/player_modeling_sheet_candidates.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "actual_generation_dimensions": {"width": 1536, "height": 1024},
+  "runtime_target": {"width": 1536, "height": 1024},
+  "aspect_ratio": "1:1",
+  "background": "opaque",
+  "camera": "eye-level orthographic engineering views; exact front, exact right profile, exact back",
+  "facing": "three equal-scale canonical body views in neutral A-pose",
+  "palette": ["#061019", "#34343b", "#d2c8be", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "flat neutral studio illumination with no cast shadow or gameplay-camera foreshortening",
+  "prompt": "Generate the approved Player B character as one fully opaque body-only modeling sheet with exact eye-level orthographic front, right-profile, and back views at identical scale. Correct the approved gameplay reference's 45-degree camera foreshortening, preserve the helmet, cyan visor, charcoal/navy armor, magenta identifiers, backpack, boots, and gloves, use an empty neutral A-pose, and include no weapon, text, grid, prop, transparency, or three-quarter view. Candidate A emphasizes hard-surface armor planes; B emphasizes compact tactical identity and 64-pixel readability; C emphasizes animation-ready joint clearance.",
+  "negative_constraints": [
+    "no weapon, invisible grip, fused rifle, or horizontal weapon rotation",
+    "no gameplay 45-degree camera, bird's-eye view, perspective convergence, or three-quarter view",
+    "no translucent body, rounded melted clay geometry, squat chibi anatomy, or inconsistent armor",
+    "no production mesh, runtime atlas, or Player.gd integration before explicit selection"
+  ],
+  "references": [
+    {
+      "path": "docs/art/previews/characters-combat/player-b-cardinal-layered-runtime-comparison-v1.png",
+      "role": "approved Player B body identity, armor, palette, and cardinal gameplay reference"
+    }
+  ],
+  "generation_model": "built-in image generation tool using a single approved project reference",
+  "candidate_outputs": [
+    {
+      "id": "A",
+      "path": "docs/art/previews/characters-combat/player-turnaround-modeling-sheet-a-v1.png",
+      "dimensions": {"width": 1536, "height": 1024},
+      "focus": "hard-surface hero"
+    },
+    {
+      "id": "B",
+      "path": "docs/art/previews/characters-combat/player-turnaround-modeling-sheet-b-v1.png",
+      "dimensions": {"width": 1536, "height": 1024},
+      "focus": "compact tactical and 64-pixel readability"
+    },
+    {
+      "id": "C",
+      "path": "docs/art/previews/characters-combat/player-turnaround-modeling-sheet-c-v1.png",
+      "dimensions": {"width": 1672, "height": 941},
+      "focus": "animation-ready joint clearance"
+    }
+  ],
+  "runtime_evidence": {
+    "gameplay_capture": "",
+    "alpha_report": "not applicable; review sheet uses an opaque studio background",
+    "review_document": "docs/art/reviews/characters-combat-player-modeling-sheet-candidates-v1.md"
+  },
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

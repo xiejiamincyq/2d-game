@@ -12,7 +12,7 @@
 - [x] BUILD: reconstruct a review-only body with the official multi-view model
 - [x] REJECT: gameplay-perspective references produce round, squat geometry even
       when the side-view label changes
-- [ ] PREVIEW: create three eye-level orthographic modeling-sheet candidates
+- [x] PREVIEW: create three eye-level orthographic modeling-sheet candidates
 - [ ] REVIEW: obtain modeling-sheet approval before another reconstruction
 - [ ] BUILD: reconstruct the body from the approved canonical modeling sheet
 - [ ] BUILD: author the rifle as an independent 3D object and attachment layer

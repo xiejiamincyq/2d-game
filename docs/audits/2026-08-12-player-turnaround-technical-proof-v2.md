@@ -73,6 +73,12 @@ The root input problem is now isolated: the approved images are gameplay views a
 45-degree pitch, not eye-level orthographic modeling views. They remain valid style
 and gameplay references, but must not be used directly as canonical geometry views.
 
+Three corrected eye-level orthographic modeling-sheet candidates were then generated
+for selection. All are body-only, fully opaque, weapon-free front/right-profile/back
+views. Candidate A emphasizes hard-surface armor, B preserves the compact tactical
+identity and 64-pixel readability, and C emphasizes animation joint clearance. No
+candidate has been promoted; the next reconstruction is blocked on explicit choice.
+
 ## Recovery gate
 
 Create three review-only modeling-sheet candidates first. Each candidate must show
