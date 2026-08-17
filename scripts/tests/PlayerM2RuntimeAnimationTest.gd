@@ -6,6 +6,8 @@ const READY_PATH := "res://assets/art/actors/player/player_m2_ready_120yaw.png"
 const MOVE_PATH := "res://assets/art/actors/player/player_m2_move_120yaw.png"
 const FIRE_PATH := "res://assets/art/actors/player/player_m2_fire_120yaw.png"
 const FRAME_SIZE := Vector2(64.0, 64.0)
+const EXPECTED_RUNTIME_GPU_BYTES := (1280 * 384 + 1280 * 2304 * 2) * 4
+const MAX_RUNTIME_GPU_BYTES := 32 * 1024 * 1024
 
 var assertions := 0
 
@@ -39,6 +41,10 @@ func _initialize() -> void:
 	if not _assert_true(player.player_move_atlas.get_size() == Vector2(1280, 2304), "MOVE runtime texture did not load"):
 		return
 	if not _assert_true(player.player_fire_atlas.get_size() == Vector2(1280, 2304), "FIRE runtime texture did not load"):
+		return
+	if not _assert_true(EXPECTED_RUNTIME_GPU_BYTES == 25_559_040, "player runtime RGBA byte calculation drifted"):
+		return
+	if not _assert_true(EXPECTED_RUNTIME_GPU_BYTES <= MAX_RUNTIME_GPU_BYTES, "player runtime atlases exceeded the 32 MiB RGBA budget"):
 		return
 
 	for frame in range(120):
