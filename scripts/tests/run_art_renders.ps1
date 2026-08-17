@@ -16,6 +16,16 @@ if ([string]::IsNullOrWhiteSpace($godot) -or -not (Test-Path -LiteralPath $godot
 
 Push-Location $projectRoot
 try {
+    $forbidden = "SCRIPT ERROR|ERROR:|ObjectDB instances were leaked|RID.+leaked|resources still in use"
+    $importOutput = (& $godot --headless --path . --import 2>&1 | Out-String)
+    $importExitCode = $LASTEXITCODE
+    if ($importExitCode -ne 0 -or $importOutput -match $forbidden) {
+        Write-Host "===== RESOURCE IMPORT FAILED =====" -ForegroundColor Red
+        Write-Host $importOutput
+        exit 1
+    }
+    Write-Host "RESOURCE IMPORT PASS" -ForegroundColor Green
+
     & python scripts/art/build_dasher_runtime_lod_candidates.py
     if ($LASTEXITCODE -ne 0) {
         throw "Dasher LOD candidate generation failed with exit code $LASTEXITCODE."
@@ -30,7 +40,6 @@ try {
         @{ Script = "RenderArtStressCombatPreview.gd"; Marker = "RENDER PASS: Art stress combat runtime preview" },
         @{ Script = "RenderDasherRuntimeLodPreview.gd"; Marker = "RENDER PASS: Dasher runtime LOD comparison" }
     )
-    $forbidden = "SCRIPT ERROR|ERROR:|ObjectDB instances were leaked|RID.+leaked|resources still in use"
     $failures = [System.Collections.Generic.List[string]]::new()
 
     foreach ($gate in $gates) {

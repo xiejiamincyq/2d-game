@@ -71,6 +71,7 @@
 - Godot：50 个测试套件、91,785 次断言全部通过；
 - Python：53 个资产管线与 manifest 测试全部通过；
 - 真实 Vulkan：7 个确定性美术渲染门禁全部通过；
+- 零缓存复现：临时 fresh clone 先经 Godot `--import`，随后同样通过 50 套测试与 7 项真实渲染；
 - 高密度基线：1536×900、120 帧预热、180 帧采样，平均 11.336 ms、P95 12.155 ms、最大 210 draw calls；
 - 资源：玩家、Dasher、Scrapper、Bruiser 生产纹理解压后合计 25.25 MiB；
 - Git：`git diff --check` 通过，完成项均以独立本地提交记录。

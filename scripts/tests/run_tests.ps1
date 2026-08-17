@@ -14,6 +14,16 @@ if ([string]::IsNullOrWhiteSpace($godot) -or -not (Test-Path -LiteralPath $godot
     throw "Godot 4.7 console executable was not found. Set GODOT_BIN to its full path."
 }
 
+$forbidden = "SCRIPT ERROR|ERROR:|TEST FAIL:|ObjectDB instances were leaked|RID.+leaked|resources still in use"
+$importOutput = (& $godot --headless --path $projectRoot --import 2>&1 | Out-String)
+$importExitCode = $LASTEXITCODE
+if ($importExitCode -ne 0 -or $importOutput -match $forbidden) {
+    Write-Host "===== RESOURCE IMPORT FAILED =====" -ForegroundColor Red
+    Write-Host $importOutput
+    exit 1
+}
+Write-Host "RESOURCE IMPORT PASS" -ForegroundColor Green
+
 $tests = @(
     "BalanceTest",
 	"EconomyBuildTest",
@@ -68,7 +78,6 @@ $tests = @(
 )
 $totalAssertions = 0
 $failures = [System.Collections.Generic.List[string]]::new()
-$forbidden = "SCRIPT ERROR|ERROR:|TEST FAIL:|ObjectDB instances were leaked|RID.+leaked|resources still in use"
 
 foreach ($test in $tests) {
 	$logPath = Join-Path ([System.IO.Path]::GetTempPath()) ("five-minute-overdrive-{0}-{1}.log" -f $test, [guid]::NewGuid().ToString("N"))
