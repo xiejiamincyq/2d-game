@@ -69,6 +69,21 @@ func _initialize() -> void:
 		return
 	if not _assert_true(ui.hud.get("xp_bar") == null and ui.hud.get("xp_value_label") == null, "HUD retained the removed XP progress controls"):
 		return
+	ui.set_overdrive_charge(63.0, false)
+	if not _assert_true(
+		ui.hud.overdrive_panel.visible
+		and ui.hud.overdrive_label.text == "超载 63%"
+		and is_equal_approx(ui.hud.overdrive_bar.value, 63.0),
+		"HUD did not expose the readable inactive overdrive charge capsule"
+	):
+		return
+	ui.set_overdrive_charge(100.0, true)
+	if not _assert_true(
+		ui.hud.overdrive_label.text == "超载运行"
+		and (ui.hud.overdrive_bar.get_theme_stylebox("fill") as StyleBoxFlat).bg_color.is_equal_approx(Color("b45cff")),
+		"HUD did not switch the overdrive capsule to its active magenta state"
+	):
+		return
 	ui.set_collection_window(5.0, 5.0)
 	if not _assert_true(ui.hud.collection_panel.visible and ui.hud.collection_label.text == "倒计时：5.0s" and is_equal_approx(ui.hud.collection_bar.value, 5.0), "HUD did not show only the requested five-second countdown text"):
 		return

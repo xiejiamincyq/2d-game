@@ -7,6 +7,7 @@ const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const BossProjectilePatternScript = preload("res://scripts/components/BossProjectilePattern.gd")
 const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
+const FloorGridScript = preload("res://scripts/world/FloorGrid.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
@@ -32,6 +33,18 @@ func _assert_true(condition: bool, message: String) -> bool:
 func _initialize() -> void:
 	await process_frame
 	var baseline_node_count := int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT))
+	var floor_grid := FloorGridScript.new()
+	root.add_child(floor_grid)
+	await process_frame
+	if not _assert_true(floor_grid.last_draw_command_count > 0, "floor grid did not render its retained command list"):
+		return
+	if not _assert_true(
+		floor_grid.last_draw_command_count <= floor_grid.MAX_DRAW_COMMANDS,
+		"floor grid exceeded its %d-command budget with %d commands" % [floor_grid.MAX_DRAW_COMMANDS, floor_grid.last_draw_command_count]
+	):
+		return
+	floor_grid.queue_free()
+	await process_frame
 	var player_source := FileAccess.get_file_as_string("res://scripts/actors/Player.gd")
 	if not _assert_true(player_source.count('get_nodes_in_group("enemies")') <= 1, "Player still performs repeated enemy group scans"):
 		return

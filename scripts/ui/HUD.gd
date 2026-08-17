@@ -18,6 +18,8 @@ var level_label: Label
 var stats_label: Label
 var combo_panel: PanelContainer
 var combo_label: Label
+var overdrive_panel: PanelContainer
+var overdrive_label: Label
 var overdrive_bar: ProgressBar
 var pause_button: Button
 var bgm_toggle_button: Button
@@ -110,13 +112,34 @@ func _build_hud() -> void:
 	combo_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	combo_panel.add_child(combo_label)
 	add_child(combo_panel)
-	overdrive_bar = _make_bar(Color("ff571f"))
+	overdrive_panel = PanelContainer.new()
+	overdrive_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	overdrive_panel.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	overdrive_panel.position = Vector2(-155, -62)
+	overdrive_panel.custom_minimum_size = Vector2(310, 44)
+	var overdrive_style := StyleBoxFlat.new()
+	overdrive_style.bg_color = Color(0.012, 0.028, 0.044, 0.94)
+	overdrive_style.border_color = Color(0.20, 1.0, 0.95, 0.62)
+	overdrive_style.set_border_width_all(1)
+	overdrive_style.set_corner_radius_all(4)
+	overdrive_style.set_content_margin_all(8)
+	overdrive_panel.add_theme_stylebox_override("panel", overdrive_style)
+	var overdrive_row := HBoxContainer.new()
+	overdrive_row.add_theme_constant_override("separation", 10)
+	overdrive_label = _make_label("超载 0%")
+	overdrive_label.custom_minimum_size.x = 76.0
+	overdrive_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	overdrive_label.add_theme_color_override("font_color", Color("9fffee"))
+	overdrive_row.add_child(overdrive_label)
+	overdrive_bar = _make_bar(Color("33fff2"))
 	overdrive_bar.max_value = 100.0
 	overdrive_bar.value = 0.0
-	overdrive_bar.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-	overdrive_bar.position = Vector2(-105, -54)
-	overdrive_bar.custom_minimum_size = Vector2(210, 12)
-	add_child(overdrive_bar)
+	overdrive_bar.custom_minimum_size = Vector2(196, 10)
+	overdrive_bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	overdrive_bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	overdrive_row.add_child(overdrive_bar)
+	overdrive_panel.add_child(overdrive_row)
+	add_child(overdrive_panel)
 
 	collection_panel = PanelContainer.new()
 	collection_panel.visible = false
@@ -151,11 +174,14 @@ func _make_card() -> VBoxContainer:
 	panel.custom_minimum_size = Vector2(210, 112)
 	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.018, 0.035, 0.05, 0.92)
-	style.border_color = Color(0.2, 1.0, 0.95, 0.7)
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(5)
+	style.bg_color = Color(0.012, 0.028, 0.044, 0.94)
+	style.border_color = Color(0.2, 1.0, 0.95, 0.68)
+	style.set_border_width_all(1)
+	style.border_width_top = 3
+	style.set_corner_radius_all(4)
 	style.set_content_margin_all(10)
+	style.shadow_color = Color(0.0, 0.0, 0.0, 0.42)
+	style.shadow_size = 4
 	panel.add_theme_stylebox_override("panel", style)
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 5)
@@ -185,6 +211,12 @@ func _make_bar(color: Color) -> ProgressBar:
 	fill.bg_color = color
 	fill.set_corner_radius_all(3)
 	bar.add_theme_stylebox_override("fill", fill)
+	var background := StyleBoxFlat.new()
+	background.bg_color = Color(0.005, 0.015, 0.024, 0.94)
+	background.border_color = Color(0.20, 1.0, 0.95, 0.24)
+	background.set_border_width_all(1)
+	background.set_corner_radius_all(3)
+	bar.add_theme_stylebox_override("background", background)
 	return bar
 
 func apply_viewport_size(viewport_size: Vector2) -> void:
@@ -236,8 +268,20 @@ func set_overdrive(active: bool, remaining: float = 0.0) -> void:
 	combo_label.add_theme_color_override("font_color", Color("ff571f"))
 
 func set_overdrive_charge(value: float, active: bool) -> void:
-	overdrive_bar.value = clampf(value, 0.0, 100.0)
-	overdrive_bar.modulate = Color("ff571f") if active else Color("33fff2")
+	var clamped_value := clampf(value, 0.0, 100.0)
+	var overdrive_color := Color("b45cff") if active else Color("33fff2")
+	overdrive_bar.value = clamped_value
+	_set_bar_fill_color(overdrive_bar, overdrive_color)
+	overdrive_label.text = "超载运行" if active else "超载 %d%%" % int(round(clamped_value))
+	overdrive_label.add_theme_color_override("font_color", Color("d9a8ff") if active else Color("9fffee"))
+	var panel_style := overdrive_panel.get_theme_stylebox("panel") as StyleBoxFlat
+	if panel_style != null:
+		panel_style.border_color = Color(0.71, 0.36, 1.0, 0.85) if active else Color(0.20, 1.0, 0.95, 0.62)
+
+func _set_bar_fill_color(bar: ProgressBar, color: Color) -> void:
+	var fill := bar.get_theme_stylebox("fill") as StyleBoxFlat
+	if fill != null:
+		fill.bg_color = color
 
 func set_collection_window(remaining: float, duration: float) -> void:
 	var safe_duration := maxf(duration, 0.01)

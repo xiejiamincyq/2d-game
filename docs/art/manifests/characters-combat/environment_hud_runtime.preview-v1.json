@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "asset_id": "environment_hud_runtime_v1",
+  "batch": "characters-combat",
+  "asset_class": "environment-ui",
+  "purpose": "Improve industrial floor depth and overdrive HUD readability while reducing Canvas command cost and preserving responsive interaction contracts.",
+  "runtime_path": "res://scripts/world/FloorGrid.gd",
+  "secondary_runtime_path": "res://scripts/ui/HUD.gd",
+  "background": "procedural opaque industrial floor plus opaque HUD card fields",
+  "camera": "fixed 45-degree actor presentation over a world-space 2D floor",
+  "palette": ["#0b1118", "#33fff2", "#b45cff", "#ff571f", "#d7ffff"],
+  "generation_model": "deterministic Godot draw primitives and Control theme overrides; no generative model or third-party source",
+  "negative_constraints": [
+    "no animated background noise, per-tile node creation, unbounded draw list, actor-obscuring floor contrast, or modal HUD behavior",
+    "no health, shield, progression, wave, pause, audio, overdrive duration, charge, input, focus, or gameplay contract drift"
+  ],
+  "technical_result": {
+    "previous_approximate_floor_commands_before_lanes": 49923,
+    "runtime_floor_commands": 496,
+    "floor_command_ceiling": 900,
+    "tested_viewports": ["960x540", "1280x720", "1920x1080", "2560x1080"],
+    "minimum_text_contrast_ratio": 4.5
+  },
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png",
+    "review_document": "docs/art/reviews/environment-hud-runtime-v1.md"
+  },
+  "verification": {
+    "ui_assertions": 68,
+    "performance_assertions": 28,
+    "smoke_assertions": 23
+  },
+  "license_review_state": "not-applicable",
+  "review_state": "gameplay-approved"
+}
