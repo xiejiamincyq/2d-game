@@ -76,12 +76,12 @@
     "review_document": "docs/art/reviews/characters-combat-player-production-topology-material-v1.md"
   },
   "selection_approval": {
-    "status": "awaiting-material-selection",
-    "approved_on": "",
-    "decision": "",
-    "scope": "M1, M2, or M3 material direction only after topology-candidate evidence is reviewed"
+    "status": "selected-for-technical-bake-proof",
+    "approved_on": "2026-08-17",
+    "decision": "M2",
+    "scope": "M2 material direction only; automatic LOD classification and runtime integration remain unchanged"
   },
   "promotion_blocked": true,
   "license_review_state": "pending",
-  "review_state": "preview"
+  "review_state": "style-approved"
 }

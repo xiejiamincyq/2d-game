@@ -51,5 +51,9 @@
       45-degree camera with minimum silhouette IoU of at least 0.97
 - [x] PREVIEW: render M1/M2/M3 on the same candidate, pose, separate rifle, camera,
       lighting, and four cardinal world-yaw samples
-- [ ] REVIEW: obtain explicit M1, M2, or M3 final-material selection
+- [x] REVIEW: obtain M1, M2, or M3 final-material selection (M2 selected)
+- [x] PROVE: bake M2 READY at 120 true three-degree world-yaw angles into compact
+      composite, body-only, and weapon-only technical atlases
+- [x] REVIEW: verify twelve key angles, three-layer alpha/size metrics, correct
+      shared-depth composite, and no runtime integration
 - [ ] INTEGRATE: update runtime assets only after approval and regression tests

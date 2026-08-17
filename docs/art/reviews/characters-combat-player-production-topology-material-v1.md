@@ -1,7 +1,7 @@
 # Player Production Topology and Material Candidates v1 Review
 
-Date: 2026-08-13
-Review state: awaiting M1, M2, or M3 material selection
+Date: 2026-08-13; selection recorded 2026-08-17
+Review state: M2 selected for bounded technical bake proof
 
 ## Outputs and reading order
 
@@ -87,11 +87,10 @@ YouMind URLs but were not committed, copied into runtime assets, or used as text
 inputs. Third-party reference licensing therefore remains pending and isolated from
 the project deliverables.
 
-## Recommendation and stop gate
+## Selection and next bounded gate
 
-M2 is recommended because its body masses remain readable under the real camera and
-at 64-pixel runtime scale. M1 is the safer continuation of the existing palette;
-M3 is the stronger neon/stealth statement. This review stops for an explicit M1,
-M2, or M3 choice. It does not authorize 120-frame sampling, `Player.gd` changes,
-production atlas replacement, collision changes, or promotion of this LOD candidate
-as hand-authored retopology.
+M2 was selected on 2026-08-17 because its body masses remain readable under the real
+camera and at 64-pixel runtime scale. The selection authorizes one bounded READY-pose
+120-yaw technical bake proof with separate 3D body and rifle source objects. It does
+not authorize `Player.gd` changes, production atlas replacement, collision changes,
+gameplay integration, or promotion of this LOD candidate as hand-authored retopology.

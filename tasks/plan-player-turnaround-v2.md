@@ -334,7 +334,64 @@ until the selected material and the remaining topology-production decision pass.
 - The generated material-language board was used only as a preview reference. It
   did not alter geometry and is not a shipped or project-referenced asset. The
   deterministic Godot boards are the review source of truth.
-- M2 is recommended for the next material pass because it survives 64-pixel scale
-  and fixed-world shadow best. Selection remains pending; the automatic LOD mesh is
-  still not classified as hand-authored production retopology, and integration is
-  still blocked.
+- M2 was recommended because it survives 64-pixel scale and fixed-world shadow
+  best, and was subsequently selected for the bounded technical bake below. The
+  automatic LOD mesh is still not classified as hand-authored production
+  retopology, and integration remains blocked.
+
+## M2 READY 120-yaw technical bake gate
+
+M2 was selected on 2026-08-17 for one bounded resource and depth-composition proof.
+This is a deterministic expansion of the selected style, not a new style decision.
+It does not approve runtime integration or reclassify the automatic LOD candidate.
+
+### Task 1: Lock the compact sampling contract
+
+**Acceptance criteria:**
+
+- Exactly 120 real world-yaw samples cover 0 through 357 degrees in three-degree
+  steps under the same exact 45-degree orthographic camera.
+- READY pose, M2 material, body geometry, rifle geometry, two-hand grip, framing,
+  and fixed-world lighting remain unchanged.
+- A compact 20-column by 6-row layout limits each 64-pixel atlas to 1280 by 384.
+
+**Verification:** Renderer constants, manifest, and metrics agree on the matrix.
+
+### Task 2: Preserve source separation and correct depth
+
+**Acceptance criteria:**
+
+- The body remains one skinned `MeshInstance3D`; the rifle remains an independent
+  child of `BoneAttachment3D:firing_hand` throughout every sample.
+- Produce a composite atlas from one shared 3D depth buffer plus body-only and
+  weapon-only diagnostic atlases from the same transforms.
+- Declare the composite atlas as the depth-correct runtime recommendation. Do not
+  claim that simple 2D recomposition of the diagnostic layers restores pixels that
+  were occluded in their independent passes.
+
+**Verification:** Every frame in all three atlases is populated, visible pixels are
+mostly opaque, corners are transparent, contacts stay inside tolerance, and the
+three-atlas total remains below the bounded 6 MiB proof budget.
+
+### Checkpoint: 120-yaw resource review
+
+Deliver a twelve-key-angle board plus measured PNG sizes and batch render time.
+Stop before `Player.gd`, production atlas, collision, or gameplay changes.
+
+## M2 READY 120-yaw technical bake result
+
+- All 120 true world-yaw samples render at three-degree intervals in a compact
+  20-column by 6-row layout. The twelve-key board confirms front, profile, rear,
+  and intermediate turning without mirroring or screen-space rifle rotation.
+- The body and rifle remain separate 3D source objects. The composite uses one 3D
+  depth buffer; body-only and weapon-only atlases are diagnostic layers and are not
+  falsely described as depth-correct 2D recomposition inputs.
+- Minimum high-opacity visible-pixel ratios are 92.32 percent composite, 91.88
+  percent body, and 81.16 percent for the thin profile weapon. The weapon's minimum
+  mean visible alpha is 90.38 percent and every angle contains alpha-1 pixels.
+- Composite, body, and weapon atlases total 700,566 bytes, about 0.67 MiB. Shipping
+  only the recommended composite would use 313,488 PNG bytes before import and
+  platform compression choices.
+- Ten recoverable twelve-angle batches total 3,757 ms of measured in-process render
+  and PNG work on Windows/OpenGL3/NVIDIA. `Player.gd`, collision, combat behavior,
+  and production atlases remain unchanged.

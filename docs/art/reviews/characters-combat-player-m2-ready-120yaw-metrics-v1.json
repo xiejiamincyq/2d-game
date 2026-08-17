@@ -1,0 +1,62 @@
+{
+  "asset_id": "player_m2_ready_120yaw_bake",
+  "atlas_columns": 20,
+  "atlas_rows": 6,
+  "batch_count": 10,
+  "batch_size": 12,
+  "body_corner_alpha_max": 0.0,
+  "body_weapon_source_objects_separate": true,
+  "camera_pitch_degrees": 45.0,
+  "candidate_indices": 283944,
+  "candidate_vertices": 47326,
+  "composite_corner_alpha_max": 0.0,
+  "composite_depth_source": "single 3D SubViewport depth buffer",
+  "contact_tolerance": 0.006,
+  "diagnostic_layer_limit": "body-only and weapon-only captures preserve transforms but simple alpha recomposition cannot reconstruct per-pixel 3D occlusion",
+  "file_sizes_bytes": {
+    "body_atlas": 294871,
+    "composite_atlas": 313488,
+    "review_board": 111043,
+    "weapon_atlas": 92207
+  },
+  "layer_ids": [
+    "composite",
+    "body",
+    "weapon"
+  ],
+  "max_firing_hand_error": 0.00000013411045074,
+  "max_stock_contact_error": 0.0,
+  "max_support_hand_error": 0.00000007450580596,
+  "minimum_body_maximum_alpha": 1.0,
+  "minimum_body_mean_visible_alpha": 0.95883304666973,
+  "minimum_body_opaque_visible_ratio": 0.918775750441436,
+  "minimum_composite_maximum_alpha": 1.0,
+  "minimum_composite_mean_visible_alpha": 0.961168679148585,
+  "minimum_composite_opaque_visible_ratio": 0.923231218088986,
+  "minimum_weapon_maximum_alpha": 1.0,
+  "minimum_weapon_mean_visible_alpha": 0.903832173592051,
+  "minimum_weapon_opaque_visible_ratio": 0.811550151975684,
+  "production_integration": false,
+  "runtime_frame_size": {
+    "height": 64,
+    "width": 64
+  },
+  "runtime_recommendation": "use composite atlas for correct per-pixel body/weapon depth",
+  "sample_count": 120,
+  "schema_version": 1,
+  "selected_material": "M2",
+  "selected_pose": "READY",
+  "selected_refinement": "A2",
+  "topology_classification": "automatic LOD topology candidate for offline sprite baking; not hand-authored production retopology",
+  "total_atlas_bytes": 700566,
+  "total_batch_render_msec": 3757,
+  "weapon_attachment": "BoneAttachment3D:firing_hand",
+  "weapon_corner_alpha_max": 0.0,
+  "yaw_frame_count": 120,
+  "yaw_range_degrees": {
+    "end": 357.0,
+    "start": 0.0,
+    "step": 3.0
+  },
+  "yaw_step_degrees": 3.0
+}
