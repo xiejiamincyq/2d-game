@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "asset_id": "enemy_scrapper",
+  "batch": "characters-combat",
+  "asset_class": "enemy",
+  "purpose": "Replace the temporary Scrapper square with one lightweight salvage-cutter master while retaining single-frame scope.",
+  "runtime_path": "res://assets/art/actors/enemies/enemy_scrapper.png",
+  "source_dimensions": {"width": 1254, "height": 1254},
+  "runtime_target": {"width": 128, "height": 128},
+  "runtime_display_scale": 0.44,
+  "background": "transparent",
+  "camera": "fixed orthographic top-down three-quarter camera pitched down approximately 45 degrees",
+  "facing": "single right-facing master; flip horizontally when the player is to the left",
+  "identity": "small fragile improvised scavenger drone with one cyan sensor and one short orange heated cutter",
+  "generation_model": "imagegen built-in with local chroma-key removal and deterministic 128px packing",
+  "source_output": "assets/art/source/enemies/enemy_scrapper_chroma_v1.png",
+  "alpha_output": "assets/art/source/enemies/enemy_scrapper_alpha_v1.png",
+  "runtime_output": "assets/art/actors/enemies/enemy_scrapper.png",
+  "runtime_evidence": "docs/art/previews/characters-combat/enemy-static-runtime-v1.png",
+  "gameplay_invariants": {"body_radius": 14.0, "contact_damage": 8.0, "animation_frames": 1},
+  "license_review_state": "pending",
+  "review_state": "gameplay-approved"
+}

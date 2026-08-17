@@ -2,22 +2,22 @@
   "engine_version": "4.7-stable (official)",
   "fixture": "high-density-art-stress-v1",
   "interpretation": "single-machine debug baseline; not a cross-device release threshold",
-  "node_count": 241,
+  "node_count": 251,
   "process_msec": {
-    "average": 10.661,
-    "maximum": 12.327,
-    "p95": 12.327
+    "average": 11.3362555555555,
+    "maximum": 12.155,
+    "p95": 12.155
   },
   "render_draw_calls": {
-    "average": 172.744444444444,
-    "maximum": 191
+    "average": 191.5,
+    "maximum": 210
   },
   "render_objects": {
-    "average": 1244.79444444444,
-    "maximum": 1370
+    "average": 1213.13888888889,
+    "maximum": 1340
   },
-  "render_texture_memory_bytes": 39551488,
-  "render_video_memory_bytes": 65598800,
+  "render_texture_memory_bytes": 39682560,
+  "render_video_memory_bytes": 65731152,
   "rendering_device": "NVIDIA GeForce RTX 5060 Laptop GPU",
   "sample_frames": 180,
   "schema_version": 1,

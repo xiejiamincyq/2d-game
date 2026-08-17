@@ -22,9 +22,13 @@ const DASHER_TEXTURES := [
 	preload("res://assets/art/actors/enemies/enemy_dasher_a_actions_runtime_v1.png"),
 	preload("res://assets/art/actors/enemies/enemy_dasher_b_actions_runtime_v1.png"),
 ]
+const SCRAPPER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_scrapper.png")
+const BRUISER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_bruiser.png")
 const DASHER_FLASH_SHADER := preload("res://assets/art/shaders/dasher_hit_flash.gdshader")
 
 const DASHER_RUNTIME_SCALE := Vector2(0.5, 0.5)
+const SCRAPPER_RUNTIME_SCALE := Vector2(0.44, 0.44)
+const BRUISER_RUNTIME_SCALE := Vector2(0.66, 0.66)
 const DASHER_RUN_FPS := 9.0
 const DASHER_RUN_SEQUENCE := [0, 1, 2, 1]
 
@@ -92,6 +96,9 @@ var dasher_flash_material: ShaderMaterial
 var dasher_animation_state := DasherAnimationState.IDLE
 var dasher_animation_elapsed := 0.0
 var dasher_animation_phase_offset := 0.0
+var static_visual: Sprite2D
+var static_flash_material: ShaderMaterial
+var static_visual_half_height := 0.0
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	kind = enemy_kind
@@ -172,8 +179,13 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 
 func _ready() -> void:
 	add_to_group("enemies")
-	if kind == EnemyKind.DASHER:
-		_create_dasher_visual()
+	match kind:
+		EnemyKind.SCRAPPER:
+			_create_static_visual(SCRAPPER_TEXTURE, SCRAPPER_RUNTIME_SCALE, "ScrapperVisual")
+		EnemyKind.DASHER:
+			_create_dasher_visual()
+		EnemyKind.BRUISER:
+			_create_static_visual(BRUISER_TEXTURE, BRUISER_RUNTIME_SCALE, "BruiserVisual")
 	var shape := CollisionShape2D.new()
 	var circle := CircleShape2D.new()
 	circle.radius = body_radius
@@ -204,7 +216,7 @@ func _physics_process(delta: float) -> void:
 	hidden_dispersion_timer = 0.0
 	var to_player: Vector2 = player.global_position - global_position
 	var desired: Vector2 = to_player.normalized()
-	_update_dasher_facing(player.global_position)
+	_update_enemy_facing(player.global_position)
 	if kind == EnemyKind.OVERSEER:
 		_update_overseer(delta, player, to_player.length())
 		if is_attacking or ranged_is_winding_up:
@@ -456,15 +468,19 @@ func _draw() -> void:
 	if flash_timer > 0.0:
 		body_color = Color.WHITE
 	var size := body_radius * 1.7
-	draw_rect(Rect2(Vector2(-size * 0.5, -size * 0.5), Vector2(size, size)), body_color)
+	if static_visual == null:
+		draw_rect(Rect2(Vector2(-size * 0.5, -size * 0.5), Vector2(size, size)), body_color)
 	if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER]:
 		var bar_width := body_radius * 1.6
-		var bar_rect := Rect2(-bar_width * 0.5, -body_radius - 12.0, bar_width, 6.0)
+		var bar_y := -static_visual_half_height - 8.0 if static_visual != null else -body_radius - 12.0
+		var bar_rect := Rect2(-bar_width * 0.5, bar_y, bar_width, 6.0)
 		draw_rect(bar_rect, Color("061019"))
 		draw_rect(Rect2(bar_rect.position + Vector2.ONE, Vector2((bar_width - 2.0) * get_health_ratio(), 4.0)), accent)
 	else:
-		draw_rect(Rect2(-body_radius * 0.55, -body_radius - 3, body_radius * 1.1, 5), accent)
-	draw_rect(Rect2(-body_radius - 2, -3, (body_radius + 2) * 2.0, 6), body_color.darkened(0.25))
+		var status_y := -static_visual_half_height - 6.0 if static_visual != null else -body_radius - 3.0
+		draw_rect(Rect2(-body_radius * 0.55, status_y, body_radius * 1.1, 5), accent)
+	if static_visual == null:
+		draw_rect(Rect2(-body_radius - 2, -3, (body_radius + 2) * 2.0, 6), body_color.darkened(0.25))
 	if is_attacking:
 		var p := 1.0 - clampf(attack_timer / maxf(0.01, attack_windup), 0.0, 1.0)
 		draw_arc(Vector2.ZERO, attack_range, -PI * 0.85, PI * 0.85, 24, Color(1.0, 0.55, 0.15, 0.25 + p * 0.45), 4.0)
@@ -482,8 +498,9 @@ func _draw() -> void:
 			draw_arc(target_local, 72.0, 0.0, TAU, 36, Color(warning_color, 0.5 + charge * 0.4), 2.0)
 		elif kind == EnemyKind.OVERSEER:
 			draw_arc(Vector2.ZERO, body_radius + 18.0 + charge * 12.0, 0.0, TAU, 40, Color(warning_color, 0.75), 4.0)
-	draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
-	draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
+	if static_visual == null:
+		draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
+		draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
 
 func set_dasher_variant(index: int) -> void:
 	dasher_variant_index = posmod(index, DASHER_TEXTURES.size())
@@ -507,15 +524,34 @@ func _create_dasher_visual() -> void:
 	dasher_visual.material = dasher_flash_material
 	add_child(dasher_visual)
 
-func _update_dasher_facing(target_global_position: Vector2) -> void:
-	if dasher_visual == null:
-		return
-	dasher_visual.flip_h = target_global_position.x < global_position.x
+func _create_static_visual(texture: Texture2D, visual_scale: Vector2, node_name: String) -> void:
+	static_visual = Sprite2D.new()
+	static_visual.name = node_name
+	static_visual.centered = true
+	static_visual.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	static_visual.texture = texture
+	static_visual.scale = visual_scale
+	static_visual.show_behind_parent = true
+	static_visual_half_height = texture.get_height() * visual_scale.y * 0.5
+	static_flash_material = ShaderMaterial.new()
+	static_flash_material.shader = DASHER_FLASH_SHADER
+	static_flash_material.set_shader_parameter("flash_amount", 0.0)
+	static_visual.material = static_flash_material
+	add_child(static_visual)
+
+func _update_enemy_facing(target_global_position: Vector2) -> void:
+	var face_left := target_global_position.x < global_position.x
+	if dasher_visual != null:
+		dasher_visual.flip_h = face_left
+	if static_visual != null:
+		static_visual.flip_h = face_left
 
 func _update_dasher_hit_flash() -> void:
-	if dasher_flash_material == null:
-		return
-	dasher_flash_material.set_shader_parameter("flash_amount", 1.0 if flash_timer > 0.0 else 0.0)
+	var amount := 1.0 if flash_timer > 0.0 else 0.0
+	if dasher_flash_material != null:
+		dasher_flash_material.set_shader_parameter("flash_amount", amount)
+	if static_flash_material != null:
+		static_flash_material.set_shader_parameter("flash_amount", amount)
 
 static func resolve_dasher_animation_frame(
 	attacking: bool,

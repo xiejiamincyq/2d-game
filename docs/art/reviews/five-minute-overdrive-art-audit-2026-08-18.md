@@ -14,7 +14,7 @@
 | 玩家身体与枪械 | 通过 | 源模型保持身体和步枪为独立 3D 对象；运行图集保留同一深度缓冲中的遮挡与握持关系 | 禁止重新引入屏幕空间独立枪旋转 |
 | 玩家透明度 | 通过 | 主体可见像素保持高不透明度，透明区域只存在于轮廓外 | 烘焙指标与真实战斗截图 |
 | Dasher A/B | 通过 | 两种外形均有 3 帧移动及预备、突击、恢复，共 6 帧；水平翻转持续面向玩家 | `EnemyDasherArtTest` |
-| 其他敌人 | 有意保留 | Scrapper、Bruiser 等仍为单帧并按现有规则面向玩家 | 不标记为动画完成 |
+| 其他敌人 | 部分通过 | Scrapper、Bruiser 已换正式单帧母版并面向玩家；其余四类仍为程序占位 | 不标记为动画完成 |
 | 战斗特效 | 通过 | 能量、方向和冲击分别使用青、品红、橙；上限固定，无每发 GPU 粒子节点 | `CombatFeedbackTest`、`PerformanceTest` |
 | 场地 | 通过 | 工业网格由约 49,923 个逐格命令降至 496 个保留绘制命令 | 900 命令上限 |
 | HUD | 通过 | 顶部卡片保持不透明；超载胶囊在充能/激活状态具有独立配色并响应多种分辨率 | `UITest` |
@@ -22,14 +22,15 @@
 
 ## 运行资源预算
 
-生产角色代码只引用以下五张运行图集：
+生产角色代码只引用以下七张运行纹理：
 
 - 玩家 READY：1280×384 RGBA，1 帧动作、120 个方向；
 - 玩家 MOVE：1280×2304 RGBA，6 帧动作、120 个方向；
 - 玩家 FIRE：1280×2304 RGBA，6 帧动作、120 个方向；
 - Dasher A/B：每张 384×256 RGBA，3×2 动作格。
+- Scrapper/Bruiser：每张 128×128 RGBA，单帧朝右母版并在运行时水平翻转。
 
-玩家三张图集解压后的理论 RGBA 占用为 25,559,040 字节（24.38 MiB），低于 32 MiB 门禁。每个玩家帧已经是实际显示所需的 64×64 像素，因此不应再降低分辨率。Dasher 两张图集共 786,432 字节（0.75 MiB），相较原 12.00 MiB 降低 93.75%。五张生产角色图集合计 25.125 MiB。
+玩家三张图集解压后的理论 RGBA 占用为 25,559,040 字节（24.38 MiB），低于 32 MiB 门禁。每个玩家帧已经是实际显示所需的 64×64 像素，因此不应再降低分辨率。Dasher 两张图集共 786,432 字节（0.75 MiB），相较原 12.00 MiB 降低 93.75%。Scrapper/Bruiser 两张静态纹理共 131,072 字节（0.125 MiB）。七张生产角色纹理解压后合计 25.25 MiB。
 
 旧的 `player_turnaround_atlas.png`、`player_weapon.png` 和 `technical_previews` 不被生产玩家代码加载。它们保留为源流程、历史比较或技术验证证据，不计入上述运行时常驻预算。
 
@@ -45,7 +46,7 @@
 
 ## 明确的剩余工作
 
-- Scrapper、Bruiser、Spitter 和后续特殊敌人仍需按优先级制作动作；本轮遵守用户先前“其他敌人暂时一张、可水平翻转”的范围，不擅自扩大资源量。
+- Scrapper 与 Bruiser 已满足“暂时一张、可水平翻转”的范围但尚无动作。Spitter、Marksman、Lobber 和 Overseer 仍需先制作单帧正式母版，再按优先级决定是否扩展动作。
 - 玩家目前是方向离散图集，不是运行时 3D 骨骼角色；3 度采样已足够平滑，但新增武器或换装将需要重新烘焙相关动作。
 - 当前通过的是视觉与玩法验收，不等同于最终发行授权。项目级素材来源和许可证清单仍需单独审核。
 - 性能门禁覆盖资源尺寸、绘制命令、节点数量和确定性高密度场景；正式发行前仍应在最低目标硬件上记录帧时间与显存峰值。
@@ -55,6 +56,7 @@
 - `docs/art/previews/characters-combat/player-overdrive-runtime-v1.png`
 - `docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png`
 - `docs/art/previews/characters-combat/enemy-dasher-actions-runtime-v1.png`
+- `docs/art/previews/characters-combat/enemy-static-runtime-v1.png`
 - `docs/art/previews/characters-combat/combat-vfx-runtime-v1.png`
 - `docs/art/previews/characters-combat/art-stress-combat-runtime-v1.png`
 - `docs/art/previews/characters-combat/dasher-runtime-lod-comparison-v1.png`

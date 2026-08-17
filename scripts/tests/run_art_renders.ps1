@@ -25,6 +25,7 @@ try {
         @{ Script = "RenderPlayerOverdriveRuntimePreview.gd"; Marker = "RENDER PASS: Player overdrive runtime preview" },
         @{ Script = "RenderPlayerActionCombatPreview.gd"; Marker = "RENDER PASS: Player M2 runtime combat preview" },
         @{ Script = "RenderDasherActionRuntimePreview.gd"; Marker = "RENDER PASS: Dasher action runtime preview" },
+        @{ Script = "RenderStaticEnemyRuntimePreview.gd"; Marker = "RENDER PASS: Static enemy runtime preview" },
         @{ Script = "RenderCombatVfxRuntimePreview.gd"; Marker = "RENDER PASS: Combat VFX runtime preview" },
         @{ Script = "RenderArtStressCombatPreview.gd"; Marker = "RENDER PASS: Art stress combat runtime preview" },
         @{ Script = "RenderDasherRuntimeLodPreview.gd"; Marker = "RENDER PASS: Dasher runtime LOD comparison" }

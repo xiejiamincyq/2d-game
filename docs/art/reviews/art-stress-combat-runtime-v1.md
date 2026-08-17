@@ -9,8 +9,7 @@ The deterministic 1536x900 runtime capture contains:
 
 - one opaque M2/A2 player in active overdrive FIRE state;
 - sixteen Dashers split across A/B identities and all six run/attack frames;
-- six Scrappers and four Bruisers using their intentionally retained single-frame
-  scope;
+- six Scrappers and four Bruisers using their approved static 45-degree masters;
 - twelve independently aimed overdrive projectiles;
 - two simultaneous batched arc pulses;
 - four hit/effect clusters mixing sparks, rings, and blasts;
@@ -30,11 +29,11 @@ than actors.
 
 ## Known bounded scope
 
-Scrapper and Bruiser visuals remain simple single-frame enemies that may face the
-player through their existing runtime rule. This is not presented as finished
-animation; it is retained because the approved scope explicitly prioritized full
-action animation for Dasher A/B while allowing other enemies to remain single-frame
-for now.
+Scrapper and Bruiser now use formal single-frame sprite masters and flip toward
+the player. This is not presented as finished animation; the approved scope still
+prioritizes full action animation for Dasher A/B while allowing other enemies to
+remain single-frame for now. Spitter, Marksman, Lobber, and Overseer retain their
+procedural placeholder visuals.
 
 ## Evidence
 
@@ -47,12 +46,13 @@ for now.
 
 `scripts/art/BenchmarkArtStressCombat.gd` reuses this exact fixture rather than a
 reduced synthetic scene. On an NVIDIA GeForce RTX 5060 Laptop GPU with Godot 4.7
-Forward+, a 120-frame warmup followed by 180 sampled frames measured:
+Forward+, a 120-frame warmup followed by 180 sampled frames measured after the
+Scrapper/Bruiser sprite integration:
 
-- 10.661 ms average and 12.327 ms P95 process time;
-- 191 maximum draw calls;
-- 37.72 MiB reported texture memory and 62.56 MiB reported total video memory;
-- 241 nodes in the complete fixture.
+- 11.336 ms average and 12.155 ms P95 process time;
+- 210 maximum draw calls;
+- 37.84 MiB reported texture memory and 62.69 MiB reported total video memory;
+- 251 nodes in the complete fixture.
 
 The raw record is `docs/art/reviews/art-stress-performance-v1.json`. This is a
 debug, single-machine regression baseline, not a minimum-hardware release claim.
