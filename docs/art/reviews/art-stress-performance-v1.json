@@ -4,20 +4,20 @@
   "interpretation": "single-machine debug baseline; not a cross-device release threshold",
   "node_count": 251,
   "process_msec": {
-    "average": 11.3362555555555,
-    "maximum": 12.155,
-    "p95": 12.155
+    "average": 10.9349888888889,
+    "maximum": 13.078,
+    "p95": 13.078
   },
   "render_draw_calls": {
-    "average": 191.5,
+    "average": 192.111111111111,
     "maximum": 210
   },
   "render_objects": {
-    "average": 1213.13888888889,
-    "maximum": 1340
+    "average": 1216.27777777778,
+    "maximum": 1339
   },
-  "render_texture_memory_bytes": 39682560,
-  "render_video_memory_bytes": 65731152,
+  "render_texture_memory_bytes": 39944704,
+  "render_video_memory_bytes": 65993296,
   "rendering_device": "NVIDIA GeForce RTX 5060 Laptop GPU",
   "sample_frames": 180,
   "schema_version": 1,

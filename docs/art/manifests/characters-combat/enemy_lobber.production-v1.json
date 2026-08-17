@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "asset_id": "enemy_lobber",
+  "batch": "characters-combat",
+  "asset_class": "enemy",
+  "purpose": "Replace the procedural Lobber placeholder with one artillery silhouette master while retaining single-frame scope.",
+  "runtime_path": "res://assets/art/actors/enemies/enemy_lobber.png",
+  "source_dimensions": {"width": 1254, "height": 1254},
+  "runtime_target": {"width": 128, "height": 128},
+  "runtime_display_scale": 0.60,
+  "background": "transparent",
+  "camera": "fixed orthographic top-down three-quarter camera pitched down approximately 45 degrees",
+  "facing": "single right-facing master; flip horizontally when the player is to the left",
+  "identity": "squat four-legged artillery chassis with raised mortar tube and side ammunition drum",
+  "generation_model": "imagegen built-in with local chroma-key removal and deterministic 128px packing",
+  "source_output": "assets/art/source/enemies/enemy_lobber_chroma_v1.png",
+  "alpha_output": "assets/art/source/enemies/enemy_lobber_alpha_v1.png",
+  "runtime_output": "assets/art/actors/enemies/enemy_lobber.png",
+  "runtime_evidence": "docs/art/previews/characters-combat/enemy-static-runtime-v1.png",
+  "gameplay_invariants": {"body_radius": 17.0, "contact_damage": 8.0, "animation_frames": 1},
+  "license_review_state": "pending",
+  "review_state": "gameplay-approved"
+}

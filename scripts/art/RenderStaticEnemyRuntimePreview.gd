@@ -19,26 +19,34 @@ func _initialize() -> void:
 	background.color = Color("071018")
 	viewport.add_child(background)
 	_add_grid(background)
-	_add_label(background, "SCRAPPER + BRUISER — STATIC RUNTIME GATE", Vector2(42, 24), 28)
+	_add_label(background, "NON-DASHER ENEMIES — STATIC RUNTIME GATE", Vector2(42, 24), 28)
 	_add_label(background, "fixed 45° camera · right-facing masters · horizontal player-facing flip", Vector2(42, 60), 16)
 
-	_add_label(background, "SCRAPPER — LIGHT SALVAGE CUTTER", Vector2(42, 122), 20)
-	await _spawn_enemy(viewport, EnemyScript.EnemyKind.SCRAPPER, Vector2(440, 255), Vector2(1.2, 1.2), false)
-	await _spawn_enemy(viewport, EnemyScript.EnemyKind.SCRAPPER, Vector2(980, 255), Vector2(1.2, 1.2), true)
-	_add_label(background, "RIGHT MASTER", Vector2(360, 365), 15)
-	_add_label(background, "LEFT FLIP", Vector2(925, 365), 15)
+	var fixtures := [
+		{"kind": EnemyScript.EnemyKind.SCRAPPER, "name": "SCRAPPER", "scale": EnemyScript.SCRAPPER_RUNTIME_SCALE},
+		{"kind": EnemyScript.EnemyKind.SPITTER, "name": "SPITTER", "scale": EnemyScript.SPITTER_RUNTIME_SCALE},
+		{"kind": EnemyScript.EnemyKind.BRUISER, "name": "BRUISER", "scale": EnemyScript.BRUISER_RUNTIME_SCALE},
+		{"kind": EnemyScript.EnemyKind.MARKSMAN, "name": "MARKSMAN", "scale": EnemyScript.MARKSMAN_RUNTIME_SCALE},
+		{"kind": EnemyScript.EnemyKind.LOBBER, "name": "LOBBER", "scale": EnemyScript.LOBBER_RUNTIME_SCALE},
+		{"kind": EnemyScript.EnemyKind.OVERSEER, "name": "OVERSEER", "scale": EnemyScript.OVERSEER_RUNTIME_SCALE},
+	]
+	for index in range(fixtures.size()):
+		var fixture: Dictionary = fixtures[index]
+		var column := index % 3
+		var row := index / 3
+		var center := Vector2(256.0 + float(column) * 512.0, 230.0 + float(row) * 292.0)
+		_add_label(background, fixture.name, center + Vector2(-78, -112), 19)
+		await _spawn_enemy(viewport, fixture.kind, center + Vector2(-70, 0), Vector2(0.9, 0.9), false)
+		await _spawn_enemy(viewport, fixture.kind, center + Vector2(70, 0), Vector2(0.9, 0.9), true)
+		_add_label(background, "MASTER", center + Vector2(-105, 83), 13)
+		_add_label(background, "FLIP", center + Vector2(50, 83), 13)
 
-	_add_label(background, "BRUISER — HEAVY CLAW FRAME", Vector2(42, 425), 20)
-	await _spawn_enemy(viewport, EnemyScript.EnemyKind.BRUISER, Vector2(440, 590), Vector2(1.2, 1.2), false)
-	await _spawn_enemy(viewport, EnemyScript.EnemyKind.BRUISER, Vector2(980, 590), Vector2(1.2, 1.2), true)
-	_add_label(background, "RIGHT MASTER", Vector2(360, 710), 15)
-	_add_label(background, "LEFT FLIP", Vector2(925, 710), 15)
-
-	_add_label(background, "ACTUAL GAMEPLAY SCALE", Vector2(42, 805), 16)
-	await _spawn_enemy(viewport, EnemyScript.EnemyKind.SCRAPPER, Vector2(720, 830), EnemyScript.SCRAPPER_RUNTIME_SCALE, false)
-	await _spawn_enemy(viewport, EnemyScript.EnemyKind.SCRAPPER, Vector2(820, 830), EnemyScript.SCRAPPER_RUNTIME_SCALE, true)
-	await _spawn_enemy(viewport, EnemyScript.EnemyKind.BRUISER, Vector2(980, 830), EnemyScript.BRUISER_RUNTIME_SCALE, false)
-	await _spawn_enemy(viewport, EnemyScript.EnemyKind.BRUISER, Vector2(1110, 830), EnemyScript.BRUISER_RUNTIME_SCALE, true)
+	_add_label(background, "ACTUAL GAMEPLAY SCALE", Vector2(42, 742), 16)
+	for index in range(fixtures.size()):
+		var fixture: Dictionary = fixtures[index]
+		var position := Vector2(330.0 + float(index) * 175.0, 823.0)
+		await _spawn_enemy(viewport, fixture.kind, position, fixture.scale, index % 2 == 1)
+		_add_label(background, fixture.name, position + Vector2(-48, 52), 11)
 
 	await process_frame
 	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE

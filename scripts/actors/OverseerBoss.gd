@@ -21,6 +21,8 @@ const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const TentacleAttackScript = preload("res://scripts/components/TentacleAttack.gd")
 const BossAttackDirectorScript = preload("res://scripts/components/BossAttackDirector.gd")
+const OVERSEER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_overseer.png")
+const HIT_FLASH_SHADER := preload("res://assets/art/shaders/dasher_hit_flash.gdshader")
 
 const DISPLAY_NAME := "深渊监工 / OVERSEER"
 const BODY_RADIUS := 56.0
@@ -32,6 +34,7 @@ const KEEP_DISTANCE_MAX := 390.0
 const MOVE_SPEED := 63.8
 const CAMERA_SAFE_MARGIN := 112.0
 const HIDDEN_DISPERSAL_SPEED_SCALE := 0.72
+const OVERSEER_RUNTIME_SCALE := Vector2(1.25, 1.25)
 
 var body_radius := BODY_RADIUS
 var feedback_weight := 2
@@ -50,6 +53,8 @@ var entrance_resolved := false
 var burn_status: RefCounted = BurnStatusScript.new()
 var hidden_dispersion_direction := Vector2.ZERO
 var hidden_dispersion_timer := 0.0
+var boss_visual: Sprite2D
+var boss_flash_material: ShaderMaterial
 
 func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -105,6 +110,7 @@ func _ready() -> void:
 	circle.radius = body_radius
 	collision.shape = circle
 	add_child(collision)
+	_create_boss_visual()
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
@@ -112,12 +118,15 @@ func _physics_process(delta: float) -> void:
 	if death_resolved:
 		return
 	var player := get_target_player()
+	if player != null:
+		_update_visual_facing(player.global_position)
 	if attack_director != null:
 		attack_director.set_target_hidden(player == null and entrance_resolved)
 		attack_director.advance(delta)
 	_update_entrance_reveal()
 	if flash_timer > 0.0:
 		flash_timer = maxf(0.0, flash_timer - delta)
+		boss_flash_material.set_shader_parameter("flash_amount", 1.0 if flash_timer > 0.0 else 0.0)
 		queue_redraw()
 	if attack_director != null and attack_director.is_movement_locked():
 		velocity = Vector2.ZERO
@@ -244,6 +253,8 @@ func take_damage(
 	var resolved_source: StringName = DamageTypes.resolve(source)
 	var actual_damage := maxf(0.0, health_before - float(health.current_health))
 	flash_timer = 0.08
+	if boss_flash_material != null:
+		boss_flash_material.set_shader_parameter("flash_amount", 1.0)
 	queue_redraw()
 	damage_resolved.emit(self, resolved_source, actual_damage, global_position, hit_direction, killed)
 	hit.emit(resolved_source)
@@ -289,24 +300,26 @@ func _clamp_to_world_bounds() -> void:
 	global_position = global_position.clamp(playable.position, playable.end - Vector2(0.001, 0.001))
 
 func _draw() -> void:
-	var shell := Color("ffffff") if flash_timer > 0.0 else Color("101827")
-	var inner_shell := Color("061019")
 	var cyan := Color("33fff2")
 	var magenta := Color("f559bf")
-	var silhouette := PackedVector2Array()
-	for index in range(16):
-		var radius := VISUAL_RADIUS if index % 2 == 0 else VISUAL_RADIUS - 9.0
-		silhouette.append(Vector2.RIGHT.rotated(TAU * float(index) / 16.0) * radius)
-	draw_colored_polygon(silhouette, shell)
-	draw_circle(Vector2.ZERO, 58.0, inner_shell)
-	draw_arc(Vector2.ZERO, 69.0, 0.0, TAU, 48, Color(cyan, 0.88), 3.0)
-	draw_circle(Vector2.ZERO, 25.0, Color(magenta, 0.82))
-	draw_circle(Vector2.ZERO, 12.0, Color("240d31"))
-	for angle in [0.0, PI * 0.5, PI, PI * 1.5]:
-		var start := Vector2.RIGHT.rotated(angle) * 35.0
-		var finish := Vector2.RIGHT.rotated(angle) * 61.0
-		draw_line(start, finish, Color(cyan, 0.72), 5.0)
 	if not entrance_resolved:
 		var reveal_radius := lerpf(150.0, 88.0, entrance_progress)
 		draw_arc(Vector2.ZERO, reveal_radius, -PI * 0.5, PI * 1.5, 64, Color(cyan, 0.9 - entrance_progress * 0.35), 5.0)
 		draw_arc(Vector2.ZERO, reveal_radius + 18.0, PI * 0.5, PI * 2.5, 64, Color(magenta, 0.75 - entrance_progress * 0.25), 3.0)
+
+func _create_boss_visual() -> void:
+	boss_visual = Sprite2D.new()
+	boss_visual.name = "OverseerVisual"
+	boss_visual.texture = OVERSEER_TEXTURE
+	boss_visual.scale = OVERSEER_RUNTIME_SCALE
+	boss_visual.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	boss_visual.show_behind_parent = true
+	boss_flash_material = ShaderMaterial.new()
+	boss_flash_material.shader = HIT_FLASH_SHADER
+	boss_flash_material.set_shader_parameter("flash_amount", 0.0)
+	boss_visual.material = boss_flash_material
+	add_child(boss_visual)
+
+func _update_visual_facing(player_position: Vector2) -> void:
+	if boss_visual != null:
+		boss_visual.flip_h = player_position.x < global_position.x

@@ -103,6 +103,11 @@ func _initialize() -> void:
 		return
 	if not _assert_true(is_equal_approx(float(boss.body_radius), 56.0), "Boss collision radius did not match the independent large-body contract"):
 		return
+	var boss_visual := boss.get("boss_visual") as Sprite2D
+	if not _assert_true(boss_visual != null and boss_visual.texture.resource_path == "res://assets/art/actors/enemies/enemy_overseer.png", "Boss did not use the approved Overseer runtime art"):
+		return
+	if not _assert_true(boss_visual.texture.get_size() == Vector2(128, 128) and boss_visual.scale.is_equal_approx(Vector2(1.25, 1.25)), "Boss art exceeded or drifted from its bounded runtime presentation"):
+		return
 	var boss_playable: Rect2 = director.world_bounds.grow(-float(boss.body_radius))
 	if not _assert_true(boss_playable.has_point(boss.global_position), "Boss spawned outside the playable world bounds"):
 		return
@@ -169,6 +174,8 @@ func _initialize() -> void:
 
 	boss.take_damage(1.0, DamageTypes.PROJECTILE, Vector2.LEFT)
 	if not _assert_true(health_events.size() >= 2 and float(health_events[-1][0]) < float(health_events[-1][1]), "Boss damage did not flow through the public health contract"):
+		return
+	if not _assert_true(float((boss_visual.material as ShaderMaterial).get_shader_parameter("flash_amount")) > 0.99, "Boss art did not flash immediately on a resolved hit"):
 		return
 	boss.take_damage(float(boss.health.max_health), DamageTypes.PROJECTILE, Vector2.LEFT)
 	await process_frame

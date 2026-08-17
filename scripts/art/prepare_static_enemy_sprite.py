@@ -18,9 +18,14 @@ def prepare_sprite(
     canvas_size: int = 128,
     padding: int = 8,
     outline_width: int = 1,
+    alpha_threshold: int = 24,
 ) -> Image.Image:
     rgba = source.convert("RGBA")
-    bbox = rgba.getchannel("A").getbbox()
+    cleaned_alpha = rgba.getchannel("A").point(
+        lambda value: 0 if value < alpha_threshold else value
+    )
+    rgba.putalpha(cleaned_alpha)
+    bbox = cleaned_alpha.getbbox()
     if bbox is None:
         raise RuntimeError("source has no visible subject")
     subject = rgba.crop(bbox)
@@ -51,6 +56,9 @@ def validate_sprite(image: Image.Image, canvas_size: int, safe_padding: int) -> 
         raise RuntimeError("runtime sprite is empty")
     if bbox[0] < safe_padding or bbox[1] < safe_padding or bbox[2] > canvas_size - safe_padding or bbox[3] > canvas_size - safe_padding:
         raise RuntimeError(f"runtime sprite violates safe padding: {bbox}")
+    visible_pixels = sum(1 for value in alpha.get_flattened_data() if value > 0)
+    if visible_pixels >= canvas_size * canvas_size * 0.72:
+        raise RuntimeError("runtime sprite retained too much background alpha")
     for corner in ((0, 0), (canvas_size - 1, 0), (0, canvas_size - 1), (canvas_size - 1, canvas_size - 1)):
         if alpha.getpixel(corner) != 0:
             raise RuntimeError("runtime sprite retained an opaque corner")
@@ -63,13 +71,20 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--canvas-size", type=int, default=128)
     parser.add_argument("--padding", type=int, default=8)
     parser.add_argument("--outline-width", type=int, default=1)
+    parser.add_argument("--alpha-threshold", type=int, default=24)
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
     with Image.open(args.input) as source:
-        result = prepare_sprite(source, args.canvas_size, args.padding, args.outline_width)
+        result = prepare_sprite(
+            source,
+            args.canvas_size,
+            args.padding,
+            args.outline_width,
+            args.alpha_threshold,
+        )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     result.save(args.output)
     print(f"STATIC ENEMY PASS: {args.output} {result.width}x{result.height} RGBA")

@@ -13,7 +13,7 @@ class PrepareStaticEnemySpriteTests(unittest.TestCase):
     def test_crop_scale_outline_and_padding(self) -> None:
         source = Image.new("RGBA", (300, 220), (0, 0, 0, 0))
         draw = ImageDraw.Draw(source)
-        draw.rectangle((90, 40, 240, 190), fill=(60, 45, 70, 255))
+        draw.rectangle((90, 40, 210, 190), fill=(60, 45, 70, 255))
 
         result = prepare_sprite(source)
 
@@ -22,7 +22,14 @@ class PrepareStaticEnemySpriteTests(unittest.TestCase):
         self.assertEqual(result.getpixel((0, 0))[3], 0)
 
     def test_production_static_enemies_are_bounded(self) -> None:
-        for name in ("enemy_scrapper.png", "enemy_bruiser.png"):
+        for name in (
+            "enemy_scrapper.png",
+            "enemy_bruiser.png",
+            "enemy_spitter.png",
+            "enemy_marksman.png",
+            "enemy_lobber.png",
+            "enemy_overseer.png",
+        ):
             with Image.open(ROOT / "assets/art/actors/enemies" / name) as image:
                 validate_sprite(image.convert("RGBA"), 128, 7)
 

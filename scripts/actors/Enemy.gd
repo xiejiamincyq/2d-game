@@ -24,11 +24,19 @@ const DASHER_TEXTURES := [
 ]
 const SCRAPPER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_scrapper.png")
 const BRUISER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_bruiser.png")
+const SPITTER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_spitter.png")
+const MARKSMAN_TEXTURE := preload("res://assets/art/actors/enemies/enemy_marksman.png")
+const LOBBER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_lobber.png")
+const OVERSEER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_overseer.png")
 const DASHER_FLASH_SHADER := preload("res://assets/art/shaders/dasher_hit_flash.gdshader")
 
 const DASHER_RUNTIME_SCALE := Vector2(0.5, 0.5)
 const SCRAPPER_RUNTIME_SCALE := Vector2(0.44, 0.44)
 const BRUISER_RUNTIME_SCALE := Vector2(0.66, 0.66)
+const SPITTER_RUNTIME_SCALE := Vector2(0.45, 0.45)
+const MARKSMAN_RUNTIME_SCALE := Vector2(0.55, 0.55)
+const LOBBER_RUNTIME_SCALE := Vector2(0.60, 0.60)
+const OVERSEER_RUNTIME_SCALE := Vector2(1.0, 1.0)
 const DASHER_RUN_FPS := 9.0
 const DASHER_RUN_SEQUENCE := [0, 1, 2, 1]
 
@@ -54,6 +62,8 @@ const GOLDEN_ANGLE := 2.399963229728653
 enum EnemyKind { SCRAPPER, DASHER, SPITTER, BRUISER, MARKSMAN, LOBBER, OVERSEER }
 enum FeedbackWeight { LIGHT, MEDIUM, HEAVY }
 enum DasherAnimationState { IDLE, MOVE, ATTACK }
+
+static var next_formation_slot_index := 0
 
 var kind: EnemyKind = EnemyKind.SCRAPPER
 var feedback_weight: int = FeedbackWeight.MEDIUM
@@ -99,8 +109,12 @@ var dasher_animation_phase_offset := 0.0
 var static_visual: Sprite2D
 var static_flash_material: ShaderMaterial
 var static_visual_half_height := 0.0
+var formation_slot_index := -1
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
+	if formation_slot_index < 0:
+		formation_slot_index = next_formation_slot_index
+		next_formation_slot_index = posmod(next_formation_slot_index + 1, 64)
 	kind = enemy_kind
 	projectile_parent = projectiles
 	target_player = target
@@ -184,8 +198,16 @@ func _ready() -> void:
 			_create_static_visual(SCRAPPER_TEXTURE, SCRAPPER_RUNTIME_SCALE, "ScrapperVisual")
 		EnemyKind.DASHER:
 			_create_dasher_visual()
+		EnemyKind.SPITTER:
+			_create_static_visual(SPITTER_TEXTURE, SPITTER_RUNTIME_SCALE, "SpitterVisual")
 		EnemyKind.BRUISER:
 			_create_static_visual(BRUISER_TEXTURE, BRUISER_RUNTIME_SCALE, "BruiserVisual")
+		EnemyKind.MARKSMAN:
+			_create_static_visual(MARKSMAN_TEXTURE, MARKSMAN_RUNTIME_SCALE, "MarksmanVisual")
+		EnemyKind.LOBBER:
+			_create_static_visual(LOBBER_TEXTURE, LOBBER_RUNTIME_SCALE, "LobberVisual")
+		EnemyKind.OVERSEER:
+			_create_static_visual(OVERSEER_TEXTURE, OVERSEER_RUNTIME_SCALE, "OverseerVisual")
 	var shape := CollisionShape2D.new()
 	var circle := CircleShape2D.new()
 	circle.radius = body_radius
@@ -287,7 +309,7 @@ func _get_melee_desired_velocity(to_player: Vector2) -> Vector2:
 	if distance <= 0.001:
 		return _get_melee_separation_direction()
 	var pursuit := to_player / distance
-	var slot_angle := fposmod(float(get_instance_id() % 64) * GOLDEN_ANGLE, TAU)
+	var slot_angle := fposmod(float(formation_slot_index) * GOLDEN_ANGLE, TAU)
 	var current_radial := -pursuit
 	var slot_angle_error := wrapf(slot_angle - current_radial.angle(), -PI, PI)
 	var orbit_direction := current_radial.orthogonal() * signf(slot_angle_error)

@@ -81,12 +81,15 @@ func _spawn_dasher_ring(scene: Node) -> void:
 func _spawn_support_enemies(scene: Node) -> void:
 	var scrapper_positions := [
 		Vector2(-520, -170), Vector2(-480, 180), Vector2(510, -145), Vector2(540, 190),
-		Vector2(-120, -290), Vector2(145, 315),
 	]
 	for position in scrapper_positions:
 		_spawn_enemy(scene, EnemyScript.EnemyKind.SCRAPPER, position, 0, 0)
-	for position in [Vector2(-560, 10), Vector2(570, 25), Vector2(-235, 300), Vector2(255, -275)]:
+	for position in [Vector2(-235, 300), Vector2(255, -275)]:
 		_spawn_enemy(scene, EnemyScript.EnemyKind.BRUISER, position, 0, 0)
+	_spawn_enemy(scene, EnemyScript.EnemyKind.SPITTER, Vector2(-120, -290), 0, 0)
+	_spawn_enemy(scene, EnemyScript.EnemyKind.MARKSMAN, Vector2(145, 315), 0, 0)
+	_spawn_enemy(scene, EnemyScript.EnemyKind.LOBBER, Vector2(-560, 10), 0, 0)
+	_spawn_enemy(scene, EnemyScript.EnemyKind.OVERSEER, Vector2(570, 25), 0, 0)
 
 func _spawn_enemy(scene: Node, kind: int, position: Vector2, variant: int, animation_frame: int) -> void:
 	var enemy := EnemyScript.new()

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "asset_id": "enemy_overseer",
+  "batch": "characters-combat",
+  "asset_class": "boss",
+  "purpose": "Replace both Overseer procedural body paths with one large command-machine master while preserving the independent Boss implementation.",
+  "runtime_path": "res://assets/art/actors/enemies/enemy_overseer.png",
+  "source_dimensions": {"width": 1254, "height": 1254},
+  "runtime_target": {"width": 128, "height": 128},
+  "runtime_display_scale": {"legacy_enemy": 1.0, "independent_boss": 1.25},
+  "background": "transparent",
+  "camera": "fixed orthographic top-down three-quarter camera pitched down approximately 45 degrees",
+  "facing": "single right-facing master; flip horizontally when the player is to the left",
+  "identity": "large four-legged command machine with crown antenna array, orange central eye, and cyan-magenta authority lighting",
+  "generation_model": "imagegen built-in with local chroma-key removal and deterministic 128px packing",
+  "source_output": "assets/art/source/enemies/enemy_overseer_chroma_v1.png",
+  "alpha_output": "assets/art/source/enemies/enemy_overseer_alpha_v1.png",
+  "runtime_output": "assets/art/actors/enemies/enemy_overseer.png",
+  "runtime_evidence": "docs/art/previews/characters-combat/enemy-static-runtime-v1.png",
+  "gameplay_invariants": {"boss_body_radius": 56.0, "legacy_body_radius": 40.0, "legacy_contact_damage": 24.0, "animation_frames": 1},
+  "license_review_state": "pending",
+  "review_state": "gameplay-approved"
+}
