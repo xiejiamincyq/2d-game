@@ -39,5 +39,7 @@ rifle, and single-direction action-slice exception have been removed from
 The 1280x720 gameplay capture confirms that the M2 player renders in the real
 combat scene with an opaque silhouette and attached rifle while the existing HUD,
 projectiles, enemies, collision, movement, damage, and controls remain unchanged.
+Its renderer now targets the production M2 FIRE state directly; the removed
+single-direction action-slice preview properties are no longer referenced.
 The asset is gameplay-approved; final status remains separate from the pending
 project-wide license review.

@@ -61,3 +61,5 @@
 - `docs/art/reviews/art-stress-performance-v1.json`
 
 所有截图均由项目内确定性 Godot 渲染器生成；最终结论必须同时满足自动化测试、真实渲染和生产引用审计，不能只凭单张预览图通过。
+
+最终视觉回归统一由 `scripts/tests/run_art_renders.ps1` 执行。该门禁不仅检查进程退出码，还要求每个渲染器恰好输出一次 PASS 标记，并拒绝 `SCRIPT ERROR`、资源泄漏和 RID 泄漏文本。这避免 Godot 脚本报错但进程仍返回 0 时产生假通过。
