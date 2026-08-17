@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_pipeline_preview_c",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Technical preview for a live 2.5D rig rendered into the 2D battlefield with separate skinned body and weapon nodes.",
+  "runtime_path": "res://assets/art/actors/player/player_pipeline_preview_c.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "opaque",
+  "camera": "live orthographic camera pitched downward exactly 45 degrees; shared with body rig, weapon, shadow, and preview capture",
+  "facing": "continuous vertical-axis rotation driven by the live 2.5D rig; screen-right is zero degrees",
+  "palette": ["#061019", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "shared live cyan key/rim and restrained magenta fill with opaque PBR-styled tactical materials",
+  "prompt": "Create a technical game-character preview board for a live 2.5D rig while preserving the approved compact armored player identity and tactical graphic look. Show front, side, back, and diagonal views from one strict 45-degree top-down orthographic camera, plus an exploded layer demonstration of opaque skinned body rig, separately attached rifle, hand socket, muzzle socket, and contact shadow. The same model and materials rotate continuously; both hands grip the rifle naturally and occlusion changes with facing. No labels or text.",
+  "revision_prompt": "Preserve the sheet and change only the isolated rifle: use the exact strict 45-degree orthographic projection and yaw of the assembled bottom-right player while retaining the hand and muzzle socket markers.",
+  "negative_constraints": [
+    "no eye-level or 25-degree camera",
+    "no billboard or screen-space texture projection",
+    "no flat side-view weapon rotation",
+    "no floating, orbiting, or yo-yo weapon",
+    "no translucent material or inconsistent view identity",
+    "no text, border artifacts, cropped anatomy, or extra characters"
+  ],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/style-lock-a-v1.png", "role": "approved A style and palette"},
+    {"path": "assets/art/actors/player/player_base.png", "role": "player identity reference only"},
+    {"path": "assets/art/actors/player/player_weapon.png", "role": "weapon design reference; rebuild as a camera-consistent attached model"},
+    {"path": "https://youmind.com/nano-banana-pro-prompts?id=13285", "role": "strict multi-view consistency wording reference"}
+  ],
+  "generation_model": "imagegen built-in",
+  "preview_output": {
+    "path": "docs/art/previews/characters-combat/player-pipeline-preview-c-live-2_5d-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB"
+  },
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

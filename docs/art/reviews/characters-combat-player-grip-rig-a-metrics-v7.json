@@ -1,0 +1,21 @@
+{
+  "actions": [
+    "READY",
+    "MOVE",
+    "FIRE"
+  ],
+  "arm_region_vertex_count": 14679,
+  "asset_id": "player_grip_rig_a",
+  "camera_pitch_degrees": 45.0,
+  "contact_tolerance": 0.006,
+  "max_firing_hand_error": 0.000000134110450744629,
+  "max_stock_contact_error": 0.0,
+  "max_support_hand_error": 0.000000134110450744629,
+  "production_integration": false,
+  "sample_count": 36,
+  "schema_version": 1,
+  "underweighted_arm_ratio": 0.0,
+  "underweighted_arm_vertex_count": 0,
+  "weapon_attachment": "BoneAttachment3D:firing_hand",
+  "yaw_step_degrees": 30
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_grip_pose_candidates",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Three review-only grip and upper-body action-language candidates for the approved body and independent rifle before rigging, animation expansion, or runtime integration.",
+  "runtime_path": "res://assets/art/actors/player/technical_previews/player_grip_pose_candidates.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "actual_generation_dimensions": {"width": 1254, "height": 1254},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "one orthographic gameplay camera pitched downward exactly 45 degrees",
+  "facing": "down-right three-quarter gameplay yaw, identical across all candidates",
+  "palette": ["#061019", "#34343b", "#d2c8be", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "controlled cyan rim, restrained magenta identifiers, warm orange rifle core; no cinematic bloom",
+  "prompt": "Using the approved Player A modeling sheet as the exact armored identity and the approved rifle orthographic sheet as the exact weapon identity, create three separate label-free action-pose sheets at the same orthographic 45-degree downward gameplay camera and down-right yaw. Every sheet contains idle-ready, moving, and firing key poses. The firing hand holds the pistol grip, the support hand wraps the forward handguard, the stock has a credible shoulder or chest contact appropriate to the candidate, wrists remain straight, elbows have armor clearance, trigger discipline is readable in non-firing poses, and the rifle never floats or rotates independently of the hands.",
+  "negative_constraints": [
+    "no eye-level, horizontal, low-angle, perspective, dutch-angle, or cinematic hero camera",
+    "no one-handed rifle, crossed wrists, detached fingers, floating stock, broken elbows, extra limbs, fused gun, or yo-yo rotation",
+    "no identity drift, armor redesign, backpack removal, rifle redesign, scale drift, or different yaw between panels",
+    "no muzzle flash, smoke, recoil trail, text, labels, borders, floor, cast shadow, cropped anatomy, or background variation",
+    "no production animation, 120-frame atlas, Player.gd change, or claim of final rig approval"
+  ],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/player-turnaround-modeling-sheet-a-v1.png", "role": "approved body identity, proportions, materials, armor, and backpack"},
+    {"path": "assets/art/source/player/player_weapon_orthographic_sheet_v1_chroma.png", "role": "approved independent rifle silhouette, proportions, and color placement"},
+    {"path": "docs/art/previews/characters-combat/player-turnaround-mv-12-angle-a-alpha-v3.png", "role": "approved real body volume and measured gameplay-camera turn"},
+    {"path": "tmp/prompt-references/27303-tactical-soldier-sheet.jpg", "role": "YouMind 27303 long-rifle hand relationship and tactical armor composition only"},
+    {"path": "tmp/prompt-references/26830-three-view-consistency.jpg", "role": "YouMind 26830 cross-panel identity consistency only"},
+    {"path": "tmp/prompt-references/1620-weapon-mastery.jpg", "role": "YouMind 1620 two-hand load-bearing relationship only; its camera and style are explicitly rejected"}
+  ],
+  "candidate_outputs": [
+    {"id": "A", "path": "assets/art/source/player/grip_pose_candidates/player_grip_pose_a_alpha_v1.png", "focus": "standard shoulder weld with balanced elbow clearance"},
+    {"id": "B", "path": "assets/art/source/player/grip_pose_candidates/player_grip_pose_b_alpha_v1.png", "focus": "compact CQB high-ready with a tighter silhouette"},
+    {"id": "C", "path": "assets/art/source/player/grip_pose_candidates/player_grip_pose_c_alpha_v1.png", "focus": "forward support-hand placement with a long aggressive brace"}
+  ],
+  "generation_model": "built-in image generation tool plus local chroma-key removal and deterministic 64-pixel review scaling",
+  "runtime_evidence": {
+    "gameplay_capture": "",
+    "alpha_report": "all three 1254x1254 source sheets have transparent corners; deterministic extraction produced nine non-empty RGBA frames at 64x64",
+    "review_document": "docs/art/reviews/characters-combat-player-grip-pose-candidates-v1.md"
+  },
+  "selection_approval": {
+    "status": "approved",
+    "approved_on": "2026-08-12",
+    "decision": "A",
+    "scope": "standard shoulder weld and two-hand action language"
+  },
+  "promotion_blocked": true,
+  "license_review_state": "pending",
+  "review_state": "style-approved"
+}

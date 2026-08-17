@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_b_cardinal_layered_previews",
+  "checked_files": {
+    "front_body_source": {"size": [1254, 1254], "transparent": 1240679, "partial": 3908, "opaque": 327929, "alpha_bounds": [355, 135, 889, 1052], "corner_alpha": [0, 0, 0, 0]},
+    "side_right_body_source": {"size": [1254, 1254], "transparent": 1308194, "partial": 3359, "opaque": 260963, "alpha_bounds": [361, 195, 890, 1057], "corner_alpha": [0, 0, 0, 0]},
+    "rear_body_source": {"size": [1254, 1254], "transparent": 1293368, "partial": 3860, "opaque": 275288, "alpha_bounds": [397, 123, 891, 1006], "corner_alpha": [0, 0, 0, 0]},
+    "body_atlas": {"size": [192, 64], "transparent": 7829, "partial": 1672, "opaque": 2787, "alpha_bounds": [15, 3, 176, 61], "corner_alpha": [0, 0, 0, 0]},
+    "weapon_behind_atlas": {"size": [192, 64], "transparent": 12125, "partial": 48, "opaque": 115, "alpha_bounds": [86, 18, 164, 46], "corner_alpha": [0, 0, 0, 0]},
+    "weapon_front_atlas": {"size": [192, 64], "transparent": 12111, "partial": 63, "opaque": 114, "alpha_bounds": [19, 18, 106, 46], "corner_alpha": [0, 0, 0, 0]},
+    "composite_atlas": {"size": [192, 64], "transparent": 7819, "partial": 1662, "opaque": 2807, "alpha_bounds": [15, 3, 176, 61], "corner_alpha": [0, 0, 0, 0]}
+  },
+  "layer_contract": {
+    "direction_order": ["front", "side_right", "rear"],
+    "render_order": ["weapon_behind", "body", "weapon_front"],
+    "frame_size": [64, 64],
+    "front_weapon_layers": ["weapon_front"],
+    "side_right_weapon_layers": ["weapon_behind", "weapon_front"],
+    "rear_weapon_layers": ["weapon_behind"]
+  },
+  "result": "pass"
+}

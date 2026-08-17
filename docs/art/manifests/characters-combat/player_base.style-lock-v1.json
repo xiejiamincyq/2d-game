@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_base",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Corrected characters-combat style-lock candidate based on the user-selected tactical graphic illustration direction A.",
+  "runtime_path": "res://assets/art/actors/player/player_base.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "opaque",
+  "camera": "consistent top-down three-quarter",
+  "facing": "right-facing neutral masters in a fixed comparison grid",
+  "palette": ["#061019", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "controlled cyan rim light, restrained magenta bounce, warm orange weapon and impact emission",
+  "prompt": "Use case: stylized-concept. Asset type: corrected preview-only 2D game style-lock board. Image 1 is a style reference only; preserve its bold tactical graphic illustration, chunky readable silhouettes, precise hard-surface planes, restrained hand-painted cel shading, palette, camera, lighting, and low-contrast black-blue presentation field. Recreate four isolated subjects in the same clean 2x2 layout: top-left the compact player operative with cyan faction light and a clearly separate warm-orange rifle; top-right a smaller Scrapper enemy redesigned as an unmistakable short-range melee pursuer with angular magenta salvage armor, forward-leaning ramming silhouette, one compact scrap cleaver, and absolutely no firearm or ranged weapon; bottom-left the massive Bruiser with broad dark ceramic plates, restrained magenta energy, a shield-like armored forearm and heavy fist, with no gun; bottom-right a compact orange-white radial hit spark. Use one consistent top-down three-quarter camera and neutral right-facing pose. Standard actors must remain readable at 64x64 and Bruiser at 96x96. No labels, no text, no borders, no scenery, no cropped anatomy, no loose cables, no acid green, no excessive bloom, no opaque halos, no watermark. This is a style-lock candidate, not final runtime art.",
+  "negative_constraints": [
+    "no firearm or ranged weapon on Scrapper",
+    "no firearm or ranged weapon on Bruiser",
+    "no embedded text or labels",
+    "no cropped anatomy",
+    "no mixed camera angles",
+    "no thin silhouette-breaking cables",
+    "no photorealistic scenery",
+    "no acid green in this preview",
+    "no excessive bloom or opaque halos"
+  ],
+  "references": [
+    {
+      "path": "docs/art/previews/characters-combat/style-preview-a-v1.png",
+      "role": "user-selected direction A style reference"
+    },
+    {
+      "id": 27303,
+      "title": "Sci-Fi Tactical Soldier Character Sheet",
+      "role": "original composition and brutalist tactical material reference only",
+      "sample": "https://cms-assets.youmind.com/media/1782977581873_lsp4b6_HMJMlz6XMAAhDY1.jpg"
+    }
+  ],
+  "generation_model": "imagegen",
+  "license_review_state": "pending",
+  "review_state": "style-approved"
+}

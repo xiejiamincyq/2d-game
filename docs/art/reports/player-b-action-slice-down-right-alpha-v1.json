@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_b_action_slice_down_right",
+  "checked_files": {
+    "body_source": {"size": [1370, 1148], "transparent": 1270826, "partial": 18765, "opaque": 283169, "corner_alpha": [0, 0, 0, 0]},
+    "weapon_source": {"size": [1536, 1024], "transparent": 1257011, "partial": 3280, "opaque": 312573, "corner_alpha": [0, 0, 0, 0]},
+    "body_atlas": {"size": [384, 320], "transparent": 73783, "partial": 5808, "opaque": 43289, "corner_alpha": [0, 0, 0, 0]},
+    "weapon_behind_atlas": {"size": [384, 320], "transparent": 117150, "partial": 3480, "opaque": 2250, "corner_alpha": [0, 0, 0, 0]},
+    "weapon_front_atlas": {"size": [384, 320], "transparent": 116400, "partial": 3120, "opaque": 3360, "corner_alpha": [0, 0, 0, 0]},
+    "composite_atlas": {"size": [384, 320], "transparent": 72867, "partial": 6134, "opaque": 43879, "corner_alpha": [0, 0, 0, 0]}
+  },
+  "socket_check": {"frame_count": 30, "unique_weapon_vectors": [[19, 4]]},
+  "result": "pass"
+}

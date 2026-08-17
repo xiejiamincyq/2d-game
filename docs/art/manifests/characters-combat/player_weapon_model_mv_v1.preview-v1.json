@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_weapon_model_mv_v1",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Review-only independent rifle geometry and body-relative depth attachment rendered through twelve true-yaw views before rigging or runtime integration.",
+  "runtime_path": "res://assets/art/actors/player/technical_previews/player_weapon_model_mv_v1.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "actual_generation_dimensions": {"width": 2172, "height": 724},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "measured 45-degree-pitch orthographic gameplay camera",
+  "facing": "twelve true-yaw weapon views at 30-degree steps plus twelve body-relative attachment-depth probes",
+  "palette": ["#061019", "#303943", "#c66a32", "#33fff2"],
+  "lighting": "neutral diagnostic lighting; orange is a technical separation material rather than production texturing",
+  "prompt": "Using the locked player_weapon.png as the exact rifle identity, create one strict three-view technical sheet with left side elevation, right side elevation, and front/muzzle end view. Preserve the charcoal hard-surface silhouette, orange core and barrel accents, and thin cyan edge lights. Use orthographic projection, equal scale, flat neutral illumination, and a uniform #00ff00 chroma-key background. Include no character, hands, perspective, cast shadow, text, labels, or transparency.",
+  "negative_constraints": [
+    "no whole-sprite rotation, 2D billboard, mirrored fake reverse side, or fused body-and-weapon mesh",
+    "no perspective, three-quarter camera, inconsistent barrel length, floating components, or flat zero-thickness result",
+    "no claim that the orange diagnostic material is final texturing",
+    "no final grip pose, rigging, animation, 120-frame atlas, or Player.gd integration before approval"
+  ],
+  "references": [
+    {"path": "assets/art/actors/player/player_weapon.png", "role": "approved rifle identity, silhouette, and palette"},
+    {"path": "assets/art/source/player/weapon_modeling_views/player_weapon_modeling_front_alpha_v1.png", "role": "left-side elevation mapped to official front view"},
+    {"path": "assets/art/source/player/weapon_modeling_views/player_weapon_modeling_back_alpha_v1.png", "role": "right-side elevation mapped to official back view"},
+    {"path": "assets/art/source/player/weapon_modeling_views/player_weapon_modeling_right_alpha_v1.png", "role": "muzzle/end thickness mapped to official right view"},
+    {"path": "assets/art/source/player/player_turnaround_model_mv_a_alpha_v3.glb", "role": "approved body geometry used only for attachment-depth calibration"}
+  ],
+  "generation_model": "built-in image generation tool, local chroma-key removal, official tencent/Hunyuan3D-2mv shape checkpoint, seed 20260812, 30 steps, octree 256",
+  "geometry_report": {
+    "vertices": 52646,
+    "faces": 105292,
+    "extent_height_length_ratio": 0.3743,
+    "extent_thickness_length_ratio": 0.1308,
+    "non_flat_gate": "pass"
+  },
+  "geometry_approval": {
+    "status": "approved",
+    "approved_on": "2026-08-12",
+    "decision": "A",
+    "scope": "independent rifle volume and body-relative depth architecture"
+  },
+  "runtime_evidence": {
+    "gameplay_capture": "",
+    "alpha_report": "three transparent orthographic inputs with transparent corners and non-empty subject masks",
+    "review_document": "docs/art/reviews/characters-combat-player-weapon-model-mv-v1.md"
+  },
+  "promotion_blocked": true,
+  "license_review_state": "pending",
+  "review_state": "style-approved"
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_pipeline_preview_a",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Technical preview for a 16-direction pre-rendered player with separate body and weapon layers from one shared rig and camera.",
+  "runtime_path": "res://assets/art/actors/player/player_pipeline_preview_a.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "opaque",
+  "camera": "strict orthographic camera pitched downward exactly 45 degrees; character rotates only around the world vertical axis",
+  "facing": "16 evenly spaced azimuth directions; frame zero faces screen-right",
+  "palette": ["#061019", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "controlled cyan rim with restrained magenta bounce; body remains opaque and readable on the dark battlefield",
+  "prompt": "Create a technical game-character preview board preserving the approved compact armored player identity. Show eight evenly sampled views from a 16-direction pre-rendered system under one strict 45-degree top-down orthographic camera. Include a clear body-only, weapon-only, and correctly socketed composite demonstration. The rifle must be projected by the same camera and held naturally with both hands, never rotated as a flat side-view image. Tactical graphic illustration, clean silhouettes, no labels or text.",
+  "revision_prompt": "Preserve the sheet and change only the isolated rifle: match the strict 45-degree orthographic projection and yaw of the adjacent assembled player; keep it opaque, rigid, socket-consistent, and never side-profile.",
+  "negative_constraints": [
+    "no eye-level or 25-degree camera",
+    "no flat screen-plane rotation",
+    "no floating, orbiting, or yo-yo weapon",
+    "no translucent body",
+    "no identity, armor, scale, or lighting drift",
+    "no text, border artifacts, cropped anatomy, or extra characters"
+  ],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/style-lock-a-v1.png", "role": "approved A style and palette"},
+    {"path": "assets/art/actors/player/player_base.png", "role": "player identity reference only"},
+    {"path": "assets/art/actors/player/player_weapon.png", "role": "weapon design reference only; camera projection must change"},
+    {"path": "https://youmind.com/nano-banana-pro-prompts?id=27303", "role": "multi-angle tactical character-sheet wording reference"}
+  ],
+  "generation_model": "imagegen built-in",
+  "preview_output": {
+    "path": "docs/art/previews/characters-combat/player-pipeline-preview-a-16dir-v1.png",
+    "width": 1717,
+    "height": 916,
+    "mode": "RGB"
+  },
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_motion_refinement_a_candidates",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Three review-only body-mechanics refinements of approved motion profile A, comparing hip weight transfer, torso counter-rotation, lateral lean, and recoil recovery without changing the selected stride or peak recoil.",
+  "runtime_path": "res://assets/art/actors/player/technical_previews/player_motion_refinement_a_candidates.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 384, "height": 384},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "one measured orthographic gameplay camera pitched downward exactly 45 degrees",
+  "facing": "fixed down-right three-quarter gameplay yaw for all gait and recoil samples",
+  "palette": ["#061019", "#aab4be", "#c66a32", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "approved neutral diagnostic body and orange independent rifle under identical controlled preview lighting",
+  "prompt": "No generated imagery is used. Inherit approved PlayerMotionRig profile A exactly, then add a review-only mechanics layer that compares three bounded hip and torso profiles across six gait and six recoil phases while preserving the independent rifle, exact 45-degree camera, fixed yaw, complete source topology, floor clearance, and both-hand plus stock constraints.",
+  "negative_constraints": [
+    "no change to profile A stride 0.15, lift 0.085, shoulder bob 0.010, or four-degree peak recoil",
+    "no whole-body yaw spin, screen-space gun rotation, detached hand, floating stock, foot penetration, skating, or identical left and right foot travel",
+    "no identity, camera, yaw, scale, material, framing, topology, or weapon-geometry drift between refinements",
+    "no 120-frame expansion, production atlas replacement, Player.gd change, collision change, or gameplay integration before A1/A2/A3 selection"
+  ],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/player-motion-recoil-candidate-a-v1.png", "role": "approved balanced gait and four-degree recoil amplitude"},
+    {"path": "docs/art/previews/characters-combat/player-grip-rig-a-36-frame-v7.png", "role": "approved grip deformation and depth proof"},
+    {"path": "assets/art/source/player/player_turnaround_model_mv_a_alpha_v3.glb", "role": "approved body geometry and complete topology"},
+    {"path": "assets/art/source/player/player_weapon_model_mv_v1.glb", "role": "approved independent rifle geometry"}
+  ],
+  "candidate_outputs": [
+    {"id": "A1", "path": "docs/art/previews/characters-combat/player-motion-refinement-a1-v1.png", "focus": "restrained stability and fast recoil recovery"},
+    {"id": "A2", "path": "docs/art/previews/characters-combat/player-motion-refinement-a2-v1.png", "focus": "realistic load transfer and two-stage recoil recovery"},
+    {"id": "A3", "path": "docs/art/previews/characters-combat/player-motion-refinement-a3-v1.png", "focus": "strong counter-motion and slower overshoot recovery"}
+  ],
+  "generation_model": "Godot 4.7 inherited Skeleton3D review rig, deterministic pelvis/torso pose layer, retained analytic arm and leg constraints, and SubViewport rendering",
+  "refinement_report": {
+    "selected_base_profile": "A",
+    "source_vertices_preserved": 94652,
+    "source_indices_preserved": 567888,
+    "sample_count": 36,
+    "gait_frames_per_refinement": 6,
+    "recoil_frames_per_refinement": 6,
+    "contact_tolerance": 0.006,
+    "minimum_opaque_visible_ratio_gate": 0.85
+  },
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/characters-combat/player-motion-refinement-a-comparison-v1.png",
+    "alpha_report": "docs/art/reviews/characters-combat-player-motion-refinement-a-metrics-v1.json",
+    "review_document": "docs/art/reviews/characters-combat-player-motion-refinement-a-v1.md"
+  },
+  "selection_approval": {
+    "status": "approved-for-multiyaw-validation",
+    "approved_on": "2026-08-13",
+    "decision": "A2",
+    "scope": "hip weight transfer, pelvis and torso counter-rotation, lateral lean, recoil torso response, and recovery curve only"
+  },
+  "promotion_blocked": true,
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

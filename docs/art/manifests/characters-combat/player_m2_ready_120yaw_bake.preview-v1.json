@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_m2_ready_120yaw_bake",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Review-only proof that the selected M2 player can be baked at 120 real three-degree world-yaw angles in a compact 20 by 6 layout while the body and rifle remain separate 3D source objects and the depth-correct composite remains the runtime recommendation.",
+  "runtime_path": "res://assets/art/actors/player/technical_previews/player_m2_ready_120yaw_composite.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 1280, "height": 384},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "one measured orthographic gameplay camera pitched downward exactly 45 degrees",
+  "facing": "120 real world-yaw samples from 0 through 357 degrees in exact 3-degree steps; no mirroring",
+  "palette": ["#061019", "#252d33", "#6e6a61", "#aeb8bc", "#3da7ff", "#c66a32"],
+  "lighting": "identical controlled fixed-world key, fill, and rim lighting across all angles and layer passes",
+  "prompt": "Bake the selected M2 industrial salvage alloy player in the approved READY pose at 120 true world-yaw angles. Preserve the exact 45-degree camera, automatic LOD bake candidate, two-hand grip, shoulder-stock contact, and independent BoneAttachment3D rifle. Produce one shared-depth composite atlas plus body-only and weapon-only diagnostic atlases.",
+  "negative_constraints": [
+    "no screen-space weapon rotation, 2D mirroring, baked-in source rifle, horizontal camera, or camera orbit",
+    "no body or weapon geometry change, pose drift, translucent character mass, detached hand, floating stock, or cropped silhouette",
+    "do not claim that body-only plus weapon-only alpha compositing reproduces correct per-pixel depth; the composite atlas is the depth-correct output",
+    "no Player.gd change, production atlas replacement, collision change, gameplay integration, or promotion of automatic LOD as hand-authored retopology"
+  ],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/player-production-material-m2-v1.png", "role": "selected M2 material direction"},
+    {"path": "assets/art/source/player/player_production_lod_topology_candidate_v1.res", "role": "approved automatic LOD candidate for offline sprite baking"},
+    {"path": "docs/art/previews/characters-combat/player-motion-refinement-a2-48-frame-v1.png", "role": "accepted A2 geometry, attachment, and exact-camera proof"}
+  ],
+  "candidate_outputs": [
+    {"id": "composite", "path": "assets/art/actors/player/technical_previews/player_m2_ready_120yaw_composite.png", "focus": "depth-correct body and rifle result from one 3D viewport"},
+    {"id": "body", "path": "assets/art/actors/player/technical_previews/player_m2_ready_120yaw_body.png", "focus": "body-only authoring and diagnostic layer"},
+    {"id": "weapon", "path": "assets/art/actors/player/technical_previews/player_m2_ready_120yaw_weapon.png", "focus": "independent rifle-only authoring and diagnostic layer"}
+  ],
+  "generation_model": "Godot 4.7 deterministic Skeleton3D and SubViewport rendering using the selected M2 ShaderMaterial, separate BoneAttachment3D rifle, one shared 3D depth buffer for composites, and recoverable twelve-angle batches",
+  "style_lock_reference": {
+    "mode": "deterministic expansion of approved M2; no new generated style reference",
+    "use_case": "120-yaw resource and depth-composition proof",
+    "prompt_summary": "selected M2, READY pose, exact 45-degree camera, real 3-degree world rotation",
+    "invariants": "identity, M2 material, body geometry, weapon geometry, grip, scale, pose, camera, lighting, and framing"
+  },
+  "technical_gate": {
+    "yaw_frame_count": 120,
+    "yaw_step_degrees": 3,
+    "atlas_columns": 20,
+    "atlas_rows": 6,
+    "runtime_frame_size": 64,
+    "maximum_three_atlas_bytes": 6291456,
+    "minimum_body_and_composite_opaque_visible_ratio": 0.85,
+    "minimum_thin_weapon_opaque_visible_ratio": 0.75,
+    "minimum_weapon_mean_visible_alpha": 0.85,
+    "minimum_weapon_maximum_alpha": 0.99,
+    "runtime_recommendation": "use composite atlas for correct per-pixel body/weapon depth"
+  },
+  "technical_result": {
+    "sample_count": 120,
+    "yaw_step_degrees": 3,
+    "minimum_composite_opaque_visible_ratio": 0.923231218088986,
+    "minimum_body_opaque_visible_ratio": 0.918775750441436,
+    "minimum_weapon_opaque_visible_ratio": 0.811550151975684,
+    "minimum_weapon_mean_visible_alpha": 0.903832173592051,
+    "minimum_weapon_maximum_alpha": 1.0,
+    "composite_atlas_bytes": 313488,
+    "body_atlas_bytes": 294870,
+    "weapon_atlas_bytes": 92207,
+    "total_atlas_bytes": 700565,
+    "total_batch_render_msec": 3739,
+    "body_weapon_source_objects_separate": true,
+    "production_integration": false
+  },
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/characters-combat/player-m2-ready-120yaw-review-v1.png",
+    "alpha_report": "docs/art/reviews/characters-combat-player-m2-ready-120yaw-metrics-v1.json",
+    "review_document": "docs/art/reviews/characters-combat-player-m2-ready-120yaw-v1.md"
+  },
+  "selection_approval": {
+    "status": "selected-for-technical-bake-proof",
+    "approved_on": "2026-08-17",
+    "decision": "M2",
+    "scope": "M2 material direction and a bounded READY-pose 120-yaw technical bake only; no runtime integration"
+  },
+  "promotion_blocked": true,
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

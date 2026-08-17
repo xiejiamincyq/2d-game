@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_grip_rig_a",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Review-only skeletal deformation, independent-rifle attachment, and two-hand contact proof for approved grip candidate A before locomotion or production frame expansion.",
+  "runtime_path": "res://assets/art/actors/player/technical_previews/player_grip_rig_a_preview_v7.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 768, "height": 192},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "measured orthographic gameplay camera pitched downward exactly 45 degrees",
+  "facing": "twelve real 30-degree yaw samples for each of READY, MOVE, and FIRE",
+  "palette": ["#061019", "#aab4be", "#c66a32", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "neutral diagnostic body material, orange independent rifle, controlled cyan rim, and restrained contact markers",
+  "prompt": "No generated imagery is used in this rig stage. Build a non-destructive eight-bone review skeleton over the approved body GLB, preserve the complete source topology, compute continuous four-slot torso and arm skin weights, attach the approved separate rifle GLB through BoneAttachment3D to firing_hand, and solve both arm chains to the locked candidate-A pistol-grip and medium-forward handguard anchors while preserving stock-to-shoulder contact.",
+  "negative_constraints": [
+    "no 2D weapon rotation, fused body-and-rifle mesh, one-handed grip, floating stock, or manual front-behind sprite swap",
+    "no rigid one-bone arm regions, stretched spikes, deleted-arm holes, proxy-sphere limbs, or underweighted dangling vertices",
+    "no claim that neutral materials are production texture or that MOVE includes a locomotion leg cycle",
+    "no Player.gd change, production atlas replacement, 120-frame expansion, or gameplay integration before approval"
+  ],
+  "references": [
+    {"path": "assets/art/source/player/player_turnaround_model_mv_a_alpha_v3.glb", "role": "approved fused body geometry and complete topology"},
+    {"path": "assets/art/source/player/player_weapon_model_mv_v1.glb", "role": "approved independent rifle geometry"},
+    {"path": "assets/art/source/player/grip_pose_candidates/player_grip_pose_a_alpha_v1.png", "role": "approved standard shoulder-weld action language"}
+  ],
+  "generation_model": "Godot 4.7 Skeleton3D, generated Skin, continuous four-weight regions, analytic two-bone arm solving, BoneAttachment3D, and deterministic SubViewport rendering",
+  "rig_report": {
+    "bones": 8,
+    "source_vertices": 94652,
+    "source_indices_preserved": 567888,
+    "sample_count": 36,
+    "yaw_step_degrees": 30,
+    "contact_tolerance": 0.006,
+    "underweighted_arm_region_limit": 0.02
+  },
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/characters-combat/player-grip-rig-a-36-frame-v7.png",
+    "alpha_report": "docs/art/reviews/characters-combat-player-grip-rig-a-metrics-v7.json",
+    "review_document": "docs/art/reviews/characters-combat-player-grip-rig-a-v1.md"
+  },
+  "rig_approval": {
+    "status": "approved",
+    "approved_on": "2026-08-13",
+    "decision": "continue",
+    "scope": "grip structure, independent-rifle depth, exact 45-degree camera, skeletal deformation, and two-hand plus stock contact; neutral diagnostic materials and production integration remain unapproved"
+  },
+  "promotion_blocked": true,
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_b_8dir_runtime_sample",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Eight key-direction 64x64 validation sample for the selected 24-direction player pipeline; not production art.",
+  "runtime_path": "res://assets/art/actors/player/samples/player_b_sample_composite_8dir.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "generation_canvas_dimensions": {"width": 1774, "height": 887},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "one orthographic camera pitched downward exactly 45 degrees for body, weapon, and composite references",
+  "facing": "eight 45-degree key directions sampled from the selected 24-direction, 15-degree production contract; zero faces screen-right and angles advance clockwise",
+  "palette": ["#061019", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "controlled cyan rim, restrained magenta functional accents, warm orange weapon emission; stable across directions",
+  "prompt": "Create a rigorously aligned 8-column by 3-row player sprite source sheet on a perfectly flat #00ff00 chroma-key background. Columns form one clockwise turn under the same strict 45-degree orthographic camera: screen-right, down-right, screen-down, down-left, screen-left, up-left, screen-up, up-right. Row one is body-only with a two-hand firing grip pose, row two is the complete rifle-only with matching yaw and foreshortening, and row three is the assembled player with both hands gripping the rifle and correct occlusion. Preserve the approved compact armored identity, worn gray composite armor, cyan visor, tiny magenta accents, and orange weapon emission. No repeated adjacent directions, flat screen rotation, transparency inside the subject, shadows, text, dividers, or extra objects.",
+  "revision_prompt": "Preserve the sheet and correct only the yaw sequence so the eight columns are genuinely distinct opposite front, rear, side, and diagonal views; enforce matching body, rifle, and composite projection in every column.",
+  "negative_constraints": [
+    "no eye-level or shallow camera",
+    "no flat side-view weapon rotated in screen space",
+    "no duplicate adjacent directions",
+    "no floating or one-handed rifle",
+    "no translucent subject interiors",
+    "no green inside the subject, cast shadow, text, watermark, or border"
+  ],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/player-pipeline-preview-b-24dir-v1.png", "role": "selected B pipeline composition and direction reference"},
+    {"path": "docs/art/previews/characters-combat/style-lock-a-v1.png", "role": "approved tactical graphic style and palette"},
+    {"path": "assets/art/actors/player/player_base.png", "role": "player identity and armor reference"},
+    {"path": "https://youmind.com/nano-banana-pro-prompts?id=26830", "role": "multi-view identity consistency wording reference"}
+  ],
+  "generation_model": "imagegen built-in plus local chroma-key removal and deterministic Pillow packing",
+  "preview_output": {
+    "path": "assets/art/source/player/player_b_8dir_sample_alpha_v1.png",
+    "width": 1774,
+    "height": 887,
+    "mode": "RGBA"
+  },
+  "sample_outputs": [
+    "assets/art/actors/player/samples/player_b_sample_body_8dir.png",
+    "assets/art/actors/player/samples/player_b_sample_weapon_8dir.png",
+    "assets/art/actors/player/samples/player_b_sample_composite_8dir.png"
+  ],
+  "runtime_capture": "docs/art/previews/characters-combat/player-b-8dir-runtime-board-v1.png",
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

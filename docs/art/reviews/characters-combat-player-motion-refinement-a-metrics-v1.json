@@ -1,0 +1,114 @@
+{
+  "asset_id": "player_motion_refinement_a_candidates",
+  "camera_pitch_degrees": 45.0,
+  "candidate_corner_alpha_max": {
+    "A1": 0.0,
+    "A2": 0.0,
+    "A3": 0.0
+  },
+  "contact_tolerance": 0.006,
+  "declared_floor_height": 0.100000001490116,
+  "gait_frames_per_refinement": 6,
+  "locked_base_profile": {
+    "label": "stable_tactical_stride",
+    "lift": 0.085,
+    "recoil_degrees": 4.0,
+    "shoulder_bob": 0.01,
+    "stride": 0.15
+  },
+  "max_firing_hand_error": 0.000000136571401299079,
+  "max_stock_contact_error": 0.000000119209289550781,
+  "max_support_hand_error": 0.00000027516759359969,
+  "mechanics_ranges": {
+    "A1": {
+      "max_abs_hip_shift": 0.0103923048454133,
+      "max_abs_lateral_lean_degrees": 0.606217782649107,
+      "max_abs_pelvis_yaw_degrees": 0.692820323027551,
+      "max_abs_torso_yaw_degrees": 1.21243556529821,
+      "max_recoil_curve": 1.0,
+      "min_recoil_curve": 0.0
+    },
+    "A2": {
+      "max_abs_hip_shift": 0.0242487113059643,
+      "max_abs_lateral_lean_degrees": 1.55884572681199,
+      "max_abs_pelvis_yaw_degrees": 1.55884572681199,
+      "max_abs_torso_yaw_degrees": 2.7712812921102,
+      "max_recoil_curve": 1.0,
+      "min_recoil_curve": -0.0000000000000000555111512312578
+    },
+    "A3": {
+      "max_abs_hip_shift": 0.0389711431702997,
+      "max_abs_lateral_lean_degrees": 2.7712812921102,
+      "max_abs_pelvis_yaw_degrees": 2.59807621135332,
+      "max_abs_torso_yaw_degrees": 4.76313972081441,
+      "max_recoil_curve": 1.0,
+      "min_recoil_curve": -0.133928571428571
+    }
+  },
+  "minimum_foot_height": 0.0999999046325684,
+  "minimum_opaque_visible_ratio": 0.96499246365537,
+  "preview_yaw_degrees": 45.0,
+  "production_integration": false,
+  "recoil_frames_per_refinement": 6,
+  "recoil_sample_phases": [
+    0.0,
+    0.18,
+    0.35,
+    0.55,
+    0.75,
+    1.0
+  ],
+  "refinement_ids": [
+    "A1",
+    "A2",
+    "A3"
+  ],
+  "refinement_profiles": {
+    "A1": {
+      "hip_shift": 0.012,
+      "label": "restrained_stability",
+      "lateral_lean_degrees": 0.7,
+      "lift": 0.085,
+      "pelvis_yaw_degrees": 0.8,
+      "recoil_degrees": 4.0,
+      "recoil_torso_degrees": 0.8,
+      "recovery": "fast",
+      "shoulder_bob": 0.01,
+      "stride": 0.15,
+      "torso_counter_yaw_degrees": 1.4
+    },
+    "A2": {
+      "hip_shift": 0.028,
+      "label": "realistic_load_transfer",
+      "lateral_lean_degrees": 1.8,
+      "lift": 0.085,
+      "pelvis_yaw_degrees": 1.8,
+      "recoil_degrees": 4.0,
+      "recoil_torso_degrees": 1.6,
+      "recovery": "two_stage",
+      "shoulder_bob": 0.01,
+      "stride": 0.15,
+      "torso_counter_yaw_degrees": 3.2
+    },
+    "A3": {
+      "hip_shift": 0.045,
+      "label": "strong_motion_statement",
+      "lateral_lean_degrees": 3.2,
+      "lift": 0.085,
+      "pelvis_yaw_degrees": 3.0,
+      "recoil_degrees": 4.0,
+      "recoil_torso_degrees": 2.5,
+      "recovery": "overshoot",
+      "shoulder_bob": 0.01,
+      "stride": 0.15,
+      "torso_counter_yaw_degrees": 5.5
+    }
+  },
+  "runtime_corner_alpha_max": 0.0,
+  "sample_count": 36,
+  "schema_version": 1,
+  "selected_base_profile": "A",
+  "source_indices_preserved": 567888,
+  "source_vertices_preserved": 94652,
+  "weapon_attachment": "BoneAttachment3D:firing_hand"
+}

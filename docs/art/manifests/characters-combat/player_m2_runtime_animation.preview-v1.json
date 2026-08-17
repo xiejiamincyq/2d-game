@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_m2_runtime_animation",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Replace the old screen-space rotating-rifle player path with selected M2 and A2 READY, MOVE, and FIRE composite animation across 120 real world-yaw angles while preserving separate 3D source objects and gameplay invariants.",
+  "runtime_path": "res://assets/art/actors/player/player_m2_ready_120yaw.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 1280, "height": 2304},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "one fixed orthographic gameplay camera pitched downward exactly 45 degrees",
+  "facing": "120 real world-yaw samples from 0 through 357 degrees in exact three-degree steps for every animation frame",
+  "palette": ["#061019", "#252d33", "#6e6a61", "#aeb8bc", "#3da7ff", "#c66a32"],
+  "lighting": "approved M2 fixed-world key, fill, and rim lighting, identical across all actions and angles",
+  "prompt": "Bake the selected M2 industrial salvage alloy player and independent BoneAttachment3D rifle in approved A2 motion. READY uses the accepted neutral pose; MOVE uses six complete gait phases; FIRE uses six recoil and two-stage recovery phases. Render every frame at 120 true world yaws with one exact 45-degree camera and one shared 3D depth buffer.",
+  "negative_constraints": [
+    "no screen-space weapon rotation, separate 2D rifle spin, camera orbit, mirrored directions, or one-direction runtime exception",
+    "no body, rifle, grip, M2 material, camera, framing, lighting, collision, movement, damage, or control drift",
+    "no broad translucency, detached hand, floating stock, missing frame, cropped silhouette, or collapsed profile",
+    "no Dasher animation, dash animation invention, hit animation invention, environment work, or UI work in this increment"
+  ],
+  "references": [
+    {"path": "docs/art/previews/characters-combat/player-m2-ready-120yaw-review-v1.png", "role": "accepted M2 READY 120-yaw camera, material, geometry, and depth proof"},
+    {"path": "docs/art/previews/characters-combat/player-motion-refinement-a2-48-frame-v1.png", "role": "accepted A2 gait and recoil mechanics proof"},
+    {"path": "assets/art/source/player/player_production_lod_topology_candidate_v1.res", "role": "approved automatic LOD candidate for offline sprite baking"}
+  ],
+  "candidate_outputs": [
+    {"id": "ready", "path": "assets/art/actors/player/player_m2_ready_120yaw.png", "focus": "accepted READY composite promoted to the runtime candidate path"},
+    {"id": "move", "path": "assets/art/actors/player/player_m2_move_120yaw.png", "focus": "six A2 gait phases by 120 true world yaws"},
+    {"id": "fire", "path": "assets/art/actors/player/player_m2_fire_120yaw.png", "focus": "six A2 recoil/recovery phases by 120 true world yaws"}
+  ],
+  "generation_model": "Godot 4.7 deterministic Skeleton3D A2 deformation, selected M2 procedural materials, independent BoneAttachment3D rifle, shared-depth SubViewport composite rendering, and recoverable action-frame batches",
+  "style_lock_reference": {
+    "mode": "deterministic expansion of already approved M2 and A2; no new generated style reference",
+    "use_case": "runtime action animation and gameplay acceptance",
+    "prompt_summary": "M2 READY plus six-frame A2 gait and recoil across 120 yaws",
+    "invariants": "identity, M2 material, A2 mechanics, geometry, rifle, grip, scale, 45-degree camera, lighting, and framing"
+  },
+  "technical_gate": {
+    "yaw_frame_count": 120,
+    "yaw_step_degrees": 3,
+    "yaw_columns": 20,
+    "yaw_rows": 6,
+    "action_frame_count": 6,
+    "runtime_frame_size": 64,
+    "action_atlas_width": 1280,
+    "action_atlas_height": 2304,
+    "runtime_state_priority": ["fire", "move", "ready"],
+    "runtime_weapon_rule": "never rotate a standalone 2D weapon texture around the player"
+  },
+  "technical_result": {
+    "status": "passed",
+    "sample_count": 1440,
+    "minimum_opaque_visible_ratio": 0.922271758092654,
+    "minimum_mean_visible_alpha": 0.959927633355822,
+    "minimum_maximum_alpha": 1.0,
+    "maximum_weapon_contact_error": 0.00000014901161193,
+    "runtime_atlas_bytes": 4071754,
+    "runtime_atlas_budget_bytes": 12582912,
+    "batch_render_milliseconds": 10788,
+    "review_board": "docs/art/previews/characters-combat/player-m2-runtime-actions-v1.png",
+    "metrics": "docs/art/reviews/characters-combat-player-m2-runtime-animation-metrics-v1.json"
+  },
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png",
+    "alpha_report": "docs/art/reviews/characters-combat-player-m2-runtime-animation-metrics-v1.json",
+    "review_document": "docs/art/reviews/characters-combat-player-m2-runtime-animation-v1.md"
+  },
+  "selection_approval": {
+    "status": "approved-for-runtime-animation-proof",
+    "approved_on": "2026-08-17",
+    "decision": "continue with selected M2 and A2",
+    "scope": "READY, MOVE, and FIRE runtime animation only; Dasher animation remains a separate next increment"
+  },
+  "runtime_integration": {
+    "status": "passed",
+    "production_script": "scripts/actors/Player.gd",
+    "state_priority": ["fire", "move", "ready"],
+    "legacy_turnaround_removed": true,
+    "standalone_weapon_rotation_removed": true,
+    "one_direction_exception_removed": true,
+    "gameplay_capture": "docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png"
+  },
+  "promotion_blocked": false,
+  "license_review_state": "pending",
+  "review_state": "gameplay-approved"
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_b_action_motion_preview_b",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Snappy arcade motion-language preview for one down-right player facing before layered production animation begins.",
+  "runtime_path": "res://assets/art/actors/player/previews/player_b_action_motion_preview_b.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "single orthographic camera pitched downward exactly 45 degrees; camera and character yaw remain locked for every frame",
+  "facing": "down-right at 45 degrees clockwise from screen-right, matching direction index 3 of the approved 24-direction contract",
+  "palette": ["#061019", "#34343b", "#d2c8be", "#33fff2", "#f559bf", "#ff571f"],
+  "lighting": "stable crisp cyan rim light, small magenta functional accents, strong warm orange rifle emission; no per-frame lighting changes",
+  "prompt": "Create a 6-column by 5-row animation motion-study sheet for the approved compact armored player, always facing down-right under the same strict 45-degree orthographic camera. Rows are idle, run, fire, dash, and hit reaction; each row contains six chronological full-body frames. Motion direction B is snappy arcade: clear anticipation and follow-through, faster stride spacing, punchier shoulder recoil, aggressive dash lean, and a strong instantly readable hit silhouette while retaining physical plausibility. Keep both hands naturally gripping the rifle and keep the rifle aligned to the arms and torso rather than rotating independently. Use a perfectly flat solid #00ff00 chroma-key background with generous empty padding in every cell. No labels, dividers, shadows, text, or extra objects.",
+  "negative_constraints": [
+    "no camera or yaw change between frames",
+    "no flat screen-space rifle rotation or floating weapon",
+    "no bob-only fake animation; limbs and weight must change",
+    "no duplicate frames or shuffled chronology",
+    "no translucency inside the character",
+    "no green inside the subject, cast shadow, text, watermark, border, or grid line"
+  ],
+  "references": [
+    {"path": "assets/art/source/player/player_b_8dir_sample_alpha_v1.png", "role": "approved player identity, down-right projection, and rifle relationship"},
+    {"path": "docs/art/previews/characters-combat/style-lock-a-v1.png", "role": "approved tactical graphic rendering, palette, and material language"},
+    {"path": "https://youmind.com/nano-banana-pro-prompts?id=27303", "role": "tactical soldier sheet consistency reference"},
+    {"path": "https://youmind.com/nano-banana-pro-prompts?id=26830", "role": "multi-view identity consistency wording reference"}
+  ],
+  "generation_model": "imagegen built-in plus local chroma-key removal",
+  "generation_canvas_dimensions": {"width": 1369, "height": 1149},
+  "preview_output": "assets/art/source/player/action_previews/player_b_action_motion_preview_b_alpha_v1.png",
+  "runtime_scale_output": "docs/art/previews/characters-combat/player_b_action_motion_preview_b_64.png",
+  "comparison_output": "docs/art/previews/characters-combat/player-b-action-motion-comparison-64-v1.png",
+  "license_review_state": "pending",
+  "review_state": "preview"
+}

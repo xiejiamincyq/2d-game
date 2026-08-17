@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_turnaround",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "Preview gate B for a true yaw-based player turnaround using hand-painted 2D directional art.",
+  "runtime_path": "res://assets/art/actors/player/player_turnaround.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "opaque",
+  "camera": "fixed top-down three-quarter orthographic camera",
+  "facing": "eight real yaw views at 45-degree intervals; actor remains upright while front, sides, and back rotate into view",
+  "palette": ["#061019", "#33fff2", "#f559bf"],
+  "lighting": "controlled cyan rim light with restrained magenta accents, inherited from approved style A",
+  "prompt": "Create a clean 4 by 2 hand-painted 2D directional character sheet showing the exact same armored player in eight true yaw views around the vertical axis: front, front-right, right, back-right, back, back-left, left, front-left. The camera is a fixed top-down three-quarter orthographic camera and gravity stays fixed; the character remains upright in every cell. Show actual front, side, and back armor construction. Do not rotate the whole image in screen space. Preserve the reference character's exact helmet, cyan visor, worn taupe ceramic armor, dark undersuit, backpack, magenta utility accents, proportions, stance, and panel layout. No weapon. Match the approved tactical graphic illustration style with confident painted shapes, crisp dark contour hierarchy, controlled wear, and stable anatomy. Dark black-blue board, even cell spacing, full body never cropped, no text, no labels, no borders, no extra characters.",
+  "negative_constraints": [
+    "no planar rotation of the whole character image",
+    "no duplicated views or missing back view",
+    "no character identity, armor layout, proportion, palette, or lighting drift",
+    "no weapon, text, labels, borders, cropped anatomy, or extra characters",
+    "no gameplay or collision changes"
+  ],
+  "references": [
+    {"path": "assets/art/actors/player/player_base.png", "role": "approved player identity and armor reference"},
+    {"path": "docs/art/previews/characters-combat/style-lock-a-v1.png", "role": "approved A tactical graphic illustration style lock"},
+    {"prompt_library_id": 27303, "role": "previously selected YouMind sci-fi tactical soldier character-sheet prompt lineage"}
+  ],
+  "generation_model": "imagegen",
+  "preview_output": {
+    "path": "docs/art/previews/characters-combat/player-turnaround-preview-b-v1.png",
+    "width": 1774,
+    "height": 887,
+    "mode": "RGB"
+  },
+  "license_review_state": "pending",
+  "review_state": "draft"
+}

@@ -1,0 +1,511 @@
+{
+  "asset_id": "player_motion_refinement_a2_multiyaw",
+  "camera_pitch_degrees": 45.0,
+  "contact_tolerance": 0.006,
+  "declared_floor_height": 0.100000001490116,
+  "locked_profile": {
+    "hip_shift": 0.028,
+    "label": "realistic_load_transfer",
+    "lateral_lean_degrees": 1.8,
+    "lift": 0.085,
+    "pelvis_yaw_degrees": 1.8,
+    "recoil_degrees": 4.0,
+    "recoil_torso_degrees": 1.6,
+    "recovery": "two_stage",
+    "shoulder_bob": 0.01,
+    "stride": 0.15,
+    "torso_counter_yaw_degrees": 3.2
+  },
+  "max_firing_hand_error": 0.00000004712160972,
+  "max_stock_contact_error": 0.00000001490116119,
+  "max_support_hand_error": 0.00000013328003944,
+  "minimum_foot_height": 0.0999999940395355,
+  "minimum_opaque_visible_ratio": 0.922748447204969,
+  "motion_state_ids": [
+    "GAIT_LEFT",
+    "GAIT_RIGHT",
+    "RECOIL_PEAK",
+    "RECOVERY_TAIL"
+  ],
+  "motion_states": [
+    {
+      "gait_phase": 0.25,
+      "id": "GAIT_LEFT",
+      "recoil_phase": -1.0
+    },
+    {
+      "gait_phase": 0.75,
+      "id": "GAIT_RIGHT",
+      "recoil_phase": -1.0
+    },
+    {
+      "gait_phase": 0.0,
+      "id": "RECOIL_PEAK",
+      "recoil_phase": 0.35
+    },
+    {
+      "gait_phase": 0.0,
+      "id": "RECOVERY_TAIL",
+      "recoil_phase": 0.75
+    }
+  ],
+  "production_integration": false,
+  "render_pipeline": "four recoverable 12-frame state batches assembled after validation",
+  "runtime_corner_alpha_max": 0.0,
+  "sample_count": 48,
+  "sample_metrics": [
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.925509214354995,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 0.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.931456310679612,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 30.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.935278630978499,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 60.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.93375796178344,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 90.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.928975609756098,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 120.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.927986602158541,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 150.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.923821702594081,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 180.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.931620839363242,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 210.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.93192195931922,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 240.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.937743190661479,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 270.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.932026944274342,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 300.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.929515418502203,
+      "state": "GAIT_LEFT",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 330.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.922748447204969,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 0.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.927770385858202,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 30.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.934613892122623,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 60.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.932340705058025,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 90.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.935073201782304,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 120.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.92841163310962,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 150.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.923090975520643,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 180.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.930436370275698,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 210.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.930449695121951,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 240.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.937527790128946,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 270.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.934119278779473,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 300.0
+    },
+    {
+      "firing_hand_error": 0.00000004712160972,
+      "minimum_foot_height": 0.100000023841858,
+      "opaque_visible_ratio": 0.93328115828605,
+      "state": "GAIT_RIGHT",
+      "stock_contact_error": 0.00000001490116119,
+      "support_hand_error": 0.00000009996002603,
+      "yaw_degrees": 330.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.924773755656109,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 0.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.932967241052831,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 30.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.938502131114268,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 60.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.934797529169526,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 90.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.934765314240255,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 120.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.931131544379809,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 150.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.926739250784278,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 180.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.933819507748405,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 210.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.93253891985393,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 240.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.941245593419506,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 270.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.937726594156537,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 300.0
+    },
+    {
+      "firing_hand_error": 0.00000003332000986,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.932152280437241,
+      "state": "RECOIL_PEAK",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000013328003944,
+      "yaw_degrees": 330.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.925338934504487,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 0.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.930936073059361,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 30.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.939019448946515,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 60.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.932666060054595,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 90.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.932173225232351,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 120.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.930989583333333,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 150.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.926244509516837,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 180.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.932922407541697,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 210.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.931120972409801,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 240.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.938403221985312,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 270.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.936528221512247,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 300.0
+    },
+    {
+      "firing_hand_error": 0.00000001490116119,
+      "minimum_foot_height": 0.0999999940395355,
+      "opaque_visible_ratio": 0.930870310417063,
+      "state": "RECOVERY_TAIL",
+      "stock_contact_error": 0.0,
+      "support_hand_error": 0.00000010745380052,
+      "yaw_degrees": 330.0
+    }
+  ],
+  "schema_version": 1,
+  "selected_refinement": "A2",
+  "source_indices_preserved": 567888,
+  "source_vertices_preserved": 94652,
+  "weapon_attachment": "BoneAttachment3D:firing_hand",
+  "yaw_frame_count": 12,
+  "yaw_samples_degrees": [
+    0.0,
+    30.0,
+    60.0,
+    90.0,
+    120.0,
+    150.0,
+    180.0,
+    210.0,
+    240.0,
+    270.0,
+    300.0,
+    330.0
+  ],
+  "yaw_step_degrees": 30.0
+}

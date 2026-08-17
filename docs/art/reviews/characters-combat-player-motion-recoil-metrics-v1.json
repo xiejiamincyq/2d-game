@@ -1,0 +1,59 @@
+{
+  "asset_id": "player_motion_recoil_candidates",
+  "blended_leg_vertex_count": 25696,
+  "camera_pitch_degrees": 45.0,
+  "candidate_corner_alpha_max": {
+    "A": 0.0,
+    "B": 0.0,
+    "C": 0.0
+  },
+  "candidate_ids": [
+    "A",
+    "B",
+    "C"
+  ],
+  "candidate_profiles": {
+    "A": {
+      "label": "stable_tactical_stride",
+      "lift": 0.085,
+      "recoil_degrees": 4.0,
+      "shoulder_bob": 0.01,
+      "stride": 0.15
+    },
+    "B": {
+      "label": "compact_shuffle",
+      "lift": 0.045,
+      "recoil_degrees": 2.0,
+      "shoulder_bob": 0.006,
+      "stride": 0.09
+    },
+    "C": {
+      "label": "aggressive_advance",
+      "lift": 0.125,
+      "recoil_degrees": 7.0,
+      "shoulder_bob": 0.018,
+      "stride": 0.22
+    }
+  },
+  "contact_tolerance": 0.006,
+  "declared_floor_height": 0.100000001490116,
+  "gait_frames_per_candidate": 6,
+  "leg_region_vertex_count": 26749,
+  "leg_weighted_vertex_count": 32255,
+  "max_firing_hand_error": 0.000000134110450744629,
+  "max_stock_contact_error": 0.0,
+  "max_support_hand_error": 0.000000140577270713038,
+  "minimum_foot_height": 0.0999999642372131,
+  "minimum_opaque_visible_ratio": 0.965197102999076,
+  "preview_yaw_degrees": 45.0,
+  "production_integration": false,
+  "recoil_frames_per_candidate": 6,
+  "runtime_corner_alpha_max": 0.0,
+  "sample_count": 36,
+  "schema_version": 1,
+  "source_indices_preserved": 567888,
+  "source_vertices_preserved": 94652,
+  "underweighted_leg_ratio": 0.0,
+  "underweighted_leg_vertex_count": 0,
+  "weapon_attachment": "BoneAttachment3D:firing_hand"
+}

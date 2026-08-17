@@ -55,6 +55,17 @@ const BASE_MOVE_SPEED := 235.0
 const ENTRANCE_FALL_SECONDS := 0.72
 const ENTRANCE_SMOKE_SECONDS := 0.38
 const ENTRANCE_MIN_FALL_HEIGHT := 280.0
+const PLAYER_READY_ATLAS_PATH := "res://assets/art/actors/player/player_m2_ready_120yaw.png"
+const PLAYER_MOVE_ATLAS_PATH := "res://assets/art/actors/player/player_m2_move_120yaw.png"
+const PLAYER_FIRE_ATLAS_PATH := "res://assets/art/actors/player/player_m2_fire_120yaw.png"
+const VISUAL_ACTION_FPS := {"move": 10.0, "fire": 12.0}
+const VISUAL_ACTION_FRAME_COUNT := 6
+
+const DIRECTION_FRAME_COUNT := 120
+const DIRECTION_STEP_DEGREES := 3.0
+const DIRECTION_ATLAS_COLUMNS := 20
+const DIRECTION_ATLAS_ROWS := 6
+const DIRECTION_FRAME_SIZE := Vector2(64.0, 64.0)
 
 var move_speed: float = BASE_MOVE_SPEED
 var pickup_radius: float = 92.0
@@ -128,11 +139,22 @@ var entrance_visual_offset := 0.0
 var entrance_fall_height := ENTRANCE_MIN_FALL_HEIGHT
 var normal_collision_layer: int = 1
 var normal_collision_mask: int = 1
+var player_ready_atlas: Texture2D
+var player_move_atlas: Texture2D
+var player_fire_atlas: Texture2D
+var visual_current_action: String = "ready"
+var visual_elapsed: float = 0.0
+var visual_fire_timer: float = 0.0
+var visual_hit_timer: float = 0.0
 
 func _ready() -> void:
 	add_to_group("player")
 	normal_collision_layer = collision_layer
 	normal_collision_mask = collision_mask
+	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	player_ready_atlas = _load_png_texture(PLAYER_READY_ATLAS_PATH)
+	player_move_atlas = _load_png_texture(PLAYER_MOVE_ATLAS_PATH)
+	player_fire_atlas = _load_png_texture(PLAYER_FIRE_ATLAS_PATH)
 	player_collision = CollisionShape2D.new()
 	player_collision.name = "PlayerCollision"
 	var circle := CircleShape2D.new()
@@ -167,6 +189,7 @@ func _physics_process(delta: float) -> void:
 		_update_movement(input_vector)
 	_update_fire(delta, Input.is_action_pressed("fire"))
 	_update_passives(delta)
+	_update_visual_animation(delta)
 	queue_redraw()
 
 func _process(delta: float) -> void:
@@ -236,16 +259,15 @@ func get_effective_dash_cooldown() -> float:
 	return dash_cooldown * (OVERDRIVE_DASH_COOLDOWN_MULTIPLIER if overdrive_active else 1.0)
 
 func _draw() -> void:
-	draw_set_transform(Vector2(0.0, entrance_visual_offset), 0.0, Vector2.ONE * PLAYER_SIZE_SCALE)
-	draw_rect(Rect2(-10, -14, 20, 28), Color(0.1, 0.85, 0.95))
-	draw_rect(Rect2(-7, -18, 14, 7), Color(0.96, 0.92, 0.55))
-	draw_rect(Rect2(-14, -6, 28, 8), Color(0.05, 0.28, 0.34))
-	draw_rect(Rect2(-7, 8, 5, 10), Color(0.06, 0.08, 0.1))
-	draw_rect(Rect2(2, 8, 5, 10), Color(0.06, 0.08, 0.1))
-	draw_set_transform(Vector2(0.0, entrance_visual_offset), gun_angle, Vector2.ONE * PLAYER_SIZE_SCALE)
-	draw_rect(Rect2(8, -3, 22, 6), Color(1.0, 0.32, 0.12))
-	draw_rect(Rect2(25, -2, 8, 4), Color(0.75, 1.0, 1.0))
-	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	var scaled_frame_size := DIRECTION_FRAME_SIZE * PLAYER_SIZE_SCALE
+	var destination := Rect2(
+		-scaled_frame_size * 0.5 + Vector2(0.0, entrance_visual_offset),
+		scaled_frame_size
+	)
+	var action_frame := visual_action_frame(visual_current_action, visual_elapsed)
+	var source := direction_frame_rect(direction_frame_index(gun_angle), action_frame)
+	var tint := Color(1.0, 0.62, 0.62) if visual_hit_timer > 0.0 else Color.WHITE
+	draw_texture_rect_region(visual_texture_for_action(visual_current_action), destination, source, tint)
 	if entrance_elapsed >= ENTRANCE_FALL_SECONDS and entrance_elapsed < get_entrance_duration():
 		_draw_landing_smoke((entrance_elapsed - ENTRANCE_FALL_SECONDS) / ENTRANCE_SMOKE_SECONDS)
 	if dash_active:
@@ -273,6 +295,59 @@ func _draw_landing_smoke(progress: float) -> void:
 		var radius := lerpf(7.0, 15.0, resolved) - lane * 0.6
 		draw_circle(center, maxf(3.0, radius), Color(0.35, 0.42, 0.52, alpha * 0.42))
 
+func direction_frame_index(angle_radians: float) -> int:
+	var raw_index := roundi(rad_to_deg(angle_radians) / DIRECTION_STEP_DEGREES)
+	return ((raw_index % DIRECTION_FRAME_COUNT) + DIRECTION_FRAME_COUNT) % DIRECTION_FRAME_COUNT
+
+func direction_frame_rect(frame_index: int, action_frame: int = 0) -> Rect2:
+	var normalized := ((frame_index % DIRECTION_FRAME_COUNT) + DIRECTION_FRAME_COUNT) % DIRECTION_FRAME_COUNT
+	var column := normalized % DIRECTION_ATLAS_COLUMNS
+	var yaw_row := floori(float(normalized) / float(DIRECTION_ATLAS_COLUMNS))
+	var row := posmod(action_frame, VISUAL_ACTION_FRAME_COUNT) * DIRECTION_ATLAS_ROWS + yaw_row
+	return Rect2(
+		Vector2(column, row) * DIRECTION_FRAME_SIZE,
+		DIRECTION_FRAME_SIZE
+	)
+
+static func resolve_visual_action(moving: bool, firing: bool, dashing: bool) -> String:
+	if dashing:
+		return "ready"
+	if firing:
+		return "fire"
+	if moving:
+		return "move"
+	return "ready"
+
+static func visual_action_frame(action: String, time_seconds: float) -> int:
+	if action == "ready":
+		return 0
+	var fps: float = VISUAL_ACTION_FPS.get(action, 1.0)
+	return posmod(floori(maxf(time_seconds, 0.0) * fps), VISUAL_ACTION_FRAME_COUNT)
+
+func visual_texture_for_action(action: String) -> Texture2D:
+	if action == "move":
+		return player_move_atlas
+	if action == "fire":
+		return player_fire_atlas
+	return player_ready_atlas
+
+func _update_visual_animation(delta: float) -> void:
+	visual_fire_timer = maxf(0.0, visual_fire_timer - delta)
+	visual_hit_timer = maxf(0.0, visual_hit_timer - delta)
+	var next_action := resolve_visual_action(velocity.length_squared() > 1.0, visual_fire_timer > 0.0, dash_active)
+	if next_action != visual_current_action:
+		visual_current_action = next_action
+		visual_elapsed = 0.0
+	else:
+		visual_elapsed += delta
+
+func _load_png_texture(path: String) -> Texture2D:
+	var resource := ResourceLoader.load(path, "Texture2D")
+	if resource is Texture2D:
+		return resource as Texture2D
+	push_error("Player art texture could not be loaded: " + path)
+	return ImageTexture.new()
+
 func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> bool:
 	if health == null or amount <= 0.0 or is_damage_immune() or not health.can_accept_damage():
 		return false
@@ -285,6 +360,7 @@ func take_damage(amount: float, _source: StringName = DamageTypes.GENERIC) -> bo
 	if remaining > 0.0:
 		health.damage(remaining, true)
 	health.begin_invulnerability(0.35)
+	visual_hit_timer = 0.6
 	return true
 
 func add_shield(amount: float) -> void:
@@ -510,6 +586,7 @@ func _update_fire(delta: float, wants_fire: bool) -> int:
 	return fired_count
 
 func _spawn_bullet(direction: Vector2, damage_scale: float = 1.0) -> void:
+	visual_fire_timer = 0.5
 	if active_build_evolutions.has("orbital_storm"):
 		var grenade := GrenadeProjectileScript.new()
 		grenade.global_position = global_position + direction * PROJECTILE_SPAWN_OFFSET
