@@ -1,0 +1,74 @@
+{
+  "action_atlas_size": {
+    "height": 2304,
+    "width": 1280
+  },
+  "action_frame_count": 6,
+  "action_ids": [
+    "move",
+    "fire"
+  ],
+  "asset_id": "player_m2_runtime_animation",
+  "batch_count": 12,
+  "body_weapon_source_objects_separate": true,
+  "camera_pitch_degrees": 45.0,
+  "candidate_indices": 283944,
+  "candidate_vertices": 47326,
+  "composite_depth_source": "single 3D SubViewport depth buffer",
+  "declared_floor_height": 0.100000001490116,
+  "file_sizes_bytes": {
+    "fire_atlas": 1878253,
+    "move_atlas": 1880013,
+    "ready_atlas": 313488
+  },
+  "fire_corner_alpha_max": 0.0,
+  "gait_phases": [
+    0.0,
+    0.166666666666667,
+    0.333333333333333,
+    0.5,
+    0.666666666666667,
+    0.833333333333333
+  ],
+  "max_firing_hand_error": 0.00000013411045074,
+  "max_stock_contact_error": 0.0,
+  "max_support_hand_error": 0.00000014901161193,
+  "minimum_foot_height": 0.0999999940395355,
+  "minimum_maximum_alpha": 1.0,
+  "minimum_mean_visible_alpha": 0.959927633355822,
+  "minimum_opaque_visible_ratio": 0.922271758092654,
+  "move_corner_alpha_max": 0.0,
+  "production_integration": false,
+  "ready_atlas_size": {
+    "height": 384,
+    "width": 1280
+  },
+  "ready_corner_alpha_max": 0.0,
+  "recoil_phases": [
+    0.0,
+    0.18,
+    0.35,
+    0.55,
+    0.75,
+    1.0
+  ],
+  "review_board_file_bytes": 464938,
+  "review_board_size": {
+    "height": 1536,
+    "width": 1152
+  },
+  "runtime_frame_size": {
+    "height": 64,
+    "width": 64
+  },
+  "sample_count": 1440,
+  "schema_version": 1,
+  "selected_material": "M2",
+  "selected_refinement": "A2",
+  "total_batch_render_msec": 10788,
+  "total_runtime_atlas_bytes": 4071754,
+  "weapon_attachment": "BoneAttachment3D:firing_hand",
+  "yaw_frame_count": 120,
+  "yaw_range_degrees": 360.0,
+  "yaw_step_degrees": 3.0
+}
