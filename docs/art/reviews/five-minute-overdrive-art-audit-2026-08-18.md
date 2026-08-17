@@ -18,7 +18,7 @@
 | 战斗特效 | 通过 | 能量、方向和冲击分别使用青、品红、橙；上限固定，无每发 GPU 粒子节点 | `CombatFeedbackTest`、`PerformanceTest` |
 | 场地 | 通过 | 工业网格由约 49,923 个逐格命令降至 496 个保留绘制命令 | 900 命令上限 |
 | HUD | 通过 | 顶部卡片保持不透明；超载胶囊在充能/激活状态具有独立配色并响应多种分辨率 | `UITest` |
-| 高密度战斗 | 通过 | 16 Dasher、10 个其他敌人、12 发超载弹、双电弧与多组 VFX 同屏仍能区分玩家和威胁 | 确定性压力截图 |
+| 高密度战斗 | 通过 | 16 Dasher、10 个其他敌人、12 发超载弹、双电弧与多组 VFX 同屏仍能区分玩家和威胁 | 确定性压力截图与 180 帧本机基线 |
 
 ## 运行资源预算
 
@@ -58,5 +58,6 @@
 - `docs/art/previews/characters-combat/combat-vfx-runtime-v1.png`
 - `docs/art/previews/characters-combat/art-stress-combat-runtime-v1.png`
 - `docs/art/previews/characters-combat/dasher-runtime-lod-comparison-v1.png`
+- `docs/art/reviews/art-stress-performance-v1.json`
 
 所有截图均由项目内确定性 Godot 渲染器生成；最终结论必须同时满足自动化测试、真实渲染和生产引用审计，不能只凭单张预览图通过。

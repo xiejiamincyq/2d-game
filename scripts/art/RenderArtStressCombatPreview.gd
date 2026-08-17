@@ -10,6 +10,30 @@ const VIEWPORT_SIZE := Vector2i(1536, 900)
 
 func _initialize() -> void:
 	print("RENDER START: Art stress combat runtime preview")
+	var fixture := await _create_stress_fixture()
+	var viewport: SubViewport = fixture["viewport"]
+
+	await process_frame
+	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+	await process_frame
+	var capture := viewport.get_texture().get_image()
+	if capture == null or capture.is_empty() or capture.get_size() != VIEWPORT_SIZE:
+		push_error("Art stress combat capture is empty or incorrectly sized")
+		quit(1)
+		return
+	var absolute_path := ProjectSettings.globalize_path(OUTPUT_PATH)
+	DirAccess.make_dir_recursive_absolute(absolute_path.get_base_dir())
+	if capture.save_png(absolute_path) != OK:
+		push_error("Could not save art stress combat capture: " + OUTPUT_PATH)
+		quit(1)
+		return
+	viewport.queue_free()
+	await create_timer(0.25).timeout
+	await process_frame
+	print("RENDER PASS: Art stress combat runtime preview %dx%d -> %s" % [capture.get_width(), capture.get_height(), OUTPUT_PATH])
+	quit(0)
+
+func _create_stress_fixture() -> Dictionary:
 	var viewport := SubViewport.new()
 	viewport.size = VIEWPORT_SIZE
 	viewport.transparent_bg = false
@@ -45,26 +69,7 @@ func _initialize() -> void:
 	_spawn_projectile_fan(scene)
 	_spawn_effect_clusters(scene)
 	_spawn_arc_pulses(scene)
-
-	await process_frame
-	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
-	await process_frame
-	var capture := viewport.get_texture().get_image()
-	if capture == null or capture.is_empty() or capture.get_size() != VIEWPORT_SIZE:
-		push_error("Art stress combat capture is empty or incorrectly sized")
-		quit(1)
-		return
-	var absolute_path := ProjectSettings.globalize_path(OUTPUT_PATH)
-	DirAccess.make_dir_recursive_absolute(absolute_path.get_base_dir())
-	if capture.save_png(absolute_path) != OK:
-		push_error("Could not save art stress combat capture: " + OUTPUT_PATH)
-		quit(1)
-		return
-	viewport.queue_free()
-	await create_timer(0.25).timeout
-	await process_frame
-	print("RENDER PASS: Art stress combat runtime preview %dx%d -> %s" % [capture.get_width(), capture.get_height(), OUTPUT_PATH])
-	quit(0)
+	return {"viewport": viewport, "scene": scene}
 
 func _spawn_dasher_ring(scene: Node) -> void:
 	for index in range(16):

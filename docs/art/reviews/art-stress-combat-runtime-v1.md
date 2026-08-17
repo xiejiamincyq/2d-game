@@ -43,5 +43,21 @@ for now.
 - renderer result: real Vulkan/OpenGL-capable Godot path, 1536x900, clean exit and
   no ObjectDB leak marker.
 
+## Single-machine performance baseline
+
+`scripts/art/BenchmarkArtStressCombat.gd` reuses this exact fixture rather than a
+reduced synthetic scene. On an NVIDIA GeForce RTX 5060 Laptop GPU with Godot 4.7
+Forward+, a 120-frame warmup followed by 180 sampled frames measured:
+
+- 10.661 ms average and 12.327 ms P95 process time;
+- 191 maximum draw calls;
+- 37.72 MiB reported texture memory and 62.56 MiB reported total video memory;
+- 241 nodes in the complete fixture.
+
+The raw record is `docs/art/reviews/art-stress-performance-v1.json`. This is a
+debug, single-machine regression baseline, not a minimum-hardware release claim.
+Godot's built-in monitors may update with up to a one-second delay, so the report
+uses a warmup and a multi-second sample window rather than interpreting one frame.
+
 This gate adds deterministic evidence only and introduces no generated or
 third-party asset source.
