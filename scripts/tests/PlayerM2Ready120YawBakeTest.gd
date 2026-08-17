@@ -121,7 +121,9 @@ func _initialize() -> void:
 	if not _assert_true((manifest.get("selection_approval", {}) as Dictionary).get("decision", "") == "M2", "manifest does not record the M2 selection"):
 		return
 	var player_source := FileAccess.get_file_as_string(PLAYER_SCRIPT_PATH)
-	if not _assert_true(not player_source.contains("player_m2_ready_120yaw"), "technical bake leaked into Player.gd"):
+	if not _assert_true(not player_source.contains("technical_previews/player_m2_ready_120yaw"), "technical preview path leaked into Player.gd"):
+		return
+	if not _assert_true(player_source.contains("player_m2_ready_120yaw.png"), "approved READY atlas was not promoted into Player.gd"):
 		return
 	print("TEST PASS: PlayerM2Ready120YawBakeTest %d" % assertions)
 	quit(0)

@@ -73,7 +73,16 @@
     "decision": "continue with selected M2 and A2",
     "scope": "READY, MOVE, and FIRE runtime animation only; Dasher animation remains a separate next increment"
   },
-  "promotion_blocked": true,
+  "runtime_integration": {
+    "status": "passed",
+    "production_script": "scripts/actors/Player.gd",
+    "state_priority": ["fire", "move", "ready"],
+    "legacy_turnaround_removed": true,
+    "standalone_weapon_rotation_removed": true,
+    "one_direction_exception_removed": true,
+    "gameplay_capture": "docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png"
+  },
+  "promotion_blocked": false,
   "license_review_state": "pending",
-  "review_state": "style-approved"
+  "review_state": "gameplay-approved"
 }

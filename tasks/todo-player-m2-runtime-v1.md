@@ -8,9 +8,9 @@
 - [x] TEST: add a failing 120-yaw MOVE/FIRE bake contract
 - [x] BAKE: render six gait and six recoil frames at all 120 directions
 - [x] REVIEW: inspect the 12-angle action board and measured alpha/resource report
-- [ ] TEST: add failing runtime mapping/state/no-screen-spin coverage
-- [ ] INTEGRATE: replace the old player draw path with M2 READY/MOVE/FIRE atlases
-- [ ] CAPTURE: inspect the actual 1280x720 combat result
-- [ ] VERIFY: run Godot, Python, manifest, registry, and diff checks
-- [ ] COMMIT: create focused local commits and send completion email
+- [x] TEST: add failing runtime mapping/state/no-screen-spin coverage
+- [x] INTEGRATE: replace the old player draw path with M2 READY/MOVE/FIRE atlases
+- [x] CAPTURE: inspect the actual 1280x720 combat result
+- [x] VERIFY: run Godot, Python, manifest, registry, and diff checks
+- [x] COMMIT: create focused local commits and send completion email
 - [ ] NEXT: create a separate Dasher movement-animation preview increment

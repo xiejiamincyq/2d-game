@@ -4,11 +4,10 @@ const PlayerScript = preload("res://scripts/actors/Player.gd")
 
 const FRAME_COUNT := 120
 const FRAME_STEP_DEGREES := 3
-const ATLAS_COLUMNS := 12
-const ATLAS_ROWS := 10
+const ATLAS_COLUMNS := 20
+const ATLAS_ROWS := 6
 const FRAME_SIZE := Vector2i(64, 64)
-const DIRECTIONS_PATH := "res://assets/art/actors/player/turnaround_directions"
-const ATLAS_PATH := "res://assets/art/actors/player/player_turnaround_atlas.png"
+const ATLAS_PATH := "res://assets/art/actors/player/player_m2_ready_120yaw.png"
 
 var assertions := 0
 
@@ -31,9 +30,7 @@ func _initialize() -> void:
 		return
 	if not _assert_true(player.has_method("direction_frame_rect"), "player does not expose atlas frame rectangles"):
 		return
-	if not _assert_true(player.player_directional_atlas.get_size() == Vector2(768, 640), "runtime 120-frame direction atlas texture did not load"):
-		return
-	if not _assert_true(player.player_weapon_texture.get_size() == Vector2(1024, 1024), "runtime weapon texture did not load"):
+	if not _assert_true(player.player_ready_atlas.get_size() == Vector2(1280, 384), "runtime M2 READY texture did not load"):
 		return
 
 	for frame in range(FRAME_COUNT):
@@ -54,22 +51,8 @@ func _initialize() -> void:
 		return
 	if not _assert_true(player.direction_frame_rect(0) == Rect2(Vector2.ZERO, Vector2(FRAME_SIZE)), "frame 0 atlas rectangle is wrong"):
 		return
-	if not _assert_true(player.direction_frame_rect(119) == Rect2(Vector2(704, 576), Vector2(FRAME_SIZE)), "frame 119 atlas rectangle is wrong"):
+	if not _assert_true(player.direction_frame_rect(119) == Rect2(Vector2(1216, 320), Vector2(FRAME_SIZE)), "frame 119 atlas rectangle is wrong"):
 		return
-
-	var direction_dir := DirAccess.open(DIRECTIONS_PATH)
-	if not _assert_true(direction_dir != null, "direction frame directory is missing"):
-		return
-	var frame_files := PackedStringArray()
-	for file_name in direction_dir.get_files():
-		if file_name.ends_with(".png"):
-			frame_files.append(file_name)
-	if not _assert_true(frame_files.size() == FRAME_COUNT, "expected 120 direction PNGs, found %d" % frame_files.size()):
-		return
-	for frame in range(FRAME_COUNT):
-		var expected_name := "angle_%03d.png" % (frame * FRAME_STEP_DEGREES)
-		if not _assert_true(frame_files.has(expected_name), "missing direction frame " + expected_name):
-			return
 
 	var atlas_texture := ResourceLoader.load(ATLAS_PATH, "Texture2D") as Texture2D
 	if not _assert_true(atlas_texture != null, "direction atlas could not be loaded"):
@@ -77,19 +60,13 @@ func _initialize() -> void:
 	var atlas := atlas_texture.get_image()
 	if not _assert_true(atlas != null and not atlas.is_empty(), "direction atlas image could not be read"):
 		return
-	if not _assert_true(atlas.get_size() == Vector2i(ATLAS_COLUMNS, ATLAS_ROWS) * FRAME_SIZE, "direction atlas is not 768x640"):
+	if not _assert_true(atlas.get_size() == Vector2i(ATLAS_COLUMNS, ATLAS_ROWS) * FRAME_SIZE, "M2 READY atlas is not 1280x384"):
 		return
 
 	var cardinal_pixels: Array[PackedByteArray] = []
 	for angle in [0, 90, 180, 270]:
-		var frame_texture := ResourceLoader.load(DIRECTIONS_PATH + "/angle_%03d.png" % angle, "Texture2D") as Texture2D
-		if not _assert_true(frame_texture != null, "cardinal frame %d could not be loaded" % angle):
-			return
-		var frame_image := frame_texture.get_image()
-		if not _assert_true(frame_image != null and not frame_image.is_empty(), "cardinal frame %d image could not be read" % angle):
-			return
-		if not _assert_true(frame_image.get_size() == FRAME_SIZE, "cardinal frame %d is not 64x64" % angle):
-			return
+		var frame_index: int = int(angle) / FRAME_STEP_DEGREES
+		var frame_image := atlas.get_region(Rect2i(player.direction_frame_rect(frame_index)))
 		if not _assert_true(frame_image.get_pixel(0, 0).a == 0.0, "cardinal frame %d does not have a transparent corner" % angle):
 			return
 		cardinal_pixels.append(frame_image.get_data())

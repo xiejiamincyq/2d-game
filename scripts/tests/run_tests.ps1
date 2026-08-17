@@ -21,7 +21,7 @@ $tests = @(
     "ProjectilePickupTest",
     "RateTest",
     "DashTest",
-    "PlayerActionSliceCombatTest",
+    "PlayerM2RuntimeAnimationTest",
     "PlayerCardinalPreviewTest",
     "PlayerTurnaroundModelTest",
     "PlayerTurnaroundMVPreviewTest",
@@ -61,13 +61,15 @@ foreach ($test in $tests) {
     $process = [System.Diagnostics.Process]::new()
     $process.StartInfo = $startInfo
     [void]$process.Start()
-    $stdout = $process.StandardOutput.ReadToEnd()
-    $stderr = $process.StandardError.ReadToEnd()
+    $stdoutTask = $process.StandardOutput.ReadToEndAsync()
+    $stderrTask = $process.StandardError.ReadToEndAsync()
     if (-not $process.WaitForExit(120000)) {
         $process.Kill()
         $failures.Add("${test}: timed out after 120 seconds")
         continue
     }
+    $stdout = $stdoutTask.GetAwaiter().GetResult()
+    $stderr = $stderrTask.GetAwaiter().GetResult()
     $output = "$stdout`n$stderr"
     $matches = [regex]::Matches($output, "TEST PASS: $test ([1-9][0-9]*)")
     if ($process.ExitCode -ne 0) {

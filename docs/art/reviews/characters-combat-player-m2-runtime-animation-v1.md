@@ -28,8 +28,16 @@ atlases only; it does not approve Dasher animation or any new visual style.
 - READY + MOVE + FIRE PNG size: 4,071,754 bytes, below the 12 MiB cap.
 - Twelve recoverable GPU batches completed in 10,788 milliseconds total.
 
-## Remaining gate
+## Runtime integration result
 
-The bake is not yet production-integrated. Runtime mapping, action priority,
-removal of the standalone rotating 2D rifle, and a real 1280x720 gameplay capture
-must pass before promotion is unblocked.
+Production now selects a 120-yaw composite frame from M2 READY, MOVE, or FIRE.
+FIRE overrides MOVE, MOVE overrides READY, and dash temporarily reuses the
+approved READY pose. The old turnaround atlas, standalone screen-space rotating
+rifle, and single-direction action-slice exception have been removed from
+`Player.gd`.
+
+The 1280x720 gameplay capture confirms that the M2 player renders in the real
+combat scene with an opaque silhouette and attached rifle while the existing HUD,
+projectiles, enemies, collision, movement, damage, and controls remain unchanged.
+The asset is gameplay-approved; final status remains separate from the pending
+project-wide license review.
