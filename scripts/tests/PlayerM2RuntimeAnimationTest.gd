@@ -70,6 +70,27 @@ func _initialize() -> void:
 		return
 	if not _assert_true(player.visual_action_frame("fire", 0.17) == 2, "FIRE did not advance at 12 FPS"):
 		return
+	if not _assert_true(is_equal_approx(player.visual_playback_rate("move", 235.0, 235.0, 1.0), 1.0), "normal MOVE playback rate drifted"):
+		return
+	if not _assert_true(is_equal_approx(player.visual_playback_rate("move", 235.0 * 1.3, 235.0, 1.0), 1.3), "overdrive MOVE playback does not follow movement speed"):
+		return
+	if not _assert_true(is_equal_approx(player.visual_playback_rate("move", 600.0, 235.0, 1.0), 1.5), "MOVE playback rate is not capped"):
+		return
+	if not _assert_true(is_equal_approx(player.visual_playback_rate("fire", 0.0, 235.0, 2.0), 1.5), "overdrive FIRE playback does not use the readability cap"):
+		return
+	player.set_overdrive_active(true)
+	player.velocity = Vector2(player.get_effective_move_speed(), 0.0)
+	player.visual_current_action = "move"
+	player.visual_elapsed = 0.0
+	player._update_visual_animation(0.1)
+	if not _assert_true(is_equal_approx(player.visual_elapsed, 0.13), "overdrive MOVE did not advance at the effective speed ratio"):
+		return
+	player.visual_current_action = "fire"
+	player.visual_fire_timer = 0.2
+	player.visual_elapsed = 0.0
+	player._update_visual_animation(0.1)
+	if not _assert_true(is_equal_approx(player.visual_elapsed, 0.15), "overdrive FIRE did not apply the readability cap in runtime state"):
+		return
 	if not _assert_true(player.visual_texture_for_action("ready") == player.player_ready_atlas, "READY texture selection drifted"):
 		return
 	if not _assert_true(player.visual_texture_for_action("move") == player.player_move_atlas, "MOVE texture selection drifted"):

@@ -26,6 +26,7 @@ func _initialize() -> void:
 	scene.wave_director.spawn_queue.clear()
 	TestSupport.stop_audio(scene.audio)
 	scene.player.set_physics_process(false)
+	scene.player.set_overdrive_active(true)
 	scene.player.global_position = Vector2.ZERO
 	scene.player.gun_angle = PI / 4.0
 	scene.player.velocity = Vector2(150.0, 150.0)

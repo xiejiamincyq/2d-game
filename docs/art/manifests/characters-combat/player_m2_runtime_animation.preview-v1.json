@@ -64,8 +64,10 @@
   },
   "runtime_evidence": {
     "gameplay_capture": "docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png",
+    "overdrive_capture": "docs/art/previews/characters-combat/player-overdrive-runtime-v1.png",
     "alpha_report": "docs/art/reviews/characters-combat-player-m2-runtime-animation-metrics-v1.json",
-    "review_document": "docs/art/reviews/characters-combat-player-m2-runtime-animation-v1.md"
+    "review_document": "docs/art/reviews/characters-combat-player-m2-runtime-animation-v1.md",
+    "overdrive_review": "docs/art/reviews/characters-combat-player-overdrive-runtime-v1.md"
   },
   "selection_approval": {
     "status": "approved-for-runtime-animation-proof",
@@ -80,6 +82,9 @@
     "legacy_turnaround_removed": true,
     "standalone_weapon_rotation_removed": true,
     "one_direction_exception_removed": true,
+    "overdrive_move_playback_ratio": 1.3,
+    "overdrive_fire_playback_cap": 1.5,
+    "overdrive_visual_layers": ["velocity-aligned streaks", "magenta energy field", "cyan and magenta orbit arcs"],
     "gameplay_capture": "docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png"
   },
   "promotion_blocked": false,

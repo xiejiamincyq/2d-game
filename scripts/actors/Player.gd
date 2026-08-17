@@ -60,6 +60,8 @@ const PLAYER_MOVE_ATLAS_PATH := "res://assets/art/actors/player/player_m2_move_1
 const PLAYER_FIRE_ATLAS_PATH := "res://assets/art/actors/player/player_m2_fire_120yaw.png"
 const VISUAL_ACTION_FPS := {"move": 10.0, "fire": 12.0}
 const VISUAL_ACTION_FRAME_COUNT := 6
+const VISUAL_MIN_PLAYBACK_RATE := 0.75
+const VISUAL_MAX_PLAYBACK_RATE := 1.5
 
 const DIRECTION_FRAME_COUNT := 120
 const DIRECTION_STEP_DEGREES := 3.0
@@ -260,8 +262,23 @@ func get_effective_dash_cooldown() -> float:
 
 func _draw() -> void:
 	var scaled_frame_size := DIRECTION_FRAME_SIZE * PLAYER_SIZE_SCALE
+	var visual_center := Vector2(0.0, entrance_visual_offset)
+	if overdrive_active:
+		var pulse := 0.5 + 0.5 * sin(visual_elapsed * 8.0)
+		if velocity.length_squared() > 1.0:
+			var movement_direction := velocity.normalized()
+			var movement_side := movement_direction.orthogonal()
+			for streak_index in range(3):
+				var side_offset := float(streak_index - 1) * 7.0
+				var streak_start := visual_center - movement_direction * (BODY_RADIUS + 5.0) + movement_side * side_offset
+				var streak_end := visual_center - movement_direction * (34.0 + pulse * 7.0 + streak_index * 4.0) + movement_side * side_offset
+				var streak_color := Color(0.20, 1.0, 0.95, 0.62) if streak_index != 1 else Color(0.71, 0.36, 1.0, 0.72)
+				draw_line(streak_start, streak_end, streak_color, 2.0)
+		draw_circle(visual_center, BODY_RADIUS + 7.0 + pulse * 2.0, Color(0.71, 0.36, 1.0, 0.10))
+		draw_arc(visual_center, BODY_RADIUS + 8.0 + pulse * 3.0, 0.0, TAU, 32, Color(0.71, 0.36, 1.0, 0.72), 2.0)
+		draw_arc(visual_center, BODY_RADIUS + 12.0 - pulse * 2.0, -PI * 0.35, PI * 0.65, 20, Color(0.20, 1.0, 0.95, 0.82), 2.0)
 	var destination := Rect2(
-		-scaled_frame_size * 0.5 + Vector2(0.0, entrance_visual_offset),
+		-scaled_frame_size * 0.5 + visual_center,
 		scaled_frame_size
 	)
 	var action_frame := visual_action_frame(visual_current_action, visual_elapsed)
@@ -324,6 +341,22 @@ static func visual_action_frame(action: String, time_seconds: float) -> int:
 	var fps: float = VISUAL_ACTION_FPS.get(action, 1.0)
 	return posmod(floori(maxf(time_seconds, 0.0) * fps), VISUAL_ACTION_FRAME_COUNT)
 
+static func visual_playback_rate(
+	action: String,
+	movement_speed: float,
+	base_movement_speed: float,
+	fire_rate_multiplier: float
+) -> float:
+	if action == "move":
+		return clampf(
+			movement_speed / maxf(base_movement_speed, 0.001),
+			VISUAL_MIN_PLAYBACK_RATE,
+			VISUAL_MAX_PLAYBACK_RATE
+		)
+	if action == "fire":
+		return clampf(fire_rate_multiplier, 1.0, VISUAL_MAX_PLAYBACK_RATE)
+	return 1.0
+
 func visual_texture_for_action(action: String) -> Texture2D:
 	if action == "move":
 		return player_move_atlas
@@ -339,7 +372,12 @@ func _update_visual_animation(delta: float) -> void:
 		visual_current_action = next_action
 		visual_elapsed = 0.0
 	else:
-		visual_elapsed += delta
+		visual_elapsed += delta * visual_playback_rate(
+			next_action,
+			velocity.length(),
+			move_speed,
+			get_effective_fire_rate() / maxf(fire_rate, 0.001)
+		)
 
 func _load_png_texture(path: String) -> Texture2D:
 	var resource := ResourceLoader.load(path, "Texture2D")
@@ -525,6 +563,7 @@ func set_overdrive_active(active: bool) -> void:
 		set_fire_rate_modifier(OVERDRIVE_MODIFIER, OVERDRIVE_FIRE_RATE_MULTIPLIER)
 	else:
 		clear_fire_rate_modifier(OVERDRIVE_MODIFIER)
+	queue_redraw()
 	# Overdrive is a cadence, geometry, mobility, and immunity state. Clear the
 	# legacy keys defensively so it never contributes a direct damage multiplier.
 	clear_damage_modifier(OVERDRIVE_MODIFIER)
