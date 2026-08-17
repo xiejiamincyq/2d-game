@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "asset_id": "enemy_dasher_b_actions_v1",
+  "batch": "characters-combat",
+  "asset_class": "enemy",
+  "purpose": "Provide real articulated run, windup, strike, and recovery poses for the retained Dasher B scrap runner in five-minute-overdrive gameplay.",
+  "runtime_path": "res://assets/art/actors/enemies/enemy_dasher_b_actions_runtime_v1.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 1536, "height": 1024},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "fixed top-down three-quarter orthographic game camera pitched approximately 45 degrees",
+  "facing": "six right-facing action masters; flip horizontally at runtime when the player is to the left",
+  "palette": ["#f559bf", "#33fff2", "#191922", "#4b4650"],
+  "lighting": "controlled cyan rim light with restrained magenta emission and an alpha-based runtime contrast outline",
+  "prompt": "Turn the approved Dasher B low-slung scrap runner into a strict 3 by 2 animation sheet: three articulated reverse-jointed run poses followed by compressed windup, extended forward strike, and recovery; preserve chassis identity, volume, right-facing 45-degree camera, opaque core, clean alpha, and consistent scale.",
+  "negative_constraints": [
+    "no whole-body spin, simple scale-only animation, identity drift, camera drift, duplicate pose, rider, or wheels",
+    "no weapon, projectile, motion trail, environment, text, watermark, cropped legs, extra limbs, or detached parts",
+    "do not change collision, speed, health, damage, AI, attack timing, or behavior"
+  ],
+  "references": [
+    {"path": "assets/art/actors/enemies/enemy_dasher_b.png", "role": "approved Dasher B identity reference"},
+    {"path": "docs/art/previews/characters-combat/style-lock-a-v1.png", "role": "approved project style reference"}
+  ],
+  "generation_model": "imagegen built-in plus deterministic connected-background removal and six-component grid repacking",
+  "source_output": {"path": "assets/art/source/enemies/enemy_dasher_b_actions_v1.png", "width": 1536, "height": 1024, "mode": "RGB"},
+  "alpha_output": {"path": "assets/art/source/enemies/enemy_dasher_b_actions_alpha_v1.png", "width": 1536, "height": 1024, "mode": "RGBA"},
+  "runtime_output": {"path": "assets/art/actors/enemies/enemy_dasher_b_actions_runtime_v1.png", "width": 1536, "height": 1024, "mode": "RGBA"},
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/characters-combat/enemy-dasher-actions-runtime-v1.png",
+    "alpha_report": "scripts/tests/test_dasher_action_assets.py",
+    "review_document": "docs/art/reviews/characters-combat-enemy-dasher-actions-v1.md"
+  },
+  "license_review_state": "pending",
+  "review_state": "gameplay-approved"
+}

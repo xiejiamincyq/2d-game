@@ -2,10 +2,10 @@ extends SceneTree
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 
-const DASHER_A_PATH := "res://assets/art/actors/enemies/enemy_dasher_a.png"
-const DASHER_B_PATH := "res://assets/art/actors/enemies/enemy_dasher_b.png"
-const EXPECTED_MASTER_SIZE := Vector2(1024.0, 1024.0)
-const EXPECTED_RUNTIME_SCALE := Vector2(0.0625, 0.0625)
+const DASHER_A_PATH := "res://assets/art/actors/enemies/enemy_dasher_a_actions_runtime_v1.png"
+const DASHER_B_PATH := "res://assets/art/actors/enemies/enemy_dasher_b_actions_runtime_v1.png"
+const EXPECTED_MASTER_SIZE := Vector2(1536.0, 1024.0)
+const EXPECTED_RUNTIME_SCALE := Vector2(0.125, 0.125)
 const EXPECTED_OVERDRIVE_DASHER_SPEED := 235.0 * 1.10
 
 var assertions := 0
@@ -39,7 +39,9 @@ func _initialize() -> void:
 		return
 	if not _assert_true(visual.scale.is_equal_approx(EXPECTED_RUNTIME_SCALE), "Dasher master is not scaled to a 64x64 runtime canvas"):
 		return
-	if not _assert_true(visual.texture.get_size() == EXPECTED_MASTER_SIZE, "selected Dasher master is not 1024x1024"):
+	if not _assert_true(visual.texture.get_size() == EXPECTED_MASTER_SIZE, "selected Dasher action atlas is not 1536x1024"):
+		return
+	if not _assert_true(visual.hframes == 3 and visual.vframes == 2, "Dasher action atlas is not configured as a 3x2 grid"):
 		return
 
 	enemy.set_dasher_variant(0)
@@ -67,6 +69,18 @@ func _initialize() -> void:
 	if not _assert_true(first_material != second_material, "Dasher hit-flash parameters are not isolated per enemy"):
 		return
 	if not _assert_true(first_material.shader == second_material.shader, "Dasher instances do not share the compiled hit-flash shader"):
+		return
+	if not _assert_true(EnemyScript.resolve_dasher_animation_frame(false, 0.0, 0.55, false, 0.0) == 0, "idle frame is not stable"):
+		return
+	if not _assert_true(EnemyScript.resolve_dasher_animation_frame(false, 0.0, 0.55, true, 0.12) == 1, "run loop did not advance"):
+		return
+	if not _assert_true(EnemyScript.resolve_dasher_animation_frame(false, 0.0, 0.55, true, 0.23) == 2, "run loop did not reach opposite contact"):
+		return
+	if not _assert_true(EnemyScript.resolve_dasher_animation_frame(true, 0.2, 0.55, false, 0.0) == 3, "attack windup frame did not resolve"):
+		return
+	if not _assert_true(EnemyScript.resolve_dasher_animation_frame(true, -0.1, 0.55, false, 0.0) == 4, "attack strike frame did not resolve"):
+		return
+	if not _assert_true(EnemyScript.resolve_dasher_animation_frame(true, -0.5, 0.55, false, 0.0) == 5, "attack recovery frame did not resolve"):
 		return
 
 	var player := Node2D.new()

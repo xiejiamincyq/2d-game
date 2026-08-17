@@ -38,10 +38,10 @@ func _initialize() -> void:
 	camera.position_smoothing_enabled = false
 	camera.reset_smoothing()
 
-	_spawn_enemy(scene, EnemyScript.EnemyKind.DASHER, Vector2(175.0, 115.0), 0)
-	_spawn_enemy(scene, EnemyScript.EnemyKind.DASHER, Vector2(-210.0, -120.0), 1)
-	_spawn_enemy(scene, EnemyScript.EnemyKind.SCRAPPER, Vector2(270.0, -70.0), 0)
-	_spawn_enemy(scene, EnemyScript.EnemyKind.BRUISER, Vector2(-300.0, 150.0), 0)
+	_spawn_enemy(scene, EnemyScript.EnemyKind.DASHER, Vector2(175.0, 115.0), 0, 1)
+	_spawn_enemy(scene, EnemyScript.EnemyKind.DASHER, Vector2(-210.0, -120.0), 1, 4)
+	_spawn_enemy(scene, EnemyScript.EnemyKind.SCRAPPER, Vector2(270.0, -70.0), 0, 0)
+	_spawn_enemy(scene, EnemyScript.EnemyKind.BRUISER, Vector2(-300.0, 150.0), 0, 0)
 	scene.player._spawn_bullet(Vector2.RIGHT.rotated(PI / 4.0))
 	for projectile in scene.projectiles.get_children():
 		projectile.set_physics_process(false)
@@ -60,10 +60,13 @@ func _initialize() -> void:
 		push_error("Could not save player M2 runtime combat capture: " + OUTPUT_PATH)
 		quit(1)
 		return
+	viewport.queue_free()
+	await create_timer(0.25).timeout
+	await process_frame
 	print("RENDER PASS: Player M2 runtime combat preview %dx%d -> %s" % [capture.get_width(), capture.get_height(), OUTPUT_PATH])
 	quit(0)
 
-func _spawn_enemy(scene: Node, kind: int, position: Vector2, variant: int) -> void:
+func _spawn_enemy(scene: Node, kind: int, position: Vector2, variant: int, animation_frame: int) -> void:
 	var enemy := EnemyScript.new()
 	enemy.global_position = position
 	enemy.setup(kind, 1, scene.projectiles)
@@ -71,3 +74,5 @@ func _spawn_enemy(scene: Node, kind: int, position: Vector2, variant: int) -> vo
 		enemy.set_dasher_variant(variant)
 	scene.enemies.add_child(enemy)
 	enemy.set_physics_process(false)
+	if kind == EnemyScript.EnemyKind.DASHER:
+		enemy.dasher_visual.frame = animation_frame
