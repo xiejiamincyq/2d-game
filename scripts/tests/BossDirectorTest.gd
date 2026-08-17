@@ -36,9 +36,11 @@ func _initialize() -> void:
 	var boss: Node2D = OverseerBossScript.new()
 	boss.world_bounds = Rect2(-900.0, -600.0, 1800.0, 1200.0)
 	boss.setup(5, projectiles, player)
-	boss.set_physics_process(false)
 	fixture.add_child(boss)
+	boss.process_mode = Node.PROCESS_MODE_DISABLED
 	await process_frame
+	boss.set_physics_process(false)
+	boss.process_mode = Node.PROCESS_MODE_ALWAYS
 	var attack_director: Node = boss.get_attack_director()
 	if not _assert_true(attack_director != null, "Boss did not create its attack director"):
 		return
