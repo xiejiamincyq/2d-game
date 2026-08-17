@@ -8,7 +8,7 @@
 
 ## 选择结果
 
-- 每个变体使用一张 3×2、1536×1024 RGBA 图集，每格 512×512。
+- 每个变体使用一张 3×2、384×256 RGBA 运行时图集，每格 128×128；1536×1024 高分辨率 Alpha 母图保留在 source 目录。
 - 上排三帧构成 `0→1→2→1` 的 9 FPS 移动循环。
 - 下排依次为蓄力、冲击、恢复，由既有 `attack_timer` 驱动。
 - 继续使用单一右向母图和运行时水平翻转，不制作重复的左向资源。
@@ -19,13 +19,13 @@
 - 使用内置 imagegen，以既有 A/B 正式资源为身份参考、style lock A 为渲染语言参考。
 - imagegen 输出为 1536×1024 RGB，并把透明棋盘格画进背景，未直接通过。
 - `remove_connected_light_background.py` 仅移除与画布边缘连通的高亮中性背景，保留封闭在深色轮廓内的白色装甲细节。
-- `repack_animation_sheet.py` 从透明图中识别六个连通主体，使用统一缩放比例重新装入严格 512×512 网格，解决 A 冲击帧跨格问题。
+- `repack_animation_sheet.py` 从透明图中识别六个连通主体，使用统一缩放比例重新装入严格网格，解决 A 冲击帧跨格问题；运行时 LOD 复审后改为 128×128 单格。
 - RGB 原始输出与透明化中间文件保存在 `assets/art/source/enemies`；只有重新打包后的两张图集进入 `assets/art/actors/enemies`。
 
 ## 运行时接入
 
 - `Enemy.gd` 使用新 A/B 动作图集和 `Sprite2D.hframes=3`、`vframes=2`。
-- 运行时缩放为 `0.125`，每帧显示尺寸为 64×64。
+- 运行时缩放为 `0.5`，每帧显示尺寸仍为 64×64。
 - 移动、蓄力、命中和恢复只改变视觉帧，不修改碰撞、速度、生命、伤害、AI 或攻击计时。
 - 每个实例按稳定的实例标识获得移动循环相位偏移，降低敌群动作完全同步的机械感。
 - Dasher 共用一份编译 Shader；每个实例保留独立闪白参数。
@@ -37,8 +37,9 @@
 
 - 动作板由 Godot 4.7 OpenGL Compatibility 后端真实渲染，尺寸 1536×900。
 - 大尺寸行覆盖 A/B 全部六帧；底部覆盖 64px 实际尺寸和左右翻转。
-- `EnemyDasherArtTest`：27 项断言通过。
-- `test_dasher_action_assets`：验证 RGBA、1536×1024、透明四角、六格非空和至少 24px 安全边距。
+- `EnemyDasherArtTest`：27 项断言通过，包括两张图集合计不超过 1 MiB RGBA 的预算门禁。
+- `test_dasher_action_assets`：验证 RGBA、384×256、透明四角、六格非空和至少 6px 安全边距。
+- `dasher-runtime-lod-comparison-v1.png` 在精确 64px 显示下比较 128/192/256/512 四档并批准 128 档。
 
 ## 后续观察
 

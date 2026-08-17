@@ -56,6 +56,12 @@ class RepackAnimationSheetTest(unittest.TestCase):
         self.assertEqual(result.getpixel((10, 15)), (51, 255, 242, 255))
         self.assertEqual(result.getpixel((8, 15))[3], 0)
 
+    def test_validation_padding_tracks_configured_cell_margin_and_outline(self):
+        module = load_script()
+        self.assertEqual(module.validation_padding(32, 8), 24)
+        self.assertEqual(module.validation_padding(8, 2), 6)
+        self.assertEqual(module.validation_padding(1, 4), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -28,14 +28,14 @@ func _initialize() -> void:
 		_add_title(background, "A — HUMANOID SPRINTER" if variant == 0 else "B — SCRAP RUNNER", Vector2(42, y - 135.0), 20)
 		for frame in range(6):
 			var x := 160.0 + frame * 235.0
-			await _spawn_dasher(viewport, variant, frame, Vector2(x, y), Vector2(0.24, 0.24), false)
+			await _spawn_dasher(viewport, variant, frame, Vector2(x, y), Vector2.ONE, false)
 			_add_title(background, FRAME_LABELS[frame], Vector2(x - 50.0, y + 118.0), 15)
 
 	_add_title(background, "64 PX RUNTIME + FLIP CHECK", Vector2(42, 798), 16)
 	for index in range(4):
 		var variant := index % 2
 		var frame := 1 if index < 2 else 4
-		await _spawn_dasher(viewport, variant, frame, Vector2(820.0 + index * 150.0, 825.0), Vector2(0.125, 0.125), index >= 2)
+		await _spawn_dasher(viewport, variant, frame, Vector2(820.0 + index * 150.0, 825.0), Vector2(0.5, 0.5), index >= 2)
 
 	await process_frame
 	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE

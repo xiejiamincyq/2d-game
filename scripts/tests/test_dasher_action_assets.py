@@ -18,15 +18,15 @@ class DasherActionAssetsTest(unittest.TestCase):
         for path in ASSETS:
             with self.subTest(path=path.name), Image.open(path) as image:
                 self.assertEqual(image.mode, "RGBA")
-                self.assertEqual(image.size, (1536, 1024))
+                self.assertEqual(image.size, (384, 256))
                 alpha = image.getchannel("A")
                 self.assertEqual(alpha.getextrema(), (0, 255))
                 self.assertEqual(
                     [
                         alpha.getpixel((0, 0)),
-                        alpha.getpixel((1535, 0)),
-                        alpha.getpixel((0, 1023)),
-                        alpha.getpixel((1535, 1023)),
+                        alpha.getpixel((383, 0)),
+                        alpha.getpixel((0, 255)),
+                        alpha.getpixel((383, 255)),
                     ],
                     [0, 0, 0, 0],
                 )
@@ -34,19 +34,19 @@ class DasherActionAssetsTest(unittest.TestCase):
                     for column in range(3):
                         cell = alpha.crop(
                             (
-                                column * 512,
-                                row * 512,
-                                (column + 1) * 512,
-                                (row + 1) * 512,
+                                column * 128,
+                                row * 128,
+                                (column + 1) * 128,
+                                (row + 1) * 128,
                             )
                         )
                         bbox = cell.getbbox()
                         self.assertIsNotNone(bbox)
                         assert bbox is not None
-                        self.assertGreaterEqual(bbox[0], 24)
-                        self.assertGreaterEqual(bbox[1], 24)
-                        self.assertLessEqual(bbox[2], 488)
-                        self.assertLessEqual(bbox[3], 488)
+                        self.assertGreaterEqual(bbox[0], 6)
+                        self.assertGreaterEqual(bbox[1], 6)
+                        self.assertLessEqual(bbox[2], 122)
+                        self.assertLessEqual(bbox[3], 122)
 
 
 if __name__ == "__main__":

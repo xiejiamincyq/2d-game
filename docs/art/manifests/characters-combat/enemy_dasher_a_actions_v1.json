@@ -6,7 +6,7 @@
   "purpose": "Provide real run, windup, strike, and recovery poses for the retained Dasher A identity in five-minute-overdrive gameplay.",
   "runtime_path": "res://assets/art/actors/enemies/enemy_dasher_a_actions_runtime_v1.png",
   "source_dimensions": {"width": 1024, "height": 1024},
-  "runtime_target": {"width": 1536, "height": 1024},
+  "runtime_target": {"width": 384, "height": 256},
   "aspect_ratio": "1:1",
   "background": "transparent",
   "camera": "fixed top-down three-quarter orthographic game camera pitched approximately 45 degrees",
@@ -26,10 +26,12 @@
   "generation_model": "imagegen built-in plus deterministic connected-background removal and six-component grid repacking",
   "source_output": {"path": "assets/art/source/enemies/enemy_dasher_a_actions_v1.png", "width": 1536, "height": 1024, "mode": "RGB"},
   "alpha_output": {"path": "assets/art/source/enemies/enemy_dasher_a_actions_alpha_v1.png", "width": 1536, "height": 1024, "mode": "RGBA"},
-  "runtime_output": {"path": "assets/art/actors/enemies/enemy_dasher_a_actions_runtime_v1.png", "width": 1536, "height": 1024, "mode": "RGBA"},
+  "runtime_output": {"path": "assets/art/actors/enemies/enemy_dasher_a_actions_runtime_v1.png", "width": 384, "height": 256, "mode": "RGBA"},
+  "runtime_budget": {"cell_size": 128, "display_size": 64, "scale": 0.5, "combined_a_b_rgba_bytes": 786432, "reduction_percent": 93.75},
   "runtime_evidence": {
     "gameplay_capture": "docs/art/previews/characters-combat/enemy-dasher-actions-runtime-v1.png",
     "stress_capture": "docs/art/previews/characters-combat/art-stress-combat-runtime-v1.png",
+    "lod_comparison": "docs/art/previews/characters-combat/dasher-runtime-lod-comparison-v1.png",
     "alpha_report": "scripts/tests/test_dasher_action_assets.py",
     "review_document": "docs/art/reviews/characters-combat-enemy-dasher-actions-v1.md"
   },

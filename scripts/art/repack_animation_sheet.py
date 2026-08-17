@@ -151,6 +151,10 @@ def validate_repacked_sheet(image: Image.Image, cell_size: int = 512, padding: i
                 raise RuntimeError(f"repacked cell {column},{row} violates safe padding: {bbox}")
 
 
+def validation_padding(configured_padding: int, outline_width: int) -> int:
+    return max(1, configured_padding - max(0, outline_width))
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -167,7 +171,11 @@ def main() -> int:
     with Image.open(args.input) as source:
         result = repack_sheet(source, args.cell_size, args.padding)
     result = bake_alpha_outline(result, args.outline_color, args.outline_width)
-    validate_repacked_sheet(result, args.cell_size)
+    validate_repacked_sheet(
+        result,
+        args.cell_size,
+        validation_padding(args.padding, args.outline_width),
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     result.save(args.output)
     print(f"REPACK PASS: {args.output} {result.width}x{result.height} RGBA")

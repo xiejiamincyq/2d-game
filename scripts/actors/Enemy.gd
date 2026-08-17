@@ -24,7 +24,7 @@ const DASHER_TEXTURES := [
 ]
 const DASHER_FLASH_SHADER := preload("res://assets/art/shaders/dasher_hit_flash.gdshader")
 
-const DASHER_RUNTIME_SCALE := Vector2(0.125, 0.125)
+const DASHER_RUNTIME_SCALE := Vector2(0.5, 0.5)
 const DASHER_RUN_FPS := 9.0
 const DASHER_RUN_SEQUENCE := [0, 1, 2, 1]
 
