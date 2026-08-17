@@ -43,6 +43,16 @@ func _initialize() -> void:
 	vfx.clear_all()
 	if not _assert_true(vfx.get_total_effect_count() == 0, "VFX clear did not remove every record"):
 		return
+	vfx.request_effect(CombatVfxScript.BLAST, Vector2.ZERO, Vector2.UP, 1.0)
+	if not _assert_true(
+		vfx.get_effect_count(CombatVfxScript.RING) == 1
+		and vfx.get_effect_count(CombatVfxScript.SPARK) == 8,
+		"blast did not resolve to one bounded ring and eight bounded sparks"
+	):
+		return
+	if not _assert_true(bool(vfx._rings[0].get("blast", false)), "blast ring lost its distinct visual marker"):
+		return
+	vfx.clear_all()
 
 	var camera := Camera2D.new()
 	root.add_child(camera)

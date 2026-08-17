@@ -43,6 +43,18 @@ func _initialize() -> void:
 	_spawn_enemy(scene, EnemyScript.EnemyKind.DASHER, Vector2(-210.0, -120.0), 1, 4)
 	_spawn_enemy(scene, EnemyScript.EnemyKind.SCRAPPER, Vector2(270.0, -70.0), 0, 0)
 	_spawn_enemy(scene, EnemyScript.EnemyKind.BRUISER, Vector2(-300.0, 150.0), 0, 0)
+	for spark_index in range(5):
+		scene.combat_vfx.request_effect(
+			&"spark",
+			Vector2(175.0, 115.0),
+			Vector2.RIGHT.rotated(-0.5 + float(spark_index) * 0.25),
+			1.2
+		)
+	scene.combat_vfx.request_effect(&"ring", Vector2(-210.0, -120.0), Vector2.UP, 1.25)
+	scene.combat_vfx.request_effect(&"blast", Vector2(270.0, -70.0), Vector2.UP, 0.8)
+	scene.combat_vfx._process(0.045)
+	scene.combat_vfx.set_process(false)
+	scene.combat_vfx.queue_redraw()
 	scene.player._spawn_bullet(Vector2.RIGHT.rotated(PI / 4.0))
 	for projectile in scene.projectiles.get_children():
 		projectile.set_physics_process(false)

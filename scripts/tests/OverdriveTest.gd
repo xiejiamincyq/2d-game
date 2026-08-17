@@ -1,6 +1,7 @@
 extends SceneTree
 
 const MainScript = preload("res://scripts/Main.gd")
+const ProjectileScript = preload("res://scripts/components/Projectile.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
@@ -50,6 +51,18 @@ func _initialize() -> void:
 	scene._update_combo(4.0)
 	if not _assert_true(not scene.overdrive_active and not scene.player.is_damage_immune(), "overdrive did not end and clear immunity"):
 		return
+	var projectile := ProjectileScript.new()
+	projectile.overdrive_visual = true
+	projectile.velocity = Vector2(620.0, 0.0)
+	root.add_child(projectile)
+	await process_frame
+	var gpu_emitter_count := 0
+	for child in projectile.get_children():
+		if child is GPUParticles2D:
+			gpu_emitter_count += 1
+	if not _assert_true(gpu_emitter_count == 0, "each overdrive projectile still allocates a GPU particle emitter"):
+		return
+	projectile.queue_free()
 	TestSupport.stop_audio(scene.audio)
 	await create_timer(0.25).timeout
 	scene.queue_free()

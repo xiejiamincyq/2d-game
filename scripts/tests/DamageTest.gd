@@ -181,11 +181,15 @@ func _initialize() -> void:
 	if not _assert_true(capped_overdrive_volley_count == 8, "overdrive exceeded the eight-line cap with %d shots" % capped_overdrive_volley_count):
 		return
 	var overdrive_shot: Node = spawned_shots[spawned_shots.size() - 1]
+	var overdrive_emitter_count := 0
+	for child in overdrive_shot.get_children():
+		if child is GPUParticles2D:
+			overdrive_emitter_count += 1
 	if not _assert_true(
 		overdrive_shot.get("overdrive_visual")
 		and overdrive_shot.tint.is_equal_approx(Color("b45cff"))
-		and overdrive_shot.get_node_or_null("OverdriveParticles") is GPUParticles2D,
-		"overdrive projectile did not receive the purple glowing particle treatment"
+		and overdrive_emitter_count == 0,
+		"overdrive projectile lost its purple treatment or retained a per-shot GPU emitter"
 	):
 		return
 	player.set_overdrive_active(false)

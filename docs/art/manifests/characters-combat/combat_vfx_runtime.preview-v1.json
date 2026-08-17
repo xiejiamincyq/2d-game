@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "asset_id": "combat_vfx_runtime_v1",
+  "batch": "characters-combat",
+  "asset_class": "combat-effect",
+  "purpose": "Give hits, kills, heavy impacts, blasts, dashes, and overdrive projectiles distinct readable shapes without per-effect node growth.",
+  "runtime_path": "res://scripts/effects/CombatVfx.gd",
+  "background": "transparent procedural CanvasItem draw commands",
+  "camera": "world-space 2D effects under the fixed 45-degree gameplay presentation",
+  "palette": ["#33fff2", "#f559bf", "#ff571f", "#fff0b8"],
+  "generation_model": "deterministic Godot draw primitives; no generative model or third-party source",
+  "negative_constraints": [
+    "no per-hit child nodes, unbounded particles, full-screen flashes, opaque effect fields, or gameplay changes",
+    "no collision, projectile speed, damage, pierce, lifetime, target, hit-stop, camera-trauma, or audio drift"
+  ],
+  "runtime_caps": {
+    "sparks": 96,
+    "debris": 48,
+    "rings": 16,
+    "afterimages": 24,
+    "gpu_emitters_per_overdrive_projectile": 0
+  },
+  "runtime_evidence": {
+    "review_board": "docs/art/previews/characters-combat/combat-vfx-runtime-v1.png",
+    "gameplay_capture": "docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png",
+    "review_document": "docs/art/reviews/characters-combat-vfx-runtime-v1.md"
+  },
+  "verification": {
+    "combat_feedback_assertions": 36,
+    "overdrive_assertions": 6,
+    "projectile_pickup_assertions": 20,
+    "performance_assertions": 26
+  },
+  "license_review_state": "not-applicable",
+  "review_state": "gameplay-approved"
+}
