@@ -23,6 +23,7 @@
   },
   "runtime_evidence": {
     "gameplay_capture": "docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png",
+    "stress_capture": "docs/art/previews/characters-combat/art-stress-combat-runtime-v1.png",
     "review_document": "docs/art/reviews/environment-hud-runtime-v1.md"
   },
   "verification": {

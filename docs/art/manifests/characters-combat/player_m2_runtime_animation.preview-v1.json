@@ -65,6 +65,7 @@
   "runtime_evidence": {
     "gameplay_capture": "docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png",
     "overdrive_capture": "docs/art/previews/characters-combat/player-overdrive-runtime-v1.png",
+    "stress_capture": "docs/art/previews/characters-combat/art-stress-combat-runtime-v1.png",
     "alpha_report": "docs/art/reviews/characters-combat-player-m2-runtime-animation-metrics-v1.json",
     "review_document": "docs/art/reviews/characters-combat-player-m2-runtime-animation-v1.md",
     "overdrive_review": "docs/art/reviews/characters-combat-player-overdrive-runtime-v1.md"

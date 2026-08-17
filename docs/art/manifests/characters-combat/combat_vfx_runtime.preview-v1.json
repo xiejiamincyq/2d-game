@@ -25,6 +25,7 @@
   "runtime_evidence": {
     "review_board": "docs/art/previews/characters-combat/combat-vfx-runtime-v1.png",
     "gameplay_capture": "docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png",
+    "stress_capture": "docs/art/previews/characters-combat/art-stress-combat-runtime-v1.png",
     "review_document": "docs/art/reviews/characters-combat-vfx-runtime-v1.md"
   },
   "verification": {

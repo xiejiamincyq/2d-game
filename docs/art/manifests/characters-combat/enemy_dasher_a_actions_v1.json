@@ -29,6 +29,7 @@
   "runtime_output": {"path": "assets/art/actors/enemies/enemy_dasher_a_actions_runtime_v1.png", "width": 1536, "height": 1024, "mode": "RGBA"},
   "runtime_evidence": {
     "gameplay_capture": "docs/art/previews/characters-combat/enemy-dasher-actions-runtime-v1.png",
+    "stress_capture": "docs/art/previews/characters-combat/art-stress-combat-runtime-v1.png",
     "alpha_report": "scripts/tests/test_dasher_action_assets.py",
     "review_document": "docs/art/reviews/characters-combat-enemy-dasher-actions-v1.md"
   },
