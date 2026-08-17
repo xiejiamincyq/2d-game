@@ -15,7 +15,7 @@ from repack_animation_sheet import (
 
 
 ROOT = Path(__file__).resolve().parents[2]
-CANDIDATE_SIZES = (128, 192, 256)
+CANDIDATE_SIZES = (128, 192, 256, 512)
 
 
 def build_candidate(

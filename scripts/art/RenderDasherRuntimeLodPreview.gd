@@ -4,7 +4,7 @@ const OUTPUT_PATH := "res://docs/art/previews/characters-combat/dasher-runtime-l
 const VIEWPORT_SIZE := Vector2i(1536, 900)
 const FRAME_LABELS := ["RUN 1", "RUN 2", "RUN 3", "WINDUP", "STRIKE", "RECOVER"]
 const ROWS := [
-	{"label": "CURRENT 512 PX CELL · 12.00 MiB", "cell": 512, "a": "res://assets/art/actors/enemies/enemy_dasher_a_actions_runtime_v1.png", "b": "res://assets/art/actors/enemies/enemy_dasher_b_actions_runtime_v1.png"},
+	{"label": "REFERENCE 512 PX CELL · 12.00 MiB", "cell": 512, "a": "res://.godot/dasher_lod_a_512.png", "b": "res://.godot/dasher_lod_b_512.png"},
 	{"label": "CANDIDATE 256 PX CELL · 3.00 MiB", "cell": 256, "a": "res://.godot/dasher_lod_a_256.png", "b": "res://.godot/dasher_lod_b_256.png"},
 	{"label": "CANDIDATE 192 PX CELL · 1.69 MiB", "cell": 192, "a": "res://.godot/dasher_lod_a_192.png", "b": "res://.godot/dasher_lod_b_192.png"},
 	{"label": "CANDIDATE 128 PX CELL · 0.75 MiB", "cell": 128, "a": "res://.godot/dasher_lod_a_128.png", "b": "res://.godot/dasher_lod_b_128.png"},
