@@ -19,7 +19,9 @@ orange respectively.
 - explosions add an orange pressure field, broken outer ring, and magenta inner
   energy arc;
 - dash afterimages form directional chevrons instead of generic diamonds;
-- overdrive projectiles use a cyan axial streak and tapered magenta trail.
+- overdrive projectiles use a cyan axial streak and tapered magenta trail;
+- arc pulses preserve the accepted electric waveform while batching the outline
+  into two antialiased polylines.
 
 The real combat capture confirms that the effects remain legible on the dark grid
 without hiding the opaque player or animated Dasher silhouettes.
@@ -34,8 +36,9 @@ without hiding the opaque player or animated Dasher silhouettes.
 - Projectile collision, radius, speed, damage, pierce, lifetime, and target groups
   are unchanged; `ProjectilePickupTest` passes 20 assertions and `OverdriveTest`
   passes 6 assertions.
-- `PerformanceTest` passes 26 assertions with all VFX arrays filled to their caps
-  and released after expiry.
+- `PerformanceTest` passes 29 assertions with all VFX arrays filled to their caps
+  and released after expiry. It also enforces a 48-segment, two-call arc-pulse
+  rendering budget.
 
 ## Evidence
 

@@ -8,6 +8,7 @@ const PlayerScript = preload("res://scripts/actors/Player.gd")
 const BossProjectilePatternScript = preload("res://scripts/components/BossProjectilePattern.gd")
 const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
 const FloorGridScript = preload("res://scripts/world/FloorGrid.gd")
+const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
@@ -45,6 +46,12 @@ func _initialize() -> void:
 		return
 	floor_grid.queue_free()
 	await process_frame
+	if not _assert_true(
+		ArcPulseVisualScript.VISUAL_DRAW_CALLS == 2
+		and ArcPulseVisualScript.VISUAL_SEGMENTS <= 48,
+		"arc pulse lost its two-call polyline budget"
+	):
+		return
 	var player_source := FileAccess.get_file_as_string("res://scripts/actors/Player.gd")
 	if not _assert_true(player_source.count('get_nodes_in_group("enemies")') <= 1, "Player still performs repeated enemy group scans"):
 		return

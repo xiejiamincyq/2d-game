@@ -5,6 +5,8 @@ const BASE_EXPANSION_SPEED: float = 340.0
 const START_RADIUS: float = 18.0
 const HIT_HALF_WIDTH: float = 6.0
 const MINIMUM_DAMAGE_MULTIPLIER: float = 0.25
+const VISUAL_SEGMENTS: int = 48
+const VISUAL_DRAW_CALLS: int = 2
 
 var max_radius: float = 160.0
 var lifetime: float = 0.42
@@ -74,11 +76,9 @@ func _draw() -> void:
 	var radius := get_current_radius()
 	var alpha := 1.0 - p
 	var points := PackedVector2Array()
-	var segments := 96
-	for i in range(segments + 1):
-		var a := float(i) * TAU / float(segments)
+	for i in range(VISUAL_SEGMENTS + 1):
+		var a := float(i) * TAU / float(VISUAL_SEGMENTS)
 		var wave := sin(a * 9.0 + p * TAU * 3.0) * 8.0 * alpha
 		points.append(Vector2.RIGHT.rotated(a) * (radius + wave))
-	for i in range(points.size() - 1):
-		draw_line(points[i], points[i + 1], Color(tint.r, tint.g, tint.b, 0.75 * alpha), 4.0)
-		draw_line(points[i], points[i + 1], Color.WHITE, 1.0)
+	draw_polyline(points, Color(tint.r, tint.g, tint.b, 0.75 * alpha), 4.0, true)
+	draw_polyline(points, Color(1.0, 1.0, 1.0, alpha), 1.0, true)

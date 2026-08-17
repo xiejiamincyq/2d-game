@@ -2,6 +2,7 @@ extends SceneTree
 
 const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
+const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd")
 
 const OUTPUT_PATH := "res://docs/art/previews/characters-combat/combat-vfx-runtime-v1.png"
 const VIEWPORT_SIZE := Vector2i(1536, 900)
@@ -32,6 +33,7 @@ func _initialize() -> void:
 	vfx.request_effect(CombatVfxScript.BLAST, Vector2(1140, 290), Vector2.UP, 1.35)
 	_spawn_afterimages(vfx, Vector2(260, 650))
 	_spawn_overdrive_projectiles(viewport, Vector2(790, 650))
+	_spawn_arc_pulse(viewport, Vector2(1260, 650))
 	vfx._process(0.055)
 	vfx.set_process(false)
 	vfx.queue_redraw()
@@ -42,6 +44,7 @@ func _initialize() -> void:
 	_add_label(background, "BLAST", Vector2(1098, 155), 17)
 	_add_label(background, "DASH AFTERIMAGE", Vector2(150, 515), 17)
 	_add_label(background, "OVERDRIVE PROJECTILE — 0 GPU EMITTERS", Vector2(700, 515), 17)
+	_add_label(background, "ARC PULSE — 2 DRAW CALLS", Vector2(1140, 515), 17)
 	_add_label(background, "Caps: sparks 96 · debris 48 · rings 16 · afterimages 24", Vector2(42, 846), 15)
 
 	await process_frame
@@ -93,6 +96,15 @@ func _spawn_overdrive_projectiles(parent: Node, origin: Vector2) -> void:
 		projectile.overdrive_visual = true
 		projectile.process_mode = Node.PROCESS_MODE_DISABLED
 		parent.add_child(projectile)
+
+func _spawn_arc_pulse(parent: Node, position: Vector2) -> void:
+	var pulse := ArcPulseVisualScript.new()
+	pulse.position = position
+	pulse.setup(160.0)
+	pulse.age = 0.22
+	pulse.process_mode = Node.PROCESS_MODE_DISABLED
+	parent.add_child(pulse)
+	pulse.queue_redraw()
 
 func _add_label(parent: Control, value: String, position: Vector2, font_size: int) -> void:
 	var label := Label.new()

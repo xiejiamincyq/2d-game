@@ -18,7 +18,9 @@
     "debris": 48,
     "rings": 16,
     "afterimages": 24,
-    "gpu_emitters_per_overdrive_projectile": 0
+    "gpu_emitters_per_overdrive_projectile": 0,
+    "arc_pulse_segments": 48,
+    "arc_pulse_draw_calls": 2
   },
   "runtime_evidence": {
     "review_board": "docs/art/previews/characters-combat/combat-vfx-runtime-v1.png",
@@ -29,7 +31,7 @@
     "combat_feedback_assertions": 36,
     "overdrive_assertions": 6,
     "projectile_pickup_assertions": 20,
-    "performance_assertions": 26
+    "performance_assertions": 29
   },
   "license_review_state": "not-applicable",
   "review_state": "gameplay-approved"
