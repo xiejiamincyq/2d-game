@@ -59,10 +59,10 @@
     "minimum_weapon_mean_visible_alpha": 0.903832173592051,
     "minimum_weapon_maximum_alpha": 1.0,
     "composite_atlas_bytes": 313488,
-    "body_atlas_bytes": 294871,
+    "body_atlas_bytes": 294870,
     "weapon_atlas_bytes": 92207,
-    "total_atlas_bytes": 700566,
-    "total_batch_render_msec": 3757,
+    "total_atlas_bytes": 700565,
+    "total_batch_render_msec": 3739,
     "body_weapon_source_objects_separate": true,
     "production_integration": false
   },

@@ -389,9 +389,9 @@ Stop before `Player.gd`, production atlas, collision, or gameplay changes.
 - Minimum high-opacity visible-pixel ratios are 92.32 percent composite, 91.88
   percent body, and 81.16 percent for the thin profile weapon. The weapon's minimum
   mean visible alpha is 90.38 percent and every angle contains alpha-1 pixels.
-- Composite, body, and weapon atlases total 700,566 bytes, about 0.67 MiB. Shipping
+- Composite, body, and weapon atlases total 700,565 bytes, about 0.67 MiB. Shipping
   only the recommended composite would use 313,488 PNG bytes before import and
   platform compression choices.
-- Ten recoverable twelve-angle batches total 3,757 ms of measured in-process render
+- Ten recoverable twelve-angle batches total 3,739 ms of measured in-process render
   and PNG work on Windows/OpenGL3/NVIDIA. `Player.gd`, collision, combat behavior,
   and production atlases remain unchanged.

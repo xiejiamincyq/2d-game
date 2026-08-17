@@ -58,12 +58,17 @@ use the composite atlas unless a later design adds depth masks or live 2.5D.
 ## Resource and render cost
 
 - composite atlas, 1280 by 384: 313,488 bytes;
-- body-only atlas, 1280 by 384: 294,871 bytes;
+- body-only atlas, 1280 by 384: 294,870 bytes;
 - weapon-only atlas, 1280 by 384: 92,207 bytes;
-- all three atlases together: 700,566 bytes, about 0.67 MiB;
-- twelve-key-angle board: 111,043 bytes;
-- ten recoverable twelve-angle batches: 3,757 ms of measured in-process render and
-  PNG work, averaging about 376 ms per batch on the NVIDIA/OpenGL3 path.
+- all three atlases together: 700,565 bytes, about 0.67 MiB;
+- twelve-key-angle board: 111,040 bytes;
+- ten recoverable twelve-angle batches: 3,739 ms of measured in-process render and
+  PNG work, averaging about 374 ms per batch on the NVIDIA/OpenGL3 path.
+
+Repeated OpenGL/MSAA reproduction changed only one to three body pixels by at most
+one color step out of 255, with identical alpha. This bounded floating-point
+rounding is not treated as a visual or material drift; locked parameters, alpha,
+silhouette, and aggregate gates remain the reproducibility contract.
 
 The compact 20-by-6 layout therefore supports three-degree angular resolution well
 inside the declared 6 MiB proof budget. In a production runtime that only ships the

@@ -14,9 +14,9 @@
   "contact_tolerance": 0.006,
   "diagnostic_layer_limit": "body-only and weapon-only captures preserve transforms but simple alpha recomposition cannot reconstruct per-pixel 3D occlusion",
   "file_sizes_bytes": {
-    "body_atlas": 294871,
+    "body_atlas": 294870,
     "composite_atlas": 313488,
-    "review_board": 111043,
+    "review_board": 111040,
     "weapon_atlas": 92207
   },
   "layer_ids": [
@@ -48,8 +48,8 @@
   "selected_pose": "READY",
   "selected_refinement": "A2",
   "topology_classification": "automatic LOD topology candidate for offline sprite baking; not hand-authored production retopology",
-  "total_atlas_bytes": 700566,
-  "total_batch_render_msec": 3757,
+  "total_atlas_bytes": 700565,
+  "total_batch_render_msec": 3739,
   "weapon_attachment": "BoneAttachment3D:firing_hand",
   "weapon_corner_alpha_max": 0.0,
   "yaw_frame_count": 120,

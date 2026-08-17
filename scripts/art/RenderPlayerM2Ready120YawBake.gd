@@ -2,6 +2,7 @@ extends SceneTree
 
 const RefinementRig = preload("res://scripts/art/PlayerMotionRefinementRig.gd")
 const PreviewSupport = preload("res://scripts/art/PlayerMotionPreviewRenderSupport.gd")
+const BakeMaterials = preload("res://scripts/art/PlayerM2BakeMaterials.gd")
 const CANDIDATE_MESH_PATH := "res://assets/art/source/player/player_production_lod_topology_candidate_v1.res"
 const COMPOSITE_ATLAS_PATH := "res://assets/art/actors/player/technical_previews/player_m2_ready_120yaw_composite.png"
 const BODY_ATLAS_PATH := "res://assets/art/actors/player/technical_previews/player_m2_ready_120yaw_body.png"
@@ -35,56 +36,6 @@ const LAYER_IDS := ["composite", "body", "weapon"]
 const PREVIEW_BACKGROUND := Color("061019")
 const M2_ACCENT := Color("3da7ff")
 const WEAPON_ACCENT := Color("c66a32")
-
-const M2_SHADER := """
-shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
-
-uniform vec4 base_color : source_color;
-uniform vec4 secondary_color : source_color;
-uniform vec4 accent_color : source_color;
-uniform vec4 micro_color : source_color;
-uniform float metallic_level = 0.1;
-uniform float roughness_level = 0.55;
-uniform float wear_strength = 0.1;
-uniform float pattern_scale = 90.0;
-uniform float emission_strength = 1.0;
-
-varying vec3 object_position;
-
-float line_mask(float value, float center, float half_width) {
-	return 1.0 - smoothstep(half_width, half_width + 0.012, abs(value - center));
-}
-
-float hash31(vec3 p) {
-	return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453123);
-}
-
-void vertex() {
-	object_position = VERTEX;
-}
-
-void fragment() {
-	float vertical_panel = smoothstep(0.15, 0.55, abs(object_position.x));
-	float torso_panel = smoothstep(0.78, 1.12, object_position.y) * (1.0 - smoothstep(1.40, 1.72, object_position.y));
-	float lower_panel = 1.0 - smoothstep(0.58, 0.90, object_position.y);
-	float panel_mix = clamp(0.28 * vertical_panel + 0.38 * torso_panel + 0.22 * lower_panel, 0.0, 0.72);
-	float visor = line_mask(object_position.y, 1.68, 0.018) * (1.0 - smoothstep(0.12, 0.48, abs(object_position.x)));
-	float chest = line_mask(object_position.y, 1.17, 0.016) * (1.0 - smoothstep(0.18, 0.52, abs(object_position.x)));
-	float calf = line_mask(object_position.y, 0.38, 0.012) * smoothstep(0.10, 0.24, abs(object_position.x));
-	float energy_mask = clamp(max(visor, max(chest * 0.82, calf * 0.52)), 0.0, 1.0);
-	float weave = 0.5 + 0.5 * sin((object_position.x + object_position.z) * pattern_scale) * sin((object_position.x - object_position.z) * pattern_scale * 0.73);
-	float wear = hash31(floor(object_position * 42.0));
-	vec3 color = mix(base_color.rgb, secondary_color.rgb, panel_mix);
-	color = mix(color, micro_color.rgb, weave * 0.075);
-	color = mix(color, vec3(0.58), step(0.965 - wear_strength * 0.18, wear) * wear_strength * 0.22);
-	color = mix(color, accent_color.rgb, energy_mask);
-	ALBEDO = color;
-	METALLIC = clamp(metallic_level + panel_mix * 0.16, 0.0, 1.0);
-	ROUGHNESS = clamp(roughness_level + weave * 0.08 - energy_mask * 0.30, 0.18, 0.92);
-	EMISSION = accent_color.rgb * energy_mask * emission_strength;
-}
-"""
 
 func _initialize() -> void:
 	var arguments := OS.get_cmdline_user_args()
@@ -137,8 +88,8 @@ func _render_batch(batch_index: int) -> void:
 		_fail("Body and rifle are not separate 3D source objects")
 		return
 	rig.body_mesh.mesh = candidate_mesh
-	rig.body_mesh.material_override = _m2_body_material()
-	_set_weapon_material(rig.weapon_attachment, _m2_weapon_material())
+	rig.body_mesh.material_override = BakeMaterials.body_material()
+	_set_weapon_material(rig.weapon_attachment, BakeMaterials.weapon_material())
 	rig.scale = Vector3.ONE * (BODY_HEIGHT / NORMALIZED_BODY_HEIGHT)
 	rig.apply_refinement(SELECTED_REFINEMENT, 0.0, -1.0)
 
@@ -401,29 +352,6 @@ func _capture(viewport: SubViewport, layer_id: String, yaw_index: int) -> Image:
 		return Image.new()
 	source.convert(Image.FORMAT_RGBA8)
 	return source
-
-func _m2_body_material() -> ShaderMaterial:
-	var shader := Shader.new()
-	shader.code = M2_SHADER
-	var material := ShaderMaterial.new()
-	material.shader = shader
-	material.set_shader_parameter("base_color", Color("aeb8bc"))
-	material.set_shader_parameter("secondary_color", Color("252d33"))
-	material.set_shader_parameter("accent_color", M2_ACCENT)
-	material.set_shader_parameter("micro_color", Color("6e6a61"))
-	material.set_shader_parameter("metallic_level", 0.48)
-	material.set_shader_parameter("roughness_level", 0.55)
-	material.set_shader_parameter("wear_strength", 0.34)
-	material.set_shader_parameter("pattern_scale", 74.0)
-	material.set_shader_parameter("emission_strength", 0.92)
-	return material
-
-func _m2_weapon_material() -> StandardMaterial3D:
-	var material := StandardMaterial3D.new()
-	material.albedo_color = WEAPON_ACCENT
-	material.metallic = 0.52
-	material.roughness = 0.42
-	return material
 
 func _set_weapon_material(node: Node, material: Material) -> void:
 	if node is MeshInstance3D:

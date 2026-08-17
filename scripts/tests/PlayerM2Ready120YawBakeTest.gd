@@ -2,6 +2,7 @@ extends SceneTree
 
 const RefinementRig = preload("res://scripts/art/PlayerMotionRefinementRig.gd")
 const RENDERER_PATH := "res://scripts/art/RenderPlayerM2Ready120YawBake.gd"
+const MATERIALS_PATH := "res://scripts/art/PlayerM2BakeMaterials.gd"
 const CANDIDATE_MESH_PATH := "res://assets/art/source/player/player_production_lod_topology_candidate_v1.res"
 const COMPOSITE_ATLAS_PATH := "res://assets/art/actors/player/technical_previews/player_m2_ready_120yaw_composite.png"
 const BODY_ATLAS_PATH := "res://assets/art/actors/player/technical_previews/player_m2_ready_120yaw_body.png"
@@ -25,7 +26,14 @@ func _assert_true(condition: bool, message: String) -> bool:
 func _initialize() -> void:
 	if not _assert_true(FileAccess.file_exists(RENDERER_PATH), "120-yaw renderer is missing"):
 		return
+	if not _assert_true(FileAccess.file_exists(MATERIALS_PATH), "shared M2 bake material helper is missing"):
+		return
 	var renderer_source := FileAccess.get_file_as_string(RENDERER_PATH)
+	if not _assert_true(renderer_source.contains("PlayerM2BakeMaterials.gd") and renderer_source.contains("BakeMaterials.body_material()") and renderer_source.contains("BakeMaterials.weapon_material()"), "READY renderer bypasses the shared M2 material source"):
+		return
+	var materials_source := FileAccess.get_file_as_string(MATERIALS_PATH)
+	if not _assert_true(materials_source.contains("base_color\", Color(\"aeb8bc\")") and materials_source.contains("metallic_level\", 0.48") and materials_source.contains("roughness_level\", 0.55") and materials_source.contains("WEAPON_ACCENT := Color(\"c66a32\")"), "approved M2 material parameters drifted"):
+		return
 	if not _assert_true(renderer_source.contains("YAW_FRAME_COUNT := 120"), "renderer must cover 120 real yaw angles"):
 		return
 	if not _assert_true(renderer_source.contains("YAW_STEP_DEGREES := 3.0"), "renderer yaw step must be 3 degrees"):
