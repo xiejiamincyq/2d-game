@@ -58,6 +58,8 @@
     "maximum_weapon_contact_error": 0.00000014901161193,
     "runtime_atlas_bytes": 4071754,
     "runtime_atlas_budget_bytes": 12582912,
+    "runtime_rgba_bytes": 25559040,
+    "runtime_rgba_budget_bytes": 33554432,
     "batch_render_milliseconds": 10788,
     "review_board": "docs/art/previews/characters-combat/player-m2-runtime-actions-v1.png",
     "metrics": "docs/art/reviews/characters-combat-player-m2-runtime-animation-metrics-v1.json"

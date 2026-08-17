@@ -36,9 +36,9 @@ would recreate the rejected yo-yo rotation failure and is therefore prohibited.
   `docs/art/previews/characters-combat/player-overdrive-runtime-v1.png`.
 - Real combat capture:
   `docs/art/previews/characters-combat/player-m2-runtime-combat-v1.png`.
-- `PlayerM2RuntimeAnimationTest` passes 151 assertions, including direct runtime
+- `PlayerM2RuntimeAnimationTest` passes 153 assertions, including direct runtime
   checks for 1.30x MOVE playback and the 1.50x FIRE readability cap.
-- `OverdriveTest` passes 5 assertions and `MovementTest` passes 26 assertions.
+- `OverdriveTest` passes 6 assertions and `MovementTest` passes 26 assertions.
 - Collision radius, base speed, damage, fire rate, overdrive multipliers, input,
   projectile spawn, and camera contracts are unchanged.
 
