@@ -56,4 +56,4 @@
       composite, body-only, and weapon-only technical atlases
 - [x] REVIEW: verify twelve key angles, three-layer alpha/size metrics, correct
       shared-depth composite, and no runtime integration
-- [ ] INTEGRATE: update runtime assets only after approval and regression tests
+- [x] INTEGRATE: superseded and completed by `tasks/todo-player-m2-runtime-v1.md`; runtime now uses approved M2 READY/MOVE/FIRE atlases

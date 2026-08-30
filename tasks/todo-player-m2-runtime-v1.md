@@ -13,4 +13,4 @@
 - [x] CAPTURE: inspect the actual 1280x720 combat result
 - [x] VERIFY: run Godot, Python, manifest, registry, and diff checks
 - [x] COMMIT: create focused local commits and send completion email
-- [ ] NEXT: create a separate Dasher movement-animation preview increment
+- [x] NEXT: Dasher A/B movement and attack animation increment completed and gameplay-approved
