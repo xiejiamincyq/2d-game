@@ -24,6 +24,18 @@ if (-not $releaseRoot.StartsWith($tempRoot, [System.StringComparison]::OrdinalIg
 $packPath = Join-Path $releaseRoot "five-minute-overdrive.pck"
 $logPath = Join-Path $releaseRoot "startup.log"
 $forbidden = "SCRIPT ERROR|ERROR:|ObjectDB instances were leaked|RID.+leaked|resources still in use"
+$maxPackBytes = 30MB
+$forbiddenExportEntries = @(
+    "res://assets/art/source/",
+    "res://assets/art/actors/player/action_slices/",
+    "res://assets/art/actors/player/direction_previews/",
+    "res://assets/art/actors/player/directions/",
+    "res://assets/art/actors/player/samples/",
+    "res://assets/art/actors/player/technical_previews/",
+    "res://assets/art/actors/player/turnaround_directions/",
+    "res://scripts/art/",
+    "res://scripts/tests/"
+)
 
 New-Item -ItemType Directory -Path $releaseRoot | Out-Null
 try {
@@ -33,6 +45,12 @@ try {
         if ($LASTEXITCODE -ne 0 -or -not (Test-Path -LiteralPath $packPath)) {
             throw "Windows PCK export failed:`n$($exportOutput -join [Environment]::NewLine)"
         }
+        $exportTranscript = $exportOutput -join [Environment]::NewLine
+        foreach ($forbiddenEntry in $forbiddenExportEntries) {
+            if ($exportTranscript.IndexOf($forbiddenEntry, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) {
+                throw "Windows PCK export included authoring-only content: $forbiddenEntry"
+            }
+        }
     }
     finally {
         Pop-Location
@@ -41,6 +59,9 @@ try {
     $packSize = (Get-Item -LiteralPath $packPath).Length
     if ($packSize -le 0) {
         throw "Windows PCK export produced an empty file."
+    }
+    if ($packSize -gt $maxPackBytes) {
+        throw ("Windows PCK {0:N0} bytes exceeds the {1:N0}-byte release budget." -f $packSize, $maxPackBytes)
     }
 
     $startInfo = [System.Diagnostics.ProcessStartInfo]::new()
