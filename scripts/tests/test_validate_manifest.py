@@ -34,6 +34,29 @@ class ManifestReviewStateTest(unittest.TestCase):
 
         self.assertTrue(any("review_state must be one of" in error for error in errors))
 
+    def test_source_larger_than_the_class_target_is_valid(self) -> None:
+        manifest = copy.deepcopy(self.manifest)
+        manifest["source_dimensions"] = {"width": 1536, "height": 1024}
+        manifest["aspect_ratio"] = "3:2"
+
+        self.assertEqual(VALIDATOR.validate(manifest), [])
+
+    def test_source_smaller_than_the_class_target_is_rejected(self) -> None:
+        manifest = copy.deepcopy(self.manifest)
+        manifest["source_dimensions"] = {"width": 512, "height": 512}
+        manifest["aspect_ratio"] = "1:1"
+
+        errors = VALIDATOR.validate(manifest)
+
+        self.assertTrue(any("at least 1024x1024" in error for error in errors))
+
+    def test_boss_uses_the_character_actor_contract(self) -> None:
+        manifest = copy.deepcopy(self.manifest)
+        manifest["asset_class"] = "boss"
+        manifest["runtime_path"] = "res://assets/art/actors/enemies/test_boss.png"
+
+        self.assertEqual(VALIDATOR.validate(manifest), [])
+
 
 if __name__ == "__main__":
     unittest.main()

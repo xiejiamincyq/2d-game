@@ -34,6 +34,7 @@ BATCHES = {"characters-combat", "environment", "ui"}
 ASSET_CONTRACTS: dict[str, tuple[str, str, tuple[int, int]]] = {
     "actor": ("characters-combat", "actors", (1024, 1024)),
     "enemy": ("characters-combat", "actors", (1024, 1024)),
+    "boss": ("characters-combat", "actors", (1024, 1024)),
     "effect": ("characters-combat", "effects", (1024, 1024)),
     "pickup": ("characters-combat", "pickups", (512, 512)),
     "background": ("environment", "environment", (2560, 1440)),
@@ -133,9 +134,9 @@ def validate(data: Any) -> list[str]:
                 data["source_dimensions"]["width"],
                 data["source_dimensions"]["height"],
             )
-            if actual_source != expected_source:
+            if actual_source[0] < expected_source[0] or actual_source[1] < expected_source[1]:
                 errors.append(
-                    f"source_dimensions must be {expected_source[0]}x{expected_source[1]} "
+                    f"source_dimensions must be at least {expected_source[0]}x{expected_source[1]} "
                     f"for asset_class {data['asset_class']}"
                 )
     if source_dimensions_valid:

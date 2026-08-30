@@ -17,11 +17,14 @@
 | `player_directional_atlas` | actor | 已否决的屏幕平面旋转 72 帧图集，仅作历史对照 | 1024×1024 母图 | 64×64/帧 | `res://assets/art/actors/player/player_directional_atlas.png` | draft |
 | `player_turnaround` | actor | 已否决的 120 帧投影混合转身，等待严格 45°方案替换 | 1024×1024/关键视角 | 64×64/帧 | `res://assets/art/actors/player/player_turnaround_atlas.png` | draft |
 | `player_weapon` | actor | 玩家武器设计母版；待同相机方向帧与 socket 重制 | 1024×1024 | 64×64 | `res://assets/art/actors/player/player_weapon.png` | draft |
-| `enemy_scrapper` | enemy | 标准追击敌人 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_scrapper.png` | planned |
-| `enemy_dasher_a` | enemy | 保留 A 设计身份；待 45°投影与运动动画重制 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_dasher_a.png` | draft |
-| `enemy_dasher_b` | enemy | 保留 B 设计身份；待 45°投影与运动动画重制 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_dasher_b.png` | draft |
-| `enemy_spitter` | enemy | 酸液远程敌人 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_spitter.png` | planned |
-| `enemy_bruiser` | enemy | 大型重装敌人 | 1024×1024 | 96×96 | `res://assets/art/actors/enemies/enemy_bruiser.png` | planned |
+| `enemy_scrapper` | enemy | 标准追击敌人单帧母版 | 1254×1254 | 128×128 | `res://assets/art/actors/enemies/enemy_scrapper.png` | gameplay-approved |
+| `enemy_dasher_a` | enemy | Dasher A 身份母版；生产运行时使用动作图集 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_dasher_a.png` | draft |
+| `enemy_dasher_b` | enemy | Dasher B 身份母版；生产运行时使用动作图集 | 1024×1024 | 64×64 | `res://assets/art/actors/enemies/enemy_dasher_b.png` | draft |
+| `enemy_spitter` | enemy | 酸液远程敌人单帧母版 | 1254×1254 | 128×128 | `res://assets/art/actors/enemies/enemy_spitter.png` | gameplay-approved |
+| `enemy_bruiser` | enemy | 大型重装敌人单帧母版 | 1254×1254 | 128×128 | `res://assets/art/actors/enemies/enemy_bruiser.png` | gameplay-approved |
+| `enemy_marksman` | enemy | 狙击手单帧母版 | 1536×1024 | 128×128 | `res://assets/art/actors/enemies/enemy_marksman.png` | gameplay-approved |
+| `enemy_lobber` | enemy | 投弹手单帧母版 | 1254×1254 | 128×128 | `res://assets/art/actors/enemies/enemy_lobber.png` | gameplay-approved |
+| `enemy_overseer` | enemy | Overseer 单帧母版 | 1254×1254 | 128×128 | `res://assets/art/actors/enemies/enemy_overseer.png` | gameplay-approved |
 | `drone_scrap` | actor | 玩家环绕无人机 | 1024×1024 | 32×32 | `res://assets/art/actors/drones/drone_scrap.png` | planned |
 | `projectile_player` | effect | 玩家橙色弹丸 | 1024×1024 | 16×16 | `res://assets/art/effects/projectiles/projectile_player.png` | planned |
 | `projectile_spitter` | effect | Spitter 酸液弹 | 1024×1024 | 20×20 | `res://assets/art/effects/projectiles/projectile_spitter.png` | planned |
@@ -29,20 +32,19 @@
 | `pickup_shield` | pickup | 护盾拾取物 | 512×512 | 28×28 | `res://assets/art/pickups/pickup_shield.png` | planned |
 | `hit_spark_basic` | effect | 基础命中火花 | 1024×1024 | 48×48 | `res://assets/art/effects/combat/hit_spark_basic.png` | planned |
 
-## 首次风格门
+## 当前生产运行资源
 
-- 固定内容：玩家、Scrapper、Bruiser、基础命中火花。
-- 固定布局：左上玩家、右上 Scrapper、左下 Bruiser、右下命中火花。
-- 固定镜头：俯视三分之四视角。
-- 固定色彩职责：友方青、敌方洋红、武器和命中橙；本轮不使用酸绿。
-- 预览方向：A 战术图形插画、B 废土手绘工业、C 微缩 PBR 模型。
-- 用户选择前，`player_base` 和预览集不得进入 `style-approved`。
+- 玩家：`player_m2_ready_120yaw.png`、`player_m2_move_120yaw.png`、`player_m2_fire_120yaw.png`。
+- Dasher：`enemy_dasher_a_actions_runtime_v1.png`、`enemy_dasher_b_actions_runtime_v1.png`。
+- 非 Dasher：上表六张 `gameplay-approved` 单帧母版。
+- 完整玩法与性能结论见 `docs/art/reviews/five-minute-overdrive-art-audit-2026-08-18.md`。
+- 所有生成素材的 `license_review_state` 仍为 `pending`；在来源和使用权审查完成前不得标为 `final`。
 
-## 恢复中的多视角与敌人朝向合同
+## 已锁定的多视角与敌人朝向合同
 
-- 2026-08-10 撤销“每 3° 一帧、共 120 帧”和“侧视枪械连续二维旋转”合同；它们不能继续作为生产验收标准。
+- 旧的单图屏幕旋转和投影混合 72/120 帧方案已经撤销，仅作历史对照，不进入正式包。
+- 当前 M2 方案重新以真实 3D 世界偏航烘焙 120 个方向，每 3°一帧；它与旧屏幕旋转方案不是同一技术路径。
 - 镜头固定为严格 45°俯视正交相机；角色始终直立，只绕世界竖轴改变朝向，帧 0 面向右方。
-- 玩家本体与枪械分层，但必须来自同一 rig、相机和方向合同，并为每个方向提供手部与枪口 socket、前后遮挡关系。
-- 新方向数在 16 向、24 向和实时 2.5D 三套技术预览中选择；用户选择前不批量生产正式帧。
-- 现有两套方向图集不得覆盖或删除，在替代方案接入前仅作为运行时临时兼容资源和历史对照，不得升高审批状态。
-- 普通敌人和 Bruiser 可暂时使用一套面向右方的动作并水平翻转，但至少需要移动循环、攻击前摇、受击和死亡反馈。
+- 玩家本体与枪械在源模型中保持独立对象，但运行图集来自同一 rig、相机和深度缓冲，禁止重新引入屏幕空间独立枪械旋转。
+- Dasher A/B 使用三帧移动和预备、突击、恢复动作，并根据玩家位置水平翻转。
+- 其他六类敌人当前批准范围为一张面向右方的正式母版并水平翻转；新增移动或攻击动画属于后续扩展。
