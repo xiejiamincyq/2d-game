@@ -62,6 +62,33 @@ func _initialize() -> void:
 	if not _assert_true(collision_count == first_descriptors.size(), "visual obstacles and collision bodies diverged"):
 		return
 
+	var route_obstacle: Dictionary = first_descriptors[0]
+	for descriptor in first_descriptors:
+		var center: Vector2 = Rect2(descriptor["rect"]).get_center()
+		if absf(center.x) < 900.0 and absf(center.y) < 500.0:
+			route_obstacle = descriptor
+			break
+	var route_rect: Rect2 = route_obstacle["rect"]
+	var route_position := route_rect.get_center() + Vector2(-route_rect.size.x * 0.5 - 110.0, 0.0)
+	var route_target := route_rect.get_center() + Vector2(route_rect.size.x * 0.5 + 110.0, 0.0)
+	var initial_direction: Vector2 = first.get_navigation_direction(route_position, route_target, 26.0)
+	if not _assert_true(initial_direction.length() > 0.9 and absf(initial_direction.y) > 0.1, "navigation pointed directly into a blocking obstacle"):
+		return
+	for step in range(40):
+		if route_position.distance_to(route_target) <= 72.0:
+			break
+		var direction: Vector2 = first.get_navigation_direction(route_position, route_target, 26.0)
+		route_position += direction * 48.0
+		if not _assert_true(first.is_position_walkable(route_position, 26.0), "navigation entered obstacle space on step %d" % step):
+			return
+	if not _assert_true(route_position.distance_to(route_target) <= 72.0, "navigation failed to route around an obstacle"):
+		return
+
+	var blocked_center := route_rect.get_center()
+	var resolved_spawn: Vector2 = first.resolve_spawn_position(blocked_center, 26.0)
+	if not _assert_true(resolved_spawn != blocked_center and first.is_position_walkable(resolved_spawn, 26.0), "blocked spawn was not moved to a safe position"):
+		return
+
 	var sweep := ArenaLayoutScript.new()
 	root.add_child(sweep)
 	for seed_value in range(32):
