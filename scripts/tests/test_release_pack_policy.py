@@ -34,6 +34,21 @@ class ReleasePackPolicyTest(unittest.TestCase):
         ):
             self.assertIn(forbidden_path, release_gate)
 
+    def test_windows_exe_gate_exports_and_launches_release(self) -> None:
+        windows_gate = (
+            PROJECT_ROOT / "scripts" / "tests" / "run_windows_exe_checks.ps1"
+        ).read_text(encoding="utf-8")
+
+        for marker in (
+            "$maxPackBytes = 30MB",
+            "--export-release",
+            "--quit-after",
+            "WaitForExit(60000)",
+            "SCRIPT ERROR",
+            "Remove-Item -LiteralPath",
+        ):
+            self.assertIn(marker, windows_gate)
+
 
 if __name__ == "__main__":
     unittest.main()
