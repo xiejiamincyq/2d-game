@@ -1,32 +1,38 @@
-# Neon Science-Fiction Style Guide
+# 2D Chibi Bio-Farm Style Guide
 
 ## Fixed Direction
 
-Create high-resolution illustrated assets for a dark cyber-wasteland viewed from a top-down or top-down three-quarter camera. Preserve clean outer silhouettes and concentrate detail inside large forms so artwork remains readable during dense combat at the 1280×720 base viewport.
+Create original, fully opaque 2D chibi assets for an abandoned bio-farm laboratory viewed from one fixed elevated oblique camera. Use compact toy-like proportions, rounded shapes, clean medium outlines, minimal texture, and large color blocks so artwork remains readable during dense combat at the 1280×720 base viewport.
+
+The selected direction is **B — 清爽玩具**. It may use the broad readability principles of compact arena-survival games, but it must not copy any existing character, costume, weapon, enemy, interface, or composition.
+
+The player body and firearm are separate layers. The firearm remains attached to explicit hand sockets and must never orbit freely around the body. Player body facing is represented by four cardinal views (front, back, left, right); horizontal aim variation is handled by the weapon layer within a limited, anatomically plausible range.
 
 ## Palette
 
-- Background black-blue: `#061019`
-- Primary cyan: `#33fff2`
-- Secondary magenta: `#f559bf`
-- Weapon and warning orange: `#ff571f`
-- Acid green: reserve for Spitter attacks, healing, or explicit toxic cues
+- Background/deep outline: `#123b3b`
+- Player teal: `#35b8ac`
+- Bio-farm mint: `#9bd7bd`
+- Warm cream: `#f3eddc`
+- Weapon and warning coral-orange: `#f27a4b`
+- Acid green: `#82cf45`, reserved for poison, hostile spores, healing, or explicit toxicity
 
 Do not give every asset all accent colors. Actors receive one dominant faction accent and one small functional accent. Backgrounds use lower saturation and contrast than actors, hazards, pickups, and HUD state.
 
 ## Lighting and Materials
 
-- Use controlled cyan rim light as the shared scene light.
-- Use magenta bounce light sparingly to separate planes.
-- Reserve warm orange emission for player weapons, warnings, and high-priority interaction cues.
-- Favor worn composite armor, oxidized metal, dark ceramic, smoked glass, exposed energy conduits, and dusty synthetic fabric.
-- Avoid glossy showroom cyberpunk, crowded signage, photorealistic street scenes, thin loose cables, and decorative highlights that resemble hit effects.
+- Use soft upper-left key light and one restrained cool lower-right shadow family.
+- Reserve coral-orange for player weapons, warnings, and high-priority interaction cues.
+- Favor painted farm-lab plastics, enamel panels, rounded tanks, rubber hoses, planter soil, greenhouse glass, and simplified bio-growth.
+- Avoid glossy 3D rendering, realistic materials, cyberpunk neon overload, thin loose cables, and decorative highlights that resemble hit effects.
 
 ## Source and Runtime Sizes
 
 | Asset | Source target | Runtime target | Background |
 |---|---:|---:|---|
-| Player or standard enemy master | 1024×1024 | 64×64 | Transparent |
+| Player cardinal body atlas | 2048×2048 | four 64×64 cells | Transparent |
+| Player weapon master | 1024×1024 | 64×64 bounding box | Transparent |
+| Standard enemy master | 1024×1024 | 64×64 | Transparent |
 | Bruiser or large enemy master | 1024×1024 | 96×96 | Transparent |
 | Pickup or projectile master | 512×512 | 24×24 to 48×48 | Transparent |
 | Combat effect master | 1024×1024 | Determined by gameplay radius | Transparent or overlay |
@@ -47,4 +53,4 @@ Do not begin the next batch until the current style-lock set is approved.
 
 ## Rejection Conditions
 
-Reject baked-in text, accidental borders, cropped anatomy, opaque halos around transparent assets, mixed camera angles, noisy silhouettes, unreadable faction colors, excessive bloom, background contrast that competes with hazards, and UI decoration that reduces label space.
+Reject baked-in text, accidental borders, cropped anatomy, semi-transparent bodies, opaque halos around transparent assets, mixed camera angles, fake 3D turntables, freely orbiting weapons, noisy silhouettes, unreadable faction colors, excessive bloom, background contrast that competes with hazards, and UI decoration that reduces label space.

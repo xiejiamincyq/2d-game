@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "asset_id": "enemy_scrapper_chibi_b",
+  "batch": "characters-combat",
+  "asset_class": "enemy",
+  "purpose": "B 清爽玩具方向的单帧小型生化农场杂兵。",
+  "runtime_path": "res://assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 128, "height": 128},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "fixed elevated oblique 2D view",
+  "facing": "single right-facing master; flip horizontally toward player",
+  "palette": ["#123b3b", "#9bd7bd", "#f3eddc", "#f27a4b", "#82cf45"],
+  "lighting": "soft upper-left key with restrained toxic accent",
+  "prompt": "Original small chibi mutated root vegetable pest from an abandoned bio-farm lab, right-facing, round low body, two stubby feet, one leaf sprout, one tiny orange lab tag, clean toy-like 2D shapes, medium dark-teal outline, minimal texture, fully opaque subject, transparent background, no text or border.",
+  "negative_constraints": ["no copied game enemy", "no 3D render", "no semi-transparent body", "no extra limbs", "no scenery", "no text", "no border", "no cast shadow"],
+  "references": [{"path": "docs/art/reviews/characters-combat-style-lock-b-chibi-v1.md", "role": "user-approved B style contract"}],
+  "generation_model": "imagegen built-in",
+  "license_review_state": "pending",
+  "review_state": "style-approved"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "asset_id": "combat_hit",
+  "batch": "characters-combat",
+  "asset_class": "effect",
+  "purpose": "B 清爽玩具方向的基础命中闪光。",
+  "runtime_path": "res://assets/art/effects/combat_hit_chibi_b_v1.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 96, "height": 96},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "front-facing overlay",
+  "facing": "radial centered effect",
+  "palette": ["#f3eddc", "#f27a4b", "#123b3b"],
+  "lighting": "flat high-contrast emission with no opaque smoke",
+  "prompt": "Original 2D chibi impact burst for an arena shooter, compact eight-point cream star with coral-orange outer shards and a tiny dark-teal center, crisp rounded graphic shapes, transparent background, no smoke, text, border or particles outside the safe margin.",
+  "negative_constraints": ["no 3D render", "no opaque smoke", "no large glow haze", "no text", "no border", "no scenery", "no cropped shards"],
+  "references": [{"path": "docs/art/reviews/characters-combat-style-lock-b-chibi-v1.md", "role": "user-approved B style contract"}],
+  "generation_model": "imagegen built-in",
+  "license_review_state": "pending",
+  "review_state": "style-approved"
+}

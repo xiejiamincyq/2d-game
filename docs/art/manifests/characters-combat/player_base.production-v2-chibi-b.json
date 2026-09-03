@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "asset_id": "player_chibi_b_cardinal",
+  "batch": "characters-combat",
+  "asset_class": "actor",
+  "purpose": "B 清爽玩具方向的玩家四向纯 2D 身体图集，与枪械分层。",
+  "runtime_path": "res://assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+  "source_dimensions": {"width": 2048, "height": 2048},
+  "runtime_target": {"width": 128, "height": 128},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "fixed elevated oblique 2D view",
+  "facing": "2x2 cardinal atlas ordered front, back, left, right",
+  "palette": ["#123b3b", "#35b8ac", "#9bd7bd", "#f3eddc", "#f27a4b"],
+  "lighting": "soft upper-left key with restrained cool lower-right shadow",
+  "prompt": "Original 2D chibi bio-farm laboratory survivor, clean rounded toy-like shapes, medium dark-teal outline, minimal texture, fully opaque body, compact readable silhouette, four consistent cardinal views in a precise 2x2 atlas ordered front back left right, empty hands posed for a separate two-hand weapon layer, transparent background, no text or border.",
+  "negative_constraints": ["no weapon", "no 3D render", "no semi-transparent body", "no rotating turntable", "no copied game character", "no text", "no border", "no cast shadow", "no cropped anatomy"],
+  "references": [{"path": "docs/art/reviews/characters-combat-style-lock-b-chibi-v1.md", "role": "user-approved B style contract"}, {"id": 23749, "title": "Character Sheet Design Prompt", "role": "layout consistency reference only", "sample": "https://cms-assets.youmind.com/media/1780474216535_deoonb_HJzouNEXMAAzDtQ.jpg"}],
+  "generation_model": "imagegen built-in",
+  "license_review_state": "pending",
+  "review_state": "style-approved"
+}
