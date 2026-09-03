@@ -88,6 +88,10 @@ func _initialize() -> void:
 	var resolved_spawn: Vector2 = first.resolve_spawn_position(blocked_center, 26.0)
 	if not _assert_true(resolved_spawn != blocked_center and first.is_position_walkable(resolved_spawn, 26.0), "blocked spawn was not moved to a safe position"):
 		return
+	var avoidance_start := route_rect.get_center() + Vector2(-route_rect.size.x * 0.5 - 48.0, 0.0)
+	var avoidance_direction: Vector2 = first.get_avoidance_direction(avoidance_start, Vector2.RIGHT, 26.0)
+	if not _assert_true(avoidance_direction.length() > 0.9 and absf(avoidance_direction.y) > 0.1, "local avoidance kept steering into a nearby obstacle"):
+		return
 
 	var sweep := ArenaLayoutScript.new()
 	root.add_child(sweep)

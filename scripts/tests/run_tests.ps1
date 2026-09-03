@@ -37,6 +37,7 @@ $tests = @(
     "DashTest",
     "MovementTest",
 	"ArenaMapTest",
+	"ArenaRuntimeTest",
     "PlayerM2RuntimeAnimationTest",
     "PlayerCardinalPreviewTest",
     "PlayerTurnaroundModelTest",

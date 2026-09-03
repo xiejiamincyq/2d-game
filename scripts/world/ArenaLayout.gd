@@ -115,6 +115,17 @@ func get_navigation_direction(from: Vector2, target: Vector2, radius: float = RO
 		return Vector2.ZERO
 	return (_cell_to_world(best) - from).normalized()
 
+func get_avoidance_direction(from: Vector2, desired: Vector2, radius: float = ROUTE_RADIUS) -> Vector2:
+	if desired == Vector2.ZERO:
+		return Vector2.ZERO
+	var forward := desired.normalized()
+	var lookahead := radius + 72.0
+	for angle in [0.0, PI * 0.25, -PI * 0.25, PI * 0.5, -PI * 0.5, PI]:
+		var candidate := forward.rotated(angle)
+		if _direction_is_clear(from, candidate, lookahead, radius):
+			return candidate
+	return Vector2.ZERO
+
 func is_reachable(from: Vector2, target: Vector2, radius: float = ROUTE_RADIUS) -> bool:
 	var start := _world_to_cell(from)
 	var goal := _world_to_cell(target)
@@ -207,6 +218,12 @@ func _build_flow_field(goal: Vector2i, radius: float) -> Dictionary:
 			distances[next] = next_distance
 			frontier.append(next)
 	return distances
+
+func _direction_is_clear(from: Vector2, direction: Vector2, distance: float, radius: float) -> bool:
+	for fraction in [0.35, 0.7, 1.0]:
+		if not is_position_walkable(from + direction * distance * fraction, radius):
+			return false
+	return true
 
 func _world_to_cell(point: Vector2) -> Vector2i:
 	return Vector2i(

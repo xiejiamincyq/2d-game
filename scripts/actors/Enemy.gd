@@ -100,6 +100,7 @@ var burn_status: RefCounted = BurnStatusScript.new()
 var hidden_dispersion_direction := Vector2.ZERO
 var hidden_dispersion_timer := 0.0
 var neighbor_provider: Callable
+var arena_navigation: Node
 var dasher_variant_index: int = 0
 var dasher_visual: Sprite2D
 var dasher_flash_material: ShaderMaterial
@@ -257,6 +258,7 @@ func _physics_process(delta: float) -> void:
 			queue_redraw()
 			return
 		desired = _get_melee_desired_velocity(to_player)
+	desired = _apply_arena_navigation(desired, player.global_position)
 	velocity = desired * get_effective_move_speed()
 	move_and_slide()
 	_clamp_to_world_bounds()
@@ -294,6 +296,7 @@ func _update_hidden_target_dispersion(delta: float) -> void:
 	if hidden_dispersion_timer <= 0.0 or hidden_dispersion_direction == Vector2.ZERO:
 		hidden_dispersion_direction = Vector2.RIGHT.rotated(randf() * TAU)
 		hidden_dispersion_timer = randf_range(0.7, 1.35)
+	hidden_dispersion_direction = _apply_local_avoidance(hidden_dispersion_direction)
 	velocity = hidden_dispersion_direction * get_effective_move_speed() * HIDDEN_DISPERSAL_SPEED_SCALE
 	move_and_slide()
 	_clamp_to_world_bounds()
@@ -303,6 +306,26 @@ func get_effective_move_speed() -> float:
 
 func set_neighbor_provider(provider: Callable) -> void:
 	neighbor_provider = provider
+
+func set_arena_navigation(navigation: Node) -> void:
+	arena_navigation = navigation
+
+func _apply_arena_navigation(desired: Vector2, player_position: Vector2) -> Vector2:
+	if desired == Vector2.ZERO or arena_navigation == null or not arena_navigation.has_method("get_navigation_direction"):
+		return desired
+	if is_ranged_kind():
+		return _apply_local_avoidance(desired)
+	var navigation_target := player_position
+	var navigation_direction: Vector2 = arena_navigation.get_navigation_direction(global_position, navigation_target, body_radius)
+	if navigation_direction == Vector2.ZERO:
+		return desired
+	return (navigation_direction * 0.86 + desired * 0.14).normalized()
+
+func _apply_local_avoidance(desired: Vector2) -> Vector2:
+	if desired == Vector2.ZERO or arena_navigation == null or not arena_navigation.has_method("get_avoidance_direction"):
+		return desired
+	var avoidance_direction: Vector2 = arena_navigation.get_avoidance_direction(global_position, desired, body_radius)
+	return avoidance_direction if avoidance_direction != Vector2.ZERO else desired
 
 func _get_melee_desired_velocity(to_player: Vector2) -> Vector2:
 	var distance := to_player.length()

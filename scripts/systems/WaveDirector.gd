@@ -51,6 +51,7 @@ const SHIELD_DROP_CHANCE := 0.70
 var enemy_parent: Node
 var projectile_parent: Node
 var portal_parent: Node
+var arena_navigation: Node
 var player: Node
 var wave_index: int = -1
 var spawn_queue: Array[int] = []
@@ -89,11 +90,12 @@ var waves: Array[Dictionary] = [
 func _ready() -> void:
 	spawn_rng.randomize()
 
-func setup(target_player: Node, enemies: Node, projectiles: Node, portals: Node = null, prepare_initial: bool = true) -> void:
+func setup(target_player: Node, enemies: Node, projectiles: Node, portals: Node = null, prepare_initial: bool = true, navigation: Node = null) -> void:
 	player = target_player
 	enemy_parent = enemies
 	projectile_parent = projectiles
 	portal_parent = portals if portals != null else enemies
+	arena_navigation = navigation
 	if prepare_initial:
 		prepare_next_wave()
 
@@ -233,6 +235,7 @@ func _open_portals_for_queues(queues: Array[Array]) -> void:
 			continue
 		var portal: Node = SpawnPortalScript.new()
 		var portal_position := sample_portal_position_avoiding(player.global_position, spawn_rng, occupied_positions)
+		portal_position = resolve_arena_spawn_position(portal_position, 48.0)
 		portal.set_process(false)
 		var burst_duration := float(queues[index].size()) * PORTAL_SPAWN_INTERVAL
 		portal_parent.add_child(portal)
@@ -354,7 +357,8 @@ func _begin_boss_entrance() -> bool:
 	portal.z_index = 4
 	portal.set_process(false)
 	portal_parent.add_child(portal)
-	portal.configure(sample_portal_position(player.global_position, spawn_rng), BOSS_PORTAL_WARNING_SECONDS, BOSS_PORTAL_BURST_SECONDS)
+	var boss_portal_position := resolve_arena_spawn_position(sample_portal_position(player.global_position, spawn_rng), 64.0)
+	portal.configure(boss_portal_position, BOSS_PORTAL_WARNING_SECONDS, BOSS_PORTAL_BURST_SECONDS)
 	portal.burst_started.connect(_on_boss_portal_burst, CONNECT_ONE_SHOT)
 	portal.closed.connect(_on_boss_portal_closed, CONNECT_ONE_SHOT)
 	boss_portal = portal
@@ -380,14 +384,18 @@ func _spawn_boss_at(position: Vector2) -> Node:
 	var boss: Node = OverseerBossScript.new()
 	boss.world_bounds = world_bounds
 	boss.setup(wave_index + 1, projectile_parent, player as Node2D)
+	if boss.has_method("set_arena_navigation"):
+		boss.set_arena_navigation(arena_navigation)
 	boss.died.connect(_on_boss_died)
 	boss.damage_resolved.connect(_forward_damage_resolved)
 	boss.reinforcements_requested.connect(_on_boss_reinforcements_requested)
 	boss.combat_cue.connect(func(cue: StringName) -> void: boss_cue.emit(cue))
 	boss.tree_exiting.connect(_on_boss_tree_exiting.bind(boss), CONNECT_ONE_SHOT)
-	enemy_parent.add_child(boss)
 	var spawn_bounds := world_bounds.grow(-float(boss.body_radius)) if world_bounds.size != Vector2.ZERO else Rect2()
-	boss.global_position = position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2(0.001, 0.001)) if spawn_bounds.size != Vector2.ZERO else position
+	var boss_spawn := position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2(0.001, 0.001)) if spawn_bounds.size != Vector2.ZERO else position
+	boss_spawn = resolve_arena_spawn_position(boss_spawn, float(boss.body_radius))
+	boss.position = enemy_parent.to_local(boss_spawn)
+	enemy_parent.add_child(boss)
 	boss.velocity = Vector2.ZERO
 	active_boss = boss
 	boss_trickle_timer = BOSS_TRICKLE_INTERVAL
@@ -508,12 +516,14 @@ func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = 
 	if world_bounds.size != Vector2.ZERO:
 		enemy.world_bounds = world_bounds
 	enemy.setup(kind, wave_index + 1, projectile_parent, player as Node2D)
+	enemy.set_arena_navigation(arena_navigation)
 	var spawn_bounds := world_bounds.grow(-enemy.body_radius) if world_bounds.size != Vector2.ZERO else Rect2()
 	var spawn_position := position
 	if disperse_from_portal:
 		spawn_position = position
 	elif spawn_bounds.size != Vector2.ZERO:
 		spawn_position = position.clamp(spawn_bounds.position, spawn_bounds.end - Vector2(0.001, 0.001))
+	spawn_position = resolve_arena_spawn_position(spawn_position, enemy.body_radius)
 	# CharacterBody2D must enter the physics tree at its final spawn position.
 	# Moving it from the parent origin after add_child can resolve a transient
 	# overlap against the player and appear to teleport the player to the portal.
@@ -587,6 +597,11 @@ func sample_clear_portal_enemy_position(portal_position: Vector2, body_radius: f
 				best_clearance = clearance
 				best_position = candidate
 	return best_position
+
+func resolve_arena_spawn_position(position: Vector2, radius: float) -> Vector2:
+	if arena_navigation != null and arena_navigation.has_method("resolve_spawn_position"):
+		return arena_navigation.resolve_spawn_position(position, radius)
+	return position
 
 func _get_enemy_spawn_clearance(candidate: Vector2, body_radius: float) -> float:
 	var clearance := INF

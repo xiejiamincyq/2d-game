@@ -10,6 +10,7 @@ const ShieldPickupScript = preload("res://scripts/pickups/ShieldPickup.gd")
 const HeartPickupScript = preload("res://scripts/pickups/HeartPickup.gd")
 const AudioManagerScript = preload("res://scripts/systems/AudioManager.gd")
 const WorldBoundaryScript = preload("res://scripts/world/WorldBoundary.gd")
+const ArenaLayoutScript = preload("res://scripts/world/ArenaLayout.gd")
 const CombatFeedbackScript = preload("res://scripts/systems/CombatFeedback.gd")
 const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
 const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
@@ -38,6 +39,8 @@ var audio: Node
 var combat_feedback: Node
 var combat_vfx: Node2D
 var camera_effects: Node
+var arena_layout: Node
+var map_seed: int = 0
 var game_over: bool = false
 var run_started: bool = false
 var manual_paused: bool = false
@@ -161,6 +164,10 @@ func _draw_floor() -> void:
 	floor.process_mode = Node.PROCESS_MODE_PAUSABLE
 	floor.set_script(load("res://scripts/world/FloorGrid.gd"))
 	world.add_child(floor)
+	arena_layout = ArenaLayoutScript.new()
+	arena_layout.name = "ArenaLayout"
+	arena_layout.process_mode = Node.PROCESS_MODE_PAUSABLE
+	world.add_child(arena_layout)
 	var boundary := WorldBoundaryScript.new()
 	boundary.name = "WorldBoundary"
 	boundary.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -191,6 +198,8 @@ func _begin_run(snapshot: Dictionary) -> void:
 	elapsed_seconds = float(snapshot.get("elapsed_seconds", 0.0))
 	shield_drop_timer = 4.0
 	game_over = false
+	map_seed = int(snapshot.get("map_seed", randi()))
+	arena_layout.generate(WORLD_BOUNDS, map_seed)
 	ui.set_continue_available(false)
 	audio.play("start")
 	audio.play_bgm()
@@ -286,7 +295,7 @@ func _begin_run(snapshot: Dictionary) -> void:
 	wave_director.enemy_killed.connect(_on_enemy_killed)
 	wave_director.damage_resolved.connect(combat_feedback.on_damage_resolved)
 	wave_director.victory.connect(_on_victory)
-	wave_director.setup(player, enemies, projectiles, portals, false)
+	wave_director.setup(player, enemies, projectiles, portals, false, arena_layout)
 	player.set_enemy_provider(wave_director.get_active_enemies)
 	ui.set_health(player.health.current_health, player.health.max_health)
 	ui.set_shield(player.shield, player.max_shield)
@@ -455,6 +464,7 @@ func _save_stable_snapshot(boundary: String, pending_stage: int) -> bool:
 		"player": player.get_snapshot_state(),
 		"kills": kill_count,
 		"elapsed_seconds": elapsed_seconds,
+		"map_seed": map_seed,
 	}
 	return snapshot_store.save_snapshot(snapshot)
 

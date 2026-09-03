@@ -44,6 +44,7 @@ var health: Node
 var projectile_parent: Node
 var target_player: Node2D
 var world_bounds := Rect2()
+var arena_navigation: Node
 var flash_timer := 0.0
 var death_resolved := false
 var tentacle_attack: Node
@@ -149,17 +150,34 @@ func get_combat_movement_direction(player: Node2D) -> Vector2:
 		var return_target := global_position.clamp(safe_rect.position, safe_rect.end - Vector2(0.001, 0.001))
 		if return_target.distance_squared_to(global_position) <= 0.001:
 			return_target = safe_rect.get_center()
-		return (return_target - global_position).normalized()
+		return _apply_arena_navigation((return_target - global_position).normalized(), return_target)
 	var to_player := player.global_position - global_position
 	var distance := to_player.length()
 	if distance <= 0.01:
 		return Vector2.RIGHT
 	var toward_player := to_player / distance
 	if distance < KEEP_DISTANCE_MIN:
-		return -toward_player
+		return _apply_arena_navigation(-toward_player, global_position - toward_player * 240.0, false)
 	if distance > KEEP_DISTANCE_MAX:
-		return toward_player
-	return toward_player.orthogonal() * 0.35
+		return _apply_arena_navigation(toward_player, player.global_position)
+	var orbit := toward_player.orthogonal() * 0.35
+	return _apply_arena_navigation(orbit, global_position + orbit.normalized() * 240.0, false)
+
+func set_arena_navigation(navigation: Node) -> void:
+	arena_navigation = navigation
+
+func _apply_arena_navigation(desired: Vector2, target: Vector2, use_flow_field: bool = true) -> Vector2:
+	if desired == Vector2.ZERO or arena_navigation == null or not arena_navigation.has_method("get_navigation_direction"):
+		return desired
+	var navigation_direction: Vector2
+	if use_flow_field:
+		navigation_direction = arena_navigation.get_navigation_direction(global_position, target, body_radius)
+	elif arena_navigation.has_method("get_avoidance_direction"):
+		navigation_direction = arena_navigation.get_avoidance_direction(global_position, desired, body_radius)
+	if navigation_direction == Vector2.ZERO:
+		return desired
+	var magnitude := desired.length()
+	return (navigation_direction * 0.78 + desired.normalized() * 0.22).normalized() * magnitude
 
 func get_combat_safe_rect() -> Rect2:
 	var viewport := get_viewport()
