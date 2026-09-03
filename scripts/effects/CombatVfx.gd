@@ -6,6 +6,7 @@ const DEBRIS: StringName = &"debris"
 const RING: StringName = &"ring"
 const AFTERIMAGE: StringName = &"afterimage"
 const BLAST: StringName = &"blast"
+const HIT_TEXTURE := preload("res://assets/art/effects/combat_hit_chibi_b_v1.png")
 
 const MAX_SPARKS: int = 96
 const MAX_DEBRIS: int = 48
@@ -151,7 +152,9 @@ func _draw() -> void:
 		var spark_ratio: float = _life_ratio(record)
 		var velocity: Vector2 = record["velocity"]
 		var tail: Vector2 = velocity.normalized() * float(record["size"])
-		draw_line(record["position"], record["position"] - tail, Color(ORANGE, spark_ratio * 0.85), 4.0)
+		var burst_size := float(record["size"]) * 4.2
+		var burst_rect := Rect2(Vector2(record["position"]) - Vector2.ONE * burst_size * 0.5, Vector2.ONE * burst_size)
+		draw_texture_rect(HIT_TEXTURE, burst_rect, false, Color(1.0, 1.0, 1.0, spark_ratio))
 		draw_line(record["position"], record["position"] - tail * 0.72, Color(1.0, 0.92, 0.72, spark_ratio), 1.5)
 
 func clear_all() -> void:

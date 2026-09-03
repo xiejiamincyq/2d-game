@@ -32,8 +32,7 @@ try {
     }
 
     $gates = @(
-        @{ Script = "RenderPlayerOverdriveRuntimePreview.gd"; Marker = "RENDER PASS: Player overdrive runtime preview" },
-        @{ Script = "RenderPlayerActionCombatPreview.gd"; Marker = "RENDER PASS: Player M2 runtime combat preview" },
+        @{ Script = "RenderChibiRuntimePreview.gd"; Marker = "RENDER PASS: Chibi B runtime preview" },
         @{ Script = "RenderDasherActionRuntimePreview.gd"; Marker = "RENDER PASS: Dasher action runtime preview" },
         @{ Script = "RenderStaticEnemyRuntimePreview.gd"; Marker = "RENDER PASS: Static enemy runtime preview" },
         @{ Script = "RenderCombatVfxRuntimePreview.gd"; Marker = "RENDER PASS: Combat VFX runtime preview" },

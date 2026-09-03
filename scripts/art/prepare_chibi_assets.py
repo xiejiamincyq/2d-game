@@ -96,6 +96,44 @@ def prepare_cardinal_atlas(
     return output
 
 
+def prepare_weapon_cardinal_atlas(
+    image: Image.Image,
+    cell_size: int = 128,
+    padding: int = 8,
+    depth_scale: float = 0.58,
+) -> Image.Image:
+    """Derive four held-weapon views from one right-facing master.
+
+    Front/back use a shortened long axis so the gun reads as foreshortened
+    instead of rotating like a full-length billboard across the character.
+    """
+    if not 0.25 <= depth_scale <= 1.0:
+        raise ValueError("depth scale must stay between 0.25 and 1.0")
+    right = prepare_single_sprite(image, cell_size, padding)
+    left = right.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+
+    def foreshorten(transpose: Image.Transpose) -> Image.Image:
+        rotated = right.transpose(transpose)
+        subject = _visible_subject(rotated)
+        shortened = subject.resize(
+            (subject.width, max(1, round(subject.height * depth_scale))),
+            Image.Resampling.LANCZOS,
+        )
+        cell = Image.new("RGBA", (cell_size, cell_size), (0, 0, 0, 0))
+        cell.alpha_composite(
+            shortened,
+            ((cell_size - shortened.width) // 2, (cell_size - shortened.height) // 2),
+        )
+        return cell
+
+    front = foreshorten(Image.Transpose.ROTATE_270)
+    back = foreshorten(Image.Transpose.ROTATE_90)
+    output = Image.new("RGBA", (cell_size * 2, cell_size * 2), (0, 0, 0, 0))
+    for index, cell in enumerate((front, back, left, right)):
+        output.alpha_composite(cell, ((index % 2) * cell_size, (index // 2) * cell_size))
+    return output
+
+
 def _validate_cell(alpha: Image.Image, canvas_size: int, safe_padding: int) -> None:
     bbox = alpha.getbbox()
     if bbox is None:
@@ -138,7 +176,7 @@ def validate_cardinal_atlas(image: Image.Image, cell_size: int = 128, safe_paddi
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=("single", "cardinal"))
+    parser.add_argument("mode", choices=("single", "cardinal", "weapon-cardinal"))
     parser.add_argument("input", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--cell-size", type=int, default=128)
@@ -151,6 +189,9 @@ def main() -> int:
     with Image.open(args.input) as source:
         if args.mode == "cardinal":
             result = prepare_cardinal_atlas(source, args.cell_size, args.padding)
+            validate_cardinal_atlas(result, args.cell_size, args.padding)
+        elif args.mode == "weapon-cardinal":
+            result = prepare_weapon_cardinal_atlas(source, args.cell_size, args.padding)
             validate_cardinal_atlas(result, args.cell_size, args.padding)
         else:
             result = prepare_single_sprite(source, args.cell_size, args.padding)

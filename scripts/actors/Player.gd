@@ -55,19 +55,15 @@ const BASE_MOVE_SPEED := 235.0
 const ENTRANCE_FALL_SECONDS := 0.72
 const ENTRANCE_SMOKE_SECONDS := 0.38
 const ENTRANCE_MIN_FALL_HEIGHT := 280.0
-const PLAYER_READY_ATLAS_PATH := "res://assets/art/actors/player/player_m2_ready_120yaw.png"
-const PLAYER_MOVE_ATLAS_PATH := "res://assets/art/actors/player/player_m2_move_120yaw.png"
-const PLAYER_FIRE_ATLAS_PATH := "res://assets/art/actors/player/player_m2_fire_120yaw.png"
-const VISUAL_ACTION_FPS := {"move": 10.0, "fire": 12.0}
-const VISUAL_ACTION_FRAME_COUNT := 6
-const VISUAL_MIN_PLAYBACK_RATE := 0.75
-const VISUAL_MAX_PLAYBACK_RATE := 1.5
-
-const DIRECTION_FRAME_COUNT := 120
-const DIRECTION_STEP_DEGREES := 3.0
-const DIRECTION_ATLAS_COLUMNS := 20
-const DIRECTION_ATLAS_ROWS := 6
-const DIRECTION_FRAME_SIZE := Vector2(64.0, 64.0)
+const PLAYER_CARDINAL_ATLAS_PATH := "res://assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png"
+const PLAYER_WEAPON_PATH := "res://assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png"
+const CHIBI_CARDINAL_CELL_SIZE := Vector2(128.0, 128.0)
+const CHIBI_BODY_DRAW_SIZE := Vector2(84.0, 84.0)
+const CHIBI_WEAPON_DRAW_SIZE := Vector2(72.0, 72.0)
+const CHIBI_FRONT := 0
+const CHIBI_BACK := 1
+const CHIBI_LEFT := 2
+const CHIBI_RIGHT := 3
 
 var move_speed: float = BASE_MOVE_SPEED
 var pickup_radius: float = 92.0
@@ -141,10 +137,8 @@ var entrance_visual_offset := 0.0
 var entrance_fall_height := ENTRANCE_MIN_FALL_HEIGHT
 var normal_collision_layer: int = 1
 var normal_collision_mask: int = 1
-var player_ready_atlas: Texture2D
-var player_move_atlas: Texture2D
-var player_fire_atlas: Texture2D
-var visual_current_action: String = "ready"
+var player_body_texture: Texture2D
+var player_weapon_texture: Texture2D
 var visual_elapsed: float = 0.0
 var visual_fire_timer: float = 0.0
 var visual_hit_timer: float = 0.0
@@ -154,9 +148,8 @@ func _ready() -> void:
 	normal_collision_layer = collision_layer
 	normal_collision_mask = collision_mask
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-	player_ready_atlas = _load_png_texture(PLAYER_READY_ATLAS_PATH)
-	player_move_atlas = _load_png_texture(PLAYER_MOVE_ATLAS_PATH)
-	player_fire_atlas = _load_png_texture(PLAYER_FIRE_ATLAS_PATH)
+	player_body_texture = _load_png_texture(PLAYER_CARDINAL_ATLAS_PATH)
+	player_weapon_texture = _load_png_texture(PLAYER_WEAPON_PATH)
 	player_collision = CollisionShape2D.new()
 	player_collision.name = "PlayerCollision"
 	var circle := CircleShape2D.new()
@@ -261,8 +254,8 @@ func get_effective_dash_cooldown() -> float:
 	return dash_cooldown * (OVERDRIVE_DASH_COOLDOWN_MULTIPLIER if overdrive_active else 1.0)
 
 func _draw() -> void:
-	var scaled_frame_size := DIRECTION_FRAME_SIZE * PLAYER_SIZE_SCALE
-	var visual_center := Vector2(0.0, entrance_visual_offset)
+	var movement_bob := absf(sin(visual_elapsed * 10.0)) * 1.6 if velocity.length_squared() > 1.0 else 0.0
+	var visual_center := Vector2(0.0, entrance_visual_offset - movement_bob)
 	if overdrive_active:
 		var pulse := 0.5 + 0.5 * sin(visual_elapsed * 8.0)
 		if velocity.length_squared() > 1.0:
@@ -277,14 +270,15 @@ func _draw() -> void:
 		draw_circle(visual_center, BODY_RADIUS + 7.0 + pulse * 2.0, Color(0.71, 0.36, 1.0, 0.10))
 		draw_arc(visual_center, BODY_RADIUS + 8.0 + pulse * 3.0, 0.0, TAU, 32, Color(0.71, 0.36, 1.0, 0.72), 2.0)
 		draw_arc(visual_center, BODY_RADIUS + 12.0 - pulse * 2.0, -PI * 0.35, PI * 0.65, 20, Color(0.20, 1.0, 0.95, 0.82), 2.0)
-	var destination := Rect2(
-		-scaled_frame_size * 0.5 + visual_center,
-		scaled_frame_size
-	)
-	var action_frame := visual_action_frame(visual_current_action, visual_elapsed)
-	var source := direction_frame_rect(direction_frame_index(gun_angle), action_frame)
+	var cardinal_index := chibi_cardinal_index(gun_angle)
+	var destination := Rect2(-CHIBI_BODY_DRAW_SIZE * 0.5 + visual_center, CHIBI_BODY_DRAW_SIZE)
+	var source := chibi_cardinal_rect(cardinal_index)
 	var tint := Color(1.0, 0.62, 0.62) if visual_hit_timer > 0.0 else Color.WHITE
-	draw_texture_rect_region(visual_texture_for_action(visual_current_action), destination, source, tint)
+	if cardinal_index == CHIBI_BACK:
+		_draw_chibi_weapon(visual_center, cardinal_index, tint)
+	draw_texture_rect_region(player_body_texture, destination, source, tint)
+	if cardinal_index != CHIBI_BACK:
+		_draw_chibi_weapon(visual_center, cardinal_index, tint)
 	if entrance_elapsed >= ENTRANCE_FALL_SECONDS and entrance_elapsed < get_entrance_duration():
 		_draw_landing_smoke((entrance_elapsed - ENTRANCE_FALL_SECONDS) / ENTRANCE_SMOKE_SECONDS)
 	if dash_active:
@@ -312,72 +306,42 @@ func _draw_landing_smoke(progress: float) -> void:
 		var radius := lerpf(7.0, 15.0, resolved) - lane * 0.6
 		draw_circle(center, maxf(3.0, radius), Color(0.35, 0.42, 0.52, alpha * 0.42))
 
-func direction_frame_index(angle_radians: float) -> int:
-	var raw_index := roundi(rad_to_deg(angle_radians) / DIRECTION_STEP_DEGREES)
-	return ((raw_index % DIRECTION_FRAME_COUNT) + DIRECTION_FRAME_COUNT) % DIRECTION_FRAME_COUNT
+func chibi_cardinal_index(angle_radians: float) -> int:
+	var direction := Vector2.RIGHT.rotated(angle_radians)
+	if absf(direction.x) >= absf(direction.y):
+		return CHIBI_RIGHT if direction.x >= 0.0 else CHIBI_LEFT
+	return CHIBI_FRONT if direction.y >= 0.0 else CHIBI_BACK
 
-func direction_frame_rect(frame_index: int, action_frame: int = 0) -> Rect2:
-	var normalized := ((frame_index % DIRECTION_FRAME_COUNT) + DIRECTION_FRAME_COUNT) % DIRECTION_FRAME_COUNT
-	var column := normalized % DIRECTION_ATLAS_COLUMNS
-	var yaw_row := floori(float(normalized) / float(DIRECTION_ATLAS_COLUMNS))
-	var row := posmod(action_frame, VISUAL_ACTION_FRAME_COUNT) * DIRECTION_ATLAS_ROWS + yaw_row
-	return Rect2(
-		Vector2(column, row) * DIRECTION_FRAME_SIZE,
-		DIRECTION_FRAME_SIZE
-	)
+func chibi_cardinal_rect(cardinal_index: int) -> Rect2:
+	var normalized := posmod(cardinal_index, 4)
+	var column := normalized % 2
+	var row := normalized / 2
+	return Rect2(Vector2(column, row) * CHIBI_CARDINAL_CELL_SIZE, CHIBI_CARDINAL_CELL_SIZE)
 
-static func resolve_visual_action(moving: bool, firing: bool, dashing: bool) -> String:
-	if dashing:
-		return "ready"
-	if firing:
-		return "fire"
-	if moving:
-		return "move"
-	return "ready"
+func chibi_weapon_rect(cardinal_index: int) -> Rect2:
+	return chibi_cardinal_rect(cardinal_index)
 
-static func visual_action_frame(action: String, time_seconds: float) -> int:
-	if action == "ready":
-		return 0
-	var fps: float = VISUAL_ACTION_FPS.get(action, 1.0)
-	return posmod(floori(maxf(time_seconds, 0.0) * fps), VISUAL_ACTION_FRAME_COUNT)
+func chibi_weapon_offset(cardinal_index: int) -> Vector2:
+	match posmod(cardinal_index, 4):
+		CHIBI_FRONT:
+			return Vector2(0.0, 18.0)
+		CHIBI_BACK:
+			return Vector2(0.0, -14.0)
+		CHIBI_LEFT:
+			return Vector2(-14.0, 4.0)
+		_:
+			return Vector2(14.0, 4.0)
 
-static func visual_playback_rate(
-	action: String,
-	movement_speed: float,
-	base_movement_speed: float,
-	fire_rate_multiplier: float
-) -> float:
-	if action == "move":
-		return clampf(
-			movement_speed / maxf(base_movement_speed, 0.001),
-			VISUAL_MIN_PLAYBACK_RATE,
-			VISUAL_MAX_PLAYBACK_RATE
-		)
-	if action == "fire":
-		return clampf(fire_rate_multiplier, 1.0, VISUAL_MAX_PLAYBACK_RATE)
-	return 1.0
-
-func visual_texture_for_action(action: String) -> Texture2D:
-	if action == "move":
-		return player_move_atlas
-	if action == "fire":
-		return player_fire_atlas
-	return player_ready_atlas
+func _draw_chibi_weapon(center: Vector2, cardinal_index: int, tint: Color) -> void:
+	var draw_size := Vector2(58.0, 58.0) if cardinal_index in [CHIBI_FRONT, CHIBI_BACK] else CHIBI_WEAPON_DRAW_SIZE
+	var weapon_center := center + chibi_weapon_offset(cardinal_index)
+	var destination := Rect2(-draw_size * 0.5 + weapon_center, draw_size)
+	draw_texture_rect_region(player_weapon_texture, destination, chibi_weapon_rect(cardinal_index), tint)
 
 func _update_visual_animation(delta: float) -> void:
 	visual_fire_timer = maxf(0.0, visual_fire_timer - delta)
 	visual_hit_timer = maxf(0.0, visual_hit_timer - delta)
-	var next_action := resolve_visual_action(velocity.length_squared() > 1.0, visual_fire_timer > 0.0, dash_active)
-	if next_action != visual_current_action:
-		visual_current_action = next_action
-		visual_elapsed = 0.0
-	else:
-		visual_elapsed += delta * visual_playback_rate(
-			next_action,
-			velocity.length(),
-			move_speed,
-			get_effective_fire_rate() / maxf(fire_rate, 0.001)
-		)
+	visual_elapsed += delta
 
 func _load_png_texture(path: String) -> Texture2D:
 	var resource := ResourceLoader.load(path, "Texture2D")

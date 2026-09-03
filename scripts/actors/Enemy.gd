@@ -22,8 +22,8 @@ const DASHER_TEXTURES := [
 	preload("res://assets/art/actors/enemies/enemy_dasher_a_actions_runtime_v1.png"),
 	preload("res://assets/art/actors/enemies/enemy_dasher_b_actions_runtime_v1.png"),
 ]
-const SCRAPPER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_scrapper.png")
-const BRUISER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_bruiser.png")
+const SCRAPPER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png")
+const BRUISER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png")
 const SPITTER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_spitter.png")
 const MARKSMAN_TEXTURE := preload("res://assets/art/actors/enemies/enemy_marksman.png")
 const LOBBER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_lobber.png")
@@ -110,6 +110,8 @@ var dasher_animation_phase_offset := 0.0
 var static_visual: Sprite2D
 var static_flash_material: ShaderMaterial
 var static_visual_half_height := 0.0
+var static_visual_base_scale := Vector2.ONE
+var static_motion_elapsed := 0.0
 var formation_slot_index := -1
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
@@ -224,6 +226,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		_clamp_to_world_bounds()
 		_update_dasher_animation(delta)
+		_update_static_motion(delta)
 		spawn_impulse_remaining = maxf(0.0, spawn_impulse_remaining - delta)
 		if is_zero_approx(spawn_impulse_remaining):
 			spawn_impulse_velocity = Vector2.ZERO
@@ -235,6 +238,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity = Vector2.ZERO
 		_update_dasher_animation(delta)
+		_update_static_motion(delta)
 		return
 	hidden_dispersion_timer = 0.0
 	var to_player: Vector2 = player.global_position - global_position
@@ -252,6 +256,7 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector2.ZERO
 			global_position = attack_anchor_position
 			_update_dasher_animation(delta)
+			_update_static_motion(delta)
 			if flash_timer > 0.0:
 				flash_timer -= delta
 			_update_dasher_hit_flash()
@@ -274,6 +279,7 @@ func _physics_process(delta: float) -> void:
 		queue_redraw()
 	_update_dasher_hit_flash()
 	_update_dasher_animation(delta)
+	_update_static_motion(delta)
 
 func apply_spawn_impulse(initial_velocity: Vector2, duration: float, elapsed: float = 0.0) -> void:
 	var simulated_elapsed := clampf(elapsed, 0.0, maxf(0.0, duration))
@@ -576,6 +582,7 @@ func _create_static_visual(texture: Texture2D, visual_scale: Vector2, node_name:
 	static_visual.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	static_visual.texture = texture
 	static_visual.scale = visual_scale
+	static_visual_base_scale = visual_scale
 	static_visual.show_behind_parent = true
 	static_visual_half_height = texture.get_height() * visual_scale.y * 0.5
 	static_flash_material = ShaderMaterial.new()
@@ -583,6 +590,22 @@ func _create_static_visual(texture: Texture2D, visual_scale: Vector2, node_name:
 	static_flash_material.set_shader_parameter("flash_amount", 0.0)
 	static_visual.material = static_flash_material
 	add_child(static_visual)
+
+func _update_static_motion(delta: float) -> void:
+	if static_visual == null:
+		return
+	if velocity.length_squared() > 1.0:
+		static_motion_elapsed += delta
+		var step := sin(static_motion_elapsed * 10.0)
+		var compression := absf(step) * 0.035
+		static_visual.position.y = -absf(step) * 1.8
+		static_visual.rotation = step * 0.025
+		static_visual.scale = static_visual_base_scale * Vector2(1.0 + compression, 1.0 - compression)
+	else:
+		static_motion_elapsed = 0.0
+		static_visual.position = static_visual.position.lerp(Vector2.ZERO, minf(1.0, delta * 12.0))
+		static_visual.rotation = lerpf(static_visual.rotation, 0.0, minf(1.0, delta * 12.0))
+		static_visual.scale = static_visual.scale.lerp(static_visual_base_scale, minf(1.0, delta * 12.0))
 
 func _update_enemy_facing(target_global_position: Vector2) -> void:
 	var face_left := target_global_position.x < global_position.x

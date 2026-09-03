@@ -5,7 +5,7 @@ const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
-const OUTPUT_PATH := "res://docs/art/previews/characters-combat/art-stress-combat-runtime-v1.png"
+const OUTPUT_PATH := "res://docs/art/previews/characters-combat/chibi-b-combat-runtime-v1.png"
 const VIEWPORT_SIZE := Vector2i(1536, 900)
 
 func _initialize() -> void:
@@ -54,7 +54,6 @@ func _create_stress_fixture() -> Dictionary:
 	scene.player.global_position = Vector2.ZERO
 	scene.player.gun_angle = deg_to_rad(25.0)
 	scene.player.velocity = Vector2(250.0, 95.0)
-	scene.player.visual_current_action = "fire"
 	scene.player.visual_elapsed = 0.22
 	scene.player.visual_fire_timer = 0.5
 	scene.player.queue_redraw()
