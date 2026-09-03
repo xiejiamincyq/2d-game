@@ -8,6 +8,11 @@ const PLAYER_ATLAS_PATH := "res://assets/art/actors/player/player_chibi_b_cardin
 const PLAYER_WEAPON_PATH := "res://assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png"
 const SCRAPPER_PATH := "res://assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png"
 const BRUISER_PATH := "res://assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png"
+const DASHER_PATH := "res://assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png"
+const SPITTER_PATH := "res://assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png"
+const MARKSMAN_PATH := "res://assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png"
+const LOBBER_PATH := "res://assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png"
+const OVERSEER_PATH := "res://assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png"
 const HIT_EFFECT_PATH := "res://assets/art/effects/combat_hit_chibi_b_v1.png"
 
 var assertions := 0
@@ -21,7 +26,7 @@ func _assert_true(condition: bool, message: String) -> bool:
 	return false
 
 func _initialize() -> void:
-	for path in [PLAYER_ATLAS_PATH, PLAYER_WEAPON_PATH, SCRAPPER_PATH, BRUISER_PATH, HIT_EFFECT_PATH]:
+	for path in [PLAYER_ATLAS_PATH, PLAYER_WEAPON_PATH, SCRAPPER_PATH, BRUISER_PATH, DASHER_PATH, SPITTER_PATH, MARKSMAN_PATH, LOBBER_PATH, OVERSEER_PATH, HIT_EFFECT_PATH]:
 		if not _assert_true(FileAccess.file_exists(path), "missing B-style runtime asset: " + path):
 			return
 
@@ -58,12 +63,21 @@ func _initialize() -> void:
 		if not _assert_true(weapon_offset.length() <= 20.0, "weapon socket detached too far from the hands"):
 			return
 
-	var scrapper := await _spawn_enemy(EnemyScript.EnemyKind.SCRAPPER)
-	if not _assert_true(scrapper.static_visual.texture.resource_path == SCRAPPER_PATH, "Scrapper did not use B-style art"):
-		return
-	var bruiser := await _spawn_enemy(EnemyScript.EnemyKind.BRUISER)
-	if not _assert_true(bruiser.static_visual.texture.resource_path == BRUISER_PATH, "Bruiser did not use B-style art"):
-		return
+	var enemies: Array[CharacterBody2D] = []
+	for fixture in [
+		{"kind": EnemyScript.EnemyKind.SCRAPPER, "path": SCRAPPER_PATH},
+		{"kind": EnemyScript.EnemyKind.DASHER, "path": DASHER_PATH},
+		{"kind": EnemyScript.EnemyKind.SPITTER, "path": SPITTER_PATH},
+		{"kind": EnemyScript.EnemyKind.BRUISER, "path": BRUISER_PATH},
+		{"kind": EnemyScript.EnemyKind.MARKSMAN, "path": MARKSMAN_PATH},
+		{"kind": EnemyScript.EnemyKind.LOBBER, "path": LOBBER_PATH},
+		{"kind": EnemyScript.EnemyKind.OVERSEER, "path": OVERSEER_PATH},
+	]:
+		var enemy := await _spawn_enemy(int(fixture.kind))
+		enemies.append(enemy)
+		if not _assert_true(enemy.static_visual.texture.resource_path == fixture.path, "enemy did not use its B-style art: " + fixture.path):
+			return
+	var bruiser: CharacterBody2D = enemies[3]
 	var collision_shape := bruiser.get_child(bruiser.get_child_count() - 1) as CollisionShape2D
 	var radius_before: float = (collision_shape.shape as CircleShape2D).radius
 	var visual_position_before: Vector2 = bruiser.static_visual.position
@@ -75,8 +89,8 @@ func _initialize() -> void:
 		return
 
 	player.queue_free()
-	scrapper.queue_free()
-	bruiser.queue_free()
+	for enemy in enemies:
+		enemy.queue_free()
 	await process_frame
 	print("TEST PASS: ChibiRuntimeArtTest %d" % assertions)
 	quit(0)

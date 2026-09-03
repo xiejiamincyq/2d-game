@@ -3,9 +3,82 @@
 from __future__ import annotations
 
 import argparse
+from collections import deque
 from pathlib import Path
 
 from PIL import Image
+
+
+def split_alpha_lineup(
+    image: Image.Image,
+    expected_count: int,
+    minimum_area: int = 256,
+) -> list[Image.Image]:
+    """Extract separated alpha-connected subjects in left-to-right order."""
+    if expected_count <= 0:
+        raise ValueError("expected count must be positive")
+    if minimum_area <= 0:
+        raise ValueError("minimum area must be positive")
+    rgba = image.convert("RGBA")
+    alpha = rgba.getchannel("A")
+    width, height = rgba.size
+    pixels = alpha.load()
+    visited = bytearray(width * height)
+    components: list[tuple[int, tuple[int, int, int, int], list[int]]] = []
+
+    for y in range(height):
+        for x in range(width):
+            index = y * width + x
+            if visited[index] or pixels[x, y] == 0:
+                continue
+            visited[index] = 1
+            queue: deque[tuple[int, int]] = deque([(x, y)])
+            members: list[int] = []
+            area = 0
+            min_x = max_x = x
+            min_y = max_y = y
+            while queue:
+                current_x, current_y = queue.popleft()
+                members.append(current_y * width + current_x)
+                area += 1
+                min_x = min(min_x, current_x)
+                max_x = max(max_x, current_x)
+                min_y = min(min_y, current_y)
+                max_y = max(max_y, current_y)
+                for next_x, next_y in (
+                    (current_x - 1, current_y),
+                    (current_x + 1, current_y),
+                    (current_x, current_y - 1),
+                    (current_x, current_y + 1),
+                ):
+                    if not (0 <= next_x < width and 0 <= next_y < height):
+                        continue
+                    next_index = next_y * width + next_x
+                    if visited[next_index] or pixels[next_x, next_y] == 0:
+                        continue
+                    visited[next_index] = 1
+                    queue.append((next_x, next_y))
+            if area >= minimum_area:
+                components.append((area, (min_x, min_y, max_x + 1, max_y + 1), members))
+
+    if len(components) != expected_count:
+        raise RuntimeError(
+            f"expected {expected_count} separated subjects, found {len(components)}"
+        )
+    components.sort(key=lambda component: component[1][0])
+    subjects: list[Image.Image] = []
+    for _, bounds, members in components:
+        left, top, right, bottom = bounds
+        mask = Image.new("L", (right - left, bottom - top), 0)
+        mask_pixels = mask.load()
+        for member in members:
+            member_x = member % width
+            member_y = member // width
+            mask_pixels[member_x - left, member_y - top] = 255
+        subject = Image.new("RGBA", mask.size, (0, 0, 0, 0))
+        subject.paste(rgba.crop(bounds), (0, 0), mask)
+        subjects.append(subject)
+    return subjects
 
 
 def clean_generated_alpha(
@@ -176,17 +249,33 @@ def validate_cardinal_atlas(image: Image.Image, cell_size: int = 128, safe_paddi
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=("single", "cardinal", "weapon-cardinal"))
+    parser.add_argument("mode", choices=("single", "cardinal", "weapon-cardinal", "lineup"))
     parser.add_argument("input", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--cell-size", type=int, default=128)
     parser.add_argument("--padding", type=int, default=8)
+    parser.add_argument("--expected-count", type=int, default=5)
+    parser.add_argument("--minimum-area", type=int, default=256)
+    parser.add_argument("--names", nargs="*")
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
     with Image.open(args.input) as source:
+        if args.mode == "lineup":
+            subjects = split_alpha_lineup(source, args.expected_count, args.minimum_area)
+            names = args.names or [f"subject_{index + 1}" for index in range(len(subjects))]
+            if len(names) != len(subjects):
+                raise RuntimeError("lineup names must match the extracted subject count")
+            args.output.mkdir(parents=True, exist_ok=True)
+            for name, subject in zip(names, subjects, strict=True):
+                result = prepare_single_sprite(subject, args.cell_size, args.padding)
+                validate_single_sprite(result, args.cell_size, args.padding)
+                target = args.output / f"{name}.png"
+                result.save(target)
+                print(f"ASSET PASS: {target} {result.width}x{result.height} RGBA")
+            return 0
         if args.mode == "cardinal":
             result = prepare_cardinal_atlas(source, args.cell_size, args.padding)
             validate_cardinal_atlas(result, args.cell_size, args.padding)

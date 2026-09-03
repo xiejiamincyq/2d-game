@@ -8,6 +8,7 @@ from scripts.art.prepare_chibi_assets import (
     prepare_cardinal_atlas,
     prepare_single_sprite,
     prepare_weapon_cardinal_atlas,
+    split_alpha_lineup,
     validate_cardinal_atlas,
     validate_single_sprite,
 )
@@ -17,6 +18,25 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class PrepareChibiAssetsTests(unittest.TestCase):
+    def test_split_alpha_lineup_returns_large_subjects_in_left_to_right_order(self) -> None:
+        source = Image.new("RGBA", (300, 120), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(source)
+        draw.rectangle((12, 45, 62, 105), fill=(220, 80, 60, 255))
+        draw.rectangle((106, 20, 130, 105), fill=(70, 190, 150, 255))
+        draw.rectangle((130, 80, 174, 105), fill=(70, 190, 150, 255))
+        draw.rectangle((220, 56, 282, 105), fill=(80, 120, 220, 255))
+        draw.point((90, 10), fill=(255, 255, 255, 255))
+        draw.point((150, 40), fill=(255, 255, 255, 255))
+
+        subjects = split_alpha_lineup(source, expected_count=3, minimum_area=100)
+
+        self.assertEqual(len(subjects), 3)
+        self.assertEqual([subject.size for subject in subjects], [(51, 61), (69, 86), (63, 50)])
+        self.assertEqual(subjects[0].getpixel((0, 0)), (220, 80, 60, 255))
+        self.assertEqual(subjects[1].getpixel((0, 0)), (70, 190, 150, 255))
+        self.assertEqual(subjects[1].getpixel((44, 20))[3], 0)
+        self.assertEqual(subjects[2].getpixel((0, 0)), (80, 120, 220, 255))
+
     def test_clean_generated_alpha_removes_halo_and_restores_opaque_core(self) -> None:
         source = Image.new("RGBA", (32, 32), (20, 40, 50, 0))
         alpha = source.getchannel("A")
@@ -77,6 +97,11 @@ class PrepareChibiAssetsTests(unittest.TestCase):
 
         for relative_path in (
             "assets/art/actors/player/player_chibi_b_weapon_v1.png",
+            "assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png",
+            "assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png",
+            "assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png",
+            "assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png",
+            "assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png",
             "assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png",
             "assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png",
             "assets/art/effects/combat_hit_chibi_b_v1.png",

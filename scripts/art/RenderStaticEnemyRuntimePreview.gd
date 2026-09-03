@@ -19,11 +19,12 @@ func _initialize() -> void:
 	background.color = Color("071018")
 	viewport.add_child(background)
 	_add_grid(background)
-	_add_label(background, "NON-DASHER ENEMIES — STATIC RUNTIME GATE", Vector2(42, 24), 28)
-	_add_label(background, "fixed 45° camera · right-facing masters · horizontal player-facing flip", Vector2(42, 60), 16)
+	_add_label(background, "B CHIBI ENEMIES — SINGLE-SPRITE RUNTIME GATE", Vector2(42, 24), 28)
+	_add_label(background, "fixed elevated-oblique camera · right-facing masters · horizontal player-facing flip", Vector2(42, 60), 16)
 
 	var fixtures := [
 		{"kind": EnemyScript.EnemyKind.SCRAPPER, "name": "SCRAPPER", "scale": EnemyScript.SCRAPPER_RUNTIME_SCALE},
+		{"kind": EnemyScript.EnemyKind.DASHER, "name": "DASHER", "scale": EnemyScript.DASHER_RUNTIME_SCALE},
 		{"kind": EnemyScript.EnemyKind.SPITTER, "name": "SPITTER", "scale": EnemyScript.SPITTER_RUNTIME_SCALE},
 		{"kind": EnemyScript.EnemyKind.BRUISER, "name": "BRUISER", "scale": EnemyScript.BRUISER_RUNTIME_SCALE},
 		{"kind": EnemyScript.EnemyKind.MARKSMAN, "name": "MARKSMAN", "scale": EnemyScript.MARKSMAN_RUNTIME_SCALE},
@@ -32,19 +33,19 @@ func _initialize() -> void:
 	]
 	for index in range(fixtures.size()):
 		var fixture: Dictionary = fixtures[index]
-		var column := index % 3
-		var row := index / 3
-		var center := Vector2(256.0 + float(column) * 512.0, 230.0 + float(row) * 292.0)
-		_add_label(background, fixture.name, center + Vector2(-78, -112), 19)
-		await _spawn_enemy(viewport, fixture.kind, center + Vector2(-70, 0), Vector2(0.9, 0.9), false)
-		await _spawn_enemy(viewport, fixture.kind, center + Vector2(70, 0), Vector2(0.9, 0.9), true)
-		_add_label(background, "MASTER", center + Vector2(-105, 83), 13)
-		_add_label(background, "FLIP", center + Vector2(50, 83), 13)
+		var column := index % 4
+		var row := index / 4
+		var center := Vector2(190.0 + float(column) * 380.0, 220.0 + float(row) * 292.0)
+		_add_label(background, fixture.name, center + Vector2(-68, -102), 17)
+		await _spawn_enemy(viewport, fixture.kind, center + Vector2(-58, 0), Vector2(0.78, 0.78), false)
+		await _spawn_enemy(viewport, fixture.kind, center + Vector2(58, 0), Vector2(0.78, 0.78), true)
+		_add_label(background, "MASTER", center + Vector2(-88, 74), 12)
+		_add_label(background, "FLIP", center + Vector2(38, 74), 12)
 
 	_add_label(background, "ACTUAL GAMEPLAY SCALE", Vector2(42, 742), 16)
 	for index in range(fixtures.size()):
 		var fixture: Dictionary = fixtures[index]
-		var position := Vector2(330.0 + float(index) * 175.0, 823.0)
+		var position := Vector2(180.0 + float(index) * 195.0, 823.0)
 		await _spawn_enemy(viewport, fixture.kind, position, fixture.scale, index % 2 == 1)
 		_add_label(background, fixture.name, position + Vector2(-48, 52), 11)
 

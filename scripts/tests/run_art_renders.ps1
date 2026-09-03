@@ -26,18 +26,11 @@ try {
     }
     Write-Host "RESOURCE IMPORT PASS" -ForegroundColor Green
 
-    & python scripts/art/build_dasher_runtime_lod_candidates.py
-    if ($LASTEXITCODE -ne 0) {
-        throw "Dasher LOD candidate generation failed with exit code $LASTEXITCODE."
-    }
-
     $gates = @(
         @{ Script = "RenderChibiRuntimePreview.gd"; Marker = "RENDER PASS: Chibi B runtime preview" },
-        @{ Script = "RenderDasherActionRuntimePreview.gd"; Marker = "RENDER PASS: Dasher action runtime preview" },
         @{ Script = "RenderStaticEnemyRuntimePreview.gd"; Marker = "RENDER PASS: Static enemy runtime preview" },
         @{ Script = "RenderCombatVfxRuntimePreview.gd"; Marker = "RENDER PASS: Combat VFX runtime preview" },
-        @{ Script = "RenderArtStressCombatPreview.gd"; Marker = "RENDER PASS: Art stress combat runtime preview" },
-        @{ Script = "RenderDasherRuntimeLodPreview.gd"; Marker = "RENDER PASS: Dasher runtime LOD comparison" }
+        @{ Script = "RenderArtStressCombatPreview.gd"; Marker = "RENDER PASS: Art stress combat runtime preview" }
     )
     $failures = [System.Collections.Generic.List[string]]::new()
 
