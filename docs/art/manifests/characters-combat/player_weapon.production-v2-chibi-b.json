@@ -5,9 +5,9 @@
   "asset_class": "actor",
   "purpose": "B 清爽玩具方向的玩家独立枪械，固定在双手挂点。",
   "runtime_path": "res://assets/art/actors/player/player_chibi_b_weapon_v1.png",
-  "source_dimensions": {"width": 1024, "height": 1024},
-  "runtime_target": {"width": 64, "height": 64},
-  "aspect_ratio": "1:1",
+  "source_dimensions": {"width": 1536, "height": 1024},
+  "runtime_target": {"width": 128, "height": 128},
+  "aspect_ratio": "3:2",
   "background": "transparent",
   "camera": "flat 2D side profile compatible with the fixed elevated oblique body",
   "facing": "right-facing master, stock left and muzzle right",
@@ -16,7 +16,9 @@
   "prompt": "Original compact 2D chibi bio-tech firearm, rounded toy-like shapes, clean medium dark-teal outline, cream enamel body, teal fluid chamber, coral-orange muzzle, clear rear and front hand contact points, isolated horizontal side profile, transparent background, no character, text, border or shadow.",
   "negative_constraints": ["no hands or character", "no 3D render", "no diagonal presentation", "no floating accessories", "no text", "no border", "no cast shadow", "no cropped muzzle or stock"],
   "references": [{"path": "docs/art/reviews/characters-combat-style-lock-b-chibi-v1.md", "role": "user-approved B style contract"}],
-  "generation_model": "imagegen built-in",
+  "generation_model": "imagegen built-in with background extraction and deterministic 128px packing",
+  "source_output": "assets/art/source/chibi_b/player_weapon_alpha_v1.png",
+  "runtime_output": "assets/art/actors/player/player_chibi_b_weapon_v1.png",
   "license_review_state": "pending",
   "review_state": "style-approved"
 }
