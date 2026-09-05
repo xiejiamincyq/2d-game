@@ -74,6 +74,8 @@ func _initialize() -> void:
 	var snapshot: Dictionary = scene.snapshot_store.load_snapshot()
 	if not _assert_true(int(snapshot.get("map_seed", -1)) == scene.map_seed, "map seed was not persisted for continue"):
 		return
+	if not _assert_true(int(snapshot.get("map_generator_version", -1)) == 2, "new map generator version was not persisted"):
+		return
 
 	scene.snapshot_store.clear_snapshot()
 	TestSupport.stop_audio(scene.audio)

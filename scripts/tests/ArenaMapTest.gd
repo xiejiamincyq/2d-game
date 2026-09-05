@@ -21,6 +21,12 @@ func _initialize() -> void:
 	first.generate(BOUNDS, 20260831)
 	await process_frame
 	var first_descriptors: Array[Dictionary] = first.get_obstacle_descriptors()
+	var shifted_centers := 0
+	for descriptor in first_descriptors:
+		if not ArenaLayoutScript.CANDIDATE_CENTERS.has(Rect2(descriptor["rect"]).get_center()):
+			shifted_centers += 1
+	if not _assert_true(shifted_centers == first_descriptors.size(), "new maps still place obstacles at fixed template centers"):
+		return
 	if not _assert_true(first_descriptors.size() >= 9 and first_descriptors.size() <= 13, "obstacle density left the arena empty or overcrowded"):
 		return
 
@@ -95,11 +101,22 @@ func _initialize() -> void:
 
 	var sweep := ArenaLayoutScript.new()
 	root.add_child(sweep)
-	for seed_value in range(32):
+	sweep.generate(BOUNDS, 20260831, 1)
+	for descriptor in sweep.get_obstacle_descriptors():
+		if not _assert_true(ArenaLayoutScript.CANDIDATE_CENTERS.has(Rect2(descriptor["rect"]).get_center()), "legacy generator moved a saved obstacle"):
+			return
+	for seed_value in range(128):
 		sweep.generate(BOUNDS, seed_value)
 		var descriptors := sweep.get_obstacle_descriptors()
 		if not _assert_true(descriptors.size() >= 9 and descriptors.size() <= 13, "seed %d produced invalid obstacle density" % seed_value):
 			return
+		for i in range(descriptors.size()):
+			var rect: Rect2 = descriptors[i]["rect"]
+			if not _assert_true(BOUNDS.grow(-72.0).encloses(rect) and not rect.intersects(CENTER_SAFE_RECT), "seed %d violated arena/start margins" % seed_value):
+				return
+			for j in range(i):
+				if not _assert_true(not Rect2(descriptors[j]["rect"]).grow(44.0).intersects(rect), "seed %d overlapped obstacle footprints" % seed_value):
+					return
 		for target in route_targets:
 			if not _assert_true(sweep.is_reachable(Vector2.ZERO, target, 26.0), "seed %d sealed an arena route" % seed_value):
 				return

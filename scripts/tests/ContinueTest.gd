@@ -29,6 +29,8 @@ func _initialize() -> void:
 	if not _assert_true(not first.ui.continue_button.visible, "continue entry was shown without a valid snapshot"):
 		return
 	first._start_run()
+	var original_map_seed: int = first.map_seed
+	var original_layout: Array = first.arena_layout.get_obstacle_descriptors()
 	first.player.advance_entrance(first.player.get_entrance_duration() + 0.01)
 	await process_frame
 	TestSupport.stop_audio(first.audio)
@@ -63,6 +65,8 @@ func _initialize() -> void:
 	if not _assert_true(continued.ui.continue_button.visible and not continued.ui.continue_button.disabled, "valid snapshot did not expose Continue"):
 		return
 	continued._continue_run()
+	if not _assert_true(continued.map_seed == original_map_seed and continued.arena_layout.get_obstacle_descriptors() == original_layout, "Continue changed the saved map"):
+		return
 	await process_frame
 	TestSupport.stop_audio(continued.audio)
 	if not _assert_true(continued.run_state == continued.RunState.SETTLEMENT and paused, "Continue did not restore the stable settlement boundary"):
@@ -146,6 +150,10 @@ func _initialize() -> void:
 	):
 		return
 	paused = false
+	# Emulate a save written before generator versioning was introduced.
+	saved_boss_boundary.erase("map_generator_version")
+	if not _assert_true(boss_prep.snapshot_store.save_snapshot(saved_boss_boundary), "legacy map fixture was rejected"):
+		return
 	boss_prep.free()
 	await process_frame
 	await process_frame
@@ -155,6 +163,11 @@ func _initialize() -> void:
 	root.add_child(continued_boss)
 	await process_frame
 	continued_boss._continue_run()
+	if not _assert_true(continued_boss.arena_layout.generator_version == 1, "legacy save did not select the original map generator"):
+		return
+	for descriptor in continued_boss.arena_layout.get_obstacle_descriptors():
+		if not _assert_true(continued_boss.arena_layout.CANDIDATE_CENTERS.has(Rect2(descriptor["rect"]).get_center()), "legacy continuation moved an obstacle"):
+			return
 	await process_frame
 	TestSupport.stop_audio(continued_boss.audio)
 	if not _assert_true(
@@ -183,6 +196,8 @@ func _initialize() -> void:
 	root.add_child(fresh)
 	await process_frame
 	fresh._start_run()
+	if not _assert_true(fresh.map_seed != original_map_seed and fresh.arena_layout.get_obstacle_descriptors() != original_layout, "New Game reused the previous map"):
+		return
 	fresh.player.advance_entrance(fresh.player.get_entrance_duration() + 0.01)
 	TestSupport.stop_audio(fresh.audio)
 	if not _assert_true(

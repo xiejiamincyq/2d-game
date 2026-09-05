@@ -45,6 +45,11 @@ func _initialize() -> void:
 	store.clear_snapshot()
 
 	var snapshot := _valid_snapshot()
+	for bad_version in [0, 3, "two", 1.5, null]:
+		var bad_map := snapshot.duplicate(true)
+		bad_map["map_generator_version"] = bad_version
+		if not _assert_true(not store.validate_snapshot(bad_map), "invalid map generator version was accepted"):
+			return
 	if not _assert_true(store.save_snapshot(snapshot), "valid snapshot was not written"):
 		return
 	var loaded: Dictionary = store.load_snapshot()

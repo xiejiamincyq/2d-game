@@ -8,6 +8,8 @@ const CENTER_SAFE_RECT := Rect2(-300.0, -220.0, 600.0, 440.0)
 const EDGE_MARGIN := 72.0
 const OBSTACLE_GAP := 44.0
 const ROUTE_RADIUS := 26.0
+const GENERATOR_VERSION := 2
+const CENTER_JITTER := Vector2(80.0, 65.0)
 const CANDIDATE_CENTERS := [
 	Vector2(-1080.0, -570.0), Vector2(-720.0, -540.0), Vector2(-280.0, -590.0),
 	Vector2(280.0, -590.0), Vector2(720.0, -540.0), Vector2(1080.0, -570.0),
@@ -27,18 +29,20 @@ const OBSTACLE_TYPES := [
 
 var world_bounds := Rect2(-1400.0, -900.0, 2800.0, 1800.0)
 var map_seed := 0
+var generator_version := GENERATOR_VERSION
 var obstacle_descriptors: Array[Dictionary] = []
 var flow_fields: Dictionary = {}
 
-func generate(bounds: Rect2, seed_value: int) -> void:
+func generate(bounds: Rect2, seed_value: int, version: int = GENERATOR_VERSION) -> void:
 	_clear_obstacles()
 	world_bounds = bounds
 	map_seed = seed_value
+	generator_version = version
 	for attempt in range(24):
 		obstacle_descriptors = _build_descriptors(seed_value + attempt * 104729)
-		if _required_routes_are_connected():
+		if _layout_is_acceptable():
 			break
-	if not _required_routes_are_connected():
+	if not _layout_is_acceptable():
 		push_error("ArenaLayout could not generate a connected obstacle layout")
 		obstacle_descriptors.clear()
 	_spawn_obstacles()
@@ -91,7 +95,9 @@ func get_navigation_direction(from: Vector2, target: Vector2, radius: float = RO
 	var current_distance := int(distances.get(current, 1 << 28))
 	if current_distance >= 1 << 28:
 		return (resolved_target - from).normalized()
-	var direct := (resolved_target - from).normalized()
+	# A stable tie-break within each cell prevents equal-length detours from
+	# alternating above/below an obstacle as an agent moves inside that cell.
+	var direct := (resolved_target - _cell_to_world(current)).normalized()
 	var best := current
 	var best_distance := current_distance
 	var best_alignment := -2.0
@@ -106,6 +112,9 @@ func get_navigation_direction(from: Vector2, target: Vector2, radius: float = RO
 			if not _is_cell_walkable(current + Vector2i(direction.x, 0), float(radius_bucket)) or not _is_cell_walkable(current + Vector2i(0, direction.y), float(radius_bucket)):
 				continue
 		var next_distance := int(distances[next])
+		# Equal-distance neighbors can send agents back and forth on a plateau.
+		if next_distance >= current_distance:
+			continue
 		var alignment := Vector2(direction).normalized().dot(direct)
 		if next_distance < best_distance or (next_distance == best_distance and alignment > best_alignment):
 			best = next
@@ -161,7 +170,11 @@ func _build_descriptors(seed_value: int) -> Array[Dictionary]:
 	var descriptors: Array[Dictionary] = []
 	for center in centers:
 		var type_data: Dictionary = OBSTACLE_TYPES[rng.randi_range(0, OBSTACLE_TYPES.size() - 1)]
-		var rect := Rect2(Vector2(center) - Vector2(type_data["size"]) * 0.5, Vector2(type_data["size"]))
+		# Keep v1 RNG consumption unchanged so existing saves retain their layout.
+		var placement := Vector2(center)
+		if generator_version >= 2:
+			placement += Vector2(rng.randf_range(-CENTER_JITTER.x, CENTER_JITTER.x), rng.randf_range(-CENTER_JITTER.y, CENTER_JITTER.y))
+		var rect := Rect2(placement - Vector2(type_data["size"]) * 0.5, Vector2(type_data["size"]))
 		if not world_bounds.grow(-EDGE_MARGIN).encloses(rect) or rect.intersects(CENTER_SAFE_RECT):
 			continue
 		var overlaps := false
@@ -182,6 +195,11 @@ func _shuffle_with_rng(values: Array, rng: RandomNumberGenerator) -> void:
 		var value: Variant = values[i]
 		values[i] = values[swap_index]
 		values[swap_index] = value
+
+func _layout_is_acceptable() -> bool:
+	if generator_version >= 2 and obstacle_descriptors.size() < 9:
+		return false
+	return _required_routes_are_connected()
 
 func _required_routes_are_connected() -> bool:
 	for target in [Vector2(-1120.0, 0.0), Vector2(1120.0, 0.0), Vector2(0.0, -680.0), Vector2(0.0, 680.0)]:

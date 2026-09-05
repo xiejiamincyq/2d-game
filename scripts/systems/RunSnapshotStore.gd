@@ -79,6 +79,9 @@ func validate_snapshot(snapshot: Dictionary) -> bool:
 			return false
 	if int(snapshot["version"]) != VERSION or not _is_integer_value(snapshot["version"]):
 		return false
+	# Missing means the original fixed-center map generator (legacy saves).
+	if snapshot.has("map_generator_version") and not _is_int_in_range(snapshot["map_generator_version"], 1, 2):
+		return false
 	if String(snapshot["boundary"]) not in BOUNDARIES:
 		return false
 	if not _is_int_in_range(snapshot["pending_stage"], 1, MAX_STAGE):

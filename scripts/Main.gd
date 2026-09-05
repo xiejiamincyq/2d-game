@@ -199,7 +199,8 @@ func _begin_run(snapshot: Dictionary) -> void:
 	shield_drop_timer = 4.0
 	game_over = false
 	map_seed = int(snapshot.get("map_seed", randi()))
-	arena_layout.generate(WORLD_BOUNDS, map_seed)
+	var map_version := ArenaLayoutScript.GENERATOR_VERSION if snapshot.is_empty() else int(snapshot.get("map_generator_version", 1))
+	arena_layout.generate(WORLD_BOUNDS, map_seed, map_version)
 	ui.set_continue_available(false)
 	audio.play("start")
 	audio.play_bgm()
@@ -465,6 +466,7 @@ func _save_stable_snapshot(boundary: String, pending_stage: int) -> bool:
 		"kills": kill_count,
 		"elapsed_seconds": elapsed_seconds,
 		"map_seed": map_seed,
+		"map_generator_version": arena_layout.generator_version,
 	}
 	return snapshot_store.save_snapshot(snapshot)
 
