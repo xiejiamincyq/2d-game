@@ -32,6 +32,19 @@ func _initialize() -> void:
 		return
 
 	var obstacle_rect: Rect2 = descriptors[0]["rect"]
+	for obstacle in scene.arena_layout.get_children():
+		if not _assert_true(obstacle.get_node_or_null("Art") is Sprite2D, "farm obstacle did not load its independent art"):
+			return
+		var collision_shape: CollisionShape2D = obstacle.get_node("CollisionShape2D")
+		var actual_rect := Rect2(collision_shape.global_position - collision_shape.shape.size * 0.5, collision_shape.shape.size)
+		var expected_rect: Rect2 = descriptors[obstacle.get_index()]["rect"]
+		if not _assert_true(actual_rect.is_equal_approx(expected_rect), "art contact-edge sorting moved the collision footprint"):
+			return
+		var art: Sprite2D = obstacle.get_node("Art")
+		if not _assert_true(is_equal_approx(art.scale.x, art.scale.y), "obstacle sprite was stretched out of proportion"):
+			return
+	if not _assert_true(scene.world.y_sort_enabled and scene.enemies.y_sort_enabled and scene.arena_layout.y_sort_enabled, "actor/obstacle depth sorting is disabled"):
+		return
 	var player_radius: float = scene.player.get_body_radius()
 	scene.player.set_physics_process(false)
 	scene.player.global_position = Vector2(obstacle_rect.position.x - player_radius - 4.0, obstacle_rect.get_center().y)

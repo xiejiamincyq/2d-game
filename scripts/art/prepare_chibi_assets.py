@@ -9,6 +9,32 @@ from pathlib import Path
 from PIL import Image
 
 
+def pack_regions_without_scaling(
+    image: Image.Image,
+    regions: list[tuple[int, int, int, int]],
+    cell_size: int = 544,
+    padding: int = 8,
+) -> tuple[Image.Image, list[tuple[int, int, int, int]]]:
+    """Repack four already-reviewed RGBA regions; never resample or remap alpha."""
+    if image.mode != "RGBA" or len(regions) != 4:
+        raise ValueError("packing requires an RGBA image and exactly four regions")
+    if padding < 0 or cell_size <= padding * 2:
+        raise ValueError("invalid cell size or padding")
+    output = Image.new("RGBA", (cell_size * 2, cell_size * 2), (0, 0, 0, 0))
+    targets = []
+    for index, (x, y, width, height) in enumerate(regions):
+        if (x < 0 or y < 0 or width <= 0 or height <= 0
+                or x + width > image.width or y + height > image.height
+                or max(width, height) > cell_size - padding * 2):
+            raise ValueError("region is outside source or does not fit without scaling")
+        tx = (index % 2) * cell_size + padding
+        ty = (index // 2) * cell_size + padding
+        # No mask: masked paste would multiply alpha and change source pixels.
+        output.paste(image.crop((x, y, x + width, y + height)), (tx, ty))
+        targets.append((tx, ty, width, height))
+    return output, targets
+
+
 def split_alpha_lineup(
     image: Image.Image,
     expected_count: int,

@@ -34,6 +34,15 @@
 
 ## 当前生产运行资源
 
+### 2026-09-06 环境增量（2D Q版，优先于下方历史说明）
+
+| Asset ID | 类别 | 用途 | 源尺寸 | 运行时目标 | 目标路径 | 状态 |
+|---|---|---|---:|---:|---|---|
+| `mint_farm_floor_b_v1` | environment | B 薄荷灰平铺地面 | 1254×1254 | 512×512/重复单元 | `res://assets/art/environment/mint_farm_floor_b_v1.png` | draft |
+| `mint_farm_props_b_v1` | environment | 四类障碍共享图集，保留碰撞足迹 | 原始2172×724；无缩放重排1088×1088 | 宽120–220/保持比例 | `res://assets/art/environment/mint_farm_props_b_packed_v1.png` | draft |
+
+环境已进入随机地图运行时；验收与剩余问题见 `docs/art/previews/environment/mint-farm-review-v1.md`。下列 2026-08 角色说明为历史记录，当前角色以 2D chibi 运行时代码为准。
+
 - 玩家：`player_m2_ready_120yaw.png`、`player_m2_move_120yaw.png`、`player_m2_fire_120yaw.png`。
 - Dasher：`enemy_dasher_a_actions_runtime_v1.png`、`enemy_dasher_b_actions_runtime_v1.png`。
 - 非 Dasher：上表六张 `gameplay-approved` 单帧母版。

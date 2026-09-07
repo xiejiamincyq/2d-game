@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "batch": "environment",
+  "asset_class": "environment",
+  "purpose": "Mint farm modular environment for randomized maps; preserve gameplay collision footprints.",
+  "source_dimensions": {
+    "width": 1088,
+    "height": 1088
+  },
+  "runtime_target": {
+    "width": 220,
+    "height": 184
+  },
+  "aspect_ratio": "1:1",
+  "original_generation_dimensions": {"width": 2172, "height": 724},
+  "original_generation_path": "docs/art/sources/mint_farm_props_b_original_v1.png",
+  "packing": "User authorized lossless 2x2 repacking on 2026-09-08. source_dimensions describes the prepared atlas canvas, not per-prop source resolution. No resampling, alpha changes, or increased detail.",
+  "background": "transparent",
+  "camera": "2D elevated orthographic, screen-aligned footprint",
+  "facing": "fixed",
+  "palette": [
+    "#123b3b",
+    "#9bd7bd",
+    "#f3eddc"
+  ],
+  "lighting": "soft upper-left, low contrast",
+  "negative_constraints": [
+    "no text",
+    "no characters",
+    "no high contrast clutter",
+    "no realistic texture"
+  ],
+  "references": [],
+  "generation_model": "imagegen",
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/environment/mint-farm-runtime-v1.png",
+    "alpha_report": "docs/art/previews/environment/mint-farm-alpha-v1.md",
+    "review_document": "docs/art/previews/environment/mint-farm-review-v1.md"
+  },
+  "license_review_state": "pending",
+  "review_state": "draft",
+  "asset_id": "mint_farm_props_b_v1",
+  "runtime_path": "res://assets/art/environment/mint_farm_props_b_packed_v1.png",
+  "prompt": "Transparent PNG sprite sheet, four separated original 2D cartoon farm laboratory obstacles in one horizontal row, left to right: cream raised rectangular planter with three rounded leafy plants; squat cream framed mint glass greenhouse; squat rounded teal cultivation tank on rectangular cream plinth; chunky horizontal teal pipe on rectangular cream support. All isolated with genuine alpha transparency and generous gaps, no other objects. Same fixed elevated orthographic camera as a 2D arena game, screen-horizontal front edges, NO diagonal isometric diamond bases. Simple clean toy shapes, medium dark desaturated teal outlines, mint/cream muted palette, opaque surfaces including glass (stylized solid mint), soft upper left light, two-tone shading, no texture, no text, no border, no floating particles, no ground plane. All visible geometry fits broad squat rectangular footprints and contact shadows; avoid tall projection. 2048x1024. Revision: simplify muted flat two-tone shading and remove neon accents. Extraction retry: remove baked checkerboard to real RGBA transparency; preserve opaque objects. Runtime uses AtlasTexture regions and alpha normalization shader, not image-file repainting."
+}

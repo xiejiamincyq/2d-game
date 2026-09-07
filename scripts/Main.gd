@@ -127,6 +127,7 @@ func _update_random_shield_drop(delta: float) -> void:
 func _build_world() -> void:
 	world = Node2D.new()
 	world.name = "World"
+	world.y_sort_enabled = true
 	world.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(world)
 	_draw_floor()
@@ -136,6 +137,7 @@ func _build_world() -> void:
 	world.add_child(pickups)
 	enemies = Node2D.new()
 	enemies.name = "Enemies"
+	enemies.y_sort_enabled = true
 	enemies.process_mode = Node.PROCESS_MODE_PAUSABLE
 	world.add_child(enemies)
 	projectiles = Node2D.new()
@@ -166,6 +168,7 @@ func _draw_floor() -> void:
 	world.add_child(floor)
 	arena_layout = ArenaLayoutScript.new()
 	arena_layout.name = "ArenaLayout"
+	arena_layout.y_sort_enabled = true
 	arena_layout.process_mode = Node.PROCESS_MODE_PAUSABLE
 	world.add_child(arena_layout)
 	var boundary := WorldBoundaryScript.new()

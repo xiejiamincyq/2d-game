@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "batch": "environment",
+  "asset_class": "environment",
+  "purpose": "Mint farm modular environment for randomized maps; preserve gameplay collision footprints.",
+  "source_dimensions": {
+    "width": 1254,
+    "height": 1254
+  },
+  "runtime_target": {
+    "width": 512,
+    "height": 512
+  },
+  "aspect_ratio": "1:1",
+  "background": "opaque",
+  "camera": "2D elevated orthographic, screen-aligned footprint",
+  "facing": "fixed",
+  "palette": [
+    "#123b3b",
+    "#9bd7bd",
+    "#f3eddc"
+  ],
+  "lighting": "soft upper-left, low contrast",
+  "negative_constraints": [
+    "no text",
+    "no characters",
+    "no high contrast clutter",
+    "no realistic texture"
+  ],
+  "references": [],
+  "generation_model": "imagegen",
+  "runtime_evidence": {
+    "gameplay_capture": "docs/art/previews/environment/mint-farm-runtime-v1.png",
+    "alpha_report": "docs/art/previews/environment/mint-farm-alpha-v1.md",
+    "review_document": "docs/art/previews/environment/mint-farm-review-v1.md"
+  },
+  "license_review_state": "pending",
+  "review_state": "draft",
+  "asset_id": "mint_farm_floor_b_v1",
+  "runtime_path": "res://assets/art/environment/mint_farm_floor_b_v1.png",
+  "prompt": "Square seamless tileable opaque 2D game ground texture. Mint experimental farm, muted sage grey paving, very subtle broad rounded square slabs, faint joints. Flat hand-painted cartoon toy style, extremely low contrast, almost no surface noise. Top-down surface, uniform diffuse illumination, perfectly repeatable all four edges, no props, no vegetation, no shadows, no borders, no text. Floor subordinate to teal chibi actors. 1024x1024."
+}

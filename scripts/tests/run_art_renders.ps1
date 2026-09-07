@@ -27,6 +27,7 @@ try {
     Write-Host "RESOURCE IMPORT PASS" -ForegroundColor Green
 
     $gates = @(
+        @{ Script = "RenderMintFarmPreview.gd"; Marker = "RENDER PASS: Mint farm runtime preview" },
         @{ Script = "RenderChibiRuntimePreview.gd"; Marker = "RENDER PASS: Chibi B runtime preview" },
         @{ Script = "RenderStaticEnemyRuntimePreview.gd"; Marker = "RENDER PASS: Static enemy runtime preview" },
         @{ Script = "RenderCombatVfxRuntimePreview.gd"; Marker = "RENDER PASS: Combat VFX runtime preview" },
