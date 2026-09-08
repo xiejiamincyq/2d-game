@@ -215,6 +215,7 @@ func _begin_run(snapshot: Dictionary) -> void:
 	player.begin_spawn_input_guard()
 	player.set_physics_process(false)
 	world.add_child(player)
+	arena_layout.occlusion_target = player
 	var camera := Camera2D.new()
 	camera.name = "PlayerCamera"
 	camera.position_smoothing_enabled = true

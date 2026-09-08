@@ -22,6 +22,28 @@ func _initialize() -> void:
 	await process_frame
 	scene._start_run()
 	await physics_frame
+	if not _assert_true(scene.arena_layout.get("occlusion_target") == scene.player, "arena did not bind player-only occlusion"):
+		return
+	var occluder: Node2D = load("res://scripts/world/ArenaObstacle.gd").new()
+	occluder.setup(Rect2(100, 100, 210, 120), &"greenhouse")
+	root.add_child(occluder)
+	var player_color: Color = scene.player.modulate
+	occluder.update_player_occlusion(Vector2(205, 70), true, 0.02)
+	if not _assert_true(occluder.modulate.a < 1.0 and occluder.modulate.a > 0.32, "occlusion fade did not transition smoothly"):
+		return
+	for fixture in [
+		[Vector2(205, 70), true, 0.32],
+		[Vector2(205, 240), true, 1.0],
+		[Vector2(400, 70), true, 1.0],
+		[Vector2(205, -200), true, 1.0],
+		[Vector2(205, 70), false, 1.0],
+	]:
+		occluder.update_player_occlusion(fixture[0], fixture[1], 1.0)
+		if not _assert_true(is_equal_approx(occluder.modulate.a, fixture[2]), "obstacle fade triggered outside player occlusion or failed to restore"):
+			return
+	if not _assert_true(scene.player.modulate == player_color, "obstacle occlusion changed player opacity"):
+		return
+	occluder.free()
 
 	if not _assert_true(scene.arena_layout != null, "main scene did not create an arena layout"):
 		return

@@ -31,7 +31,7 @@ func _initialize() -> void:
 	await process_frame
 	await RenderingServer.frame_post_draw
 	var capture := viewport.get_texture().get_image()
-	var path := "res://docs/art/previews/environment/mint-farm-runtime-v1.png"
+	var path := "res://docs/art/previews/environment/mint-farm-runtime-v2.png"
 	if capture == null or capture.is_empty() or capture.save_png(ProjectSettings.globalize_path(path)) != OK:
 		push_error("Mint farm capture failed")
 		quit(1)
@@ -70,10 +70,12 @@ func _render_depth_fixture() -> bool:
 			world.add_child(player)
 			player.advance_entrance(player.get_entrance_duration() + 0.01)
 			player.queue_redraw()
+		# Separate inspection fixture: show each prop hiding/revealing a rear player.
+		obstacle.update_player_occlusion(Vector2(center.x, center.y - size.y * 0.5 - 14.0), true, 1.0)
 	await process_frame
 	await RenderingServer.frame_post_draw
 	var capture := viewport.get_texture().get_image()
-	if capture == null or capture.is_empty() or capture.save_png(ProjectSettings.globalize_path("res://docs/art/previews/environment/mint-farm-depth-v1.png")) != OK:
+	if capture == null or capture.is_empty() or capture.save_png(ProjectSettings.globalize_path("res://docs/art/previews/environment/mint-farm-depth-v2.png")) != OK:
 		push_error("Mint farm depth fixture capture failed")
 		viewport.queue_free()
 		await process_frame

@@ -12,6 +12,16 @@ const ALPHA_SHADER = preload("res://assets/art/environment/prop_alpha.gdshader")
 
 var obstacle_size := Vector2(160.0, 100.0)
 var obstacle_kind: StringName = &"planter"
+var occlusion_rect := Rect2()
+
+func update_player_occlusion(player_position: Vector2, active: bool, delta: float) -> void:
+	# Only fade a foreground obstacle overlapping the player's 84px visual,
+	# never the player itself. Retain enough opacity to read the solid footprint.
+	var local_player := to_local(player_position)
+	var player_rect := Rect2(local_player - Vector2(42, 42), Vector2(84, 84))
+	var in_front := local_player.y < 0.0
+	var covers_player := active and in_front and occlusion_rect.intersects(player_rect)
+	modulate.a = move_toward(modulate.a, 0.32 if covers_player else 1.0, maxf(delta, 0.0) * 5.0)
 
 func setup(rect: Rect2, kind: StringName) -> void:
 	name = "ArenaObstacle_%s" % kind
@@ -40,6 +50,9 @@ func setup(rect: Rect2, kind: StringName) -> void:
 	art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	art.scale = Vector2.ONE * (obstacle_size.x / atlas.region.size.x)
 	art.position.y = -atlas.region.size.y * art.scale.y * 0.5
+	var art_size := atlas.region.size * art.scale
+	var height := maxf(obstacle_size.y, art_size.y)
+	occlusion_rect = Rect2(Vector2(-obstacle_size.x * 0.5, -height), Vector2(obstacle_size.x, height))
 	var alpha_material := ShaderMaterial.new()
 	alpha_material.shader = ALPHA_SHADER
 	art.material = alpha_material

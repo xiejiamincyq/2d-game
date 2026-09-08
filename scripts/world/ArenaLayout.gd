@@ -32,6 +32,13 @@ var map_seed := 0
 var generator_version := GENERATOR_VERSION
 var obstacle_descriptors: Array[Dictionary] = []
 var flow_fields: Dictionary = {}
+var occlusion_target: Node2D
+
+func _process(delta: float) -> void:
+	var active := is_instance_valid(occlusion_target)
+	var point := occlusion_target.global_position if active else Vector2.ZERO
+	for obstacle in get_children():
+		obstacle.update_player_occlusion(point, active, delta)
 
 func generate(bounds: Rect2, seed_value: int, version: int = GENERATOR_VERSION) -> void:
 	_clear_obstacles()
