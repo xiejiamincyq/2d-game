@@ -67,6 +67,9 @@ func _initialize() -> void:
 			return
 	if not _assert_true(scene.world.y_sort_enabled and scene.enemies.y_sort_enabled and scene.arena_layout.y_sort_enabled, "actor/obstacle depth sorting is disabled"):
 		return
+	var floor_node: Node2D = scene.world.get_node("CyberWastelandFloor")
+	if not _assert_true(floor_node.material is ShaderMaterial, "mint floor did not apply its low-contrast surface treatment"):
+		return
 	var player_radius: float = scene.player.get_body_radius()
 	scene.player.set_physics_process(false)
 	scene.player.global_position = Vector2(obstacle_rect.position.x - player_radius - 4.0, obstacle_rect.get_center().y)

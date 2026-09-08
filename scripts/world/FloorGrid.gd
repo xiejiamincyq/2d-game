@@ -12,6 +12,9 @@ func _ready() -> void:
 	z_index = FLOOR_Z_INDEX
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+	var surface := ShaderMaterial.new()
+	surface.shader = preload("res://assets/art/environment/floor_surface.gdshader")
+	material = surface
 	queue_redraw()
 
 func _draw() -> void:

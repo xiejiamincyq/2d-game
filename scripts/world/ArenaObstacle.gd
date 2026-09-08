@@ -13,6 +13,7 @@ const ALPHA_SHADER = preload("res://assets/art/environment/prop_alpha.gdshader")
 var obstacle_size := Vector2(160.0, 100.0)
 var obstacle_kind: StringName = &"planter"
 var occlusion_rect := Rect2()
+var plinth_style: StyleBoxFlat
 
 func update_player_occlusion(player_position: Vector2, active: bool, delta: float) -> void:
 	# Only fade a foreground obstacle overlapping the player's 84px visual,
@@ -57,11 +58,22 @@ func setup(rect: Rect2, kind: StringName) -> void:
 	alpha_material.shader = ALPHA_SHADER
 	art.material = alpha_material
 	add_child(art)
+	plinth_style = StyleBoxFlat.new()
+	plinth_style.bg_color = Color("756c50") if kind == &"planter" else Color("c5cebb")
+	plinth_style.border_color = Color("d8d7bc")
+	plinth_style.set_border_width_all(5)
+	plinth_style.set_corner_radius_all(5)
+	plinth_style.anti_aliasing = true
 	queue_redraw()
 
 func _draw() -> void:
 	var footprint := Rect2(Vector2(-obstacle_size.x * 0.5, -obstacle_size.y), obstacle_size)
 	draw_rect(Rect2(footprint.position + Vector2(3, 5), footprint.size), Color(0.09, 0.17, 0.15, 0.22))
-	# The plinth explicitly marks all solid area, including behind short props.
-	draw_rect(footprint, Color("c5cebb"))
-	draw_rect(footprint, Color("66867b"), false, 2.0)
+	# The full solid footprint stays visible; the planter's exposed strip is soil,
+	# not an empty slab. Small rounded corners do not change its collider.
+	if plinth_style != null:
+		draw_style_box(plinth_style, footprint)
+	if obstacle_kind == &"planter":
+		for x in [-0.28, 0.0, 0.28]:
+			var center := Vector2(obstacle_size.x * x, -obstacle_size.y + 15.0)
+			draw_line(center - Vector2(9, 0), center + Vector2(9, 0), Color("5d624b"), 2.0, true)
