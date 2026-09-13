@@ -1,6 +1,7 @@
 extends Node2D
 
 const PlayerScript = preload("res://scripts/actors/Player.gd")
+const PlayerOutlineScript = preload("res://scripts/art/PlayerOcclusionOutline.gd")
 const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
 const UpgradeSystemScript = preload("res://scripts/systems/UpgradeSystem.gd")
 const RunSnapshotStoreScript = preload("res://scripts/systems/RunSnapshotStore.gd")
@@ -142,6 +143,8 @@ func _build_world() -> void:
 	world.add_child(enemies)
 	projectiles = Node2D.new()
 	projectiles.name = "Projectiles"
+	# Live projectiles remain above the contour, which sits above decorative VFX.
+	projectiles.z_index = PlayerOutlineScript.OUTLINE_Z_INDEX + 1
 	projectiles.process_mode = Node.PROCESS_MODE_PAUSABLE
 	world.add_child(projectiles)
 	portals = Node2D.new()
@@ -216,6 +219,9 @@ func _begin_run(snapshot: Dictionary) -> void:
 	player.set_physics_process(false)
 	world.add_child(player)
 	arena_layout.occlusion_target = player
+	var player_outline := PlayerOutlineScript.new()
+	player.add_child(player_outline)
+	player_outline.setup(player, enemies, arena_layout)
 	var camera := Camera2D.new()
 	camera.name = "PlayerCamera"
 	camera.position_smoothing_enabled = true

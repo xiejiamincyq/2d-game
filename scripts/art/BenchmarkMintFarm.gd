@@ -12,6 +12,9 @@ func _initialize() -> void:
 	var capture_path := "res://docs/art/previews/environment/mint-farm-stress-v1.png"
 	if readability_review:
 		capture_path = capture_path.replace("-v1", "-readability-v1")
+	if OS.get_cmdline_user_args().has("outline"):
+		report_path = REPORT_PATH.replace("-v1", "-outline-v1")
+		capture_path = "res://docs/art/previews/environment/mint-farm-stress-outline-v1.png"
 	var drift := await _check_floor_scroll()
 	if drift > 0.02:
 		push_error("Floor scroll world-space pixel drift exceeded 0.02: %f" % drift)
@@ -95,6 +98,9 @@ func _initialize() -> void:
 		"device": RenderingServer.get_video_adapter_name(), "engine": Engine.get_version_info()["string"],
 		"limitations": "single-machine debug snapshot, not a release FPS guarantee; scripted camera is not player collision playtesting",
 	}
+	if OS.get_cmdline_user_args().has("outline"):
+		var outline := scene.player.get_node("PlayerOcclusionOutline") as Sprite2D
+		report["player_outline_visible_at_capture"] = outline.is_visible_in_tree()
 	var file := FileAccess.open(ProjectSettings.globalize_path(report_path), FileAccess.WRITE)
 	if file == null:
 		push_error("Benchmark report write failed")

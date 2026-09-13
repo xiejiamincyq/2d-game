@@ -253,9 +253,12 @@ func get_effective_move_speed() -> float:
 func get_effective_dash_cooldown() -> float:
 	return dash_cooldown * (OVERDRIVE_DASH_COOLDOWN_MULTIPLIER if overdrive_active else 1.0)
 
-func _draw() -> void:
+func get_body_visual_center() -> Vector2:
 	var movement_bob := absf(sin(visual_elapsed * 10.0)) * 1.6 if velocity.length_squared() > 1.0 else 0.0
-	var visual_center := Vector2(0.0, entrance_visual_offset - movement_bob)
+	return Vector2(0.0, entrance_visual_offset - movement_bob)
+
+func _draw() -> void:
+	var visual_center := get_body_visual_center()
 	if overdrive_active:
 		var pulse := 0.5 + 0.5 * sin(visual_elapsed * 8.0)
 		if velocity.length_squared() > 1.0:
