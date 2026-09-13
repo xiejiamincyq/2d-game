@@ -1,0 +1,28 @@
+{
+  "active_enemy_count_range": [
+    62,
+    80
+  ],
+  "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "draw_calls_max": 329,
+  "enemies_remaining": 62,
+  "enemy_movement_verified": true,
+  "engine": "4.7-stable (official)",
+  "fixture": "80 initial active AI enemies; scripted moving camera; invulnerable stationary player; periodic bullets and sparks",
+  "floor_scroll_max_channel_drift": 0.0,
+  "frame_interval_msec": {
+    "average": 4.76259916666667,
+    "max": 12.441,
+    "p95": 8.542
+  },
+  "limitations": "single-machine debug snapshot, not a release FPS guarantee; scripted camera is not player collision playtesting",
+  "map_seed": 20260908,
+  "projectiles_max": 149,
+  "sample_frames": 1200,
+  "texture_memory_bytes": 22921728,
+  "viewport": [
+    1280,
+    720
+  ],
+  "warmup_frames": 240
+}

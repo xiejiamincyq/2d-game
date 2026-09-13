@@ -6,6 +6,12 @@ const FLOOR_SCRIPT = preload("res://scripts/world/FloorGrid.gd")
 const REPORT_PATH := "res://docs/art/previews/environment/mint-farm-benchmark-v1.json"
 
 func _initialize() -> void:
+	# Keep the original baseline intact when reviewing the impact readability fix.
+	var readability_review := OS.get_cmdline_user_args().has("readability")
+	var report_path := REPORT_PATH.replace("-v1", "-readability-v1") if readability_review else REPORT_PATH
+	var capture_path := "res://docs/art/previews/environment/mint-farm-stress-v1.png"
+	if readability_review:
+		capture_path = capture_path.replace("-v1", "-readability-v1")
 	var drift := await _check_floor_scroll()
 	if drift > 0.02:
 		push_error("Floor scroll world-space pixel drift exceeded 0.02: %f" % drift)
@@ -73,7 +79,7 @@ func _initialize() -> void:
 		quit(1)
 		return
 	var capture := viewport.get_texture().get_image()
-	if capture == null or capture.is_empty() or capture.save_png(ProjectSettings.globalize_path("res://docs/art/previews/environment/mint-farm-stress-v1.png")) != OK:
+	if capture == null or capture.is_empty() or capture.save_png(ProjectSettings.globalize_path(capture_path)) != OK:
 		push_error("Stress screenshot failed")
 		quit(1)
 		return
@@ -89,7 +95,7 @@ func _initialize() -> void:
 		"device": RenderingServer.get_video_adapter_name(), "engine": Engine.get_version_info()["string"],
 		"limitations": "single-machine debug snapshot, not a release FPS guarantee; scripted camera is not player collision playtesting",
 	}
-	var file := FileAccess.open(ProjectSettings.globalize_path(REPORT_PATH), FileAccess.WRITE)
+	var file := FileAccess.open(ProjectSettings.globalize_path(report_path), FileAccess.WRITE)
 	if file == null:
 		push_error("Benchmark report write failed")
 		quit(1)

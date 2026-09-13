@@ -10,6 +10,13 @@ const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0
 
+func _textured_spark_count(vfx: Node) -> int:
+	var count := 0
+	for spark in vfx._sparks:
+		if bool(spark.get("textured", true)):
+			count += 1
+	return count
+
 func _assert_true(condition: bool, message: String) -> bool:
 	assertions += 1
 	if condition:
@@ -23,6 +30,18 @@ func _initialize() -> void:
 	var vfx: Node2D = CombatVfxScript.new()
 	root.add_child(vfx)
 	await process_frame
+	for index in range(20):
+		vfx.request_effect(CombatVfxScript.SPARK, Vector2.ZERO)
+	if not _assert_true(_textured_spark_count(vfx) == 3 and vfx.get_effect_count(CombatVfxScript.SPARK) == 20, "overlapping hits did not keep streaks while limiting textures to three"):
+		return
+	vfx.request_effect(CombatVfxScript.SPARK, Vector2(100.0, 0.0))
+	if not _assert_true(_textured_spark_count(vfx) == 4, "local hit budget suppressed a distant hit"):
+		return
+	vfx._process(1.0)
+	vfx.request_effect(CombatVfxScript.SPARK, Vector2.ZERO)
+	if not _assert_true(_textured_spark_count(vfx) == 1, "expired hits did not release the local budget"):
+		return
+	vfx.clear_all()
 	var child_count_before: int = vfx.get_child_count()
 	for effect_index in range(1000):
 		var position := Vector2(float(effect_index % 25), float(effect_index % 17))
@@ -51,6 +70,12 @@ func _initialize() -> void:
 	):
 		return
 	if not _assert_true(bool(vfx._rings[0].get("blast", false)), "blast ring lost its distinct visual marker"):
+		return
+	for spark in vfx._sparks:
+		if not _assert_true(not bool(spark.get("textured", true)), "blast rays still duplicate full hit textures"):
+			return
+	vfx.request_effect(CombatVfxScript.SPARK, Vector2.ZERO)
+	if not _assert_true(vfx.get_effect_count(CombatVfxScript.SPARK) == 9 and _textured_spark_count(vfx) == 1, "blast rays consumed the ordinary hit texture budget"):
 		return
 	vfx.clear_all()
 

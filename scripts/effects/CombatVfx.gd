@@ -9,6 +9,8 @@ const BLAST: StringName = &"blast"
 const HIT_TEXTURE := preload("res://assets/art/effects/combat_hit_chibi_b_v1.png")
 
 const MAX_SPARKS: int = 96
+const MAX_LOCAL_HIT_TEXTURES: int = 3
+const HIT_TEXTURE_NEIGHBORHOOD: float = 48.0
 const MAX_DEBRIS: int = 48
 const MAX_RINGS: int = 16
 const MAX_AFTERIMAGES: int = 24
@@ -37,12 +39,20 @@ func request_effect(
 	var phase := fposmod(float(_effect_serial) * 2.39996323, TAU)
 	match effect_type:
 		SPARK:
+			# A global particle cap does not prevent an opaque pile at one impact.
+			var local_hits := 0
+			for spark in _sparks:
+				if bool(spark.get("textured", true)) and Vector2(spark["position"]).distance_squared_to(world_position) <= HIT_TEXTURE_NEIGHBORHOOD * HIT_TEXTURE_NEIGHBORHOOD:
+					local_hits += 1
+					if local_hits >= MAX_LOCAL_HIT_TEXTURES:
+						break
 			_append_bounded(_sparks, {
 				"position": world_position,
 				"velocity": resolved_direction * (90.0 + 70.0 * strength),
 				"life": 0.1 + 0.06 * strength,
 				"max_life": 0.1 + 0.06 * strength,
 				"size": 5.0 + 4.0 * strength,
+				"textured": local_hits < MAX_LOCAL_HIT_TEXTURES,
 			}, MAX_SPARKS)
 		DEBRIS:
 			_append_bounded(_debris, {
@@ -82,6 +92,8 @@ func request_effect(
 					"life": 0.18,
 					"max_life": 0.18,
 					"size": 10.0,
+					# Explosion rays are streaks, not eight copies of the hit burst.
+					"textured": false,
 				}, MAX_SPARKS)
 		AFTERIMAGE:
 			_append_bounded(_afterimages, {
@@ -154,7 +166,8 @@ func _draw() -> void:
 		var tail: Vector2 = velocity.normalized() * float(record["size"])
 		var burst_size := float(record["size"]) * 4.2
 		var burst_rect := Rect2(Vector2(record["position"]) - Vector2.ONE * burst_size * 0.5, Vector2.ONE * burst_size)
-		draw_texture_rect(HIT_TEXTURE, burst_rect, false, Color(1.0, 1.0, 1.0, spark_ratio))
+		if bool(record.get("textured", true)):
+			draw_texture_rect(HIT_TEXTURE, burst_rect, false, Color(1.0, 1.0, 1.0, spark_ratio))
 		draw_line(record["position"], record["position"] - tail * 0.72, Color(1.0, 0.92, 0.72, spark_ratio), 1.5)
 
 func clear_all() -> void:
