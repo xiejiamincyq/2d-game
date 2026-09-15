@@ -4,8 +4,12 @@ const PlayerScript = preload("res://scripts/actors/Player.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const OutlineScript = preload("res://scripts/art/PlayerOcclusionOutline.gd")
 const FloorScript = preload("res://scripts/world/FloorGrid.gd")
+const LobScript = preload("res://scripts/components/LobbedProjectile.gd")
 
 func _initialize() -> void:
+	var args := OS.get_cmdline_user_args()
+	var legacy_fill := args.has("landing-before")
+	var landing_preview := legacy_fill or args.has("landing")
 	var viewport := SubViewport.new()
 	viewport.size = Vector2i(960, 720)
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
@@ -34,6 +38,19 @@ func _initialize() -> void:
 			enemy.position = center + Vector2(cos(angle) * 48.0, sin(angle) * 28.0 + 12.0)
 			enemy._update_enemy_facing(center)
 		var outline := OutlineScript.new()
+		if landing_preview:
+			var shots := Node2D.new()
+			shots.z_index = OutlineScript.OUTLINE_Z_INDEX + 1
+			world.add_child(shots)
+			for lob_index in range(12):
+				var lob := LobScript.new()
+				lob.process_mode = Node.PROCESS_MODE_DISABLED
+				lob.configure(center + Vector2(160.0, -70.0 + lob_index * 4.0), center, player)
+				shots.add_child(lob)
+				lob._physics_process(0.3)
+				if legacy_fill:
+					# Reproduce the former fill layer without changing flight or boundary.
+					lob.landing_fill.z_index = 0
 		player.add_child(outline)
 		outline.setup(player, world, null)
 		if not outline.visible:
@@ -50,6 +67,8 @@ func _initialize() -> void:
 	await RenderingServer.frame_post_draw
 	var capture := viewport.get_texture().get_image()
 	var path := "res://docs/art/previews/environment/player-outline-runtime-v1.png"
+	if landing_preview:
+		path = path.replace("runtime", "landing-before" if legacy_fill else "landing")
 	if capture == null or capture.is_empty() or capture.save_png(ProjectSettings.globalize_path(path)) != OK:
 		push_error("Runtime outline screenshot failed")
 		quit(1)
