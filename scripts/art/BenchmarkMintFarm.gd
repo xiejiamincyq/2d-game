@@ -18,6 +18,9 @@ func _initialize() -> void:
 	if OS.get_cmdline_user_args().has("landing"):
 		report_path = REPORT_PATH.replace("-v1", "-landing-v1")
 		capture_path = "res://docs/art/previews/environment/mint-farm-stress-landing-v1.png"
+	if OS.get_cmdline_user_args().has("markers"):
+		report_path = REPORT_PATH.replace("-v1", "-markers-v1")
+		capture_path = "res://docs/art/previews/environment/mint-farm-stress-markers-v1.png"
 	var drift := await _check_floor_scroll()
 	if drift > 0.02:
 		push_error("Floor scroll world-space pixel drift exceeded 0.02: %f" % drift)

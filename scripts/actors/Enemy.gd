@@ -498,13 +498,13 @@ func _draw() -> void:
 	var size := body_radius * 1.7
 	if static_visual == null:
 		draw_rect(Rect2(Vector2(-size * 0.5, -size * 0.5), Vector2(size, size)), body_color)
-	if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER]:
+	if should_show_health_bar():
 		var bar_width := body_radius * 1.6
 		var bar_y := -static_visual_half_height - 8.0 if static_visual != null else -body_radius - 12.0
 		var bar_rect := Rect2(-bar_width * 0.5, bar_y, bar_width, 6.0)
 		draw_rect(bar_rect, Color("061019"))
 		draw_rect(Rect2(bar_rect.position + Vector2.ONE, Vector2((bar_width - 2.0) * get_health_ratio(), 4.0)), accent)
-	else:
+	elif should_show_status_marker():
 		var status_y := -static_visual_half_height - 6.0 if static_visual != null else -body_radius - 3.0
 		draw_rect(Rect2(-body_radius * 0.55, status_y, body_radius * 1.1, 5), accent)
 	if static_visual == null:
@@ -529,6 +529,16 @@ func _draw() -> void:
 	if static_visual == null:
 		draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
 		draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
+
+func should_show_health_bar() -> bool:
+	if health == null or health.current_health <= 0.0:
+		return false
+	# Overseers retain persistent priority; ordinary heavies show useful damage state.
+	return kind == EnemyKind.OVERSEER or (kind == EnemyKind.BRUISER and health.current_health < health.max_health)
+
+func should_show_status_marker() -> bool:
+	# Colored placeholder strips duplicate the illustrated silhouettes and carry no state.
+	return static_visual == null and kind not in [EnemyKind.BRUISER, EnemyKind.OVERSEER]
 
 func _create_static_visual(texture: Texture2D, visual_scale: Vector2, node_name: String) -> void:
 	static_visual = Sprite2D.new()

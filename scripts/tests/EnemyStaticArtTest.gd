@@ -43,6 +43,12 @@ func _initialize() -> void:
 			return
 		if not _assert_true(visual.material is ShaderMaterial, "static enemy lacks hit-flash material"):
 			return
+		if not _assert_true(enemy.has_method("should_show_health_bar") and enemy.has_method("should_show_status_marker"), "enemy marker visibility policy missing"):
+			return
+		if not _assert_true(enemy.should_show_health_bar() == (fixture.kind == EnemyScript.EnemyKind.OVERSEER), "full-health enemy bar priority incorrect"):
+			return
+		if not _assert_true(not enemy.should_show_status_marker(), "illustrated enemy still has a decorative status strip"):
+			return
 
 		var player := Node2D.new()
 		player.add_to_group("player")
@@ -58,11 +64,19 @@ func _initialize() -> void:
 			return
 
 		enemy.take_damage(1.0)
+		if not _assert_true(enemy.should_show_health_bar() == (fixture.kind in [EnemyScript.EnemyKind.BRUISER, EnemyScript.EnemyKind.OVERSEER]), "damaged heavy enemy lost health feedback"):
+			return
 		var material := visual.material as ShaderMaterial
 		if not _assert_true(float(material.get_shader_parameter("flash_amount")) > 0.99, "static enemy hit flash did not activate"):
 			return
 		enemy._physics_process(0.1)
 		if not _assert_true(is_zero_approx(float(material.get_shader_parameter("flash_amount"))), "static enemy hit flash did not clear"):
+			return
+		enemy.health.current_health = enemy.health.max_health
+		if not _assert_true(enemy.should_show_health_bar() == (fixture.kind == EnemyScript.EnemyKind.OVERSEER), "restored full health did not hide incidental bar"):
+			return
+		enemy.health.current_health = 0.0
+		if not _assert_true(not enemy.should_show_health_bar(), "dead enemy retains a health bar"):
 			return
 
 		player.queue_free()
