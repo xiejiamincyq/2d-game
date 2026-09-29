@@ -69,6 +69,19 @@ HUD、升级面板、暂停面板和结算面板必须保持在视口内；升�
 ## 推送前检查
 
 ```powershell
+powershell -ExecutionPolicy Bypass -File scripts/tests/prepush.ps1
+```
+
+`prepush.ps1` 按顺序执行以下检查，任一失败即返回非零退出码：
+
+1. `git diff --check`（含暂存区）捕获空白错误；
+2. 暂停赋值扫描，确保 `get_tree().paused =` 只出现在 `scripts/Main.gd`；
+3. 相对 HEAD 的变更密钥扫描，命中高置信凭证模式即失败；
+4. 完整严格测试套件；纯文档改动可加 `-SkipTests` 跳过。
+
+等价手动命令：
+
+```powershell
 powershell -ExecutionPolicy Bypass -File scripts/tests/run_tests.ps1
 git diff --check
 rg -n 'get_tree\(\)\.paused\s*=' scripts -g '*.gd'

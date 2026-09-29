@@ -5,6 +5,7 @@ __pycache__/
 tmp/
 .worktrees/
 .superpowers/art-pipeline-evidence/
+.superpowers/sdd/
 
 # Downloaded at runtime by the third-party image prompt skill.
 .agents/skills/ai-image-prompts-skill/references/*.json
