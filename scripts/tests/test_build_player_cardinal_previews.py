@@ -1,9 +1,11 @@
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from scripts.art.build_player_cardinal_previews import DIRECTIONS, build_cardinal_previews
 
 

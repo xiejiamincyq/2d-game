@@ -7,6 +7,7 @@
 - Godot 4.7 stable
 - Windows 10 或 Windows 11
 - 运行自动测试时需要 Windows PowerShell 5.1 或 PowerShell 7
+- 运行 Python 美术管线自动测试时需要 Python 3.10+ 与 Pillow
 
 ## 运行游戏
 
@@ -41,7 +42,7 @@
 powershell -ExecutionPolicy Bypass -File scripts/tests/run_tests.ps1
 ```
 
-严格运行器会为每个测试创建独立 Godot 进程，并同时验证退出码、通过计数、脚本错误、引擎错误和对象泄漏。单项测试和完整测试说明见 [docs/testing.md](docs/testing.md)。
+严格运行器会为每个测试创建独立进程（Godot 套件为独立 Godot 进程，美术管线工具为独立 Python 解释器进程），并同时验证退出码、通过计数、脚本错误、引擎错误和对象泄漏。可用 `-Group gameplay`、`-Group art`、`-Group python` 分组运行以加快迭代。单项测试和完整测试说明见 [docs/testing.md](docs/testing.md)。
 
 ## 导出 Windows 版本
 

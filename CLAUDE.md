@@ -18,6 +18,8 @@ Full strict test suite (from repo root):
 powershell -ExecutionPolicy Bypass -File scripts/tests/run_tests.ps1
 ```
 
+Fast gameplay-only loop: `powershell -ExecutionPolicy Bypass -File scripts/tests/run_tests.ps1 -Group gameplay` (also `-Group art`, `-Group python`).
+
 Single test suite (headless):
 
 ```powershell
@@ -34,14 +36,16 @@ powershell -ExecutionPolicy Bypass -File scripts/tests/prepush.ps1
 
 ## Strict Test Contract
 
-Each suite in `scripts/tests/` runs as an isolated Godot process. A suite passes only if ALL of:
+Each Godot suite in `scripts/tests/` runs as an isolated Godot process. A suite passes only if ALL of:
 
 - exits within 120 s with exit code 0,
 - emits exactly one `TEST PASS: <SuiteName> <positive-count>` marker,
 - contains no `SCRIPT ERROR`, `ERROR:`, or `TEST FAIL:`,
 - contains no ObjectDB / RID / "resources still in use" leak warnings.
 
-When adding a test suite, register it in `$tests` in `scripts/tests/run_tests.ps1` and honor the marker contract. Use `TestSupport.stop_audio()` for fixtures that touch `AudioManager` to avoid leaking players.
+Python art-pipeline suites (`scripts/tests/test_*.py` plus `validate_art_pipeline_skill.py`) run as isolated interpreter processes and must exit 0 with exactly one `Ran N tests` summary (`N >= 1`) and no `FAILED` line or `Traceback`. They need Python 3.10+ and Pillow; `PYTHON_BIN` overrides the interpreter.
+
+When adding a Godot suite, register it in `$gameplayTests` or `$artTests` in `scripts/tests/run_tests.ps1` and honor the marker contract; new `test_*.py` files are discovered automatically. Use `TestSupport.stop_audio()` for fixtures that touch `AudioManager` to avoid leaking players.
 
 ## High-Level Architecture
 
