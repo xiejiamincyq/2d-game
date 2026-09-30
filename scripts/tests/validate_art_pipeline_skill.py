@@ -16,6 +16,7 @@ TEMPLATE = SKILL / "assets" / "manifest-entry.json"
 CLASS_CONTRACTS = {
     "actor": ("characters-combat", "actors", (1024, 1024)),
     "enemy": ("characters-combat", "actors", (1024, 1024)),
+    "boss": ("characters-combat", "actors", (1024, 1024)),
     "effect": ("characters-combat", "effects", (1024, 1024)),
     "pickup": ("characters-combat", "pickups", (512, 512)),
     "background": ("environment", "environment", (2560, 1440)),
@@ -93,7 +94,7 @@ class ArtPipelineSkillTest(unittest.TestCase):
     def test_references_pin_current_project_constraints(self) -> None:
         style = (SKILL / "references" / "style-guide.md").read_text(encoding="utf-8")
         imports = (SKILL / "references" / "godot-import.md").read_text(encoding="utf-8")
-        for phrase in ("1280×720", "#33fff2", "#f559bf", "1024×1024", "2560×1440"):
+        for phrase in ("1280×720", "#35b8ac", "#f27a4b", "1024×1024", "2560×1440"):
             self.assertIn(phrase, style.lower())
         for phrase in ("canvas_items", "collision radius", "lossless", "mipmaps", "nine-patch"):
             self.assertIn(phrase, imports.lower())
@@ -177,15 +178,18 @@ class ArtPipelineSkillTest(unittest.TestCase):
                     "runtime_path",
                 )
 
-    def test_manifest_validator_rejects_noncanonical_source_dimensions(self) -> None:
+    def test_manifest_validator_rejects_undersized_source_dimensions(self) -> None:
+        # The validator contract is "at least" the class minimum, so rejection
+        # cases must fall below the minimum in width or height.
         cases = {
             "actor": (1024, 512),
             "enemy": (512, 1024),
+            "boss": (1024, 512),
             "effect": (512, 512),
-            "pickup": (1024, 1024),
+            "pickup": (256, 256),
             "background": (1280, 720),
-            "environment": (2048, 2048),
-            "ui-icon": (512, 512),
+            "environment": (512, 512),
+            "ui-icon": (128, 128),
             "ui-panel": (1024, 512),
         }
         for asset_class, (width, height) in cases.items():
