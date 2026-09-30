@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-**废土清剿协议 (Wasteland Protocol)** — a Windows-desktop 2D cyber-wasteland roguelite built with **Godot 4.7 stable**. All visuals are drawn procedurally in `_draw()` and all audio is synthesized at runtime; there are no imported art or audio assets. The main scene is `scenes/Main.tscn`.
+**废土清剿协议 (Wasteland Protocol)** — a Windows-desktop 2D action roguelite built with **Godot 4.7 stable**. A run is six normal waves plus a final Boss battle (~5 minutes): portals burst enemies into the arena, kill streaks charge a 2.8 s overdrive burst, and wave rewards plus coins drive a settlement card shop. The art direction is the locked "clean chibi bio-farm" style; runtime visuals come from curated chibi PNG atlases in `assets/art` plus procedural effects, with imported audio tracks and synthesized SFX. The main scene is `scenes/Main.tscn`.
 
 Game design, plans, and most docs are written in **Chinese**. Code identifiers, signal names, and comments are in English.
 
@@ -51,24 +51,28 @@ When adding a Godot suite, register it in `$gameplayTests` or `$artTests` in `sc
 
 Everything is driven from `scripts/Main.gd` (a `Node2D` that builds the world at runtime — there is almost nothing in `Main.tscn`). Main owns:
 
-- A state machine `RunState { START, PLAYING, UPGRADE, PAUSED, RESULT }` with a whitelist of legal transitions (`_transition_to`). **`get_tree().paused = ...` may only appear in `Main.gd`** — the pre-push `rg` check enforces this. `UPGRADE`, `PAUSED`, and `RESULT` all pause the tree; gameplay nodes run as `PROCESS_MODE_PAUSABLE`, while `Main`, `GameUI`, `UpgradeSystem`, and `AudioManager` run as `PROCESS_MODE_ALWAYS`.
-- Three paused containers under `World`: `Enemies`, `Projectiles`, `Pickups`. Everything spawned into the run goes into one of these so pause is uniform.
+- A state machine `RunState { START, WAVE_INTRO, PLAYING, BOSS_INTRO, WAVE_CLEAR, SETTLEMENT, PAUSED, RESULT }` with a whitelist of legal transitions (`_transition_to`). **`get_tree().paused = ...` may only appear in `Main.gd`** — the pre-push `prepush.ps1` check enforces this. Every state except `START` and `PLAYING` pauses the tree; gameplay nodes run as `PROCESS_MODE_PAUSABLE`, while `Main`, `GameUI`, `UpgradeSystem`, and `AudioManager` run as `PROCESS_MODE_ALWAYS`.
+- Four paused containers under `World`: `Enemies`, `Projectiles`, `Portals`, `Pickups`. Everything spawned into the run goes into one of these so pause is uniform.
 - Signals flowing one direction: gameplay objects emit signals (`Enemy.died`, `Player.fired`, `UpgradeSystem.choices_ready`, …); `Main` and `GameUI` subscribe and react. Gameplay nodes do not call into UI.
 
 Key systems and their responsibilities:
 
-- `scripts/systems/WaveDirector.gd` — owns the 8-wave table, the spawn queue, the `active_enemies` registry, and victory detection. It emits a single `enemy_killed(xp)` fact per death and defers XP/shield drop spawning to `Main`. Other systems should consume `get_active_enemies()` instead of scanning the `"enemies"` group (Player keeps one group-scan fallback only for isolated test fixtures).
-- `scripts/systems/UpgradeSystem.gd` — XP curve, level-ups, three-choice upgrade pool, and a transactional `_transaction` token + `choice_generation` guard so forged, duplicate, or out-of-order choices are rejected. When multiple level-ups queue, it presents them one at a time and emits `upgrade_queue_completed` when drained.
-- `scripts/systems/AudioManager.gd` — synthesizes every sound via `AudioStreamGenerator`/`_make_tone`/`_make_impact`. Maintains a fixed pool of 16 one-shot voices plus one laser-loop player; hit sounds are rate-limited per `DamageTypes` source so 100 hits never grow the audio subtree. Map new damage sources through `hit_stream_names`.
-- `scripts/components/DamageTypes.gd` — the canonical `StringName` constants for damage sources (`GENERIC`, `PROJECTILE`, `LASER`, `ARC`, `DASH`, `SPIKE`). Anything that deals damage should pass one of these; anything that reacts to damage should key off them.
-- `scripts/components/HealthComponent.gd` — atomic health/shield bookkeeping, `can_accept_damage()`, and the 0.35 s post-hit invulnerability window used by `Player.take_damage`. Refused hits must not refresh invulnerability.
-- `scripts/actors/Player.gd` — movement, primary fire (multi-line), dash (165 px / 0.16 s sweep damage), drones + laser beams, arc pulse, spike traps. Dash melee sweeps are geometric (`_distance_to_segment`), not physics collision, so they cannot miss at high frame rates.
-- `scripts/actors/Enemy.gd` — four kinds (`SCRAPPER`, `DASHER`, `SPITTER`, `BRUISER`) with kind-specific movement, melee windup/recovery, and the spitter's ranged attack. Wave scaling is applied in `setup()` from the wave index.
-- `scripts/ui/GameUI.gd` — instantiates `HUD`, `UpgradeScreen`, `PauseScreen`, `ResultScreen` from `scenes/ui/*.tscn` and re-exposes a compatibility surface of node references used by `Main` and tests. UI is a `CanvasLayer` at layer 20 and always-process so it stays interactive while the tree is paused.
+- `scripts/systems/WaveDirector.gd` — owns the six-wave table plus the final Boss phase, the `SpawnPortal` burst queue, the `active_enemies` registry, and victory detection. It emits a single kill fact per death and defers drop spawning to `Main`. Other systems should consume `get_active_enemies()` instead of scanning the `"enemies"` group.
+- `scripts/systems/UpgradeSystem.gd` — the progression and economy hub: wave rewards, coins (`add_coins`/`spend_coins`), the settlement card shop (`prepare_settlement`, `claim_free_offer`, `purchase_settlement_offer`), upgrade application, and snapshot state round-tripping. Settlement offers and upgrade choices are transactional; forged or duplicate requests are rejected.
+- `scripts/systems/RunSnapshotStore.gd` — versioned atomic run snapshots for the continue flow; corrupt or unknown-version saves fall back safely to a new game.
+- `scripts/systems/CombatFeedback.gd` (with `scripts/effects/CombatVfx.gd` and `CameraEffects.gd`) — bounded combat feedback: VFX, camera impact, and merged hit-stop requests capped at 35 ms per rolling 100 ms window.
+- `scripts/systems/AudioManager.gd` — synthesizes one-shots via `AudioStreamGenerator` on a fixed pool of 16 voices plus one laser-loop player; imported tracks (e.g. the industrial BGM) are separate stream players. Tests must run with `--audio-driver Dummy` so Windows audio handles cannot outlive a headless suite.
+- `scripts/components/DamageTypes.gd` — the canonical `StringName` constants for damage sources. Anything that deals damage should pass one of these; anything that reacts to damage should key off them.
+- `scripts/components/HealthComponent.gd` — atomic health/shield bookkeeping, `can_accept_damage()`, and the post-hit invulnerability window used by `Player.take_damage`. Refused hits must not refresh invulnerability.
+- `scripts/actors/Player.gd` — movement, primary fire (multi-line, inertial projectiles, grenades), dash sweep damage, drones with turning laser rays, arc pulse, spike traps, burn stacking, stealth, and the overdrive window. Dash melee sweeps are geometric (`_distance_to_segment`), not physics collision.
+- `scripts/actors/OverseerBoss.gd` + `scripts/components/BossAttackDirector.gd`/`TentacleAttack.gd`/`BossProjectilePattern.gd` — the final Boss: staged entrance, health bar contract, tentacle strikes, and aimed-fan projectile patterns.
+- `scripts/actors/Enemy.gd` — enemy kinds with kind-specific movement and attack windups, speed tiers, stealth interactions, and wave scaling applied in `setup()`.
+- `scripts/world/ArenaLayout.gd`/`ArenaObstacle.gd` — the seeded obstacle arena with a shared navigation flow field and versioned layout compatibility.
+- `scripts/ui/GameUI.gd` — instantiates HUD, settlement/shop, pause, and result screens from `scenes/ui/*.tscn` and re-exposes a compatibility surface used by `Main` and tests. UI is a `CanvasLayer` at layer 20 and always-process so it stays interactive while the tree is paused.
 
-## Active Plan
+## Plan Status
 
-The repo is mid-migration to a "five-minute overdrive" design. **`tasks/plan.md` is the single source of truth** for the unified implementation plan (21 tasks, 5 checkpoints, dependency graph, acceptance criteria). `tasks/todo.md` is the checkbox view. Older plans survive only in git history (`6dbd19a`, `8059c4b`); do not resurrect them.
+The "five-minute overdrive" plan (`tasks/plan.md`, `tasks/todo.md`) is implemented and merged to `master`; the run structure is six normal waves plus the final Boss. Four manual playtest sign-offs remain open in `tasks/todo.md` (Checkpoints G and H). `docs/release/2026-08-30-release-readiness.md` is the release source of truth: asset license review, Phase 19/20 and Boss playtest sign-off, and minimum-hardware validation still block release.
 
 High-conflict files when running parallel worktrees: `Player.gd`, `Enemy.gd`, `Main.gd`, `WaveDirector.gd`, `UpgradeSystem.gd`, `run_tests.ps1`.
 
@@ -80,4 +84,4 @@ High-conflict files when running parallel worktrees: `Player.gd`, `Enemy.gd`, `M
 
 ## Performance Baseline
 
-`docs/performance/wave-8-baseline.md` records the accepted ceiling: 250 wave-8 enemies, ≤399 nodes total, ≤17 audio players after 100 hits, ~0.1 ms for 1,000 registry lookups. Do not add object pooling or a spatial index without a fresh profiler capture showing a real spike.
+`docs/performance/wave-8-baseline.md` records the historical accepted ceiling; the current gates live in `PerformanceTest` (250 endgame-strength enemies, five portal bursts at 30/60/120 Hz, Boss projectile/VFX recycling, fixed audio voices) as documented in `docs/testing.md`. Do not add object pooling or a spatial index without a fresh profiler capture showing a real spike.
