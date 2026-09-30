@@ -69,6 +69,20 @@ func _initialize() -> void:
 	if not _assert_true(DamageTypes.resolve(DamageTypes.BURN) == DamageTypes.BURN, "burn damage type was not preserved"):
 		return
 
+	var flash_enemy: Node = EnemyScript.new()
+	root.add_child(flash_enemy)
+	flash_enemy.setup(EnemyScript.EnemyKind.SCRAPPER, 1, root)
+	await process_frame
+	flash_enemy.set_physics_process(false)
+	flash_enemy.take_damage(5.0, DamageTypes.PROJECTILE)
+	if not _assert_true(flash_enemy.hit_flash_active(), "unburned enemy hit did not start the white hit flash"):
+		return
+	flash_enemy.flash_timer = 0.0
+	flash_enemy.apply_burn_stack(10.0, 4.0, 0.0)
+	flash_enemy.take_damage(5.0, DamageTypes.BURN)
+	if not _assert_true(not flash_enemy.hit_flash_active(), "burning enemy hit still flashed white over its flame marker"):
+		return
+
 	var camera_probe := CameraProbe.new()
 	root.add_child(camera_probe)
 	var feedback: Node = CombatFeedbackScript.new()

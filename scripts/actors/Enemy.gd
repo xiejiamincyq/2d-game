@@ -493,7 +493,7 @@ func _draw() -> void:
 	elif kind == EnemyKind.OVERSEER:
 		body_color = Color("190d2c")
 		accent = Color("ff571f")
-	if flash_timer > 0.0:
+	if hit_flash_active():
 		body_color = Color.WHITE
 	var size := body_radius * 1.7
 	if static_visual == null:
@@ -577,8 +577,13 @@ func _update_enemy_facing(target_global_position: Vector2) -> void:
 	if static_visual != null:
 		static_visual.flip_h = face_left
 
+func hit_flash_active() -> bool:
+	# Burning enemies keep their flame marker readable: hits must not flash
+	# them white while burn stacks are active.
+	return flash_timer > 0.0 and get_burn_stack_count() == 0
+
 func _update_hit_flash() -> void:
-	var amount := 1.0 if flash_timer > 0.0 else 0.0
+	var amount := 1.0 if hit_flash_active() else 0.0
 	if static_flash_material != null:
 		static_flash_material.set_shader_parameter("flash_amount", amount)
 
