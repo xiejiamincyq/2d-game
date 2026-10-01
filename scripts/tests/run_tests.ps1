@@ -99,7 +99,10 @@ foreach ($test in $tests) {
     $startInfo.WorkingDirectory = $projectRoot
     # The Dummy driver prevents Windows audio playback handles from keeping a
     # finished headless child process alive after its pass marker is emitted.
-    $startInfo.Arguments = "--headless --audio-driver Dummy --path . --log-file `"$logPath`" --script res://scripts/tests/$test.gd --quit-after 120"
+    # Dash fixtures await real physics registration; 120 frames truncates the
+    # expanded matrix before completion. Keep both a frame and wall-clock bound.
+    $frameBudget = if ($test -eq "DashTest") { 1800 } else { 120 }
+    $startInfo.Arguments = "--headless --audio-driver Dummy --path . --log-file `"$logPath`" --script res://scripts/tests/$test.gd --quit-after $frameBudget"
     $startInfo.UseShellExecute = $false
     $startInfo.CreateNoWindow = $true
     $process = [System.Diagnostics.Process]::new()

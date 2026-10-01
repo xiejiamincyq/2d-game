@@ -18,6 +18,7 @@ const SpikeTrapScript = preload("res://scripts/components/SpikeTrap.gd")
 const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd")
 const FlameTrailScript = preload("res://scripts/components/FlameTrail.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const TerrainSweep = preload("res://scripts/world/TerrainSweep.gd")
 const ALL_DAMAGE_SOURCES: StringName = &"all"
 const OVERDRIVE_MODIFIER: StringName = &"overdrive"
 const DASH_IMMUNITY_SOURCE: StringName = &"dash"
@@ -113,6 +114,7 @@ var world_bounds: Rect2 = Rect2()
 var last_spike_position: Vector2 = Vector2.ZERO
 var has_spike_position: bool = false
 var dash_active: bool = false
+var dash_terrain_blocked := false
 var dash_direction: Vector2 = Vector2.RIGHT
 var last_movement_direction: Vector2 = Vector2.RIGHT
 var dash_hit_bodies: Array[Node] = []
@@ -202,6 +204,7 @@ func begin_spawn_input_guard() -> void:
 	spawn_input_guard_active = true
 	velocity = Vector2.ZERO
 	dash_active = false
+	dash_terrain_blocked = false
 
 func begin_entrance() -> void:
 	entrance_active = true
@@ -210,6 +213,7 @@ func begin_entrance() -> void:
 	entrance_visual_offset = -entrance_fall_height
 	velocity = Vector2.ZERO
 	dash_active = false
+	dash_terrain_blocked = false
 	dash_timer = 0.0
 	queue_redraw()
 
@@ -629,6 +633,7 @@ func _start_dash(direction: Vector2) -> void:
 		direction = last_movement_direction
 	dash_direction = direction.normalized()
 	dash_active = true
+	dash_terrain_blocked = false
 	dash_timer = dash_duration
 	dash_cooldown_remaining = get_effective_dash_cooldown()
 	dash_hit_bodies.clear()
@@ -650,8 +655,15 @@ func _update_dash(delta: float) -> void:
 	var step_time := minf(delta, dash_timer)
 	var start := global_position
 	velocity = dash_direction * (dash_distance / dash_duration)
-	global_position += velocity * step_time
-	_clamp_to_world_bounds()
+	if not dash_terrain_blocked:
+		var candidate := _bounded_position(start + velocity * step_time) - start
+		var terrain_motion := TerrainSweep.resolve(player_collision, candidate)
+		global_position += Vector2(terrain_motion["motion"])
+		dash_terrain_blocked = bool(terrain_motion["blocked"])
+		if bool(terrain_motion["embedded"]):
+			push_warning("Dash refused: player starts embedded in terrain")
+	if dash_terrain_blocked:
+		velocity = Vector2.ZERO
 	dash_timer -= step_time
 	_apply_dash_melee_sweep(start, global_position)
 	if active_build_evolutions.has("rift_overdrive"):
@@ -1077,7 +1089,10 @@ func _get_enemies() -> Array[Node]:
 	return get_tree().get_nodes_in_group("enemies")
 
 func _clamp_to_world_bounds() -> void:
+	global_position = _bounded_position(global_position)
+
+func _bounded_position(candidate: Vector2) -> Vector2:
 	if world_bounds.size == Vector2.ZERO:
-		return
+		return candidate
 	var playable := world_bounds.grow(-BODY_RADIUS)
-	global_position = global_position.clamp(playable.position, playable.end)
+	return candidate.clamp(playable.position, playable.end)

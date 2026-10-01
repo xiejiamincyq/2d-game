@@ -9,6 +9,7 @@ const PROP_REGIONS := {
 	&"pipe": Rect2(552, 552, 523, 305),
 }
 const ALPHA_SHADER = preload("res://assets/art/environment/prop_alpha.gdshader")
+const TerrainSweep = preload("res://scripts/world/TerrainSweep.gd")
 
 var obstacle_size := Vector2(160.0, 100.0)
 var obstacle_kind: StringName = &"planter"
@@ -30,7 +31,7 @@ func setup(rect: Rect2, kind: StringName) -> void:
 	position = Vector2(rect.get_center().x, rect.end.y)
 	obstacle_size = rect.size
 	obstacle_kind = kind
-	collision_layer = 1
+	collision_layer |= 1 | TerrainSweep.QUERY_LAYER
 	collision_mask = 0
 	add_to_group(&"arena_obstacles")
 	var collision := CollisionShape2D.new()
