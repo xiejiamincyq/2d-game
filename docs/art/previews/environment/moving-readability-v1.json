@@ -1,0 +1,31 @@
+{
+  "acceptance": "needs_review",
+  "captures": [
+    "moving-open-space-v1.png",
+    "moving-terrain-contact-v1.png",
+    "moving-combat-300-v1.png",
+    "moving-combat-600-v1.png",
+    "moving-combat-900-v1.png",
+    "moving-combat-1200-v1.png"
+  ],
+  "collision_frames_all_phases": 1329,
+  "combat_elapsed_game_seconds": 19.3991666666663,
+  "combat_outline_active_sample_frames": 1173,
+  "combat_physics_frames": 1200,
+  "combat_sample_frames": 1200,
+  "combat_travelled_pixels": 230.13640147699,
+  "crowd_mobility_minimum_pixels": 300.0,
+  "crowd_mobility_passed": false,
+  "initial_combat_enemies": 60,
+  "limitations": "scripted real input, invulnerable player, fixed map and initial layout; spawn RNG and viewport mouse aim not controlled; not human playtesting or full-run/performance acceptance; one fixture reset excluded from distance; outline flag sampled after physics before process updates",
+  "map_seed": 20260908,
+  "maximum_terrain_penetration_pixels": 0.0,
+  "open_physics_frames": 240,
+  "open_space_travelled_pixels": 940.000471115112,
+  "outline_triggered": true,
+  "remaining_enemies": 50,
+  "sampling_valid": true,
+  "terrain_approach_travelled_pixels": 571.2242603302,
+  "terrain_contact_verified": true,
+  "terrain_physics_frames": 300
+}
