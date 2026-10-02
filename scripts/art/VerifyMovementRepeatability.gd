@@ -9,10 +9,9 @@ const StoreScript = preload("res://scripts/systems/RunSnapshotStore.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const FeedbackScript = preload("res://scripts/art/MovementDiagnosticFeedback.gd")
 const TestSupportScript = preload("res://scripts/tests/TestSupport.gd")
+const SamplerScript = preload("res://scripts/art/MovementPhysicsSampler.gd")
 const OUTPUT_DIR := "res://build/diagnostics/movement-repeatability/"
 const ACTIONS := ["move_left", "move_right", "move_up", "move_down", "fire", "dash_melee"]
-const DIRECTIONS := [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
-const DASH_STEPS := [180, 360, 540, 720, 900, 1080]
 
 class DiagnosticMain extends MainScript:
 	var isolated_save_path := ""
@@ -36,8 +35,10 @@ var feedback: Node
 var samples: Array[Dictionary] = []
 var render_frames := 0
 var cleaning_up := false
+var watchdog_started_usec := 0
 
 func _initialize() -> void:
+	watchdog_started_usec = Time.get_ticks_usec()
 	process_frame.connect(_watchdog)
 	if not _parse_args():
 		quit(1)
@@ -47,7 +48,7 @@ func _initialize() -> void:
 	Engine.time_scale = 1.0
 	var save_path := "user://movement-repeatability/%s/run.json" % config.run
 	var output: String = OUTPUT_DIR + config.run + ".json"
-	if FileAccess.file_exists(output) or FileAccess.file_exists(save_path) or FileAccess.file_exists(save_path + ".tmp") or FileAccess.file_exists(save_path + ".bak"):
+	if FileAccess.file_exists(output) or FileAccess.file_exists(output.replace(".json", ".png")) or FileAccess.file_exists(save_path) or FileAccess.file_exists(save_path + ".tmp") or FileAccess.file_exists(save_path + ".bak"):
 		push_error("Movement run id already has evidence/save state; use a fresh --run id")
 		quit(1)
 		return
@@ -113,56 +114,29 @@ func _initialize() -> void:
 		"spawn_guard_active": scene.player.spawn_input_guard_active, "time_scale": Engine.time_scale}
 	var valid: bool = initial.enemies == 60 and initial.portals == 0 and not initial.spawn_guard_active and not paused and scene.run_state == scene.RunState.PLAYING
 	valid = valid and initial.map_seed == config.seed and initial.layout_seed == config.seed and scene.player.health.invulnerable_time <= 0.0
-	var first_frame := Engine.get_physics_frames()
-	var previous_frame := first_frame
-	var started_usec := Time.get_ticks_usec()
-	var simulated_seconds := 0.0
-	var travelled := 0.0
-	var previous_position: Vector2 = scene.player.global_position
-	Input.action_press("fire")
-	for index in range(config.steps if valid else 0):
-		var direction: Vector2 = DIRECTIONS[(index / 75) % DIRECTIONS.size()]
-		_drive(direction)
-		Input.action_release("dash_melee")
-		var dash_requested: bool = config.mode == "dash" and index + 1 in DASH_STEPS
-		if dash_requested:
-			Input.action_press("dash_melee")
-		await physics_frame
-		var injected_frame := Engine.get_physics_frames()
-		var before_position: Vector2 = scene.player.global_position
-		var aim_world := before_position + direction * 480.0
-		var mouse := InputEventMouseMotion.new()
-		mouse.position = view.canvas_transform * aim_world
-		view.push_input(mouse, true)
-		var scale_before := Engine.time_scale
-		await process_frame
-		var current_frame := Engine.get_physics_frames()
-		var delta: float = scene.player.get_physics_process_delta_time()
-		var point: Vector2 = scene.player.global_position
-		var actual_input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-		var aim := Vector2.RIGHT.rotated(scene.player.gun_angle)
-		valid = valid and current_frame == previous_frame + 1 and injected_frame == current_frame and actual_input.is_equal_approx(direction)
-		valid = valid and aim.dot(direction) >= 0.9999 and (config.track != "D" or is_equal_approx(scale_before, 1.0))
-		valid = valid and is_finite(delta) and delta > 0.0 and delta <= 1.0 / 60.0 + 0.000001
-		simulated_seconds += delta
-		travelled += previous_position.distance_to(point)
-		var state := _player_state()
-		state.merge({"step": index + 1, "physics_frame": current_frame, "physics_delta": delta,
-			"simulated_seconds": simulated_seconds, "wall_seconds": float(Time.get_ticks_usec() - started_usec) / 1000000.0,
-			"input": [actual_input.x, actual_input.y], "dash_requested": dash_requested,
-			"mouse_injected_physics_frame": injected_frame, "mouse_viewport": [mouse.position.x, mouse.position.y],
-			"aim_world_requested": [aim_world.x, aim_world.y], "actual_aim": [aim.x, aim.y],
-			"scale_before_physics": scale_before, "scale_after_physics": Engine.time_scale,
-			"spawn_rng_state": str(scene.wave_director.spawn_rng.state), "remaining_enemies": scene.wave_director.active_enemies.size()})
-		samples.append(state)
-		previous_position = point
-		previous_frame = current_frame
-		if scene.game_over or not valid:
-			break
+	var sampler := SamplerScript.new()
+	sampler.scene = scene
+	sampler.view = view
+	sampler.config = config
+	sampler.read_state = _player_state
+	view.add_child(sampler)
+	if valid:
+		sampler.start()
+		await sampler.finished
+	valid = valid and sampler.valid
+	samples = sampler.samples
+	var first_frame: int = sampler.first_frame
+	var previous_frame: int = sampler.previous_frame
+	var started_usec: int = sampler.started_usec
+	var ended_usec: int = sampler.ended_usec
+	var simulated_seconds: float = sampler.simulated_seconds
+	var travelled: float = sampler.travelled
 	_release_input()
-	var terminal: String = "death" if scene.game_over else ("step_budget" if samples.size() == config.steps else "invalid_sampling")
-	var final_state := _player_state()
-	var ended_usec := Time.get_ticks_usec()
+	var terminal: String = sampler.terminal
+	var terminal_phase: String = sampler.terminal_phase
+	var final_state: Dictionary = sampler.terminal_state if sampler.done else _player_state()
+	var health_loss: float = sampler.health_loss
+	var shield_loss: float = sampler.shield_loss
 	cleaning_up = true
 	# Stop live gameplay before draining deferred spawns. They must enter the
 	# still-owned tree before it is freed, not become stranded shutdown objects.
@@ -172,6 +146,23 @@ func _initialize() -> void:
 	feedback.reset_all()
 	feedback.cleanup_active = false
 	var feedback_events: Array = feedback.events.duplicate(true)
+	var snapshot: Dictionary = {"captured": false, "reason": "headless", "sample_step": samples.size()}
+	if DisplayServer.get_name() != "headless":
+		var caption_layer := CanvasLayer.new()
+		caption_layer.layer = 100
+		var caption := Label.new()
+		caption.text = "DIAGNOSTIC 60-AI | %s | step %d | %s\nPost-freeze image; terminal JSON was captured before pause notifications." % [config.run, samples.size(), terminal]
+		caption.position = Vector2(16, 128)
+		caption.add_theme_color_override("font_color", Color.YELLOW)
+		caption.add_theme_color_override("font_outline_color", Color.BLACK)
+		caption.add_theme_constant_override("outline_size", 6)
+		caption_layer.add_child(caption)
+		view.add_child(caption_layer)
+		await RenderingServer.frame_post_draw
+		var snapshot_path: String = output.replace(".json", ".png")
+		var saved := view.get_texture().get_image().save_png(snapshot_path)
+		snapshot = {"captured": saved == OK, "path": snapshot_path, "sample_step": samples.size(), "state": "post_freeze_notifications"}
+		valid = valid and saved == OK
 	if scene.snapshot_store.save_path == save_path:
 		scene.snapshot_store.clear_snapshot() # Never clear a path that escaped isolation.
 	else:
@@ -208,11 +199,14 @@ func _initialize() -> void:
 	var unscaled_step_seconds := float(previous_frame - first_frame) / 60.0
 	clock_info["wall_to_unscaled_step_ratio"] = wall_seconds / unscaled_step_seconds if unscaled_step_seconds > 0.0 else null
 	clock_info["wall_to_simulated_ratio"] = wall_seconds / simulated_seconds if simulated_seconds > 0.0 else null
-	var report := {"run": config.duplicate(), "sampling_valid": valid, "acceptance": "measurement_only" if valid else "invalid_sampling",
-		"formal_step_budget": config.steps == 1200, "terminal": terminal, "initial": initial, "final": final_state,
+	var report := {"schema_version": 2, "sampling_method": "pre_post_physics_callbacks", "physics_hz": 60,
+		"first_physics_frame": first_frame, "run": config.duplicate(), "sampling_valid": valid, "acceptance": "measurement_only" if valid else "invalid_sampling",
+		"formal_step_budget": config.steps == 1200, "terminal": terminal, "terminal_phase": terminal_phase, "initial": initial, "final": final_state,
 		"sample_steps": samples.size(), "physics_steps": previous_frame - first_frame, "simulated_seconds": simulated_seconds,
 		"wall_seconds": wall_seconds, "unscaled_step_seconds": unscaled_step_seconds, "clock": clock_info,
 		"travelled_pixels": travelled, "samples": samples,
+		"health_loss": health_loss, "shield_loss": shield_loss,
+		"snapshot": snapshot,
 		"cleanup": {"owned_tree_freed": cleanup_valid, "orphan_nodes_before": orphan_nodes_before,
 			"orphan_nodes_after": orphan_nodes_after, "audio_references_cleared": audio_references_cleared,
 			"audio_flush_wall_seconds": audio_flush_wall_seconds, "objectdb_leaks": "requires_exit_log_review"},
@@ -280,14 +274,6 @@ func _parse_args() -> bool:
 		push_error("Expected registered seed, D/R, walk/dash, unique safe --run id, 1..1200 steps, and clock unknown/fixed/realtime")
 	return valid
 
-func _drive(direction: Vector2) -> void:
-	for action in ACTIONS.slice(0, 4):
-		Input.action_release(action)
-	if direction.x != 0:
-		Input.action_press("move_right" if direction.x > 0 else "move_left")
-	if direction.y != 0:
-		Input.action_press("move_down" if direction.y > 0 else "move_up")
-
 func _release_input() -> void:
 	for action in ACTIONS:
 		Input.action_release(action)
@@ -296,8 +282,8 @@ func _watchdog() -> void:
 	if cleaning_up:
 		return
 	render_frames += 1
-	if render_frames >= 3000:
+	if Time.get_ticks_usec() - watchdog_started_usec >= 60000000:
 		_release_input()
 		Engine.time_scale = 1.0
-		push_error("Movement sample exceeded its 3000-frame safety limit")
+		push_error("Movement sample exceeded its 60-second wall-clock safety limit")
 		quit(3)
