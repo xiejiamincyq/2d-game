@@ -50,6 +50,7 @@ func _initialize() -> void:
 				lob._physics_process(0.3)
 				if legacy_fill:
 					# Reproduce the former fill layer without changing flight or boundary.
+					lob.landing_fill.z_as_relative = true
 					lob.landing_fill.z_index = 0
 		player.add_child(outline)
 		outline.setup(player, world, null)

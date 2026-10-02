@@ -1,0 +1,527 @@
+{
+  "acceptance": "diagnostic_capture_only",
+  "camera": "identity_1_to_1",
+  "cases": [
+    {
+      "body_effective_z": 0,
+      "body_size": [
+        84.0,
+        84.0
+      ],
+      "center": [
+        213.0,
+        360.0
+      ],
+      "count": 0,
+      "entrance_finished": true,
+      "fills": [],
+      "physics_frozen": true,
+      "pixel_samples": [
+        {
+          "offset": [
+            0,
+            0
+          ],
+          "pixel": [
+            213,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.0,
+          "rgba": [
+            0.992156863212585,
+            0.815686285495758,
+            0.670588254928589,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            -10,
+            0
+          ],
+          "pixel": [
+            203,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.0,
+          "rgba": [
+            0.988235294818878,
+            0.745098054409027,
+            0.615686297416687,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            10,
+            0
+          ],
+          "pixel": [
+            223,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.0,
+          "rgba": [
+            0.250980406999588,
+            0.560784339904785,
+            0.494117647409439,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            0,
+            -16
+          ],
+          "pixel": [
+            213,
+            344
+          ],
+          "rgb_abs_difference_from_control": 0.0,
+          "rgba": [
+            0.313725501298904,
+            0.682352960109711,
+            0.584313750267029,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            0,
+            16
+          ],
+          "pixel": [
+            213,
+            376
+          ],
+          "rgb_abs_difference_from_control": 0.0,
+          "rgba": [
+            0.564705908298492,
+            0.560784339904785,
+            0.474509805440903,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            50,
+            0
+          ],
+          "pixel": [
+            263,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.0,
+          "rgba": [
+            0.850980401039124,
+            0.905882358551025,
+            0.862745106220245,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            80,
+            0
+          ],
+          "pixel": [
+            293,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.0,
+          "rgba": [
+            0.850980401039124,
+            0.905882358551025,
+            0.862745106220245,
+            1.0
+          ]
+        }
+      ],
+      "ready": true
+    },
+    {
+      "body_effective_z": 0,
+      "body_size": [
+        84.0,
+        84.0
+      ],
+      "center": [
+        640.0,
+        360.0
+      ],
+      "count": 1,
+      "entrance_finished": true,
+      "fills": [
+        {
+          "damage": 14.0,
+          "effective_z": 20,
+          "flight_duration": 0.85,
+          "local_z": -2,
+          "physics_frozen": true,
+          "radius": 72.0,
+          "rim_and_projectile_z": 22,
+          "z_as_relative": true
+        }
+      ],
+      "physics_frozen": true,
+      "pixel_samples": [
+        {
+          "offset": [
+            0,
+            0
+          ],
+          "pixel": [
+            640,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.0470588207244873,
+          "rgba": [
+            0.988235294818878,
+            0.780392169952393,
+            0.678431391716003,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            -10,
+            0
+          ],
+          "pixel": [
+            630,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.0470588207244873,
+          "rgba": [
+            0.984313726425171,
+            0.713725507259369,
+            0.627451002597809,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            10,
+            0
+          ],
+          "pixel": [
+            650,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.0901961028575897,
+          "rgba": [
+            0.30588236451149,
+            0.545098066329956,
+            0.513725519180298,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            0,
+            -16
+          ],
+          "pixel": [
+            640,
+            344
+          ],
+          "rgb_abs_difference_from_control": 0.0901960730552673,
+          "rgba": [
+            0.364705890417099,
+            0.65490198135376,
+            0.596078455448151,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            0,
+            16
+          ],
+          "pixel": [
+            640,
+            376
+          ],
+          "rgb_abs_difference_from_control": 0.0666666626930237,
+          "rgba": [
+            0.596078455448151,
+            0.545098066329956,
+            0.494117647409439,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            50,
+            0
+          ],
+          "pixel": [
+            690,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.0588235259056091,
+          "rgba": [
+            0.858823537826538,
+            0.862745106220245,
+            0.854901969432831,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            80,
+            0
+          ],
+          "pixel": [
+            720,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.0,
+          "rgba": [
+            0.850980401039124,
+            0.905882358551025,
+            0.862745106220245,
+            1.0
+          ]
+        }
+      ],
+      "ready": true
+    },
+    {
+      "body_effective_z": 0,
+      "body_size": [
+        84.0,
+        84.0
+      ],
+      "center": [
+        1067.0,
+        360.0
+      ],
+      "count": 8,
+      "entrance_finished": true,
+      "fills": [
+        {
+          "damage": 14.0,
+          "effective_z": 20,
+          "flight_duration": 0.85,
+          "local_z": -2,
+          "physics_frozen": true,
+          "radius": 72.0,
+          "rim_and_projectile_z": 22,
+          "z_as_relative": true
+        },
+        {
+          "damage": 14.0,
+          "effective_z": 20,
+          "flight_duration": 0.85,
+          "local_z": -2,
+          "physics_frozen": true,
+          "radius": 72.0,
+          "rim_and_projectile_z": 22,
+          "z_as_relative": true
+        },
+        {
+          "damage": 14.0,
+          "effective_z": 20,
+          "flight_duration": 0.85,
+          "local_z": -2,
+          "physics_frozen": true,
+          "radius": 72.0,
+          "rim_and_projectile_z": 22,
+          "z_as_relative": true
+        },
+        {
+          "damage": 14.0,
+          "effective_z": 20,
+          "flight_duration": 0.85,
+          "local_z": -2,
+          "physics_frozen": true,
+          "radius": 72.0,
+          "rim_and_projectile_z": 22,
+          "z_as_relative": true
+        },
+        {
+          "damage": 14.0,
+          "effective_z": 20,
+          "flight_duration": 0.85,
+          "local_z": -2,
+          "physics_frozen": true,
+          "radius": 72.0,
+          "rim_and_projectile_z": 22,
+          "z_as_relative": true
+        },
+        {
+          "damage": 14.0,
+          "effective_z": 20,
+          "flight_duration": 0.85,
+          "local_z": -2,
+          "physics_frozen": true,
+          "radius": 72.0,
+          "rim_and_projectile_z": 22,
+          "z_as_relative": true
+        },
+        {
+          "damage": 14.0,
+          "effective_z": 20,
+          "flight_duration": 0.85,
+          "local_z": -2,
+          "physics_frozen": true,
+          "radius": 72.0,
+          "rim_and_projectile_z": 22,
+          "z_as_relative": true
+        },
+        {
+          "damage": 14.0,
+          "effective_z": 20,
+          "flight_duration": 0.85,
+          "local_z": -2,
+          "physics_frozen": true,
+          "radius": 72.0,
+          "rim_and_projectile_z": 22,
+          "z_as_relative": true
+        }
+      ],
+      "physics_frozen": true,
+      "pixel_samples": [
+        {
+          "offset": [
+            0,
+            0
+          ],
+          "pixel": [
+            1067,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.266666650772095,
+          "rgba": [
+            0.984313726425171,
+            0.592156887054443,
+            0.705882370471954,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            -10,
+            0
+          ],
+          "pixel": [
+            1057,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.254901945590973,
+          "rgba": [
+            0.984313726425171,
+            0.556862771511078,
+            0.678431391716003,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            10,
+            0
+          ],
+          "pixel": [
+            1077,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.560784369707108,
+          "rgba": [
+            0.588235318660736,
+            0.458823531866074,
+            0.615686297416687,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            0,
+            -16
+          ],
+          "pixel": [
+            1067,
+            344
+          ],
+          "rgb_abs_difference_from_control": 0.549019604921341,
+          "rgba": [
+            0.623529434204102,
+            0.521568655967712,
+            0.662745118141174,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            0,
+            16
+          ],
+          "pixel": [
+            1067,
+            376
+          ],
+          "rgb_abs_difference_from_control": 0.419607877731323,
+          "rgba": [
+            0.752941191196442,
+            0.458823531866074,
+            0.603921592235565,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            50,
+            0
+          ],
+          "pixel": [
+            1117,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.364705860614777,
+          "rgba": [
+            0.901960790157318,
+            0.643137276172638,
+            0.811764717102051,
+            1.0
+          ]
+        },
+        {
+          "offset": [
+            80,
+            0
+          ],
+          "pixel": [
+            1147,
+            360
+          ],
+          "rgb_abs_difference_from_control": 0.0,
+          "rgba": [
+            0.850980401039124,
+            0.905882358551025,
+            0.862745106220245,
+            1.0
+          ]
+        }
+      ],
+      "ready": true
+    }
+  ],
+  "engine": "4.7-stable (official)",
+  "floor_effective_z": -100,
+  "limitations": "Static component layering evidence, not real-input combat, collision, damage, performance or whole-game visual acceptance. Pixel offsets include body-region candidates and floor controls; inspect PNG before assigning opaque-body meaning.",
+  "materials": {
+    "body": "res://assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+    "lob": "procedural circles/arcs from actual LobbedProjectile._draw",
+    "weapon": "res://assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png"
+  },
+  "run": "before",
+  "source_sha256": {
+    "LobbedProjectile.gd": "c5e1919397fd225ba07888a4ea771914eb49c3852c84c66902854ce2097c7633",
+    "Player.gd": "8dbfc6fd224dc3c84de4262af16fcd198862f992ddcf61eb9baae16d7c29d3fb",
+    "VerifyLandingFillLayers.gd": "c1d9520d93a7acb6e4e940521b21ead1d1b1da3ff2f364aea1487c6efb7d6dfd"
+  },
+  "viewport": [
+    1280,
+    720
+  ]
+}

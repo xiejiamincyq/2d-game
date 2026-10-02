@@ -22,8 +22,9 @@ func _ready() -> void:
 	start_position = global_position
 	landing_fill = Node2D.new()
 	landing_fill.name = "LandingFill"
-	# Projectiles are above the player contour; only their translucent fill goes below.
-	landing_fill.z_index = -2
+	# Ground tint stays below actors regardless of the projectile parent's layer.
+	landing_fill.z_as_relative = false
+	landing_fill.z_index = -1
 	landing_fill.draw.connect(_draw_landing_fill)
 	add_child(landing_fill)
 	_update_landing_fill()
