@@ -46,6 +46,11 @@ python scripts/tests/test_validate_manifest.py
 | `ProjectilePickupTest` | 真实物理碰撞击杀、金币/护盾掉落与拾取物单次结算 |
 | `RateTest` | 30/60/120Hz 下十秒持续射击的帧率一致性 |
 | `DashTest` | 165 像素冲刺距离和跨帧扫掠伤害 |
+| `StealthTerrainTest` | 30/60/120 Hz 独立进程、等时长真实输入；隐身地形碰撞、滑墙、接触/墙角与恢复边界 |
+| `StealthRecoveryTest` | 30/60/120 Hz；5秒安全保持、2秒上下退离、移除阻挡、封口开门、第二实体和真实暂停 |
+| `StealthRecoverySideEffectTest` | 30/60/120 Hz；只读恢复提案触及、实际接受位置未触及的Area负例，以及真实拾取/伤害阳性 |
+| `StealthRecoveryQueryTest` | 30/60/120 Hz；六种启用/禁用形状场景，真实零位移恢复查询的13项状态不变前提 |
+| `StealthRecoveryAccountingTest` | 30/60/120 Hz；独立R/U位移分账、四槽上限、每段地形/实体几何及恢复退出检查 |
 | `MovementTest` | 移动响应、敌人速度分层与相机跟随参数 |
 | `ArenaMapTest` | 障碍竞技场布局、描述符与版本化种子稳定性 |
 | `ArenaRuntimeTest` | 竞技场运行时障碍导航、遮挡与回收 |
@@ -112,6 +117,14 @@ python scripts/tests/test_validate_manifest.py
 | `validate_art_pipeline_skill` | 美术管线技能结构与行为契约 |
 
 ## 严格失败条件
+
+`StealthTerrainTest`、`StealthRecoveryTest`、`StealthRecoverySideEffectTest` 各自的三个进程同时设置 `--fixed-fps N` 和 `-- --physics-hz=N`（N 为30/60/120）。每一步必须恰有一次物理采样；12000帧只是上限，不能代替正常退出、唯一通过标记及错误检查。例如：
+
+```powershell
+godot_console --headless --audio-driver Dummy --path . --fixed-fps 60 --script res://scripts/tests/StealthTerrainTest.gd --quit-after 12000 -- --physics-hz=60
+```
+
+两套夹具都在根节点 ready 后才创建并冻结真实玩家；恢复测试另检查碰撞层、disabled、真实敌体命中与实际玩家物理回调。`StealthRecoveryBudgetProbe.gd` 只是外凸角逐步取证，不是回归套件；其 `COMPLETE` 标记不代表位移预算验收，不能代替 `TEST PASS`。
 
 每个 Godot 套件必须：
 

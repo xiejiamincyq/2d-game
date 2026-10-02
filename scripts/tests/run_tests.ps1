@@ -46,6 +46,21 @@ $gameplayTests = @(
     "ProjectilePickupTest",
     "RateTest",
     "DashTest",
+    "StealthTerrainTest_30Hz",
+    "StealthTerrainTest_60Hz",
+    "StealthTerrainTest_120Hz",
+    "StealthRecoveryTest_30Hz",
+    "StealthRecoveryTest_60Hz",
+    "StealthRecoveryTest_120Hz",
+    "StealthRecoverySideEffectTest_30Hz",
+    "StealthRecoverySideEffectTest_60Hz",
+    "StealthRecoverySideEffectTest_120Hz",
+    "StealthRecoveryQueryTest_30Hz",
+    "StealthRecoveryQueryTest_60Hz",
+    "StealthRecoveryQueryTest_120Hz",
+    "StealthRecoveryAccountingTest_30Hz",
+    "StealthRecoveryAccountingTest_60Hz",
+    "StealthRecoveryAccountingTest_120Hz",
     "MovementTest",
     "ArenaMapTest",
     "ArenaRuntimeTest",
@@ -93,6 +108,17 @@ $totalAssertions = 0
 $failures = [System.Collections.Generic.List[string]]::new()
 
 foreach ($test in $tests) {
+    $scriptTest = $test
+    $fixedStepArguments = ""
+    $userArguments = ""
+    $frameBudget = if ($test -eq "DashTest") { 1800 } else { 120 }
+    if ($test -match '^(StealthTerrainTest|StealthRecoveryTest|StealthRecoverySideEffectTest|StealthRecoveryQueryTest|StealthRecoveryAccountingTest)_(30|60|120)Hz$') {
+        $scriptTest = $Matches[1]
+        $physicsHz = $Matches[2]
+        $fixedStepArguments = "--fixed-fps $physicsHz"
+        $userArguments = "-- --physics-hz=$physicsHz"
+        $frameBudget = 12000
+    }
     $logPath = Join-Path ([System.IO.Path]::GetTempPath()) ("five-minute-overdrive-{0}-{1}.log" -f $test, [guid]::NewGuid().ToString("N"))
     $startInfo = [System.Diagnostics.ProcessStartInfo]::new()
     $startInfo.FileName = $godot
@@ -101,8 +127,7 @@ foreach ($test in $tests) {
     # finished headless child process alive after its pass marker is emitted.
     # Dash fixtures await real physics registration; 120 frames truncates the
     # expanded matrix before completion. Keep both a frame and wall-clock bound.
-    $frameBudget = if ($test -eq "DashTest") { 1800 } else { 120 }
-    $startInfo.Arguments = "--headless --audio-driver Dummy --path . --log-file `"$logPath`" --script res://scripts/tests/$test.gd --quit-after $frameBudget"
+    $startInfo.Arguments = "--headless --audio-driver Dummy --path . --log-file `"$logPath`" $fixedStepArguments --script res://scripts/tests/$scriptTest.gd --quit-after $frameBudget $userArguments"
     $startInfo.UseShellExecute = $false
     $startInfo.CreateNoWindow = $true
     $process = [System.Diagnostics.Process]::new()
@@ -122,7 +147,7 @@ foreach ($test in $tests) {
         $output = Get-Content -Raw -LiteralPath $logPath
         Remove-Item -LiteralPath $logPath -Force
     }
-    $matches = [regex]::Matches($output, "TEST PASS: $test ([1-9][0-9]*)")
+    $matches = [regex]::Matches($output, "TEST PASS: $scriptTest ([1-9][0-9]*)")
     if ($process.ExitCode -ne 0) {
         $failures.Add("${test}: exited with $($process.ExitCode)")
     }

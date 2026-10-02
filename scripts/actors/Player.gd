@@ -19,6 +19,7 @@ const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd
 const FlameTrailScript = preload("res://scripts/components/FlameTrail.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const TerrainSweep = preload("res://scripts/world/TerrainSweep.gd")
+const StealthRecoveryMotion = preload("res://scripts/world/StealthRecoveryMotion.gd")
 const ALL_DAMAGE_SOURCES: StringName = &"all"
 const OVERDRIVE_MODIFIER: StringName = &"overdrive"
 const DASH_IMMUNITY_SOURCE: StringName = &"dash"
@@ -115,6 +116,9 @@ var last_spike_position: Vector2 = Vector2.ZERO
 var has_spike_position: bool = false
 var dash_active: bool = false
 var dash_terrain_blocked := false
+var stealth_terrain_embedded := false
+var stealth_recovery_pending := false
+var stealth_recovery_trace: Dictionary = {}
 var dash_direction: Vector2 = Vector2.RIGHT
 var last_movement_direction: Vector2 = Vector2.RIGHT
 var dash_hit_bodies: Array[Node] = []
@@ -194,17 +198,68 @@ func _process(delta: float) -> void:
 		advance_entrance(delta)
 
 func _update_movement(input_vector: Vector2) -> void:
+	stealth_recovery_trace = {}
 	if input_vector != Vector2.ZERO:
 		last_movement_direction = input_vector.normalized()
 	velocity = input_vector.limit_length(1.0) * get_effective_move_speed()
+	# The deferred shape restore can leave one additional disabled-body frame
+	# after stealth expires. It still needs the same terrain-only protection.
+	if is_stealthed() or player_collision.disabled:
+		_move_along_terrain(velocity * get_physics_process_delta_time())
+		return
+	if stealth_recovery_pending:
+		var bounds := Rect2() if world_bounds.size == Vector2.ZERO else world_bounds.grow(-BODY_RADIUS)
+		stealth_recovery_trace = StealthRecoveryMotion.move(self, player_collision, normal_collision_mask,
+			velocity * get_physics_process_delta_time(), bounds)
+		stealth_recovery_pending = stealth_recovery_trace.pending
+		if stealth_recovery_trace.embedded and not stealth_terrain_embedded:
+			push_warning("Stealth recovery started embedded in terrain; refusing unsafe motion")
+		stealth_terrain_embedded = stealth_recovery_trace.embedded
+		return
 	move_and_slide()
 	_clamp_to_world_bounds()
+
+func _move_along_terrain(remainder: Vector2) -> void:
+	for _slide in range(max_slides):
+		remainder = _bounded_position(global_position + remainder) - global_position
+		var result := TerrainSweep.resolve(player_collision, remainder)
+		global_position += result.motion
+		if result.embedded:
+			if not stealth_terrain_embedded:
+				push_warning("Stealth walk started embedded in terrain; refusing unsafe motion")
+			stealth_terrain_embedded = true
+			velocity = Vector2.ZERO
+			return
+		stealth_terrain_embedded = false
+		if not result.blocked:
+			return
+		remainder -= result.motion
+		if result.normals.is_empty():
+			velocity = Vector2.ZERO
+			return
+		# Player uses grounded motion with no gravity. Preserve the projected
+		# tangent speed; do not apply floating-mode constant-speed normalization.
+		for normal: Vector2 in result.normals:
+			if remainder.dot(normal) < 0.0:
+				remainder = remainder.slide(normal)
+			if velocity.dot(normal) < 0.0:
+				velocity = velocity.slide(normal)
+		for normal: Vector2 in result.normals:
+			if remainder.dot(normal) < -0.000001:
+				velocity = Vector2.ZERO
+				return
+		if remainder.is_zero_approx():
+			return
+	# Exhausting the bounded iteration budget discards unchecked displacement.
+	velocity = Vector2.ZERO
 
 func begin_spawn_input_guard() -> void:
 	spawn_input_guard_active = true
 	velocity = Vector2.ZERO
 	dash_active = false
 	dash_terrain_blocked = false
+	stealth_recovery_pending = false
+	stealth_recovery_trace = {}
 
 func begin_entrance() -> void:
 	entrance_active = true
@@ -214,6 +269,8 @@ func begin_entrance() -> void:
 	velocity = Vector2.ZERO
 	dash_active = false
 	dash_terrain_blocked = false
+	stealth_recovery_pending = false
+	stealth_recovery_trace = {}
 	dash_timer = 0.0
 	queue_redraw()
 
@@ -701,6 +758,8 @@ func is_stealthed() -> bool:
 	return stealth_remaining > 0.0
 
 func _set_stealth_collision_disabled(disabled: bool) -> void:
+	if not disabled and (collision_layer == 0 or (is_instance_valid(player_collision) and player_collision.disabled)):
+		stealth_recovery_pending = true
 	collision_layer = 0 if disabled else normal_collision_layer
 	collision_mask = 0 if disabled else normal_collision_mask
 	if is_instance_valid(player_collision):
