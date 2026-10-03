@@ -6,6 +6,11 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 class ReleasePackPolicyTest(unittest.TestCase):
+    def test_diagnostic_build_folder_is_not_imported_as_runtime_resources(self) -> None:
+        marker = PROJECT_ROOT / "build" / ".gdignore"
+        self.assertTrue(marker.is_file(), "diagnostic CSV tables must not be imported as translations")
+        self.assertEqual("", marker.read_text(encoding="utf-8").strip())
+
     def test_export_keeps_runtime_scripts_and_excludes_authoring_content(self) -> None:
         preset = (PROJECT_ROOT / "export_presets.cfg").read_text(encoding="utf-8")
 
