@@ -19,7 +19,7 @@ const CARD_LIMITS: Dictionary = {
 	"recovery_route": [4, "mobility"],
 	"drone": [4, "automation"], "drone_damage": [5, "automation"], "arc": [5, "automation"],
 	"arc_capacitor": [5, "automation"], "arc_relay": [4, "automation"], "health": [3, "automation"],
-	"pickup": [4, "automation"],
+	"pickup": [4, "automation"], "drone_pierce": [1, "automation"], "shield_capacity": [3, "automation"],
 	"orbital_storm": [1, "ballistics"], "rift_overdrive": [1, "mobility"], "thunder_matrix": [1, "automation"],
 }
 

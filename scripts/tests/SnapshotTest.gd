@@ -45,6 +45,41 @@ func _initialize() -> void:
 	store.clear_snapshot()
 
 	var snapshot := _valid_snapshot()
+	var catalog: Node = UpgradeSystemScript.new()
+	var cards: Array = catalog.upgrade_pool.duplicate(true)
+	catalog.free()
+	# Every currently offered card must survive both offer and acquired-rank validation.
+	# Keep legacy IDs accepted separately; unknown IDs and over-cap ranks remain rejected.
+	for card: Dictionary in cards:
+		var card_snapshot := snapshot.duplicate(true)
+		var card_id := String(card.id)
+		card_snapshot.upgrade_counts = {card_id: int(card.max_rank)}
+		card_snapshot.settlement.offers = [{"id": card_id, "family": card.family, "cost": 49, "sold": true, "claimed": true, "purchased": false, "transaction": 2}]
+		if not _assert_true(store.validate_snapshot(card_snapshot), "current catalog card %s cannot be saved" % card_id):
+			store.free()
+			return
+		if not _assert_true(store.save_snapshot(card_snapshot) and store.load_snapshot().get("upgrade_counts", {}).get(card_id, -1) == int(card.max_rank), "catalog card %s did not round-trip" % card_id):
+			store.free()
+			return
+		card_snapshot.upgrade_counts[card_id] = int(card.max_rank) + 1
+		if not _assert_true(not store.validate_snapshot(card_snapshot), "catalog card %s above rank cap was accepted" % card_id):
+			store.free()
+			return
+		card_snapshot.upgrade_counts[card_id] = 1
+		card_snapshot.settlement.offers[0].family = "mobility" if card.family != "mobility" else "automation"
+		if not _assert_true(not store.validate_snapshot(card_snapshot), "catalog card %s with wrong family was accepted" % card_id):
+			store.free()
+			return
+	var unknown_card := snapshot.duplicate(true)
+	unknown_card.upgrade_counts = {"not_a_real_card": 1}
+	if not _assert_true(not store.validate_snapshot(unknown_card), "unknown acquired card was accepted"):
+		store.free()
+		return
+	unknown_card.upgrade_counts = {}
+	unknown_card.settlement.offers[0].id = "not_a_real_card"
+	if not _assert_true(not store.validate_snapshot(unknown_card), "unknown offered card was accepted"):
+		store.free()
+		return
 	for bad_version in [0, 3, "two", 1.5, null]:
 		var bad_map := snapshot.duplicate(true)
 		bad_map["map_generator_version"] = bad_version
