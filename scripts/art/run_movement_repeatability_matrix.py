@@ -1,4 +1,4 @@
-"""Sequential, non-release S1-B matrix. Standard library only."""
+"""Sequential, non-release stress60 or natural_wave1 observations. Standard library only."""
 from __future__ import annotations
 
 import argparse
@@ -21,9 +21,22 @@ COMPARE_FIELDS = ("position", "velocity", "health", "shield", "input", "actual_a
                   "spawn_rng_state", "remaining_enemies")
 
 
-def make_slots(batch: str, smoke: bool = False, track: str = "D", seed: int = 20260908, mode: str = "walk") -> list[dict]:
+def valid_budget(scenario: str, steps: int, smoke: bool) -> bool:
+    if scenario == "natural_wave1":
+        return 1 <= steps <= 10800
+    return scenario == "stress60" and 1 <= steps <= 1200 and (smoke or steps == 1200)
+
+
+def case_timeout(scenario: str, steps: int) -> float:
+    return steps / 60 + 40 if scenario == "natural_wave1" else TIMEOUT_SECONDS
+
+
+def make_slots(batch: str, smoke: bool = False, track: str = "D", seed: int = 20260908, mode: str = "walk", scenario: str = "stress60") -> list[dict]:
+    if scenario == "natural_wave1" and smoke and track != "R":
+        raise ValueError("Natural observations must retain production R feedback")
+    tracks = ("R",) if scenario == "natural_wave1" else ("D", "R")
     cases = [(track, seed, mode, 1)] if smoke else [
-        (t, s, m, repeat) for t in ("D", "R") for s in SEEDS
+        (t, s, m, repeat) for t in tracks for s in SEEDS
         for m in ("walk", "dash") for repeat in (1, 2, 3)]
     return [{"run": f"{batch}-{t}-{s}-{m}-{repeat}", "track": t, "seed": s,
              "mode": m, "repeat": repeat} for t, s, m, repeat in cases]
@@ -57,7 +70,7 @@ def summarize(report: dict) -> dict:
             streak = 0.0
     initial = report["initial"]["player"]["position"]
     final = report["final"]["position"]
-    return {"terminal": report["terminal"], "sample_steps": report["sample_steps"],
+    result = {"terminal": report["terminal"], "sample_steps": report["sample_steps"],
             "physics_steps": report["physics_steps"], "simulated_seconds": report["simulated_seconds"],
             "wall_seconds": report["wall_seconds"], "unscaled_step_seconds": report["unscaled_step_seconds"],
             "net_pixels": math.dist(initial, final), "path_pixels": path,
@@ -67,6 +80,14 @@ def summarize(report: dict) -> dict:
             "motion_budget_basis": "walk_speed_even_during_dash",
             "longest_low_progress_sim_seconds": longest,
             "low_progress_start_step": longest_start, "low_progress_end_step": longest_end}
+    if report.get("run", {}).get("scenario") == "natural_wave1":
+        result.update(map_seed=report["initial"]["map_seed"],
+                      peak_live_enemies=max((s["live_enemies"] for s in samples), default=0),
+                      final_live_enemies=report["final"]["live_enemies"],
+                      final_spawn_pending=report["final"]["spawn_pending"],
+                      final_kills=report["final"]["kills"], final_health=report["final"]["health"],
+                      conservation_error_steps=sum(s["live_enemies"] + s["spawn_pending"] + s["kills"] != 41 for s in samples))
+    return result
 
 
 def first_divergence(left: dict, right: dict) -> dict | None:
@@ -126,10 +147,11 @@ def run_case(slot: dict, args, output: Path, baseline_hashes: dict, checker) -> 
     if args.headless:
         argv.append("--headless")
     argv += ["--script", "res://scripts/art/VerifyMovementRepeatability.gd", "--",
+             f"--scenario={args.scenario}",
              f"--seed={slot['seed']}", f"--track={slot['track']}", f"--mode={slot['mode']}",
              f"--run={run_id}", f"--steps={args.steps}", "--clock=realtime"]
     record = dict(slot, status="invalid", errors=[], external={"argv": argv, "cwd": str(args.project),
-                  "logfile": str(log_path), "report_file": str(report_path), "timeout_seconds": TIMEOUT_SECONDS,
+                  "logfile": str(log_path), "report_file": str(report_path), "timeout_seconds": case_timeout(args.scenario, args.steps),
                   "headless": args.headless, "fixed_fps": False, "movie": False})
     external, errors = record["external"], record["errors"]
     if report_path.exists() or log_path.exists():
@@ -142,7 +164,7 @@ def run_case(slot: dict, args, output: Path, baseline_hashes: dict, checker) -> 
     try:
         with log_path.open("x", encoding="utf-8") as log:
             completed = subprocess.run(argv, cwd=args.project, stdout=log, stderr=subprocess.STDOUT,
-                                       timeout=TIMEOUT_SECONDS, check=False,
+                                       timeout=external["timeout_seconds"], check=False,
                                        creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
         external["exit_code"] = completed.returncode
     except subprocess.TimeoutExpired:
@@ -170,6 +192,8 @@ def run_case(slot: dict, args, output: Path, baseline_hashes: dict, checker) -> 
                 errors.append(f"Report/slot mismatch: {key}")
         if report["run"]["steps"] != args.steps:
             errors.append("Report step budget mismatch")
+        if report["run"].get("scenario", "stress60") != args.scenario:
+            errors.append("Report scenario mismatch")
         if report["run"].get("clock") != "realtime":
             errors.append("Report clock does not match realtime launch")
         errors.extend(validate_save_evidence(report))
@@ -198,7 +222,7 @@ def run_case(slot: dict, args, output: Path, baseline_hashes: dict, checker) -> 
 
 def save_summary(path: Path, manifest: dict, reports: dict) -> None:
     groups = []
-    for track in ("D", "R"):
+    for track in (("R",) if manifest.get("scenario") == "natural_wave1" else ("D", "R")):
         for seed in SEEDS:
             for mode in ("walk", "dash"):
                 rows = [r for r in manifest["runs"] if (r["track"], r["seed"], r["mode"]) == (track, seed, mode)]
@@ -216,7 +240,9 @@ def save_summary(path: Path, manifest: dict, reports: dict) -> None:
     fields = ["run", "track", "seed", "mode", "repeat", "status", "terminal", "sample_steps", "physics_steps",
               "simulated_seconds", "wall_seconds", "unscaled_step_seconds", "net_pixels", "path_pixels",
               "health_loss", "shield_loss", "dash_requested_count", "actual_dash_started_count", "motion_budget_basis", "longest_low_progress_sim_seconds",
-              "low_progress_start_step", "low_progress_end_step", "exit_code", "logfile", "errors"]
+              "low_progress_start_step", "low_progress_end_step", "map_seed", "peak_live_enemies",
+              "final_live_enemies", "final_spawn_pending", "final_kills", "final_health", "conservation_error_steps",
+              "exit_code", "logfile", "errors"]
     with path.with_suffix(".csv").open("w", encoding="utf-8-sig", newline="") as output:
         writer = csv.DictWriter(output, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()
@@ -233,7 +259,8 @@ def main() -> int:
     parser.add_argument("--batch")
     parser.add_argument("--headless", action="store_true", help="No visual/performance acceptance")
     parser.add_argument("--smoke", action="store_true", help="One case only; never a formal matrix")
-    parser.add_argument("--steps", type=int, default=1200, help="Only smoke may shorten the 1200-step budget")
+    parser.add_argument("--scenario", choices=("stress60", "natural_wave1"), default="stress60")
+    parser.add_argument("--steps", type=int, default=1200, help="stress60 formal: 1200; natural_wave1: 1..10800, pre-register the budget")
     parser.add_argument("--smoke-track", choices=("D", "R"), default="D")
     parser.add_argument("--smoke-seed", type=int, choices=SEEDS, default=SEEDS[0])
     parser.add_argument("--smoke-mode", choices=("walk", "dash"), default="walk")
@@ -244,8 +271,10 @@ def main() -> int:
         return 0
     if not args.godot or not args.godot.is_file() or not args.batch or not re.fullmatch(r"[A-Za-z0-9_-]{1,40}", args.batch):
         parser.error("Provide an existing --godot executable and unique safe --batch (1..40 characters)")
-    if not 1 <= args.steps <= 1200 or (not args.smoke and args.steps != 1200):
-        parser.error("Formal matrix requires 1200 steps; smoke allows 1..1200")
+    if not valid_budget(args.scenario, args.steps, args.smoke):
+        parser.error("stress60 formal requires 1200 steps (smoke: 1..1200); natural_wave1: 1..10800")
+    if args.scenario == "natural_wave1" and args.smoke and args.smoke_track != "R":
+        parser.error("natural_wave1 smoke requires --smoke-track=R")
     args.project, args.godot = args.project.resolve(), args.godot.resolve()
     from check_movement_repeatability_report import check_report
     output = args.project / "build/diagnostics/movement-repeatability"
@@ -254,12 +283,12 @@ def main() -> int:
         parser.error("Batch prefix already has evidence; choose a fresh --batch, no overwrite/resume")
     path = output / f"{args.batch}-matrix.json"
     hashes = source_hashes(args.project)
-    slots = make_slots(args.batch, args.smoke, args.smoke_track, args.smoke_seed, args.smoke_mode)
-    manifest = {"batch": args.batch, "formal_matrix": not args.smoke, "acceptance": "running",
+    slots = make_slots(args.batch, args.smoke, args.smoke_track, args.smoke_seed, args.smoke_mode, args.scenario)
+    manifest = {"batch": args.batch, "scenario": args.scenario, "formal_matrix": not args.smoke, "acceptance": "running",
                 "planned_slots": len(slots), "steps_per_slot": args.steps, "godot_sha256": sha256(args.godot),
                 "source_sha256": hashes, "runs": [dict(s, status="not_run") for s in slots],
                 "comparison_abs_tolerance": 0.000001, "low_progress_fraction": 0.1,
-                "limitations": "Measurement only, not balance/visual/performance/determinism acceptance. Death retained; no survival selection. R wall-clock evidence is separate from sampled game time. Headless runs have no visual acceptance. Low progress means along-input travel below 10% of walk-equivalent input budget, even during dash; it is not true dash budget or proof of stuck movement. Duration accumulates physics simulation seconds. First divergence excludes wall/absolute frame identifiers."}
+                "limitations": "Measurement only, not balance/visual/performance/determinism acceptance. natural_wave1 covers only wave 1, not late-wave maximum crowding or lobber readability; stress60 injects 60 AI. Death retained; no survival selection. R wall-clock evidence is separate from sampled game time. Headless runs have no visual acceptance. Low progress means along-input travel below 10% of walk-equivalent input budget, even during dash; it is not true dash budget or proof of stuck movement. Duration accumulates physics simulation seconds. First divergence excludes wall/absolute frame identifiers."}
     with path.open("x", encoding="utf-8") as reserved:
         reserved.write("{}\n")
     reports = {}

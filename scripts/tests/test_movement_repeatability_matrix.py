@@ -33,6 +33,50 @@ def measurement(movements: list[tuple[list[float], list[float]]], deltas: list[f
 
 
 class MovementRepeatabilityMatrixTests(unittest.TestCase):
+    def test_natural_slots_are_18_r_only_without_stress_d_cases(self) -> None:
+        slots = make_slots("natural", scenario="natural_wave1")
+        expected = {("R", seed, mode, repeat) for seed in matrix.SEEDS
+                    for mode in ("walk", "dash") for repeat in (1, 2, 3)}
+        self.assertEqual(len(slots), 18)
+        self.assertEqual({(s["track"], s["seed"], s["mode"], s["repeat"]) for s in slots}, expected)
+        self.assertEqual(len({s["run"] for s in slots}), 18)
+
+    def test_natural_smoke_cannot_request_suppressed_feedback(self) -> None:
+        with self.assertRaises(ValueError):
+            make_slots("natural", True, "D", scenario="natural_wave1")
+
+    def test_natural_budget_is_separate_from_formal_stress_budget(self) -> None:
+        self.assertTrue(matrix.valid_budget("natural_wave1", 3600, False))
+        self.assertTrue(matrix.valid_budget("natural_wave1", 10800, False))
+        self.assertFalse(matrix.valid_budget("natural_wave1", 10801, False))
+        self.assertFalse(matrix.valid_budget("natural_wave1", 0, True))
+        self.assertFalse(matrix.valid_budget("stress60", 3600, False))
+        self.assertFalse(matrix.valid_budget("stress60", 1199, False))
+        self.assertTrue(matrix.valid_budget("stress60", 1200, False))
+        self.assertTrue(matrix.valid_budget("stress60", 120, True))
+
+    def test_natural_timeout_covers_budget_startup_and_cleanup(self) -> None:
+        self.assertEqual(matrix.case_timeout("natural_wave1", 3600), 100)
+        self.assertEqual(matrix.case_timeout("natural_wave1", 10800), 220)
+        self.assertEqual(matrix.case_timeout("stress60", 1200), 50)
+
+    def test_natural_summary_keeps_real_peaks_and_terminal_counts(self) -> None:
+        report = measurement([([0, 0], [1, 0]), ([1, 0], [2, 0])])
+        report["run"] = {"scenario": "natural_wave1"}
+        report["initial"]["map_seed"] = 426363786
+        report["samples"][0].update(live_enemies=7, spawn_pending=34, kills=0)
+        report["samples"][1].update(live_enemies=10, spawn_pending=30, kills=1)
+        report["final"].update(live_enemies=10, spawn_pending=30, kills=1, health=80)
+        result = summarize(report)
+        self.assertEqual(result["peak_live_enemies"], 10)
+        self.assertEqual(result["map_seed"], 426363786)
+        self.assertEqual(result["final_kills"], 1)
+        self.assertEqual(result["final_live_enemies"], 10)
+        self.assertEqual(result["final_spawn_pending"], 30)
+        self.assertEqual(result["conservation_error_steps"], 0)
+        report["samples"][1]["spawn_pending"] = 29
+        self.assertEqual(summarize(report)["conservation_error_steps"], 1)
+
     def save_report(self) -> dict:
         hashes = {base + suffix: "absent" for base in (
             "user://five_minute_overdrive_run_v1.json", "user://five_minute_overdrive_run_test_v1.json"
