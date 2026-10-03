@@ -7,6 +7,17 @@ var clips: Dictionary = {}
 var pending_images: Array[Dictionary] = [] # At most 180 RGBA frames, ~633 MiB, diagnostic-only.
 var capture_dir := ""
 var last_capture_frame := -4
+var boss_view_samples: Array[Dictionary] = []
+var boss_view_truncated := false
+
+static func measure_boss_view(sprite_rect: Rect2, viewport_rect: Rect2, ui_rects: Array) -> Dictionary:
+	var total_area := sprite_rect.get_area()
+	var on_screen := sprite_rect.intersection(viewport_rect)
+	var overlaps: Array[float] = []
+	for ui_rect: Rect2 in ui_rects:
+		overlaps.append(on_screen.intersection(ui_rect).get_area())
+	# Control overlaps are separate: summing overlapping UI cards would double-count.
+	return {"offscreen_area": maxf(0.0, total_area - on_screen.get_area()), "ui_overlap_areas": overlaps}
 
 static func eligible_tags(info: Dictionary) -> Array[String]:
 	if info.state == "SETTLEMENT":
@@ -48,6 +59,7 @@ func _initialize() -> void:
 func _capture() -> void:
 	if started == 0 or reloading or not terminal.is_empty() or not is_instance_valid(view) or not view.is_inside_tree() or not is_instance_valid(scene) or not is_instance_valid(scene.player):
 		return
+	_record_boss_view() # Entire drawn fight, independent of the thirty-frame clip quota.
 	var frame := Engine.get_physics_frames()
 	if frame - last_capture_frame < 4:
 		return
@@ -79,6 +91,38 @@ func _capture() -> void:
 		clips[tag].append(record)
 		if clips[tag].size() == 1:
 			print("NATURAL_CAPTURE_START tag=%s step=%d visible=%d" % [tag, samples.size(), info.visible_live])
+
+func _record_boss_view() -> void:
+	if scene.run_state != scene.RunState.PLAYING:
+		return
+	var boss: Node = scene.wave_director.get_active_boss()
+	if not is_instance_valid(boss) or boss.is_queued_for_deletion() or not boss.is_visible_in_tree() or not boss.entrance_resolved or boss.health.current_health <= 0.0:
+		return
+	if boss_view_samples.size() >= 60000:
+		boss_view_truncated = true
+		valid = false
+		return
+	var sprite_rect: Rect2 = boss.boss_visual.get_global_transform_with_canvas() * boss.boss_visual.get_rect()
+	var ui_names: Array[String] = []
+	var ui_rects: Array[Rect2] = []
+	for control: Control in [scene.ui.hud.grid, scene.ui.boss_health_bar, scene.ui.hud.overdrive_panel, scene.ui.hud.combo_panel, scene.ui.hud.toast_overlay, scene.ui.hud.collection_panel]:
+		if control.is_visible_in_tree():
+			ui_names.append(str(control.get_path()))
+			ui_rects.append(control.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, control.size))
+	var serialized_rects: Array = []
+	for rect: Rect2 in ui_rects:
+		serialized_rects.append([rect.position.x, rect.position.y, rect.size.x, rect.size.y])
+	var camera := view.get_camera_2d()
+	var camera_center := camera.get_screen_center_position() if camera != null else Vector2.ZERO
+	var metrics := measure_boss_view(sprite_rect, Rect2(Vector2.ZERO, Vector2(view.size)), ui_rects)
+	metrics.merge({"frame": Engine.get_physics_frames(), "process_frame": Engine.get_process_frames(),
+		"wall": float(Time.get_ticks_usec() - started) / 1000000.0, "step": samples.size(),
+		"sprite_rect": [sprite_rect.position.x, sprite_rect.position.y, sprite_rect.size.x, sprite_rect.size.y],
+		"ui_names": ui_names, "ui_rects": serialized_rects,
+		"boss_world": [boss.global_position.x, boss.global_position.y], "player_world": [scene.player.global_position.x, scene.player.global_position.y],
+		"camera_center_world": [camera_center.x, camera_center.y], "boss_speed": boss.velocity.length(),
+		"boss_alpha": boss.modulate.a, "nominal_safe_center_inside": boss.get_combat_safe_rect().has_point(boss.global_position)})
+	boss_view_samples.append(metrics)
 
 func _visual_info() -> Dictionary:
 	var screen := Rect2(Vector2.ZERO, Vector2(view.size))
@@ -114,7 +158,7 @@ func _visual_info() -> Dictionary:
 func _source_hashes() -> Dictionary:
 	var hashes := super._source_hashes()
 	# The visible mouse marker must be bound to the actual captured version, too.
-	for path in ["scripts/ui/GameUI.gd", "scripts/ui/AimReticle.gd"]:
+	for path in ["scripts/ui/GameUI.gd", "scripts/ui/AimReticle.gd", "scripts/ui/BossHealthBar.gd", "themes/MintFarmTheme.tres", "scenes/ui/HUD.tscn", "scripts/effects/CameraEffects.gd"]:
 		hashes[path] = FileAccess.get_sha256("res://" + path)
 	for path in ["scripts/art/VerifyNaturalRunRendered.gd", "scripts/components/LobbedProjectile.gd", "scripts/components/TentacleAttack.gd", "scripts/components/BossAttackDirector.gd", "scripts/components/BossProjectilePattern.gd", "scripts/ui/HUD.gd", "scripts/world/FloorGrid.gd", "scripts/world/ArenaObstacle.gd", "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png", "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png", "assets/art/environment/mint_farm_floor_b_v1.png", "assets/art/environment/mint_farm_props_b_packed_v1.png", "assets/art/environment/floor_surface.gdshader", "assets/art/environment/prop_alpha.gdshader", "assets/art/shaders/dasher_hit_flash.gdshader"]:
 		hashes[path] = FileAccess.get_sha256("res://" + path)
@@ -145,7 +189,9 @@ func _finish() -> void:
 		valid = false
 	else:
 		file.store_string(JSON.stringify({"run": config.run, "clips": clips, "missing": missing, "viewport": [1280, 720], "source_sha256": source_before,
-			"adapter": RenderingServer.get_video_adapter_name(), "display": DisplayServer.get_name(), "scope": "natural rendered frame readbacks; not performance, paired before/after or human acceptance"}))
+			"boss_view": boss_view_samples, "boss_view_truncated": boss_view_truncated,
+			"adapter": RenderingServer.get_video_adapter_name(), "display": DisplayServer.get_name(), "scope": "natural rendered frame readbacks; Boss view rectangles are conservative texture AABBs, not opaque-pixel masks; not performance, paired before/after or human acceptance"}))
 		file.close()
+	valid = valid and not boss_view_truncated
 	print("NATURAL_CAPTURE_COMPLETE run=%s missing=%s" % [config.run, missing])
 	await super._finish()
