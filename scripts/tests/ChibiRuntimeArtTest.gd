@@ -3,6 +3,7 @@ extends SceneTree
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
+const BossScript = preload("res://scripts/actors/OverseerBoss.gd")
 
 const PLAYER_ATLAS_PATH := "res://assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png"
 const PLAYER_WEAPON_PATH := "res://assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png"
@@ -42,6 +43,36 @@ func _initialize() -> void:
 	if not _assert_true(player.player_weapon_texture.get_size() == Vector2(256, 256), "player weapon atlas is not a 2x2 128px grid"):
 		return
 	if not _assert_true(CombatVfxScript.HIT_TEXTURE.resource_path == HIT_EFFECT_PATH, "combat spark did not load the B-style hit effect"):
+		return
+	var boss: Node2D = BossScript.new()
+	boss.setup(6, root, player)
+	boss.process_mode = Node.PROCESS_MODE_DISABLED
+	root.add_child(boss)
+	await process_frame
+	if not _assert_true(boss.boss_visual.texture.resource_path == OVERSEER_PATH, "final Boss still uses legacy mechanical art instead of the B-style warden"):
+		return
+	var boss_transform: Transform2D = boss.global_transform
+	var boss_health: float = boss.health.current_health
+	var boss_collision: CircleShape2D
+	for child in boss.get_children():
+		if child is CollisionShape2D:
+			boss_collision = child.shape as CircleShape2D
+	boss.entrance_resolved = true
+	boss.velocity = Vector2.RIGHT * 63.8
+	boss._update_boss_motion(0.12)
+	if not _assert_true(boss.boss_visual.position.y < 0.0 and absf(boss.boss_visual.position.y) <= 2.0, "moving Boss has no bounded visual walk pose"):
+		return
+	if not _assert_true(boss.global_transform == boss_transform and boss_collision != null and is_equal_approx(boss_collision.radius, 56.0) and is_equal_approx(boss.health.current_health, boss_health), "Boss animation changed body transform, collision or health"):
+		return
+	boss._update_visual_facing(boss.global_position + Vector2.LEFT * 100)
+	if not _assert_true(boss.boss_visual.flip_h, "Boss art did not face a left-side player"):
+		return
+	boss._update_visual_facing(boss.global_position + Vector2.RIGHT * 100)
+	if not _assert_true(not boss.boss_visual.flip_h, "Boss art did not face a right-side player"):
+		return
+	boss.velocity = Vector2.ZERO
+	boss._update_boss_motion(1.0)
+	if not _assert_true(boss.boss_visual.position == Vector2.ZERO and is_zero_approx(boss.boss_visual.rotation) and boss.boss_visual.scale.is_equal_approx(Vector2(1.25, 1.25)), "idle Boss retained a stale walk pose"):
 		return
 
 	for fixture in [
@@ -89,6 +120,7 @@ func _initialize() -> void:
 		return
 
 	player.queue_free()
+	boss.queue_free()
 	for enemy in enemies:
 		enemy.queue_free()
 	await process_frame

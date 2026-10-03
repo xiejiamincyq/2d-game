@@ -21,7 +21,7 @@ const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const TentacleAttackScript = preload("res://scripts/components/TentacleAttack.gd")
 const BossAttackDirectorScript = preload("res://scripts/components/BossAttackDirector.gd")
-const OVERSEER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_overseer.png")
+const OVERSEER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png")
 const HIT_FLASH_SHADER := preload("res://assets/art/shaders/dasher_hit_flash.gdshader")
 
 const DISPLAY_NAME := "深渊监工 / OVERSEER"
@@ -56,6 +56,7 @@ var hidden_dispersion_direction := Vector2.ZERO
 var hidden_dispersion_timer := 0.0
 var boss_visual: Sprite2D
 var boss_flash_material: ShaderMaterial
+var visual_motion_elapsed := 0.0
 
 func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -131,18 +132,21 @@ func _physics_process(delta: float) -> void:
 		queue_redraw()
 	if attack_director != null and attack_director.is_movement_locked():
 		velocity = Vector2.ZERO
+		_update_boss_motion(delta)
 		return
 	if player == null:
 		if is_target_hidden():
 			_update_hidden_target_dispersion(delta)
 		else:
 			velocity = Vector2.ZERO
+		_update_boss_motion(delta)
 		return
 	hidden_dispersion_timer = 0.0
 	var direction := get_combat_movement_direction(player)
 	velocity = direction * MOVE_SPEED * (1.0 - burn_status.get_slow_fraction())
 	move_and_slide()
 	_clamp_to_world_bounds()
+	_update_boss_motion(delta)
 
 func get_combat_movement_direction(player: Node2D) -> Vector2:
 	var safe_rect := get_combat_safe_rect()
@@ -318,8 +322,8 @@ func _clamp_to_world_bounds() -> void:
 	global_position = global_position.clamp(playable.position, playable.end - Vector2(0.001, 0.001))
 
 func _draw() -> void:
-	var cyan := Color("33fff2")
-	var magenta := Color("f559bf")
+	var cyan := Color("35b8ac")
+	var magenta := Color("f27a4b")
 	if not entrance_resolved:
 		var reveal_radius := lerpf(150.0, 88.0, entrance_progress)
 		draw_arc(Vector2.ZERO, reveal_radius, -PI * 0.5, PI * 1.5, 64, Color(cyan, 0.9 - entrance_progress * 0.35), 5.0)
@@ -341,3 +345,20 @@ func _create_boss_visual() -> void:
 func _update_visual_facing(player_position: Vector2) -> void:
 	if boss_visual != null:
 		boss_visual.flip_h = player_position.x < global_position.x
+
+func _update_boss_motion(delta: float) -> void:
+	if boss_visual == null or not entrance_resolved:
+		return
+	if velocity.length_squared() > 1.0:
+		visual_motion_elapsed += delta
+		var step := sin(visual_motion_elapsed * 7.0)
+		var compression := absf(step) * 0.02
+		boss_visual.position.y = -absf(step) * 2.0
+		boss_visual.rotation = step * 0.02
+		boss_visual.scale = OVERSEER_RUNTIME_SCALE * Vector2(1.0 + compression, 1.0 - compression)
+	else:
+		visual_motion_elapsed = 0.0
+		var settle := minf(1.0, delta * 12.0)
+		boss_visual.position = boss_visual.position.lerp(Vector2.ZERO, settle)
+		boss_visual.rotation = lerpf(boss_visual.rotation, 0.0, settle)
+		boss_visual.scale = boss_visual.scale.lerp(OVERSEER_RUNTIME_SCALE, settle)

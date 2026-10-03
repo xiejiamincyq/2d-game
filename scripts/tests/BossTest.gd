@@ -104,7 +104,7 @@ func _initialize() -> void:
 	if not _assert_true(is_equal_approx(float(boss.body_radius), 56.0), "Boss collision radius did not match the independent large-body contract"):
 		return
 	var boss_visual := boss.get("boss_visual") as Sprite2D
-	if not _assert_true(boss_visual != null and boss_visual.texture.resource_path == "res://assets/art/actors/enemies/enemy_overseer.png", "Boss did not use the approved Overseer runtime art"):
+	if not _assert_true(boss_visual != null and boss_visual.texture.resource_path == "res://assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png", "Boss did not use the B-style Overseer runtime art"):
 		return
 	if not _assert_true(boss_visual.texture.get_size() == Vector2(128, 128) and boss_visual.scale.is_equal_approx(Vector2(1.25, 1.25)), "Boss art exceeded or drifted from its bounded runtime presentation"):
 		return
