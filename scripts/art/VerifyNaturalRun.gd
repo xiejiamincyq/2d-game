@@ -12,7 +12,7 @@ class Tap extends Node:
 	func _physics_process(delta: float) -> void:
 		callback.call(delta)
 
-var config := {"seed": 20260908, "steps": 1800, "run": "", "clock": "unknown"}
+var config := {"seed": 20260908, "steps": 1800, "run": "", "clock": "unknown", "mode": "flow", "resume": ""}
 var policy := Policy.new()
 var samples: Array[Dictionary] = []
 var scene: Node
@@ -37,6 +37,13 @@ var continued_once := false
 var reloading := false
 var result: Dictionary = {}
 var restart_verified := false
+var expected_checkpoint: Dictionary = {}
+var resume_reference: Dictionary = {}
+
+static func persisted_state_matches(actual: Dictionary, saved: Dictionary) -> bool:
+	# JSON numbers lose int/float tags and use the store's decimal precision.
+	# Compare the persisted representations without a gameplay-value tolerance.
+	return JSON.parse_string(JSON.stringify(actual)) == JSON.parse_string(JSON.stringify(saved))
 
 func _initialize() -> void:
 	for arg in OS.get_cmdline_user_args():
@@ -45,12 +52,13 @@ func _initialize() -> void:
 			quit(2)
 			return
 		config[parts[0]] = parts[1].to_int() if parts[0] in ["seed", "steps"] else parts[1]
-	if config.seed not in [20260908, 20260909, 20260910] or config.steps < 1 or config.steps > 36000 or config.clock not in ["realtime", "fixed", "unknown"] or RegEx.create_from_string("^[A-Za-z0-9_-]{1,80}$").search(config.run) == null:
+	var safe_id := RegEx.create_from_string("^[A-Za-z0-9_-]{1,80}$")
+	if config.seed not in [20260908, 20260909, 20260910] or config.steps < 1 or config.steps > 36000 or config.clock not in ["realtime", "fixed", "unknown"] or safe_id.search(config.run) == null or config.mode not in ["flow", "checkpoint", "idle"] or (not config.resume.is_empty() and (safe_id.search(config.resume) == null or config.mode != "flow")):
 		push_error("Invalid natural run arguments")
 		quit(2)
 		return
-	config["save_path"] = "user://natural-run/%s/run.json" % config.run
-	if FileAccess.file_exists(OUTPUT + config.run + ".json") or FileAccess.file_exists(config.save_path) or FileAccess.file_exists(config.save_path + ".tmp") or FileAccess.file_exists(config.save_path + ".bak"):
+	config["save_path"] = "user://natural-run/%s/run.json" % (config.run if config.resume.is_empty() else config.resume)
+	if FileAccess.file_exists(OUTPUT + config.run + ".json") or (config.resume.is_empty() and FileAccess.file_exists(config.save_path)) or FileAccess.file_exists(config.save_path + ".tmp") or FileAccess.file_exists(config.save_path + ".bak"):
 		push_error("Natural run refuses existing evidence/save path")
 		quit(2)
 		return
@@ -61,6 +69,15 @@ func _initialize() -> void:
 	real_saves_before = _save_hashes()
 	source_before = _source_hashes()
 	orphan_before = int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))
+	if not config.resume.is_empty():
+		var checkpoint_path: String = OUTPUT + config.resume + ".json"
+		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(checkpoint_path)) if FileAccess.file_exists(checkpoint_path) else null
+		if not parsed is Dictionary or parsed.get("terminal") != "checkpoint" or parsed.get("valid") != true or parsed.get("source_sha256") != source_before or int(parsed.get("process_id", 0)) == OS.get_process_id() or int(parsed.get("config", {}).get("seed", 0)) != config.seed or not FileAccess.file_exists(config.save_path) or FileAccess.get_sha256(config.save_path) != parsed.get("isolated_save_sha256"):
+			push_error("Resume requires same-source checkpoint from a different process and its unchanged isolated save")
+			quit(2)
+			return
+		expected_checkpoint = parsed
+		resume_reference = {"report_sha256": FileAccess.get_sha256(checkpoint_path), "snapshot_before": parsed.final.snapshot, "checkpoint_process_id": parsed.process_id, "verified": false}
 	set_meta("natural_run_config", config)
 	Engine.time_scale = 1.0
 	Engine.physics_ticks_per_second = 60
@@ -73,7 +90,15 @@ func _initialize() -> void:
 	view.notify_mouse_entered()
 	await process_frame
 	started = Time.get_ticks_usec()
-	_key(KEY_ENTER)
+	_key(KEY_ENTER if config.resume.is_empty() else KEY_C)
+	if not config.resume.is_empty():
+		var saved: Dictionary = expected_checkpoint.final.snapshot
+		var restored := {"player": scene.player.get_snapshot_state(), "settlement": scene.upgrade_system.get_snapshot_state().settlement}
+		var preserved: bool = scene.run_state == scene.RunState.SETTLEMENT and scene.map_seed == int(saved.map_seed) and scene.kill_count == int(saved.kills) and scene.upgrade_system.coins == int(saved.coins) and persisted_state_matches(restored.player, saved.player) and persisted_state_matches(restored.settlement, saved.settlement)
+		valid = valid and preserved
+		resume_reference.merge({"verified": preserved, "restored": restored}, true)
+		continued_once = true
+		events.append({"event": "process_continue_c", "verified": preserved, "checkpoint_process_id": expected_checkpoint.process_id, "current_process_id": OS.get_process_id()})
 	initial_map_seed = scene.map_seed
 	for priority in [-100000, 100000]:
 		var tap := Tap.new()
@@ -92,6 +117,14 @@ func _before(_delta: float) -> void:
 		return
 	var p: Vector2 = scene.player.global_position
 	position_before = p
+	if config.mode == "idle":
+		input_direction = Vector2.ZERO
+		aim_world = p + Vector2(500, 0)
+		var idle_mouse := InputEventMouseMotion.new()
+		idle_mouse.position = view.canvas_transform * aim_world
+		view.push_input(idle_mouse, true)
+		pending_frame = Engine.get_physics_frames()
+		return # Observe natural contact damage without shooting or moving.
 	var threats: Array = []
 	var nearest: Node2D
 	var nearest_distance := INF
@@ -206,6 +239,10 @@ func _flow_ui() -> void:
 		valid = valid and result.snapshot_cleared
 		_reload(true)
 	elif state == "SETTLEMENT":
+		if config.mode == "checkpoint":
+			valid = valid and scene.snapshot_store.has_valid_snapshot()
+			terminal = "checkpoint"
+			return # Exit process while the production stable boundary remains on disk.
 		if not continued_once:
 			continued_once = true
 			_reload(false)
@@ -297,6 +334,8 @@ func _finish() -> void:
 	var orphans := int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))
 	valid = valid and _save_hashes() == real_saves_before and _source_hashes() == source_before and orphans <= orphan_before
 	var report := {"config": config, "valid": valid, "acceptance": "measurement_only" if valid else "invalid_sampling",
+		"process_id": OS.get_process_id(), "resume_reference": resume_reference,
+		"isolated_save_sha256": FileAccess.get_sha256(config.save_path) if FileAccess.file_exists(config.save_path) else "absent",
 		"terminal": terminal, "map_seed": initial_map_seed, "samples": samples, "final": final_state,
 		"events": events, "result": result, "restart_verified": restart_verified,
 		"real_saves_before": real_saves_before, "real_saves_after": _save_hashes(), "source_sha256": source_before,

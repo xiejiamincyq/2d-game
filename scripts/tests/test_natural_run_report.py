@@ -1,9 +1,10 @@
 from pathlib import Path
+import copy
 import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "art"))
-from check_natural_run_report import check_report, check_log
+from check_natural_run_report import check_report, check_log, check_resume
 
 
 def fixture():
@@ -18,6 +19,25 @@ def fixture():
 
 
 class NaturalRunReportTest(unittest.TestCase):
+    def test_checkpoint_is_a_saved_natural_boundary_not_victory(self):
+        report = fixture()
+        report.update(terminal="checkpoint", final={"state": "SETTLEMENT", "snapshot": {"boundary": "settlement", "pending_stage": 2}})
+        self.assertEqual([], check_report(report))
+        report["final"]["snapshot"] = {}
+        self.assertTrue(check_report(report))
+
+    def test_cross_process_resume_requires_same_checkpoint_and_different_pid(self):
+        checkpoint = {"terminal": "checkpoint", "valid": True, "process_id": 100, "source_sha256": {"x": "a"}, "config": {"run": "saved", "save_path": "user://natural-run/saved/run.json"}, "final": {"snapshot": {"boundary": "settlement", "coins": 23, "player": {"health": 100}, "settlement": {"generation": 1}}}}
+        resumed = {"process_id": 200, "source_sha256": {"x": "a"}, "config": {"resume": "saved", "save_path": "user://natural-run/saved/run.json"}, "resume_reference": {"report_sha256": "raw_hash", "snapshot_before": checkpoint["final"]["snapshot"], "restored": {"player": {"health": 100}, "settlement": {"generation": 1}}, "verified": True}}
+        self.assertEqual([], check_resume(checkpoint, resumed, "raw_hash"))
+        for key, value in [("process_id", 100), ("source_sha256", {"x": "changed"}), ("resume_reference", {"report_sha256": "wrong", "snapshot_before": {}, "verified": False})]:
+            bad = copy.deepcopy(resumed)
+            bad[key] = value
+            self.assertTrue(check_resume(checkpoint, bad, "raw_hash"))
+        bad = copy.deepcopy(resumed)
+        bad["resume_reference"]["restored"]["player"]["health"] = 0
+        self.assertTrue(check_resume(checkpoint, bad, "raw_hash"))
+
     def test_log_must_be_clean_and_complete_once(self):
         marker = "NATURAL_RUN_COMPLETE run=sample valid=true steps=9 terminal=victory"
         self.assertEqual([], check_log(marker, "sample"))

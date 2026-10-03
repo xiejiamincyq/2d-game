@@ -6,6 +6,20 @@ import math
 import re
 from pathlib import Path
 
+def check_resume(checkpoint, resumed, checkpoint_sha):
+    reference = resumed.get("resume_reference", {})
+    return [] if (checkpoint.get("terminal") == "checkpoint" and checkpoint.get("valid") is True
+                  and isinstance(checkpoint.get("process_id"), int) and checkpoint["process_id"] > 0
+                  and isinstance(resumed.get("process_id"), int) and resumed["process_id"] > 0
+                  and resumed["process_id"] != checkpoint["process_id"]
+                  and resumed.get("source_sha256") == checkpoint.get("source_sha256")
+                  and resumed.get("config", {}).get("resume") == checkpoint["config"]["run"]
+                  and resumed["config"].get("save_path") == checkpoint["config"]["save_path"]
+                  and reference.get("report_sha256") == checkpoint_sha
+                  and reference.get("snapshot_before") == checkpoint["final"]["snapshot"]
+                  and reference.get("restored") == {key: checkpoint["final"]["snapshot"][key] for key in ("player", "settlement")}
+                  and reference.get("verified") is True) else ["cross-process checkpoint mismatch"]
+
 def check_log(log, run):
     errors = []
     if re.search(r"SCRIPT ERROR|ERROR:|TEST FAIL:|ObjectDB instances were leaked|RID.+leaked|resources still in use", log):
@@ -44,7 +58,11 @@ def check_report(report):
             break
         frame, wall = sample["frame"], sample["wall"]
     terminal = report.get("terminal")
-    if terminal == "step_budget":
+    if terminal == "checkpoint":
+        final = report.get("final", {})
+        if final.get("state") != "SETTLEMENT" or not final.get("snapshot") or final["snapshot"].get("boundary") != "settlement" or report.get("result"):
+            errors.append("checkpoint is not a natural saved settlement")
+    elif terminal == "step_budget":
         if len(samples) != report["config"]["steps"] or report.get("result"):
             errors.append("truncated or mislabeled budget")
     elif terminal in ("death", "victory"):
@@ -64,10 +82,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("report", type=Path)
     parser.add_argument("--log", type=Path, required=True)
+    parser.add_argument("--checkpoint", type=Path)
     args = parser.parse_args()
     report = json.loads(args.report.read_text(encoding="utf-8"))
     errors = check_report(report)
     errors.extend(check_log(args.log.read_text(encoding="utf-8-sig"), report["config"]["run"]))
+    if report["config"].get("resume"):
+        if args.checkpoint is None:
+            errors.append("resume verification requires original checkpoint report")
+        else:
+            checkpoint = json.loads(args.checkpoint.read_text(encoding="utf-8"))
+            errors.extend(check_resume(checkpoint, report, hashlib.sha256(args.checkpoint.read_bytes()).hexdigest()))
     project = Path(__file__).resolve().parents[2]
     for relative, expected in report.get("source_sha256", {}).items():
         source = (project / relative).resolve()
