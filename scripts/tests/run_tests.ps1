@@ -70,6 +70,7 @@ $gameplayTests = @(
     "Phase5CombatTest",
     "BossTest",
     "BossHealthBarTest",
+    "BossCameraFramingTest",
     "BossTentacleTest",
     "BossPatternTest",
     "BossDirectorTest",

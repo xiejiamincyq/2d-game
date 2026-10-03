@@ -14,6 +14,7 @@ signal damage_resolved(
 )
 
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
+const CombatView = preload("res://scripts/systems/CombatView.gd")
 const LobbedProjectileScript = preload("res://scripts/components/LobbedProjectile.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
@@ -388,19 +389,7 @@ func is_ranged_kind() -> bool:
 	return kind in [EnemyKind.SPITTER, EnemyKind.MARKSMAN, EnemyKind.LOBBER]
 
 func get_camera_safe_rect() -> Rect2:
-	var viewport := get_viewport()
-	var viewport_size := viewport.get_visible_rect().size
-	var camera := viewport.get_camera_2d()
-	var center := global_position
-	var zoom := Vector2.ONE
-	if camera != null:
-		center = camera.get_screen_center_position()
-		zoom = camera.zoom.abs()
-	var visible_size := Vector2(
-		viewport_size.x / maxf(zoom.x, 0.001),
-		viewport_size.y / maxf(zoom.y, 0.001)
-	)
-	var safe_rect := Rect2(center - visible_size * 0.5, visible_size).grow(-RANGED_SAFE_MARGIN)
+	var safe_rect := CombatView.visible_rect(get_viewport(), global_position).grow(-RANGED_SAFE_MARGIN)
 	if world_bounds.size != Vector2.ZERO:
 		safe_rect = safe_rect.intersection(world_bounds.grow(-body_radius))
 	return safe_rect

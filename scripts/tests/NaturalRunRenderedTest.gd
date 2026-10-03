@@ -99,6 +99,10 @@ func _check_recording_path() -> void:
 	camera.make_current()
 	camera.force_update_scroll()
 	scene.ui.hide_start_screen()
+	scene.boss_camera_framing = preload("res://scripts/systems/BossCameraFraming.gd").new()
+	scene.add_child(scene.boss_camera_framing)
+	scene.boss_camera_framing.setup(camera, scene.player, scene.ui, Rect2(-1400, -900, 2800, 1800))
+	scene.boss_camera_framing.set_process(false)
 	scene.ui.boss_health_bar.visible = true
 	scene.ui.hud.set_combo(3)
 	scene.ui.hud.toast_overlay.visible = true
@@ -110,6 +114,8 @@ func _check_recording_path() -> void:
 	if not _check(boss_view_samples.size() == 1, "actual capture path skipped Boss geometry at the clip throttle"):
 		return
 	var row := boss_view_samples[0]
+	if not _check(row.has("player_rect") and row.player_ui_overlap_areas.size() == 6 and is_equal_approx(row.camera_zoom, 0.8) and row.framing_active == false and row.direction_cue_visible == false, "actual recording omitted or invented framing/player/cue geometry"):
+		return
 	if not _check(row.ui_names.size() == 6 and str(scene.ui.hud.combo_panel.get_path()) in row.ui_names and str(scene.ui.hud.toast_overlay.get_path()) in row.ui_names and str(scene.ui.hud.collection_panel.get_path()) in row.ui_names, "actual recording omitted visible combat HUD panels"):
 		return
 	var sprite_rect: Rect2 = view.canvas_transform * boss.boss_visual.global_transform * boss.boss_visual.get_rect()
@@ -141,6 +147,8 @@ func _check_recording_path() -> void:
 	boss.entrance_resolved = true
 	var hashes := _source_hashes()
 	if not _check(hashes.has("themes/MintFarmTheme.tres") and hashes.has("scenes/ui/HUD.tscn") and hashes.has("scripts/effects/CameraEffects.gd"), "view evidence omitted layout or camera dependencies"):
+		return
+	if not _check(hashes.has("scripts/systems/CombatView.gd") and hashes.has("scripts/systems/BossCameraFraming.gd") and hashes.has("scripts/ui/BossDirectionIndicator.gd"), "view evidence omitted framing/navigation/cue dependencies"):
 		return
 	boss_view_samples.resize(60000)
 	_capture()

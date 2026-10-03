@@ -1,6 +1,8 @@
 extends Node
 class_name WaveDirector
 
+const CombatView = preload("res://scripts/systems/CombatView.gd")
+
 signal wave_changed(index: int, total: int, remaining: int)
 signal wave_cleared(completed_wave: int)
 signal wave_prepared(summary: Dictionary)
@@ -625,18 +627,8 @@ func _get_enemy_spawn_clearance(candidate: Vector2, body_radius: float) -> float
 
 func get_camera_safe_rect(margin: float = EnemyScript.RANGED_SAFE_MARGIN) -> Rect2:
 	var viewport := get_viewport()
-	var viewport_size := viewport.get_visible_rect().size
-	var camera := viewport.get_camera_2d()
 	var center: Vector2 = player.global_position if player != null else viewport.get_visible_rect().get_center()
-	var zoom := Vector2.ONE
-	if camera != null:
-		center = camera.get_screen_center_position()
-		zoom = camera.zoom.abs()
-	var visible_size := Vector2(
-		viewport_size.x / maxf(zoom.x, 0.001),
-		viewport_size.y / maxf(zoom.y, 0.001)
-	)
-	var safe_rect := Rect2(center - visible_size * 0.5, visible_size).grow(-margin)
+	var safe_rect := CombatView.visible_rect(viewport, center).grow(-margin)
 	if world_bounds.size != Vector2.ZERO:
 		safe_rect = safe_rect.intersection(world_bounds.grow(-24.0))
 	return safe_rect
@@ -745,13 +737,7 @@ func get_portal_spawn_distance() -> float:
 	var viewport := get_viewport()
 	if viewport == null and is_inside_tree():
 		viewport = get_tree().root
-	var viewport_size := viewport.get_visible_rect().size if viewport != null else Vector2(1280.0, 720.0)
-	var camera := viewport.get_camera_2d() if viewport != null else null
-	var zoom := camera.zoom.abs() if camera != null else Vector2.ONE
-	var visible_size := Vector2(
-		viewport_size.x / maxf(zoom.x, 0.001),
-		viewport_size.y / maxf(zoom.y, 0.001)
-	)
+	var visible_size := CombatView.visible_rect(viewport, Vector2.ZERO).size
 	return maxf(PORTAL_MIN_SAFE_DISTANCE, minf(visible_size.x, visible_size.y) * 0.5)
 
 func sample_portal_position_avoiding(

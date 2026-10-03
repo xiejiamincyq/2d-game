@@ -105,10 +105,9 @@ func _record_boss_view() -> void:
 	var sprite_rect: Rect2 = boss.boss_visual.get_global_transform_with_canvas() * boss.boss_visual.get_rect()
 	var ui_names: Array[String] = []
 	var ui_rects: Array[Rect2] = []
-	for control: Control in [scene.ui.hud.grid, scene.ui.boss_health_bar, scene.ui.hud.overdrive_panel, scene.ui.hud.combo_panel, scene.ui.hud.toast_overlay, scene.ui.hud.collection_panel]:
-		if control.is_visible_in_tree():
-			ui_names.append(str(control.get_path()))
-			ui_rects.append(control.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, control.size))
+	for control: Control in scene.ui.get_combat_occluders():
+		ui_names.append(str(control.get_path()))
+		ui_rects.append(control.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, control.size))
 	var serialized_rects: Array = []
 	for rect: Rect2 in ui_rects:
 		serialized_rects.append([rect.position.x, rect.position.y, rect.size.x, rect.size.y])
@@ -122,6 +121,17 @@ func _record_boss_view() -> void:
 		"boss_world": [boss.global_position.x, boss.global_position.y], "player_world": [scene.player.global_position.x, scene.player.global_position.y],
 		"camera_center_world": [camera_center.x, camera_center.y], "boss_speed": boss.velocity.length(),
 		"boss_alpha": boss.modulate.a, "nominal_safe_center_inside": boss.get_combat_safe_rect().has_point(boss.global_position)})
+	var rig: Node = scene.boss_camera_framing
+	if is_instance_valid(rig):
+		var player_rect: Rect2 = scene.player.get_global_transform_with_canvas() * Rect2(-54, -54, 108, 108)
+		var player_metrics := measure_boss_view(player_rect, Rect2(Vector2.ZERO, Vector2(view.size)), ui_rects)
+		var cue: Control = scene.ui.boss_direction_indicator
+		var cue_rect := cue.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, cue.size)
+		metrics.merge({"framing_active": rig.active, "both_fit": rig.both_fit, "camera_zoom": camera.zoom.x,
+			"safe_screen_rect": [rig.safe_screen_rect.position.x, rig.safe_screen_rect.position.y, rig.safe_screen_rect.size.x, rig.safe_screen_rect.size.y],
+			"player_rect": [player_rect.position.x, player_rect.position.y, player_rect.size.x, player_rect.size.y],
+			"player_offscreen_area": player_metrics.offscreen_area, "player_ui_overlap_areas": player_metrics.ui_overlap_areas,
+			"direction_cue_visible": cue.is_visible_in_tree(), "direction_cue_rect": [cue_rect.position.x, cue_rect.position.y, cue_rect.size.x, cue_rect.size.y]})
 	boss_view_samples.append(metrics)
 
 func _visual_info() -> Dictionary:
@@ -158,7 +168,7 @@ func _visual_info() -> Dictionary:
 func _source_hashes() -> Dictionary:
 	var hashes := super._source_hashes()
 	# The visible mouse marker must be bound to the actual captured version, too.
-	for path in ["scripts/ui/GameUI.gd", "scripts/ui/AimReticle.gd", "scripts/ui/BossHealthBar.gd", "themes/MintFarmTheme.tres", "scenes/ui/HUD.tscn", "scripts/effects/CameraEffects.gd"]:
+	for path in ["scripts/ui/GameUI.gd", "scripts/ui/AimReticle.gd", "scripts/ui/BossHealthBar.gd", "themes/MintFarmTheme.tres", "scenes/ui/HUD.tscn", "scripts/effects/CameraEffects.gd", "scripts/systems/CombatView.gd", "scripts/systems/BossCameraFraming.gd", "scripts/ui/BossDirectionIndicator.gd"]:
 		hashes[path] = FileAccess.get_sha256("res://" + path)
 	for path in ["scripts/art/VerifyNaturalRunRendered.gd", "scripts/components/LobbedProjectile.gd", "scripts/components/TentacleAttack.gd", "scripts/components/BossAttackDirector.gd", "scripts/components/BossProjectilePattern.gd", "scripts/ui/HUD.gd", "scripts/world/FloorGrid.gd", "scripts/world/ArenaObstacle.gd", "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png", "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png", "assets/art/environment/mint_farm_floor_b_v1.png", "assets/art/environment/mint_farm_props_b_packed_v1.png", "assets/art/environment/floor_surface.gdshader", "assets/art/environment/prop_alpha.gdshader", "assets/art/shaders/dasher_hit_flash.gdshader"]:
 		hashes[path] = FileAccess.get_sha256("res://" + path)

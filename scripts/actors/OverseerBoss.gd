@@ -17,6 +17,7 @@ signal damage_resolved(
 )
 
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const CombatView = preload("res://scripts/systems/CombatView.gd")
 const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const TentacleAttackScript = preload("res://scripts/components/TentacleAttack.gd")
@@ -185,19 +186,8 @@ func _apply_arena_navigation(desired: Vector2, target: Vector2, use_flow_field: 
 	return (navigation_direction * 0.78 + desired.normalized() * 0.22).normalized() * magnitude
 
 func get_combat_safe_rect() -> Rect2:
-	var viewport := get_viewport()
-	var viewport_size := viewport.get_visible_rect().size
-	var camera := viewport.get_camera_2d()
 	var center := target_player.global_position if is_instance_valid(target_player) else global_position
-	var zoom := Vector2.ONE
-	if camera != null:
-		center = camera.get_screen_center_position()
-		zoom = camera.zoom.abs()
-	var visible_size := Vector2(
-		viewport_size.x / maxf(zoom.x, 0.001),
-		viewport_size.y / maxf(zoom.y, 0.001)
-	)
-	var safe_rect := Rect2(center - visible_size * 0.5, visible_size).grow(-CAMERA_SAFE_MARGIN)
+	var safe_rect := CombatView.visible_rect(get_viewport(), center).grow(-CAMERA_SAFE_MARGIN)
 	if world_bounds.size != Vector2.ZERO:
 		safe_rect = safe_rect.intersection(world_bounds.grow(-body_radius))
 	return safe_rect

@@ -17,6 +17,7 @@ const ArenaLayoutScript = preload("res://scripts/world/ArenaLayout.gd")
 const CombatFeedbackScript = preload("res://scripts/systems/CombatFeedback.gd")
 const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
 const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
+const BossCameraFramingScript = preload("res://scripts/systems/BossCameraFraming.gd")
 
 const WORLD_BOUNDS := Rect2(-1400, -900, 2800, 1800)
 const CAMERA_SMOOTHING_CANDIDATES: Array[float] = [0.0, 8.0, 16.0, 20.0]
@@ -42,6 +43,7 @@ var audio: Node
 var combat_feedback: Node
 var combat_vfx: Node2D
 var camera_effects: Node
+var boss_camera_framing: Node
 var arena_layout: Node
 var map_seed: int = 0
 var game_over: bool = false
@@ -244,6 +246,10 @@ func _begin_run(snapshot: Dictionary) -> void:
 	camera_effects.process_mode = Node.PROCESS_MODE_PAUSABLE
 	player.add_child(camera_effects)
 	camera_effects.setup(camera)
+	boss_camera_framing = BossCameraFramingScript.new()
+	boss_camera_framing.name = "BossCameraFraming"
+	player.add_child(boss_camera_framing)
+	boss_camera_framing.setup(camera, player, ui, WORLD_BOUNDS)
 	combat_feedback = CombatFeedbackScript.new()
 	combat_feedback.name = "CombatFeedback"
 	add_child(combat_feedback)
@@ -343,6 +349,8 @@ func _on_player_entrance_finished() -> void:
 
 func _on_boss_spawned(boss: Node, display_name: String, maximum_health: float) -> void:
 	ui.show_boss_health(boss, display_name, maximum_health)
+	if is_instance_valid(boss_camera_framing):
+		boss_camera_framing.track_boss(boss)
 	if run_state != RunState.PLAYING or not boss.has_signal("entrance_finished"):
 		return
 	boss.visible = false
@@ -531,6 +539,8 @@ func _transition_to(next_state: RunState) -> bool:
 	if next_state != RunState.PLAYING:
 		_reset_combat_feedback()
 	run_state = next_state
+	if is_instance_valid(boss_camera_framing):
+		boss_camera_framing.set_combat_state(run_state == RunState.PLAYING, run_state == RunState.PAUSED)
 	manual_paused = run_state == RunState.PAUSED
 	if player != null:
 		player.set_physics_process(run_state == RunState.PLAYING)
@@ -641,4 +651,6 @@ func _set_overdrive(active: bool) -> void:
 			camera_effects.request_impact(0.55, Vector2.UP)
 
 func _exit_tree() -> void:
+	if is_instance_valid(boss_camera_framing):
+		boss_camera_framing.reset_framing()
 	_reset_combat_feedback()

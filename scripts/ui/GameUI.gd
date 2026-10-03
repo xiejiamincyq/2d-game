@@ -19,6 +19,7 @@ const WaveBannerScene = preload("res://scenes/ui/WaveBanner.tscn")
 const BossHealthBarScript = preload("res://scripts/ui/BossHealthBar.gd")
 const BossEntranceOverlayScript = preload("res://scripts/ui/BossEntranceOverlay.gd")
 const AimReticleScript = preload("res://scripts/ui/AimReticle.gd")
+const BossDirectionIndicatorScript = preload("res://scripts/ui/BossDirectionIndicator.gd")
 const MintFarmTheme = preload("res://themes/MintFarmTheme.tres")
 
 var root: Control
@@ -30,6 +31,7 @@ var wave_banner: Control
 var boss_health_bar: Control
 var boss_entrance_overlay: Control
 var aim_reticle: Control
+var boss_direction_indicator: Control
 var start_backdrop: ColorRect
 var start_panel: PanelContainer
 var start_button: Button
@@ -73,6 +75,7 @@ func _ready() -> void:
 	boss_health_bar = BossHealthBarScript.new()
 	boss_entrance_overlay = BossEntranceOverlayScript.new()
 	aim_reticle = AimReticleScript.new()
+	boss_direction_indicator = BossDirectionIndicatorScript.new()
 	root.add_child(hud)
 	root.add_child(pause_screen)
 	root.add_child(settlement_screen)
@@ -81,6 +84,7 @@ func _ready() -> void:
 	root.add_child(boss_health_bar)
 	root.add_child(boss_entrance_overlay)
 	root.add_child(aim_reticle)
+	root.add_child(boss_direction_indicator)
 	_build_start_screen()
 	_connect_components()
 	_bind_compatibility_references()
@@ -195,6 +199,19 @@ func apply_viewport_size(viewport_size: Vector2) -> void:
 
 func set_health(current: float, maximum: float) -> void:
 	hud.set_health(current, maximum)
+
+func get_combat_occluders() -> Array[Control]:
+	var controls: Array[Control] = []
+	for control in [hud.grid, boss_health_bar, hud.overdrive_panel, hud.combo_panel, hud.toast_overlay, hud.collection_panel]:
+		if control.is_visible_in_tree() and control.modulate.a > 0.0:
+			controls.append(control)
+	return controls
+
+func get_combat_occluder_rects() -> Array[Rect2]:
+	var rects: Array[Rect2] = []
+	for control in get_combat_occluders():
+		rects.append(control.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, control.size))
+	return rects
 
 func set_shield(value: float, maximum: float) -> void:
 	hud.set_shield(value, maximum)
