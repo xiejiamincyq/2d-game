@@ -6,10 +6,10 @@ const BAR_HEIGHT := 34.0
 const TOP_SAFE_OFFSET := 126.0
 const MIN_WIDTH_RATIO := 0.72
 const MAX_WIDTH_RATIO := 0.90
-const BACKGROUND_COLOR := Color("061019e8")
-const FILL_COLOR := Color("f559bf")
-const MARKER_COLOR := Color("ff571f")
-const BORDER_COLOR := Color("33fff2")
+const BACKGROUND_COLOR := Color("f3eddc")
+const FILL_COLOR := Color("f27a4b")
+const MARKER_COLOR := Color("123b3b")
+const BORDER_COLOR := Color("123b3b")
 
 var name_label: Label
 var phase_label: Label
@@ -75,7 +75,8 @@ func _build() -> void:
 	health_value_label.offset_top = 15.0
 	health_value_label.offset_right = -8.0
 	health_value_label.offset_bottom = -2.0
-	health_value_label.add_theme_color_override("font_color", Color.WHITE)
+	# The slightly deeper shade keeps numerals >=4.5:1 on both coral fill and mint track.
+	health_value_label.add_theme_color_override("font_color", Color("102f2f"))
 	health_value_label.add_theme_font_size_override("font_size", 11)
 	add_child(health_value_label)
 
@@ -87,25 +88,19 @@ func _make_label(text: String, alignment: HorizontalAlignment) -> Label:
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	label.add_theme_font_size_override("font_size", 12)
 	label.add_theme_color_override("font_color", BORDER_COLOR)
-	label.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 0.8))
-	label.add_theme_constant_override("shadow_offset_x", 1)
-	label.add_theme_constant_override("shadow_offset_y", 1)
 	return label
 
 func _make_background_style() -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = BACKGROUND_COLOR
 	style.border_color = BORDER_COLOR
-	style.set_border_width_all(1)
-	style.corner_radius_top_left = 3
-	style.corner_radius_top_right = 3
-	style.corner_radius_bottom_left = 3
-	style.corner_radius_bottom_right = 3
+	style.set_border_width_all(3)
+	style.set_corner_radius_all(8)
 	return style
 
 func _make_bar_background_style() -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color("0b1c2a")
+	style.bg_color = Color("9bd7bd")
 	style.corner_radius_bottom_left = 1
 	style.corner_radius_bottom_right = 1
 	return style

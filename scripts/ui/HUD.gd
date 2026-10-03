@@ -57,7 +57,7 @@ func _build_hud() -> void:
 
 	var health_box := _make_card()
 	health_value_label = _make_label("100 / 100")
-	health_bar = _make_bar(Color(1.0, 0.28, 0.18))
+	health_bar = _make_bar(Color("f27a4b"))
 	shield_value_label = _make_label("护盾 0 / 60")
 	health_box.add_child(_make_title("机体状态"))
 	health_box.add_child(health_bar)
@@ -118,10 +118,10 @@ func _build_hud() -> void:
 	overdrive_panel.position = Vector2(-155, -62)
 	overdrive_panel.custom_minimum_size = Vector2(310, 44)
 	var overdrive_style := StyleBoxFlat.new()
-	overdrive_style.bg_color = Color(0.012, 0.028, 0.044, 0.94)
-	overdrive_style.border_color = Color(0.20, 1.0, 0.95, 0.62)
-	overdrive_style.set_border_width_all(1)
-	overdrive_style.set_corner_radius_all(4)
+	overdrive_style.bg_color = Color("f3eddc")
+	overdrive_style.border_color = Color("123b3b")
+	overdrive_style.set_border_width_all(3)
+	overdrive_style.set_corner_radius_all(8)
 	overdrive_style.set_content_margin_all(8)
 	overdrive_panel.add_theme_stylebox_override("panel", overdrive_style)
 	var overdrive_row := HBoxContainer.new()
@@ -129,9 +129,9 @@ func _build_hud() -> void:
 	overdrive_label = _make_label("超载 0%")
 	overdrive_label.custom_minimum_size.x = 76.0
 	overdrive_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	overdrive_label.add_theme_color_override("font_color", Color("9fffee"))
+	overdrive_label.add_theme_color_override("font_color", Color("123b3b"))
 	overdrive_row.add_child(overdrive_label)
-	overdrive_bar = _make_bar(Color("33fff2"))
+	overdrive_bar = _make_bar(Color("35b8ac"))
 	overdrive_bar.max_value = 100.0
 	overdrive_bar.value = 0.0
 	overdrive_bar.custom_minimum_size = Vector2(196, 10)
@@ -151,7 +151,7 @@ func _build_hud() -> void:
 	collection_box.add_theme_constant_override("separation", 5)
 	collection_label = _make_title("倒计时：5.0s")
 	collection_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	collection_bar = _make_bar(Color("33fff2"))
+	collection_bar = _make_bar(Color("35b8ac"))
 	collection_bar.custom_minimum_size = Vector2(350, 8)
 	collection_box.add_child(collection_label)
 	collection_box.add_child(collection_bar)
@@ -174,13 +174,12 @@ func _make_card() -> VBoxContainer:
 	panel.custom_minimum_size = Vector2(210, 112)
 	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.012, 0.028, 0.044, 0.94)
-	style.border_color = Color(0.2, 1.0, 0.95, 0.68)
-	style.set_border_width_all(1)
-	style.border_width_top = 3
-	style.set_corner_radius_all(4)
+	style.bg_color = Color("f3eddc")
+	style.border_color = Color("123b3b")
+	style.set_border_width_all(3)
+	style.set_corner_radius_all(8)
 	style.set_content_margin_all(10)
-	style.shadow_color = Color(0.0, 0.0, 0.0, 0.42)
+	style.shadow_color = Color("123b3b33")
 	style.shadow_size = 4
 	panel.add_theme_stylebox_override("panel", style)
 	var box := VBoxContainer.new()
@@ -192,7 +191,7 @@ func _make_title(text: String) -> Label:
 	var label := Label.new()
 	label.text = text
 	label.add_theme_font_size_override("font_size", 17)
-	label.add_theme_color_override("font_color", Color(0.82, 1.0, 1.0))
+	label.add_theme_color_override("font_color", Color("123b3b"))
 	return label
 
 func _make_label(text: String) -> Label:
@@ -212,8 +211,8 @@ func _make_bar(color: Color) -> ProgressBar:
 	fill.set_corner_radius_all(3)
 	bar.add_theme_stylebox_override("fill", fill)
 	var background := StyleBoxFlat.new()
-	background.bg_color = Color(0.005, 0.015, 0.024, 0.94)
-	background.border_color = Color(0.20, 1.0, 0.95, 0.24)
+	background.bg_color = Color("d9e4cd")
+	background.border_color = Color("123b3b")
 	background.set_border_width_all(1)
 	background.set_corner_radius_all(3)
 	bar.add_theme_stylebox_override("background", background)
@@ -255,7 +254,7 @@ func set_run_stats(kills: int, elapsed_seconds: float) -> void:
 func set_combo(count: int) -> void:
 	combo_panel.visible = count > 1
 	combo_label.text = "连杀 x%d" % count
-	combo_label.add_theme_color_override("font_color", Color(0.86, 1.0, 1.0))
+	combo_label.add_theme_color_override("font_color", Color("123b3b"))
 
 func clear_combo() -> void:
 	combo_panel.visible = false
@@ -265,18 +264,18 @@ func set_overdrive(active: bool, remaining: float = 0.0) -> void:
 		return
 	combo_panel.visible = true
 	combo_label.text = "超载 %.1fs  无敌 · 全武器强化" % maxf(0.0, remaining)
-	combo_label.add_theme_color_override("font_color", Color("ff571f"))
+	combo_label.add_theme_color_override("font_color", Color("8f3b22"))
 
 func set_overdrive_charge(value: float, active: bool) -> void:
 	var clamped_value := clampf(value, 0.0, 100.0)
-	var overdrive_color := Color("b45cff") if active else Color("33fff2")
+	var overdrive_color := Color("f27a4b") if active else Color("35b8ac")
 	overdrive_bar.value = clamped_value
 	_set_bar_fill_color(overdrive_bar, overdrive_color)
 	overdrive_label.text = "超载运行" if active else "超载 %d%%" % int(round(clamped_value))
-	overdrive_label.add_theme_color_override("font_color", Color("d9a8ff") if active else Color("9fffee"))
+	overdrive_label.add_theme_color_override("font_color", Color("123b3b"))
 	var panel_style := overdrive_panel.get_theme_stylebox("panel") as StyleBoxFlat
 	if panel_style != null:
-		panel_style.border_color = Color(0.71, 0.36, 1.0, 0.85) if active else Color(0.20, 1.0, 0.95, 0.62)
+		panel_style.border_color = Color("8f3b22") if active else Color("123b3b")
 
 func _set_bar_fill_color(bar: ProgressBar, color: Color) -> void:
 	var fill := bar.get_theme_stylebox("fill") as StyleBoxFlat

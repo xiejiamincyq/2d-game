@@ -24,7 +24,7 @@ func _ready() -> void:
 	visible = false
 
 	var shade := ColorRect.new()
-	shade.color = Color(0.0, 0.0, 0.0, 0.84)
+	shade.color = Color("123b3bb3")
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(shade)
@@ -55,14 +55,14 @@ func _ready() -> void:
 	wave_label.add_theme_font_size_override("font_size", 18)
 	coin_label = Label.new()
 	coin_label.add_theme_font_size_override("font_size", 18)
-	coin_label.add_theme_color_override("font_color", Color(1.0, 0.78, 0.18))
+	coin_label.add_theme_color_override("font_color", Color("8f3b22"))
 	status_row.add_child(wave_label)
 	status_row.add_child(coin_label)
 	box.add_child(status_row)
 
 	hint_label = Label.new()
 	hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	hint_label.add_theme_color_override("font_color", Color(0.65, 0.9, 0.95))
+	hint_label.add_theme_color_override("font_color", Color("1c625c"))
 	box.add_child(hint_label)
 
 	var family_row := HBoxContainer.new()
@@ -202,7 +202,7 @@ func _family_label(family_id: String) -> String:
 
 func _family_color(family_id: String) -> Color:
 	match family_id:
-		"ballistics": return Color(1.0, 0.42, 0.18)
-		"mobility": return Color(0.25, 1.0, 0.88)
-		"automation": return Color(0.72, 0.42, 1.0)
-	return Color.WHITE
+		"ballistics": return Color("8f3b22")
+		"mobility": return Color("1c625c")
+		"automation": return Color("505634")
+	return Color("123b3b")

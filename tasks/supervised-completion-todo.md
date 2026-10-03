@@ -29,6 +29,7 @@
   - [x] S2-C 自然第一波18次对照完成，7死亡/10预算结束/1清场；见[实测报告](../docs/art/previews/environment/natural-wave1-matrix-review-v1.md)。后期最拥挤自然窗口、LOBber与录像仍未完成，不勾选S2整体。
 - [ ] S3 六景前后与运动证据、四向展示；本地实际看图验收。
   - [x] 最终Boss接入既有Q版监工与局部行走表现；同时红绿修复Boss弹幕双时钟，见[Boss报告](../docs/art/previews/characters-combat/boss-chibi-review-v1.md)。仅组件对照，不是完整Boss战/S3验收。
+  - [x] HUD/菜单/Boss提示统一薄荷奶油色与深青轮廓，28张原始前后组件图、自然第一波600步短测及完整回归通过；见[界面报告](../docs/art/previews/ui/mint-ui-review-v1.md)。不是自然商店/整局或S3整体验收。
 - [ ] S4 三种子整局、胜败/商店/重启继续；20 种子地图安全/可达性；存档隔离校验。
 - [ ] S5 当前说明/资源来源同步、本机性能、完整回归、本地启动和冻结交接。
 

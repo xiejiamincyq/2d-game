@@ -80,8 +80,8 @@ func _initialize() -> void:
 	ui.set_overdrive_charge(100.0, true)
 	if not _assert_true(
 		ui.hud.overdrive_label.text == "超载运行"
-		and (ui.hud.overdrive_bar.get_theme_stylebox("fill") as StyleBoxFlat).bg_color.is_equal_approx(Color("b45cff")),
-		"HUD did not switch the overdrive capsule to its active magenta state"
+		and (ui.hud.overdrive_bar.get_theme_stylebox("fill") as StyleBoxFlat).bg_color.is_equal_approx(Color("f27a4b")),
+		"HUD did not switch the overdrive capsule to its active coral state"
 	):
 		return
 	ui.set_collection_window(5.0, 5.0)
@@ -100,16 +100,42 @@ func _initialize() -> void:
 		return
 	if not _assert_true(ui.root.theme.default_font_size >= 16, "shared UI theme body text fell below 16px"):
 		return
-	var dark_backdrop := Color(0.015, 0.025, 0.04)
+	var panel_style := ui.start_panel.get_theme_stylebox("panel") as StyleBoxFlat
+	if not _assert_true(panel_style != null and panel_style.bg_color.is_equal_approx(Color("f3eddc")), "shared UI panel did not use the approved opaque cream palette"):
+		return
+	if not _assert_true(panel_style.border_color.is_equal_approx(Color("123b3b")) and panel_style.border_width_left >= 3, "shared UI panel lost its conspicuous deep-teal outline"):
+		return
 	var label_color: Color = ui.root.theme.get_color("font_color", "Label")
 	var button_color: Color = ui.root.theme.get_color("font_color", "Button")
-	var button_background := dark_backdrop
+	var button_background := panel_style.bg_color
 	var button_style: StyleBox = ui.start_button.get_theme_stylebox("normal")
 	if button_style is StyleBoxFlat:
 		button_background = button_style.bg_color
-	if not _assert_true(_contrast_ratio(label_color, dark_backdrop) >= 4.5, "default label contrast fell below 4.5:1"):
+	if not _assert_true(_contrast_ratio(label_color, panel_style.bg_color) >= 4.5, "default label contrast on actual panel fell below 4.5:1"):
 		return
 	if not _assert_true(_contrast_ratio(button_color, button_background) >= 4.5, "default button contrast fell below 4.5:1"):
+		return
+	for state_name in ["hover", "pressed", "disabled"]:
+		var state_style := ui.start_button.get_theme_stylebox(state_name) as StyleBoxFlat
+		var state_text: Color = ui.start_button.get_theme_color("font_" + state_name + "_color")
+		if not _assert_true(state_style != null and _contrast_ratio(state_text, state_style.bg_color) >= 4.5, "%s button text contrast fell below 4.5:1" % state_name):
+			return
+	var focus_style := ui.start_button.get_theme_stylebox("focus") as StyleBoxFlat
+	if not _assert_true(focus_style != null and not focus_style.draw_center and focus_style.border_width_left >= 3, "keyboard focus lacks a separate visible non-obscuring outline"):
+		return
+	if not _assert_true(_contrast_ratio(ui.hud.overdrive_label.get_theme_color("font_color"), (ui.hud.overdrive_panel.get_theme_stylebox("panel") as StyleBoxFlat).bg_color) >= 4.5, "active overdrive label is not readable"):
+		return
+	for family_label in ui.settlement_screen.family_labels.values():
+		if not _assert_true(_contrast_ratio(family_label.get_theme_color("font_color"), panel_style.bg_color) >= 4.5, "settlement family heading is not readable on cream"):
+			return
+	var boss_bar: ProgressBar = ui.boss_health_bar.health_bar
+	for background_name in ["background", "fill"]:
+		if not _assert_true(_contrast_ratio(ui.boss_health_bar.health_value_label.get_theme_color("font_color"), (boss_bar.get_theme_stylebox(background_name) as StyleBoxFlat).bg_color) >= 4.5, "Boss health value lost contrast on %s" % background_name):
+			return
+	ui.set_overdrive_charge(20, false)
+	if not _assert_true((ui.hud.overdrive_bar.get_theme_stylebox("fill") as StyleBoxFlat).bg_color.is_equal_approx(Color("35b8ac")) and (ui.hud.overdrive_panel.get_theme_stylebox("panel") as StyleBoxFlat).border_color.is_equal_approx(Color("123b3b")), "inactive overdrive did not restore teal and its outline"):
+		return
+	if not _assert_true(ui.start_panel.get_theme_stylebox("panel") != ui.hud.overdrive_panel.get_theme_stylebox("panel") and panel_style.border_color.is_equal_approx(Color("123b3b")), "dynamic overdrive styling mutated the shared panel theme"):
 		return
 	for button in [ui.start_button, ui.continue_button, ui.hud.pause_button, ui.pause_screen.resume_button, pause_restart_button, ui.result_screen.restart_button, ui.settlement_screen.close_button]:
 		if not _assert_true(button.get_combined_minimum_size().y >= 44.0 and button.focus_mode == Control.FOCUS_ALL, "%s lost its 44px keyboard-focusable target" % button.name):

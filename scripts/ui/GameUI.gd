@@ -19,7 +19,7 @@ const WaveBannerScene = preload("res://scenes/ui/WaveBanner.tscn")
 const BossHealthBarScript = preload("res://scripts/ui/BossHealthBar.gd")
 const BossEntranceOverlayScript = preload("res://scripts/ui/BossEntranceOverlay.gd")
 const AimReticleScript = preload("res://scripts/ui/AimReticle.gd")
-const CyberTheme = preload("res://themes/CyberTheme.tres")
+const MintFarmTheme = preload("res://themes/MintFarmTheme.tres")
 
 var root: Control
 var hud: Control
@@ -62,7 +62,7 @@ func _ready() -> void:
 	layer = 20
 	root = Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	root.theme = CyberTheme
+	root.theme = MintFarmTheme
 	add_child(root)
 
 	hud = HUDScene.instantiate()
@@ -90,7 +90,7 @@ func _ready() -> void:
 
 func _build_start_screen() -> void:
 	start_backdrop = ColorRect.new()
-	start_backdrop.color = Color(0.015, 0.025, 0.04, 0.97)
+	start_backdrop.color = Color("9bd7bdee")
 	start_backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.add_child(start_backdrop)
 	var center := CenterContainer.new()
@@ -109,7 +109,7 @@ func _build_start_screen() -> void:
 	title.add_theme_font_size_override("font_size", 34)
 	box.add_child(title)
 	var subtitle := Label.new()
-	subtitle.text = "移动、射击、冲刺，在五个阶段中存活"
+	subtitle.text = "移动、射击、冲刺，清剿所有波次"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(subtitle)
 	start_button = Button.new()

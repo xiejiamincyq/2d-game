@@ -15,7 +15,7 @@ func _ready() -> void:
 	visible = false
 
 	var shade := ColorRect.new()
-	shade.color = Color(0.0, 0.0, 0.0, 0.78)
+	shade.color = Color("123b3b99")
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(shade)
@@ -42,7 +42,7 @@ func _ready() -> void:
 	var hint := Label.new()
 	hint.text = "升级与购买将在波次清剿完成后统一进行"
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	hint.add_theme_color_override("font_color", Color(0.65, 0.9, 0.95))
+	hint.add_theme_color_override("font_color", Color("1c625c"))
 	box.add_child(hint)
 
 	resume_button = Button.new()

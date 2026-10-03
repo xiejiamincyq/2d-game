@@ -30,7 +30,7 @@ func _ready() -> void:
 	message_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	message_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	message_label.add_theme_font_size_override("font_size", 36)
-	message_label.add_theme_color_override("font_color", Color(0.86, 1.0, 1.0))
+	message_label.add_theme_color_override("font_color", Color("123b3b"))
 	message_panel.add_child(message_label)
 
 func show_message(text: String, context: StringName, duration: float = 1.1) -> void:
