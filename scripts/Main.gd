@@ -1,6 +1,8 @@
 extends Node2D
 
 const PlayerScript = preload("res://scripts/actors/Player.gd")
+const LaserBeamScript = preload("res://scripts/components/LaserBeam.gd")
+const DroneLockReticleScript = preload("res://scripts/ui/DroneLockReticle.gd")
 const PlayerOutlineScript = preload("res://scripts/art/PlayerOcclusionOutline.gd")
 const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
 const UpgradeSystemScript = preload("res://scripts/systems/UpgradeSystem.gd")
@@ -604,6 +606,9 @@ func _enforce_world_bounds() -> void:
 		enemy_node.global_position = enemy_node.global_position.clamp(WORLD_BOUNDS.position + margin, WORLD_BOUNDS.end - margin)
 	for projectile in projectiles.get_children():
 		var projectile_node := projectile as Node2D
+		# Drone-owned visuals can orbit outside the arena; their owner manages lifetime.
+		if projectile_node is DroneLockReticleScript or (projectile_node is LaserBeamScript and projectile_node.persistent):
+			continue
 		if projectile_node != null and not WORLD_BOUNDS.has_point(projectile_node.global_position):
 			projectile_node.queue_free()
 	for pickup in pickups.get_children():

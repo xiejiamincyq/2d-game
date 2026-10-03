@@ -80,6 +80,7 @@ $gameplayTests = @(
     "Phase19Test",
     "Phase20Test",
     "Phase21Test",
+    "DroneVisualLifecycleTest",
     "EnemyBehaviorTest",
     "UpgradeTest",
     "StateTest",
