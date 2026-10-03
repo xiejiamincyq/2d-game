@@ -223,7 +223,7 @@ func _spawn_projectile(event: Dictionary) -> void:
 	shot.radius = 5.0
 	shot.lifetime = 6.0
 	shot.target_group = &"player"
-	shot.tint = Color("f559bf")
+	shot.tint = Color("f27a4b")
 	shot.world_bounds = world_bounds
 	shot.set_meta(&"boss_owner_id", boss_owner_id)
 	shot.set_meta(&"boss_pattern", _active_pattern)
@@ -254,4 +254,6 @@ func _draw() -> void:
 	for event: Dictionary in _active_plan:
 		if int(event.round) != 0:
 			continue
-		draw_line(Vector2.ZERO, Vector2(event.direction) * 340.0, Color(1.0, 0.34, 0.12, 0.18 + progress * 0.42), 1.5)
+		var endpoint := Vector2(event.direction) * 340.0
+		draw_line(Vector2.ZERO, endpoint, Color("123b3b"), 4.0, true)
+		draw_line(Vector2.ZERO, endpoint, Color(Color("f27a4b"), 0.65 + progress * 0.35), 2.0, true)

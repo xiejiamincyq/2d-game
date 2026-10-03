@@ -13,6 +13,8 @@ func _assert_true(condition: bool, message: String) -> bool:
 	return false
 
 func _initialize() -> void:
+	# Wait until the SceneTree is ready so newly spawned shots run _ready immediately.
+	await process_frame
 	var fixture := Node2D.new()
 	root.add_child(fixture)
 	var target := Node2D.new()
@@ -54,6 +56,13 @@ func _initialize() -> void:
 		return
 	for projectile in projectiles.get_children():
 		if not _assert_true(projectile.velocity.normalized().dot(Vector2.RIGHT) > 0.8, "Aimed Fan tracked the target after locking"):
+			return
+		if not _assert_true(projectile.tint.is_equal_approx(Color("f27a4b")), "Boss projectile did not carry the approved coral hazard palette"):
+			return
+		if not _assert_true(projectile.get_child_count() == 1, "Boss projectile did not initialize its collision shape"):
+			return
+		var shot_shape: CollisionShape2D = projectile.get_child(0)
+		if not _assert_true(is_equal_approx(projectile.radius, 5.0) and is_equal_approx((shot_shape.shape as CircleShape2D).radius, 5.0) and is_equal_approx(projectile.damage, 9.0), "Boss projectile visual revision changed its radius, collision or damage"):
 			return
 
 	var deterministic_a: Node2D = BossProjectilePatternScript.new()

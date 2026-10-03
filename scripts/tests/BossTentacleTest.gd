@@ -48,6 +48,16 @@ func _initialize() -> void:
 
 	if not _assert_true(attack != null, "OverseerBoss did not expose its TentacleAttack component"):
 		return
+	if not _assert_true(attack.WARNING_COLOR.is_equal_approx(Color("f27a4b")), "tentacle warning did not use the approved coral palette"):
+		return
+	var ground_fill := attack.get_node_or_null("GroundFill") as Node2D
+	if not _assert_true(ground_fill != null and not ground_fill.z_as_relative and ground_fill.z_index == -1, "tentacle fill must use absolute ground layer -1, not tint actors in the Boss hierarchy"):
+		return
+	var stored_boss_z: int = boss.z_index
+	boss.z_index = 35
+	if not _assert_true(not ground_fill.z_as_relative and ground_fill.z_index == -1, "high Boss layer lifted the warning fill over actors"):
+		return
+	boss.z_index = stored_boss_z
 	if not _assert_true(
 		is_equal_approx(attack.SWEEP_WARNING_SECONDS, 1.0)
 		and is_equal_approx(attack.SWEEP_RANGE, 300.0)
@@ -155,5 +165,7 @@ func _initialize() -> void:
 
 	fixture.queue_free()
 	await process_frame
+	if not _assert_true(not is_instance_valid(ground_fill), "ground warning outlived its Boss owner"):
+		return
 	print("TEST PASS: BossTentacleTest %d" % assertions)
 	quit(0)

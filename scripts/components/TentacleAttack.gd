@@ -1,9 +1,10 @@
 extends Node2D
 class_name TentacleAttack
 
-const ProjectileScript = preload("res://scripts/components/Projectile.gd")
+const ProjectileScript = preload("res://scripts/components/BossProjectile.gd")
 
-const WARNING_COLOR := Color("ff571f")
+const WARNING_COLOR := Color("f27a4b")
+const OUTLINE_COLOR := Color("123b3b")
 const SWEEP_WARNING_SECONDS := 1.0
 const SWEEP_ACTIVE_SECONDS := 0.22
 const SWEEP_RANGE := 300.0
@@ -32,6 +33,7 @@ var sweep_angle := 0.0
 var sweep_hit_player := false
 var slam_targets: Array[Vector2] = []
 var owned_projectiles: Array[Node] = []
+var ground_fill: Node2D
 
 func configure(owner_boss: Node2D, target: Node2D, projectiles: Node) -> void:
 	boss = owner_boss
@@ -40,7 +42,18 @@ func configure(owner_boss: Node2D, target: Node2D, projectiles: Node) -> void:
 
 func _ready() -> void:
 	set_physics_process(false)
+	ground_fill = Node2D.new()
+	ground_fill.name = "GroundFill"
+	ground_fill.z_as_relative = false
+	ground_fill.z_index = -1
+	ground_fill.draw.connect(_draw_ground_fill)
+	add_child(ground_fill)
+	_queue_visual_redraw()
+
+func _queue_visual_redraw() -> void:
 	queue_redraw()
+	if is_instance_valid(ground_fill):
+		ground_fill.queue_redraw()
 
 func _physics_process(delta: float) -> void:
 	advance_attack(delta)
@@ -57,7 +70,7 @@ func start_sweep(target_position: Vector2) -> bool:
 	attack_stage = AttackStage.WARNING
 	elapsed = 0.0
 	set_physics_process(true)
-	queue_redraw()
+	_queue_visual_redraw()
 	return true
 
 func start_slam(target_positions: Array[Vector2]) -> bool:
@@ -68,7 +81,7 @@ func start_slam(target_positions: Array[Vector2]) -> bool:
 	attack_stage = AttackStage.WARNING
 	elapsed = 0.0
 	set_physics_process(true)
-	queue_redraw()
+	_queue_visual_redraw()
 	return true
 
 func make_slam_targets(anchor: Vector2, count: int = 3) -> Array[Vector2]:
@@ -88,7 +101,7 @@ func advance_attack(delta: float) -> void:
 	if attack_stage == AttackStage.WARNING:
 		var warning_duration := SWEEP_WARNING_SECONDS if attack_kind == AttackKind.SWEEP else SLAM_WARNING_SECONDS
 		if elapsed < warning_duration:
-			queue_redraw()
+			_queue_visual_redraw()
 			return
 		elapsed -= warning_duration
 		attack_stage = AttackStage.ACTIVE
@@ -100,7 +113,7 @@ func advance_attack(delta: float) -> void:
 		_try_sweep_hit()
 		if elapsed >= SWEEP_ACTIVE_SECONDS:
 			_finish_attack()
-	queue_redraw()
+	_queue_visual_redraw()
 
 func cancel_attack() -> void:
 	attack_kind = AttackKind.NONE
@@ -110,7 +123,7 @@ func cancel_attack() -> void:
 	sweep_hit_player = false
 	set_physics_process(false)
 	cleanup_projectiles()
-	queue_redraw()
+	_queue_visual_redraw()
 
 func cleanup_projectiles() -> void:
 	for shot in owned_projectiles:
@@ -191,7 +204,7 @@ func _finish_attack() -> void:
 	elapsed = 0.0
 	slam_targets.clear()
 	set_physics_process(false)
-	queue_redraw()
+	_queue_visual_redraw()
 
 func _exit_tree() -> void:
 	cancel_attack()
@@ -206,20 +219,52 @@ func _draw() -> void:
 
 func _draw_sweep() -> void:
 	var half_arc := deg_to_rad(SWEEP_ARC_DEGREES * 0.5)
+	draw_arc(Vector2.ZERO, SWEEP_RANGE, sweep_angle - half_arc, sweep_angle + half_arc, 24, OUTLINE_COLOR, 5.0, true)
+	draw_arc(Vector2.ZERO, SWEEP_RANGE, sweep_angle - half_arc, sweep_angle + half_arc, 24, WARNING_COLOR, 3.0, true)
+	for edge_angle in [sweep_angle - half_arc, sweep_angle + half_arc]:
+		var endpoint := Vector2.RIGHT.rotated(edge_angle) * SWEEP_RANGE
+		draw_line(Vector2.ZERO, endpoint, OUTLINE_COLOR, 4.0, true)
+		draw_line(Vector2.ZERO, endpoint, WARNING_COLOR, 2.0, true)
+	if attack_stage == AttackStage.ACTIVE:
+		_draw_active_hose(half_arc)
+
+func _draw_active_hose(half_arc: float) -> void:
+	# Visual sweep only: damage remains the original once-per-sector active hit.
+	var progress := clampf(elapsed / SWEEP_ACTIVE_SECONDS, 0.0, 1.0)
+	var direction_angle := sweep_angle + lerpf(-half_arc + 0.03, half_arc - 0.03, progress)
+	var points := PackedVector2Array()
+	for index in range(25):
+		var ratio := float(index) / 24.0
+		var bend := sin(ratio * PI) * sin(progress * PI) * 0.05
+		var angle := clampf(direction_angle + bend, sweep_angle - half_arc + 0.03, sweep_angle + half_arc - 0.03)
+		points.append(Vector2.RIGHT.rotated(angle) * lerpf(56.0, SWEEP_RANGE - 10.0, ratio))
+	draw_polyline(points, OUTLINE_COLOR, 13.0, true)
+	draw_polyline(points, Color("35b8ac"), 8.0, true)
+	var tip := points[points.size() - 1]
+	draw_circle(tip, 8.0, OUTLINE_COLOR)
+	draw_circle(tip, 5.0, WARNING_COLOR)
+
+func _draw_ground_fill() -> void:
+	if attack_stage == AttackStage.IDLE:
+		return
+	if attack_kind == AttackKind.SLAM:
+		for world_target in slam_targets:
+			ground_fill.draw_circle(ground_fill.to_local(world_target), SLAM_RADIUS, Color(WARNING_COLOR, 0.08))
+		return
+	if attack_kind != AttackKind.SWEEP:
+		return
+	var half_arc := deg_to_rad(SWEEP_ARC_DEGREES * 0.5)
 	var points := PackedVector2Array([Vector2.ZERO])
 	for index in range(25):
 		var angle := sweep_angle - half_arc + (half_arc * 2.0 * float(index) / 24.0)
 		points.append(Vector2.RIGHT.rotated(angle) * SWEEP_RANGE)
-	var fill_alpha := 0.18 if attack_stage == AttackStage.WARNING else 0.38
-	draw_colored_polygon(points, Color(WARNING_COLOR, fill_alpha))
-	draw_arc(Vector2.ZERO, SWEEP_RANGE, sweep_angle - half_arc, sweep_angle + half_arc, 24, Color(WARNING_COLOR, 0.9), 3.0)
-	draw_line(Vector2.ZERO, Vector2.RIGHT.rotated(sweep_angle - half_arc) * SWEEP_RANGE, Color(WARNING_COLOR, 0.75), 2.0)
-	draw_line(Vector2.ZERO, Vector2.RIGHT.rotated(sweep_angle + half_arc) * SWEEP_RANGE, Color(WARNING_COLOR, 0.75), 2.0)
+	ground_fill.draw_colored_polygon(points, Color(WARNING_COLOR, 0.08 if attack_stage == AttackStage.WARNING else 0.14))
 
 func _draw_slam() -> void:
 	for world_target in slam_targets:
 		var local_target := to_local(world_target)
-		draw_circle(local_target, SLAM_RADIUS, Color(WARNING_COLOR, 0.16))
-		draw_arc(local_target, SLAM_RADIUS, 0.0, TAU, 36, Color(WARNING_COLOR, 0.92), 3.0)
-		draw_line(local_target - Vector2(12.0, 0.0), local_target + Vector2(12.0, 0.0), Color(WARNING_COLOR, 0.8), 2.0)
-		draw_line(local_target - Vector2(0.0, 12.0), local_target + Vector2(0.0, 12.0), Color(WARNING_COLOR, 0.8), 2.0)
+		draw_arc(local_target, SLAM_RADIUS, 0.0, TAU, 36, OUTLINE_COLOR, 5.0, true)
+		draw_arc(local_target, SLAM_RADIUS, 0.0, TAU, 36, WARNING_COLOR, 3.0, true)
+		for axis in [Vector2.RIGHT, Vector2.DOWN]:
+			draw_line(local_target - axis * 12.0, local_target + axis * 12.0, OUTLINE_COLOR, 4.0, true)
+			draw_line(local_target - axis * 12.0, local_target + axis * 12.0, WARNING_COLOR, 2.0, true)

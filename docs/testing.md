@@ -193,3 +193,5 @@ git status --short
 暂停赋值只能出现在 `scripts/Main.gd`。提交不得包含密钥、`.godot` 本地状态、临时输出或无关 `.superpowers/sdd` 文件。
 
 `run_release_checks.ps1` 使用版本化的 `Windows Desktop` 预设在系统临时目录生成 PCK，再从该 PCK 启动主场景 120 帧。它不需要导出模板；生成正式独立 EXE 前仍需安装与 Godot 4.7 完全匹配的官方模板。
+
+构建/诊断目录的 `build/.gdignore` 是版本化隔离标记，必须保留。Godot默认会把诊断CSV当翻译资源导入，错误的语言列可能使严格导入检查失败并污染导出资源；仅Git忽略build并不能阻止Godot导入。运行资源不得load/preload自该目录，诊断工具仍可用FileAccess保存/读取原始PNG和JSON。不要删除诊断数据或屏蔽警告来绕过此门。
