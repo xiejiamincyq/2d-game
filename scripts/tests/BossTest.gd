@@ -175,7 +175,8 @@ func _initialize() -> void:
 	boss.take_damage(1.0, DamageTypes.PROJECTILE, Vector2.LEFT)
 	if not _assert_true(health_events.size() >= 2 and float(health_events[-1][0]) < float(health_events[-1][1]), "Boss damage did not flow through the public health contract"):
 		return
-	if not _assert_true(float((boss_visual.material as ShaderMaterial).get_shader_parameter("flash_amount")) > 0.99, "Boss art did not flash immediately on a resolved hit"):
+	var hit_flash := float((boss_visual.material as ShaderMaterial).get_shader_parameter("flash_amount"))
+	if not _assert_true(hit_flash > 0.0 and hit_flash <= 0.4, "Boss hit feedback was absent or erased its palette"):
 		return
 	boss.take_damage(float(boss.health.max_health), DamageTypes.PROJECTILE, Vector2.LEFT)
 	await process_frame

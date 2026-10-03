@@ -35,6 +35,7 @@ const MOVE_SPEED := 63.8
 const CAMERA_SAFE_MARGIN := 112.0
 const HIDDEN_DISPERSAL_SPEED_SCALE := 0.72
 const OVERSEER_RUNTIME_SCALE := Vector2(1.25, 1.25)
+const HIT_FLASH_AMOUNT := 0.35 # Continuous laser damage must not erase the Boss palette.
 
 var body_radius := BODY_RADIUS
 var feedback_weight := 2
@@ -128,7 +129,7 @@ func _physics_process(delta: float) -> void:
 	_update_entrance_reveal()
 	if flash_timer > 0.0:
 		flash_timer = maxf(0.0, flash_timer - delta)
-		boss_flash_material.set_shader_parameter("flash_amount", 1.0 if flash_timer > 0.0 else 0.0)
+		boss_flash_material.set_shader_parameter("flash_amount", HIT_FLASH_AMOUNT if flash_timer > 0.0 else 0.0)
 		queue_redraw()
 	if attack_director != null and attack_director.is_movement_locked():
 		velocity = Vector2.ZERO
@@ -276,7 +277,7 @@ func take_damage(
 	var actual_damage := maxf(0.0, health_before - float(health.current_health))
 	flash_timer = 0.08
 	if boss_flash_material != null:
-		boss_flash_material.set_shader_parameter("flash_amount", 1.0)
+		boss_flash_material.set_shader_parameter("flash_amount", HIT_FLASH_AMOUNT)
 	queue_redraw()
 	damage_resolved.emit(self, resolved_source, actual_damage, global_position, hit_direction, killed)
 	hit.emit(resolved_source)

@@ -34,8 +34,8 @@ func _run() -> void:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--run="):
 			run_id = argument.trim_prefix("--run=")
-	if run_id not in ["before", "after"] or FileAccess.file_exists(OUTPUT + run_id + ".json") or FileAccess.file_exists(OUTPUT + run_id + ".png"):
-		push_error("Boss art diagnostic requires unused --run=before/after")
+	if run_id not in ["before", "after", "flash-before-v1", "flash-after-v1"] or FileAccess.file_exists(OUTPUT + run_id + ".json") or FileAccess.file_exists(OUTPUT + run_id + ".png"):
+		push_error("Boss art diagnostic requires an unused before/after or flash-before-v1/flash-after-v1 ID")
 		quit(1)
 		return
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT))
@@ -64,24 +64,37 @@ func _run() -> void:
 	var moving := _boss(canvas, projectiles, Vector2(640, 555), Vector2(1020, 555), false)
 	var poses: Array[Dictionary] = []
 	var capture_ok := false
+	var flash_probe := run_id.begins_with("flash-")
+	var captures: Dictionary = {}
+	var accepted_hits := 0
 	for frame in range(360):
 		if frame == 180:
 			moving.target_player.position = Vector2(220, 555)
 		await process_frame
+		if flash_probe and frame >= 90 and frame <= 300:
+			var health_before: float = moving.health.current_health
+			moving.take_damage(1.0, moving.DamageTypes.LASER)
+			if moving.health.current_health < health_before:
+				accepted_hits += 1
 		poses.append({"frame": frame, "position": [moving.position.x, moving.position.y],
 			"velocity": [moving.velocity.x, moving.velocity.y], "flip_h": moving.boss_visual.flip_h,
 			"visual_offset": [moving.boss_visual.position.x, moving.boss_visual.position.y],
 			"visual_rotation": moving.boss_visual.rotation,
 			"visual_scale": [moving.boss_visual.scale.x, moving.boss_visual.scale.y],
-			"entrance_resolved": moving.entrance_resolved, "alpha": moving.modulate.a})
-		if frame == 300:
+			"entrance_resolved": moving.entrance_resolved, "alpha": moving.modulate.a,
+			"health": moving.health.current_health, "phase": moving.get_phase(),
+			"flash_amount": moving.boss_flash_material.get_shader_parameter("flash_amount")})
+		if frame == 300 or (flash_probe and frame in [89, 90, 340]):
 			await RenderingServer.frame_post_draw
 			var capture := canvas.get_texture().get_image()
-			capture_ok = capture != null and not capture.is_empty() and capture.save_png(ProjectSettings.globalize_path(OUTPUT + run_id + ".png")) == OK
+			var suffix: String = "" if frame == 300 else "-" + {89: "idle", 90: "single", 340: "recovered"}[frame]
+			var path: String = OUTPUT + run_id + suffix + ".png"
+			capture_ok = capture != null and not capture.is_empty() and capture.save_png(ProjectSettings.globalize_path(path)) == OK
+			captures[str(frame)] = {"path": path.trim_prefix("res://"), "ok": capture_ok, "sha256": FileAccess.get_sha256(path)}
 	var report := {"run": run_id, "acceptance": "component_visual_evidence_only", "viewport": [1280, 720],
 		"boss_texture": moving.boss_visual.texture.resource_path, "body_radius": moving.body_radius,
 		"health": moving.health.current_health, "right_flip": right.boss_visual.flip_h, "left_flip": left.boss_visual.flip_h,
-		"poses": poses, "screenshot_ok": capture_ok,
+		"poses": poses, "screenshot_ok": capture_ok, "captures": captures, "flash_probe": flash_probe, "accepted_hits": accepted_hits,
 		"source_sha256": {"OverseerBoss.gd": FileAccess.get_sha256("res://scripts/actors/OverseerBoss.gd"),
 			"BossAttackDirector.gd": FileAccess.get_sha256("res://scripts/components/BossAttackDirector.gd"),
 			"VerifyBossArt.gd": FileAccess.get_sha256("res://scripts/art/VerifyBossArt.gd")},
@@ -96,6 +109,10 @@ func _run() -> void:
 	report["orphan_before"] = orphan_before
 	report["orphan_after"] = int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))
 	var valid: bool = capture_ok and report.owned_nodes_freed and report.orphan_after <= orphan_before
+	if flash_probe:
+		valid = valid and captures.size() == 4 and accepted_hits == 211
+		for entry: Dictionary in captures.values():
+			valid = valid and entry.ok
 	var file := FileAccess.open(OUTPUT + run_id + ".json", FileAccess.WRITE)
 	if file == null:
 		quit(1)
