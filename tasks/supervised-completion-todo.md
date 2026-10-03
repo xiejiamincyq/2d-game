@@ -26,7 +26,9 @@
 - [ ] S2 预注册 3 种子×3 次，普通移动/冲刺对照，区分自然战斗与压力场景；独立审查。
   - [x] S2-A 落点填充绝对地面层修复，33项针对性断言与修前/修后真实渲染；见[本片报告](../docs/art/previews/environment/landing-fill-layer-review-v1.md)。不等于S2整体完成。
   - [x] S2-B 自然第一波入口/数量守恒短观测，修复portal ready自动启用导致的双时钟与队列丢失；真实红绿和两组1200步证据见[本片报告](../docs/art/previews/environment/natural-wave1-clock-review-v1.md)。18次自然矩阵、整波与LOBber动态验收仍待做，不勾选S2整体。
+  - [x] S2-C 自然第一波18次对照完成，7死亡/10预算结束/1清场；见[实测报告](../docs/art/previews/environment/natural-wave1-matrix-review-v1.md)。后期最拥挤自然窗口、LOBber与录像仍未完成，不勾选S2整体。
 - [ ] S3 六景前后与运动证据、四向展示；本地实际看图验收。
+  - [x] 最终Boss接入既有Q版监工与局部行走表现；同时红绿修复Boss弹幕双时钟，见[Boss报告](../docs/art/previews/characters-combat/boss-chibi-review-v1.md)。仅组件对照，不是完整Boss战/S3验收。
 - [ ] S4 三种子整局、胜败/商店/重启继续；20 种子地图安全/可达性；存档隔离校验。
 - [ ] S5 当前说明/资源来源同步、本机性能、完整回归、本地启动和冻结交接。
 
