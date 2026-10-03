@@ -27,6 +27,8 @@ func _initialize() -> void:
 	await process_frame
 	if not _assert_true(scene.run_state == scene.RunState.START, "Main did not start in START state"):
 		return
+	if not _assert_true(not scene.ui.aim_reticle.visible and not scene.ui.aim_reticle.is_processing(), "START did not hide and stop the reticle"):
+		return
 	if not _assert_true(scene._transition_to(scene.RunState.RESULT) == false, "illegal START to RESULT transition was accepted"):
 		return
 	scene._start_run()
@@ -38,8 +40,12 @@ func _initialize() -> void:
 	scene.ui.wave_banner.finish_message()
 	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "wave banner did not enter PLAYING"):
 		return
+	if not _assert_true(scene.ui.aim_reticle.visible and scene.ui.aim_reticle.is_processing(), "PLAYING did not activate the reticle"):
+		return
 	var intro_boss: Node = scene.wave_director._spawn_boss_at(scene.player.global_position + Vector2(320.0, 0.0))
 	if not _assert_true(intro_boss != null and scene.run_state == scene.RunState.BOSS_INTRO and paused, "Boss spawn did not pause the combat tree for its entrance reveal"):
+		return
+	if not _assert_true(not scene.ui.aim_reticle.visible and not scene.ui.aim_reticle.is_processing(), "Boss intro kept the reticle active"):
 		return
 	if not _assert_true(not intro_boss.visible and scene.ui.boss_entrance_overlay.visible, "Boss entrance did not replace the world Boss with a centered screen-space reveal"):
 		return
@@ -98,6 +104,8 @@ func _initialize() -> void:
 	scene.camera_effects._process(0.016)
 	if not _assert_true(scene._transition_to(scene.RunState.WAVE_CLEAR) and paused, "PLAYING to WAVE_CLEAR did not pause"):
 		return
+	if not _assert_true(not scene.ui.aim_reticle.visible and not scene.ui.aim_reticle.is_processing(), "wave clear kept the reticle active"):
+		return
 	if not _assert_true(
 		is_equal_approx(Engine.time_scale, 1.0)
 		and scene.combat_vfx.get_total_effect_count() == 0
@@ -125,6 +133,8 @@ func _initialize() -> void:
 		return
 	if not _assert_true(scene._transition_to(scene.RunState.SETTLEMENT) and paused, "WAVE_CLEAR to SETTLEMENT was rejected"):
 		return
+	if not _assert_true(not scene.ui.aim_reticle.visible and not scene.ui.aim_reticle.is_processing(), "shop kept the reticle active"):
+		return
 	if not _assert_true(scene._transition_to(scene.RunState.WAVE_INTRO) and paused, "SETTLEMENT to WAVE_INTRO was rejected"):
 		return
 	if not _assert_true(scene._transition_to(scene.RunState.PLAYING) and not paused, "WAVE_INTRO to PLAYING did not resume"):
@@ -136,6 +146,8 @@ func _initialize() -> void:
 	scene.camera_effects.request_impact(1.0, Vector2.UP)
 	scene.camera_effects._process(0.016)
 	if not _assert_true(scene._transition_to(scene.RunState.PAUSED) and paused, "PLAYING to PAUSED did not pause"):
+		return
+	if not _assert_true(not scene.ui.aim_reticle.visible and not scene.ui.aim_reticle.is_processing(), "pause kept the reticle active"):
 		return
 	if not _assert_true(
 		is_equal_approx(Engine.time_scale, 1.0)
@@ -149,12 +161,16 @@ func _initialize() -> void:
 		return
 	if not _assert_true(scene._transition_to(scene.RunState.PLAYING) and not paused, "PAUSED to PLAYING did not resume"):
 		return
+	if not _assert_true(scene.ui.aim_reticle.visible and scene.ui.aim_reticle.is_processing(), "resume did not reactivate the reticle"):
+		return
 	scene.player.set_overdrive_active(true)
 	scene.combat_vfx.request_effect(&"debris", Vector2.ZERO)
 	scene.combat_feedback.request_hit_stop(20.0)
 	scene.camera_effects.request_impact(1.0, Vector2.LEFT)
 	scene.camera_effects._process(0.016)
 	if not _assert_true(scene._transition_to(scene.RunState.RESULT) and paused, "PLAYING to RESULT did not pause"):
+		return
+	if not _assert_true(not scene.ui.aim_reticle.visible and not scene.ui.aim_reticle.is_processing(), "result kept the reticle active"):
 		return
 	if not _assert_true(
 		is_equal_approx(Engine.time_scale, 1.0)

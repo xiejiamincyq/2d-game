@@ -1,12 +1,9 @@
 extends Control
 class_name AimReticle
 
-const RETICLE_SIZE := Vector2(56.0, 56.0)
-const CYAN := Color(0.18, 1.0, 0.95, 0.96)
-const MAGENTA := Color(1.0, 0.18, 0.72, 0.98)
-const SHADOW := Color(0.0, 0.02, 0.04, 0.92)
-
-var pulse_phase: float = 0.0
+const RETICLE_SIZE := Vector2(24.0, 24.0)
+const CREAM := Color("f3eddc")
+const OUTLINE := Color("123b3b")
 
 func _ready() -> void:
 	custom_minimum_size = RETICLE_SIZE
@@ -16,8 +13,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	set_active(false)
 
-func _process(delta: float) -> void:
-	pulse_phase = fmod(pulse_phase + delta * 4.5, TAU)
+func _process(_delta: float) -> void:
 	set_screen_position(get_viewport().get_mouse_position())
 	queue_redraw()
 
@@ -33,15 +29,8 @@ func set_screen_position(screen_position: Vector2) -> void:
 
 func _draw() -> void:
 	var center := size * 0.5
-	var pulse_radius := 23.0 + sin(pulse_phase) * 2.0
-	draw_arc(center, pulse_radius, 0.0, TAU, 64, SHADOW, 6.0, true)
-	draw_arc(center, pulse_radius, 0.0, TAU, 64, CYAN, 2.5, true)
-	draw_arc(center, 10.0, 0.0, TAU, 40, SHADOW, 5.0, true)
-	draw_arc(center, 10.0, 0.0, TAU, 40, MAGENTA, 2.5, true)
 	for direction in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]:
-		var inner: Vector2 = center + direction * 13.0
-		var outer: Vector2 = center + direction * 25.0
-		draw_line(inner, outer, SHADOW, 6.0, true)
-		draw_line(inner, outer, CYAN, 2.5, true)
-	draw_circle(center, 4.0, SHADOW)
-	draw_circle(center, 2.2, Color.WHITE)
+		var inner: Vector2 = center + direction * 5.0
+		var outer: Vector2 = center + direction * 9.0
+		draw_line(inner, outer, OUTLINE, 4.0, true)
+		draw_line(inner, outer, CREAM, 2.0, true)

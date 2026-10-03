@@ -22,9 +22,10 @@ func _initialize() -> void:
 	if not _assert_true(
 		aim_reticle != null
 		and aim_reticle.mouse_filter == Control.MOUSE_FILTER_IGNORE
-		and aim_reticle.size.x >= 48.0
-		and aim_reticle.size.y >= 48.0,
-		"GameUI did not provide a conspicuous mouse-transparent aim reticle"
+		and aim_reticle.focus_mode == Control.FOCUS_NONE
+		and aim_reticle.size.x >= 20.0 and aim_reticle.size.x <= 24.0
+		and aim_reticle.size.y >= 20.0 and aim_reticle.size.y <= 24.0,
+		"GameUI aim reticle obscures a small enemy or intercepts input"
 	):
 		return
 	aim_reticle.call("set_screen_position", Vector2(320.0, 180.0))
@@ -36,6 +37,12 @@ func _initialize() -> void:
 	ui.set_aim_reticle_visible(false)
 	if not _assert_true(not aim_reticle.visible, "aim reticle remained visible over a modal screen"):
 		return
+	if not _assert_true(not aim_reticle.is_processing(), "hidden reticle kept polling mouse input"):
+		return
+	for point in [Vector2.ZERO, Vector2(960, 540), Vector2(1280, 720), Vector2(1920, 1080), Vector2(2560, 1080)]:
+		aim_reticle.call("set_screen_position", point)
+		if not _assert_true(aim_reticle.get_rect().get_center().distance_to(point) <= 0.01, "compact reticle changed the aim point at %s" % point):
+			return
 	if not _assert_true(ui.get("settlement_screen") != null and ui.get("pause_screen") != null and ui.get("result_screen") != null, "GameUI did not instantiate focused modal screens"):
 		return
 	var pause_restart_button := ui.pause_screen.get("restart_button") as Button
