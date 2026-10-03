@@ -236,7 +236,8 @@ func _open_portals_for_queues(queues: Array[Array]) -> void:
 		var portal: Node = SpawnPortalScript.new()
 		var portal_position := sample_portal_position_avoiding(player.global_position, spawn_rng, occupied_positions)
 		portal_position = resolve_arena_spawn_position(portal_position, 48.0)
-		portal.set_process(false)
+		# The script's _process is auto-enabled on ready; the director owns this clock.
+		portal.ready.connect(portal.set_process.bind(false), CONNECT_ONE_SHOT)
 		var burst_duration := float(queues[index].size()) * PORTAL_SPAWN_INTERVAL
 		portal_parent.add_child(portal)
 		portal.configure(portal_position, 0.7, burst_duration)
@@ -355,7 +356,7 @@ func _begin_boss_entrance() -> bool:
 	portal.name = "OverseerEntrancePortal"
 	portal.scale = Vector2.ONE * BOSS_PORTAL_SCALE
 	portal.z_index = 4
-	portal.set_process(false)
+	portal.ready.connect(portal.set_process.bind(false), CONNECT_ONE_SHOT)
 	portal_parent.add_child(portal)
 	var boss_portal_position := resolve_arena_spawn_position(sample_portal_position(player.global_position, spawn_rng), 64.0)
 	portal.configure(boss_portal_position, BOSS_PORTAL_WARNING_SECONDS, BOSS_PORTAL_BURST_SECONDS)

@@ -66,6 +66,7 @@ $gameplayTests = @(
     "ArenaRuntimeTest",
     "WaveTest",
     "PortalTest",
+    "PortalRuntimeClockTest",
     "Phase5CombatTest",
     "BossTest",
     "BossHealthBarTest",
@@ -111,7 +112,11 @@ foreach ($test in $tests) {
     $scriptTest = $test
     $fixedStepArguments = ""
     $userArguments = ""
-    $frameBudget = if ($test -eq "DashTest") { 1800 } else { 120 }
+    $frameBudget = if ($test -eq "DashTest") { 1800 }
+        elseif ($test -eq "PortalRuntimeClockTest") { 600 }
+        else { 120 }
+    # This test observes the real 0.7s warning + 2.8s burst at 60 FPS.
+    # Its own five-second watchdog remains the lifecycle failure bound.
     if ($test -match '^(StealthTerrainTest|StealthRecoveryTest|StealthRecoverySideEffectTest|StealthRecoveryQueryTest|StealthRecoveryAccountingTest)_(30|60|120)Hz$') {
         $scriptTest = $Matches[1]
         $physicsHz = $Matches[2]
