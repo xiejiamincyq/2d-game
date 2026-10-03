@@ -71,6 +71,8 @@ func _initialize() -> void:
 	TestSupport.stop_audio(continued.audio)
 	if not _assert_true(continued.run_state == continued.RunState.SETTLEMENT and paused, "Continue did not restore the stable settlement boundary"):
 		return
+	if not _assert_true(not continued.ui.start_panel.visible and not continued.ui.start_backdrop.visible and continued.ui.hud.visible and continued.ui.settlement_screen.visible, "restored settlement was obscured by the title overlay"):
+		return
 	if not _assert_true(
 		continued.wave_director.wave_index == 1
 		and continued.wave_director.waiting_for_advance
@@ -176,6 +178,8 @@ func _initialize() -> void:
 		and continued_boss.wave_director.is_pre_boss_settlement_pending(),
 		"Continue did not restore the Boss-preparation settlement"
 	):
+		return
+	if not _assert_true(not continued_boss.ui.start_panel.visible and not continued_boss.ui.start_backdrop.visible and continued_boss.ui.hud.visible and continued_boss.ui.settlement_screen.visible, "restored Boss settlement was obscured by the title overlay"):
 		return
 	continued_boss._on_settlement_close_requested()
 	await process_frame

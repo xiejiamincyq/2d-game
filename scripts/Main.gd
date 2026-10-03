@@ -562,6 +562,7 @@ func _transition_to(next_state: RunState) -> bool:
 		RunState.WAVE_CLEAR:
 			ui.hide_manual_pause()
 		RunState.SETTLEMENT:
+			ui.hide_start_screen()
 			ui.hide_manual_pause()
 		RunState.PAUSED:
 			ui.hide_settlement()
