@@ -34,6 +34,8 @@ python scripts/tests/test_validate_manifest.py
 
 ## 套件职责
 
+自然整局长测是额外验收，不由标准短套件自动代替。命令、预注册策略、隔离存档与已执行三种子结果见[自然整局验证](natural-run-validation-v1.md)。`NaturalRunPolicyTest`与Python记录检查器已纳入标准运行器；headless通过不代表连续画面或人工手感通过。
+
 ### 玩法套件（Godot）
 
 | 套件 | 职责 |

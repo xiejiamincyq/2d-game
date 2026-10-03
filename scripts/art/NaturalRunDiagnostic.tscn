@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/NaturalRunMain.gd" id="1"]
+
+[sub_resource type="World2D" id="World"]
+
+[sub_resource type="ViewportTexture" id="ScreenTexture"]
+viewport_path = NodePath("View")
+
+[node name="NaturalRunDiagnostic" type="Control"]
+
+[node name="Screen" type="TextureRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+texture = SubResource("ScreenTexture")
+
+[node name="View" type="SubViewport" parent="."]
+size = Vector2i(1280, 720)
+world_2d = SubResource("World")
+render_target_update_mode = 4
+
+[node name="Main" type="Node2D" parent="View"]
+script = ExtResource("1")
