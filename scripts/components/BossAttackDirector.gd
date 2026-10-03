@@ -38,6 +38,8 @@ func configure(owner: Node2D, target: Node2D, projectiles: Node, tentacle: Node,
 	tentacle_attack = tentacle
 	pattern = BossProjectilePatternScript.new()
 	pattern.name = "BossProjectilePattern"
+	# Boss setup happens before entering tree; ready otherwise auto-enables _process.
+	pattern.ready.connect(pattern.set_process.bind(false), CONNECT_ONE_SHOT)
 	add_child(pattern)
 	var bounds: Rect2 = boss.get("world_bounds")
 	pattern.configure(projectile_parent, bounds, target_player, boss.get_instance_id(), seed_value)

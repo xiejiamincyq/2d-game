@@ -73,6 +73,7 @@ $gameplayTests = @(
     "BossTentacleTest",
     "BossPatternTest",
     "BossDirectorTest",
+    "BossRuntimeClockTest",
     "SnapshotTest",
     "ContinueTest",
     "OverdriveTest",
@@ -113,10 +114,10 @@ foreach ($test in $tests) {
     $fixedStepArguments = ""
     $userArguments = ""
     $frameBudget = if ($test -eq "DashTest") { 1800 }
-        elseif ($test -eq "PortalRuntimeClockTest") { 600 }
+        elseif ($test -in @("PortalRuntimeClockTest", "BossRuntimeClockTest")) { 600 }
         else { 120 }
-    # This test observes the real 0.7s warning + 2.8s burst at 60 FPS.
-    # Its own five-second watchdog remains the lifecycle failure bound.
+    # Clock tests observe real portal/Boss warnings at 60 FPS.
+    # Their own five-second watchdogs remain the lifecycle failure bounds.
     if ($test -match '^(StealthTerrainTest|StealthRecoveryTest|StealthRecoverySideEffectTest|StealthRecoveryQueryTest|StealthRecoveryAccountingTest)_(30|60|120)Hz$') {
         $scriptTest = $Matches[1]
         $physicsHz = $Matches[2]
