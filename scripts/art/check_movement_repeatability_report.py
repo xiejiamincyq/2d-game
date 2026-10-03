@@ -12,6 +12,11 @@ from typing import Any
 EPS = 1e-5
 DIRECTIONS = ((1.0, 0.0), (0.0, 1.0), (-1.0, 0.0), (0.0, -1.0))
 DASH_STEPS = {180, 360, 540, 720, 900, 1080}
+ENEMY_KINDS = {"scrapper", "dasher", "spitter", "bruiser", "marksman", "lobber", "overseer"}
+FIRST_WAVE_KINDS = {"scrapper", "dasher", "spitter"}
+FIRST_WAVE_TOTAL = 41
+NATURAL_COUNTS = ("live_enemies", "spawn_pending", "kills", "portal_count", "landing_fill_total", "landing_fill_view_intersections")
+NATURAL_FIELDS = ("run_state", "wave_index", "enemy_kinds", "director_collection") + NATURAL_COUNTS
 
 
 def _number(value: Any) -> bool:
@@ -30,9 +35,79 @@ def _vector(value: Any) -> bool:
     return isinstance(value, list) and len(value) == 2 and all(_number(part) for part in value)
 
 
+def _natural_state_errors(state: Any, label: str, expected_state: str) -> list[str]:
+    """Check recorded first-wave counts and phase; this cannot inspect live nodes."""
+    if not isinstance(state, dict):
+        return [f"{label} must contain natural first-wave observations"]
+    errors = []
+    if state.get("run_state") != expected_state:
+        errors.append(f"{label}.run_state must be {expected_state}")
+    if not _integer(state.get("wave_index")) or state["wave_index"] != 0:
+        errors.append(f"{label}.wave_index must remain the first wave (0)")
+    for key in NATURAL_COUNTS:
+        if not _integer(state.get(key)) or state[key] < 0:
+            errors.append(f"{label}.{key} must be a nonnegative integer")
+    population = [state.get(key) for key in ("live_enemies", "spawn_pending", "kills")]
+    if all(_integer(value) for value in population) and sum(population) != FIRST_WAVE_TOTAL:
+        errors.append(f"{label} first-wave conservation failed: live_enemies + spawn_pending + kills must equal {FIRST_WAVE_TOTAL}")
+    kinds = state.get("enemy_kinds")
+    valid_kinds = isinstance(kinds, dict) and all(
+        key in ENEMY_KINDS and _integer(value) and value >= 0 for key, value in kinds.items())
+    if not valid_kinds:
+        errors.append(f"{label}.enemy_kinds must map registered names to nonnegative integer counts")
+    elif sum(kinds.values()) != state.get("live_enemies"):
+        errors.append(f"{label}.enemy_kinds sum differs from live_enemies")
+    if valid_kinds and any(value > 0 and key not in FIRST_WAVE_KINDS for key, value in kinds.items()):
+        errors.append(f"{label}.enemy_kinds contains a species absent from the natural first wave")
+    total, visible = state.get("landing_fill_total"), state.get("landing_fill_view_intersections")
+    if _integer(total) and _integer(visible) and visible > total:
+        errors.append(f"{label}.landing_fill_view_intersections exceeds landing_fill_total")
+    collection = state.get("director_collection")
+    if not isinstance(collection, bool):
+        errors.append(f"{label}.director_collection must be a recorded boolean")
+    if expected_state == "WAVE_CLEAR" or collection is True:
+        for key in ("live_enemies", "spawn_pending", "portal_count"):
+            if state.get(key) != 0:
+                errors.append(f"{label}.{key} must be zero after combat clears")
+    if expected_state == "WAVE_CLEAR" and collection is not False:
+        errors.append(f"{label}.director_collection must finish before WAVE_CLEAR")
+    health = state.get("health")
+    if not _number(health) or (health <= 0 if expected_state != "RESULT" else health > 0):
+        errors.append(f"{label}.health contradicts the recorded {expected_state} phase")
+    return errors
+
+
+def _natural_initial_errors(initial: Any) -> list[str]:
+    if not isinstance(initial, dict):
+        return ["initial must contain natural first-wave startup observations"]
+    errors = _natural_state_errors(initial.get("player"), "initial.player", "PLAYING")
+    if not _integer(initial.get("map_seed")) or not _integer(initial.get("layout_seed")) or initial["map_seed"] != initial["layout_seed"]:
+        errors.append("initial actual map_seed and layout_seed must be matching integers")
+    expected = {"enemies": 0, "portals": 3, "kills": 0, "spawn_guard_active": False,
+                "director_active": True, "director_running": True, "start_input": "enter"}
+    for key, value in expected.items():
+        if type(initial.get(key)) is not type(value) or initial[key] != value:
+            errors.append(f"initial.{key} must be {value!r} for natural startup")
+    player = initial.get("player", {})
+    if isinstance(player, dict):
+        for key, value in {"live_enemies": 0, "spawn_pending": FIRST_WAVE_TOTAL, "kills": 0, "portal_count": 3, "director_collection": False}.items():
+            if type(player.get(key)) is not type(value) or player[key] != value:
+                errors.append(f"initial.player.{key} must be {value!r} before natural spawns")
+        for key, value in {"health": 100.0, "shield": 0.0}.items():
+            if not _number(player.get(key)) or player[key] != value:
+                errors.append(f"initial.player.{key} must be the unmodified starting value {value}")
+        if not _vector(player.get("position")) or any(value != 0.0 for value in player["position"]):
+            errors.append("initial.player.position must be the unmodified starting origin")
+    return errors
+
+
 def _result() -> dict:
     return {
         "valid": False, "errors": [],
+        "observation_assessment": {
+            "outcome": "unvalidated", "wave_clear_observed": False,
+            "interpretation": "Measurement integrity only; a step budget is not first-wave completion, settlement, full-run or balance acceptance.",
+        },
         "clock_assessment": {
             "real_clock_verified": False, "clock_declaration": "unknown",
             "wall_to_unscaled_step_ratio": None, "wall_to_simulated_ratio": None,
@@ -65,9 +140,13 @@ def check_report(report: dict) -> dict:
     require(_integer(baseline) and baseline >= 0, "first_physics_frame must be a nonnegative integer")
     if errors:
         return result
-    requested = run.get("steps")
-    require(_integer(requested) and 1 <= requested <= 1200, "run.steps must be an integer within 1..1200")
+    scenario = run.get("scenario", "stress60")  # Preserve already-recorded schema-2 reports.
+    natural = scenario == "natural_wave1"
+    require(scenario in ("stress60", "natural_wave1"), "run.scenario must be stress60 or natural_wave1")
+    requested, maximum = run.get("steps"), 10800 if natural else 1200
+    require(_integer(requested) and 1 <= requested <= maximum, f"run.steps must be an integer within 1..{maximum}")
     require(run.get("track") in ("D", "R"), "run.track must be D or R")
+    require(not natural or run.get("track") == "R", "natural_wave1 requires production-feedback R track")
     require(run.get("mode") in ("walk", "dash"), "run.mode must be walk or dash")
     require(run.get("clock") in ("unknown", "fixed", "realtime"), "run.clock has invalid declaration")
     if errors:
@@ -78,19 +157,30 @@ def check_report(report: dict) -> dict:
     require(count <= requested, "recorded steps exceed the requested budget")
     terminal = report.get("terminal")
     terminal_phase = report.get("terminal_phase")
-    require(terminal in ("step_budget", "death"), "terminal must be step_budget or a real death")
+    require(terminal in (("step_budget", "death", "wave_clear") if natural else ("step_budget", "death")),
+            "terminal must be step_budget, real death, or natural first-wave wave_clear")
     require(terminal_phase in ("before_input", "after_callbacks"), "terminal_phase must identify the actual stopping boundary")
+    if errors:
+        return result
     if terminal == "step_budget":
         require(count == requested and count > 0, "step_budget termination requires all requested steps")
         require(terminal_phase == "after_callbacks", "step_budget must finish after the final callback sample")
     elif terminal == "death":
         require(_number(final.get("health")) and final["health"] <= 0, "death termination lacks a dead pre-cleanup final player")
         require(count > 0 or terminal_phase == "before_input", "zero-step death must occur before input, not fabricate a callback")
+    elif terminal == "wave_clear":
+        require(count > 0, "wave_clear requires an observed first-wave physics segment")
+    if natural:
+        errors.extend(_natural_initial_errors(report.get("initial")))
+        errors.extend(_natural_state_errors(final, "final", {"death": "RESULT", "wave_clear": "WAVE_CLEAR"}.get(terminal, "PLAYING")))
     if terminal_phase == "after_callbacks" and samples and isinstance(samples[-1], dict):
-        for key in ("position", "velocity", "health", "shield", "dash_active", "dash_cooldown", "stealth_remaining", "layer", "mask", "shape_disabled"):
+        player_fields = ("position", "velocity", "health", "shield", "dash_active", "dash_cooldown", "stealth_remaining", "layer", "mask", "shape_disabled")
+        for key in player_fields + (NATURAL_FIELDS if natural else ()):
             if key in final and key in samples[-1]:
                 observed, sealed = samples[-1][key], final[key]
-                if _vector(observed) and _vector(sealed):
+                if natural and key in NATURAL_FIELDS:
+                    equal = type(observed) is type(sealed) and observed == sealed
+                elif _vector(observed) and _vector(sealed):
                     equal = all(_close(a, b) for a, b in zip(observed, sealed))
                 elif _number(observed) and _number(sealed):
                     equal = _close(observed, sealed)
@@ -99,7 +189,7 @@ def check_report(report: dict) -> dict:
                 require(equal, f"final.{key} differs from the last after-callback observation")
 
     simulated = 0.0
-    last_wall, last_render = 0.0, -1
+    last_wall, last_render, last_kills = 0.0, -1, 0
     for index, sample in enumerate(samples, 1):
         label = f"sample[{index}]"
         if not isinstance(sample, dict):
@@ -118,14 +208,21 @@ def check_report(report: dict) -> dict:
             observed = sample.get(key)
             require(_vector(observed) and all(_close(a, b) for a, b in zip(observed, direction)), f"{label}.{key} differs from the scheduled actual input")
         require(sample.get("fire_pressed_pre") is True, f"{label} actual fire press is absent")
-        dash = run["mode"] == "dash" and index in DASH_STEPS
+        dash = run["mode"] == "dash" and (index % 180 == 0 if natural else index in DASH_STEPS)
         for key in ("dash_requested", "dash_pressed_pre"):
             require(sample.get(key) is dash, f"{label}.{key} differs from the registered dash event")
         aim = sample.get("actual_aim")
-        unvalidated_death = terminal == "death" and terminal_phase == "after_callbacks" and index == count and sample.get("aim_validated") is False
-        require(sample.get("aim_validated") is True or unvalidated_death, f"{label}.aim_validated may be false only for the final after-callback death")
+        terminal_sample = terminal_phase == "after_callbacks" and index == count
+        unvalidated_terminal = terminal_sample and (terminal == "death" or (natural and terminal == "wave_clear")) and sample.get("aim_validated") is False
+        if natural:
+            expected_state = {"death": "RESULT", "wave_clear": "WAVE_CLEAR"}.get(terminal, "PLAYING") if terminal_sample else "PLAYING"
+            errors.extend(_natural_state_errors(sample, label, expected_state))
+            if _integer(sample.get("kills")):
+                require(sample["kills"] >= last_kills, f"{label}.kills cannot decrease within the first wave")
+                last_kills = sample["kills"]
+        require(sample.get("aim_validated") is True or unvalidated_terminal, f"{label}.aim_validated may be false only for the final after-callback death or natural wave_clear")
         require(_vector(aim), f"{label}.actual_aim must remain a finite vector observation")
-        if not unvalidated_death:
+        if not unvalidated_terminal:
             require(_vector(aim) and _close(math.hypot(*aim), 1.0) and sum(a * b for a, b in zip(aim, direction)) >= 0.9999,
                     f"{label}.actual_aim does not match the injected direction")
         delta, pre_delta = sample.get("physics_delta"), sample.get("pre_physics_delta")
@@ -145,6 +242,8 @@ def check_report(report: dict) -> dict:
             if run["track"] == "D":
                 require(_close(scale, 1.0), f"D track {label}.{key} changed time scale")
 
+    if natural and _integer(final.get("kills")):
+        require(final["kills"] >= last_kills, "final.kills cannot decrease after the last observed first-wave step")
     unscaled = count / hz
     require(_close(report.get("simulated_seconds"), simulated), "simulated_seconds summary does not equal actual sampled deltas")
     require(_close(report.get("unscaled_step_seconds"), unscaled), "unscaled_step_seconds summary does not equal counted ticks / physics_hz")
@@ -168,6 +267,9 @@ def check_report(report: dict) -> dict:
         result["clock_assessment"][key] = ratio
         require((clock.get(key) is None) if ratio is None else _close(clock.get(key), ratio), f"clock.{key} does not match the observed time arithmetic")
     result["valid"] = not errors
+    if result["valid"]:
+        result["observation_assessment"]["outcome"] = "budget_exhausted" if terminal == "step_budget" else terminal
+        result["observation_assessment"]["wave_clear_observed"] = natural and terminal == "wave_clear"
     return result
 
 

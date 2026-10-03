@@ -66,6 +66,39 @@ def make_report(count: int = 4, track: str = "D", mode: str = "walk") -> dict:
     }
 
 
+def make_natural_report(count: int = 4, mode: str = "walk", terminal: str = "step_budget",
+                        phase: str = "after_callbacks") -> dict:
+    report = make_report(count, track="R", mode=mode)
+    report["run"]["scenario"] = "natural_wave1"
+    report["terminal"], report["terminal_phase"] = terminal, phase
+    if terminal != "step_budget":
+        report["run"]["steps"] = max(count, 10800)
+    state = {"run_state": "PLAYING", "wave_index": 0, "live_enemies": 2, "kills": 0,
+             "enemy_kinds": {"scrapper": 1, "dasher": 1}, "spawn_pending": 39,
+             "portal_count": 3, "landing_fill_total": 0, "landing_fill_view_intersections": 0,
+             "director_collection": False}
+    report["initial"].update({"map_seed": 712, "layout_seed": 712, "enemies": 0, "portals": 3, "kills": 0,
+                              "spawn_guard_active": False, "director_active": True,
+                              "director_running": True, "start_input": "enter"})
+    report["initial"]["player"].update(copy.deepcopy(state))
+    report["initial"]["player"].update({"live_enemies": 0, "enemy_kinds": {}, "spawn_pending": 41, "shield": 0.0})
+    for sample in report["samples"]:
+        sample.update(copy.deepcopy(state))
+        dash = mode == "dash" and sample["step"] % 180 == 0
+        sample["dash_requested"] = sample["dash_pressed_pre"] = dash
+    report["final"].update(copy.deepcopy(state))
+    if terminal == "death":
+        report["final"].update({"health": 0.0, "run_state": "RESULT"})
+    elif terminal == "wave_clear":
+        report["final"].update({"run_state": "WAVE_CLEAR", "live_enemies": 0,
+                                "enemy_kinds": {}, "spawn_pending": 0, "portal_count": 0, "kills": 41})
+    if terminal != "step_budget" and phase == "after_callbacks" and count:
+        report["samples"][-1].update(copy.deepcopy(report["final"]))
+        report["samples"][-1]["aim_validated"] = False
+        report["samples"][-1]["actual_aim"] = [0.0, -1.0]
+    return report
+
+
 class MovementRepeatabilityReportTests(unittest.TestCase):
     def assert_valid(self, report: dict) -> dict:
         untouched = copy.deepcopy(report)
@@ -285,6 +318,219 @@ class MovementRepeatabilityReportTests(unittest.TestCase):
                 report = make_report()
                 del report["samples"][0][key]
                 self.assert_invalid(report)
+
+    def test_natural_long_dash_budget_remains_measurement_not_wave_completion(self) -> None:
+        report = make_natural_report(1260, mode="dash")
+        result = self.assert_valid(report)
+        assessment = result["observation_assessment"]
+        self.assertEqual(assessment["outcome"], "budget_exhausted")
+        self.assertIs(assessment["wave_clear_observed"], False)
+        report["samples"][-1]["dash_pressed_pre"] = False
+        self.assert_invalid(report)  # Natural dash requests continue after the old 1080 slot.
+
+    def test_natural_wave_clear_and_death_allow_both_real_terminal_boundaries(self) -> None:
+        for terminal in ("wave_clear", "death"):
+            for phase in ("before_input", "after_callbacks"):
+                with self.subTest(terminal=terminal, phase=phase):
+                    result = self.assert_valid(make_natural_report(terminal=terminal, phase=phase))
+                    self.assertEqual(result["observation_assessment"]["outcome"], terminal)
+                    self.assertIs(result["observation_assessment"]["wave_clear_observed"], terminal == "wave_clear")
+
+    def test_natural_zero_step_death_does_not_fabricate_a_physics_step(self) -> None:
+        report = make_natural_report(0, terminal="death", phase="before_input")
+        self.assert_valid(report)
+
+    def test_natural_requires_r_and_registered_scenario_and_budget(self) -> None:
+        for scenario, track, steps in (("natural_wave1", "D", 4), ("typo", "R", 4),
+                                       ("natural_wave1", "R", 10801), ("stress60", "R", 1201)):
+            with self.subTest(scenario=scenario, track=track, steps=steps):
+                report = make_natural_report()
+                report["run"].update({"scenario": scenario, "track": track, "steps": steps})
+                self.assert_invalid(report)
+        report = make_report()
+        report["run"]["scenario"] = "stress60"
+        self.assert_valid(report)
+
+    def test_natural_initial_observations_must_agree_not_just_claim_natural(self) -> None:
+        changes = {"layout_seed": 713, "enemies": 1, "portals": 0,
+                   "spawn_guard_active": True, "director_active": False,
+                   "director_running": False, "start_input": "direct_callback"}
+        for key, value in changes.items():
+            with self.subTest(key=key):
+                report = make_natural_report()
+                report["initial"][key] = value
+                self.assert_invalid(report)
+        report = make_natural_report()
+        del report["initial"]["director_running"]
+        self.assert_invalid(report)
+
+    def test_natural_counter_fields_require_nonnegative_integers_and_kind_sum(self) -> None:
+        fields = ("live_enemies", "spawn_pending", "portal_count", "landing_fill_total", "landing_fill_view_intersections")
+        for key in fields:
+            for value in (-1, 0.5, True):
+                with self.subTest(key=key, value=value):
+                    report = make_natural_report()
+                    report["samples"][0][key] = value
+                    self.assert_invalid(report)
+        for kinds in ({"scrapper": 3}, {"scrapper": -1, "dasher": 3}, {"scrapper": 1.5, "dasher": 0.5},
+                      {"scrapper": True, "dasher": 1}, {"unknown": 2}, [], None):
+            with self.subTest(kinds=kinds):
+                report = make_natural_report()
+                report["samples"][0]["enemy_kinds"] = kinds
+                self.assert_invalid(report)
+        report = make_natural_report()
+        report["samples"][0]["landing_fill_view_intersections"] = 1
+        self.assert_invalid(report)
+
+    def test_natural_required_observations_and_sampling_phase_cannot_be_omitted(self) -> None:
+        fields = ("run_state", "wave_index", "live_enemies", "enemy_kinds", "spawn_pending", "portal_count",
+                  "landing_fill_total", "landing_fill_view_intersections", "director_collection")
+        for location in ("sample", "final"):
+            for key in fields:
+                with self.subTest(location=location, key=key):
+                    report = make_natural_report()
+                    del (report["samples"][0] if location == "sample" else report["final"])[key]
+                    self.assert_invalid(report)
+        for state in ("START", "WAVE_INTRO", "WAVE_CLEAR", "SETTLEMENT", "PAUSED", "RESULT"):
+            with self.subTest(state=state):
+                report = make_natural_report()
+                report["samples"][0]["run_state"] = state
+                self.assert_invalid(report)
+        report = make_natural_report()
+        report["samples"][0]["wave_index"] = 1
+        self.assert_invalid(report)
+
+    def test_natural_clear_requires_empty_completed_first_wave_not_a_label(self) -> None:
+        for key, value in (("live_enemies", 1), ("spawn_pending", 1), ("wave_index", 1),
+                           ("director_collection", True), ("run_state", "SETTLEMENT"), ("portal_count", 1)):
+            with self.subTest(key=key):
+                report = make_natural_report(terminal="wave_clear", phase="before_input")
+                report["final"][key] = value
+                self.assert_invalid(report)
+        report = make_natural_report(terminal="wave_clear")
+        report["run"]["scenario"] = "stress60"
+        report["run"]["steps"] = 1200
+        self.assert_invalid(report)
+
+    def test_natural_final_counters_match_after_callbacks_not_pre_cleanup_guesses(self) -> None:
+        report = make_natural_report()
+        report["final"]["live_enemies"] = 1
+        report["final"]["enemy_kinds"] = {"scrapper": 1}
+        self.assert_invalid(report)
+        report = make_natural_report(terminal="wave_clear")
+        report["samples"][-1]["run_state"] = "PLAYING"
+        self.assert_invalid(report)
+        report = make_natural_report()
+        report["samples"][-1]["landing_fill_total"] = 1000000
+        report["final"]["landing_fill_total"] = 1000001
+        self.assert_invalid(report)  # Integer count identity never uses floating-point tolerance.
+
+    def test_natural_malformed_terminal_is_rejected_without_an_exception(self) -> None:
+        for terminal in ([], {}, None, True):
+            with self.subTest(terminal=terminal):
+                report = make_natural_report()
+                report["terminal"] = terminal
+                self.assert_invalid(report)
+
+    def test_natural_initial_player_counters_cannot_hide_an_already_started_wave(self) -> None:
+        for key, value in (("spawn_pending", 40), ("live_enemies", 1), ("portal_count", 2),
+                           ("run_state", "WAVE_INTRO"), ("director_collection", True)):
+            with self.subTest(key=key):
+                report = make_natural_report()
+                report["initial"]["player"][key] = value
+                self.assert_invalid(report)
+        for value in (None, [], {}):
+            with self.subTest(initial=value):
+                report = make_natural_report()
+                report["initial"] = value
+                self.assert_invalid(report)
+
+    def test_natural_collection_is_a_valid_playing_observation_only_when_combat_is_empty(self) -> None:
+        report = make_natural_report()
+        for state in [*report["samples"], report["final"]]:
+            state.update({"director_collection": True, "live_enemies": 0,
+                          "enemy_kinds": {}, "spawn_pending": 0, "portal_count": 0, "kills": 41})
+        self.assert_valid(report)
+        report["samples"][0]["spawn_pending"] = 1
+        self.assert_invalid(report)
+
+    def test_natural_kills_are_required_nonnegative_integers_at_every_observation(self) -> None:
+        for location in ("initial", "initial.player", "sample", "final"):
+            for value in (None, -1, 0.5, True):
+                with self.subTest(location=location, value=value):
+                    report = make_natural_report()
+                    state = {"initial": report["initial"], "initial.player": report["initial"]["player"],
+                             "sample": report["samples"][0], "final": report["final"]}[location]
+                    if value is None:
+                        del state["kills"]
+                    else:
+                        state["kills"] = value
+                    self.assert_invalid(report)
+
+    def test_natural_closed_portal_cannot_discard_twenty_pending_enemies(self) -> None:
+        report = make_natural_report()
+        # This models the observed lost queue while preserving every sampling/aim field.
+        report["samples"][1]["spawn_pending"] -= 20
+        self.assert_invalid(report)
+        report = make_natural_report(terminal="death", phase="before_input")
+        report["final"]["spawn_pending"] -= 20
+        self.assert_invalid(report)
+
+    def test_natural_forged_41_kills_cannot_replace_live_or_missing_enemy_evidence(self) -> None:
+        report = make_natural_report()
+        report["samples"][1]["kills"] = 41  # Still has two live and 39 pending.
+        self.assert_invalid(report)
+        report = make_natural_report(terminal="wave_clear", phase="before_input")
+        report["final"]["kills"] = 21  # Empty scene alone is not proof of 41 kills.
+        self.assert_invalid(report)
+        report = make_natural_report()
+        report["initial"]["kills"] = 41
+        self.assert_invalid(report)
+
+    def test_natural_cannot_reset_kills_even_when_each_frame_balances_to_41(self) -> None:
+        report = make_natural_report()
+        report["samples"][0].update({"kills": 41, "live_enemies": 0,
+                                       "enemy_kinds": {}, "spawn_pending": 0})
+        self.assert_invalid(report)  # Later rows would resurrect the killed first wave.
+
+    def test_natural_initial_player_is_unmodified_not_a_prepared_build(self) -> None:
+        for key, value in (("health", 999.0), ("shield", 100.0), ("shield", False),
+                           ("position", [1.0, 0.0]), ("kills", 1)):
+            with self.subTest(key=key, value=value):
+                report = make_natural_report()
+                report["initial"]["player"][key] = value
+                self.assert_invalid(report)
+        for key in ("health", "shield", "position"):
+            with self.subTest(missing=key):
+                report = make_natural_report()
+                del report["initial"]["player"][key]
+                self.assert_invalid(report)
+
+    def test_natural_death_keeps_conservation_and_clear_requires_all_41_killed(self) -> None:
+        for terminal in ("death", "wave_clear"):
+            for phase in ("before_input", "after_callbacks"):
+                with self.subTest(terminal=terminal, phase=phase):
+                    report = make_natural_report(terminal=terminal, phase=phase)
+                    self.assert_valid(report)
+                    self.assertEqual(sum(report["final"][key] for key in ("live_enemies", "spawn_pending", "kills")), 41)
+                    if terminal == "wave_clear":
+                        self.assertEqual(report["final"]["kills"], 41)
+
+    def test_natural_first_wave_does_not_gain_other_enemy_species(self) -> None:
+        report = make_natural_report()
+        report["samples"][0]["enemy_kinds"] = {"lobber": 2}
+        self.assert_invalid(report)
+
+    def test_natural_terminal_aim_exception_is_only_the_final_after_callback(self) -> None:
+        report = make_natural_report(terminal="wave_clear")
+        report["samples"][0]["aim_validated"] = False
+        self.assert_invalid(report)
+        report = make_natural_report(terminal="wave_clear", phase="before_input")
+        report["samples"][-1]["aim_validated"] = False
+        self.assert_invalid(report)
+        report = make_natural_report(terminal="wave_clear")
+        report["samples"][-1]["aim_validated"] = True  # Wrong aim is still checked if validation is claimed.
+        self.assert_invalid(report)
 
     def test_cli_returns_machine_readable_measurement_result_and_nonzero_on_failure(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

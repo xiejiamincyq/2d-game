@@ -52,6 +52,10 @@ func start() -> void:
 func _before_physics(delta: float) -> void:
 	if done:
 		return
+	if _natural_wave_cleared():
+		terminal_phase = "before_input"
+		_finish("wave_clear")
+		return
 	if scene.game_over:
 		terminal_phase = "before_input"
 		_finish("death") # Physics-server contacts can end the run before this tap.
@@ -74,7 +78,8 @@ func _before_physics(delta: float) -> void:
 		Input.action_press("move_right" if direction.x > 0 else "move_left")
 	if direction.y != 0:
 		Input.action_press("move_down" if direction.y > 0 else "move_up")
-	var dash_requested: bool = config.mode == "dash" and index + 1 in DASH_STEPS
+	var dash_step: bool = (index + 1) % 180 == 0 if config.get("scenario", "stress60") == "natural_wave1" else index + 1 in DASH_STEPS
+	var dash_requested: bool = config.mode == "dash" and dash_step
 	if dash_requested:
 		Input.action_press("dash_melee")
 	var aim_world: Vector2 = scene.player.global_position + direction * 480.0
@@ -106,7 +111,8 @@ func _after_physics(delta: float) -> void:
 	var actual_input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var direction := Vector2(pending.input_pre[0], pending.input_pre[1])
 	var aim := Vector2.RIGHT.rotated(scene.player.gun_angle)
-	var aim_validated: bool = not scene.game_over
+	var wave_cleared := _natural_wave_cleared()
+	var aim_validated: bool = not scene.game_over and not wave_cleared
 	valid = valid and frame == pending.pre_physics_frame and frame == previous_frame + 1
 	valid = valid and is_equal_approx(delta, pending.pre_physics_delta) and actual_input.is_equal_approx(direction)
 	if aim_validated:
@@ -116,6 +122,8 @@ func _after_physics(delta: float) -> void:
 	simulated_seconds += delta
 	travelled += previous_position.distance_to(point)
 	var state: Dictionary = read_state.call()
+	if config.get("scenario", "stress60") == "natural_wave1":
+		valid = valid and state.live_enemies + state.spawn_pending + state.kills == 41
 	state.merge(pending)
 	state.merge({"physics_frame": frame, "post_physics_frame": frame, "physics_delta": delta,
 		"simulated_seconds": simulated_seconds, "wall_seconds": float(Time.get_ticks_usec() - started_usec) / 1000000.0,
@@ -126,9 +134,12 @@ func _after_physics(delta: float) -> void:
 	pending = {}
 	previous_position = point
 	previous_frame = frame
-	if not valid or scene.game_over or samples.size() >= int(config.steps):
+	if not valid or scene.game_over or wave_cleared or samples.size() >= int(config.steps):
 		terminal_phase = "after_callbacks"
-		_finish("invalid_sampling" if not valid else ("death" if scene.game_over else "step_budget"))
+		_finish("invalid_sampling" if not valid else ("death" if scene.game_over else ("wave_clear" if wave_cleared else "step_budget")))
+
+func _natural_wave_cleared() -> bool:
+	return config.get("scenario", "stress60") == "natural_wave1" and scene.run_state == scene.RunState.WAVE_CLEAR
 
 func _finish(reason: String) -> void:
 	done = true

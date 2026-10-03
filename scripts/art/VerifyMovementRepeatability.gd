@@ -10,8 +10,10 @@ const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const FeedbackScript = preload("res://scripts/art/MovementDiagnosticFeedback.gd")
 const TestSupportScript = preload("res://scripts/tests/TestSupport.gd")
 const SamplerScript = preload("res://scripts/art/MovementPhysicsSampler.gd")
+const LobScript = preload("res://scripts/components/LobbedProjectile.gd")
 const OUTPUT_DIR := "res://build/diagnostics/movement-repeatability/"
 const ACTIONS := ["move_left", "move_right", "move_up", "move_down", "fire", "dash_melee"]
+const NATURAL_CAPTURE_STEPS := [60, 180, 360, 600]
 
 class DiagnosticMain extends MainScript:
 	var isolated_save_path := ""
@@ -27,7 +29,7 @@ class DiagnosticMain extends MainScript:
 		ui.show_start_screen()
 		ui.set_continue_available(snapshot_store.has_valid_snapshot())
 
-var config := {"seed": 20260908, "track": "D", "mode": "walk", "run": "", "steps": 1200, "clock": "unknown"}
+var config := {"seed": 20260908, "track": "D", "mode": "walk", "run": "", "steps": 1200, "clock": "unknown", "scenario": "stress60"}
 var scene: DiagnosticMain
 var view: SubViewport
 var screen: TextureRect
@@ -36,6 +38,9 @@ var samples: Array[Dictionary] = []
 var render_frames := 0
 var cleaning_up := false
 var watchdog_started_usec := 0
+var active_sampler: Node
+var live_captures: Array[Dictionary] = []
+var live_capture_valid := true
 
 func _initialize() -> void:
 	watchdog_started_usec = Time.get_ticks_usec()
@@ -43,6 +48,7 @@ func _initialize() -> void:
 	if not _parse_args():
 		quit(1)
 		return
+	var source_hashes_before := _source_hashes()
 	_release_input()
 	Engine.physics_ticks_per_second = 60
 	Engine.time_scale = 1.0
@@ -52,6 +58,11 @@ func _initialize() -> void:
 		push_error("Movement run id already has evidence/save state; use a fresh --run id")
 		quit(1)
 		return
+	for capture_step in NATURAL_CAPTURE_STEPS:
+		if FileAccess.file_exists(_live_capture_path(capture_step)):
+			push_error("Movement run id has an existing live capture; refusing overwrite")
+			quit(1)
+			return
 	if DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(save_path.get_base_dir())) != OK or DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT_DIR)) != OK:
 		push_error("Could not create isolated movement evidence directories")
 		quit(1)
@@ -80,31 +91,52 @@ func _initialize() -> void:
 		push_error("Diagnostic Main did not retain its preassigned isolated save path")
 		quit(1)
 		return
-	scene._start_run()
+	var startup_frame := Engine.get_physics_frames()
+	if config.scenario == "natural_wave1":
+		var start_event := InputEventKey.new()
+		start_event.keycode = KEY_ENTER
+		start_event.pressed = true
+		view.push_input(start_event, true)
+		start_event = start_event.duplicate()
+		start_event.pressed = false
+		view.push_input(start_event, true)
+	else:
+		scene._start_run()
+	if not scene.run_started:
+		push_error("Diagnostic start input did not start the run")
+		quit(2)
+		return
 	if not scene.player.is_node_ready():
 		await scene.player.ready
 	if not scene.wave_director.is_node_ready():
 		await scene.wave_director.ready
 	scene.wave_director.spawn_rng.seed = int(config.seed) + 1000003
-	scene.map_seed = config.seed
-	scene.arena_layout.generate(scene.WORLD_BOUNDS, config.seed)
 	_replace_feedback()
-	scene.player.advance_entrance(scene.player.get_entrance_duration() + 0.01)
-	scene.wave_director.spawn_queue.clear() # Before banner completion: no natural portals.
-	scene.ui.wave_banner.finish_message()
-	scene.wave_director.active = false
-	scene.wave_director.set_process(false)
-	for _warmup in range(2):
-		await physics_frame
-		await process_frame
-	scene.elapsed_seconds = 0.0
-	scene.shield_drop_timer = 4.0
-	scene.player.get_node("PlayerCamera").reset_smoothing()
-	var kinds: Array = EnemyScript.EnemyKind.values()
-	for index in range(60):
-		var angle := TAU * float(index) / 60.0
-		scene.wave_director._spawn_enemy_at(kinds[index % kinds.size()], Vector2(cos(angle) * 280.0, sin(angle) * 220.0))
-	scene.wave_director._emit_wave_status()
+	if config.scenario == "natural_wave1":
+		# No skipped entrance/banner, regenerated map, injected monsters or HP reset.
+		# Release-only startup lets the production spawn-input guard clear itself.
+		while not scene.game_over and (scene.run_state != scene.RunState.PLAYING or scene.player.spawn_input_guard_active):
+			await physics_frame
+			await process_frame
+	else:
+		scene.map_seed = config.seed
+		scene.arena_layout.generate(scene.WORLD_BOUNDS, config.seed)
+		scene.player.advance_entrance(scene.player.get_entrance_duration() + 0.01)
+		scene.wave_director.spawn_queue.clear() # Before banner completion: no natural portals.
+		scene.ui.wave_banner.finish_message()
+		scene.wave_director.active = false
+		scene.wave_director.set_process(false)
+		for _warmup in range(2):
+			await physics_frame
+			await process_frame
+		scene.elapsed_seconds = 0.0
+		scene.shield_drop_timer = 4.0
+		scene.player.get_node("PlayerCamera").reset_smoothing()
+		var kinds: Array = EnemyScript.EnemyKind.values()
+		for index in range(60):
+			var angle := TAU * float(index) / 60.0
+			scene.wave_director._spawn_enemy_at(kinds[index % kinds.size()], Vector2(cos(angle) * 280.0, sin(angle) * 220.0))
+		scene.wave_director._emit_wave_status()
 	view.notify_mouse_entered()
 	var initial := {"map_seed": scene.map_seed, "layout_seed": scene.arena_layout.map_seed,
 		"global_seed": config.seed, "spawn_seed": int(config.seed) + 1000003,
@@ -112,18 +144,30 @@ func _initialize() -> void:
 		"enemies": scene.wave_director.active_enemies.size(), "portals": scene.wave_director.active_portals.size(),
 		"player": _player_state(), "save_path_isolated": scene.snapshot_store.save_path == save_path,
 		"spawn_guard_active": scene.player.spawn_input_guard_active, "time_scale": Engine.time_scale}
-	var valid: bool = initial.enemies == 60 and initial.portals == 0 and not initial.spawn_guard_active and not paused and scene.run_state == scene.RunState.PLAYING
-	valid = valid and initial.map_seed == config.seed and initial.layout_seed == config.seed and scene.player.health.invulnerable_time <= 0.0
+	initial.merge({"start_input": "enter" if config.scenario == "natural_wave1" else "direct_fixture",
+		"startup_unsampled_physics_steps": Engine.get_physics_frames() - startup_frame,
+		"director_active": scene.wave_director.active, "director_running": scene.wave_director.wave_running,
+		"kills": scene.kill_count})
+	var valid: bool = not initial.spawn_guard_active and not paused and scene.run_state == scene.RunState.PLAYING and scene.player.health.invulnerable_time <= 0.0
+	if config.scenario == "natural_wave1":
+		valid = valid and initial.enemies == 0 and initial.portals == 3 and initial.player.spawn_pending == 41
+		valid = valid and initial.map_seed == initial.layout_seed and initial.director_active and initial.director_running
+		valid = valid and initial.kills == 0 and initial.player.health == 100.0 and initial.player.shield == 0.0 and scene.player.global_position == Vector2.ZERO
+	else:
+		valid = valid and initial.enemies == 60 and initial.portals == 0 and initial.map_seed == config.seed and initial.layout_seed == config.seed
 	var sampler := SamplerScript.new()
+	active_sampler = sampler
 	sampler.scene = scene
 	sampler.view = view
 	sampler.config = config
 	sampler.read_state = _player_state
 	view.add_child(sampler)
+	if config.scenario == "natural_wave1" and DisplayServer.get_name() != "headless":
+		RenderingServer.frame_post_draw.connect(_capture_natural_frame)
 	if valid:
 		sampler.start()
 		await sampler.finished
-	valid = valid and sampler.valid
+	valid = valid and sampler.valid and live_capture_valid
 	samples = sampler.samples
 	var first_frame: int = sampler.first_frame
 	var previous_frame: int = sampler.previous_frame
@@ -151,7 +195,7 @@ func _initialize() -> void:
 		var caption_layer := CanvasLayer.new()
 		caption_layer.layer = 100
 		var caption := Label.new()
-		caption.text = "DIAGNOSTIC 60-AI | %s | step %d | %s\nPost-freeze image; terminal JSON was captured before pause notifications." % [config.run, samples.size(), terminal]
+		caption.text = "DIAGNOSTIC %s | %s | step %d | %s\nPost-freeze image; terminal JSON was captured before pause notifications." % [config.scenario, config.run, samples.size(), terminal]
 		caption.position = Vector2(16, 128)
 		caption.add_theme_color_override("font_color", Color.YELLOW)
 		caption.add_theme_color_override("font_outline_color", Color.BLACK)
@@ -201,17 +245,23 @@ func _initialize() -> void:
 	clock_info["wall_to_simulated_ratio"] = wall_seconds / simulated_seconds if simulated_seconds > 0.0 else null
 	var report := {"schema_version": 2, "sampling_method": "pre_post_physics_callbacks", "physics_hz": 60,
 		"first_physics_frame": first_frame, "run": config.duplicate(), "sampling_valid": valid, "acceptance": "measurement_only" if valid else "invalid_sampling",
-		"formal_step_budget": config.steps == 1200, "terminal": terminal, "terminal_phase": terminal_phase, "initial": initial, "final": final_state,
+		"formal_step_budget": config.scenario == "stress60" and config.steps == 1200, "terminal": terminal, "terminal_phase": terminal_phase, "initial": initial, "final": final_state,
 		"sample_steps": samples.size(), "physics_steps": previous_frame - first_frame, "simulated_seconds": simulated_seconds,
 		"wall_seconds": wall_seconds, "unscaled_step_seconds": unscaled_step_seconds, "clock": clock_info,
 		"travelled_pixels": travelled, "samples": samples,
 		"health_loss": health_loss, "shield_loss": shield_loss,
-		"snapshot": snapshot,
+		"snapshot": snapshot, "live_captures": live_captures,
 		"cleanup": {"owned_tree_freed": cleanup_valid, "orphan_nodes_before": orphan_nodes_before,
 			"orphan_nodes_after": orphan_nodes_after, "audio_references_cleared": audio_references_cleared,
 			"audio_flush_wall_seconds": audio_flush_wall_seconds, "objectdb_leaks": "requires_exit_log_review"},
 		"hit_stop_events": feedback_events, "real_save_hashes_before": real_saves_before, "real_save_hashes_after": real_saves_after,
-		"limitations": "Initialization/input sampling slice only, not balance acceptance. One 60-AI stress fixture; no invulnerability or enemy reset. D suppresses hit-stop only; R calls production hit-stop. Clock mode is a caller declaration, not automatic verification: engine args may be filtered. Unknown/fixed R is sampling smoke, never real-clock acceptance; declared realtime is still unverified. Equal step counts need not mean equal simulated time. Restore reasons distinguish natural expiry, game-state reset and diagnostic cleanup. Enemy ranged strafe still uses wall clock and instance IDs. No deterministic proof, normal-crowd result, screenshot or video acceptance yet."}
+		"limitations": "Measurement only, not balance/visual/human/performance acceptance. stress60 injects 60 AI; natural_wave1 starts via Enter, waits natural entrance/banner and release-only spawn guard, then observes wave 1 until death/clear/budget without invulnerability or enemy reset. Wave 1 has no lobbers: zero landing fills cannot validate lobber readability. Wave clear is not settlement/shop/restart acceptance. Fixed square inputs are a diagnostic bot, not human skill. D suppresses hit-stop; R calls production hit-stop. Clock mode is caller-declared and unverified. Enemy strafe uses wall clock and instance IDs; no deterministic claim."}
+	report["source_sha256_before"] = source_hashes_before
+	report["source_sha256_after"] = _source_hashes()
+	report["source_hashes_unchanged"] = report.source_sha256_before == report.source_sha256_after
+	valid = valid and report.source_hashes_unchanged
+	report.sampling_valid = valid
+	report.acceptance = "measurement_only" if valid else "invalid_sampling"
 	var file := FileAccess.open(output, FileAccess.WRITE)
 	if file == null:
 		push_error("Movement sample report write failed")
@@ -221,6 +271,12 @@ func _initialize() -> void:
 	file.close()
 	print("MOVEMENT_SAMPLE_COMPLETE run=%s valid=%s steps=%d output=%s" % [config.run, valid, samples.size(), output])
 	quit(0 if valid else 2)
+
+func _source_hashes() -> Dictionary:
+	var hashes := {}
+	for source in ["scripts/art/VerifyMovementRepeatability.gd", "scripts/art/MovementPhysicsSampler.gd", "scripts/art/MovementDiagnosticFeedback.gd", "scripts/Main.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/systems/WaveDirector.gd", "scripts/world/SpawnPortal.gd"]:
+		hashes[source] = FileAccess.get_sha256("res://" + source)
+	return hashes
 
 func _clock_metadata() -> Dictionary:
 	# OS.get_cmdline_args() omitted --fixed-fps in a confirmed fixed-FPS run.
@@ -247,10 +303,45 @@ func _replace_feedback() -> void:
 
 func _player_state() -> Dictionary:
 	var player: Node = scene.player
-	return {"position": [player.global_position.x, player.global_position.y], "velocity": [player.velocity.x, player.velocity.y],
+	var state := {"position": [player.global_position.x, player.global_position.y], "velocity": [player.velocity.x, player.velocity.y],
 		"health": player.health.current_health, "shield": player.shield, "dash_active": player.dash_active,
 		"dash_cooldown": player.dash_cooldown_remaining, "stealth_remaining": player.stealth_remaining,
 		"layer": player.collision_layer, "mask": player.collision_mask, "shape_disabled": player.player_collision.disabled}
+	if config.scenario == "natural_wave1":
+		state.merge(_natural_crowd_state())
+	return state
+
+func _natural_crowd_state() -> Dictionary:
+	var kinds: Dictionary = {}
+	var live := 0
+	for enemy in scene.wave_director.active_enemies:
+		if not is_instance_valid(enemy) or enemy.is_queued_for_deletion() or enemy.health == null or enemy.health.current_health <= 0.0:
+			continue
+		var kind: String = EnemyScript.EnemyKind.keys()[enemy.kind].to_lower()
+		kinds[kind] = int(kinds.get(kind, 0)) + 1
+		live += 1
+	var pending_count: int = scene.wave_director.spawn_queue.size()
+	for queue in scene.wave_director.portal_spawn_queues.values():
+		pending_count += queue.size()
+	var fill_total := 0
+	var fill_in_view := 0
+	var world_corners := PackedVector2Array()
+	var inverse := view.canvas_transform.affine_inverse()
+	for corner in [Vector2.ZERO, Vector2(view.size.x, 0), Vector2(view.size), Vector2(0, view.size.y)]:
+		world_corners.append(inverse * corner)
+	for projectile in scene.projectiles.get_children():
+		if not projectile is LobScript or projectile.is_queued_for_deletion() or not is_instance_valid(projectile.landing_fill):
+			continue
+		fill_total += 1
+		var center: Vector2 = projectile.target_position
+		var intersects := Geometry2D.is_point_in_polygon(center, world_corners)
+		for edge in range(4):
+			intersects = intersects or center.distance_to(Geometry2D.get_closest_point_to_segment(center, world_corners[edge], world_corners[(edge + 1) % 4])) <= projectile.splash_radius
+		fill_in_view += int(intersects)
+	return {"run_state": scene.RunState.keys()[scene.run_state], "wave_index": scene.wave_director.wave_index,
+		"live_enemies": live, "enemy_kinds": kinds, "spawn_pending": pending_count, "kills": scene.kill_count,
+		"portal_count": scene.wave_director.active_portals.size(), "director_collection": scene.wave_director.collection_window_active,
+		"landing_fill_total": fill_total, "landing_fill_view_intersections": fill_in_view}
 
 func _real_save_hashes() -> Dictionary:
 	var hashes: Dictionary = {}
@@ -269,21 +360,47 @@ func _parse_args() -> bool:
 		config[parts[0]] = parts[1].to_int() if parts[0] in ["seed", "steps"] else parts[1]
 	var run_pattern := RegEx.create_from_string("^[A-Za-z0-9_-]{1,80}$")
 	var valid: bool = config.seed in [20260908, 20260909, 20260910] and config.track in ["D", "R"] and config.mode in ["walk", "dash"]
-	valid = valid and config.steps >= 1 and config.steps <= 1200 and run_pattern.search(config.run) != null and config.clock in ["unknown", "fixed", "realtime"]
+	valid = valid and config.scenario in ["stress60", "natural_wave1"] and (config.scenario != "natural_wave1" or config.track == "R")
+	valid = valid and config.steps >= 1 and config.steps <= (10800 if config.scenario == "natural_wave1" else 1200) and run_pattern.search(config.run) != null and config.clock in ["unknown", "fixed", "realtime"]
 	if not valid:
-		push_error("Expected registered seed, D/R, walk/dash, unique safe --run id, 1..1200 steps, and clock unknown/fixed/realtime")
+		push_error("Expected registered seed, D/R, walk/dash, safe unique run, clock declaration; stress60 1..1200 steps or natural_wave1 R-only 1..10800 steps")
 	return valid
 
 func _release_input() -> void:
 	for action in ACTIONS:
 		Input.action_release(action)
 
+func _live_capture_path(step: int) -> String:
+	return OUTPUT_DIR + config.run + "-step-%04d.png" % step
+
+func _capture_natural_frame() -> void:
+	if cleaning_up or not is_instance_valid(active_sampler) or active_sampler.done or live_captures.size() >= NATURAL_CAPTURE_STEPS.size():
+		return
+	var requested_step: int = NATURAL_CAPTURE_STEPS[live_captures.size()]
+	if active_sampler.samples.size() < requested_step:
+		return
+	var path := _live_capture_path(requested_step)
+	var capture := view.get_texture().get_image()
+	var saved := not FileAccess.file_exists(path) and capture != null and not capture.is_empty() and capture.save_png(path) == OK
+	live_capture_valid = live_capture_valid and saved
+	live_captures.append({"requested_step": requested_step, "sample_step": active_sampler.samples.size(),
+		"physics_frame": Engine.get_physics_frames(), "process_frame": Engine.get_process_frames(),
+		"path": path, "captured": saved, "render_state": _player_state(),
+		"scope": "post_draw_live_image; may include idle callbacks after latest physics sample; capture IO is not performance evidence"})
+
 func _watchdog() -> void:
 	if cleaning_up:
 		return
 	render_frames += 1
-	if Time.get_ticks_usec() - watchdog_started_usec >= 60000000:
+	var wall_limit := 240000000 if config.scenario == "natural_wave1" else 60000000
+	if Time.get_ticks_usec() - watchdog_started_usec >= wall_limit:
+		if is_instance_valid(active_sampler) and not active_sampler.done:
+			push_error("Movement wall-clock watchdog reached; sealing invalid evidence and cleaning up")
+			active_sampler.valid = false
+			active_sampler.terminal_phase = "before_input"
+			active_sampler._finish("wall_timeout")
+			return
 		_release_input()
 		Engine.time_scale = 1.0
-		push_error("Movement sample exceeded its 60-second wall-clock safety limit")
+		push_error("Movement sample exceeded its %d-second wall-clock safety limit" % (wall_limit / 1000000))
 		quit(3)
