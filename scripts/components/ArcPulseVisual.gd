@@ -1,6 +1,8 @@
 extends Node2D
 class_name ArcPulseVisual
 
+const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
+
 const BASE_EXPANSION_SPEED: float = 340.0
 const START_RADIUS: float = 18.0
 const HIT_HALF_WIDTH: float = 6.0
@@ -11,7 +13,7 @@ const VISUAL_DRAW_CALLS: int = 2
 var max_radius: float = 160.0
 var lifetime: float = 0.42
 var age: float = 0.0
-var tint: Color = Color(0.18, 1.0, 0.95)
+var tint: Color = Palette.TEAL
 var damage: float = 0.0
 var damage_source: StringName = &"arc"
 var enemy_provider: Callable
@@ -81,4 +83,4 @@ func _draw() -> void:
 		var wave := sin(a * 9.0 + p * TAU * 3.0) * 8.0 * alpha
 		points.append(Vector2.RIGHT.rotated(a) * (radius + wave))
 	draw_polyline(points, Color(tint.r, tint.g, tint.b, 0.75 * alpha), 4.0, true)
-	draw_polyline(points, Color(1.0, 1.0, 1.0, alpha), 1.0, true)
+	draw_polyline(points, Color(Palette.CREAM, alpha), 1.0, true)

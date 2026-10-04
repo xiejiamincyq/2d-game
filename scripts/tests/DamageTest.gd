@@ -187,9 +187,9 @@ func _initialize() -> void:
 			overdrive_emitter_count += 1
 	if not _assert_true(
 		overdrive_shot.get("overdrive_visual")
-		and overdrive_shot.tint.is_equal_approx(Color("b45cff"))
+		and overdrive_shot.tint.is_equal_approx(Color("9bd7bd"))
 		and overdrive_emitter_count == 0,
-		"overdrive projectile lost its purple treatment or retained a per-shot GPU emitter"
+		"overdrive projectile lost its approved mint treatment or retained a per-shot GPU emitter"
 	):
 		return
 	player.set_overdrive_active(false)
@@ -279,7 +279,7 @@ func _initialize() -> void:
 		player.is_stealthed()
 		and is_equal_approx(player.get_effective_move_speed(), player.move_speed * 1.3)
 		and spawned_attacks.get_children().any(func(child: Node) -> bool: return child.get_script() == player.FlameTrailScript),
-		"top assassin dash did not create a purple flame path and 1.2-second speed stealth"
+		"top assassin dash did not create a flame path and 1.2-second speed stealth"
 	):
 		return
 
@@ -333,8 +333,8 @@ func _initialize() -> void:
 		and is_equal_approx(player.drone_damage, drone_damage_before_matrix * 1.8)
 		and player.get_arc_pulse_radius() >= player.get_viewport_rect().size.length()
 		and is_equal_approx(player.get_arc_pulse_expansion_speed_scale(), 0.5)
-		and player.get_drone_laser_color().is_equal_approx(Color("b45cff")),
-		"thunder evolution changed drone count or lost its full-screen, slow arc and purple laser contract"
+		and player.get_drone_laser_color().is_equal_approx(Color("9bd7bd")),
+		"thunder evolution changed drone count or lost its full-screen, slow arc and mint laser contract"
 	):
 		return
 	if not _assert_true(

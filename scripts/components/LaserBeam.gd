@@ -1,8 +1,10 @@
 extends Node2D
 class_name LaserBeam
 
+const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
+
 var end_local: Vector2 = Vector2.ZERO
-var tint: Color = Color(0.25, 1.0, 1.0)
+var tint: Color = Palette.TEAL
 var lifetime: float = 0.09
 var width: float = 3.0
 var persistent: bool = false
@@ -21,7 +23,7 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	draw_line(Vector2.ZERO, end_local, Color.WHITE, width + 2.0)
+	draw_line(Vector2.ZERO, end_local, Palette.OUTLINE, width + 2.0)
 	draw_line(Vector2.ZERO, end_local, tint, width)
 	draw_circle(Vector2.ZERO, width + 2.0, tint)
 	draw_circle(end_local, width + 3.0, tint.lightened(0.25))

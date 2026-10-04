@@ -1,6 +1,8 @@
 extends Area2D
 class_name FlameTrail
 
+const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
+
 const RADIUS := 22.0
 const STACK_INTERVAL := 0.20
 
@@ -52,7 +54,7 @@ func _update_burning_enemies(delta: float) -> void:
 
 func _draw() -> void:
 	var pulse := 0.82 + sin(visual_age * 12.0 + float(get_instance_id() % 13)) * 0.12
-	draw_circle(Vector2.ZERO, RADIUS, Color(0.45, 0.12, 0.75, 0.13))
+	draw_circle(Vector2.ZERO, RADIUS, Color(Palette.TEAL, 0.13))
 	for index in range(5):
 		var angle := TAU * float(index) / 5.0
 		var base := Vector2.RIGHT.rotated(angle) * 10.0
@@ -62,5 +64,5 @@ func _draw() -> void:
 			base + Vector2(sway, -15.0 * pulse - float(index % 2) * 4.0),
 			base + Vector2(5.0, 8.0),
 		])
-		draw_colored_polygon(flame, Color("b45cff"))
-	draw_circle(Vector2.ZERO, 6.0, Color("f559bf"))
+		draw_colored_polygon(flame, Palette.MINT)
+	draw_circle(Vector2.ZERO, 6.0, Palette.CREAM)

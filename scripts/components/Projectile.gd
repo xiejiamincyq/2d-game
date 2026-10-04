@@ -1,6 +1,8 @@
 extends Area2D
 class_name Projectile
 
+const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
+
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 
 var velocity: Vector2 = Vector2.ZERO
@@ -48,10 +50,10 @@ func _draw() -> void:
 			direction * radius * 0.5,
 			-direction * radius * 1.2 - side * radius * 1.1,
 		])
-		draw_colored_polygon(trail, Color(0.52, 0.18, 1.0, 0.26))
-		draw_line(-direction * radius * 6.0, direction * radius * 0.5, Color(0.20, 1.0, 0.95, 0.68), 1.5)
-		draw_circle(Vector2.ZERO, radius * 3.0, Color(0.71, 0.36, 1.0, 0.14))
-		draw_circle(Vector2.ZERO, radius * 1.75, Color(0.78, 0.42, 1.0, 0.32))
+		draw_colored_polygon(trail, Color(Palette.TEAL, 0.26))
+		draw_line(-direction * radius * 6.0, direction * radius * 0.5, Color(Palette.CREAM, 0.68), 1.5)
+		draw_circle(Vector2.ZERO, radius * 3.0, Color(Palette.MINT, 0.14))
+		draw_circle(Vector2.ZERO, radius * 1.75, Color(Palette.MINT, 0.32))
 	draw_rect(Rect2(Vector2(-radius, -radius), Vector2(radius * 2.0, radius * 2.0)), tint)
 	draw_rect(Rect2(Vector2(-radius * 0.5, -radius * 0.5), Vector2(radius, radius)), Color.WHITE)
 

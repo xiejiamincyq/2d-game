@@ -641,7 +641,8 @@ func _set_overdrive(active: bool) -> void:
 	overdrive_active = active
 	if player != null and player.has_method("set_overdrive_active"):
 		player.set_overdrive_active(active)
-		player.modulate = Color("ff571f") if active else Color.WHITE
+		# The existing halo/streaks communicate overdrive without tinting body art.
+		player.modulate = Color.WHITE
 	if active:
 		ui.set_overdrive(true, overdrive_charge / OVERDRIVE_DRAIN_PER_SECOND)
 		audio.play("upgrade")

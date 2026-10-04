@@ -93,6 +93,7 @@ $gameplayTests = @(
     "SmokeTest"
 )
 $artTests = @(
+    "FriendlyEffectPaletteTest",
     "NaturalRunPolicyTest",
     "NaturalRunSnapshotCheckTest",
     "NaturalRunRenderedTest",

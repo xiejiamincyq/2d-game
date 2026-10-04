@@ -18,6 +18,7 @@ const SpikeTrapScript = preload("res://scripts/components/SpikeTrap.gd")
 const ArcPulseVisualScript = preload("res://scripts/components/ArcPulseVisual.gd")
 const FlameTrailScript = preload("res://scripts/components/FlameTrail.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
 const TerrainSweep = preload("res://scripts/world/TerrainSweep.gd")
 const StealthRecoveryMotion = preload("res://scripts/world/StealthRecoveryMotion.gd")
 const ALL_DAMAGE_SOURCES: StringName = &"all"
@@ -32,8 +33,8 @@ const OVERDRIVE_LASER_WIDTH_MULTIPLIER: float = 1.5
 const OVERDRIVE_ARC_RADIUS_MULTIPLIER: float = 2.0
 const OVERDRIVE_ARC_FREQUENCY_MULTIPLIER: float = 1.5
 const BASE_DRONE_LASER_WIDTH: float = 4.0
-const BASE_DRONE_LASER_COLOR := Color(0.2, 1.0, 0.95)
-const THUNDER_MATRIX_LASER_COLOR := Color("b45cff")
+const BASE_DRONE_LASER_COLOR := Palette.TEAL
+const THUNDER_MATRIX_LASER_COLOR := Palette.MINT
 const THUNDER_MATRIX_DRONE_DAMAGE_MULTIPLIER := 1.8
 const THUNDER_MATRIX_ARC_DAMAGE_MULTIPLIER := 0.70
 const DRONE_MAX_TURN_SPEED_RADIANS := deg_to_rad(150.0)
@@ -329,11 +330,11 @@ func _draw() -> void:
 				var side_offset := float(streak_index - 1) * 7.0
 				var streak_start := visual_center - movement_direction * (BODY_RADIUS + 5.0) + movement_side * side_offset
 				var streak_end := visual_center - movement_direction * (34.0 + pulse * 7.0 + streak_index * 4.0) + movement_side * side_offset
-				var streak_color := Color(0.20, 1.0, 0.95, 0.62) if streak_index != 1 else Color(0.71, 0.36, 1.0, 0.72)
+				var streak_color := Color(Palette.TEAL, 0.62) if streak_index != 1 else Color(Palette.CREAM, 0.72)
 				draw_line(streak_start, streak_end, streak_color, 2.0)
-		draw_circle(visual_center, BODY_RADIUS + 7.0 + pulse * 2.0, Color(0.71, 0.36, 1.0, 0.10))
-		draw_arc(visual_center, BODY_RADIUS + 8.0 + pulse * 3.0, 0.0, TAU, 32, Color(0.71, 0.36, 1.0, 0.72), 2.0)
-		draw_arc(visual_center, BODY_RADIUS + 12.0 - pulse * 2.0, -PI * 0.35, PI * 0.65, 20, Color(0.20, 1.0, 0.95, 0.82), 2.0)
+		draw_circle(visual_center, BODY_RADIUS + 7.0 + pulse * 2.0, Color(Palette.MINT, 0.10))
+		draw_arc(visual_center, BODY_RADIUS + 8.0 + pulse * 3.0, 0.0, TAU, 32, Color(Palette.MINT, 0.72), 2.0)
+		draw_arc(visual_center, BODY_RADIUS + 12.0 - pulse * 2.0, -PI * 0.35, PI * 0.65, 20, Color(Palette.TEAL, 0.82), 2.0)
 	var cardinal_index := chibi_cardinal_index(gun_angle)
 	var destination := Rect2(-CHIBI_BODY_DRAW_SIZE * 0.5 + visual_center, CHIBI_BODY_DRAW_SIZE)
 	var source := chibi_cardinal_rect(cardinal_index)
@@ -346,23 +347,23 @@ func _draw() -> void:
 	if entrance_elapsed >= ENTRANCE_FALL_SECONDS and entrance_elapsed < get_entrance_duration():
 		_draw_landing_smoke((entrance_elapsed - ENTRANCE_FALL_SECONDS) / ENTRANCE_SMOKE_SECONDS)
 	if dash_active:
-		draw_arc(Vector2.ZERO, dash_melee_radius, -PI * 0.2, PI * 1.2, 28, Color(1.0, 0.76, 0.18, 0.65), 4.0)
-		draw_line(-dash_direction * 28.0, dash_direction * 34.0, Color(0.25, 1.0, 1.0, 0.85), 4.0)
+		draw_arc(Vector2.ZERO, dash_melee_radius, -PI * 0.2, PI * 1.2, 28, Color(Palette.CREAM, 0.65), 4.0)
+		draw_line(-dash_direction * 28.0, dash_direction * 34.0, Color(Palette.TEAL, 0.85), 4.0)
 	if arc_pulse_level > 0:
-		draw_arc(Vector2.ZERO, 78.0 + arc_pulse_level * 16.0, 0.0, TAU, 48, Color(0.25, 1.0, 1.0, 0.18), 2.0)
+		draw_arc(Vector2.ZERO, 78.0 + arc_pulse_level * 16.0, 0.0, TAU, 48, Color(Palette.TEAL, 0.18), 2.0)
 	if entrance_active:
 		return
 	var dash_ratio := get_dash_charge_ratio()
 	var bar_position := Vector2(-DASH_BAR_WIDTH * 0.5, BODY_RADIUS + 9.0)
-	draw_rect(Rect2(bar_position, Vector2(DASH_BAR_WIDTH, 5.0)), Color("061019"))
-	draw_rect(Rect2(bar_position, Vector2(DASH_BAR_WIDTH * dash_ratio, 5.0)), Color("ff571f") if dash_ratio >= 0.999 else Color("33fff2"))
-	draw_rect(Rect2(bar_position - Vector2.ONE, Vector2(DASH_BAR_WIDTH + 2.0, 7.0)), Color(0.71, 0.36, 1.0, 0.72), false, 1.0)
+	draw_rect(Rect2(bar_position, Vector2(DASH_BAR_WIDTH, 5.0)), Palette.OUTLINE)
+	draw_rect(Rect2(bar_position, Vector2(DASH_BAR_WIDTH * dash_ratio, 5.0)), Palette.CREAM if dash_ratio >= 0.999 else Palette.TEAL)
+	draw_rect(Rect2(bar_position - Vector2.ONE, Vector2(DASH_BAR_WIDTH + 2.0, 7.0)), Color(Palette.OUTLINE, 0.72), false, 1.0)
 
 func _draw_landing_smoke(progress: float) -> void:
 	var resolved := clampf(progress, 0.0, 1.0)
 	var alpha := 1.0 - resolved
 	var foot := Vector2(0.0, BODY_RADIUS + 5.0)
-	draw_arc(foot, lerpf(12.0, 58.0, resolved), PI, TAU, 40, Color(0.2, 1.0, 0.95, alpha * 0.72), 3.0)
+	draw_arc(foot, lerpf(12.0, 58.0, resolved), PI, TAU, 40, Color(Palette.TEAL, alpha * 0.72), 3.0)
 	for index in range(7):
 		var side := -1.0 if index % 2 == 0 else 1.0
 		var lane := float(index / 2 + 1)
@@ -676,7 +677,7 @@ func _spawn_bullet(direction: Vector2, damage_scale: float = 1.0) -> void:
 	shot.lifetime = 6.0
 	shot.target_group = &"enemies"
 	shot.overdrive_visual = overdrive_active
-	shot.tint = Color("b45cff") if overdrive_active else Color(1.0, 0.35, 0.08)
+	shot.tint = Palette.MINT if overdrive_active else Palette.WEAPON_CORAL
 	shot.world_bounds = world_bounds
 	fired.emit(shot)
 

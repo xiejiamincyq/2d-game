@@ -9,6 +9,8 @@ var capture_dir := ""
 var last_capture_frame := -4
 var boss_view_samples: Array[Dictionary] = []
 var boss_view_truncated := false
+var overdrive_draw_frames := 0
+var overdrive_body_tint_conflicts := 0
 
 static func measure_boss_view(sprite_rect: Rect2, viewport_rect: Rect2, ui_rects: Array) -> Dictionary:
 	var total_area := sprite_rect.get_area()
@@ -59,6 +61,10 @@ func _initialize() -> void:
 func _capture() -> void:
 	if started == 0 or reloading or not terminal.is_empty() or not is_instance_valid(view) or not view.is_inside_tree() or not is_instance_valid(scene) or not is_instance_valid(scene.player):
 		return
+	if scene.run_state == scene.RunState.PLAYING and scene.player.overdrive_active:
+		overdrive_draw_frames += 1
+		if not scene.player.modulate.is_equal_approx(Color.WHITE):
+			overdrive_body_tint_conflicts += 1
 	_record_boss_view() # Entire drawn fight, independent of the thirty-frame clip quota.
 	var frame := Engine.get_physics_frames()
 	if frame - last_capture_frame < 4:
@@ -162,11 +168,15 @@ func _visual_info() -> Dictionary:
 		"dash": scene.player.dash_active, "warning_overlap": overlap, "warnings": warnings, "boss_active": boss_active,
 		"shop_ready": continued_once, "player_screen": [player_screen.x, player_screen.y], "health": scene.player.health.current_health,
 		"player_alpha": scene.player.modulate.a, "cardinal": scene.player.chibi_cardinal_index(scene.player.gun_angle),
+		"overdrive": scene.player.overdrive_active, "player_modulate": [scene.player.modulate.r, scene.player.modulate.g, scene.player.modulate.b, scene.player.modulate.a],
 		"aim_screen": [scene.ui.aim_reticle.get_rect().get_center().x, scene.ui.aim_reticle.get_rect().get_center().y],
 		"reticle_visible": scene.ui.aim_reticle.visible}
 
 func _source_hashes() -> Dictionary:
 	var hashes := super._source_hashes()
+	# Bind the friendly procedural effects actually visible in the captured run.
+	for path in ["scripts/effects/FriendlyEffectPalette.gd", "scripts/effects/CombatVfx.gd", "scripts/components/ArcPulseVisual.gd", "scripts/components/LaserBeam.gd", "scripts/components/SpikeTrap.gd", "scripts/components/FlameTrail.gd", "scripts/components/Projectile.gd", "scripts/ui/DroneLockReticle.gd"]:
+		hashes[path] = FileAccess.get_sha256("res://" + path)
 	# The visible mouse marker must be bound to the actual captured version, too.
 	for path in ["scripts/ui/GameUI.gd", "scripts/ui/AimReticle.gd", "scripts/ui/BossHealthBar.gd", "themes/MintFarmTheme.tres", "scenes/ui/HUD.tscn", "scripts/effects/CameraEffects.gd", "scripts/systems/CombatView.gd", "scripts/systems/BossCameraFraming.gd", "scripts/ui/BossDirectionIndicator.gd"]:
 		hashes[path] = FileAccess.get_sha256("res://" + path)
@@ -200,6 +210,7 @@ func _finish() -> void:
 	else:
 		file.store_string(JSON.stringify({"run": config.run, "clips": clips, "missing": missing, "viewport": [1280, 720], "source_sha256": source_before,
 			"boss_view": boss_view_samples, "boss_view_truncated": boss_view_truncated,
+			"overdrive_draw_frames": overdrive_draw_frames, "overdrive_body_tint_conflicts": overdrive_body_tint_conflicts,
 			"adapter": RenderingServer.get_video_adapter_name(), "display": DisplayServer.get_name(), "scope": "natural rendered frame readbacks; Boss view rectangles are conservative texture AABBs, not opaque-pixel masks; not performance, paired before/after or human acceptance"}))
 		file.close()
 	valid = valid and not boss_view_truncated

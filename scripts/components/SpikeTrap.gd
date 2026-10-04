@@ -1,6 +1,8 @@
 extends Area2D
 class_name SpikeTrap
 
+const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
+
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const MAX_SPIKES_PER_TARGET := 3
 const ACTIVE_SPIKE_SOURCES_META: StringName = &"active_spike_damage_sources"
@@ -42,13 +44,13 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	var fade := clampf(lifetime / maxf(0.1, max_lifetime), 0.0, 1.0)
-	draw_circle(Vector2.ZERO, radius, Color(0.95, 0.18, 0.75, 0.08 * fade))
+	draw_circle(Vector2.ZERO, radius, Color(Palette.TEAL, 0.08 * fade))
 	for i in range(12):
 		var angle := float(i) * TAU / 12.0
 		var inner := Vector2.RIGHT.rotated(angle) * 8.0
 		var outer := Vector2.RIGHT.rotated(angle) * radius
-		draw_line(inner, outer, Color(1.0, 0.24, 0.82, 0.72 * fade), 3.0)
-		draw_circle(outer, 3.0, Color(0.2, 1.0, 0.95, 0.85 * fade))
+		draw_line(inner, outer, Color(Palette.TEAL, 0.72 * fade), 3.0)
+		draw_circle(outer, 3.0, Color(Palette.CREAM, 0.85 * fade))
 
 func _damage_enemies() -> void:
 	var resolved_damage := get_resolved_damage()

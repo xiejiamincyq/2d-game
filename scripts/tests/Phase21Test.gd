@@ -74,9 +74,8 @@ func _initialize() -> void:
 		player.drone_reticles.size() == 1
 		and player.drone_reticles[0].visible
 		and player.drone_reticles[0].global_position.is_equal_approx(lock_target.global_position)
-		and player.drone_reticles[0].RETICLE_COLOR.r > 0.9
-		and player.drone_reticles[0].RETICLE_COLOR.g < 0.4,
-		"small red lock reticle did not follow the selected target"
+		and player.drone_reticles[0].RETICLE_COLOR.is_equal_approx(Color("35b8ac")),
+		"small friendly teal lock reticle did not follow the selected target"
 	):
 		return
 

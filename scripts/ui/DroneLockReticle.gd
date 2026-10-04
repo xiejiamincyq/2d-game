@@ -1,8 +1,10 @@
 extends Node2D
 class_name DroneLockReticle
 
-const RETICLE_COLOR := Color("ff3b30")
-const INNER_COLOR := Color("ff9a3d")
+const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
+
+const RETICLE_COLOR := Palette.TEAL
+const INNER_COLOR := Palette.CREAM
 const RADIUS := 13.0
 
 func _ready() -> void:

@@ -1,6 +1,8 @@
 extends Node2D
 class_name CombatVfx
 
+const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
+
 const SPARK: StringName = &"spark"
 const DEBRIS: StringName = &"debris"
 const RING: StringName = &"ring"
@@ -14,10 +16,6 @@ const HIT_TEXTURE_NEIGHBORHOOD: float = 48.0
 const MAX_DEBRIS: int = 48
 const MAX_RINGS: int = 16
 const MAX_AFTERIMAGES: int = 24
-
-const CYAN := Color("33fff2")
-const MAGENTA := Color("f559bf")
-const ORANGE := Color("ff571f")
 
 var _sparks: Array[Dictionary] = []
 var _debris: Array[Dictionary] = []
@@ -131,21 +129,21 @@ func _draw() -> void:
 			center - direction * size * 0.55 - perpendicular * size * 0.28,
 			center - perpendicular * size * 0.52,
 		])
-		draw_colored_polygon(points, Color(CYAN, alpha))
-		draw_line(center - direction * size * 1.35, center + direction * size, Color(MAGENTA, alpha * 1.8), 1.5)
+		draw_colored_polygon(points, Color(Palette.TEAL, alpha))
+		draw_line(center - direction * size * 1.35, center + direction * size, Color(Palette.CREAM, alpha * 1.8), 1.5)
 	for record in _rings:
 		var ratio: float = _life_ratio(record)
 		var center: Vector2 = record["position"]
 		var radius: float = record["radius"]
 		var rotation: float = record.get("rotation", 0.0)
 		if bool(record.get("blast", false)):
-			draw_circle(center, radius * 0.72, Color(ORANGE, ratio * 0.10))
-			draw_arc(center, radius, rotation, rotation + PI * 0.82, 16, Color(ORANGE, ratio * 0.9), 3.0 + ratio * 2.0)
-			draw_arc(center, radius, rotation + PI, rotation + PI * 1.82, 16, Color(ORANGE, ratio * 0.9), 3.0 + ratio * 2.0)
-			draw_arc(center, radius * 0.68, rotation + PI * 0.35, rotation + PI * 1.65, 18, Color(MAGENTA, ratio * 0.75), 2.0)
+			draw_circle(center, radius * 0.72, Color(Palette.TEAL, ratio * 0.10))
+			draw_arc(center, radius, rotation, rotation + PI * 0.82, 16, Color(Palette.TEAL, ratio * 0.9), 3.0 + ratio * 2.0)
+			draw_arc(center, radius, rotation + PI, rotation + PI * 1.82, 16, Color(Palette.TEAL, ratio * 0.9), 3.0 + ratio * 2.0)
+			draw_arc(center, radius * 0.68, rotation + PI * 0.35, rotation + PI * 1.65, 18, Color(Palette.CREAM, ratio * 0.75), 2.0)
 		else:
-			draw_arc(center, radius, rotation, rotation + PI * 0.82, 14, Color(MAGENTA, ratio * 0.78), 2.0 + ratio * 2.0)
-			draw_arc(center, radius, rotation + PI, rotation + PI * 1.82, 14, Color(CYAN, ratio * 0.72), 2.0 + ratio)
+			draw_arc(center, radius, rotation, rotation + PI * 0.82, 14, Color(Palette.MINT, ratio * 0.78), 2.0 + ratio * 2.0)
+			draw_arc(center, radius, rotation + PI, rotation + PI * 1.82, 14, Color(Palette.TEAL, ratio * 0.72), 2.0 + ratio)
 	for record in _debris:
 		var debris_ratio: float = _life_ratio(record)
 		var debris_size: float = record["size"]
@@ -158,8 +156,8 @@ func _draw() -> void:
 			debris_center - debris_direction * debris_size,
 			debris_center - debris_side * debris_size * 0.55,
 		])
-		draw_colored_polygon(debris_points, Color(CYAN, debris_ratio * 0.82))
-		draw_circle(debris_center, debris_size * 0.24, Color(MAGENTA, debris_ratio * 0.9))
+		draw_colored_polygon(debris_points, Color(Palette.TEAL, debris_ratio * 0.82))
+		draw_circle(debris_center, debris_size * 0.24, Color(Palette.CREAM, debris_ratio * 0.9))
 	for record in _sparks:
 		var spark_ratio: float = _life_ratio(record)
 		var velocity: Vector2 = record["velocity"]

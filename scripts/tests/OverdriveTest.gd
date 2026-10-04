@@ -27,6 +27,10 @@ func _initialize() -> void:
 	killed_enemy.free()
 	if not _assert_true(scene.overdrive_active and scene.player.is_damage_immune(), "threshold kill did not enter invulnerable overdrive"):
 		return
+	if not _assert_true(scene.player.modulate.is_equal_approx(Color.WHITE), "overdrive recolors the whole chibi body and multiplies friendly energy by orange"):
+		TestSupport.stop_audio(scene.audio)
+		scene.free()
+		return
 	if not _assert_true(is_equal_approx(scene.player.get_effective_fire_rate(), scene.player.fire_rate * 2.0), "overdrive did not double fire rate"):
 		return
 	scene._transition_to(scene.RunState.WAVE_CLEAR)

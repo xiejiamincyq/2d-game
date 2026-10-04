@@ -4,6 +4,7 @@ const Recorder = preload("res://scripts/art/VerifyNaturalRunRendered.gd")
 const MainScript = preload("res://scripts/Main.gd")
 const BossScript = preload("res://scripts/actors/OverseerBoss.gd")
 const UIScript = preload("res://scripts/ui/GameUI.gd")
+const PlayerScript = preload("res://scripts/actors/Player.gd")
 class FixtureMain extends MainScript:
 	func _ready() -> void:
 		pass # No real snapshot store, audio or natural-run initialization.
@@ -68,7 +69,8 @@ func _check_recording_path() -> void:
 	scene = FixtureMain.new()
 	scene.set_process(false)
 	view.add_child(scene)
-	scene.player = Node2D.new()
+	scene.player = PlayerScript.new()
+	scene.player.set_physics_process(false)
 	scene.add_child(scene.player)
 	var camera := Camera2D.new()
 	camera.position = Vector2(200, -100)
@@ -150,6 +152,16 @@ func _check_recording_path() -> void:
 		return
 	if not _check(hashes.has("scripts/systems/CombatView.gd") and hashes.has("scripts/systems/BossCameraFraming.gd") and hashes.has("scripts/ui/BossDirectionIndicator.gd"), "view evidence omitted framing/navigation/cue dependencies"):
 		return
+	scene.player.overdrive_active = true
+	_capture()
+	if not _check(overdrive_draw_frames == 1 and overdrive_body_tint_conflicts == 0, "post-draw recorder did not observe the actual player's untinted overdrive"):
+		return
+	scene.player.modulate = Color("ff571f") # Explicitly invalid visual observation.
+	_capture()
+	if not _check(overdrive_draw_frames == 2 and overdrive_body_tint_conflicts == 1, "post-draw recorder accepted an orange-multiplied overdrive body"):
+		return
+	scene.player.overdrive_active = false
+	scene.player.modulate = Color.WHITE
 	boss_view_samples.resize(60000)
 	_capture()
 	if not _check(boss_view_samples.size() == 60000 and boss_view_truncated and not valid, "recording capacity limit remained a valid observation"):
