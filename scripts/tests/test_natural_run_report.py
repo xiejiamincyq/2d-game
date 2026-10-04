@@ -6,12 +6,14 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "art"))
 from check_natural_run_report import check_report, check_log, check_resume
 
+SAVE_PATHS = [base + suffix for base in ['user://five_minute_overdrive_run_v1.json',
+              'user://five_minute_overdrive_run_test_v1.json'] for suffix in ['', '.tmp', '.bak']]
 
 def fixture():
     return {"valid": True, "acceptance": "measurement_only", "terminal": "step_budget",
             "config": {"steps": 1, "clock": "realtime"}, "map_seed": 426363786,
-            "real_saves_before": {str(i): "absent" for i in range(6)},
-            "real_saves_after": {str(i): "absent" for i in range(6)},
+            "real_saves_before": {path: "absent" for path in SAVE_PATHS},
+            "real_saves_after": {path: "absent" for path in SAVE_PATHS},
             "orphan_before": 1, "orphan_after": 0, "result": {}, "restart_verified": False,
             "events": [], "samples": [{"step": 1, "frame": 101, "delta": 1 / 60,
                 "wall": 2.1, "simulation": 1 / 60, "aim_dot": 1.0,
@@ -19,6 +21,85 @@ def fixture():
 
 
 class NaturalRunReportTest(unittest.TestCase):
+    def test_six_save_records_must_cover_the_actual_known_paths(self):
+        report = fixture()
+        self.assertEqual([], check_report(report))
+        wrong = dict(report['real_saves_before'])
+        wrong['user://unrelated.json'] = wrong.pop(SAVE_PATHS[0])
+        report.update(real_saves_before=wrong, real_saves_after=wrong)
+        self.assertTrue(check_report(report))
+
+    def test_requested_third_wave_checkpoint_cannot_be_first_wave(self):
+        # Synthetic unit data, not runtime evidence or a production save.
+        report = fixture()
+        report['config'].update(mode='checkpoint', checkpoint_wave=3, movement='dash')
+        report.update(terminal='checkpoint', final={'state':'SETTLEMENT','wave':3,
+                      'snapshot':{'boundary':'settlement','pending_stage':4,'settlement':{'wave':3}}})
+        report['samples'] = [dict(report['samples'][0], step=i, frame=100+i, wall=2+i/60,
+                                 simulation=i/60, wave=i, dash_requested=False) for i in (1,2,3)]
+        report['events'] = [{'event':'state','state':'WAVE_CLEAR','wave':i} for i in (1,2,3)]
+        self.assertEqual([], check_report(report))
+        for field,value in [('wave',1),('snapshot',{'boundary':'settlement','pending_stage':2,'settlement':{'wave':1}})]:
+            bad = copy.deepcopy(report)
+            bad['final'][field] = value
+            self.assertTrue(check_report(bad), field)
+        bad = copy.deepcopy(report)
+        bad['samples'][1]['wave'] = 1
+        self.assertTrue(check_report(bad))
+
+    def test_walk_cannot_request_dash_or_omit_request_record(self):
+        report = fixture()
+        report['config']['movement'] = 'walk'
+        report['samples'][0]['dash_requested'] = False
+        self.assertEqual([], check_report(report))
+        for value in [True, 0, None]:
+            report['samples'][0]['dash_requested'] = value
+            self.assertTrue(check_report(report), value)
+
+    def test_copy_resume_has_own_destination_and_unchanged_source(self):
+        checkpoint = {'terminal':'checkpoint','valid':True,'process_id':100,'source_sha256':{'x':'a'},
+                      'isolated_save_sha256':'b'*64,
+                      'config':{'run':'saved','save_path':'user://natural-run/saved/run.json'},
+                      'final':{'snapshot':{'player':{'health':100},'settlement':{'wave':3},
+                               'pending_stage':4,'map_seed':426363786,'kills':177,'coins':54,
+                               'family_levels':{'drone':2},'upgrade_counts':{'drone':2},'evolution':''}}}
+        resumed = {'process_id':200,'source_sha256':{'x':'a'},
+                   'samples':[{'wave':4,'state':'PLAYING'}],
+                   'config':{'run':'trial','resume':'saved','resume_strategy':'copy',
+                             'save_path':'user://natural-run/trial/run.json'},
+                   'resume_reference':{'verified':True,'report_sha256':'raw_hash',
+                      'snapshot_before':checkpoint['final']['snapshot'],
+                      'restored':{key:checkpoint['final']['snapshot'][key] for key in ['player','settlement']},
+                      'restored_run':{'wave':3,'waiting_for_advance':True,'map_seed':426363786,'kills':177,'coins':54},
+                      'restored_growth':{key:checkpoint['final']['snapshot'][key] for key in
+                                         ['coins','family_levels','upgrade_counts','evolution','settlement']},
+                      'source_save_path':checkpoint['config']['save_path'],
+                      'source_save_sha256':'b'*64,'copied_save_sha256':'b'*64,'source_save_sha256_after':'b'*64}}
+        self.assertEqual([], check_resume(checkpoint,resumed,'raw_hash'))
+        for field,value in [('source_save_sha256_after','changed'),('copied_save_sha256','changed'),('source_save_path','user://real.json')]:
+            bad = copy.deepcopy(resumed)
+            bad['resume_reference'][field] = value
+            self.assertTrue(check_resume(checkpoint,bad,'raw_hash'), field)
+        bad = copy.deepcopy(resumed)
+        bad['config']['save_path'] = checkpoint['config']['save_path']
+        self.assertTrue(check_resume(checkpoint,bad,'raw_hash'))
+
+        for field,value in [('wave',1),('map_seed',7),('kills',0),('coins',0),('waiting_for_advance',False)]:
+            bad = copy.deepcopy(resumed)
+            bad['resume_reference']['restored_run'][field] = value
+            self.assertTrue(check_resume(checkpoint,bad,'raw_hash'), field)
+        bad = copy.deepcopy(resumed)
+        bad['resume_reference'].pop('restored_run')
+        self.assertTrue(check_resume(checkpoint,bad,'raw_hash'))
+        for samples in [[], [{'wave':3,'state':'PLAYING'}], [{'wave':4,'state':'SETTLEMENT'}]]:
+            bad = copy.deepcopy(resumed)
+            bad['samples'] = samples
+            self.assertTrue(check_resume(checkpoint,bad,'raw_hash'), samples)
+        for field,value in [('family_levels',{}),('upgrade_counts',{}),('evolution','arc'),('coins',0)]:
+            bad = copy.deepcopy(resumed)
+            bad['resume_reference']['restored_growth'][field] = value
+            self.assertTrue(check_resume(checkpoint,bad,'raw_hash'), field)
+
     def test_checkpoint_is_a_saved_natural_boundary_not_victory(self):
         report = fixture()
         report.update(terminal="checkpoint", final={"state": "SETTLEMENT", "snapshot": {"boundary": "settlement", "pending_stage": 2}})

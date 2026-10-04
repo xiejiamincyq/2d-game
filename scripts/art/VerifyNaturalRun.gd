@@ -12,7 +12,7 @@ class Tap extends Node:
 	func _physics_process(delta: float) -> void:
 		callback.call(delta)
 
-var config := {"seed": 20260908, "steps": 1800, "run": "", "clock": "unknown", "mode": "flow", "resume": ""}
+var config := {"seed": 20260908, "steps": 1800, "run": "", "clock": "unknown", "mode": "flow", "resume": "", "checkpoint_wave": 1, "movement": "dash", "resume_strategy": "consume"}
 var policy := Policy.new()
 var samples: Array[Dictionary] = []
 var scene: Node
@@ -51,15 +51,24 @@ func _initialize() -> void:
 		if parts.size() != 2 or not config.has(parts[0]):
 			quit(2)
 			return
-		config[parts[0]] = parts[1].to_int() if parts[0] in ["seed", "steps"] else parts[1]
+		if parts[0] == "checkpoint_wave" and not parts[1].is_valid_int():
+			quit(2)
+			return
+		config[parts[0]] = parts[1].to_int() if parts[0] in ["seed", "steps", "checkpoint_wave"] else parts[1]
 	var safe_id := RegEx.create_from_string("^[A-Za-z0-9_-]{1,80}$")
 	if config.seed not in [20260908, 20260909, 20260910] or config.steps < 1 or config.steps > 36000 or config.clock not in ["realtime", "fixed", "unknown"] or safe_id.search(config.run) == null or config.mode not in ["flow", "checkpoint", "idle"] or (not config.resume.is_empty() and (safe_id.search(config.resume) == null or config.mode != "flow")):
 		push_error("Invalid natural run arguments")
 		quit(2)
 		return
-	config["save_path"] = "user://natural-run/%s/run.json" % (config.run if config.resume.is_empty() else config.resume)
+	if config.checkpoint_wave < 1 or config.checkpoint_wave > 5 or config.movement not in ["walk", "dash"] or config.resume_strategy not in ["consume", "copy"] or (config.resume_strategy == "copy" and config.resume.is_empty()):
+		push_error("Invalid checkpoint wave, movement mode or resume strategy")
+		quit(2)
+		return
+	var resume_source_path: String = "user://natural-run/%s/run.json" % config.resume
+	var copies_resume: bool = not config.resume.is_empty() and config.resume_strategy == "copy"
+	config["save_path"] = "user://natural-run/%s/run.json" % config.run if config.resume.is_empty() or copies_resume else resume_source_path
 	policy = Policy.new(int(config.seed))
-	if FileAccess.file_exists(OUTPUT + config.run + ".json") or (config.resume.is_empty() and FileAccess.file_exists(config.save_path)) or FileAccess.file_exists(config.save_path + ".tmp") or FileAccess.file_exists(config.save_path + ".bak"):
+	if FileAccess.file_exists(OUTPUT + config.run + ".json") or ((config.resume.is_empty() or copies_resume) and FileAccess.file_exists(config.save_path)) or FileAccess.file_exists(config.save_path + ".tmp") or FileAccess.file_exists(config.save_path + ".bak"):
 		push_error("Natural run refuses existing evidence/save path")
 		quit(2)
 		return
@@ -72,13 +81,25 @@ func _initialize() -> void:
 	orphan_before = int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))
 	if not config.resume.is_empty():
 		var checkpoint_path: String = OUTPUT + config.resume + ".json"
+		if FileAccess.file_exists(resume_source_path + ".tmp") or FileAccess.file_exists(resume_source_path + ".bak"):
+			push_error("Resume refuses an unfinished checkpoint save transaction")
+			quit(2)
+			return
 		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(checkpoint_path)) if FileAccess.file_exists(checkpoint_path) else null
-		if not parsed is Dictionary or parsed.get("terminal") != "checkpoint" or parsed.get("valid") != true or parsed.get("source_sha256") != source_before or int(parsed.get("process_id", 0)) == OS.get_process_id() or int(parsed.get("config", {}).get("seed", 0)) != config.seed or not FileAccess.file_exists(config.save_path) or FileAccess.get_sha256(config.save_path) != parsed.get("isolated_save_sha256"):
+		if not parsed is Dictionary or parsed.get("terminal") != "checkpoint" or parsed.get("valid") != true or parsed.get("source_sha256") != source_before or int(parsed.get("process_id", 0)) <= 0 or int(parsed.process_id) == OS.get_process_id() or int(parsed.get("config", {}).get("seed", 0)) != config.seed or parsed.get("config", {}).get("save_path") != resume_source_path or not FileAccess.file_exists(resume_source_path) or FileAccess.get_sha256(resume_source_path) != parsed.get("isolated_save_sha256"):
 			push_error("Resume requires same-source checkpoint from a different process and its unchanged isolated save")
 			quit(2)
 			return
 		expected_checkpoint = parsed
 		resume_reference = {"report_sha256": FileAccess.get_sha256(checkpoint_path), "snapshot_before": parsed.final.snapshot, "checkpoint_process_id": parsed.process_id, "verified": false}
+		if copies_resume:
+			# Copy only authenticated diagnostic state, never the real user's store.
+			var copied := DirAccess.copy_absolute(ProjectSettings.globalize_path(resume_source_path), ProjectSettings.globalize_path(config.save_path))
+			if copied != OK or FileAccess.get_sha256(config.save_path) != parsed.isolated_save_sha256:
+				push_error("Could not create a byte-identical isolated checkpoint copy")
+				quit(2)
+				return
+			resume_reference.merge({"source_save_path": resume_source_path, "source_save_sha256": parsed.isolated_save_sha256, "copied_save_sha256": FileAccess.get_sha256(config.save_path)})
 	set_meta("natural_run_config", config)
 	Engine.time_scale = 1.0
 	Engine.physics_ticks_per_second = 60
@@ -94,10 +115,17 @@ func _initialize() -> void:
 	_key(KEY_ENTER if config.resume.is_empty() else KEY_C)
 	if not config.resume.is_empty():
 		var saved: Dictionary = expected_checkpoint.final.snapshot
-		var restored := {"player": scene.player.get_snapshot_state(), "settlement": scene.upgrade_system.get_snapshot_state().settlement}
-		var preserved: bool = scene.run_state == scene.RunState.SETTLEMENT and scene.map_seed == int(saved.map_seed) and scene.kill_count == int(saved.kills) and scene.upgrade_system.coins == int(saved.coins) and persisted_state_matches(restored.player, saved.player) and persisted_state_matches(restored.settlement, saved.settlement)
+		var restored_growth: Dictionary = scene.upgrade_system.get_snapshot_state()
+		var restored := {"player": scene.player.get_snapshot_state(), "settlement": restored_growth.settlement}
+		var restored_run := {"map_seed": scene.map_seed, "kills": scene.kill_count, "coins": scene.upgrade_system.coins, "wave": scene.wave_director.wave_index + 1, "waiting_for_advance": scene.wave_director.waiting_for_advance}
+		var preserved: bool = scene.run_state == scene.RunState.SETTLEMENT and scene.map_seed == int(saved.map_seed) and scene.kill_count == int(saved.kills) and scene.upgrade_system.coins == int(saved.coins) and restored_run.wave == int(saved.pending_stage) - 1 and restored_run.waiting_for_advance and persisted_state_matches(restored.player, saved.player) and persisted_state_matches(restored.settlement, saved.settlement)
+		if copies_resume:
+			var saved_growth := {}
+			for field in ["coins", "family_levels", "upgrade_counts", "evolution", "settlement"]:
+				saved_growth[field] = saved[field]
+			preserved = preserved and persisted_state_matches(restored_growth, saved_growth)
 		valid = valid and preserved
-		resume_reference.merge({"verified": preserved, "restored": restored}, true)
+		resume_reference.merge({"verified": preserved, "restored": restored, "restored_run": restored_run, "restored_growth": restored_growth}, true)
 		continued_once = true
 		events.append({"event": "process_continue_c", "verified": preserved, "checkpoint_process_id": expected_checkpoint.process_id, "current_process_id": OS.get_process_id()})
 	initial_map_seed = scene.map_seed
@@ -164,7 +192,7 @@ func _before(_delta: float) -> void:
 	mouse.position = view.canvas_transform * aim_world
 	view.push_input(mouse, true)
 	Input.action_press("fire")
-	if scene.player.dash_cooldown_remaining <= 0 and nearest_distance < 160.0 * 160.0 and input_direction != Vector2.ZERO:
+	if config.movement == "dash" and scene.player.dash_cooldown_remaining <= 0 and nearest_distance < 160.0 * 160.0 and input_direction != Vector2.ZERO:
 		Input.action_press("dash_melee")
 	pending_frame = Engine.get_physics_frames()
 
@@ -188,6 +216,7 @@ func _after(delta: float) -> void:
 		"position": [scene.player.global_position.x, scene.player.global_position.y], "health": scene.player.health.current_health,
 		"pilot_escape_events": policy.escape_events, "pilot_escape_remaining": policy.escape_remaining, "pilot_random_heading_changes": policy.random_heading_changes,
 		"shield": scene.player.shield, "kills": scene.kill_count, "wave": scene.wave_director.wave_index + 1,
+		"dash_requested": Input.is_action_pressed("dash_melee"), "dash_active": scene.player.dash_active,
 		"state": scene.RunState.keys()[scene.run_state], "live": scene.wave_director.active_enemies.size(),
 		"pending": scene.wave_director.spawn_queue.size() + _portal_pending(), "coins": scene.upgrade_system.coins})
 	if samples.size() >= int(config.steps) and terminal.is_empty():
@@ -241,7 +270,7 @@ func _flow_ui() -> void:
 		valid = valid and result.snapshot_cleared
 		_reload(true)
 	elif state == "SETTLEMENT":
-		if config.mode == "checkpoint":
+		if config.mode == "checkpoint" and scene.wave_director.wave_index + 1 >= config.checkpoint_wave:
 			valid = valid and scene.snapshot_store.has_valid_snapshot()
 			terminal = "checkpoint"
 			return # Exit process while the production stable boundary remains on disk.
@@ -310,12 +339,15 @@ func _save_hashes() -> Dictionary:
 
 func _source_hashes() -> Dictionary:
 	var hashes := {}
-	for path in ["scripts/art/VerifyNaturalRun.gd", "scripts/art/NaturalRunMain.gd", "scripts/art/NaturalRunPolicy.gd", "scripts/art/NaturalRunDiagnostic.tscn", "scripts/Main.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/actors/OverseerBoss.gd", "scripts/systems/WaveDirector.gd", "scripts/systems/UpgradeSystem.gd", "scripts/systems/RunSnapshotStore.gd", "scripts/systems/CombatFeedback.gd", "scripts/world/ArenaLayout.gd"]:
+	for path in ["scripts/art/VerifyNaturalRun.gd", "scripts/art/check_natural_run_report.py", "scripts/art/NaturalRunMain.gd", "scripts/art/NaturalRunPolicy.gd", "scripts/art/NaturalRunDiagnostic.tscn", "scripts/Main.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/actors/OverseerBoss.gd", "scripts/systems/WaveDirector.gd", "scripts/systems/UpgradeSystem.gd", "scripts/systems/RunSnapshotStore.gd", "scripts/systems/CombatFeedback.gd", "scripts/world/ArenaLayout.gd"]:
 		hashes[path] = FileAccess.get_sha256("res://" + path)
 	return hashes
 
 func _finish() -> void:
 	_release_input()
+	if config.resume_strategy == "copy":
+		resume_reference["source_save_sha256_after"] = FileAccess.get_sha256(resume_reference.source_save_path)
+		valid = valid and resume_reference.source_save_sha256_after == resume_reference.source_save_sha256
 	paused = true
 	scene.set_process(false)
 	var final_state := {"state": scene.RunState.keys()[scene.run_state], "snapshot": scene.snapshot_store.load_snapshot()}
