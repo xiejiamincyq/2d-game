@@ -1,7 +1,7 @@
 extends SceneTree
 
 const LobScript = preload("res://scripts/components/LobbedProjectile.gd")
-const OutlineScript = preload("res://scripts/art/PlayerOcclusionOutline.gd")
+const OutlineScript = preload("res://scripts/effects/PlayerOcclusionOutline.gd")
 const FLOOR_Z := -100
 const ACTOR_BODY_Z := 0
 var assertions := 0

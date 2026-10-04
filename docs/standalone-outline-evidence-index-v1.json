@@ -1,0 +1,302 @@
+{
+  "archive": "standalone-outline-evidence-v1.zip",
+  "sha256": "85dc728bd1f4406ee623d13e677f558a2953ee56a66c853d5dee52ce8b044db6",
+  "bytes": 2123605,
+  "members": [
+    {
+      "member": "prepare_baseline.py",
+      "original_path": "build/diagnostics/local-delivery/prepare_baseline.py",
+      "bytes": 1645,
+      "sha256": "a1ae0b6ad98f2fd2acfc6dc4b9c71097e30cd9b8d013de9e62bedf3d277b864b"
+    },
+    {
+      "member": "boot_baseline.py",
+      "original_path": "build/diagnostics/local-delivery/boot_baseline.py",
+      "bytes": 2362,
+      "sha256": "7059cad0df055d9dba37069b13a63ad4f08a36384ae143a72c06ac2c83c2a0dc"
+    },
+    {
+      "member": "run_native.py",
+      "original_path": "build/diagnostics/local-delivery/run_native.py",
+      "bytes": 3693,
+      "sha256": "5c4e16da17637812b549b689221899b83d08b93b2e7649158ecc47d125c28e09"
+    },
+    {
+      "member": "run_exe_title.py",
+      "original_path": "build/diagnostics/local-delivery/run_exe_title.py",
+      "bytes": 2977,
+      "sha256": "ba001ea65079d73cebb1187309b6af71f0d3e4232248f68c94a3a6376e78158b"
+    },
+    {
+      "member": "standalone_native_probe.gd",
+      "original_path": "build/diagnostics/local-delivery/standalone_native_probe.gd",
+      "bytes": 4959,
+      "sha256": "8c551e8b54012a41192e700c121f784b6be2f3c7bbce27bfb505f9f7445f849e"
+    },
+    {
+      "member": "guard_user_files.py",
+      "original_path": "build/diagnostics/local-delivery/guard_user_files.py",
+      "bytes": 1748,
+      "sha256": "c8c40e70f5f1e91b182ff6605200c674658e5bf723e18b000b2712fc80315202"
+    },
+    {
+      "member": "package_evidence.py",
+      "original_path": "build/diagnostics/local-delivery/package_evidence.py",
+      "bytes": 3810,
+      "sha256": "a2e06c050c9ce47dd099d94239a35b5ad3ce025b2357222752e065b5a194cfd6"
+    },
+    {
+      "member": "export-preload-red-v1.log",
+      "original_path": "build/diagnostics/local-delivery/export-preload-red-v1.log",
+      "bytes": 1146,
+      "sha256": "84e57ea9e30f9d0db76b696050b51a572766ba80f6995e0da0f8d11dcc62da8e"
+    },
+    {
+      "member": "export-preload-green-v1.log",
+      "original_path": "build/diagnostics/local-delivery/export-preload-green-v1.log",
+      "bytes": 108,
+      "sha256": "549ec3352f033ceb482b5282903236acd9651c659f82a3b543ddaf9a34eddca8"
+    },
+    {
+      "member": "full-gate-v1.log",
+      "original_path": "build/diagnostics/local-delivery/full-gate-v1.log",
+      "bytes": 4650,
+      "sha256": "a1b03b7ac5bb6696943bbe31ddd905a3280a77ff5f3222920502d97d2c4c0a6a"
+    },
+    {
+      "member": "user-files-before-v1.json",
+      "original_path": "build/diagnostics/local-delivery/user-files-before-v1.json",
+      "bytes": 2666,
+      "sha256": "f05115917938101c9f19bc17039248cc92dd7fb577be7e1f0a9b06111508babc"
+    },
+    {
+      "member": "export-baseline-v1/input-manifest.json",
+      "original_path": "build/diagnostics/local-delivery/export-baseline-v1/input-manifest.json",
+      "bytes": 157014,
+      "sha256": "3232ab70e3aae4c15b2e9131a4c51104c439e714fcb91f25a50fc7f87a163600"
+    },
+    {
+      "member": "export-baseline-v1/export.log",
+      "original_path": "build/diagnostics/local-delivery/export-baseline-v1/export.log",
+      "bytes": 22736,
+      "sha256": "ae07a649cf79cae93ab4c87c946f8a06351347af62e2aaa00d169c4672e8cd48"
+    },
+    {
+      "member": "export-baseline-v1/standalone-boot.json",
+      "original_path": "build/diagnostics/local-delivery/export-baseline-v1/standalone-boot.json",
+      "bytes": 2201,
+      "sha256": "82be38430e93edcf954ae3b051426ea97a78a8905f643ec087e4b2920b25418a"
+    },
+    {
+      "member": "export-baseline-v1/standalone-boot.log",
+      "original_path": "build/diagnostics/local-delivery/export-baseline-v1/standalone-boot.log",
+      "bytes": 538,
+      "sha256": "a39b8bff6420b50d85731f785eb8ab79d2bd97cd36b138d863b019bd12934dd9"
+    },
+    {
+      "member": "export-baseline-v1/standalone-console.log",
+      "original_path": "build/diagnostics/local-delivery/export-baseline-v1/standalone-console.log",
+      "bytes": 546,
+      "sha256": "22727d9125da511246c9b8982b773b6c421f826bbe2064629db989c7671d7b91"
+    },
+    {
+      "member": "export-fixed-v1/input-manifest.json",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/input-manifest.json",
+      "bytes": 157022,
+      "sha256": "f288cf167329bb872a35a0aef2a7df43f177570b5708fe74eaded9d59988d048"
+    },
+    {
+      "member": "export-fixed-v1/export.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/export.log",
+      "bytes": 985,
+      "sha256": "220e97cfc9c0241e04151fad5605f93e986c28567fa2360141dc2e670c74f501"
+    },
+    {
+      "member": "export-fixed-v1/export-success.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/export-success.log",
+      "bytes": 22969,
+      "sha256": "f94304f8ae5fe8ed01c9bb44e6d12037eee63df5db35ed808eac7caa59fe724e"
+    },
+    {
+      "member": "export-fixed-v1/standalone-boot.json",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/standalone-boot.json",
+      "bytes": 1854,
+      "sha256": "6d58f897092dc9936a5247a83e311b67fe30edb84647cb1a53147193c1969d16"
+    },
+    {
+      "member": "export-fixed-v1/standalone-boot.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/standalone-boot.log",
+      "bytes": 71,
+      "sha256": "037dd8b42ca7058b62b5555724cff76b748c651cb2252ee73dac52a938d0ecd2"
+    },
+    {
+      "member": "export-fixed-v1/standalone-console.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/standalone-console.log",
+      "bytes": 73,
+      "sha256": "bb3bcf7181e550fe37f9235c4aecf24a81b757eddfeff554d88e7974feb2ed1d"
+    },
+    {
+      "member": "export-fixed-v1/native-v1/console.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/native-v1/console.log",
+      "bytes": 163,
+      "sha256": "b85e60e93a24de6d4c1ae89c85a9021c8bf797bbaf9f79fc82361da89c94d284"
+    },
+    {
+      "member": "export-fixed-v1/native-v1/engine.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/native-v1/engine.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "export-fixed-v1/native-v2/console.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/native-v2/console.log",
+      "bytes": 163,
+      "sha256": "b85e60e93a24de6d4c1ae89c85a9021c8bf797bbaf9f79fc82361da89c94d284"
+    },
+    {
+      "member": "export-fixed-v1/native-v2/engine.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/native-v2/engine.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "export-fixed-v1/native-v2/launcher.json",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/native-v2/launcher.json",
+      "bytes": 2817,
+      "sha256": "645c0121af7595aece014af2aa0be28c7fb3facc17c65f664284496d630bc588"
+    },
+    {
+      "member": "export-fixed-v1/packed-native-v3/console.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/packed-native-v3/console.log",
+      "bytes": 197,
+      "sha256": "3108cb71d7fae27648b9e09d6cd4a6f5f53a5b623788a7f36fd5a1c56a85ed16"
+    },
+    {
+      "member": "export-fixed-v1/packed-native-v3/engine.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/packed-native-v3/engine.log",
+      "bytes": 193,
+      "sha256": "c7faa9a3b69fd1f83418cb971be24d71daa2d57c24fafb74f52d7dde56e10339"
+    },
+    {
+      "member": "export-fixed-v1/packed-native-v3/launcher.json",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/packed-native-v3/launcher.json",
+      "bytes": 3136,
+      "sha256": "01dc77ae10dc24d2bd19e6f78f8801ff279f67dcee3cab674449ec150c624433"
+    },
+    {
+      "member": "export-fixed-v1/packed-native-v3/native-report.json",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/packed-native-v3/native-report.json",
+      "bytes": 110651,
+      "sha256": "ba188a9a9cd8ecf723ab25adc0337968f3311e6f6124137e24d361049bfdecb7"
+    },
+    {
+      "member": "export-fixed-v1/packed-native-v3/title.png",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/packed-native-v3/title.png",
+      "bytes": 89474,
+      "sha256": "6bf99ca7dbcf889d9b7293f13e8a3e2cff89a0b8b39c40c8e91df29bf4b10423"
+    },
+    {
+      "member": "export-fixed-v1/packed-native-v3/gameplay-02.png",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/packed-native-v3/gameplay-02.png",
+      "bytes": 471960,
+      "sha256": "3306c2fde183919a498b25ff90e765a0a745cab1acb3a131b8ce2ad1f08c7286"
+    },
+    {
+      "member": "export-fixed-v1/packed-native-v3/gameplay-05.png",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/packed-native-v3/gameplay-05.png",
+      "bytes": 589498,
+      "sha256": "2528d8b920ffb32ab40a0a8d56c297b41b0e9ddce34d03506df1a7d3213584c7"
+    },
+    {
+      "member": "export-fixed-v1/packed-native-v3/gameplay-09.png",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/packed-native-v3/gameplay-09.png",
+      "bytes": 542136,
+      "sha256": "7bd5b824a475d88d88932e68eef6ecbd75d8dffcdadb51bdece9803e1756b668"
+    },
+    {
+      "member": "export-fixed-v1/exe-native-title-v1/console.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/exe-native-title-v1/console.log",
+      "bytes": 826,
+      "sha256": "a58925cdbe1b07e0f1f03c118579f13b57781eeccc524639fbc4151bb7478e8d"
+    },
+    {
+      "member": "export-fixed-v1/exe-native-title-v1/engine.log",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/exe-native-title-v1/engine.log",
+      "bytes": 227,
+      "sha256": "30f017e3f1e69acbfd443030ea81fc7b84b134ff2eedadd05785b03b13b0e5d9"
+    },
+    {
+      "member": "export-fixed-v1/exe-native-title-v1/launcher.json",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/exe-native-title-v1/launcher.json",
+      "bytes": 3427,
+      "sha256": "bd05b3edeabf866058d77e27ccdd8a6c4273757bd4760909f23e4147765e8a9e"
+    },
+    {
+      "member": "export-fixed-v1/exe-native-title-v1/title00000000.png",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/exe-native-title-v1/title00000000.png",
+      "bytes": 89474,
+      "sha256": "6bf99ca7dbcf889d9b7293f13e8a3e2cff89a0b8b39c40c8e91df29bf4b10423"
+    },
+    {
+      "member": "export-fixed-v1/exe-native-title-v1/title00000001.png",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/exe-native-title-v1/title00000001.png",
+      "bytes": 89474,
+      "sha256": "6bf99ca7dbcf889d9b7293f13e8a3e2cff89a0b8b39c40c8e91df29bf4b10423"
+    },
+    {
+      "member": "export-fixed-v1/exe-native-title-v1/title00000002.png",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/exe-native-title-v1/title00000002.png",
+      "bytes": 89474,
+      "sha256": "6bf99ca7dbcf889d9b7293f13e8a3e2cff89a0b8b39c40c8e91df29bf4b10423"
+    },
+    {
+      "member": "export-fixed-v1/source/project.godot",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/source/project.godot",
+      "bytes": 2940,
+      "sha256": "3e71b6a5f46727e2e9d09f3094639a42fe942a07b8029a2e1a19c83c8e4d6606"
+    },
+    {
+      "member": "export-fixed-v1/source/export_presets.cfg",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/source/export_presets.cfg",
+      "bytes": 1149,
+      "sha256": "55d9a7b1d6833b09423fb105fc92614b24c6e517aec16e324169b5d69ae5cd58"
+    },
+    {
+      "member": "export-fixed-v1/source/scenes/Main.tscn",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/source/scenes/Main.tscn",
+      "bytes": 175,
+      "sha256": "7d9e12effe1ee1a646b2a4985c3ce294db7b4eae6427e98692f624cbe2751ff5"
+    },
+    {
+      "member": "export-fixed-v1/source/scripts/Main.gd",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/source/scripts/Main.gd",
+      "bytes": 26062,
+      "sha256": "53187573a5311df9691e8fd97f9a05d1ed8e2a8c51e1c9046c6bbf87c94f4333"
+    },
+    {
+      "member": "export-fixed-v1/source/scripts/effects/PlayerOcclusionOutline.gd",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/source/scripts/effects/PlayerOcclusionOutline.gd",
+      "bytes": 2844,
+      "sha256": "f0248bd50298add394b2e5d72928687e296ad9ca39e6504cb9c75612e73c2bf9"
+    },
+    {
+      "member": "export-fixed-v1/source/scripts/effects/PlayerOcclusionOutline.gd.uid",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/source/scripts/effects/PlayerOcclusionOutline.gd.uid",
+      "bytes": 20,
+      "sha256": "4228748484d3e92f0fac668a95c1018354c66be7edefbe8250665f37d75e3f91"
+    },
+    {
+      "member": "export-fixed-v1/source/assets/art/shaders/player_occlusion_outline.gdshader",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/source/assets/art/shaders/player_occlusion_outline.gdshader",
+      "bytes": 949,
+      "sha256": "aa4ac1a2fe5a54fec6afcd38637b65c962f17b5878237398c6bfb040f75937a6"
+    },
+    {
+      "member": "export-fixed-v1/source/scripts/art/NaturalRunPolicy.gd",
+      "original_path": "build/diagnostics/local-delivery/export-fixed-v1/source/scripts/art/NaturalRunPolicy.gd",
+      "bytes": 2639,
+      "sha256": "75d7ccf15e5b35355324945301afb4b8a5a57f5805a10e5d3cb14d07889b2259"
+    }
+  ],
+  "scope": "Selected evidence, not portable full source or playable binaries; full input copies and EXE/PCK remain local. Failed probes retained. Private real save contents omitted."
+}

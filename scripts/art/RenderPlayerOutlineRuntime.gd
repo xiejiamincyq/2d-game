@@ -2,7 +2,7 @@ extends SceneTree
 
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
-const OutlineScript = preload("res://scripts/art/PlayerOcclusionOutline.gd")
+const OutlineScript = preload("res://scripts/effects/PlayerOcclusionOutline.gd")
 const FloorScript = preload("res://scripts/world/FloorGrid.gd")
 const LobScript = preload("res://scripts/components/LobbedProjectile.gd")
 

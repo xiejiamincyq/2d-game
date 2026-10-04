@@ -4,11 +4,11 @@ const Player = preload("res://scripts/actors/Player.gd")
 const Arc = preload("res://scripts/components/ArcPulseVisual.gd")
 const Laser = preload("res://scripts/components/LaserBeam.gd")
 const Spike = preload("res://scripts/components/SpikeTrap.gd")
-const Outline = preload("res://scripts/art/PlayerOcclusionOutline.gd")
+const Outline = preload("res://scripts/effects/PlayerOcclusionOutline.gd")
 const Floor = preload("res://scripts/world/FloorGrid.gd")
 const Flame = preload("res://scripts/components/FlameTrail.gd")
 const Vfx = preload("res://scripts/effects/CombatVfx.gd")
-const SOURCES := ["scripts/art/VerifyFriendlyOcclusion.gd", "scripts/actors/Player.gd", "scripts/components/ArcPulseVisual.gd", "scripts/components/LaserBeam.gd", "scripts/components/SpikeTrap.gd", "scripts/effects/FriendlyEffectPalette.gd", "scripts/art/PlayerOcclusionOutline.gd", "scripts/world/FloorGrid.gd", "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png", "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png"]
+const SOURCES := ["scripts/art/VerifyFriendlyOcclusion.gd", "scripts/actors/Player.gd", "scripts/components/ArcPulseVisual.gd", "scripts/components/LaserBeam.gd", "scripts/components/SpikeTrap.gd", "scripts/effects/FriendlyEffectPalette.gd", "scripts/effects/PlayerOcclusionOutline.gd", "scripts/world/FloorGrid.gd", "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png", "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png"]
 
 func _initialize() -> void:
 	var run := OS.get_environment("FRIENDLY_LAYER_RUN_ID")

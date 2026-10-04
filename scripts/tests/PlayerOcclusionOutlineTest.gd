@@ -14,7 +14,7 @@ func check(condition: bool, message: String) -> bool:
 	return false
 
 func _initialize() -> void:
-	var path := "res://scripts/art/PlayerOcclusionOutline.gd"
+	var path := "res://scripts/effects/PlayerOcclusionOutline.gd"
 	if not check(FileAccess.file_exists(path), "runtime outline component missing"):
 		return
 	var fixture := Node2D.new()

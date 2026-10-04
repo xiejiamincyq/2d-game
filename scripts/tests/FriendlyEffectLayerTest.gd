@@ -6,7 +6,7 @@ const Spike = preload("res://scripts/components/SpikeTrap.gd")
 const Flame = preload("res://scripts/components/FlameTrail.gd")
 const Vfx = preload("res://scripts/effects/CombatVfx.gd")
 const Projectile = preload("res://scripts/components/Projectile.gd")
-const Outline = preload("res://scripts/art/PlayerOcclusionOutline.gd")
+const Outline = preload("res://scripts/effects/PlayerOcclusionOutline.gd")
 var assertions := 0
 var failures := 0
 

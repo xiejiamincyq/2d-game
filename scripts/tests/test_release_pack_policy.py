@@ -1,4 +1,6 @@
 from pathlib import Path
+import fnmatch
+import re
 import unittest
 
 
@@ -6,6 +8,20 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 class ReleasePackPolicyTest(unittest.TestCase):
+    def test_runtime_preloads_are_not_excluded_from_the_export(self) -> None:
+        preset = (PROJECT_ROOT / "export_presets.cfg").read_text(encoding="utf-8")
+        exclusions = re.search(r'^exclude_filter="([^"]*)"', preset, re.MULTILINE).group(1).split(",")
+        exclusions = [pattern.strip() for pattern in exclusions]
+        for source in (PROJECT_ROOT / "scripts").rglob("*.gd"):
+            relative = source.relative_to(PROJECT_ROOT).as_posix()
+            if any(fnmatch.fnmatchcase(relative, pattern) for pattern in exclusions):
+                continue
+            dependencies = re.findall(r'''preload\(\s*["']res://([^"']+)["']\s*\)''', source.read_text(encoding="utf-8"))
+            for dependency in dependencies:
+                with self.subTest(source=relative, dependency=dependency):
+                    self.assertFalse(any(fnmatch.fnmatchcase(dependency, pattern) for pattern in exclusions),
+                                     "runtime preload excluded from standalone package")
+
     def test_diagnostic_build_folder_is_not_imported_as_runtime_resources(self) -> None:
         marker = PROJECT_ROOT / "build" / ".gdignore"
         self.assertTrue(marker.is_file(), "diagnostic CSV tables must not be imported as translations")

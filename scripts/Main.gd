@@ -3,7 +3,7 @@ extends Node2D
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const LaserBeamScript = preload("res://scripts/components/LaserBeam.gd")
 const DroneLockReticleScript = preload("res://scripts/ui/DroneLockReticle.gd")
-const PlayerOutlineScript = preload("res://scripts/art/PlayerOcclusionOutline.gd")
+const PlayerOutlineScript = preload("res://scripts/effects/PlayerOcclusionOutline.gd")
 const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
 const UpgradeSystemScript = preload("res://scripts/systems/UpgradeSystem.gd")
 const RunSnapshotStoreScript = preload("res://scripts/systems/RunSnapshotStore.gd")
