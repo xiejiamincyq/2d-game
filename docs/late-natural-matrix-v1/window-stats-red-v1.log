@@ -1,0 +1,23 @@
+FF
+======================================================================
+FAIL: test_loss_uses_same_post_row_interval_as_path (__main__.WindowStatsTest.test_loss_uses_same_post_row_interval_as_path)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\21604\Documents\2D game\.worktrees\5���ӳ���\build\diagnostics\late-matrix\test_window_stats.py", line 12, in test_loss_uses_same_post_row_interval_as_path
+    self.assertEqual(5,result['health_loss'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 5 != 9
+
+======================================================================
+FAIL: test_window_streak_does_not_inherit_pre_window_count (__main__.WindowStatsTest.test_window_streak_does_not_inherit_pre_window_count)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\21604\Documents\2D game\.worktrees\5���ӳ���\build\diagnostics\late-matrix\test_window_stats.py", line 18, in test_window_streak_does_not_inherit_pre_window_count
+    self.assertEqual(1,result['max_low_streak'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 21
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=2)

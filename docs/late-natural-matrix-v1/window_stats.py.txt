@@ -1,0 +1,20 @@
+"""Offline native-observer interval arithmetic; no file/process operations."""
+import math
+
+def window_stats(window,peak):
+    streak,longest = 0,0
+    for observation in window:
+        streak = streak+1 if observation['low_progress'] else 0
+        longest = max(longest,streak)
+    result = {'steps':len(window),'span':window[-1]['wall']-window[0]['wall'],
+              'path':window[-1]['travelled']-window[0]['travelled'],
+              'net':math.dist(window[-1]['position'],window[0]['position']),
+              'low_steps':sum(o['low_progress'] for o in window),
+              'max_low_streak':longest,
+              'truncated':window[0]['wall']>peak['wall']-3+.02 or window[-1]['wall']<peak['wall']+3-.02,
+              'windup_steps':sum(any('windup' in b for b in o['bodies']) for o in window),
+              'warning_steps':sum(bool(o['warnings']) for o in window),
+              'max_warning_count':max(len(o['warnings']) for o in window)}
+    for kind in ('health','shield'):
+        result[kind+'_loss'] = window[-1][kind+'_loss']-window[0][kind+'_loss']
+    return result

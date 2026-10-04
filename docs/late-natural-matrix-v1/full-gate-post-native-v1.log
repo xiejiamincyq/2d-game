@@ -1,0 +1,98 @@
+RESOURCE IMPORT PASS
+TEST SUITE PASS: BalanceTest
+TEST SUITE PASS: EconomyBuildTest
+TEST SUITE PASS: CombatEventTest
+TEST SUITE PASS: CombatFeedbackTest
+TEST SUITE PASS: DamageTest
+TEST SUITE PASS: ProjectilePickupTest
+TEST SUITE PASS: RateTest
+TEST SUITE PASS: DashTest
+TEST SUITE PASS: StealthTerrainTest_30Hz
+TEST SUITE PASS: StealthTerrainTest_60Hz
+TEST SUITE PASS: StealthTerrainTest_120Hz
+TEST SUITE PASS: StealthRecoveryTest_30Hz
+TEST SUITE PASS: StealthRecoveryTest_60Hz
+TEST SUITE PASS: StealthRecoveryTest_120Hz
+TEST SUITE PASS: StealthRecoverySideEffectTest_30Hz
+TEST SUITE PASS: StealthRecoverySideEffectTest_60Hz
+TEST SUITE PASS: StealthRecoverySideEffectTest_120Hz
+TEST SUITE PASS: StealthRecoveryQueryTest_30Hz
+TEST SUITE PASS: StealthRecoveryQueryTest_60Hz
+TEST SUITE PASS: StealthRecoveryQueryTest_120Hz
+TEST SUITE PASS: StealthRecoveryAccountingTest_30Hz
+TEST SUITE PASS: StealthRecoveryAccountingTest_60Hz
+TEST SUITE PASS: StealthRecoveryAccountingTest_120Hz
+TEST SUITE PASS: MovementTest
+TEST SUITE PASS: ArenaMapTest
+TEST SUITE PASS: ArenaRuntimeTest
+TEST SUITE PASS: WaveTest
+TEST SUITE PASS: PortalTest
+TEST SUITE PASS: PortalRuntimeClockTest
+TEST SUITE PASS: Phase5CombatTest
+TEST SUITE PASS: BossTest
+TEST SUITE PASS: BossHealthBarTest
+TEST SUITE PASS: CombatStatusLayoutTest
+TEST SUITE PASS: BossCameraFramingTest
+TEST SUITE PASS: BossTentacleTest
+TEST SUITE PASS: BossPatternTest
+TEST SUITE PASS: BossDirectorTest
+TEST SUITE PASS: BossRuntimeClockTest
+TEST SUITE PASS: SnapshotTest
+TEST SUITE PASS: ContinueTest
+TEST SUITE PASS: OverdriveTest
+TEST SUITE PASS: Phase19Test
+TEST SUITE PASS: Phase20Test
+TEST SUITE PASS: Phase21Test
+TEST SUITE PASS: DroneVisualLifecycleTest
+TEST SUITE PASS: EnemyBehaviorTest
+TEST SUITE PASS: UpgradeTest
+TEST SUITE PASS: StateTest
+TEST SUITE PASS: GateFailureTest
+TEST SUITE PASS: UITest
+TEST SUITE PASS: SettlementUITest
+TEST SUITE PASS: PerformanceTest
+TEST SUITE PASS: SmokeTest
+TEST SUITE PASS: FriendlyEffectPaletteTest
+TEST SUITE PASS: NaturalRunPolicyTest
+TEST SUITE PASS: NaturalRunSnapshotCheckTest
+TEST SUITE PASS: NaturalRunRenderedTest
+TEST SUITE PASS: LateCrowdLedgerTest
+TEST SUITE PASS: BossReadabilityTest
+TEST SUITE PASS: EnemyDasherArtTest
+TEST SUITE PASS: EnemyStaticArtTest
+TEST SUITE PASS: ProjectileLandingVisualTest
+TEST SUITE PASS: ChibiRuntimeArtTest
+TEST SUITE PASS: PlayerOcclusionOutlineTest
+TEST SUITE PASS: test_acquire_hunyuan3d_2mv (python, 3 tests)
+TEST SUITE PASS: test_arena_runtime_report (python, 13 tests)
+TEST SUITE PASS: test_art_stress_performance_report (python, 1 tests)
+TEST SUITE PASS: test_build_dasher_runtime_lod_candidates (python, 1 tests)
+TEST SUITE PASS: test_build_player_action_preview (python, 4 tests)
+TEST SUITE PASS: test_build_player_action_slice (python, 3 tests)
+TEST SUITE PASS: test_build_player_cardinal_previews (python, 1 tests)
+TEST SUITE PASS: test_build_player_grip_pose_preview (python, 4 tests)
+TEST SUITE PASS: test_build_player_sample (python, 2 tests)
+TEST SUITE PASS: test_dasher_action_assets (python, 1 tests)
+TEST SUITE PASS: test_generate_player_turnaround_model_mv (python, 9 tests)
+TEST SUITE PASS: test_late_crowd_matrix (python, 14 tests)
+TEST SUITE PASS: test_late_crowd_report (python, 11 tests)
+TEST SUITE PASS: test_movement_repeatability_matrix (python, 23 tests)
+TEST SUITE PASS: test_movement_repeatability_report (python, 48 tests)
+TEST SUITE PASS: test_natural_render (python, 8 tests)
+TEST SUITE PASS: test_natural_run_report (python, 16 tests)
+TEST SUITE PASS: test_pack_environment_atlas (python, 2 tests)
+TEST SUITE PASS: test_prepare_chibi_assets (python, 6 tests)
+TEST SUITE PASS: test_prepare_static_enemy_sprite (python, 3 tests)
+TEST SUITE PASS: test_project_status_docs (python, 4 tests)
+TEST SUITE PASS: test_release_pack_policy (python, 4 tests)
+TEST SUITE PASS: test_remove_connected_light_background (python, 2 tests)
+TEST SUITE PASS: test_remove_player_modeling_backgrounds (python, 2 tests)
+TEST SUITE PASS: test_repack_animation_sheet (python, 4 tests)
+TEST SUITE PASS: test_split_player_modeling_sheet (python, 2 tests)
+TEST SUITE PASS: test_split_player_weapon_sheet (python, 3 tests)
+TEST SUITE PASS: test_uid_policy (python, 3 tests)
+TEST SUITE PASS: test_validate_asset_registry (python, 6 tests)
+TEST SUITE PASS: test_validate_manifest (python, 5 tests)
+TEST SUITE PASS: validate_art_pipeline_skill (python, 13 tests)
+
+TEST RUN PASS: 64 godot suites (169756 assertions), 31 python suites (221 tests)

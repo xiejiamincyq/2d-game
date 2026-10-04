@@ -1,0 +1,22 @@
+import unittest
+from window_stats import window_stats
+
+class WindowStatsTest(unittest.TestCase):
+    def rows(self):
+        return [dict(wall=i,frame=i,travelled=i*5,position=[i*5,0],low_progress=low,low_streak=streak,
+                     bodies=[],warnings=[],health_loss=loss,shield_loss=0) for i,low,streak,loss in
+                ((1,True,21,4),(2,False,0,4),(3,True,1,9))]
+
+    def test_loss_uses_same_post_row_interval_as_path(self):
+        result = window_stats(self.rows(),{'wall':2})
+        self.assertEqual(5,result['health_loss'])
+        self.assertEqual(10,result['path'])
+        self.assertEqual(10,result['net'])
+
+    def test_window_streak_does_not_inherit_pre_window_count(self):
+        result = window_stats(self.rows(),{'wall':2})
+        self.assertEqual(1,result['max_low_streak'])
+        self.assertEqual(2,result['low_steps'])
+
+if __name__=='__main__':
+    unittest.main()

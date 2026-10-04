@@ -1,0 +1,41 @@
+POST VERIFIED late-n01-prefix-20260908 {}
+POST VERIFIED late-n01-prefix-20260909 {}
+POST VERIFIED late-n01-prefix-20260910 {}
+POST VERIFIED late-n01-20260908-walk-1 {'steps': 360, 'span': 5.9913370000000015, 'path': 1436.5931135415995, 'net': 592.9702177342527, 'low_steps': 0, 'max_low_streak': 0, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260908-dash-1 {'steps': 360, 'span': 5.984865999999999, 'path': 1642.6697964370221, 'net': 152.26306608921485, 'low_steps': 25, 'max_low_streak': 13, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260908-walk-2 {'steps': 360, 'span': 5.984849, 'path': 1425.665509641172, 'net': 156.08717576615643, 'low_steps': 0, 'max_low_streak': 0, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260908-dash-2 {'steps': 360, 'span': 5.982927999999999, 'path': 1734.490894883866, 'net': 214.0519323325296, 'low_steps': 23, 'max_low_streak': 12, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260908-walk-3 {'steps': 360, 'span': 5.983641, 'path': 1424.1188365220978, 'net': 74.7168066719363, 'low_steps': 0, 'max_low_streak': 0, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260908-dash-3 {'steps': 360, 'span': 5.981628, 'path': 1764.509272485976, 'net': 125.97119583570483, 'low_steps': 29, 'max_low_streak': 11, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260909-walk-1 {'steps': 361, 'span': 5.982672999999998, 'path': 1542.3223180174991, 'net': 622.2276952580165, 'low_steps': 0, 'max_low_streak': 0, 'truncated': False, 'windup_steps': 48, 'warning_steps': 63, 'max_warning_count': 1, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260909-dash-1 {'steps': 360, 'span': 5.979552, 'path': 1424.29511186481, 'net': 200.35053138318838, 'low_steps': 0, 'max_low_streak': 0, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260909-walk-2 {'steps': 359, 'span': 5.966189, 'path': 1419.9668291211, 'net': 619.1763640067064, 'low_steps': 0, 'max_low_streak': 0, 'truncated': True, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260909-dash-2 {'steps': 359, 'span': 5.987121000000002, 'path': 1562.4725652635007, 'net': 45.223186398972146, 'low_steps': 0, 'max_low_streak': 0, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260909-walk-3 {'steps': 361, 'span': 5.996997999999998, 'path': 1540.2299527228006, 'net': 567.4832491933548, 'low_steps': 0, 'max_low_streak': 0, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260909-dash-3 {'steps': 360, 'span': 5.978693999999997, 'path': 1736.9450663030002, 'net': 361.75834894741894, 'low_steps': 23, 'max_low_streak': 13, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260910-walk-1 {'steps': 360, 'span': 5.980823000000001, 'path': 1532.0114970505, 'net': 1031.8748354183663, 'low_steps': 0, 'max_low_streak': 0, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260910-dash-1 {'steps': 360, 'span': 5.972031000000001, 'path': 1567.1851209998185, 'net': 410.86782685788944, 'low_steps': 14, 'max_low_streak': 11, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260910-walk-2 {'steps': 360, 'span': 5.979013999999999, 'path': 1486.4537717103904, 'net': 737.9385803188259, 'low_steps': 0, 'max_low_streak': 0, 'truncated': False, 'windup_steps': 53, 'warning_steps': 66, 'max_warning_count': 1, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260910-dash-2 {'steps': 360, 'span': 5.983922, 'path': 1579.34783388674, 'net': 1021.8823003614943, 'low_steps': 1, 'max_low_streak': 1, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260910-walk-3 {'steps': 360, 'span': 5.990921999999999, 'path': 1434.87168216705, 'net': 867.0168669417538, 'low_steps': 0, 'max_low_streak': 0, 'truncated': False, 'windup_steps': 36, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+POST VERIFIED late-n01-20260910-dash-3 {'steps': 361, 'span': 5.987169999999999, 'path': 1715.731903985139, 'net': 235.96122040222073, 'low_steps': 21, 'max_low_streak': 11, 'truncated': False, 'windup_steps': 0, 'warning_steps': 0, 'max_warning_count': 0, 'health_loss': 0.0, 'shield_loss': 0.0}
+LOCAL VOLUME VERIFIED {'name': 'part-001.zip', 'bytes': 48160284, 'sha256': 'e77b15114ae2f1efb6a69c5ddafebb2d91d399dbce775a46aa8dbebe03be7167'}
+LOCAL VOLUME VERIFIED {'name': 'part-002.zip', 'bytes': 47687956, 'sha256': 'ce778587194769c1f7bd3bd506789dd1cfa656a894a0d826627b1260cbe69827'}
+LOCAL VOLUME VERIFIED {'name': 'part-003.zip', 'bytes': 47738898, 'sha256': 'e299ad26c904b75118a9eb459b1273079f64cb40075a0dae7d06da8eed4d92ba'}
+LOCAL VOLUME VERIFIED {'name': 'part-004.zip', 'bytes': 47978613, 'sha256': '1aa04a1b3f53580b267657b086dbdf9442c773c3232842f7f29c07ca328edad7'}
+LOCAL VOLUME VERIFIED {'name': 'part-005.zip', 'bytes': 48165730, 'sha256': '3431555d2e07fdd0f9ad18f9e6ab3165dc450faadbaabf558dab85535a2b7f2b'}
+LOCAL VOLUME VERIFIED {'name': 'part-006.zip', 'bytes': 48168062, 'sha256': '126e3e87615ec7f4387d3ced7985216fccc1f6e21cd29a17247351232e85f97e'}
+LOCAL VOLUME VERIFIED {'name': 'part-007.zip', 'bytes': 48119721, 'sha256': '6f13dfbde73741c4c3bb8d008f2305243e253c57b906a333ca9f709954c2b654'}
+LOCAL VOLUME VERIFIED {'name': 'part-008.zip', 'bytes': 46999585, 'sha256': 'd863e4b541af7512960a2c657cfe7f4d1f4e886b40c17e3b0e56a626d7d560b4'}
+LOCAL VOLUME VERIFIED {'name': 'part-009.zip', 'bytes': 47854023, 'sha256': 'f27b38fe3b1e597e8e37a952c1500483863391ed364d768ddb8653f83e339e98'}
+LOCAL VOLUME VERIFIED {'name': 'part-010.zip', 'bytes': 45464020, 'sha256': '084499b4e34d63a75aec846e80dc428221915ee9235350f570d000f327a9093e'}
+LOCAL VOLUME VERIFIED {'name': 'part-011.zip', 'bytes': 48096421, 'sha256': '36b4ab983663695789f69f2fb168aaed71ecdab8a5273ea9e0da7439f69efbc7'}
+LOCAL VOLUME VERIFIED {'name': 'part-012.zip', 'bytes': 46612533, 'sha256': '2a7f6710c600272ed13a5c9a6c69b9fdb8593e45466db86aa554bdb9bc67a755'}
+LOCAL VOLUME VERIFIED {'name': 'part-013.zip', 'bytes': 48136680, 'sha256': 'dfa0f9ad69ec66caadcfe36aad76810c9a15241138fe5c71d68de3bf6fb17850'}
+LOCAL VOLUME VERIFIED {'name': 'part-014.zip', 'bytes': 47782386, 'sha256': '8783bb4ad7a69b1cd8f547afdc72fa8917655e1a71045651f00b0fe9487dc1b4'}
+LOCAL VOLUME VERIFIED {'name': 'part-015.zip', 'bytes': 47669130, 'sha256': '6a90fa4026f0bcf05cb4cde467fd3dba726403326debcd07cdeca57dded9c4ce'}
+LOCAL VOLUME VERIFIED {'name': 'part-016.zip', 'bytes': 47674883, 'sha256': '4c9ac85def3ea85d2da3b4c93ac8ed166d8d255d55a1198ea7f5bdcac17c0352'}
+LOCAL VOLUME VERIFIED {'name': 'part-017.zip', 'bytes': 47829100, 'sha256': '4895075d0298c53f4311b8225e19cbb06a98100b4886cfcf7962733ae11cb942'}
+LOCAL VOLUME VERIFIED {'name': 'part-018.zip', 'bytes': 48020633, 'sha256': '578efe61cfb5376b20c4cd50cc94664dcc6414f05c3d6cda15f7bae93eb51f1a'}
+LOCAL VOLUME VERIFIED {'name': 'part-019.zip', 'bytes': 13901533, 'sha256': '88222dbdf12a849cf5addfeff0c169e6d0ec3d0f951f28b8daec4381ed3887d5'}
+POST COMPLETE {"items": 1196, "volumes": 19, "native_frames": 989, "terminal_counts": {"victory": 18, "checkpoint": 3}}

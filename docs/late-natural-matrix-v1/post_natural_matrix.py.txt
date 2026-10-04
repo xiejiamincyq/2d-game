@@ -1,0 +1,139 @@
+"""Offline evidence work only, after native batch exits; originals are immutable."""
+import hashlib
+import json
+import os
+import subprocess
+import sys
+import zipfile
+import zlib
+from pathlib import Path
+
+root = Path(__file__).resolve().parents[3]
+sys.path.insert(0,str(root/'scripts/art'))
+from run_late_crowd_matrix import verify_sources,check_slot_config,check_process_identity,matrix_acceptance
+from window_stats import window_stats
+base = root/'build/diagnostics/late-matrix/late-n01'
+output = root/'build/diagnostics/natural-run'
+regpath = base/'registration.json'
+registry = json.loads(regpath.read_text(encoding='utf-8'))
+source_archives = [{'path':'docs/late-observer-pilot-evidence-v1.zip','sha256':'6f5078a5574ceed761ae1022f588cf862cba685828772dfe6e80a1cd56190c97'},
+                   {'path':'docs/late-matrix-driver-evidence-v1.zip','sha256':'1e4c585cbcce5bc2e9e4f8b239e944d1b37c2268849faa171d5a97778cb6a13d'}]
+for archive in source_archives:
+    assert hashlib.sha256((root/archive['path']).read_bytes()).hexdigest()==archive['sha256']
+progress = json.loads((base/'matrix.json').read_text(encoding='utf-8'))
+assert progress['acceptance']==matrix_acceptance(registry['slots'],progress['runs'])=='measurement_matrix_complete'
+assert progress['registration_sha256']==hashlib.sha256(regpath.read_bytes()).hexdigest()
+assert not verify_sources(root,registry['frozen_sha256'])
+assert not verify_sources(base/'source',registry['frozen_sha256'])
+result_path = base/'post-summary-v1.json'
+assert not result_path.exists(), 'write-once post processing'
+files = [regpath,base/'matrix.json',base/'driver-native-v1.log',Path(__file__).resolve()]
+files += [Path(__file__).parent/name for name in ('window_stats.py','test_window_stats.py','window-stats-red-v1.log','window-stats-green-v1.log')]
+store = Path(os.environ['APPDATA'])/'Godot/app_userdata/废土清剿协议/natural-run'
+checkpoints = {}
+rows = []
+for slot,record in zip(registry['slots'],progress['runs']):
+    run = slot['run']
+    report_path,observer_path,log = output/f'{run}.json',output/f'late-{run}.json',output/f'{run}.log'
+    for path,key in ((report_path,'report_sha256'),(observer_path,'observer_sha256'),(log,'log_sha256')):
+        assert hashlib.sha256(path.read_bytes()).hexdigest()==record[key]
+    report = json.loads(report_path.read_text(encoding='utf-8'))
+    data = json.loads(observer_path.read_text(encoding='utf-8'))
+    assert not check_slot_config(slot,report['config'])
+    assert not check_process_identity(record['launcher_process_id'],report['process_id'],record['process_witness'])
+    command = [sys.executable,'-B',str(root/'scripts/art/check_late_crowd_report.py'),str(observer_path),
+               '--report',str(report_path),'--log',str(log)]
+    files += [report_path,observer_path,log,base/f'{run}-external.log']
+    if slot['kind']=='trial':
+        command += ['--checkpoint',str(output/f"{slot['resume']}.json"),'--require-window']
+    else:
+        raw = base/'saves'/f'{run}.json'
+        assert hashlib.sha256(raw.read_bytes()).hexdigest()==record['checkpoint_sha256']==report['isolated_save_sha256']
+        original = store/run/'run.json'
+        assert hashlib.sha256(original.read_bytes()).hexdigest()==record['checkpoint_sha256']
+        checkpoints[original] = record['checkpoint_sha256']
+        files.append(raw)
+    checklog = base/f'post-{run}-check.log'
+    assert not checklog.exists()
+    checked = subprocess.run(command,cwd=root,capture_output=True,timeout=120)
+    checklog.write_bytes(checked.stdout+checked.stderr)
+    assert checked.returncode==0, f'external post check rejected {run}'
+    files.append(checklog)
+    row = dict(record['metrics'],run=run,kind=slot['kind'],seed=slot['seed'],movement=slot['movement'],repeat=slot['repeat'])
+    row.update({key:record[key] for key in ('process_id','launcher_process_id','process_witness','started_utc','finished_utc',
+                                           'report_sha256','observer_sha256','log_sha256','coverage_status')})
+    if slot['kind']=='trial':
+        peak = data['peak']
+        window = [o for o in data['observations'] if o['eligible'] and o['segment']==peak['segment'] and abs(o['wall']-peak['wall'])<=3]
+        assert len(window)>=2
+        row['window'] = window_stats(window,peak)
+        row['visible_peak'] = {k:data['visible_peak'][k] for k in ('wall','wave','live','visible')}
+        row['all_late_warning_steps'] = sum(o['eligible'] and bool(o['warnings']) for o in data['observations'])
+        row['all_late_windup_steps'] = sum(o['eligible'] and any('windup' in b for b in o['bodies']) for o in data['observations'])
+        encode_log = base/f'post-{run}-encode.log'
+        assert not encode_log.exists()
+        with encode_log.open('xb') as sink:
+            encoded = subprocess.run([sys.executable,'-B',str(root/'build/diagnostics/late-observer/encode_peak.py'),str(observer_path)],cwd=root,stdout=sink,stderr=subprocess.STDOUT,timeout=120)
+        assert encoded.returncode==0, f'VFR encoder rejected {run}'
+        video_base = root/'build/diagnostics/late-observer'/run
+        video_summary = json.loads(video_base.with_suffix('.video.json').read_text(encoding='utf-8'))
+        assert video_summary['valid'] is True and video_summary['run']==run
+        assert video_summary['manifest_sha256']==hashlib.sha256(observer_path.read_bytes()).hexdigest()
+        assert video_summary['video_sha256']==hashlib.sha256(video_base.with_suffix('.mp4').read_bytes()).hexdigest()
+        assert video_summary['native_frames']==len(data['frames']) and video_summary['encoded_frames']==len(data['frames'])+1
+        row['video'] = video_summary
+        files += [root/frame['path'] for frame in data['frames']]
+        files += [video_base.with_suffix(ext) for ext in ('.mp4','.ffconcat','.ffprobe.json','.video.json')]+[encode_log]
+    rows.append(row)
+    print('POST VERIFIED',run,row.get('window',{}),flush=True)
+for path,digest in checkpoints.items():
+    assert hashlib.sha256(path.read_bytes()).hexdigest()==digest
+assert not verify_sources(root,registry['frozen_sha256'])
+summary = {'batch':registry['batch'],'scope':'3 natural prefixes +18 independent copied native R trials; no pressure/hardware/human approval',
+           'valid':True,'runs':rows,'native_frames':sum(r['native_frames'] for r in rows),
+           'terminal_counts':{k:sum(r['terminal']==k for r in rows) for k in {r['terminal'] for r in rows}},
+           'real_copied_checkpoint_policy':'original base report + isolated raw store verified before and after each copy; copy never consumes original',
+           'source_freeze':registry['frozen_sha256'],'video_compatibility':'offline VFR viewing copies with original PNGs; not 60fps/performance or broad decoder approval'}
+result_path.write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
+files.append(result_path)
+directory = base/'evidence-v1'
+directory.mkdir(exist_ok=False)
+limit = 46*1024*1024
+volumes,groups,current,estimated = [],[],[],0
+for path in files:
+    compressor = zlib.compressobj(6,zlib.DEFLATED,-15)
+    size = 0
+    with path.open('rb') as source:
+        for block in iter(lambda:source.read(1024*1024),b''):
+            size += len(compressor.compress(block))
+    size += len(compressor.flush())+200+len(path.relative_to(root).as_posix().encode('utf-8'))*2
+    assert size<limit, 'single compressed file exceeds local volume limit'
+    if current and estimated+size>limit:
+        groups.append(current)
+        current,estimated = [],0
+    current.append(path)
+    estimated += size
+groups.append(current)
+members = {}
+for number,group in enumerate(groups,1):
+    archive = directory/f'part-{number:03}.zip'
+    with zipfile.ZipFile(archive,'x',zipfile.ZIP_DEFLATED,compresslevel=6) as target:
+        for path in group:
+            relative = path.relative_to(root).as_posix()
+            assert relative not in members
+            members[relative] = {'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'bytes':path.stat().st_size,'volume':archive.name}
+            target.write(path,relative)
+    assert archive.stat().st_size<limit
+    with zipfile.ZipFile(archive) as target:
+        assert target.testzip() is None
+        for path in group:
+            relative = path.relative_to(root).as_posix()
+            assert hashlib.sha256(target.read(relative)).hexdigest()==members[relative]['sha256']
+    volumes.append({'name':archive.name,'bytes':archive.stat().st_size,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest()})
+    print('LOCAL VOLUME VERIFIED',volumes[-1],flush=True)
+index = {'scope':summary['scope'],'members':members,'volumes':volumes,
+         'baseline_source_archives':source_archives,
+         'raw_local_directory':directory.relative_to(root).as_posix(),
+         'availability':'full native/records/video volumes retained locally, not committed or uploaded; index alone is not a portable raw evidence bundle'}
+(directory/'index.json').write_text(json.dumps(index,ensure_ascii=False,indent=2),encoding='utf-8')
+print('POST COMPLETE',json.dumps({'items':len(members),'volumes':len(volumes),'native_frames':summary['native_frames'],'terminal_counts':summary['terminal_counts']},ensure_ascii=False),flush=True)
