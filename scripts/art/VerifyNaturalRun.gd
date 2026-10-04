@@ -58,6 +58,7 @@ func _initialize() -> void:
 		quit(2)
 		return
 	config["save_path"] = "user://natural-run/%s/run.json" % (config.run if config.resume.is_empty() else config.resume)
+	policy = Policy.new(int(config.seed))
 	if FileAccess.file_exists(OUTPUT + config.run + ".json") or (config.resume.is_empty() and FileAccess.file_exists(config.save_path)) or FileAccess.file_exists(config.save_path + ".tmp") or FileAccess.file_exists(config.save_path + ".bak"):
 		push_error("Natural run refuses existing evidence/save path")
 		quit(2)
@@ -185,6 +186,7 @@ func _after(delta: float) -> void:
 		"input": [input_direction.x, input_direction.y], "actual_input": [Input.get_vector("move_left", "move_right", "move_up", "move_down").x, Input.get_vector("move_left", "move_right", "move_up", "move_down").y],
 		"aim_world": [aim_world.x, aim_world.y], "aim_dot": aim_dot, "gun_angle": scene.player.gun_angle, "fire": Input.is_action_pressed("fire"), "bullets": scene.projectiles.get_child_count(),
 		"position": [scene.player.global_position.x, scene.player.global_position.y], "health": scene.player.health.current_health,
+		"pilot_escape_events": policy.escape_events, "pilot_escape_remaining": policy.escape_remaining, "pilot_random_heading_changes": policy.random_heading_changes,
 		"shield": scene.player.shield, "kills": scene.kill_count, "wave": scene.wave_director.wave_index + 1,
 		"state": scene.RunState.keys()[scene.run_state], "live": scene.wave_director.active_enemies.size(),
 		"pending": scene.wave_director.spawn_queue.size() + _portal_pending(), "coins": scene.upgrade_system.coins})
