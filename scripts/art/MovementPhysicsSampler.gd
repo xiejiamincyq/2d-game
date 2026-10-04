@@ -3,6 +3,7 @@ extends Node
 # Diagnostic-only taps bracket the production physics callbacks. No render-frame
 # await is allowed between input and sampling: one rendered frame may have 0..N ticks.
 signal finished
+signal sample_recorded(sample: Dictionary)
 
 class PhysicsTap extends Node:
 	var callback: Callable
@@ -131,6 +132,7 @@ func _after_physics(delta: float) -> void:
 		"scale_after_physics": Engine.time_scale, "spawn_rng_state": str(scene.wave_director.spawn_rng.state),
 		"remaining_enemies": scene.wave_director.active_enemies.size()})
 	samples.append(state)
+	sample_recorded.emit(state)
 	pending = {}
 	previous_position = point
 	previous_frame = frame

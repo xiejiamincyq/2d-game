@@ -1,0 +1,679 @@
+{
+  "scope": "Pressure capture component and one native R/dash diagnostic, not the registered36 matrix, natural gameplay, dash visual gate or performance acceptance.49 selected sources frozen after run with current/before/after fingerprints verified, not full closure. Full original raw ZIP local; repository evidence curated omits26 peak PNG.",
+  "raw": {
+    "path": "build/diagnostics/pressure-capture/evidence-v1/raw-v1.zip",
+    "members": 94,
+    "bytes": 29799124,
+    "sha256": "39c54984cad9239d6d118f7fb792737c1beaca9e3fe45aa1367d41866a6bd6c0"
+  },
+  "members": [
+    {
+      "name": "logs/full-gate-v1.log",
+      "original": "build/diagnostics/pressure-capture/full-gate-v1.log",
+      "bytes": 4650,
+      "sha256": "538abab769dd2ba35d1217111649b57b1714b9e13aee22479b9fe84b9a7a09d6"
+    },
+    {
+      "name": "logs/full-gate-v2.log",
+      "original": "build/diagnostics/pressure-capture/full-gate-v2.log",
+      "bytes": 4650,
+      "sha256": "645a6976194d8fae5fe504fb4bc96bc937ddf7a6e87a956ec0413b9e84bf0c66"
+    },
+    {
+      "name": "logs/native-r09-dash-v1.log",
+      "original": "build/diagnostics/pressure-capture/native-r09-dash-v1.log",
+      "bytes": 331,
+      "sha256": "8abfe912344fa4cea2b8a36e93b4ce936f15ea99b14f3324e0c89cd539b457aa"
+    },
+    {
+      "name": "logs/offline-v1.log",
+      "original": "build/diagnostics/pressure-capture/offline-v1.log",
+      "bytes": 1379,
+      "sha256": "b93c248bc73c95e4662753e08d0c8c44cd11b96c8bf45b8ec40430f02b317191"
+    },
+    {
+      "name": "logs/reject-existing-v1.log",
+      "original": "build/diagnostics/pressure-capture/reject-existing-v1.log",
+      "bytes": 409,
+      "sha256": "39eae040d795314da6905a7d617eb81bd13a98e05f6fbceabf5104964ad79e9f"
+    },
+    {
+      "name": "logs/reject-headless-v1.log",
+      "original": "build/diagnostics/pressure-capture/reject-headless-v1.log",
+      "bytes": 486,
+      "sha256": "e5abed8c231f965f7901cbb210a9484adbf0e6b754bd5541061c861f98b0989d"
+    },
+    {
+      "name": "logs/unit-green-v1.log",
+      "original": "build/diagnostics/pressure-capture/unit-green-v1.log",
+      "bytes": 105,
+      "sha256": "04931131e798906fa3606b8f06c3984181b0401088a5dde559b4a888939964f1"
+    },
+    {
+      "name": "logs/unit-red-v1.log",
+      "original": "build/diagnostics/pressure-capture/unit-red-v1.log",
+      "bytes": 401,
+      "sha256": "9e469fe24d6f584b506317b4521bdf7bd3b523f3687d8536a043d0dc42d3330f"
+    },
+    {
+      "name": "logs/window-green-v1.log",
+      "original": "build/diagnostics/pressure-capture/window-green-v1.log",
+      "bytes": 106,
+      "sha256": "ec2325190e5d183582d22e45e1b4f1a571f37ce9fd50357c4dcb2a3ab73475f8"
+    },
+    {
+      "name": "logs/window-red-v1.log",
+      "original": "build/diagnostics/pressure-capture/window-red-v1.log",
+      "bytes": 399,
+      "sha256": "32dedd860ae2c3bf4c1be191f6ead29e9a82bdd33da3cde2b8529ebd45616cbb"
+    },
+    {
+      "name": "native/peak/peak-000.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-000.png",
+      "bytes": 845282,
+      "sha256": "b21728d8262ed3b063061399f4bb171f6aa099ca43379e89f07b3505c9f16808"
+    },
+    {
+      "name": "native/peak/peak-001.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-001.png",
+      "bytes": 896148,
+      "sha256": "864a374692d76dcf77ff45bc067954714d6033be0412a1ab53d504bd7393411b"
+    },
+    {
+      "name": "native/peak/peak-002.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-002.png",
+      "bytes": 916064,
+      "sha256": "20c50391d3b3e99bcd035d48e5d11df5ec013a1bc050f02050069b574ec9ed0d"
+    },
+    {
+      "name": "native/peak/peak-003.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-003.png",
+      "bytes": 915821,
+      "sha256": "30cb15856cb9c7243a2d07e6778a81067006a06accd9417ee002d0d367cebebf"
+    },
+    {
+      "name": "native/peak/peak-004.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-004.png",
+      "bytes": 925329,
+      "sha256": "d3d66dc9d0af9997d39f3c051e994153a5e0c83f3c25ded193845855ff1461e4"
+    },
+    {
+      "name": "native/peak/peak-005.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-005.png",
+      "bytes": 924193,
+      "sha256": "3d546dafca15fc47d158272aae3db99418533b2755a134d3542825746b535ec1"
+    },
+    {
+      "name": "native/peak/peak-006.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-006.png",
+      "bytes": 928499,
+      "sha256": "3d609d88fcef222699142c0454268758b851192a462595191468884497a48e16"
+    },
+    {
+      "name": "native/peak/peak-007.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-007.png",
+      "bytes": 936306,
+      "sha256": "91077f83590ad3c8e0fe7e6bbac2f62016a943c4f19940ef8b0c7d00505afc94"
+    },
+    {
+      "name": "native/peak/peak-008.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-008.png",
+      "bytes": 931565,
+      "sha256": "d38a4d5a15efaa658ea735ce938da59de22ae45eebf22955df3fd3c5db66f578"
+    },
+    {
+      "name": "native/peak/peak-009.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-009.png",
+      "bytes": 917320,
+      "sha256": "62595f677473b4aead9bcc19aac3636b8fa5de75942234f4477dda9b686d3f2c"
+    },
+    {
+      "name": "native/peak/peak-010.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-010.png",
+      "bytes": 921253,
+      "sha256": "c6f44ac25a66725b8ead19bc6ae2366d6d0c7fc7200d838b0de2aeebd8fe3374"
+    },
+    {
+      "name": "native/peak/peak-011.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-011.png",
+      "bytes": 921725,
+      "sha256": "8c72dc3de5a899e2d6910f747776659ef074490c19aecb10b9ba1713a5c363ba"
+    },
+    {
+      "name": "native/peak/peak-012.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-012.png",
+      "bytes": 924530,
+      "sha256": "ce94198481ee1864be24d016cb2373e886283a37cd39dbaf7afbfd20b2eddd20"
+    },
+    {
+      "name": "native/peak/peak-013.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-013.png",
+      "bytes": 891983,
+      "sha256": "5693887658fce9f50ce051098ccbd35962504ad23a5e75320b92458ec8de293a"
+    },
+    {
+      "name": "native/peak/peak-014.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-014.png",
+      "bytes": 901087,
+      "sha256": "cb3f331f5c80d15a7f434e0df6326c0101bdd2fdd78f109d178740e72c1b41e2"
+    },
+    {
+      "name": "native/peak/peak-015.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-015.png",
+      "bytes": 901702,
+      "sha256": "f468677b42a64bd021ba1a7e4eff8fffc5010ed35ab047fb3e96b96e92fef43c"
+    },
+    {
+      "name": "native/peak/peak-016.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-016.png",
+      "bytes": 895274,
+      "sha256": "1340c681a24a8e756060301e860d126934b58bde2863745b80c372f293104a47"
+    },
+    {
+      "name": "native/peak/peak-017.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-017.png",
+      "bytes": 880040,
+      "sha256": "3a855c8380beaa773484a7c8cfa3c779ac0ffbab74d65c1d1fa3fc5251920786"
+    },
+    {
+      "name": "native/peak/peak-018.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-018.png",
+      "bytes": 888183,
+      "sha256": "0d52312e89348810859e4bb3b2faf8c75f37d8bb3c904d24aabb3b85c2062120"
+    },
+    {
+      "name": "native/peak/peak-019.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-019.png",
+      "bytes": 884145,
+      "sha256": "0cdb1118967af90245c5e8a7616ba107b70f252e728ce0dba404edb331181c29"
+    },
+    {
+      "name": "native/peak/peak-020.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-020.png",
+      "bytes": 887150,
+      "sha256": "ab13bfb724816d1a39f46a75068239eebf4b65b1b8f2da0e29653e691efea022"
+    },
+    {
+      "name": "native/peak/peak-021.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-021.png",
+      "bytes": 893208,
+      "sha256": "a9be48160b132a8539daa94e9dc3e115f6cf607d1d5394be755034f8894a87ce"
+    },
+    {
+      "name": "native/peak/peak-022.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-022.png",
+      "bytes": 887975,
+      "sha256": "8d1f86df4d35d7f7e536562c3dff996f4b62ba0fae6802f2f6a20ef81e9bc90e"
+    },
+    {
+      "name": "native/peak/peak-023.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-023.png",
+      "bytes": 905813,
+      "sha256": "cf29336dc6208bb703a287cc7cd92b1c0bf628a0e169554a0ca85b8874ee48df"
+    },
+    {
+      "name": "native/peak/peak-024.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-024.png",
+      "bytes": 899756,
+      "sha256": "8059f92ae6223964a71065012f5b2356c78f7f92f92d3922a226820cfa960287"
+    },
+    {
+      "name": "native/peak/peak-025.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-025.png",
+      "bytes": 892561,
+      "sha256": "b0168c0fc11b60e431c684c5402f06c2b11e8491be48bd63361d527b701989d9"
+    },
+    {
+      "name": "native/peak/peak-026.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-026.png",
+      "bytes": 888036,
+      "sha256": "44022880dfdb7ad797b0912bc20a38a70072a0851d51eb7578e5b41606c4c57f"
+    },
+    {
+      "name": "native/peak/peak-027.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1-peak/peak-027.png",
+      "bytes": 890827,
+      "sha256": "2028e03389c7103b37f91a71b484b2ec9f6056bbb853db719365d393aa41e820"
+    },
+    {
+      "name": "native/post-freeze.png",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1.png",
+      "bytes": 326522,
+      "sha256": "7804efae0798a51e278b4006aaedbff2b66a737a9ce5ea0b04d05bd19c3c7c61"
+    },
+    {
+      "name": "native/pressure-capture-r09-dash-v1.json",
+      "original": "build/diagnostics/movement-repeatability/pressure-capture-r09-dash-v1.json",
+      "bytes": 25642943,
+      "sha256": "3917ac9a4de98e7c617dbbee35c79f63e70eabc459b45ff387b66457fd1af257"
+    },
+    {
+      "name": "source/assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png",
+      "bytes": 26395,
+      "sha256": "1db9d68975612537d734e9660017144b77ba3954b15dcd5a882ac659e332e9ad"
+    },
+    {
+      "name": "source/assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png",
+      "bytes": 27618,
+      "sha256": "5c3a0d230793715ddb3d15526916d1ef30c65d44252a82d7f8632e8896876ebb"
+    },
+    {
+      "name": "source/assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png",
+      "bytes": 17070,
+      "sha256": "222df622318156390a1e061bcfcb427f9f0bf181f88cea701cf60c1a89087e5f"
+    },
+    {
+      "name": "source/assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png",
+      "bytes": 19600,
+      "sha256": "cc94485c28547ae3da9aa25619b751ee72f756461d4d27bbb471c1190098bd70"
+    },
+    {
+      "name": "source/assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png",
+      "bytes": 28858,
+      "sha256": "e4f96efbbf441a834551c9937dddb159512b36462861bf814ad9f416f390048c"
+    },
+    {
+      "name": "source/assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png",
+      "bytes": 19243,
+      "sha256": "9692680a6dfd2e9f8cb9c8f89320f5179728f96aff164bbe21fad951ba235a87"
+    },
+    {
+      "name": "source/assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png",
+      "bytes": 23077,
+      "sha256": "86f9bd41666452242aeb85d6d5ad3f84df94618ee12aa4197932459dbc01afba"
+    },
+    {
+      "name": "source/assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+      "bytes": 51732,
+      "sha256": "ad652e11b0f9a701f44322846c425634bf771da7f4a7c78fc7d0c87a7f310354"
+    },
+    {
+      "name": "source/assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+      "bytes": 27100,
+      "sha256": "9f8d33ed98f5af8a304d7101f0267b1331312e7788bad8aea348e9944c0cb45b"
+    },
+    {
+      "name": "source/assets/art/environment/floor_surface.gdshader",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/environment/floor_surface.gdshader",
+      "bytes": 807,
+      "sha256": "fbcdb3c34a32dee12904983630370b68c69e9200fbaf8fea71e33a25258c90c9"
+    },
+    {
+      "name": "source/assets/art/environment/mint_farm_floor_b_v1.png",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/environment/mint_farm_floor_b_v1.png",
+      "bytes": 980749,
+      "sha256": "3124d80676757709edc28182d3f6ac950f716d8d1586794edc8bed1b3041f257"
+    },
+    {
+      "name": "source/assets/art/environment/mint_farm_props_b_packed_v1.png",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/environment/mint_farm_props_b_packed_v1.png",
+      "bytes": 787884,
+      "sha256": "672c0cae193f66d1e8168443831f78c2622a757cfe1b6e24508322b041dddfc3"
+    },
+    {
+      "name": "source/assets/art/environment/prop_alpha.gdshader",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/environment/prop_alpha.gdshader",
+      "bytes": 320,
+      "sha256": "4ff920523cf1243c5a2304a45ff6e77430c5904e71ff0e9dedc137ed537a8d71"
+    },
+    {
+      "name": "source/assets/art/shaders/dasher_hit_flash.gdshader",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/assets/art/shaders/dasher_hit_flash.gdshader",
+      "bytes": 253,
+      "sha256": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9"
+    },
+    {
+      "name": "source/scenes/ui/HUD.tscn",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scenes/ui/HUD.tscn",
+      "bytes": 304,
+      "sha256": "8e2907f7196de67f32e03421135fd6e9e19a98463124b2e09dc9f8e6f76319d9"
+    },
+    {
+      "name": "source/scripts/Main.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/Main.gd",
+      "bytes": 26057,
+      "sha256": "2578f0d8527f67fbf4f748983c2e74e57978acd2d3d8ba1571005c3a7fdb4fe8"
+    },
+    {
+      "name": "source/scripts/actors/Enemy.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/actors/Enemy.gd",
+      "bytes": 31004,
+      "sha256": "614d5f26da4dcf2aa2c864865481baad8fa3555b7dfc8c9ec54cd10f61c18aee"
+    },
+    {
+      "name": "source/scripts/actors/Player.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/actors/Player.gd",
+      "bytes": 44251,
+      "sha256": "88fa20e1eb7c4d862b0837bf6db73f0f1c29862a75a320448d511daee9be4eb6"
+    },
+    {
+      "name": "source/scripts/art/LateCrowdLedger.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/art/LateCrowdLedger.gd",
+      "bytes": 4094,
+      "sha256": "984fcca510c2e1de1a9311edcc78f4813e463c1f467b7f9f654ee7039088a465"
+    },
+    {
+      "name": "source/scripts/art/MovementDiagnosticFeedback.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/art/MovementDiagnosticFeedback.gd",
+      "bytes": 1277,
+      "sha256": "741717e2fcd9d715c8029fbcbec4118f9e7630dcf30a5e3994938269f48c416b"
+    },
+    {
+      "name": "source/scripts/art/MovementPhysicsSampler.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/art/MovementPhysicsSampler.gd",
+      "bytes": 7205,
+      "sha256": "709a9d51574e25bfc312dd4d9a51cec06a31436ca2d9d908d78cc2d47e61011e"
+    },
+    {
+      "name": "source/scripts/art/StressCaptureObserver.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/art/StressCaptureObserver.gd",
+      "bytes": 4845,
+      "sha256": "03791d2a41ee9fb826466254f5f95e11646655fddb0b3532d3170cbe37dfb0a7"
+    },
+    {
+      "name": "source/scripts/art/VerifyMovementRepeatability.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/art/VerifyMovementRepeatability.gd",
+      "bytes": 24676,
+      "sha256": "ec3c349d9a2aa00e8abbb8e3271fea397f22bf559eaa773dc0913d79a310dbf6"
+    },
+    {
+      "name": "source/scripts/art/VerifyNaturalRunRendered.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/art/VerifyNaturalRunRendered.gd",
+      "bytes": 12965,
+      "sha256": "d7faecf562fc71f65e5d0c67e02475071245a50186871d76dcbdeddbbd01a5ff"
+    },
+    {
+      "name": "source/scripts/components/ArcPulseVisual.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/components/ArcPulseVisual.gd",
+      "bytes": 3337,
+      "sha256": "23923c95df928acfbafb114ebedb30c89d0fa5c5d6d546acb0d5e382af546842"
+    },
+    {
+      "name": "source/scripts/components/BossAttackDirector.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/components/BossAttackDirector.gd",
+      "bytes": 6340,
+      "sha256": "df82489a27dddf90f46e8587d80e4a34be355386085f8b331abae12c4faa2ad6"
+    },
+    {
+      "name": "source/scripts/components/BossProjectilePattern.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/components/BossProjectilePattern.gd",
+      "bytes": 9087,
+      "sha256": "4c09821b66952d4eaca4e8e90429460f9a1d22297f2bd51a8c73dbeedbdca162"
+    },
+    {
+      "name": "source/scripts/components/FlameTrail.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/components/FlameTrail.gd",
+      "bytes": 2212,
+      "sha256": "7039420b5daf277a5d0a927b381ada6752e848c99a17fc6a5f7fbb9ebf2a9ce2"
+    },
+    {
+      "name": "source/scripts/components/LaserBeam.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/components/LaserBeam.gd",
+      "bytes": 1024,
+      "sha256": "bfe5fe105607d56b747c97eb8d9a45d8e0537e517768eac03cfd9dc06fa7d5f2"
+    },
+    {
+      "name": "source/scripts/components/LobbedProjectile.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/components/LobbedProjectile.gd",
+      "bytes": 2054,
+      "sha256": "f51c01899994350d4a9bac2833a297d692d049698a77fe41a48f47f3e453a977"
+    },
+    {
+      "name": "source/scripts/components/Projectile.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/components/Projectile.gd",
+      "bytes": 2807,
+      "sha256": "5fcffd772d22386272a19e5d64d49a5524f88c4848011a56016715deaf536f5c"
+    },
+    {
+      "name": "source/scripts/components/SpikeTrap.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/components/SpikeTrap.gd",
+      "bytes": 3540,
+      "sha256": "b7ecb803d6bed2d09d329b6dc4a93ab5361f2673779f96de0ac873de4ceb7665"
+    },
+    {
+      "name": "source/scripts/components/TentacleAttack.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/components/TentacleAttack.gd",
+      "bytes": 9866,
+      "sha256": "deb68380a599518a88ea2f7c843732612cbaef3372507eb0ec40ef161eb896f5"
+    },
+    {
+      "name": "source/scripts/effects/CameraEffects.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/effects/CameraEffects.gd",
+      "bytes": 1619,
+      "sha256": "48a5f1f389374d8f368a5b9f8da9b875b296f332ebf2ffc292f5d0078c143c1f"
+    },
+    {
+      "name": "source/scripts/effects/CombatVfx.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/effects/CombatVfx.gd",
+      "bytes": 8751,
+      "sha256": "0f82292ca621853de84658efd3fa671eb7d595cbff2b017c0528fe2f97ef95ce"
+    },
+    {
+      "name": "source/scripts/effects/FriendlyEffectPalette.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/effects/FriendlyEffectPalette.gd",
+      "bytes": 265,
+      "sha256": "4893c1bf09210ef0dc265f96f8e2faa70c2f8478035f643e40a5f7b2d0b16d4f"
+    },
+    {
+      "name": "source/scripts/systems/BossCameraFraming.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/systems/BossCameraFraming.gd",
+      "bytes": 7401,
+      "sha256": "42cf856efa4156d596f0b6b4352605a0c540505479b24a4f9bb6c33179157f6e"
+    },
+    {
+      "name": "source/scripts/systems/CombatView.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/systems/CombatView.gd",
+      "bytes": 1128,
+      "sha256": "9b0eb9cef8243ff6a433e1daf9b6db74ebd27d4820788b66d5d9b92f03d4f4a0"
+    },
+    {
+      "name": "source/scripts/systems/WaveDirector.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/systems/WaveDirector.gd",
+      "bytes": 33336,
+      "sha256": "d47d7ac885cfdf65faa4375fc4a33df3d1140e29442c2f227437e47eeadcc48b"
+    },
+    {
+      "name": "source/scripts/ui/AimReticle.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/ui/AimReticle.gd",
+      "bytes": 1091,
+      "sha256": "def21b4a2d9fe38318814adc6ad19e7fb9f384976693052b345797a2ab970a8a"
+    },
+    {
+      "name": "source/scripts/ui/BossDirectionIndicator.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/ui/BossDirectionIndicator.gd",
+      "bytes": 1411,
+      "sha256": "12f4107eae086656790d2e8dfee77816f43cc2bc7231e514e9b8051ef767914e"
+    },
+    {
+      "name": "source/scripts/ui/BossHealthBar.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/ui/BossHealthBar.gd",
+      "bytes": 6115,
+      "sha256": "0b4b0baa58d17680c872dd357bf5246c9fb1df609f80a24da6116d8188811893"
+    },
+    {
+      "name": "source/scripts/ui/DroneLockReticle.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/ui/DroneLockReticle.gd",
+      "bytes": 605,
+      "sha256": "0d04a88ab53e86b362c666522fef7ffc2a1f16958fba9b54860232eaf464eb57"
+    },
+    {
+      "name": "source/scripts/ui/GameUI.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/ui/GameUI.gd",
+      "bytes": 15229,
+      "sha256": "b1d6622435e14870d28d998b31df2ddabe8bae9aa913a3528fac3c0f29769353"
+    },
+    {
+      "name": "source/scripts/ui/HUD.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/ui/HUD.gd",
+      "bytes": 13400,
+      "sha256": "75ebbbf91e512718fa9c3040e9bddcc1839ad45d296e17fe1f3c60ea3a9e0b40"
+    },
+    {
+      "name": "source/scripts/world/ArenaObstacle.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/world/ArenaObstacle.gd",
+      "bytes": 3470,
+      "sha256": "ca44d87f9b3e2e75d0e61b6b2a38e2c3387e5f58f95349c98e2cb772048d28f3"
+    },
+    {
+      "name": "source/scripts/world/FloorGrid.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/world/FloorGrid.gd",
+      "bytes": 947,
+      "sha256": "d502d160a4d1d9de9280c7d12f043ec221ebdf365c84570f9bd28d07251a450c"
+    },
+    {
+      "name": "source/scripts/world/SpawnPortal.gd",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/scripts/world/SpawnPortal.gd",
+      "bytes": 2084,
+      "sha256": "25698577e19c1e92a94e15c838df7d2c053e975ad900d3055231943af8b7769d"
+    },
+    {
+      "name": "source/themes/MintFarmTheme.tres",
+      "original": "build/diagnostics/pressure-capture/evidence-v1/source/themes/MintFarmTheme.tres",
+      "bytes": 4478,
+      "sha256": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63"
+    },
+    {
+      "name": "verification/scripts/art/StressCaptureObserver.gd.uid",
+      "original": "scripts/art/StressCaptureObserver.gd.uid",
+      "bytes": 19,
+      "sha256": "ced4861cad0d0af62f5a1c28b663355d8baa33f845b07826a7f88b6a45472826"
+    },
+    {
+      "name": "verification/scripts/art/check_movement_repeatability_report.py",
+      "original": "scripts/art/check_movement_repeatability_report.py",
+      "bytes": 18202,
+      "sha256": "5c042ededbd4c4c12f89955d821e6bedbfff11d092d685ac7b79786912b09e3d"
+    },
+    {
+      "name": "verification/scripts/tests/StressCaptureTest.gd",
+      "original": "scripts/tests/StressCaptureTest.gd",
+      "bytes": 2960,
+      "sha256": "d3510a923bfbaf94c99f2e07bc925c7555a926dd23664d91238b4da5899d467a"
+    },
+    {
+      "name": "verification/scripts/tests/StressCaptureTest.gd.uid",
+      "original": "scripts/tests/StressCaptureTest.gd.uid",
+      "bytes": 20,
+      "sha256": "5e590913d1c1c9bb1f9037631be56807424e40b449445cb8fb81d8589194d251"
+    },
+    {
+      "name": "verification/tasks/pressure-capture-plan.md",
+      "original": "tasks/pressure-capture-plan.md",
+      "bytes": 1614,
+      "sha256": "a51eddce734c31c269a7c6db3f41c65ca300167b8b4906d147d7a897d052f26e"
+    }
+  ],
+  "curated": {
+    "path": "docs/pressure-capture-evidence-v1.zip",
+    "members": 68,
+    "bytes": 6303780,
+    "sha256": "d9cfc203136261df9ad2a095a8130f48855b7ab1e250e630f7986d89e531dcd6"
+  },
+  "curated_names": [
+    "logs/full-gate-v1.log",
+    "logs/full-gate-v2.log",
+    "logs/native-r09-dash-v1.log",
+    "logs/offline-v1.log",
+    "logs/reject-existing-v1.log",
+    "logs/reject-headless-v1.log",
+    "logs/unit-green-v1.log",
+    "logs/unit-red-v1.log",
+    "logs/window-green-v1.log",
+    "logs/window-red-v1.log",
+    "native/peak/peak-015.png",
+    "native/peak/peak-027.png",
+    "native/post-freeze.png",
+    "native/pressure-capture-r09-dash-v1.json",
+    "source/assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png",
+    "source/assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png",
+    "source/assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png",
+    "source/assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png",
+    "source/assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png",
+    "source/assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png",
+    "source/assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png",
+    "source/assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+    "source/assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+    "source/assets/art/environment/floor_surface.gdshader",
+    "source/assets/art/environment/mint_farm_floor_b_v1.png",
+    "source/assets/art/environment/mint_farm_props_b_packed_v1.png",
+    "source/assets/art/environment/prop_alpha.gdshader",
+    "source/assets/art/shaders/dasher_hit_flash.gdshader",
+    "source/scenes/ui/HUD.tscn",
+    "source/scripts/Main.gd",
+    "source/scripts/actors/Enemy.gd",
+    "source/scripts/actors/Player.gd",
+    "source/scripts/art/LateCrowdLedger.gd",
+    "source/scripts/art/MovementDiagnosticFeedback.gd",
+    "source/scripts/art/MovementPhysicsSampler.gd",
+    "source/scripts/art/StressCaptureObserver.gd",
+    "source/scripts/art/VerifyMovementRepeatability.gd",
+    "source/scripts/art/VerifyNaturalRunRendered.gd",
+    "source/scripts/components/ArcPulseVisual.gd",
+    "source/scripts/components/BossAttackDirector.gd",
+    "source/scripts/components/BossProjectilePattern.gd",
+    "source/scripts/components/FlameTrail.gd",
+    "source/scripts/components/LaserBeam.gd",
+    "source/scripts/components/LobbedProjectile.gd",
+    "source/scripts/components/Projectile.gd",
+    "source/scripts/components/SpikeTrap.gd",
+    "source/scripts/components/TentacleAttack.gd",
+    "source/scripts/effects/CameraEffects.gd",
+    "source/scripts/effects/CombatVfx.gd",
+    "source/scripts/effects/FriendlyEffectPalette.gd",
+    "source/scripts/systems/BossCameraFraming.gd",
+    "source/scripts/systems/CombatView.gd",
+    "source/scripts/systems/WaveDirector.gd",
+    "source/scripts/ui/AimReticle.gd",
+    "source/scripts/ui/BossDirectionIndicator.gd",
+    "source/scripts/ui/BossHealthBar.gd",
+    "source/scripts/ui/DroneLockReticle.gd",
+    "source/scripts/ui/GameUI.gd",
+    "source/scripts/ui/HUD.gd",
+    "source/scripts/world/ArenaObstacle.gd",
+    "source/scripts/world/FloorGrid.gd",
+    "source/scripts/world/SpawnPortal.gd",
+    "source/themes/MintFarmTheme.tres",
+    "verification/scripts/art/StressCaptureObserver.gd.uid",
+    "verification/scripts/art/check_movement_repeatability_report.py",
+    "verification/scripts/tests/StressCaptureTest.gd",
+    "verification/scripts/tests/StressCaptureTest.gd.uid",
+    "verification/tasks/pressure-capture-plan.md"
+  ],
+  "omitted_names": [
+    "native/peak/peak-000.png",
+    "native/peak/peak-001.png",
+    "native/peak/peak-002.png",
+    "native/peak/peak-003.png",
+    "native/peak/peak-004.png",
+    "native/peak/peak-005.png",
+    "native/peak/peak-006.png",
+    "native/peak/peak-007.png",
+    "native/peak/peak-008.png",
+    "native/peak/peak-009.png",
+    "native/peak/peak-010.png",
+    "native/peak/peak-011.png",
+    "native/peak/peak-012.png",
+    "native/peak/peak-013.png",
+    "native/peak/peak-014.png",
+    "native/peak/peak-016.png",
+    "native/peak/peak-017.png",
+    "native/peak/peak-018.png",
+    "native/peak/peak-019.png",
+    "native/peak/peak-020.png",
+    "native/peak/peak-021.png",
+    "native/peak/peak-022.png",
+    "native/peak/peak-023.png",
+    "native/peak/peak-024.png",
+    "native/peak/peak-025.png",
+    "native/peak/peak-026.png"
+  ]
+}

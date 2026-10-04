@@ -11,6 +11,8 @@ const FeedbackScript = preload("res://scripts/art/MovementDiagnosticFeedback.gd"
 const TestSupportScript = preload("res://scripts/tests/TestSupport.gd")
 const SamplerScript = preload("res://scripts/art/MovementPhysicsSampler.gd")
 const LobScript = preload("res://scripts/components/LobbedProjectile.gd")
+const StressObserver = preload("res://scripts/art/StressCaptureObserver.gd")
+const RenderedSources = preload("res://scripts/art/VerifyNaturalRunRendered.gd")
 const OUTPUT_DIR := "res://build/diagnostics/movement-repeatability/"
 const ACTIONS := ["move_left", "move_right", "move_up", "move_down", "fire", "dash_melee"]
 const NATURAL_CAPTURE_STEPS := [60, 180, 360, 600]
@@ -29,7 +31,7 @@ class DiagnosticMain extends MainScript:
 		ui.show_start_screen()
 		ui.set_continue_available(snapshot_store.has_valid_snapshot())
 
-var config := {"seed": 20260908, "track": "D", "mode": "walk", "run": "", "steps": 1200, "clock": "unknown", "scenario": "stress60"}
+var config := {"seed": 20260908, "track": "D", "mode": "walk", "run": "", "steps": 1200, "clock": "unknown", "scenario": "stress60", "capture": "none"}
 var scene: DiagnosticMain
 var view: SubViewport
 var screen: TextureRect
@@ -41,11 +43,16 @@ var watchdog_started_usec := 0
 var active_sampler: Node
 var live_captures: Array[Dictionary] = []
 var live_capture_valid := true
+var stress_observer: RefCounted
 
 func _initialize() -> void:
 	watchdog_started_usec = Time.get_ticks_usec()
 	process_frame.connect(_watchdog)
 	if not _parse_args():
+		quit(1)
+		return
+	if DirAccess.dir_exists_absolute(OUTPUT_DIR + config.run + "-peak"):
+		push_error("Existing pressure peak evidence; use a fresh run ID")
 		quit(1)
 		return
 	var source_hashes_before := _source_hashes()
@@ -162,6 +169,10 @@ func _initialize() -> void:
 	sampler.config = config
 	sampler.read_state = _player_state
 	view.add_child(sampler)
+	if config.capture == "peak":
+		stress_observer = StressObserver.new()
+		sampler.sample_recorded.connect(_observe_stress_sample)
+		RenderingServer.frame_post_draw.connect(_capture_stress_frame)
 	if config.scenario == "natural_wave1" and DisplayServer.get_name() != "headless":
 		RenderingServer.frame_post_draw.connect(_capture_natural_frame)
 	if valid:
@@ -182,6 +193,11 @@ func _initialize() -> void:
 	var health_loss: float = sampler.health_loss
 	var shield_loss: float = sampler.shield_loss
 	cleaning_up = true
+	var pressure_capture := {}
+	if stress_observer != null:
+		RenderingServer.frame_post_draw.disconnect(_capture_stress_frame)
+		pressure_capture = stress_observer.finish(OUTPUT_DIR + config.run + "-peak", float(ended_usec-started_usec)/1000000.0, terminal)
+		valid = valid and pressure_capture.valid
 	# Stop live gameplay before draining deferred spawns. They must enter the
 	# still-owned tree before it is freed, not become stranded shutdown objects.
 	paused = true
@@ -257,6 +273,7 @@ func _initialize() -> void:
 		"hit_stop_events": feedback_events, "real_save_hashes_before": real_saves_before, "real_save_hashes_after": real_saves_after,
 		"limitations": "Measurement only, not balance/visual/human/performance acceptance. stress60 injects 60 AI; natural_wave1 starts via Enter, waits natural entrance/banner and release-only spawn guard, then observes wave 1 until death/clear/budget without invulnerability or enemy reset. Wave 1 has no lobbers: zero landing fills cannot validate lobber readability. Wave clear is not settlement/shop/restart acceptance. Fixed square inputs are a diagnostic bot, not human skill. D suppresses hit-stop; R calls production hit-stop. Clock mode is caller-declared and unverified. Enemy strafe uses wall clock and instance IDs; no deterministic claim."}
 	report["source_sha256_before"] = source_hashes_before
+	report["pressure_capture"] = pressure_capture
 	report["source_sha256_after"] = _source_hashes()
 	report["source_hashes_unchanged"] = report.source_sha256_before == report.source_sha256_after
 	valid = valid and report.source_hashes_unchanged
@@ -276,7 +293,24 @@ func _source_hashes() -> Dictionary:
 	var hashes := {}
 	for source in ["scripts/art/VerifyMovementRepeatability.gd", "scripts/art/MovementPhysicsSampler.gd", "scripts/art/MovementDiagnosticFeedback.gd", "scripts/Main.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/systems/WaveDirector.gd", "scripts/world/SpawnPortal.gd"]:
 		hashes[source] = FileAccess.get_sha256("res://" + source)
+	if config.capture == "peak":
+		for source in RenderedSources.visual_source_paths() + ["scripts/art/StressCaptureObserver.gd", "scripts/art/LateCrowdLedger.gd"]:
+			hashes[source] = FileAccess.get_sha256("res://" + source)
 	return hashes
+
+func _observe_stress_sample(sample: Dictionary) -> void:
+	var bodies := StressObserver.Ledger.entities(scene.wave_director.active_enemies, view.canvas_transform,
+		Rect2(Vector2.ZERO,Vector2(view.size)), scene.player.global_position, scene.player.get_body_radius())
+	var warnings: Array[Dictionary] = []
+	for shot in scene.projectiles.get_children():
+		if shot is LobScript and not shot.is_queued_for_deletion():
+			warnings.append({"id":shot.get_instance_id(), "position":[shot.target_position.x,shot.target_position.y],
+				"radius":shot.splash_radius, "elapsed":shot.elapsed, "duration":shot.flight_duration})
+	stress_observer.observe_sample(sample, bodies, warnings)
+
+func _capture_stress_frame() -> void:
+	if not cleaning_up and is_instance_valid(active_sampler) and not active_sampler.done:
+		stress_observer.capture(view, Engine.get_physics_frames(), float(Time.get_ticks_usec()-active_sampler.started_usec)/1000000.0)
 
 func _clock_metadata() -> Dictionary:
 	# OS.get_cmdline_args() omitted --fixed-fps in a confirmed fixed-FPS run.
@@ -362,6 +396,7 @@ func _parse_args() -> bool:
 	var valid: bool = config.seed in [20260908, 20260909, 20260910] and config.track in ["D", "R"] and config.mode in ["walk", "dash"]
 	valid = valid and config.scenario in ["stress60", "natural_wave1"] and (config.scenario != "natural_wave1" or config.track == "R")
 	valid = valid and config.steps >= 1 and config.steps <= (10800 if config.scenario == "natural_wave1" else 1200) and run_pattern.search(config.run) != null and config.clock in ["unknown", "fixed", "realtime"]
+	valid = valid and config.capture in ["none","peak"] and (config.capture != "peak" or (config.scenario == "stress60" and DisplayServer.get_name() != "headless"))
 	if not valid:
 		push_error("Expected registered seed, D/R, walk/dash, safe unique run, clock declaration; stress60 1..1200 steps or natural_wave1 R-only 1..10800 steps")
 	return valid
