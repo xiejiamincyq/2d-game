@@ -22,6 +22,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_anchors_preset(Control.PRESET_TOP_LEFT)
 	_build()
+	resized.connect(_update_threshold_markers)
 	apply_viewport_size(get_viewport().get_visible_rect().size)
 	visible = false
 
@@ -112,14 +113,21 @@ func _make_fill_style() -> StyleBoxFlat:
 	style.corner_radius_bottom_right = 1
 	return style
 
-func apply_viewport_size(viewport_size: Vector2) -> void:
+func get_preferred_width(viewport_size: Vector2) -> float:
+	# Pure sizing query for container owners; never changes local position/size.
 	var target_width := BASE_WIDTH * viewport_size.y / 720.0
 	var minimum_width := viewport_size.x * MIN_WIDTH_RATIO
 	var maximum_width := viewport_size.x * MAX_WIDTH_RATIO
-	size = Vector2(clampf(target_width, minimum_width, maximum_width), BAR_HEIGHT)
+	return clampf(target_width, minimum_width, maximum_width)
+
+func apply_viewport_size(viewport_size: Vector2) -> void:
+	size = Vector2(get_preferred_width(viewport_size), BAR_HEIGHT)
 	# Use an explicit screen-space left edge. This remains exactly centered even
 	# when the parent Control has a custom stretch mode or non-default anchors.
 	position = Vector2((viewport_size.x - size.x) * 0.5, TOP_SAFE_OFFSET)
+	_update_threshold_markers()
+
+func _update_threshold_markers() -> void:
 	for marker_index in threshold_markers.size():
 		var marker := threshold_markers[marker_index]
 		marker.position = Vector2(3.0 + (size.x - 6.0) * thresholds[marker_index] - 1.5, 16.0)

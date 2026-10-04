@@ -70,6 +70,7 @@ $gameplayTests = @(
     "Phase5CombatTest",
     "BossTest",
     "BossHealthBarTest",
+    "CombatStatusLayoutTest",
     "BossCameraFramingTest",
     "BossTentacleTest",
     "BossPatternTest",
@@ -120,7 +121,7 @@ foreach ($test in $tests) {
     $fixedStepArguments = ""
     $userArguments = ""
     $frameBudget = if ($test -eq "DashTest") { 1800 }
-        elseif ($test -in @("PortalRuntimeClockTest", "BossRuntimeClockTest")) { 600 }
+        elseif ($test -in @("PortalRuntimeClockTest", "BossRuntimeClockTest", "CombatStatusLayoutTest")) { 600 }
         else { 120 }
     # Clock tests observe real portal/Boss warnings at 60 FPS.
     # Their own five-second watchdogs remain the lifecycle failure bounds.

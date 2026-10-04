@@ -36,6 +36,10 @@ var start_backdrop: ColorRect
 var start_panel: PanelContainer
 var start_button: Button
 var continue_button: Button
+var combat_status_stack: VBoxContainer
+var combat_status_row: HBoxContainer
+var status_viewport_size := Vector2(1280, 720)
+var status_layout_pending := false
 
 # Compatibility references used by Main and focused tests.
 var hud_root: Control
@@ -85,12 +89,63 @@ func _ready() -> void:
 	root.add_child(boss_entrance_overlay)
 	root.add_child(aim_reticle)
 	root.add_child(boss_direction_indicator)
+	_build_combat_status_layout()
 	_build_start_screen()
 	_connect_components()
 	_bind_compatibility_references()
 	apply_viewport_size(get_viewport().get_visible_rect().size)
 	get_viewport().size_changed.connect(func() -> void: apply_viewport_size(get_viewport().get_visible_rect().size))
 	show_start_screen()
+
+func _build_combat_status_layout() -> void:
+	# Compose existing HUD messages with the Boss bar, without a second combo row
+	# taking away the player's usable combat band. HUD retains message ownership.
+	combat_status_stack = VBoxContainer.new()
+	combat_status_stack.name = "CombatStatusStack"
+	combat_status_stack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	combat_status_stack.add_theme_constant_override("separation", 6)
+	root.add_child(combat_status_stack)
+	root.move_child(combat_status_stack, 1) # Pause, settlement and title stay above it.
+	combat_status_row = HBoxContainer.new()
+	combat_status_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	combat_status_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	combat_status_row.add_theme_constant_override("separation", 8)
+	combat_status_stack.add_child(combat_status_row)
+	for control: Control in [boss_health_bar, hud.combo_panel]:
+		control.reparent(combat_status_row, false)
+		control.set_anchors_preset(Control.PRESET_TOP_LEFT)
+		control.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		control.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		control.visibility_changed.connect(_queue_status_layout)
+	hud.toast_overlay.reparent(combat_status_stack, false)
+	hud.toast_overlay.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	hud.toast_overlay.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	hud.toast_overlay.visibility_changed.connect(_queue_status_layout)
+	hud.combo_panel.minimum_size_changed.connect(_queue_status_layout)
+	hud.toast_overlay.minimum_size_changed.connect(_queue_status_layout)
+	hud.grid.resized.connect(_queue_status_layout)
+	hud.visibility_changed.connect(_queue_status_layout)
+	combat_status_stack.minimum_size_changed.connect(_queue_status_layout)
+
+func _queue_status_layout() -> void:
+	# Visibility is a synchronous HUD contract, not a deferred geometry update.
+	combat_status_stack.visible = hud.visible
+	if status_layout_pending:
+		return
+	status_layout_pending = true
+	_refresh_status_layout.call_deferred()
+
+func _refresh_status_layout() -> void:
+	status_layout_pending = false
+	var available_width := maxf(0.0, status_viewport_size.x - 28.0)
+	var boss_width: float = boss_health_bar.get_preferred_width(status_viewport_size)
+	if hud.combo_panel.visible:
+		boss_width = minf(boss_width, available_width - hud.combo_panel.get_combined_minimum_size().x - 8.0)
+	boss_health_bar.custom_minimum_size = Vector2(maxf(0.0, boss_width), BossHealthBarScript.BAR_HEIGHT)
+	# Follow actual grid height (including the two-column layout), not a fixed Y.
+	combat_status_stack.position = Vector2(14, hud.grid.position.y + hud.grid.size.y + 2.0)
+	combat_status_stack.size = Vector2(available_width, combat_status_stack.get_combined_minimum_size().y)
 
 func _build_start_screen() -> void:
 	start_backdrop = ColorRect.new()
@@ -188,14 +243,15 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 func apply_viewport_size(viewport_size: Vector2) -> void:
+	status_viewport_size = viewport_size
 	hud.apply_viewport_size(viewport_size)
 	pause_screen.apply_viewport_size(viewport_size)
 	settlement_screen.apply_viewport_size(viewport_size)
 	result_screen.apply_viewport_size(viewport_size)
 	wave_banner.apply_viewport_size(viewport_size)
-	boss_health_bar.apply_viewport_size(viewport_size)
 	boss_entrance_overlay.apply_viewport_size(viewport_size)
 	start_panel.custom_minimum_size = Vector2(minf(520.0, viewport_size.x - 40.0), minf(370.0, viewport_size.y - 40.0))
+	_queue_status_layout()
 
 func set_health(current: float, maximum: float) -> void:
 	hud.set_health(current, maximum)
