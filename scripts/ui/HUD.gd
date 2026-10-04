@@ -30,6 +30,7 @@ var toast_tween: Tween
 var collection_panel: PanelContainer
 var collection_label: Label
 var collection_bar: ProgressBar
+var bottom_status_stack: VBoxContainer
 var layout_viewport_size := Vector2(1280, 720)
 
 func _ready() -> void:
@@ -168,6 +169,29 @@ func _build_hud() -> void:
 	toast_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	toast_overlay.add_child(toast_label)
 	add_child(toast_overlay)
+	_build_bottom_status_layout()
+
+func _build_bottom_status_layout() -> void:
+	bottom_status_stack = VBoxContainer.new()
+	bottom_status_stack.name = "BottomStatusStack"
+	bottom_status_stack.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	bottom_status_stack.offset_left = 14.0
+	bottom_status_stack.offset_right = -14.0
+	bottom_status_stack.offset_bottom = -18.0
+	bottom_status_stack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bottom_status_stack.add_theme_constant_override("separation", 8)
+	add_child(bottom_status_stack)
+	for panel: Control in [collection_panel, overdrive_panel]:
+		panel.reparent(bottom_status_stack, false)
+		panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
+		panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	bottom_status_stack.minimum_size_changed.connect(_update_bottom_status_inset)
+	_update_bottom_status_inset()
+
+func _update_bottom_status_inset() -> void:
+	# Font metrics can make the countdown taller than its nominal 58px minimum.
+	# Keep the charge bar's original 18px bottom inset and fit the whole stack.
+	bottom_status_stack.offset_top = -18.0 - bottom_status_stack.get_combined_minimum_size().y
 
 func _make_card() -> VBoxContainer:
 	var panel := PanelContainer.new()

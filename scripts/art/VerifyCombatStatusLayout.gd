@@ -5,15 +5,22 @@ const SOURCES := ["scripts/art/VerifyCombatStatusLayout.gd", "scripts/tests/Comb
 
 func _initialize() -> void:
 	var run_id := OS.get_environment("COMBAT_STATUS_RUN_ID")
-	var output := "res://build/diagnostics/combat-status/" + run_id
+	var output := _capture_root() + run_id
 	if DisplayServer.get_name() == "headless" or run_id.is_empty() or not run_id.is_valid_filename() or DirAccess.dir_exists_absolute(output):
 		push_error("Status capture requires real rendering and a fresh safe run ID")
 		quit(1)
 		return
 	DirAccess.make_dir_recursive_absolute(output + "/source")
 	var hashes := {}
+	var sources: Array[String] = []
+	sources.assign(SOURCES)
+	var active_path: String = get_script().resource_path.trim_prefix("res://")
+	if not sources.has(active_path):
+		sources.append(active_path)
+	var modes := _capture_modes()
+	var expected_images := SIZES.size() * modes.size() * 2
 	# Freeze the exact before/after fixture and production bytes before rendering.
-	for path: String in SOURCES:
+	for path: String in sources:
 		var destination: String = output + "/source/" + path
 		DirAccess.make_dir_recursive_absolute(destination.get_base_dir())
 		if DirAccess.copy_absolute("res://" + path, destination) != OK:
@@ -34,20 +41,8 @@ func _initialize() -> void:
 		view.add_child(ui)
 		ui.apply_viewport_size(Vector2(dimensions))
 		ui.hide_start_screen()
-		for mode: String in ["boss_combo", "boss_overdrive", "boss_all", "ordinary_toast"]:
-			ui.hide_boss_health()
-			ui.clear_combo()
-			ui.hud._finish_toast()
-			if mode.begins_with("boss"):
-				ui.show_boss_health(null, "深渊监工 / OVERSEER", 10800)
-				ui.set_boss_health(5800, 10800, 2)
-			if mode == "boss_combo" or mode == "boss_all":
-				ui.set_combo(9999)
-			if mode == "boss_overdrive":
-				ui.set_overdrive(true, 3.2)
-			if mode == "boss_all" or mode == "ordinary_toast":
-				ui.show_toast("激光协同强化")
-				ui.hud.toast_tween.kill()
+		for mode: String in modes:
+			_configure_state(mode)
 			for timing: String in ["first_draw", "settled"]:
 				if timing == "first_draw":
 					await process_frame
@@ -73,11 +68,34 @@ func _initialize() -> void:
 	if file == null:
 		quit(1)
 		return
-	file.store_string(JSON.stringify({"run": run_id, "valid": not failed and records.size() == 32, "images": records, "source_sha256": hashes, "scope": "Actual GameUI/FloorGrid, first rendered frame and settled fixed messages at four sizes; no Main, stores, natural input or performance"}, "\t"))
+	file.store_string(JSON.stringify({"run": run_id, "valid": not failed and records.size() == expected_images, "images": records, "source_sha256": hashes, "scope": "Actual GameUI/FloorGrid, first rendered frame and settled fixed messages at four sizes; no Main, stores, natural input or performance"}, "\t"))
 	file.close()
 	await process_frame
 	print("STATUS CAPTURE: %s valid=%s frames=%d" % [run_id, not failed, records.size()])
-	quit(1 if failed or records.size() != 32 else 0)
+	quit(1 if failed or records.size() != expected_images else 0)
+
+func _capture_root() -> String:
+	return "res://build/diagnostics/combat-status/"
+
+func _capture_modes() -> Array[String]:
+	return ["boss_combo", "boss_overdrive", "boss_all", "ordinary_toast"]
+
+func _configure_state(mode: String) -> void:
+	ui.hide_boss_health()
+	ui.clear_combo()
+	ui.hud._finish_toast()
+	ui.set_collection_window(0.0, 3.0)
+	ui.set_overdrive_charge(0.0, false)
+	if mode.begins_with("boss"):
+		ui.show_boss_health(null, "深渊监工 / OVERSEER", 10800)
+		ui.set_boss_health(5800, 10800, 2)
+	if mode == "boss_combo" or mode == "boss_all":
+		ui.set_combo(9999)
+	if mode == "boss_overdrive":
+		ui.set_overdrive(true, 3.2)
+	if mode == "boss_all" or mode == "ordinary_toast":
+		ui.show_toast("激光协同强化")
+		ui.hud.toast_tween.kill()
 
 func _capture_image(dimensions: Vector2i, mode: String, timing: String, output: String) -> Dictionary:
 	var path := output + "/%dx%d-%s-%s.png" % [dimensions.x, dimensions.y, mode, timing]
@@ -88,11 +106,11 @@ func _capture_image(dimensions: Vector2i, mode: String, timing: String, output: 
 	for control in ui.get_combat_occluders():
 		panels.append({"path": str(control.get_path()), "rect": _serialize_rect(_rect(control))})
 	var labels: Array[Dictionary] = []
-	for label: Label in [ui.combo_label, ui.toast_label, ui.boss_health_bar.name_label, ui.boss_health_bar.phase_label, ui.boss_health_bar.health_value_label]:
+	for label: Label in [ui.combo_label, ui.toast_label, ui.hud.collection_label, ui.hud.overdrive_label, ui.boss_health_bar.name_label, ui.boss_health_bar.phase_label, ui.boss_health_bar.health_value_label]:
 		if label.is_visible_in_tree():
 			var minimum := label.get_minimum_size()
 			labels.append({"text": label.text, "rect": _serialize_rect(_rect(label)), "minimum_size": [minimum.x, minimum.y]})
-	return {"file": path.get_file(), "sha256": FileAccess.get_sha256(path), "viewport": [dimensions.x, dimensions.y], "mode": mode, "timing": timing, "panels": panels, "labels": labels, "combo": ui.combo_label.text, "toast": ui.toast_label.text}
+	return {"file": path.get_file(), "sha256": FileAccess.get_sha256(path), "viewport": [dimensions.x, dimensions.y], "mode": mode, "timing": timing, "panels": panels, "labels": labels, "combo": ui.combo_label.text, "toast": ui.toast_label.text, "collection_text": ui.hud.collection_label.text, "collection_value": ui.hud.collection_bar.value, "collection_max": ui.hud.collection_bar.max_value, "collection_alpha": ui.hud.collection_panel.modulate.a}
 
 func _serialize_rect(rect: Rect2) -> Array:
 	return [rect.position.x, rect.position.y, rect.size.x, rect.size.y]
