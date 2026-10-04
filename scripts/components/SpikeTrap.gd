@@ -18,7 +18,8 @@ var damage_source: StringName = DamageTypes.SPIKE
 var registered_bodies: Array[Node] = []
 
 func _ready() -> void:
-	z_index = -10
+	z_as_relative = false
+	z_index = -1
 	max_lifetime = lifetime
 	monitoring = true
 	monitorable = false

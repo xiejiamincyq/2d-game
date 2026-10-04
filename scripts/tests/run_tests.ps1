@@ -103,7 +103,8 @@ $artTests = @(
     "EnemyStaticArtTest",
     "ProjectileLandingVisualTest",
     "ChibiRuntimeArtTest",
-    "PlayerOcclusionOutlineTest"
+    "PlayerOcclusionOutlineTest",
+    "FriendlyEffectLayerTest"
 )
 
 if ($Group -eq "gameplay") {

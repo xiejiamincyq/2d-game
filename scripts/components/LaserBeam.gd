@@ -9,6 +9,11 @@ var lifetime: float = 0.09
 var width: float = 3.0
 var persistent: bool = false
 
+func _ready() -> void:
+	# Leave hostile bullets in front while this friendly ray passes behind actors.
+	z_as_relative = false
+	z_index = -1
+
 func setup(from_position: Vector2, to_position: Vector2, color: Color, beam_width: float = 3.0) -> void:
 	global_position = from_position
 	end_local = to_position - from_position

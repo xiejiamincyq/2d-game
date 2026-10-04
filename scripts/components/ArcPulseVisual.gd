@@ -20,6 +20,11 @@ var enemy_provider: Callable
 var expansion_speed_scale: float = 1.0
 var hit_enemy_ids: Dictionary = {}
 
+func _ready() -> void:
+	# Friendly ground effects must not inherit the foreground projectile lane.
+	z_as_relative = false
+	z_index = -1
+
 func setup(
 	radius: float,
 	pulse_damage: float = 0.0,
