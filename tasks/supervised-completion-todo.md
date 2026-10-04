@@ -28,6 +28,7 @@
   - [x] S2-B 自然第一波入口/数量守恒短观测，修复portal ready自动启用导致的双时钟与队列丢失；真实红绿和两组1200步证据见[本片报告](../docs/art/previews/environment/natural-wave1-clock-review-v1.md)。18次自然矩阵、整波与LOBber动态验收仍待做，不勾选S2整体。
   - [x] S2-C 自然第一波18次对照完成，7死亡/10预算结束/1清场；见[实测报告](../docs/art/previews/environment/natural-wave1-matrix-review-v1.md)。后期最拥挤自然窗口、LOBber与录像仍未完成，不勾选S2整体。
   - [x] S2-D入口基础：当前第三波自然checkpoint3559步，两个跨进程独立副本各正常C进入第四波600步；完整构筑/人物/商店恢复、原checkpoint不可变及walk/dash实际0/0与18/31请求/active通过。红绿、冻结/原存档/完整回归及独立审查见[本片报告](../docs/late-checkpoint-controls-v1.md)。不是正式18/36矩阵、后期峰值录像或S2整体。
+  - [x] S2-D观察器单例：09自然第三波3731步checkpoint；独立copy dash/walk5493/5579步均真实胜利/R重开，后期活体峰75/69、全程最长低进展9/0步；每轨55原生峰图和VFR副本、逐步位移/损失/clearance外部核算，222项闭合证据及独立只读复核。当前64Godot169757断言+30Python207测试通过，见[本片报告](../docs/late-observer-pilot-v1.md)。不是正式18/36、完整LOBber投掷/广泛视频兼容/人工视觉验收；特效遮玩家仍待改，不勾S2—S5整体。
 - [ ] S3 六景前后与运动证据、四向展示；本地实际看图验收。
   - [x] 友方技能绘制统一既定青绿/薄荷/奶油，Main超载不再橙色乘染整个本体；真实红绿、四向普通/超载16张组件原图、360步有限机械记录及完整回归通过。当前同驾驶三种子原生胜利、10523超载post-draw全局RGB冲突0，08/10缺overlap严格六景失败保留，09六景完整；见[美术修复与证据](../docs/friendly-effects-review-v1.md)。属性不代替像素透明度，未勾S3整体。
   - [x] 普通波地图边缘玩家取景技术切片：四尺寸×八边缘、首绘制/resize/恢复、导航隔离及当前09单局11113步胜利/11116绘制包络0遮挡通过；见[取景复核](../docs/player-camera-framing-v1.md)。20实际地图现已另做下述隔离运行时验收，不以本组件或单局代替，不勾S3/S4整体。

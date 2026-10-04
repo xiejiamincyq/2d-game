@@ -21,7 +21,8 @@ def check_resume(checkpoint, resumed, checkpoint_sha):
         saved = checkpoint['final']['snapshot']
         restored_run = {'map_seed': saved.get('map_seed'), 'kills': saved.get('kills'),
                         'coins': saved.get('coins'), 'wave': saved.get('pending_stage', 0)-1,
-                        'waiting_for_advance': True}
+                        'waiting_for_advance': True,'elapsed_seconds':saved.get('elapsed_seconds'),
+                        'map_generator_version':saved.get('map_generator_version')}
         destination_valid = (isinstance(run,str) and re.fullmatch(r'[A-Za-z0-9_-]{1,80}',run) is not None
             and config.get('save_path') == f'user://natural-run/{run}/run.json' and config['save_path'] != origin
             and origin == f"user://natural-run/{checkpoint['config']['run']}/run.json"

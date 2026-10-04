@@ -21,6 +21,21 @@ def fixture():
 
 
 class NaturalRunReportTest(unittest.TestCase):
+    def test_copy_cannot_omit_clock_and_generator_readback(self):
+        checkpoint = {'terminal':'checkpoint','valid':True,'process_id':100,'source_sha256':{'x':'a'},
+            'isolated_save_sha256':'b'*64,'config':{'run':'saved','save_path':'user://natural-run/saved/run.json'},
+            'final':{'snapshot':{'player':{},'settlement':{},'coins':1,'kills':1,'pending_stage':4,'map_seed':7,
+                     'family_levels':{},'upgrade_counts':{},'evolution':'','elapsed_seconds':3.5,'map_generator_version':3}}}
+        saved = checkpoint['final']['snapshot']
+        resumed = {'process_id':200,'source_sha256':{'x':'a'},'samples':[{'wave':4,'state':'PLAYING'}],
+            'config':{'run':'trial','resume':'saved','resume_strategy':'copy','save_path':'user://natural-run/trial/run.json'},
+            'resume_reference':{'report_sha256':'raw','verified':True,'snapshot_before':saved,
+                'restored':{'player':{},'settlement':{}},'restored_run':{'wave':3,'waiting_for_advance':True,'map_seed':7,'kills':1,'coins':1},
+                'restored_growth':{k:saved[k] for k in ['coins','family_levels','upgrade_counts','evolution','settlement']},
+                'source_save_path':checkpoint['config']['save_path'],'source_save_sha256':'b'*64,
+                'copied_save_sha256':'b'*64,'source_save_sha256_after':'b'*64}}
+        self.assertTrue(check_resume(checkpoint,resumed,'raw'))
+
     def test_six_save_records_must_cover_the_actual_known_paths(self):
         report = fixture()
         self.assertEqual([], check_report(report))
@@ -62,7 +77,8 @@ class NaturalRunReportTest(unittest.TestCase):
                       'config':{'run':'saved','save_path':'user://natural-run/saved/run.json'},
                       'final':{'snapshot':{'player':{'health':100},'settlement':{'wave':3},
                                'pending_stage':4,'map_seed':426363786,'kills':177,'coins':54,
-                               'family_levels':{'drone':2},'upgrade_counts':{'drone':2},'evolution':''}}}
+                               'family_levels':{'drone':2},'upgrade_counts':{'drone':2},'evolution':'',
+                               'elapsed_seconds':3.5,'map_generator_version':3}}}
         resumed = {'process_id':200,'source_sha256':{'x':'a'},
                    'samples':[{'wave':4,'state':'PLAYING'}],
                    'config':{'run':'trial','resume':'saved','resume_strategy':'copy',
@@ -70,7 +86,8 @@ class NaturalRunReportTest(unittest.TestCase):
                    'resume_reference':{'verified':True,'report_sha256':'raw_hash',
                       'snapshot_before':checkpoint['final']['snapshot'],
                       'restored':{key:checkpoint['final']['snapshot'][key] for key in ['player','settlement']},
-                      'restored_run':{'wave':3,'waiting_for_advance':True,'map_seed':426363786,'kills':177,'coins':54},
+                      'restored_run':{'wave':3,'waiting_for_advance':True,'map_seed':426363786,'kills':177,'coins':54,
+                                      'elapsed_seconds':3.5,'map_generator_version':3},
                       'restored_growth':{key:checkpoint['final']['snapshot'][key] for key in
                                          ['coins','family_levels','upgrade_counts','evolution','settlement']},
                       'source_save_path':checkpoint['config']['save_path'],
@@ -84,7 +101,7 @@ class NaturalRunReportTest(unittest.TestCase):
         bad['config']['save_path'] = checkpoint['config']['save_path']
         self.assertTrue(check_resume(checkpoint,bad,'raw_hash'))
 
-        for field,value in [('wave',1),('map_seed',7),('kills',0),('coins',0),('waiting_for_advance',False)]:
+        for field,value in [('wave',1),('map_seed',7),('kills',0),('coins',0),('waiting_for_advance',False),('elapsed_seconds',0),('map_generator_version',99)]:
             bad = copy.deepcopy(resumed)
             bad['resume_reference']['restored_run'][field] = value
             self.assertTrue(check_resume(checkpoint,bad,'raw_hash'), field)

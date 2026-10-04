@@ -118,12 +118,15 @@ func _initialize() -> void:
 		var restored_growth: Dictionary = scene.upgrade_system.get_snapshot_state()
 		var restored := {"player": scene.player.get_snapshot_state(), "settlement": restored_growth.settlement}
 		var restored_run := {"map_seed": scene.map_seed, "kills": scene.kill_count, "coins": scene.upgrade_system.coins, "wave": scene.wave_director.wave_index + 1, "waiting_for_advance": scene.wave_director.waiting_for_advance}
+		if copies_resume:
+			restored_run.merge({"elapsed_seconds": scene.elapsed_seconds, "map_generator_version": scene.arena_layout.generator_version})
 		var preserved: bool = scene.run_state == scene.RunState.SETTLEMENT and scene.map_seed == int(saved.map_seed) and scene.kill_count == int(saved.kills) and scene.upgrade_system.coins == int(saved.coins) and restored_run.wave == int(saved.pending_stage) - 1 and restored_run.waiting_for_advance and persisted_state_matches(restored.player, saved.player) and persisted_state_matches(restored.settlement, saved.settlement)
 		if copies_resume:
 			var saved_growth := {}
 			for field in ["coins", "family_levels", "upgrade_counts", "evolution", "settlement"]:
 				saved_growth[field] = saved[field]
 			preserved = preserved and persisted_state_matches(restored_growth, saved_growth)
+			preserved = preserved and persisted_state_matches({"elapsed_seconds": restored_run.elapsed_seconds, "map_generator_version": restored_run.map_generator_version}, {"elapsed_seconds": saved.elapsed_seconds, "map_generator_version": saved.map_generator_version})
 		valid = valid and preserved
 		resume_reference.merge({"verified": preserved, "restored": restored, "restored_run": restored_run, "restored_growth": restored_growth}, true)
 		continued_once = true

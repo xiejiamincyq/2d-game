@@ -172,20 +172,26 @@ func _visual_info() -> Dictionary:
 		"aim_screen": [scene.ui.aim_reticle.get_rect().get_center().x, scene.ui.aim_reticle.get_rect().get_center().y],
 		"reticle_visible": scene.ui.aim_reticle.visible}
 
-func _source_hashes() -> Dictionary:
-	var hashes := super._source_hashes()
+static func visual_source_paths() -> Array[String]:
+	var paths: Array[String] = []
 	# Bind the friendly procedural effects actually visible in the captured run.
 	for path in ["scripts/effects/FriendlyEffectPalette.gd", "scripts/effects/CombatVfx.gd", "scripts/components/ArcPulseVisual.gd", "scripts/components/LaserBeam.gd", "scripts/components/SpikeTrap.gd", "scripts/components/FlameTrail.gd", "scripts/components/Projectile.gd", "scripts/ui/DroneLockReticle.gd"]:
-		hashes[path] = FileAccess.get_sha256("res://" + path)
+		paths.append(path)
 	# The visible mouse marker must be bound to the actual captured version, too.
 	for path in ["scripts/ui/GameUI.gd", "scripts/ui/AimReticle.gd", "scripts/ui/BossHealthBar.gd", "themes/MintFarmTheme.tres", "scenes/ui/HUD.tscn", "scripts/effects/CameraEffects.gd", "scripts/systems/CombatView.gd", "scripts/systems/BossCameraFraming.gd", "scripts/ui/BossDirectionIndicator.gd"]:
-		hashes[path] = FileAccess.get_sha256("res://" + path)
+		paths.append(path)
 	for path in ["scripts/art/VerifyNaturalRunRendered.gd", "scripts/components/LobbedProjectile.gd", "scripts/components/TentacleAttack.gd", "scripts/components/BossAttackDirector.gd", "scripts/components/BossProjectilePattern.gd", "scripts/ui/HUD.gd", "scripts/world/FloorGrid.gd", "scripts/world/ArenaObstacle.gd", "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png", "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png", "assets/art/environment/mint_farm_floor_b_v1.png", "assets/art/environment/mint_farm_props_b_packed_v1.png", "assets/art/environment/floor_surface.gdshader", "assets/art/environment/prop_alpha.gdshader", "assets/art/shaders/dasher_hit_flash.gdshader"]:
-		hashes[path] = FileAccess.get_sha256("res://" + path)
+		paths.append(path)
 	for filename in DirAccess.get_files_at("res://assets/art/actors/enemies/"):
 		if filename.ends_with("_chibi_b_v1.png"):
 			var path: String = "assets/art/actors/enemies/" + filename
-			hashes[path] = FileAccess.get_sha256("res://" + path)
+			paths.append(path)
+	return paths
+
+func _source_hashes() -> Dictionary:
+	var hashes := super._source_hashes()
+	for path in visual_source_paths():
+		hashes[path] = FileAccess.get_sha256("res://" + path)
 	return hashes
 
 func _finish() -> void:

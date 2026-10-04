@@ -97,6 +97,7 @@ $artTests = @(
     "NaturalRunPolicyTest",
     "NaturalRunSnapshotCheckTest",
     "NaturalRunRenderedTest",
+    "LateCrowdLedgerTest",
     "BossReadabilityTest",
     "EnemyDasherArtTest",
     "EnemyStaticArtTest",
