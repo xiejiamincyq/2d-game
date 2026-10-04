@@ -1,0 +1,3429 @@
+{
+  "scope": "Local full originals plus selected source snapshots; not complete project dependency closure. v1 natural invalid and v2 missing overlap are retained, not pooled into six-scene acceptance. Full raw ZIPs remain local; repository ZIP is curated.",
+  "raw_members": [
+    {
+      "name": "fixed/extra-after-v1/direction-0-ordinary-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-0-ordinary-control.png",
+      "bytes": 577157,
+      "sha256": "256f068c9da5c6181ec6ffe58e3ba17590e1901b409a3d71ab1170d0629dec4d"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-0-ordinary-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-0-ordinary-mask.png",
+      "bytes": 10902,
+      "sha256": "54d8a0be520a43de04bd0c522527eb708ac0892643872454a7714479ec54f43c"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-0-ordinary-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-0-ordinary-overlap.png",
+      "bytes": 581411,
+      "sha256": "e3ee1131f054bb72de3a017c5e986016cbbdf45c22d3c8a385cd1b549c42afbc"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-0-overdrive-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-0-overdrive-control.png",
+      "bytes": 577608,
+      "sha256": "86e3639249434efc4a92e30cddcb4f996a004ff19b76b46b7c24cca7840c5bdf"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-0-overdrive-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-0-overdrive-mask.png",
+      "bytes": 11499,
+      "sha256": "a090c832699d61efd87a5ad482876bff15f35368379af072b5ab4a4dc7268cba"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-0-overdrive-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-0-overdrive-overlap.png",
+      "bytes": 581371,
+      "sha256": "4241459df50979c02be82b61ae9afc352fa4ade48badfdf87162b8f538656942"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-1-ordinary-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-1-ordinary-control.png",
+      "bytes": 578260,
+      "sha256": "fae158d949058f5143c26ba514f2a2c2c1134eb9a1e3563a252aeb629f54bd8c"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-1-ordinary-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-1-ordinary-mask.png",
+      "bytes": 11439,
+      "sha256": "adad148ff766b822383618270cc0a56d6cfb797d179d5d065724b4e373ca2d08"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-1-ordinary-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-1-ordinary-overlap.png",
+      "bytes": 581829,
+      "sha256": "e5c019dfd5475973478dda45cd3d381880685c466394654b6c7275724b44d1d0"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-1-overdrive-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-1-overdrive-control.png",
+      "bytes": 578656,
+      "sha256": "79ff70d81583861eecf1332c080cd1568ba536fda0235309b67ea4ade02affd9"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-1-overdrive-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-1-overdrive-mask.png",
+      "bytes": 12037,
+      "sha256": "5b469baa131291504f90ab920a8f2b5c20036405f691e83786ea0c98ccfa538a"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-1-overdrive-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-1-overdrive-overlap.png",
+      "bytes": 581872,
+      "sha256": "9d64fd69b256b1d3939a6efc9e2223f3b6ce2242755a635d59c5eea9ad9348dd"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-2-ordinary-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-2-ordinary-control.png",
+      "bytes": 577102,
+      "sha256": "51c01869430645a62ec18ccba7f07b286ec941adc9a6a7516ee14452c72c7285"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-2-ordinary-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-2-ordinary-mask.png",
+      "bytes": 10846,
+      "sha256": "698e02b5c15b20c0ac528d66f8ba506aef0c5e52a0095e76193ffcd7b13cfe49"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-2-ordinary-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-2-ordinary-overlap.png",
+      "bytes": 581318,
+      "sha256": "6951e746af4854048b96ca89d547ca3e61bd2a5932591c2dc8e2731d1fbddbe8"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-2-overdrive-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-2-overdrive-control.png",
+      "bytes": 577521,
+      "sha256": "8863188ad0e1251bb2b82ce2c45b980f36ae6c13b06dfe68ce494e97bf2f47db"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-2-overdrive-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-2-overdrive-mask.png",
+      "bytes": 11472,
+      "sha256": "330519de9c7692eaab3b7c40437b3f37cb8194bebc3ab95a14a09221095e9bc4"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-2-overdrive-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-2-overdrive-overlap.png",
+      "bytes": 581346,
+      "sha256": "8c65a0a2160318d84fcfda5754967eebd5d74ddf5509ea85143c5499d7201f98"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-3-ordinary-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-3-ordinary-control.png",
+      "bytes": 577318,
+      "sha256": "55496f52a8e40a929111fc9fbeece5a0cfb5173e5c7967a5e665495399e58c1e"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-3-ordinary-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-3-ordinary-mask.png",
+      "bytes": 10815,
+      "sha256": "745d468d70ed7d9bbd8c10e7d0239fa75b1ea63346de7c475468dcf3a21e9585"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-3-ordinary-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-3-ordinary-overlap.png",
+      "bytes": 581376,
+      "sha256": "a5ab3a9864919f7e673d41a19b694e354c5b91c18e66570f49188656282575a8"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-3-overdrive-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-3-overdrive-control.png",
+      "bytes": 577882,
+      "sha256": "53fc04aea818cc4bdd4fdab87a17351b80bcedd76cc5608c849cfc4a94da104f"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-3-overdrive-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-3-overdrive-mask.png",
+      "bytes": 11532,
+      "sha256": "98b828d3fc49bf2b0e7b027cc20a718365484feda5c40ce72d5ed370f44d6299"
+    },
+    {
+      "name": "fixed/extra-after-v1/direction-3-overdrive-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/direction-3-overdrive-overlap.png",
+      "bytes": 581354,
+      "sha256": "784e4d9ef161f0f077fa0ac7142ee990ed48bfb22e1f602263b151660026aac6"
+    },
+    {
+      "name": "fixed/extra-after-v1/manifest.json",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/manifest.json",
+      "bytes": 8899,
+      "sha256": "ceea000a6c9f68297f79e823c0d9d91855cc10d800d08c2e701d310d7adabdc1"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+      "bytes": 51732,
+      "sha256": "ad652e11b0f9a701f44322846c425634bf771da7f4a7c78fc7d0c87a7f310354"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+      "bytes": 27100,
+      "sha256": "9f8d33ed98f5af8a304d7101f0267b1331312e7788bad8aea348e9944c0cb45b"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/assets/art/effects/combat_hit_chibi_b_v1.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/assets/art/effects/combat_hit_chibi_b_v1.png",
+      "bytes": 22403,
+      "sha256": "026e13c4665d58ea0298eb822525410ef51b7680038e317b7cf647dd2b7299ac"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/scripts/Main.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/scripts/Main.gd",
+      "bytes": 26057,
+      "sha256": "2578f0d8527f67fbf4f748983c2e74e57978acd2d3d8ba1571005c3a7fdb4fe8"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/scripts/actors/Player.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/scripts/actors/Player.gd",
+      "bytes": 44251,
+      "sha256": "88fa20e1eb7c4d862b0837bf6db73f0f1c29862a75a320448d511daee9be4eb6"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/scripts/art/PlayerOcclusionOutline.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/scripts/art/PlayerOcclusionOutline.gd",
+      "bytes": 2844,
+      "sha256": "f0248bd50298add394b2e5d72928687e296ad9ca39e6504cb9c75612e73c2bf9"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/scripts/art/VerifyFriendlyOcclusion.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/scripts/art/VerifyFriendlyOcclusion.gd",
+      "bytes": 6872,
+      "sha256": "8214b5b3a23e95a36119dfaa4192b742b5301b643b662f441faa58aded04a9c4"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/scripts/components/ArcPulseVisual.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/scripts/components/ArcPulseVisual.gd",
+      "bytes": 3337,
+      "sha256": "23923c95df928acfbafb114ebedb30c89d0fa5c5d6d546acb0d5e382af546842"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/scripts/components/FlameTrail.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/scripts/components/FlameTrail.gd",
+      "bytes": 2212,
+      "sha256": "7039420b5daf277a5d0a927b381ada6752e848c99a17fc6a5f7fbb9ebf2a9ce2"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/scripts/components/LaserBeam.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/scripts/components/LaserBeam.gd",
+      "bytes": 1024,
+      "sha256": "bfe5fe105607d56b747c97eb8d9a45d8e0537e517768eac03cfd9dc06fa7d5f2"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/scripts/components/SpikeTrap.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/scripts/components/SpikeTrap.gd",
+      "bytes": 3540,
+      "sha256": "b7ecb803d6bed2d09d329b6dc4a93ab5361f2673779f96de0ac873de4ceb7665"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/scripts/effects/CombatVfx.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/scripts/effects/CombatVfx.gd",
+      "bytes": 8751,
+      "sha256": "0f82292ca621853de84658efd3fa671eb7d595cbff2b017c0528fe2f97ef95ce"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/scripts/effects/FriendlyEffectPalette.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/scripts/effects/FriendlyEffectPalette.gd",
+      "bytes": 265,
+      "sha256": "4893c1bf09210ef0dc265f96f8e2faa70c2f8478035f643e40a5f7b2d0b16d4f"
+    },
+    {
+      "name": "fixed/extra-after-v1/source/scripts/world/FloorGrid.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-after-v1/source/scripts/world/FloorGrid.gd",
+      "bytes": 947,
+      "sha256": "d502d160a4d1d9de9280c7d12f043ec221ebdf365c84570f9bd28d07251a450c"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-0-ordinary-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-0-ordinary-control.png",
+      "bytes": 577157,
+      "sha256": "256f068c9da5c6181ec6ffe58e3ba17590e1901b409a3d71ab1170d0629dec4d"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-0-ordinary-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-0-ordinary-mask.png",
+      "bytes": 10902,
+      "sha256": "54d8a0be520a43de04bd0c522527eb708ac0892643872454a7714479ec54f43c"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-0-ordinary-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-0-ordinary-overlap.png",
+      "bytes": 580068,
+      "sha256": "20470ee5bf228c946d507891299b2f5fa5c7812e86308c753d12acb4bd81c172"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-0-overdrive-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-0-overdrive-control.png",
+      "bytes": 577608,
+      "sha256": "86e3639249434efc4a92e30cddcb4f996a004ff19b76b46b7c24cca7840c5bdf"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-0-overdrive-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-0-overdrive-mask.png",
+      "bytes": 11499,
+      "sha256": "a090c832699d61efd87a5ad482876bff15f35368379af072b5ab4a4dc7268cba"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-0-overdrive-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-0-overdrive-overlap.png",
+      "bytes": 580155,
+      "sha256": "d803bc4f3af5feeb0039fc311ca338a05f0b9e601b98385f3b00717a18f068a1"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-1-ordinary-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-1-ordinary-control.png",
+      "bytes": 578260,
+      "sha256": "fae158d949058f5143c26ba514f2a2c2c1134eb9a1e3563a252aeb629f54bd8c"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-1-ordinary-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-1-ordinary-mask.png",
+      "bytes": 11439,
+      "sha256": "adad148ff766b822383618270cc0a56d6cfb797d179d5d065724b4e373ca2d08"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-1-ordinary-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-1-ordinary-overlap.png",
+      "bytes": 580224,
+      "sha256": "01a6293bd00ce3ff4ad275abf09b40e7d8021ec9f7be75b48f5e7172a8bd1154"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-1-overdrive-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-1-overdrive-control.png",
+      "bytes": 578656,
+      "sha256": "79ff70d81583861eecf1332c080cd1568ba536fda0235309b67ea4ade02affd9"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-1-overdrive-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-1-overdrive-mask.png",
+      "bytes": 12037,
+      "sha256": "5b469baa131291504f90ab920a8f2b5c20036405f691e83786ea0c98ccfa538a"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-1-overdrive-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-1-overdrive-overlap.png",
+      "bytes": 580240,
+      "sha256": "31106af7567a85c16c493f4cd4fb401760a75bf2bc926376fdba97b180550cdc"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-2-ordinary-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-2-ordinary-control.png",
+      "bytes": 577102,
+      "sha256": "51c01869430645a62ec18ccba7f07b286ec941adc9a6a7516ee14452c72c7285"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-2-ordinary-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-2-ordinary-mask.png",
+      "bytes": 10846,
+      "sha256": "698e02b5c15b20c0ac528d66f8ba506aef0c5e52a0095e76193ffcd7b13cfe49"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-2-ordinary-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-2-ordinary-overlap.png",
+      "bytes": 579911,
+      "sha256": "3cff72ea18a642ae1f3c6d22472663f0f1bbe2edede6fdbfcd5fd6cb0c6cc0b3"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-2-overdrive-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-2-overdrive-control.png",
+      "bytes": 577521,
+      "sha256": "8863188ad0e1251bb2b82ce2c45b980f36ae6c13b06dfe68ce494e97bf2f47db"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-2-overdrive-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-2-overdrive-mask.png",
+      "bytes": 11472,
+      "sha256": "330519de9c7692eaab3b7c40437b3f37cb8194bebc3ab95a14a09221095e9bc4"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-2-overdrive-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-2-overdrive-overlap.png",
+      "bytes": 579935,
+      "sha256": "222e848cc1902673e00238f03ace9f175dedea76a3229a65ae91a8496e7e2eb1"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-3-ordinary-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-3-ordinary-control.png",
+      "bytes": 577318,
+      "sha256": "55496f52a8e40a929111fc9fbeece5a0cfb5173e5c7967a5e665495399e58c1e"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-3-ordinary-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-3-ordinary-mask.png",
+      "bytes": 10815,
+      "sha256": "745d468d70ed7d9bbd8c10e7d0239fa75b1ea63346de7c475468dcf3a21e9585"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-3-ordinary-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-3-ordinary-overlap.png",
+      "bytes": 580020,
+      "sha256": "1cbcf55f9e742c149c0e851d9e36e891e0abe94b7411eecee7947b6cc308469d"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-3-overdrive-control.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-3-overdrive-control.png",
+      "bytes": 577882,
+      "sha256": "53fc04aea818cc4bdd4fdab87a17351b80bcedd76cc5608c849cfc4a94da104f"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-3-overdrive-mask.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-3-overdrive-mask.png",
+      "bytes": 11532,
+      "sha256": "98b828d3fc49bf2b0e7b027cc20a718365484feda5c40ce72d5ed370f44d6299"
+    },
+    {
+      "name": "fixed/extra-before-v1/direction-3-overdrive-overlap.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/direction-3-overdrive-overlap.png",
+      "bytes": 580047,
+      "sha256": "df8c951159fa9cd918c4c0c743c374262ff8b94ae59af75e22e18c4b74eb58e2"
+    },
+    {
+      "name": "fixed/extra-before-v1/manifest.json",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/manifest.json",
+      "bytes": 8935,
+      "sha256": "7af238288cf5cb2263cef980f0a37b87361ec5c9e0cf9f60c29d8f1d74350cb5"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+      "bytes": 51732,
+      "sha256": "ad652e11b0f9a701f44322846c425634bf771da7f4a7c78fc7d0c87a7f310354"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+      "bytes": 27100,
+      "sha256": "9f8d33ed98f5af8a304d7101f0267b1331312e7788bad8aea348e9944c0cb45b"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/assets/art/effects/combat_hit_chibi_b_v1.png",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/assets/art/effects/combat_hit_chibi_b_v1.png",
+      "bytes": 22403,
+      "sha256": "026e13c4665d58ea0298eb822525410ef51b7680038e317b7cf647dd2b7299ac"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/scripts/Main.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/scripts/Main.gd",
+      "bytes": 26083,
+      "sha256": "be44d7190fdf39fdf0d3bcc1f57c4da54feda53870f34c168be95d6948f7a0e5"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/scripts/actors/Player.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/scripts/actors/Player.gd",
+      "bytes": 44172,
+      "sha256": "a9f5e490eb3738908daa81d0fa6f6284b6332d6b3b3b1dd3c796531fd6bdf5f2"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/scripts/art/PlayerOcclusionOutline.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/scripts/art/PlayerOcclusionOutline.gd",
+      "bytes": 2844,
+      "sha256": "f0248bd50298add394b2e5d72928687e296ad9ca39e6504cb9c75612e73c2bf9"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/scripts/art/VerifyFriendlyOcclusion.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/scripts/art/VerifyFriendlyOcclusion.gd",
+      "bytes": 6872,
+      "sha256": "8214b5b3a23e95a36119dfaa4192b742b5301b643b662f441faa58aded04a9c4"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/scripts/components/ArcPulseVisual.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/scripts/components/ArcPulseVisual.gd",
+      "bytes": 3337,
+      "sha256": "23923c95df928acfbafb114ebedb30c89d0fa5c5d6d546acb0d5e382af546842"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/scripts/components/FlameTrail.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/scripts/components/FlameTrail.gd",
+      "bytes": 2188,
+      "sha256": "07085ac41b3d3fb92d6d11afa85c828ee99704868b7ef5eebc4ce00d00b55872"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/scripts/components/LaserBeam.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/scripts/components/LaserBeam.gd",
+      "bytes": 1024,
+      "sha256": "bfe5fe105607d56b747c97eb8d9a45d8e0537e517768eac03cfd9dc06fa7d5f2"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/scripts/components/SpikeTrap.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/scripts/components/SpikeTrap.gd",
+      "bytes": 3540,
+      "sha256": "b7ecb803d6bed2d09d329b6dc4a93ab5361f2673779f96de0ac873de4ceb7665"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/scripts/effects/CombatVfx.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/scripts/effects/CombatVfx.gd",
+      "bytes": 8603,
+      "sha256": "f51f793b10df21268da698f70111da9ce14894bf299b5584989269ad163827d4"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/scripts/effects/FriendlyEffectPalette.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/scripts/effects/FriendlyEffectPalette.gd",
+      "bytes": 265,
+      "sha256": "4893c1bf09210ef0dc265f96f8e2faa70c2f8478035f643e40a5f7b2d0b16d4f"
+    },
+    {
+      "name": "fixed/extra-before-v1/source/scripts/world/FloorGrid.gd",
+      "original": "build/diagnostics/friendly-ground-layer/extra-before-v1/source/scripts/world/FloorGrid.gd",
+      "bytes": 947,
+      "sha256": "d502d160a4d1d9de9280c7d12f043ec221ebdf365c84570f9bd28d07251a450c"
+    },
+    {
+      "name": "logs/after-v1.log",
+      "original": "build/diagnostics/decorative-ground-layer/after-v1.log",
+      "bytes": 218,
+      "sha256": "bef64912366f85b7f7ec9c65acd6e0138712bd496c884f251f0cd2421d56393d"
+    },
+    {
+      "name": "logs/before-v1.log",
+      "original": "build/diagnostics/decorative-ground-layer/before-v1.log",
+      "bytes": 219,
+      "sha256": "706a760eb4f122ecddc800ebeb9644910a48a94a5bf3cddd4210b653a30a8ca8"
+    },
+    {
+      "name": "logs/full-gate-v1.log",
+      "original": "build/diagnostics/decorative-ground-layer/full-gate-v1.log",
+      "bytes": 4614,
+      "sha256": "6e43e54d7c9cd1e8ec73b53cd9bc74d8326aa2d455866a5a9e6b3a9ef8985346"
+    },
+    {
+      "name": "logs/layer-green-v1.log",
+      "original": "build/diagnostics/decorative-ground-layer/layer-green-v1.log",
+      "bytes": 1261,
+      "sha256": "7f69590ab47b6f06e6e11702d79780fe98e8d8f76fb6f342431877f3f82b713c"
+    },
+    {
+      "name": "logs/layer-red-v1.log",
+      "original": "build/diagnostics/decorative-ground-layer/layer-red-v1.log",
+      "bytes": 3529,
+      "sha256": "49e23e64795ed5e5ba8e4e926431e0f48b1f0ea2febf70d1c6df9a451cd3575d"
+    },
+    {
+      "name": "logs/natural-09-v1.log",
+      "original": "build/diagnostics/decorative-ground-layer/natural-09-v1.log",
+      "bytes": 3480,
+      "sha256": "eda1fbda237a53951882245967fe2abcf3d9bf74c981e4bd74f80eff897ca048"
+    },
+    {
+      "name": "logs/natural-09-v2.log",
+      "original": "build/diagnostics/decorative-ground-layer/natural-09-v2.log",
+      "bytes": 3214,
+      "sha256": "1cc0532921b8185b79037fdaf0bc8bcf22352be3275e2267b13c929d7fe89a07"
+    },
+    {
+      "name": "logs/natural-check-v1.log",
+      "original": "build/diagnostics/decorative-ground-layer/natural-check-v1.log",
+      "bytes": 271,
+      "sha256": "82e375a6adcacac154ab2a0f54b70e6d857de5cec9e62a6294ae8ffe37943e02"
+    },
+    {
+      "name": "logs/natural-check-v2.log",
+      "original": "build/diagnostics/decorative-ground-layer/natural-check-v2.log",
+      "bytes": 144,
+      "sha256": "5ffab7647e08c37e59337950d4743b32b5070e6d7cee9a25084b761d95a5794c"
+    },
+    {
+      "name": "logs/render-check-v2.log",
+      "original": "build/diagnostics/decorative-ground-layer/render-check-v2.log",
+      "bytes": 165,
+      "sha256": "cbf11c424ac30abfbae0eb4e79bbebb88a5f2b47a6d1d1e9ff27c1a4bb45b06c"
+    },
+    {
+      "name": "logs/render-strict-six-v2.log",
+      "original": "build/diagnostics/decorative-ground-layer/render-strict-six-v2.log",
+      "bytes": 204,
+      "sha256": "3497a5887e316b0c633ad54b143257879823299e50099393275a616c9db3afdc"
+    },
+    {
+      "name": "natural-source/assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png",
+      "original": "assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png",
+      "bytes": 26395,
+      "sha256": "1db9d68975612537d734e9660017144b77ba3954b15dcd5a882ac659e332e9ad"
+    },
+    {
+      "name": "natural-source/assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png",
+      "original": "assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png",
+      "bytes": 27618,
+      "sha256": "5c3a0d230793715ddb3d15526916d1ef30c65d44252a82d7f8632e8896876ebb"
+    },
+    {
+      "name": "natural-source/assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png",
+      "original": "assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png",
+      "bytes": 17070,
+      "sha256": "222df622318156390a1e061bcfcb427f9f0bf181f88cea701cf60c1a89087e5f"
+    },
+    {
+      "name": "natural-source/assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png",
+      "original": "assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png",
+      "bytes": 19600,
+      "sha256": "cc94485c28547ae3da9aa25619b751ee72f756461d4d27bbb471c1190098bd70"
+    },
+    {
+      "name": "natural-source/assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png",
+      "original": "assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png",
+      "bytes": 28858,
+      "sha256": "e4f96efbbf441a834551c9937dddb159512b36462861bf814ad9f416f390048c"
+    },
+    {
+      "name": "natural-source/assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png",
+      "original": "assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png",
+      "bytes": 19243,
+      "sha256": "9692680a6dfd2e9f8cb9c8f89320f5179728f96aff164bbe21fad951ba235a87"
+    },
+    {
+      "name": "natural-source/assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png",
+      "original": "assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png",
+      "bytes": 23077,
+      "sha256": "86f9bd41666452242aeb85d6d5ad3f84df94618ee12aa4197932459dbc01afba"
+    },
+    {
+      "name": "natural-source/assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+      "original": "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+      "bytes": 51732,
+      "sha256": "ad652e11b0f9a701f44322846c425634bf771da7f4a7c78fc7d0c87a7f310354"
+    },
+    {
+      "name": "natural-source/assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+      "original": "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+      "bytes": 27100,
+      "sha256": "9f8d33ed98f5af8a304d7101f0267b1331312e7788bad8aea348e9944c0cb45b"
+    },
+    {
+      "name": "natural-source/assets/art/environment/floor_surface.gdshader",
+      "original": "assets/art/environment/floor_surface.gdshader",
+      "bytes": 807,
+      "sha256": "fbcdb3c34a32dee12904983630370b68c69e9200fbaf8fea71e33a25258c90c9"
+    },
+    {
+      "name": "natural-source/assets/art/environment/mint_farm_floor_b_v1.png",
+      "original": "assets/art/environment/mint_farm_floor_b_v1.png",
+      "bytes": 980749,
+      "sha256": "3124d80676757709edc28182d3f6ac950f716d8d1586794edc8bed1b3041f257"
+    },
+    {
+      "name": "natural-source/assets/art/environment/mint_farm_props_b_packed_v1.png",
+      "original": "assets/art/environment/mint_farm_props_b_packed_v1.png",
+      "bytes": 787884,
+      "sha256": "672c0cae193f66d1e8168443831f78c2622a757cfe1b6e24508322b041dddfc3"
+    },
+    {
+      "name": "natural-source/assets/art/environment/prop_alpha.gdshader",
+      "original": "assets/art/environment/prop_alpha.gdshader",
+      "bytes": 320,
+      "sha256": "4ff920523cf1243c5a2304a45ff6e77430c5904e71ff0e9dedc137ed537a8d71"
+    },
+    {
+      "name": "natural-source/assets/art/shaders/dasher_hit_flash.gdshader",
+      "original": "assets/art/shaders/dasher_hit_flash.gdshader",
+      "bytes": 253,
+      "sha256": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9"
+    },
+    {
+      "name": "natural-source/scenes/ui/HUD.tscn",
+      "original": "scenes/ui/HUD.tscn",
+      "bytes": 304,
+      "sha256": "8e2907f7196de67f32e03421135fd6e9e19a98463124b2e09dc9f8e6f76319d9"
+    },
+    {
+      "name": "natural-source/scripts/Main.gd",
+      "original": "scripts/Main.gd",
+      "bytes": 26057,
+      "sha256": "2578f0d8527f67fbf4f748983c2e74e57978acd2d3d8ba1571005c3a7fdb4fe8"
+    },
+    {
+      "name": "natural-source/scripts/actors/Enemy.gd",
+      "original": "scripts/actors/Enemy.gd",
+      "bytes": 31004,
+      "sha256": "614d5f26da4dcf2aa2c864865481baad8fa3555b7dfc8c9ec54cd10f61c18aee"
+    },
+    {
+      "name": "natural-source/scripts/actors/OverseerBoss.gd",
+      "original": "scripts/actors/OverseerBoss.gd",
+      "bytes": 13992,
+      "sha256": "e1105bef7807d585c3a4fe1ee9b3442cf73ebd1c213e29bb565d17cfbc772ec6"
+    },
+    {
+      "name": "natural-source/scripts/actors/Player.gd",
+      "original": "scripts/actors/Player.gd",
+      "bytes": 44251,
+      "sha256": "88fa20e1eb7c4d862b0837bf6db73f0f1c29862a75a320448d511daee9be4eb6"
+    },
+    {
+      "name": "natural-source/scripts/art/NaturalRunDiagnostic.tscn",
+      "original": "scripts/art/NaturalRunDiagnostic.tscn",
+      "bytes": 662,
+      "sha256": "dcad36109beca46ad85415e8774a04f012fb9fa94b7bc538048fa195fbdf6a6e"
+    },
+    {
+      "name": "natural-source/scripts/art/NaturalRunMain.gd",
+      "original": "scripts/art/NaturalRunMain.gd",
+      "bytes": 1101,
+      "sha256": "dba6c3c8a50c23a00851377128b6096777698c32b7fa82bb30a2ef4b86198762"
+    },
+    {
+      "name": "natural-source/scripts/art/NaturalRunPolicy.gd",
+      "original": "scripts/art/NaturalRunPolicy.gd",
+      "bytes": 2639,
+      "sha256": "75d7ccf15e5b35355324945301afb4b8a5a57f5805a10e5d3cb14d07889b2259"
+    },
+    {
+      "name": "natural-source/scripts/art/VerifyFriendlyLayerNatural.gd",
+      "original": "scripts/art/VerifyFriendlyLayerNatural.gd",
+      "bytes": 2742,
+      "sha256": "3a5d5eefa2cdcd97462033bd8f40191d51fae794b886439bd3a0000029ea8714"
+    },
+    {
+      "name": "natural-source/scripts/art/VerifyNaturalRun.gd",
+      "original": "scripts/art/VerifyNaturalRun.gd",
+      "bytes": 21971,
+      "sha256": "c4de015e0c33e588db08d5765647d9f20ae622359934ff93232e70fd042f9b3c"
+    },
+    {
+      "name": "natural-source/scripts/art/VerifyNaturalRunRendered.gd",
+      "original": "scripts/art/VerifyNaturalRunRendered.gd",
+      "bytes": 12965,
+      "sha256": "d7faecf562fc71f65e5d0c67e02475071245a50186871d76dcbdeddbbd01a5ff"
+    },
+    {
+      "name": "natural-source/scripts/art/check_natural_run_report.py",
+      "original": "scripts/art/check_natural_run_report.py",
+      "bytes": 9040,
+      "sha256": "db64c6437cf1ba18fb519a0cf037b5b27dd4ae91f16a610c9753324a87df8d8d"
+    },
+    {
+      "name": "natural-source/scripts/components/ArcPulseVisual.gd",
+      "original": "scripts/components/ArcPulseVisual.gd",
+      "bytes": 3337,
+      "sha256": "23923c95df928acfbafb114ebedb30c89d0fa5c5d6d546acb0d5e382af546842"
+    },
+    {
+      "name": "natural-source/scripts/components/BossAttackDirector.gd",
+      "original": "scripts/components/BossAttackDirector.gd",
+      "bytes": 6340,
+      "sha256": "df82489a27dddf90f46e8587d80e4a34be355386085f8b331abae12c4faa2ad6"
+    },
+    {
+      "name": "natural-source/scripts/components/BossProjectilePattern.gd",
+      "original": "scripts/components/BossProjectilePattern.gd",
+      "bytes": 9087,
+      "sha256": "4c09821b66952d4eaca4e8e90429460f9a1d22297f2bd51a8c73dbeedbdca162"
+    },
+    {
+      "name": "natural-source/scripts/components/FlameTrail.gd",
+      "original": "scripts/components/FlameTrail.gd",
+      "bytes": 2212,
+      "sha256": "7039420b5daf277a5d0a927b381ada6752e848c99a17fc6a5f7fbb9ebf2a9ce2"
+    },
+    {
+      "name": "natural-source/scripts/components/LaserBeam.gd",
+      "original": "scripts/components/LaserBeam.gd",
+      "bytes": 1024,
+      "sha256": "bfe5fe105607d56b747c97eb8d9a45d8e0537e517768eac03cfd9dc06fa7d5f2"
+    },
+    {
+      "name": "natural-source/scripts/components/LobbedProjectile.gd",
+      "original": "scripts/components/LobbedProjectile.gd",
+      "bytes": 2054,
+      "sha256": "f51c01899994350d4a9bac2833a297d692d049698a77fe41a48f47f3e453a977"
+    },
+    {
+      "name": "natural-source/scripts/components/Projectile.gd",
+      "original": "scripts/components/Projectile.gd",
+      "bytes": 2807,
+      "sha256": "5fcffd772d22386272a19e5d64d49a5524f88c4848011a56016715deaf536f5c"
+    },
+    {
+      "name": "natural-source/scripts/components/SpikeTrap.gd",
+      "original": "scripts/components/SpikeTrap.gd",
+      "bytes": 3540,
+      "sha256": "b7ecb803d6bed2d09d329b6dc4a93ab5361f2673779f96de0ac873de4ceb7665"
+    },
+    {
+      "name": "natural-source/scripts/components/TentacleAttack.gd",
+      "original": "scripts/components/TentacleAttack.gd",
+      "bytes": 9866,
+      "sha256": "deb68380a599518a88ea2f7c843732612cbaef3372507eb0ec40ef161eb896f5"
+    },
+    {
+      "name": "natural-source/scripts/effects/CameraEffects.gd",
+      "original": "scripts/effects/CameraEffects.gd",
+      "bytes": 1619,
+      "sha256": "48a5f1f389374d8f368a5b9f8da9b875b296f332ebf2ffc292f5d0078c143c1f"
+    },
+    {
+      "name": "natural-source/scripts/effects/CombatVfx.gd",
+      "original": "scripts/effects/CombatVfx.gd",
+      "bytes": 8751,
+      "sha256": "0f82292ca621853de84658efd3fa671eb7d595cbff2b017c0528fe2f97ef95ce"
+    },
+    {
+      "name": "natural-source/scripts/effects/FriendlyEffectPalette.gd",
+      "original": "scripts/effects/FriendlyEffectPalette.gd",
+      "bytes": 265,
+      "sha256": "4893c1bf09210ef0dc265f96f8e2faa70c2f8478035f643e40a5f7b2d0b16d4f"
+    },
+    {
+      "name": "natural-source/scripts/systems/BossCameraFraming.gd",
+      "original": "scripts/systems/BossCameraFraming.gd",
+      "bytes": 7401,
+      "sha256": "42cf856efa4156d596f0b6b4352605a0c540505479b24a4f9bb6c33179157f6e"
+    },
+    {
+      "name": "natural-source/scripts/systems/CombatFeedback.gd",
+      "original": "scripts/systems/CombatFeedback.gd",
+      "bytes": 6819,
+      "sha256": "ab49d2a4ba23a7131c1db7ab60c9659a7503ed8791802193bc291de59266ab4a"
+    },
+    {
+      "name": "natural-source/scripts/systems/CombatView.gd",
+      "original": "scripts/systems/CombatView.gd",
+      "bytes": 1128,
+      "sha256": "9b0eb9cef8243ff6a433e1daf9b6db74ebd27d4820788b66d5d9b92f03d4f4a0"
+    },
+    {
+      "name": "natural-source/scripts/systems/RunSnapshotStore.gd",
+      "original": "scripts/systems/RunSnapshotStore.gd",
+      "bytes": 8908,
+      "sha256": "328a6c5f284c4528776e30338f8797c0a6202a5fa1f2f859172544b2cfd9ab51"
+    },
+    {
+      "name": "natural-source/scripts/systems/UpgradeSystem.gd",
+      "original": "scripts/systems/UpgradeSystem.gd",
+      "bytes": 22024,
+      "sha256": "8bed9bb1da7a10b5758af9630fdcb2aa2f78ba8c7117ff4bebc45683165bf45e"
+    },
+    {
+      "name": "natural-source/scripts/systems/WaveDirector.gd",
+      "original": "scripts/systems/WaveDirector.gd",
+      "bytes": 33336,
+      "sha256": "d47d7ac885cfdf65faa4375fc4a33df3d1140e29442c2f227437e47eeadcc48b"
+    },
+    {
+      "name": "natural-source/scripts/ui/AimReticle.gd",
+      "original": "scripts/ui/AimReticle.gd",
+      "bytes": 1091,
+      "sha256": "def21b4a2d9fe38318814adc6ad19e7fb9f384976693052b345797a2ab970a8a"
+    },
+    {
+      "name": "natural-source/scripts/ui/BossDirectionIndicator.gd",
+      "original": "scripts/ui/BossDirectionIndicator.gd",
+      "bytes": 1411,
+      "sha256": "12f4107eae086656790d2e8dfee77816f43cc2bc7231e514e9b8051ef767914e"
+    },
+    {
+      "name": "natural-source/scripts/ui/BossHealthBar.gd",
+      "original": "scripts/ui/BossHealthBar.gd",
+      "bytes": 6115,
+      "sha256": "0b4b0baa58d17680c872dd357bf5246c9fb1df609f80a24da6116d8188811893"
+    },
+    {
+      "name": "natural-source/scripts/ui/DroneLockReticle.gd",
+      "original": "scripts/ui/DroneLockReticle.gd",
+      "bytes": 605,
+      "sha256": "0d04a88ab53e86b362c666522fef7ffc2a1f16958fba9b54860232eaf464eb57"
+    },
+    {
+      "name": "natural-source/scripts/ui/GameUI.gd",
+      "original": "scripts/ui/GameUI.gd",
+      "bytes": 15229,
+      "sha256": "b1d6622435e14870d28d998b31df2ddabe8bae9aa913a3528fac3c0f29769353"
+    },
+    {
+      "name": "natural-source/scripts/ui/HUD.gd",
+      "original": "scripts/ui/HUD.gd",
+      "bytes": 13400,
+      "sha256": "75ebbbf91e512718fa9c3040e9bddcc1839ad45d296e17fe1f3c60ea3a9e0b40"
+    },
+    {
+      "name": "natural-source/scripts/world/ArenaLayout.gd",
+      "original": "scripts/world/ArenaLayout.gd",
+      "bytes": 10548,
+      "sha256": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c"
+    },
+    {
+      "name": "natural-source/scripts/world/ArenaObstacle.gd",
+      "original": "scripts/world/ArenaObstacle.gd",
+      "bytes": 3470,
+      "sha256": "ca44d87f9b3e2e75d0e61b6b2a38e2c3387e5f58f95349c98e2cb772048d28f3"
+    },
+    {
+      "name": "natural-source/scripts/world/FloorGrid.gd",
+      "original": "scripts/world/FloorGrid.gd",
+      "bytes": 947,
+      "sha256": "d502d160a4d1d9de9280c7d12f043ec221ebdf365c84570f9bd28d07251a450c"
+    },
+    {
+      "name": "natural-source/themes/MintFarmTheme.tres",
+      "original": "themes/MintFarmTheme.tres",
+      "bytes": 4478,
+      "sha256": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1-layers.json",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1-layers.json",
+      "bytes": 6932,
+      "sha256": "9a347d93428b3f98e05bede5cd86b0b7e4cdc4f2d515c772a01e6c0d7671031f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1.json",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1.json",
+      "bytes": 4035071,
+      "sha256": "f8a7f3249ec351b1b81f0d4b9f4e3daf890903a051296d2343f742632da80cb4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-000.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-000.png",
+      "bytes": 537695,
+      "sha256": "539ce986adf554221a87dd195703591d5ced5dee6cb238d8a4018514af75a3f9"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-001.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-001.png",
+      "bytes": 540678,
+      "sha256": "ed61d196ce06addab56ba39cd66bd58885521e53d3383208d33aa62b5140ec7d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-002.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-002.png",
+      "bytes": 541435,
+      "sha256": "12c407231fbb17128b4667ad21daaf3acc5e98062c71a3fcd52b7740b652f030"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-003.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-003.png",
+      "bytes": 535381,
+      "sha256": "f31f1da401e2e28ceb7d839a368f69d777087c43c500ddb1250c229e290526f1"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-004.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-004.png",
+      "bytes": 540063,
+      "sha256": "76c1a2cccce2242f53b1733d5ff38726728fac220831df846ce5c45e1b8295b5"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-005.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-005.png",
+      "bytes": 538226,
+      "sha256": "ecfb0a8d9c4cf14d1cbe9615579ae2d0f4369160866fd913d295a3da48dc0a3a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-006.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-006.png",
+      "bytes": 540302,
+      "sha256": "4688f9bf1246c2a8274c9c290f055cb03f4286648ba74eeceaca783b0428c394"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-007.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-007.png",
+      "bytes": 536401,
+      "sha256": "fe856fef16cdb9a905166028aab2a1cce5a530ad2240ea7679715e5f58897868"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-008.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-008.png",
+      "bytes": 535751,
+      "sha256": "2b919c086f3f50520f1fb8bebafabd5e9f6e7645f7ef89522ade20ade2714d1f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-009.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-009.png",
+      "bytes": 537909,
+      "sha256": "81fabdddb4f0703ca435fcdf5ea8c65dde99a7c64f151dff3de4fdaf37870f58"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-010.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-010.png",
+      "bytes": 540576,
+      "sha256": "6d21b20caedb85c77743ae5752247c28574770952b1a1775953f1c2e4a253e7d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-011.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-011.png",
+      "bytes": 540660,
+      "sha256": "682cba0e978a1078b8601eda5a7309956bba6e242520843f81de8ae2333b37bb"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-012.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-012.png",
+      "bytes": 540049,
+      "sha256": "68e2d9f92a2cd72d169434cc7f702b7e58d2449ce6cf04ad996efa7e5e95fd33"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-013.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-013.png",
+      "bytes": 540382,
+      "sha256": "864f629c891086cb924455bcb9f71c0435df76be6a344567e4da713c4f114f4f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-014.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-014.png",
+      "bytes": 539549,
+      "sha256": "98bef8c92275c2f496cca85d5ecec3bcf45b924f98f034e5f29b659563580e36"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-015.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-015.png",
+      "bytes": 537047,
+      "sha256": "3d9c381f9426bf19d10151163429cb0d1010608d89c1726ac0bf76c6a48834a9"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-016.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-016.png",
+      "bytes": 533361,
+      "sha256": "0e1b2c25e9f46a9e5d93d0e52d493186143c0e9444b38835cf9e1c8f1cc4dffb"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-017.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-017.png",
+      "bytes": 532542,
+      "sha256": "e06df759457ef00d2a98f0347d4712cde3709de8729dc76f91fa00c60e7ab709"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-018.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-018.png",
+      "bytes": 531271,
+      "sha256": "e7d9dee14b5ab79dbfb44de8c95384555b978b3eba0839df9ee6366b4aec5646"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-019.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-019.png",
+      "bytes": 528785,
+      "sha256": "863ce5b5dc7fd0c05a5233206c6f8a7945644cf8da07cae2e95e8374285fd246"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-020.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-020.png",
+      "bytes": 530501,
+      "sha256": "737f290fb25fd30ecea991ecf2057e899b7eb8ded1f9e47f7b5aa3cbe8e03faf"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-021.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-021.png",
+      "bytes": 535624,
+      "sha256": "0198a586430cf7044781fd18fcae02a4caa99d4935703acec577c197e0171d16"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-022.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-022.png",
+      "bytes": 534586,
+      "sha256": "6754a64f81d2e6cd3421d02dac7c066c190b0844c4c5212ca063641e570a9cff"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-023.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-023.png",
+      "bytes": 534007,
+      "sha256": "14422b6b9797ba92e3662e9e2cc66a07531f7a5fd5e316e7908ae00ef3c6d411"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-024.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-024.png",
+      "bytes": 536939,
+      "sha256": "f21372455cf50a168ff82d8dd947e6ddfab3c244ab3b33d267cf98e338ec60dc"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-025.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-025.png",
+      "bytes": 537525,
+      "sha256": "454f93781d8579d0a4eb3e993428189474db60573f1df98261063510afd7f43d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-026.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-026.png",
+      "bytes": 534034,
+      "sha256": "7aaefa77db51051c57fd9cdb864561e6beba171290f665626dc0e12628279ec8"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-027.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-027.png",
+      "bytes": 535218,
+      "sha256": "5b55035951c7587281d61789bca3e1a6b32396e6b2daa093ebcd3c09e39445dc"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-028.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-028.png",
+      "bytes": 534613,
+      "sha256": "33f80f6035122f45f69787f7965e749b84bb863933b993546c072e4960b32112"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/boss-029.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/boss-029.png",
+      "bytes": 536163,
+      "sha256": "1f6b7077829e480228e980f3e30bbc8cfd5444d4abe03d08edcaa6ab19c51c80"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-000.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-000.png",
+      "bytes": 646701,
+      "sha256": "0acf472e4931d046acebf92e9ac74f47e59a182273e9341dd6c3cfd4b896062d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-001.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-001.png",
+      "bytes": 654780,
+      "sha256": "28fb8e9eef5c5369bdde63a11551dd26ea5bf5eabb97760b3088d95682955ebc"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-002.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-002.png",
+      "bytes": 652986,
+      "sha256": "902ea854499906262c77078105c8d9f5dc7e8b47fb441d93a5299b4e2b02cd36"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-003.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-003.png",
+      "bytes": 640708,
+      "sha256": "abfcec4e7a3c29b69db8df054d23b591df7408df4daa4416677ce619ede4cd3f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-004.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-004.png",
+      "bytes": 622487,
+      "sha256": "b1062421fb28df1ff03423c04f7435b4ef9360198d3842722f2b081e1d78336a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-005.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-005.png",
+      "bytes": 637037,
+      "sha256": "93d57454c848d808b81e710b1a760dbf4096374212eb6e91480766c73ed1453e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-006.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-006.png",
+      "bytes": 642558,
+      "sha256": "7600369fc31b6e0a8458d5373bf5f8d9a22b710868dc3c47d27f2873218ebe6a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-007.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-007.png",
+      "bytes": 637862,
+      "sha256": "a8cdcfc8befdf96917ec66407cb28d3ea6ecc6902c3ce0898d431f4ddd59fb84"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-008.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-008.png",
+      "bytes": 639338,
+      "sha256": "79464315df11c985d93463f6c12d6378f56f6b9fe71a1c4ffa238c3e0c659dce"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-009.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-009.png",
+      "bytes": 644763,
+      "sha256": "1a88a075b8795d38ce52d8c991863b16414b49c6dc55101c30777be96a041772"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-010.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-010.png",
+      "bytes": 634597,
+      "sha256": "6711bc2ed5b77bf8c1839b0f390a5099279008de17cb77663270f7d3963c708d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-011.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-011.png",
+      "bytes": 638539,
+      "sha256": "ef661b3c5b91917cacd5bcb7eb0ae7a7e2c5005b6114411a04f3e740660f31ed"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-012.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-012.png",
+      "bytes": 644134,
+      "sha256": "b4b72cfd886e69731ae2a09df659b8b8cffaa91e3497df15c180e8258bc4f255"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-013.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-013.png",
+      "bytes": 639308,
+      "sha256": "afe499dd34ece4730dc6993d6884fc57c4735703804f1d67db2d1d194f592a28"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-014.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-014.png",
+      "bytes": 631476,
+      "sha256": "6488b28cd9449feb7fa95d7fa2be4fd6e304e57b79e5b5e14563f250d5cf5bad"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-015.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-015.png",
+      "bytes": 626050,
+      "sha256": "7d6c2652142e5da39f1f4edb4e2297ab5f0f092e655f17df1e4c8d369a8d2f4b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-016.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-016.png",
+      "bytes": 626422,
+      "sha256": "6d45638bace1101677843343b26426b47aac8016a65f68299fe68b0ae25be17b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-017.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-017.png",
+      "bytes": 628693,
+      "sha256": "d12fe68fdd2c0d0b43eaae36951280988085015e576df7ac2532104845b47859"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-018.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-018.png",
+      "bytes": 635000,
+      "sha256": "8bb0c5dbafafe1b945ffcb65eb83711f66294027eaf39ed4c6d91059297177a9"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-019.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-019.png",
+      "bytes": 631113,
+      "sha256": "b795178d3e9e8ed46d369c69d16e9b2dd9127f2b1e010d425a0fe1abd440a1e7"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-020.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-020.png",
+      "bytes": 622784,
+      "sha256": "7534a5b1cfda0b4dc684f0b02d0e386c21076c380d0f4f9b100600d16cb38fc5"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-021.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-021.png",
+      "bytes": 623146,
+      "sha256": "2130b0ef27ecddf7d60ada746aab2952cd6080360116e85cc033accbebdfae5b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-022.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-022.png",
+      "bytes": 631739,
+      "sha256": "bd37e468583b58323036d25835d4b85d4a0cf44ce6af47c9831c498086ac961c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-023.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-023.png",
+      "bytes": 634012,
+      "sha256": "33733598777b2b788e352b62cb212e6fa4172c571e1ca4cf105f9e0f26142b5c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-024.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-024.png",
+      "bytes": 633436,
+      "sha256": "89ed0d654bca0a22c034ee83d70d8b1a80ed01c21cae355644f5e07f4c4b13dc"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-025.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-025.png",
+      "bytes": 629817,
+      "sha256": "4bdc21742e2c9536ced988fab9e94a72ee26468728abbc0b050a7648af4a4a12"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-026.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-026.png",
+      "bytes": 626236,
+      "sha256": "290446fb58e316da62a8ce996e0f30d7c3eb34fb27ecc48f9f7899bd274b836d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-027.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-027.png",
+      "bytes": 627919,
+      "sha256": "a36895b29ff8b13758a94e25274906f8ee8727a6efea1a1de7f7e8044c336379"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-028.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-028.png",
+      "bytes": 622995,
+      "sha256": "5868839582c310cfe2727918e0dda947b5d6d80c4d4c62642635bb65adeae79c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/crowd-029.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/crowd-029.png",
+      "bytes": 623989,
+      "sha256": "1b6e3c7278c302fa08c5eb0f71e195c104040bd563987c87dc7feb9e135f83c4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-000.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-000.png",
+      "bytes": 563494,
+      "sha256": "61f9678f98e5a962777906b29c47e210b5c6b3edcaddec127492850d1aca78f1"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-001.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-001.png",
+      "bytes": 569806,
+      "sha256": "79d1a15b43f061e33a774fe289b38224df7125a16ecd27dcd91d40ba6f667c53"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-002.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-002.png",
+      "bytes": 571276,
+      "sha256": "31e56b2da1650b76d9fa148509b3c2ca416755864341f9dba7793a1f351222af"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-003.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-003.png",
+      "bytes": 570439,
+      "sha256": "332efcedb036f056b9298d3f0d764c9587068979a6e7f2ee42e847974381a197"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-004.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-004.png",
+      "bytes": 573159,
+      "sha256": "efa515e6fe53f541e34b821eede897532748f4122ddf36c4797be4fc3cc60a51"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-005.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-005.png",
+      "bytes": 576243,
+      "sha256": "58fe8807a880ff966b4a3e68772bea48a49b21957bbb00e9971e8ad03d4e4801"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-006.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-006.png",
+      "bytes": 576158,
+      "sha256": "c60c2fdcfbd886739a1e7eaf9303365571e2aad2cb1dcce33cd4ecb81ff2708e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-007.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-007.png",
+      "bytes": 587214,
+      "sha256": "5ac6c332a52f0b3d2f76e683b180a52d7332b1bb7c6d7f503f544e0ba036281e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-008.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-008.png",
+      "bytes": 584051,
+      "sha256": "c77333342e43a9f5f0765a3295976012604ecc208c284b7dd90faacfb7e67f16"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-009.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-009.png",
+      "bytes": 587512,
+      "sha256": "23ae2b9070afb694ed5311f7853a624f236a21f3b6d6f2a075ab2119b3d0a094"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-010.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-010.png",
+      "bytes": 586413,
+      "sha256": "4650fd77752f2ae0f919951adbabb118cc5b6dc32b8a1d27c99525418ec74398"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-011.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-011.png",
+      "bytes": 589259,
+      "sha256": "b3d597f393f8122f53d999633feed031820822805a5ed619b9540147991b1df7"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-012.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-012.png",
+      "bytes": 596899,
+      "sha256": "15f62571696ab3a3ae089ba755aaf6e1f4578a7fa0e538c37cd5e8a29893fa2c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-013.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-013.png",
+      "bytes": 601998,
+      "sha256": "f2ce9c783526621b883abeba94ca23d6f02849e150234b5e0a773434ad8c4017"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-014.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-014.png",
+      "bytes": 608890,
+      "sha256": "b0a30bc3175d9ee532ca78ad58d618cfafc7abbc9301862e6a27623ce65aadaf"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-015.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-015.png",
+      "bytes": 610314,
+      "sha256": "7300a5e5c7cfa3aa0cc845474363745c1aff22ab530fd619653febbf9935a741"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-016.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-016.png",
+      "bytes": 607882,
+      "sha256": "f0fa66183ba0df34504dd81ac5fab61fd98d0ff60ef17a0dd7323af1395bed37"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-017.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-017.png",
+      "bytes": 608183,
+      "sha256": "c1b04c1cb956951e07d023badd210356a344dd68555e57e6ae39a6f1f80f6978"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-018.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-018.png",
+      "bytes": 608735,
+      "sha256": "9fbd2a3c520440fff630840b176d38c9b77c8719b290984d66f00906e6c82e61"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-019.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-019.png",
+      "bytes": 612662,
+      "sha256": "eabf15cba12b5e175494ffd1dabfea6d28e0b1d7a72ddd0dc08320e12131a80c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-020.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-020.png",
+      "bytes": 614228,
+      "sha256": "3c3942e0bd48c6efffdd70c5b37dc3ecdd388d62408d0589374573eae3845ff3"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-021.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-021.png",
+      "bytes": 624865,
+      "sha256": "ce37d98cf8d878bfa92f28b0b819519bb7b239d74022306c9642538627248174"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-022.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-022.png",
+      "bytes": 628108,
+      "sha256": "0aee2736f0e0ee361f7e7cff54c20c00582287c90db4919f9b11dc4728a0d2c9"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-023.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-023.png",
+      "bytes": 627097,
+      "sha256": "0d3b6ab943b0c5ca341678cddb9b8c90e5f39b571f9817dc9d51cde98f378233"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-024.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-024.png",
+      "bytes": 633408,
+      "sha256": "4fb562671e8b4c87c1e1c5871e9d242dc3e6c253148cac9272b7db901cd3dd00"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-025.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-025.png",
+      "bytes": 629698,
+      "sha256": "ac2a2e5f8f7579da3cc43a4a2de4ea0bc64ea9c072bd08c429fc102a0433e411"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-026.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-026.png",
+      "bytes": 629312,
+      "sha256": "74c1520d315a7a727937f4e72cbd597d7426b436dbeeecfc118ef914694d66c9"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-027.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-027.png",
+      "bytes": 636215,
+      "sha256": "604417154fad7cb9d56b7afb4e57f779be6403feb72dfec18fe9f06b66d59920"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-028.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-028.png",
+      "bytes": 636843,
+      "sha256": "d732c699b0645d43f1f9ca112c8803e173483b5bb87b2899898d5a77e9dc9025"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/dash-029.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/dash-029.png",
+      "bytes": 634136,
+      "sha256": "28a306f76e8ca4c7afa8e43aa52cfdd9d7fbdabf4e736923602f404dd872e032"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-000.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-000.png",
+      "bytes": 504602,
+      "sha256": "e17b6a37c8cc874d3c94f223f433662270cf3b223a30eac7640fb60766ecdfda"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-001.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-001.png",
+      "bytes": 498466,
+      "sha256": "60b33d4fba9f136d27d3fa7c3327ecf4ec61f8832bfe6f96d4e71ab32cfbaa30"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-002.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-002.png",
+      "bytes": 499339,
+      "sha256": "1dc88cf5c90251567633212de52312bafe67e50054c8f5945b37e7ef5036a64a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-003.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-003.png",
+      "bytes": 513018,
+      "sha256": "71f99b4dfcffc461331a5449ab7cb1f7ea817fd47a365f2ff36ab27778e7ba68"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-004.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-004.png",
+      "bytes": 514169,
+      "sha256": "a0b65e6c39c72ab5bc01d28e5cfbf625f027ea16dc07450440c82103b5e6c385"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-005.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-005.png",
+      "bytes": 522270,
+      "sha256": "14c1a9887efeb47784cc6bba79603367966265da1d0eb8636eece8b42103d3f4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-006.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-006.png",
+      "bytes": 537592,
+      "sha256": "296d7f17c5e3ce5b689759d18e92a2ca8e369f467ada83f634be874cf9466196"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-007.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-007.png",
+      "bytes": 544779,
+      "sha256": "69d74e230a2097b58fbc240d075349fe4305f71427cbe86441b9f25735603b4c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-008.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-008.png",
+      "bytes": 540912,
+      "sha256": "55d4315c4aefdabb22d422881fce72defc12af8b57f1fc6173df28042689b556"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-009.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-009.png",
+      "bytes": 547845,
+      "sha256": "3da8d1859fd0ab56a0349881c96fbeaef228def0d0d2c24da2270f9a24a4303b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-010.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-010.png",
+      "bytes": 534555,
+      "sha256": "d4e3b9e5999d986363fd3d7584ff01063b15fae44fa34cb5035403ca21e759bf"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-011.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-011.png",
+      "bytes": 541983,
+      "sha256": "93b08efd12f139ce3a2567da6aa55b16cf25996e3d0f44a5342233b27e43de7d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-012.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-012.png",
+      "bytes": 546998,
+      "sha256": "c7d3be82101d5bb7af5797392b25c30fb828fc1ae3693c7d6b9e2cb528b05995"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-013.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-013.png",
+      "bytes": 546075,
+      "sha256": "56f75eda10df8cdb97b9c78008790b5c6568f55566981409c187346520779126"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-014.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-014.png",
+      "bytes": 543734,
+      "sha256": "6d5dbaac5b499d53b8dfc5ba84f60e9dbf7f2a3fb47c0b322bc0fd7a8ea1f617"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-015.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-015.png",
+      "bytes": 550399,
+      "sha256": "1ae83426a8a86acbe5a04a1f9ca8f1c0a029657a3d25957da0828c0c3e75447d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-016.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-016.png",
+      "bytes": 549376,
+      "sha256": "f5fd8fa7608923d216af1f13bf80fbc629aecfd2c0b6a8b8361aa0e9132e36a7"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-017.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-017.png",
+      "bytes": 544306,
+      "sha256": "e08e07d6a591018a8757b7142332ae0cac8bbb78dd23527a76575a640743113a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-018.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-018.png",
+      "bytes": 543411,
+      "sha256": "e09e3256f70b5b41d68c2d0bd4efb96afbf422537f2b91bf2b660a5b9879e43e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-019.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-019.png",
+      "bytes": 548135,
+      "sha256": "6d156a8e13fe578cdc157b6ca7340f08cdde8874906457db7a2b0ad612dfeb18"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-020.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-020.png",
+      "bytes": 543841,
+      "sha256": "72ca754cee85e190b838dddc3d15e297d11088b1b148edadb1f76c65d240b3bf"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-021.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-021.png",
+      "bytes": 546312,
+      "sha256": "8a211d84b3d8382e9f3fda1e6360573ed4270418c5cbbf97bbb66db2ef2afba9"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-022.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-022.png",
+      "bytes": 545209,
+      "sha256": "57aa530e31b9e3f8681d7c8542005eb9c7f4b229e10c74ff7396b181502ffbf2"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-023.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-023.png",
+      "bytes": 554097,
+      "sha256": "58e2d71e3efc15c36c4f87b6fa216e80c42cb7a9d32ae4bd013a54ea3fd19bd4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-024.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-024.png",
+      "bytes": 553927,
+      "sha256": "8a22abfe6e0de91ad6612bfa70b3399f51ab5718dce3abbd77427a3fd9a33b49"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-025.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-025.png",
+      "bytes": 564757,
+      "sha256": "8d104c60e2f16566a699eee034268ee2afbe92d9694fc9cf01f2f02a1e7d0093"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-026.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-026.png",
+      "bytes": 569009,
+      "sha256": "1377045b9b0bbcc6de35bf70bbd12ef79b253dc7e846e5417335d00ae6ad075b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-027.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-027.png",
+      "bytes": 575766,
+      "sha256": "dec27a771e3302a1deb43224114a49f7c9ba2d8d7e3d19e7c1e23df300f4061f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-028.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-028.png",
+      "bytes": 563494,
+      "sha256": "61f9678f98e5a962777906b29c47e210b5c6b3edcaddec127492850d1aca78f1"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/opening-029.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/opening-029.png",
+      "bytes": 569806,
+      "sha256": "79d1a15b43f061e33a774fe289b38224df7125a16ecd27dcd91d40ba6f667c53"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-000.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-000.png",
+      "bytes": 612050,
+      "sha256": "37ef8aa1e6c714b83b578108ef929f4951d71fcbd7c51480e8c2cde17243343b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-001.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-001.png",
+      "bytes": 614414,
+      "sha256": "e9a021b0845d6874ccbd80090291abf063c116e752a4955d7372d29b1f270d18"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-002.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-002.png",
+      "bytes": 617138,
+      "sha256": "e39952f8e62054045ef05274a308232917b47e9d319e00f3677b51076976538e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-003.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-003.png",
+      "bytes": 613949,
+      "sha256": "d3b2a146c40b02b86f6ccf5866e1a2dbc8b634f3402d317119fd747d8c04eb17"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-004.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-004.png",
+      "bytes": 617043,
+      "sha256": "3806ac4a2c52463ade1a60a45097ed0359064414ead109447ad423f0fe43f27c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-005.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-005.png",
+      "bytes": 614273,
+      "sha256": "6d653f67498469e31e70b214fa1f7827300a41f7729442ddbdd4dad21940113d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-006.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-006.png",
+      "bytes": 598391,
+      "sha256": "74e2b193dcf936f7c0721c71fa407bcbd2d7fb5b43cb76fcd1258f9ba4e16b20"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-007.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-007.png",
+      "bytes": 597073,
+      "sha256": "4757390c116160bdd6429cecc4ddd44990d4532f9797824142268826ae8c0aa1"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-008.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-008.png",
+      "bytes": 602156,
+      "sha256": "14dee48315d2c2ea85f5639cb1947f05bdfc1a52119c04784ad574cb92c8ade1"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-009.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-009.png",
+      "bytes": 592921,
+      "sha256": "a98615e592c21738300737894db256e477a516c2e6e5686f428dd190e853520b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-010.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-010.png",
+      "bytes": 578369,
+      "sha256": "b3aa15c05afe81d6cecf0bf8169e1849f28d7f9520e55cf51d330b45eb35929d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-011.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-011.png",
+      "bytes": 587055,
+      "sha256": "3b72254c7f54007323f7934e983c47ac267ae69e702e20358fbe5eedeb1a1ef4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-012.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-012.png",
+      "bytes": 587453,
+      "sha256": "8798f250735db75acd43ae74ba4c1a5bc41973afd6ed026782d73cae9609a65b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-013.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-013.png",
+      "bytes": 582484,
+      "sha256": "85fccfcc7537fb2e3a717ba7dd118035455c2e50477983fd42a9552ac215c012"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-014.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-014.png",
+      "bytes": 583155,
+      "sha256": "108007b2868ed6c5978112691af5e3959c09ad0bb4fcf514af0ef47b779a9b2e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-015.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-015.png",
+      "bytes": 576423,
+      "sha256": "d27ddae853465d22a369baacd7fbf84a48d6387ba42e25b6cc9502a9d6c915f0"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-016.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-016.png",
+      "bytes": 572849,
+      "sha256": "155958c8114bfb84f6d0ebd18312c74f9292d23bc7ecb448a603bbc0c077aff2"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-017.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-017.png",
+      "bytes": 563758,
+      "sha256": "f42718d23c604609db60217de69a377dfeb39b5202e6fbb581930c95cf56025d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-018.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-018.png",
+      "bytes": 556795,
+      "sha256": "a64b77afe906937070e0ae28f6d16325efec0cc3113b98d32de35fbd6b804527"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-019.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-019.png",
+      "bytes": 558599,
+      "sha256": "4f1d3f9b2210d33430d9f88cba7347d871483114b5bb687f2c80233cd730ece6"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-020.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-020.png",
+      "bytes": 557770,
+      "sha256": "4cb1927259c26a82c1a572f19c15cf78d2f4ba6b288d254c43668595e7412d7b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-021.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-021.png",
+      "bytes": 556836,
+      "sha256": "2a6c8e9efce597f946fc36f1dcd0107e224c0141ed16c781410bd97744a8780f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-022.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-022.png",
+      "bytes": 542521,
+      "sha256": "07f83d951223d70dc6903b4d2e3d21ece318e337f20dcd77db7cbc22cb1a78e1"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-023.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-023.png",
+      "bytes": 533721,
+      "sha256": "909ebf8c7dbadc581b82b9f2b285924b40760d0ce269056196f0b392aeddf9d4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-024.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-024.png",
+      "bytes": 537197,
+      "sha256": "5dddf41ad314cc05d1b499d114569cf34716f74f8740201cd1881f68e6206177"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-025.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-025.png",
+      "bytes": 541882,
+      "sha256": "4c80bfb0bd7d066f904b2c3c1dbf8adf3c8a4cb4ebfd32689f68618ff2b06a8d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-026.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-026.png",
+      "bytes": 547170,
+      "sha256": "c37098d03f37a236ce42997e913e0e26f2a9c0d85c396ee633fcb075455d58b3"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-027.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-027.png",
+      "bytes": 544527,
+      "sha256": "196a9a4295af4c973b2f9deb96692adc4c543f641d4543857854879fa385f6c9"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-028.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-028.png",
+      "bytes": 555790,
+      "sha256": "98625aba054e73299064936005e2b6cc1f1afc6f6e94974b138b2d9722de8271"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/overlap-029.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/overlap-029.png",
+      "bytes": 550620,
+      "sha256": "abd1ab6e45b88677d4f03cbdab8cb6dd9f9f63683fc87d3a310e390beecc4a95"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-000.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-000.png",
+      "bytes": 206651,
+      "sha256": "f778149614a059e2f40b1e7ae705f62277c69407995b38b81e5a0fc5ed04e666"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-001.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-001.png",
+      "bytes": 206651,
+      "sha256": "f778149614a059e2f40b1e7ae705f62277c69407995b38b81e5a0fc5ed04e666"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-002.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-002.png",
+      "bytes": 206651,
+      "sha256": "f778149614a059e2f40b1e7ae705f62277c69407995b38b81e5a0fc5ed04e666"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-003.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-003.png",
+      "bytes": 206651,
+      "sha256": "f778149614a059e2f40b1e7ae705f62277c69407995b38b81e5a0fc5ed04e666"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-004.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-004.png",
+      "bytes": 212155,
+      "sha256": "eca8528c6659be6aebb7555755bf09121445e30687dddb2813fdf235201409c4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-005.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-005.png",
+      "bytes": 212155,
+      "sha256": "eca8528c6659be6aebb7555755bf09121445e30687dddb2813fdf235201409c4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-006.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-006.png",
+      "bytes": 212155,
+      "sha256": "eca8528c6659be6aebb7555755bf09121445e30687dddb2813fdf235201409c4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-007.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-007.png",
+      "bytes": 212155,
+      "sha256": "eca8528c6659be6aebb7555755bf09121445e30687dddb2813fdf235201409c4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-008.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-008.png",
+      "bytes": 206189,
+      "sha256": "181254df3e456c9982ea69b0f49b9bfee677fef3148847f165bc0f12473a1cad"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-009.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-009.png",
+      "bytes": 206189,
+      "sha256": "181254df3e456c9982ea69b0f49b9bfee677fef3148847f165bc0f12473a1cad"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-010.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-010.png",
+      "bytes": 206189,
+      "sha256": "181254df3e456c9982ea69b0f49b9bfee677fef3148847f165bc0f12473a1cad"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-011.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-011.png",
+      "bytes": 206189,
+      "sha256": "181254df3e456c9982ea69b0f49b9bfee677fef3148847f165bc0f12473a1cad"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-012.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-012.png",
+      "bytes": 483221,
+      "sha256": "4af3aa40aa2898a3adb8cdefa1172d9f06189cbc7bb5d91bf4771936ef972907"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-013.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-013.png",
+      "bytes": 478001,
+      "sha256": "297c8c500cc284bcb4cfd9dac14fbfdc27626093f127086d77f2a634d39bc9c9"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-014.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-014.png",
+      "bytes": 471834,
+      "sha256": "eac33f6f23cd9005ae27d39c01293429226ddc716ba46bb6bc79b53b19cd3301"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-015.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-015.png",
+      "bytes": 483898,
+      "sha256": "376aaaabe7dcaaa403b1f4784270792042c623e8de304a28d4312ef8ab0d9ee3"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-016.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-016.png",
+      "bytes": 483124,
+      "sha256": "ae0c7f0908c7bb22037c7304af3118062e016d983164e25e402ab2823b5bc479"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-017.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-017.png",
+      "bytes": 475226,
+      "sha256": "f65965ca7b6d0062209678ff5fe91257859e5e8badcbfb43be28217d413ce511"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-018.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-018.png",
+      "bytes": 475226,
+      "sha256": "f65965ca7b6d0062209678ff5fe91257859e5e8badcbfb43be28217d413ce511"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-019.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-019.png",
+      "bytes": 475226,
+      "sha256": "f65965ca7b6d0062209678ff5fe91257859e5e8badcbfb43be28217d413ce511"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-020.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-020.png",
+      "bytes": 475226,
+      "sha256": "f65965ca7b6d0062209678ff5fe91257859e5e8badcbfb43be28217d413ce511"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-021.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-021.png",
+      "bytes": 475226,
+      "sha256": "f65965ca7b6d0062209678ff5fe91257859e5e8badcbfb43be28217d413ce511"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-022.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-022.png",
+      "bytes": 475226,
+      "sha256": "f65965ca7b6d0062209678ff5fe91257859e5e8badcbfb43be28217d413ce511"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-023.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-023.png",
+      "bytes": 478308,
+      "sha256": "63046d70255517da1a9fe7a964a08db64e12f3128ded7a5db1889ff0f627c7d4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-024.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-024.png",
+      "bytes": 479658,
+      "sha256": "37b3583ddeb03e911ebfc92abe08906bc29e2f1132b27fec54a64ac01400c549"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-025.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-025.png",
+      "bytes": 480316,
+      "sha256": "20e9a72bbf1d23cf0173eb0dab1d43d2e62c7af7a5e9a4016006438fdbf5f794"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-026.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-026.png",
+      "bytes": 477684,
+      "sha256": "0f98a5b668f6710b1bbfc87acdff74641050d1d3850a8820b4ff8e4d992a2d59"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-027.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-027.png",
+      "bytes": 509135,
+      "sha256": "1c759ca4c5d64a36121fb243436c56921dfa30140cc35e815e18eef2e417cc85"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-028.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-028.png",
+      "bytes": 501994,
+      "sha256": "11968d812cd0f8ae026e700461439892d95664e1a48fca6bf00af9ee91a3da92"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v1/shop-029.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v1/shop-029.png",
+      "bytes": 505772,
+      "sha256": "fa4e1b88e15704dd2629d31502af22efbece96ddc0261f101ba1019591a3ee59"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2-layers.json",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2-layers.json",
+      "bytes": 6926,
+      "sha256": "70b9bd5e959dad7af0e8bd5d3e7cdab35394dac5d513a0dcf691bde0d2924085"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2.json",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2.json",
+      "bytes": 2519490,
+      "sha256": "8e0623e42d335f0ade04a859625f41978d214e8622ac1408f9fade95960b1938"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-000.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-000.png",
+      "bytes": 587142,
+      "sha256": "c303c2e770dd8029633381c0ac524bb7f31ce32d20aec188d6f087154943b897"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-001.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-001.png",
+      "bytes": 589478,
+      "sha256": "c801d81522eb699d0b214640508fbfdca9f9c65b1ca3a602ca9431c8c93614eb"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-002.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-002.png",
+      "bytes": 584576,
+      "sha256": "aa183a92088d9852b8f71ea741ce10504850966c65aa63b338fbb090ded82480"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-003.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-003.png",
+      "bytes": 588383,
+      "sha256": "b06f0693e5c9a4a0659ecd92326fccc9cc138eed279462d72ab55103e6d90641"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-004.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-004.png",
+      "bytes": 589646,
+      "sha256": "d65c6f79e376d21728b6468154bf33343083246737894b1e79c6182a863d405d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-005.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-005.png",
+      "bytes": 584854,
+      "sha256": "21b33b5b19cd550e75f68e072629691936d347960cbfd5bd8cbc9eebbd2b7f46"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-006.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-006.png",
+      "bytes": 580911,
+      "sha256": "49e3c8e9d6d1bfad2b281f2a15388ce698b2de783e220492c24f69bb6324caa0"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-007.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-007.png",
+      "bytes": 541942,
+      "sha256": "42264bc70409ba716201092235525834e970602f97d7a0ade48250623ac2801f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-008.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-008.png",
+      "bytes": 557648,
+      "sha256": "f4241fb53de5cdd882758f7ec5693798e12465daa4685ca94748fa89a10fdc03"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-009.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-009.png",
+      "bytes": 554114,
+      "sha256": "ce61393add00cf31c0f703dd4f5c7c15f6b9a041f48641f3bb98989c8660fb1e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-010.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-010.png",
+      "bytes": 558284,
+      "sha256": "9455463df42528b41a15c3bb2ab8d0b3b1d78ea6ae3f00998514f5874d69fd25"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-011.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-011.png",
+      "bytes": 556958,
+      "sha256": "3ba612dc57500b8877ded8c186f4ec028642cc09979efc66098563dee9f76ed1"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-012.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-012.png",
+      "bytes": 553771,
+      "sha256": "d04609788879fe75f52ef8facf71bdee2f8f2fd145a0d1d01e871ace37cb90c4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-013.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-013.png",
+      "bytes": 560493,
+      "sha256": "7f48ac63ab9b0e990a6d1abbe639758ffcafb1d5e85beb938ce38c5a638bcaa9"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-014.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-014.png",
+      "bytes": 561410,
+      "sha256": "faa0d90c5ddd7098cb978e3a3e2103a6bb7b8395608a02ad4ef52c295064f8e8"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-015.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-015.png",
+      "bytes": 557992,
+      "sha256": "4c0952e282ec9b2720101b9bbc5dfbadec5f9e1104a32367236972e977a0b863"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-016.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-016.png",
+      "bytes": 552924,
+      "sha256": "0d634ba6ffebdb33fd749255bdd25bf9213f9628647c5269b040803cd506733a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-017.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-017.png",
+      "bytes": 557168,
+      "sha256": "8f91c49cc3758c80e51aaaec94204620594010ef788a030da61d31ddb71816b6"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-018.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-018.png",
+      "bytes": 554797,
+      "sha256": "9b0f47ab794eaecb4384fed1aed1d34341aec937beae5f092d7dbd760850a54a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-019.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-019.png",
+      "bytes": 551501,
+      "sha256": "544ccde7adb5abd2c959aabda3c582f91368cf2b31eee11ee09052842298cdd0"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-020.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-020.png",
+      "bytes": 558286,
+      "sha256": "07b25de1677e1de8ef268ca5809bf0158a71688840c2b3dd82da7939eceb4ad8"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-021.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-021.png",
+      "bytes": 548249,
+      "sha256": "cd9cb7fd75d3e6889f53fcfa890da67cbaad0567b553a5847a8805a9f752672a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-022.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-022.png",
+      "bytes": 554410,
+      "sha256": "5ece382b4473f00721d2425c1d061764623ef1ec2795323500db4dc70e5fa86a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-023.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-023.png",
+      "bytes": 556700,
+      "sha256": "e7521758c88676612a2d4b84ff1fceea88f814709aec427ff0969bc11faf8f21"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-024.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-024.png",
+      "bytes": 549321,
+      "sha256": "10b217240e0c5458e0442ba00b051ddc79dfc748867cfdf933304cd4ecdff15b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-025.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-025.png",
+      "bytes": 552980,
+      "sha256": "226680d811b2988ae23d2dfad271543638193dab4654c5494bfcb4866e17c43c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-026.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-026.png",
+      "bytes": 558936,
+      "sha256": "9429d7af0ac20749d87d21c44a2d4e9cce637e810953cf619e6d9b6bc941484b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-027.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-027.png",
+      "bytes": 558594,
+      "sha256": "c71ab5b552738b8ea879d6ff0f1ba5d0f4d8a0b22d869c6e20ab6a010196c511"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-028.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-028.png",
+      "bytes": 559764,
+      "sha256": "1b1e06c2045d4032c94f2e8ee961917df9f608b1c7d02fef67936f2a8a85ea73"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/boss-029.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/boss-029.png",
+      "bytes": 559975,
+      "sha256": "6ee712c813b40ec7dde5976a47186fd6a7f04e0f9da83f039572b3cfb6c0fcc1"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-000.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-000.png",
+      "bytes": 659355,
+      "sha256": "67c971f4af5b544e2e7e91a7c9fd80d4026c92f7ed62dca2cfa492695dc3870d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-001.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-001.png",
+      "bytes": 654702,
+      "sha256": "f8bd847c683954b60fd88f64295570de10552b56ce24d5724e7f4e5449ed5212"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-002.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-002.png",
+      "bytes": 658368,
+      "sha256": "0aad12b378e95ed204dce5ebf34ef2437e4565570ea8a1d6a560ae663fdd65dd"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-003.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-003.png",
+      "bytes": 660109,
+      "sha256": "f63fa2e2aee8de038458652d598d6049bfec3cf063888ed43b5a5cbd8118481d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-004.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-004.png",
+      "bytes": 649259,
+      "sha256": "07951d3dd793ea0fa32ad8310b3091a1bdae818721c0af1710a7a20d519349e6"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-005.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-005.png",
+      "bytes": 641810,
+      "sha256": "cfe2eabbec3a9d619f34a1f9242413f66e2e93aa4ffbc147cc7dd8be1d8d1ba6"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-006.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-006.png",
+      "bytes": 632252,
+      "sha256": "251a67d25667244c4c6fe99c578ae2b7eab44cd572dcc012dc7bddb87d9a4618"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-007.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-007.png",
+      "bytes": 633532,
+      "sha256": "9dd65f391cc0a5c0eaaccdaff19028f06366f4299551413a08551b0f3c224c01"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-008.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-008.png",
+      "bytes": 631638,
+      "sha256": "b024730641cd11a033ddd04d5a6bf9be696d21fc89ef9eb1f1f4d89e2e5eb8a4"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-009.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-009.png",
+      "bytes": 640380,
+      "sha256": "104a078ac26e23e218413f64e2dba52b0f481abfdb803c594787ffc5f54268d5"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-010.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-010.png",
+      "bytes": 638668,
+      "sha256": "17ff9708896e70d52cf95c7b81fc6013df0435bc0cdf57ed4b5c4a9fcd2bd6a6"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-011.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-011.png",
+      "bytes": 636449,
+      "sha256": "54014445a9e78e79e5aae1ae15d66c6433f20db4a5fd444bdd2e44ff2431a611"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-012.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-012.png",
+      "bytes": 642885,
+      "sha256": "7a28edb39c4af5cb7f9b4f90f8b7b6fdfbfa6d56ea2cbafa41752d860c590ccd"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-013.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-013.png",
+      "bytes": 628907,
+      "sha256": "83577b7ff4af3f7810bc4b7cf893dadf0de4a5fa7519c6410bc6e7c9d4605749"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-014.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-014.png",
+      "bytes": 637932,
+      "sha256": "d27dfbce09eee9d0083d77959ba7f9b87e388641f119f730f6b5776a18394265"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-015.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-015.png",
+      "bytes": 638024,
+      "sha256": "1a28b21ce04368812f978a793a3ed89b187bf56827be4d81b8ea6743caae6902"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-016.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-016.png",
+      "bytes": 627082,
+      "sha256": "d824153863d63f7f496337d20a9211949cec001e05c045688a59d92448bbfa96"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-017.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-017.png",
+      "bytes": 626265,
+      "sha256": "a1d28876623f6432313cb55983f718d87d9a904429517d2e6abf9be5a76620ff"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-018.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-018.png",
+      "bytes": 625589,
+      "sha256": "3dd992b92c31f72ff1b1d489a1c7c3ec8c81ebfec647f703c032ce6189a335b8"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-019.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-019.png",
+      "bytes": 626704,
+      "sha256": "f508ca1b7df97c434ec98cb050c90e088dfb7ec0dee35f0ea588358a6caa452a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-020.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-020.png",
+      "bytes": 628492,
+      "sha256": "b87a121e3a5c001d537eb78afbb3bc41f631cd5af75995cbd288075a194d285f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-021.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-021.png",
+      "bytes": 627232,
+      "sha256": "647b1edf38f2fe30a1f9eff30685632581b2f6c970c75fdfd10f38e7fd944a0b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-022.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-022.png",
+      "bytes": 626043,
+      "sha256": "808f7f73af08d1b1456b6990e0918adb470f90d7024f606107a6fc0177a9e7d5"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-023.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-023.png",
+      "bytes": 617706,
+      "sha256": "82f4185510625730c4228007cd504265dcc8e34befbbb3201b907555e6ac38de"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-024.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-024.png",
+      "bytes": 625015,
+      "sha256": "9b2180ddcb6cf2322726a5ad492abdb2c00ab7c6ef7723b26ab795efc47a8d7b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-025.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-025.png",
+      "bytes": 628075,
+      "sha256": "5223d3f3c42101f0594463ea313ba736b3a42c1cae1f8b5078f8e87ee06bea5b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-026.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-026.png",
+      "bytes": 628354,
+      "sha256": "defca22a002e80ad44edb26d46bcd5bc11a6645833a571349da2217e8fe4a631"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-027.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-027.png",
+      "bytes": 628721,
+      "sha256": "7dbbef19c3ff3d3bf5229c0eefe2cc7f2b9785f561d2a68b9750bca51695e78a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-028.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-028.png",
+      "bytes": 626874,
+      "sha256": "7857e623e4f8752792ac242c796ef0e834adbbc58d813aad0cf42ed925289586"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/crowd-029.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/crowd-029.png",
+      "bytes": 623494,
+      "sha256": "56f113a97ae4d80437722548043363d2f4af0d1ffd97694d4256ffa8996668f0"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-000.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-000.png",
+      "bytes": 565831,
+      "sha256": "d292be2e0092c8c2c64b2acc3017b0a0cc402207103c967ae90c907011e48e2b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-001.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-001.png",
+      "bytes": 570948,
+      "sha256": "d35c833a737f510591682f5206eb0d964f9320e4dc4921c49997101bcc00d288"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-002.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-002.png",
+      "bytes": 572869,
+      "sha256": "22e8646b4e821a1d81143dcd1c99dc007aef565479398bd65a3acdfeff16f911"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-003.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-003.png",
+      "bytes": 570974,
+      "sha256": "3a4b7b445d0bdc73331f3973818da8e12d263ae919152633b77737cb0f349636"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-004.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-004.png",
+      "bytes": 574177,
+      "sha256": "cd29e1b6c6586c895058cbd91fa087d8a1fe64f79a44a92b7388b64fcf99cf4b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-005.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-005.png",
+      "bytes": 577060,
+      "sha256": "36aceab9ae51d8ac213475c80d47c9a05a07d8d2a5eb79ec6e833b56d3ac94ee"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-006.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-006.png",
+      "bytes": 575147,
+      "sha256": "ce39a690e8dfa0eb02917e1fb29f0380a818372fc0c879801e7811541b94e79f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-007.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-007.png",
+      "bytes": 585488,
+      "sha256": "af73cac00897edf82d934fbbc2f6a86755ed85b5958258516323ac76579ca0c6"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-008.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-008.png",
+      "bytes": 583531,
+      "sha256": "2dfb05e8344d92a64bb6b562fc238c351cb6461be278c1f4e2ec6388497dfd7a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-009.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-009.png",
+      "bytes": 587237,
+      "sha256": "d8fc2d1e3b9a122c573a282ae66d3bd5648f3604eb41a8786a6eb39342a070dd"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-010.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-010.png",
+      "bytes": 585069,
+      "sha256": "3efcbd0bbca35f35d93c7553a6e13950681c25dd8c933395e8444cd1d3049868"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-011.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-011.png",
+      "bytes": 588968,
+      "sha256": "896e57bab9edaf52df98ba2127596db382687c76250efdd384a7caf8fdbd92b6"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-012.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-012.png",
+      "bytes": 597707,
+      "sha256": "854b8920103761e11d3ae3041c399fc3f5e9739d2fa41921d2b4127f5b61372c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-013.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-013.png",
+      "bytes": 603926,
+      "sha256": "dd9a180b035bbbcc76b225f23a96684b4b241c643616458a4537077cced25b2c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-014.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-014.png",
+      "bytes": 607797,
+      "sha256": "94dbca2bb5395c9ff749fad73c2a1999d55f47dda1ad77bcd2e240222e904424"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-015.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-015.png",
+      "bytes": 613623,
+      "sha256": "a41af95a2f996ee231c7385e1e9a8570f07a6d4a95ebc3bb622fc8e4be594422"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-016.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-016.png",
+      "bytes": 613669,
+      "sha256": "cf0176a785a1c0e586a74f557d7c011301c9105a563f3a53dfe658c9e20ab7a5"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-017.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-017.png",
+      "bytes": 608963,
+      "sha256": "17ca2c19e142e83f2444d7a4b92a084dd340d8e0eb66bc51e98cad4bab04063f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-018.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-018.png",
+      "bytes": 608997,
+      "sha256": "7f934c07ff536595f32e39b31285c7ebba9a1e879f55487ffff840d3225d691c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-019.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-019.png",
+      "bytes": 613300,
+      "sha256": "5d091d7960cb32278762f197b67d7e6ce6e7506ffa00ea86b54dd228b59387eb"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-020.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-020.png",
+      "bytes": 623199,
+      "sha256": "c23e806bfd0ca69ffeae920c11f20d9455963bf07d21e27ab03dbf91d2299d12"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-021.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-021.png",
+      "bytes": 625779,
+      "sha256": "f4742e136dc652551520740748d6a5143f7fde0a227b7406e83e18c915733f27"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-022.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-022.png",
+      "bytes": 626209,
+      "sha256": "9c4feae5c64d9aa32d37738fe777e478c9724cd6f271641c82f5b4e601ed1870"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-023.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-023.png",
+      "bytes": 626828,
+      "sha256": "dc0063124b8819044543c44cca0cb1278346ca02facb7e96a66d474c1dc1e4c8"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-024.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-024.png",
+      "bytes": 621277,
+      "sha256": "0d5b4b3f92af8cad88d099179c961516b7e263decab91c6bbc324798466531b5"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-025.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-025.png",
+      "bytes": 619873,
+      "sha256": "55f3fc4884c7ae69aad37e36d76cdd64c692a5a89a895987adfda9ad0d2b78a8"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-026.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-026.png",
+      "bytes": 634190,
+      "sha256": "4b7c1ae3f259845abe905a776b80aef7c3edeaee345fea7c56019987b993474a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-027.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-027.png",
+      "bytes": 631231,
+      "sha256": "991938bf74d6fca0cc64a272c4f07719127379f3c1a8b6e8557738a77daaf4d5"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-028.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-028.png",
+      "bytes": 631645,
+      "sha256": "5a4c47068764f0bde7b1b8d3bf859920c913fc30490b716213d31e993a97aeb0"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/dash-029.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/dash-029.png",
+      "bytes": 627380,
+      "sha256": "f7986898d8f312e34425189a3bb29f2788cdc812228f37587522b3169dfcaf3c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-000.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-000.png",
+      "bytes": 498902,
+      "sha256": "bfc150b2e2418acf88baa9d7a1428d01343a20a33e380d5e6ef11e123cc49015"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-001.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-001.png",
+      "bytes": 507073,
+      "sha256": "f402238f5e9fd83a1dccc8efd3868425531c7645848237a1ca7fd5ca1d050891"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-002.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-002.png",
+      "bytes": 508633,
+      "sha256": "58b7fa5002c9ef28a37dfff4bd741465295edc997071a539c98649955c75657d"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-003.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-003.png",
+      "bytes": 514829,
+      "sha256": "9c2a13e70b8ddb913e27f0b28c90581940543facad5269faac95a765ae205f5c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-004.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-004.png",
+      "bytes": 518840,
+      "sha256": "16668c2f601175910fd65ad32d9f55a5d7d2aa460fce029e0bb411afce86f24f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-005.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-005.png",
+      "bytes": 528124,
+      "sha256": "c1530e860be269eb22003e59ad07633e26bd4189b3751025566eee639d1e8f7b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-006.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-006.png",
+      "bytes": 529172,
+      "sha256": "a35644f05e82538ff1e04c3e5c76c4701a86238b645ad0f1db54df6e8ee04f02"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-007.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-007.png",
+      "bytes": 538851,
+      "sha256": "2d36ba2addc2b48919253c713a3c4bd0bcc36804e20f79364f7a17516e4fb8bd"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-008.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-008.png",
+      "bytes": 541314,
+      "sha256": "9870768d888ac2ea023319fba2d18fc516faa45172fbc75d1c255832ae801aeb"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-009.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-009.png",
+      "bytes": 546796,
+      "sha256": "814d6afa10c2b94e4d67b2183d5b23ef3f6b52380a0df10e56ed1c486e620f41"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-010.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-010.png",
+      "bytes": 547338,
+      "sha256": "ee74f0088c3bff47c0a6fc05ad0e74f99b7cab7d366de4ab807bc8d67610e7a9"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-011.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-011.png",
+      "bytes": 536833,
+      "sha256": "e728629c68c0ea97a216a629372cf809dd0ed288be11bd205e5cc586ce97b9ee"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-012.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-012.png",
+      "bytes": 544206,
+      "sha256": "ad3363ae483ded24506d4ec3a7c0bb395a1255d2e11fb8192bfbf07fd654bd54"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-013.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-013.png",
+      "bytes": 548769,
+      "sha256": "706ebf9ca56387aa5dc3fd1864b71213d0d326264635fe42875c1c1fd5e51086"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-014.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-014.png",
+      "bytes": 544239,
+      "sha256": "5969c9a9ecbdf3b5cf3ff6c77eab30b2879ffe48b794ef445d53153734c4e42b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-015.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-015.png",
+      "bytes": 551324,
+      "sha256": "6080d4ae06f4311af952e1e10031b26ca16c0260a9e5f19b78c3126d51a10176"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-016.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-016.png",
+      "bytes": 549684,
+      "sha256": "39a970fdc32bd5edb48df413ff181c820989a5757085a1e19debb1500924f0ff"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-017.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-017.png",
+      "bytes": 547323,
+      "sha256": "60bf0cfa6e5765d8e54738c5d4b784e26ac6a0c84fcf74aa200062f14008399c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-018.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-018.png",
+      "bytes": 546749,
+      "sha256": "b4abd3f87a855d90865b57fb87e3565e3f8d3ba2aac66ac9f64a840ebe27c2ee"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-019.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-019.png",
+      "bytes": 550374,
+      "sha256": "945c5aa27c379c613be865957b4c6cac36f790340efc31e68197edecd8f15803"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-020.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-020.png",
+      "bytes": 544042,
+      "sha256": "ea1ad74aa91359b370a95bb2963df75975373995d757c6a316b7567878c3f630"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-021.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-021.png",
+      "bytes": 549813,
+      "sha256": "e9235ca42b3abd4977c9439f679c96a1e16e258b92877d75eab76fbeb9879c60"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-022.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-022.png",
+      "bytes": 543158,
+      "sha256": "01c8e1ab36eee268c32c38d6aed26528fce3b365abd553b88a561de5d6a0ecb6"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-023.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-023.png",
+      "bytes": 543412,
+      "sha256": "8074b8291b1c8580e64e70af28ec6e8506109d00eeaed7de2e13090e6c8fc75b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-024.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-024.png",
+      "bytes": 556807,
+      "sha256": "b7a784e48a4b088d835e212a78dad598e12945558166057e386eb0b931ddcf93"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-025.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-025.png",
+      "bytes": 563754,
+      "sha256": "350510d18c80f8bbbe1d7ca72075bfdac4e8386ff82939249d5451ce4568043e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-026.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-026.png",
+      "bytes": 568628,
+      "sha256": "43bbe7964dd5d0085d176dad84e2a03ea4c64007e807667b8611a3d01a0372dd"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-027.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-027.png",
+      "bytes": 570140,
+      "sha256": "43821dd339434123b500086ccc77b51c8fc060e6ace4ad345e94b74521749390"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-028.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-028.png",
+      "bytes": 565831,
+      "sha256": "d292be2e0092c8c2c64b2acc3017b0a0cc402207103c967ae90c907011e48e2b"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/opening-029.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/opening-029.png",
+      "bytes": 570948,
+      "sha256": "d35c833a737f510591682f5206eb0d964f9320e4dc4921c49997101bcc00d288"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-000.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-000.png",
+      "bytes": 203467,
+      "sha256": "e86e228d79ab0da4a867240145dbeba3d54e289bde2dca850b24b84856958208"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-001.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-001.png",
+      "bytes": 203467,
+      "sha256": "e86e228d79ab0da4a867240145dbeba3d54e289bde2dca850b24b84856958208"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-002.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-002.png",
+      "bytes": 203467,
+      "sha256": "e86e228d79ab0da4a867240145dbeba3d54e289bde2dca850b24b84856958208"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-003.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-003.png",
+      "bytes": 203467,
+      "sha256": "e86e228d79ab0da4a867240145dbeba3d54e289bde2dca850b24b84856958208"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-004.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-004.png",
+      "bytes": 209170,
+      "sha256": "8b7426619f155b8c2d76f0aef52425a1ae9dd66f4912d4938f6277376aa31c05"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-005.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-005.png",
+      "bytes": 209170,
+      "sha256": "8b7426619f155b8c2d76f0aef52425a1ae9dd66f4912d4938f6277376aa31c05"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-006.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-006.png",
+      "bytes": 209170,
+      "sha256": "8b7426619f155b8c2d76f0aef52425a1ae9dd66f4912d4938f6277376aa31c05"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-007.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-007.png",
+      "bytes": 209170,
+      "sha256": "8b7426619f155b8c2d76f0aef52425a1ae9dd66f4912d4938f6277376aa31c05"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-008.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-008.png",
+      "bytes": 202904,
+      "sha256": "24b6a8c44c989ab895ef517fbac553c66f3b5fb676c1ffa7c355a9f29c9c1834"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-009.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-009.png",
+      "bytes": 202904,
+      "sha256": "24b6a8c44c989ab895ef517fbac553c66f3b5fb676c1ffa7c355a9f29c9c1834"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-010.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-010.png",
+      "bytes": 202904,
+      "sha256": "24b6a8c44c989ab895ef517fbac553c66f3b5fb676c1ffa7c355a9f29c9c1834"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-011.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-011.png",
+      "bytes": 202904,
+      "sha256": "24b6a8c44c989ab895ef517fbac553c66f3b5fb676c1ffa7c355a9f29c9c1834"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-012.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-012.png",
+      "bytes": 478182,
+      "sha256": "5f0d758bdc99c3e617f9d1d396920b8220d25ee4cd8f23b97831d3bb7e5d49d9"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-013.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-013.png",
+      "bytes": 473122,
+      "sha256": "910378d0cb9e2688eddd63fc231970fb341bae30db3ad5084b5bdcc351924239"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-014.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-014.png",
+      "bytes": 467137,
+      "sha256": "c16274000668baebcde11c4c022eecb48815466ec2e8457a198472c659ed6a5a"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-015.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-015.png",
+      "bytes": 479120,
+      "sha256": "f35146aacbe1b654c896398183bdb6fb769fc58fa0755efcfe9b3d286c65124e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-016.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-016.png",
+      "bytes": 478274,
+      "sha256": "71cdac80682beeecc3632e86f6e3e20a84ae34dd438702f97ce45694de0851e2"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-017.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-017.png",
+      "bytes": 470579,
+      "sha256": "2dae976995d6d7168e78011dee6ffbf8ec490f62fd706fa6e7ceca726ada958e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-018.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-018.png",
+      "bytes": 470579,
+      "sha256": "2dae976995d6d7168e78011dee6ffbf8ec490f62fd706fa6e7ceca726ada958e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-019.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-019.png",
+      "bytes": 470579,
+      "sha256": "2dae976995d6d7168e78011dee6ffbf8ec490f62fd706fa6e7ceca726ada958e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-020.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-020.png",
+      "bytes": 470579,
+      "sha256": "2dae976995d6d7168e78011dee6ffbf8ec490f62fd706fa6e7ceca726ada958e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-021.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-021.png",
+      "bytes": 470579,
+      "sha256": "2dae976995d6d7168e78011dee6ffbf8ec490f62fd706fa6e7ceca726ada958e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-022.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-022.png",
+      "bytes": 470579,
+      "sha256": "2dae976995d6d7168e78011dee6ffbf8ec490f62fd706fa6e7ceca726ada958e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-023.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-023.png",
+      "bytes": 473586,
+      "sha256": "c230b80385f56f845f286137ff086f4e112ae16b292eb06197414f00e350e50f"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-024.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-024.png",
+      "bytes": 474813,
+      "sha256": "793ab7faa4a018bcf77223ea416e24916a58caed741ffb2542e5f9a001daa3e2"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-025.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-025.png",
+      "bytes": 475444,
+      "sha256": "aef0bf69cc00fb126b4e0ea610b3e62cd92f16d22e4a516946610e13a3e0488c"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-026.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-026.png",
+      "bytes": 473034,
+      "sha256": "dad591a6571e224e5492ffbcf8c30afd95393da54a1eef43e8fe8d8f778aec72"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-027.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-027.png",
+      "bytes": 546273,
+      "sha256": "38fb4aad9b098a37ea0cab3046360bfbdfd7094910a40ae7d61b48381f7deccc"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-028.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-028.png",
+      "bytes": 549289,
+      "sha256": "477065c1c9b3efcf8320e2617201c53794b5e5720c67df529377b5699898c73e"
+    },
+    {
+      "name": "natural/captures-decorative-ground-natural-09-v2/shop-029.png",
+      "original": "build/diagnostics/natural-run/captures-decorative-ground-natural-09-v2/shop-029.png",
+      "bytes": 540549,
+      "sha256": "22c6ab98ccebdaef0fc7fbeeb28255e7930e33f0631a57f05e778b1517278066"
+    },
+    {
+      "name": "natural/decorative-ground-natural-09-v1.json",
+      "original": "build/diagnostics/natural-run/decorative-ground-natural-09-v1.json",
+      "bytes": 6473252,
+      "sha256": "2d40ed0eca11f0961b9c01e2a75868bf62abcc9a4315106e1f9a2689f0bf9f8f"
+    },
+    {
+      "name": "natural/decorative-ground-natural-09-v2.json",
+      "original": "build/diagnostics/natural-run/decorative-ground-natural-09-v2.json",
+      "bytes": 5436287,
+      "sha256": "c511d16a0c1215810684e96e9e3b6074e0f5bef6770a57658447063156fe2a51"
+    },
+    {
+      "name": "verification/scripts/art/check_natural_render.py",
+      "original": "scripts/art/check_natural_render.py",
+      "bytes": 4947,
+      "sha256": "09a0ab4b0892e25bd53a80130a77c6627f46b41309ef3de4e3b61ef2c03a7216"
+    },
+    {
+      "name": "verification/scripts/tests/ContinueTest.gd",
+      "original": "scripts/tests/ContinueTest.gd",
+      "bytes": 9432,
+      "sha256": "945145f5c0736517e3df5447bee3aaa40339e33609cf171b4b412c2ec2372652"
+    },
+    {
+      "name": "verification/scripts/tests/FriendlyEffectLayerTest.gd",
+      "original": "scripts/tests/FriendlyEffectLayerTest.gd",
+      "bytes": 3484,
+      "sha256": "4fb3d00e15935a227290c353248a45c5a752433d71282823a1244c824d758797"
+    },
+    {
+      "name": "verification/scripts/tests/FriendlyEffectLayerTest.gd.uid",
+      "original": "scripts/tests/FriendlyEffectLayerTest.gd.uid",
+      "bytes": 19,
+      "sha256": "53ae5b4828d051732cfdb266e57bf55089b1633f3cfbf0a5e00b9c7b9a1eb53c"
+    }
+  ],
+  "raw_volumes": [
+    {
+      "file": "build/diagnostics/decorative-ground-layer/evidence-v1/raw-01.zip",
+      "members": 185,
+      "bytes": 43952872,
+      "sha256": "aebc58a02e593355e77210f913c4f07ad55b5d77ace198160311d80123ef12ec"
+    },
+    {
+      "file": "build/diagnostics/decorative-ground-layer/evidence-v1/raw-02.zip",
+      "members": 82,
+      "bytes": 48187264,
+      "sha256": "8a1410a42b43a6395923d0abed4b6f830617566a0de1c7e2f66989e0d4742d00"
+    },
+    {
+      "file": "build/diagnostics/decorative-ground-layer/evidence-v1/raw-03.zip",
+      "members": 92,
+      "bytes": 45675706,
+      "sha256": "1bc2082960d2c11dd22abb1a220a27eb20ec39fdfa6ac9ea841511b05ff96a0e"
+    },
+    {
+      "file": "build/diagnostics/decorative-ground-layer/evidence-v1/raw-04.zip",
+      "members": 81,
+      "bytes": 48153129,
+      "sha256": "6f4b68ddb14ecb96a2fba4ee2bdd00e065a19288e434d15a915b1a4f00a654cd"
+    },
+    {
+      "file": "build/diagnostics/decorative-ground-layer/evidence-v1/raw-05.zip",
+      "members": 43,
+      "bytes": 16372999,
+      "sha256": "14640ba3432de60c23cb5d7908843ee7be231389a33a400a5dcd17340c0f09f9"
+    }
+  ],
+  "curated": {
+    "file": "docs/decorative-ground-layer-evidence-v2.zip",
+    "members": 121,
+    "bytes": 11305156,
+    "sha256": "c4cc35d211dee4033965f284666418ae444a18429d1ffcd2f32ef76b39670356"
+  },
+  "curated_names": [
+    "fixed/extra-after-v1/direction-0-overdrive-control.png",
+    "fixed/extra-after-v1/direction-0-overdrive-mask.png",
+    "fixed/extra-after-v1/direction-0-overdrive-overlap.png",
+    "fixed/extra-after-v1/direction-1-ordinary-control.png",
+    "fixed/extra-after-v1/direction-1-ordinary-mask.png",
+    "fixed/extra-after-v1/direction-1-ordinary-overlap.png",
+    "fixed/extra-after-v1/manifest.json",
+    "fixed/extra-after-v1/source/assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+    "fixed/extra-after-v1/source/assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+    "fixed/extra-after-v1/source/assets/art/effects/combat_hit_chibi_b_v1.png",
+    "fixed/extra-after-v1/source/scripts/Main.gd",
+    "fixed/extra-after-v1/source/scripts/actors/Player.gd",
+    "fixed/extra-after-v1/source/scripts/art/PlayerOcclusionOutline.gd",
+    "fixed/extra-after-v1/source/scripts/art/VerifyFriendlyOcclusion.gd",
+    "fixed/extra-after-v1/source/scripts/components/ArcPulseVisual.gd",
+    "fixed/extra-after-v1/source/scripts/components/FlameTrail.gd",
+    "fixed/extra-after-v1/source/scripts/components/LaserBeam.gd",
+    "fixed/extra-after-v1/source/scripts/components/SpikeTrap.gd",
+    "fixed/extra-after-v1/source/scripts/effects/CombatVfx.gd",
+    "fixed/extra-after-v1/source/scripts/effects/FriendlyEffectPalette.gd",
+    "fixed/extra-after-v1/source/scripts/world/FloorGrid.gd",
+    "fixed/extra-before-v1/direction-0-overdrive-control.png",
+    "fixed/extra-before-v1/direction-0-overdrive-mask.png",
+    "fixed/extra-before-v1/direction-0-overdrive-overlap.png",
+    "fixed/extra-before-v1/direction-1-ordinary-control.png",
+    "fixed/extra-before-v1/direction-1-ordinary-mask.png",
+    "fixed/extra-before-v1/direction-1-ordinary-overlap.png",
+    "fixed/extra-before-v1/manifest.json",
+    "fixed/extra-before-v1/source/assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+    "fixed/extra-before-v1/source/assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+    "fixed/extra-before-v1/source/assets/art/effects/combat_hit_chibi_b_v1.png",
+    "fixed/extra-before-v1/source/scripts/Main.gd",
+    "fixed/extra-before-v1/source/scripts/actors/Player.gd",
+    "fixed/extra-before-v1/source/scripts/art/PlayerOcclusionOutline.gd",
+    "fixed/extra-before-v1/source/scripts/art/VerifyFriendlyOcclusion.gd",
+    "fixed/extra-before-v1/source/scripts/components/ArcPulseVisual.gd",
+    "fixed/extra-before-v1/source/scripts/components/FlameTrail.gd",
+    "fixed/extra-before-v1/source/scripts/components/LaserBeam.gd",
+    "fixed/extra-before-v1/source/scripts/components/SpikeTrap.gd",
+    "fixed/extra-before-v1/source/scripts/effects/CombatVfx.gd",
+    "fixed/extra-before-v1/source/scripts/effects/FriendlyEffectPalette.gd",
+    "fixed/extra-before-v1/source/scripts/world/FloorGrid.gd",
+    "logs/after-v1.log",
+    "logs/before-v1.log",
+    "logs/full-gate-v1.log",
+    "logs/layer-green-v1.log",
+    "logs/layer-red-v1.log",
+    "logs/natural-09-v1.log",
+    "logs/natural-09-v2.log",
+    "logs/natural-check-v1.log",
+    "logs/natural-check-v2.log",
+    "logs/render-check-v2.log",
+    "logs/render-strict-six-v2.log",
+    "natural-source/assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png",
+    "natural-source/assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png",
+    "natural-source/assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png",
+    "natural-source/assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png",
+    "natural-source/assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png",
+    "natural-source/assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png",
+    "natural-source/assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png",
+    "natural-source/assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+    "natural-source/assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+    "natural-source/assets/art/environment/floor_surface.gdshader",
+    "natural-source/assets/art/environment/mint_farm_floor_b_v1.png",
+    "natural-source/assets/art/environment/mint_farm_props_b_packed_v1.png",
+    "natural-source/assets/art/environment/prop_alpha.gdshader",
+    "natural-source/assets/art/shaders/dasher_hit_flash.gdshader",
+    "natural-source/scenes/ui/HUD.tscn",
+    "natural-source/scripts/Main.gd",
+    "natural-source/scripts/actors/Enemy.gd",
+    "natural-source/scripts/actors/OverseerBoss.gd",
+    "natural-source/scripts/actors/Player.gd",
+    "natural-source/scripts/art/NaturalRunDiagnostic.tscn",
+    "natural-source/scripts/art/NaturalRunMain.gd",
+    "natural-source/scripts/art/NaturalRunPolicy.gd",
+    "natural-source/scripts/art/VerifyFriendlyLayerNatural.gd",
+    "natural-source/scripts/art/VerifyNaturalRun.gd",
+    "natural-source/scripts/art/VerifyNaturalRunRendered.gd",
+    "natural-source/scripts/art/check_natural_run_report.py",
+    "natural-source/scripts/components/ArcPulseVisual.gd",
+    "natural-source/scripts/components/BossAttackDirector.gd",
+    "natural-source/scripts/components/BossProjectilePattern.gd",
+    "natural-source/scripts/components/FlameTrail.gd",
+    "natural-source/scripts/components/LaserBeam.gd",
+    "natural-source/scripts/components/LobbedProjectile.gd",
+    "natural-source/scripts/components/Projectile.gd",
+    "natural-source/scripts/components/SpikeTrap.gd",
+    "natural-source/scripts/components/TentacleAttack.gd",
+    "natural-source/scripts/effects/CameraEffects.gd",
+    "natural-source/scripts/effects/CombatVfx.gd",
+    "natural-source/scripts/effects/FriendlyEffectPalette.gd",
+    "natural-source/scripts/systems/BossCameraFraming.gd",
+    "natural-source/scripts/systems/CombatFeedback.gd",
+    "natural-source/scripts/systems/CombatView.gd",
+    "natural-source/scripts/systems/RunSnapshotStore.gd",
+    "natural-source/scripts/systems/UpgradeSystem.gd",
+    "natural-source/scripts/systems/WaveDirector.gd",
+    "natural-source/scripts/ui/AimReticle.gd",
+    "natural-source/scripts/ui/BossDirectionIndicator.gd",
+    "natural-source/scripts/ui/BossHealthBar.gd",
+    "natural-source/scripts/ui/DroneLockReticle.gd",
+    "natural-source/scripts/ui/GameUI.gd",
+    "natural-source/scripts/ui/HUD.gd",
+    "natural-source/scripts/world/ArenaLayout.gd",
+    "natural-source/scripts/world/ArenaObstacle.gd",
+    "natural-source/scripts/world/FloorGrid.gd",
+    "natural-source/themes/MintFarmTheme.tres",
+    "natural/captures-decorative-ground-natural-09-v1-layers.json",
+    "natural/captures-decorative-ground-natural-09-v1.json",
+    "natural/captures-decorative-ground-natural-09-v1/boss-015.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-015.png",
+    "natural/captures-decorative-ground-natural-09-v2-layers.json",
+    "natural/captures-decorative-ground-natural-09-v2.json",
+    "natural/captures-decorative-ground-natural-09-v2/boss-015.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-015.png",
+    "natural/decorative-ground-natural-09-v1.json",
+    "natural/decorative-ground-natural-09-v2.json",
+    "verification/scripts/art/check_natural_render.py",
+    "verification/scripts/tests/ContinueTest.gd",
+    "verification/scripts/tests/FriendlyEffectLayerTest.gd",
+    "verification/scripts/tests/FriendlyEffectLayerTest.gd.uid"
+  ],
+  "omitted_names": [
+    "fixed/extra-after-v1/direction-0-ordinary-control.png",
+    "fixed/extra-after-v1/direction-0-ordinary-mask.png",
+    "fixed/extra-after-v1/direction-0-ordinary-overlap.png",
+    "fixed/extra-after-v1/direction-1-overdrive-control.png",
+    "fixed/extra-after-v1/direction-1-overdrive-mask.png",
+    "fixed/extra-after-v1/direction-1-overdrive-overlap.png",
+    "fixed/extra-after-v1/direction-2-ordinary-control.png",
+    "fixed/extra-after-v1/direction-2-ordinary-mask.png",
+    "fixed/extra-after-v1/direction-2-ordinary-overlap.png",
+    "fixed/extra-after-v1/direction-2-overdrive-control.png",
+    "fixed/extra-after-v1/direction-2-overdrive-mask.png",
+    "fixed/extra-after-v1/direction-2-overdrive-overlap.png",
+    "fixed/extra-after-v1/direction-3-ordinary-control.png",
+    "fixed/extra-after-v1/direction-3-ordinary-mask.png",
+    "fixed/extra-after-v1/direction-3-ordinary-overlap.png",
+    "fixed/extra-after-v1/direction-3-overdrive-control.png",
+    "fixed/extra-after-v1/direction-3-overdrive-mask.png",
+    "fixed/extra-after-v1/direction-3-overdrive-overlap.png",
+    "fixed/extra-before-v1/direction-0-ordinary-control.png",
+    "fixed/extra-before-v1/direction-0-ordinary-mask.png",
+    "fixed/extra-before-v1/direction-0-ordinary-overlap.png",
+    "fixed/extra-before-v1/direction-1-overdrive-control.png",
+    "fixed/extra-before-v1/direction-1-overdrive-mask.png",
+    "fixed/extra-before-v1/direction-1-overdrive-overlap.png",
+    "fixed/extra-before-v1/direction-2-ordinary-control.png",
+    "fixed/extra-before-v1/direction-2-ordinary-mask.png",
+    "fixed/extra-before-v1/direction-2-ordinary-overlap.png",
+    "fixed/extra-before-v1/direction-2-overdrive-control.png",
+    "fixed/extra-before-v1/direction-2-overdrive-mask.png",
+    "fixed/extra-before-v1/direction-2-overdrive-overlap.png",
+    "fixed/extra-before-v1/direction-3-ordinary-control.png",
+    "fixed/extra-before-v1/direction-3-ordinary-mask.png",
+    "fixed/extra-before-v1/direction-3-ordinary-overlap.png",
+    "fixed/extra-before-v1/direction-3-overdrive-control.png",
+    "fixed/extra-before-v1/direction-3-overdrive-mask.png",
+    "fixed/extra-before-v1/direction-3-overdrive-overlap.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-000.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-001.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-002.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-003.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-004.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-005.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-006.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-007.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-008.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-009.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-010.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-011.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-012.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-013.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-014.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-016.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-017.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-018.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-019.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-020.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-021.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-022.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-023.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-024.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-025.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-026.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-027.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-028.png",
+    "natural/captures-decorative-ground-natural-09-v1/boss-029.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-000.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-001.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-002.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-003.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-004.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-005.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-006.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-007.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-008.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-009.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-010.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-011.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-012.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-013.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-014.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-016.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-017.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-018.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-019.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-020.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-021.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-022.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-023.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-024.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-025.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-026.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-027.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-028.png",
+    "natural/captures-decorative-ground-natural-09-v1/crowd-029.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-000.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-001.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-002.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-003.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-004.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-005.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-006.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-007.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-008.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-009.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-010.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-011.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-012.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-013.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-014.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-015.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-016.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-017.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-018.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-019.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-020.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-021.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-022.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-023.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-024.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-025.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-026.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-027.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-028.png",
+    "natural/captures-decorative-ground-natural-09-v1/dash-029.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-000.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-001.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-002.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-003.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-004.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-005.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-006.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-007.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-008.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-009.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-010.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-011.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-012.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-013.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-014.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-015.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-016.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-017.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-018.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-019.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-020.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-021.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-022.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-023.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-024.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-025.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-026.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-027.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-028.png",
+    "natural/captures-decorative-ground-natural-09-v1/opening-029.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-000.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-001.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-002.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-003.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-004.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-005.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-006.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-007.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-008.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-009.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-010.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-011.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-012.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-013.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-014.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-015.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-016.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-017.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-018.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-019.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-020.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-021.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-022.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-023.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-024.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-025.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-026.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-027.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-028.png",
+    "natural/captures-decorative-ground-natural-09-v1/overlap-029.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-000.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-001.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-002.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-003.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-004.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-005.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-006.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-007.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-008.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-009.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-010.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-011.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-012.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-013.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-014.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-015.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-016.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-017.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-018.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-019.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-020.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-021.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-022.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-023.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-024.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-025.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-026.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-027.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-028.png",
+    "natural/captures-decorative-ground-natural-09-v1/shop-029.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-000.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-001.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-002.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-003.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-004.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-005.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-006.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-007.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-008.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-009.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-010.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-011.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-012.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-013.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-014.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-016.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-017.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-018.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-019.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-020.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-021.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-022.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-023.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-024.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-025.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-026.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-027.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-028.png",
+    "natural/captures-decorative-ground-natural-09-v2/boss-029.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-000.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-001.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-002.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-003.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-004.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-005.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-006.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-007.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-008.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-009.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-010.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-011.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-012.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-013.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-014.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-016.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-017.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-018.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-019.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-020.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-021.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-022.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-023.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-024.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-025.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-026.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-027.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-028.png",
+    "natural/captures-decorative-ground-natural-09-v2/crowd-029.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-000.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-001.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-002.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-003.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-004.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-005.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-006.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-007.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-008.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-009.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-010.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-011.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-012.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-013.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-014.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-015.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-016.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-017.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-018.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-019.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-020.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-021.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-022.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-023.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-024.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-025.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-026.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-027.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-028.png",
+    "natural/captures-decorative-ground-natural-09-v2/dash-029.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-000.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-001.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-002.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-003.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-004.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-005.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-006.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-007.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-008.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-009.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-010.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-011.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-012.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-013.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-014.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-015.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-016.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-017.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-018.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-019.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-020.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-021.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-022.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-023.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-024.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-025.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-026.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-027.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-028.png",
+    "natural/captures-decorative-ground-natural-09-v2/opening-029.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-000.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-001.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-002.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-003.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-004.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-005.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-006.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-007.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-008.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-009.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-010.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-011.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-012.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-013.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-014.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-015.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-016.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-017.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-018.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-019.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-020.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-021.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-022.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-023.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-024.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-025.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-026.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-027.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-028.png",
+    "natural/captures-decorative-ground-natural-09-v2/shop-029.png"
+  ],
+  "packaging_note": "Initial curated-v1 selected image filenames without excluding source snapshots, omitting six asset-source PNGs. Retained locally, not used as final package. Corrected curated-v2 retains all selected frozen sources; raw volumes unchanged."
+}

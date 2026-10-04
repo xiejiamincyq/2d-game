@@ -6,6 +6,8 @@ const Laser = preload("res://scripts/components/LaserBeam.gd")
 const Spike = preload("res://scripts/components/SpikeTrap.gd")
 const Outline = preload("res://scripts/art/PlayerOcclusionOutline.gd")
 const Floor = preload("res://scripts/world/FloorGrid.gd")
+const Flame = preload("res://scripts/components/FlameTrail.gd")
+const Vfx = preload("res://scripts/effects/CombatVfx.gd")
 const SOURCES := ["scripts/art/VerifyFriendlyOcclusion.gd", "scripts/actors/Player.gd", "scripts/components/ArcPulseVisual.gd", "scripts/components/LaserBeam.gd", "scripts/components/SpikeTrap.gd", "scripts/effects/FriendlyEffectPalette.gd", "scripts/art/PlayerOcclusionOutline.gd", "scripts/world/FloorGrid.gd", "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png", "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png"]
 
 func _initialize() -> void:
@@ -16,7 +18,12 @@ func _initialize() -> void:
 		quit(1)
 		return
 	var hashes := {}
-	for path in SOURCES:
+	var extras := OS.get_environment("FRIENDLY_LAYER_EXTRA") == "1"
+	var sources: Array[String] = []
+	sources.assign(SOURCES)
+	if extras:
+		sources.append_array(["scripts/Main.gd", "scripts/components/FlameTrail.gd", "scripts/effects/CombatVfx.gd", "assets/art/effects/combat_hit_chibi_b_v1.png"])
+	for path in sources:
 		var frozen: String = output + "/source/" + path
 		DirAccess.make_dir_recursive_absolute(frozen.get_base_dir())
 		if DirAccess.copy_absolute("res://" + path, frozen) != OK:
@@ -63,6 +70,23 @@ func _initialize() -> void:
 			beam.persistent = true
 			shots.add_child(beam)
 			beam.setup(player.position + Vector2(-110, -16), player.position + Vector2(110, -16), player.get_drone_laser_color(), 6 if overdrive else 4)
+			var extra_layers := {}
+			if extras:
+				player.dash_active = true
+				player.dash_direction = Vector2.RIGHT.rotated(player.gun_angle)
+				player.queue_redraw()
+				var flame := Flame.new()
+				shots.add_child(flame)
+				flame.position = player.position
+				var vfx := Vfx.new()
+				vfx.process_mode = Node.PROCESS_MODE_DISABLED
+				# Reproduce the previous Main foreground configuration before ready.
+				vfx.z_index = 20
+				view.add_child(vfx)
+				for kind: StringName in [Vfx.SPARK, Vfx.RING, Vfx.AFTERIMAGE, Vfx.BLAST]:
+					vfx.request_effect(kind, player.position + Vector2(0, -10), Vector2.RIGHT)
+				vfx._process(0.04)
+				extra_layers = {"flame_z": flame.z_index, "flame_absolute": not flame.z_as_relative, "vfx_z": vfx.z_index, "vfx_absolute": not vfx.z_as_relative, "dash": true}
 			var overlay := await capture(view, output + "/" + prefix + "-overlap.png")
 			if control == null or mask == null or overlay == null:
 				quit(1)
@@ -85,7 +109,7 @@ func _initialize() -> void:
 			for suffix: String in ["control", "mask", "overlap"]:
 				var name := prefix + "-" + suffix + ".png"
 				images[suffix] = {"file": name, "sha256": FileAccess.get_sha256(output + "/" + name)}
-			states.append({"direction": direction, "cardinal": player.chibi_cardinal_index(player.gun_angle), "overdrive": overdrive, "opaque_pixels": opaque, "changed_opaque_pixels": changed, "outside_changed_pixels": outside_changes, "z": [arc.z_index, beam.z_index, spike.z_index], "absolute_z": [not arc.z_as_relative, not beam.z_as_relative, not spike.z_as_relative], "images": images})
+			states.append({"direction": direction, "cardinal": player.chibi_cardinal_index(player.gun_angle), "overdrive": overdrive, "opaque_pixels": opaque, "changed_opaque_pixels": changed, "outside_changed_pixels": outside_changes, "z": [arc.z_index, beam.z_index, spike.z_index], "absolute_z": [not arc.z_as_relative, not beam.z_as_relative, not spike.z_as_relative], "extra_layers": extra_layers, "images": images})
 			view.free()
 			await process_frame
 	var valid := states.size() == 8
@@ -97,7 +121,7 @@ func _initialize() -> void:
 	if file == null:
 		quit(1)
 		return
-	file.store_string(JSON.stringify({"valid": valid, "process_id": OS.get_process_id(), "display": DisplayServer.get_name(), "source_sha256": hashes, "states": states, "scope": "Fixed actual player/components over actual floor; foreground container22; eight ordinary/overdrive cardinal poses, native control/alpha-mask/overlap. Not natural Main gameplay, dash, CombatVfx, human acceptance or complete source closure."}, "\t"))
+	file.store_string(JSON.stringify({"valid": valid, "process_id": OS.get_process_id(), "display": DisplayServer.get_name(), "source_sha256": hashes, "states": states, "extras": extras, "scope": "Fixed actual player/components over actual floor; foreground container22; eight ordinary/overdrive cardinal poses, native control/alpha-mask/overlap. EXTRA=1 adds Flame/CombatVfx/active dash; default omits them. Not natural Main gameplay, human acceptance or complete source closure."}, "\t"))
 	file.close()
 	print("FRIENDLY OCCLUSION ", run, " valid=", valid, " states=", states.size())
 	quit(0 if valid else 1)

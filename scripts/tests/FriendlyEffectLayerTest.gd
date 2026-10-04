@@ -3,6 +3,8 @@ extends SceneTree
 const Arc = preload("res://scripts/components/ArcPulseVisual.gd")
 const Laser = preload("res://scripts/components/LaserBeam.gd")
 const Spike = preload("res://scripts/components/SpikeTrap.gd")
+const Flame = preload("res://scripts/components/FlameTrail.gd")
+const Vfx = preload("res://scripts/effects/CombatVfx.gd")
 const Projectile = preload("res://scripts/components/Projectile.gd")
 const Outline = preload("res://scripts/art/PlayerOcclusionOutline.gd")
 var assertions := 0
@@ -45,10 +47,15 @@ func _initialize() -> void:
 		spike.radius = 52
 		spike.damage = 24
 		shots.add_child(spike)
+		var flame := Flame.new()
+		shots.add_child(flame)
+		var vfx := Vfx.new()
+		shots.add_child(vfx)
+		vfx.request_effect(Vfx.SPARK, Vector2.ZERO)
 		var bullet := Projectile.new()
 		shots.add_child(bullet)
 		await process_frame
-		for effect in [arc, beam, spike]:
+		for effect in [arc, beam, spike, flame, vfx]:
 			print("FRIENDLY EFFECT LAYER ", effect.get_script().resource_path, " effective_z=", effective_z(effect))
 			check(effective_z(effect) == -1 and not effect.z_as_relative, "friendly effect must stay absolute ground -1 regardless of foreground ancestors")
 		check(effective_z(bullet) == effective_z(shots) and effective_z(bullet) > Outline.OUTLINE_Z_INDEX, "shared live projectile must remain above player contour")
@@ -56,6 +63,9 @@ func _initialize() -> void:
 		check(beam.end_local == Vector2(190, 20) and beam.width == 6 and beam.persistent, "beam ray endpoint/width/lifetime mode changed")
 		var collisions := spike.get_children().filter(func(child: Node) -> bool: return child is CollisionShape2D)
 		check(collisions.size() == 1 and collisions[0].shape is CircleShape2D and collisions[0].shape.radius == 52 and spike.damage == 24, "spike damage or collision radius changed")
+		var flame_shapes := flame.get_children().filter(func(child: Node) -> bool: return child is CollisionShape2D)
+		check(flame_shapes.size() == 1 and flame_shapes[0].shape.radius == 22 and flame.STACK_INTERVAL == 0.20 and flame.lifetime == 4, "flame collision or burn timing changed")
+		check(vfx.get_effect_count(Vfx.SPARK) == 1 and vfx._sparks[0].textured, "ground layering suppressed hit feedback records")
 		ancestor.free()
 		await process_frame
 	print("TEST %s: FriendlyEffectLayerTest %d" % ["PASS" if failures == 0 else "FAIL", assertions])

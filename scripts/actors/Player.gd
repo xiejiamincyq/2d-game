@@ -335,6 +335,10 @@ func _draw() -> void:
 		draw_circle(visual_center, BODY_RADIUS + 7.0 + pulse * 2.0, Color(Palette.MINT, 0.10))
 		draw_arc(visual_center, BODY_RADIUS + 8.0 + pulse * 3.0, 0.0, TAU, 32, Color(Palette.MINT, 0.72), 2.0)
 		draw_arc(visual_center, BODY_RADIUS + 12.0 - pulse * 2.0, -PI * 0.35, PI * 0.65, 20, Color(Palette.TEAL, 0.82), 2.0)
+	# Draw the attack footprint behind the opaque actor, never across its face.
+	if dash_active:
+		draw_arc(Vector2.ZERO, dash_melee_radius, -PI * 0.2, PI * 1.2, 28, Color(Palette.CREAM, 0.65), 4.0)
+		draw_line(-dash_direction * 28.0, dash_direction * 34.0, Color(Palette.TEAL, 0.85), 4.0)
 	var cardinal_index := chibi_cardinal_index(gun_angle)
 	var destination := Rect2(-CHIBI_BODY_DRAW_SIZE * 0.5 + visual_center, CHIBI_BODY_DRAW_SIZE)
 	var source := chibi_cardinal_rect(cardinal_index)
@@ -346,9 +350,6 @@ func _draw() -> void:
 		_draw_chibi_weapon(visual_center, cardinal_index, tint)
 	if entrance_elapsed >= ENTRANCE_FALL_SECONDS and entrance_elapsed < get_entrance_duration():
 		_draw_landing_smoke((entrance_elapsed - ENTRANCE_FALL_SECONDS) / ENTRANCE_SMOKE_SECONDS)
-	if dash_active:
-		draw_arc(Vector2.ZERO, dash_melee_radius, -PI * 0.2, PI * 1.2, 28, Color(Palette.CREAM, 0.65), 4.0)
-		draw_line(-dash_direction * 28.0, dash_direction * 34.0, Color(Palette.TEAL, 0.85), 4.0)
 	if arc_pulse_level > 0:
 		draw_arc(Vector2.ZERO, 78.0 + arc_pulse_level * 16.0, 0.0, TAU, 48, Color(Palette.TEAL, 0.18), 2.0)
 	if entrance_active:

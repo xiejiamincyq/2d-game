@@ -14,6 +14,7 @@ var stack_timers: Dictionary = {}
 var visual_age := 0.0
 
 func _ready() -> void:
+	z_as_relative = false
 	z_index = -1
 	monitoring = true
 	monitorable = false

@@ -23,6 +23,11 @@ var _rings: Array[Dictionary] = []
 var _afterimages: Array[Dictionary] = []
 var _effect_serial: int = 0
 
+func _ready() -> void:
+	# Decoration stays on the ground; actor hit flashes and hostile cues stay above.
+	z_as_relative = false
+	z_index = -1
+
 func request_effect(
 	effect_type: StringName,
 	world_position: Vector2,

@@ -3,13 +3,18 @@ extends "res://scripts/art/VerifyNaturalRunRendered.gd"
 const Arc = preload("res://scripts/components/ArcPulseVisual.gd")
 const Laser = preload("res://scripts/components/LaserBeam.gd")
 const Spike = preload("res://scripts/components/SpikeTrap.gd")
+const Flame = preload("res://scripts/components/FlameTrail.gd")
+const Vfx = preload("res://scripts/effects/CombatVfx.gd")
 const Bullet = preload("res://scripts/components/Projectile.gd")
 const Outline = preload("res://scripts/art/PlayerOcclusionOutline.gd")
 var layer_observations := {}
 
 func _capture() -> void:
 	if started > 0 and terminal.is_empty() and not reloading and is_instance_valid(scene) and is_instance_valid(scene.projectiles):
-		for item in scene.projectiles.get_children():
+		var items: Array[Node] = scene.projectiles.get_children()
+		if is_instance_valid(scene.combat_vfx) and scene.combat_vfx.get_total_effect_count() > 0:
+			items.append(scene.combat_vfx)
+		for item in items:
 			var kind := ""
 			if item is Arc:
 				kind = "arc"
@@ -17,6 +22,10 @@ func _capture() -> void:
 				kind = "laser"
 			elif item is Spike:
 				kind = "spike"
+			elif item is Flame:
+				kind = "flame"
+			elif item is Vfx:
+				kind = "combat_vfx"
 			elif item is Bullet:
 				kind = "shared_projectile"
 			if kind.is_empty():
@@ -25,12 +34,19 @@ func _capture() -> void:
 				layer_observations[kind] = {"draw_observations": 0, "violations": 0, "first_step": samples.size(), "first_wave": scene.wave_director.wave_index + 1}
 			var info: Dictionary = layer_observations[kind]
 			info.draw_observations += 1
-			var correct: bool = item.z_as_relative and scene.projectiles.z_index > Outline.OUTLINE_Z_INDEX if kind == "shared_projectile" else not item.z_as_relative and item.z_index == -1
+			var correct: bool = item.z_as_relative and _effective_z(item) > Outline.OUTLINE_Z_INDEX if kind == "shared_projectile" else not item.z_as_relative and _effective_z(item) == -1
 			if not correct:
 				info.violations += 1
 				valid = false
 			info.last_step = samples.size()
 	super._capture()
+
+func _effective_z(item: CanvasItem) -> int:
+	var value := item.z_index
+	while item.z_as_relative and item.get_parent() is CanvasItem:
+		item = item.get_parent()
+		value += item.z_index
+	return value
 
 func _source_hashes() -> Dictionary:
 	var hashes := super._source_hashes()

@@ -239,7 +239,6 @@ func _begin_run(snapshot: Dictionary) -> void:
 	combat_vfx = CombatVfxScript.new()
 	combat_vfx.name = "CombatVfx"
 	combat_vfx.process_mode = Node.PROCESS_MODE_PAUSABLE
-	combat_vfx.z_index = 20
 	world.add_child(combat_vfx)
 	camera_effects = CameraEffectsScript.new()
 	camera_effects.name = "CameraEffects"
