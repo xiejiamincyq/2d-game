@@ -550,5 +550,104 @@ class MovementRepeatabilityReportTests(unittest.TestCase):
                 self.assertIs(result["clock_assessment"]["real_clock_verified"], False)
 
 
+class PressureCaptureContractTests(unittest.TestCase):
+    def fixture(self):
+        import math
+        report = make_report(240, track="R", mode="dash")
+        report["run"].update(scenario="stress60", capture="peak")
+        report["initial"]["enemies"] = 60
+        rows, history = [], []
+        for sample in report["samples"]:
+            bodies = [{"id":i+1,"kind":"LOBBER","radius":17.0,"health":10.0,
+                       "position":[20.0+i*40,20.0],"transform":[1,0,0,1,20.0+i*40,20.0],
+                       "visible":True,"screen_rect":[3.0+i*40,3.0,34.0,34.0]} for i in range(2)]
+            entities = {"bodies":bodies,"visible":2,"kinds":{"LOBBER":2},"canvas":[1,0,0,1,0,0],
+                        "player_radius":13.0,"nearest_gap":min(math.dist(sample["position"],b["position"])-30 for b in bodies)}
+            row = dict(sample,index=sample["step"],frame=sample["physics_frame"],wall=sample["wall_seconds"],
+                       segment=1,eligible=True,live=2,visible=2,entities=entities,warnings=[])
+            rows.append(row)
+            if (sample["step"]-1)%6 == 0:
+                history.append({"frame":row["frame"],"wall":row["wall"],"physics_wall":row["wall"],
+                                "segment":1,"observation":row["index"],"process_frame":row["process_frame"]})
+        peak = rows[0]
+        selected = [h for h in history if abs(h["wall"]-peak["wall"])<=3]
+        frames = [dict(h,path=f"build/diagnostics/movement-repeatability/unit-synthetic-peak/peak-{i:03d}.png",
+                       sha256="ab"*32) for i,h in enumerate(selected)]
+        end = peak["wall"]+3
+        times = [0.0]+[h["wall"] for h in selected]+[end]
+        report["pressure_capture"] = {"valid":True,"observations":rows,"peak":peak,"visible_peak":peak,
+            "frames":frames,"capture_history":history,"max_retained":40,"cache_limit":120,
+            "viewport":[1280,720],"display":"Windows","adapter":"synthetic unit only",
+            "window":{"requested_start":peak["wall"]-3,"requested_end":end,"coverage_start":0.0,
+                "coverage_end":end,"terminal_wall":4.0,"terminal_reason":"step_budget",
+                "first_capture":frames[0]["wall"],"last_capture":frames[-1]["wall"],
+                "truncated_left":True,"truncated_right":False,"left_reason":"startup","right_reason":"none",
+                "left_gap":frames[0]["wall"],"right_gap":end-frames[-1]["wall"],
+                "max_gap":max(b-a for a,b in zip(times,times[1:])),"gap_limit":0.25,"observed_interval_complete":True}}
+        return report
+
+    def errors(self, report):
+        import check_movement_repeatability_report as checker
+        function = getattr(checker,"check_pressure_capture",None)
+        self.assertTrue(callable(function),"independent pressure capture verifier missing")
+        return function(report)
+
+    def test_valid_native_shape_and_startup_truncation(self):
+        self.assertEqual([],self.errors(self.fixture()))
+
+    def test_wrong_peak_counts_geometry_sample_binding_and_dead_actor(self):
+        for change in (lambda c:c.update(peak=c["observations"][1]),
+                       lambda c:c["observations"][1].update(live=60),
+                       lambda c:c["observations"][1].update(position=[999,999]),
+                       lambda c:c["observations"][1]["entities"]["bodies"][0].update(health=0),
+                       lambda c:c["observations"][1]["entities"]["bodies"][0].update(screen_rect=[0,0,1,1])):
+            report=self.fixture();change(report["pressure_capture"])
+            self.assertTrue(self.errors(report))
+
+    def test_missing_reordered_wrong_path_and_substituted_frames(self):
+        for change in (lambda c:c["frames"].pop(5),lambda c:c["frames"].reverse(),
+                       lambda c:c["frames"][0].update(path="../private.png"),
+                       lambda c:c["frames"][0].update(observation=99)):
+            report=self.fixture();change(report["pressure_capture"])
+            self.assertTrue(self.errors(report))
+
+    def test_false_window_summaries_native_declaration_and_cache_limit(self):
+        for key,value in (("max_gap",0.0),("truncated_left",False),("terminal_reason","death"),
+                          ("coverage_end",99),("gap_limit",3),("first_capture",99)):
+            report=self.fixture();report["pressure_capture"]["window"][key]=value
+            self.assertTrue(self.errors(report),key)
+        for key,value in (("display","headless"),("max_retained",121),("valid",False)):
+            report=self.fixture();report["pressure_capture"][key]=value
+            self.assertTrue(self.errors(report),key)
+
+    def test_malformed_or_empty_capture_returns_errors_not_crashes(self):
+        for capture in (None,{},[],{"observations":[]},self.fixture()["pressure_capture"]):
+            report=self.fixture();report["pressure_capture"]=copy.deepcopy(capture)
+            if isinstance(capture,dict) and "frames" in capture: report["pressure_capture"]["frames"] = []
+            self.assertTrue(self.errors(report))
+
+    def test_missing_radius_and_nonobject_observations_are_rejected(self):
+        report = self.fixture()
+        del report["pressure_capture"]["observations"][1]["entities"]["player_radius"]
+        self.assertTrue(self.errors(report))
+        for value in (None, [], "invalid"):
+            report = self.fixture()
+            report["pressure_capture"]["observations"][1] = value
+            self.assertTrue(self.errors(report))
+
+    def test_cache_union_max_cannot_be_understated_or_overstated(self):
+        for maximum in (31,41):
+            report = self.fixture()
+            report["pressure_capture"]["max_retained"] = maximum
+            self.assertTrue(self.errors(report))
+
+    def test_draw_counters_must_be_positive_nonbool_integers(self):
+        for key,value in (("process_frame",0.5),("process_frame",True),("segment",True),("frame",0.5)):
+            report=self.fixture()
+            for container in ("capture_history","frames"):
+                report["pressure_capture"][container][0][key]=value
+            self.assertTrue(self.errors(report))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -272,6 +272,7 @@ func _initialize() -> void:
 			"audio_flush_wall_seconds": audio_flush_wall_seconds, "objectdb_leaks": "requires_exit_log_review"},
 		"hit_stop_events": feedback_events, "real_save_hashes_before": real_saves_before, "real_save_hashes_after": real_saves_after,
 		"limitations": "Measurement only, not balance/visual/human/performance acceptance. stress60 injects 60 AI; natural_wave1 starts via Enter, waits natural entrance/banner and release-only spawn guard, then observes wave 1 until death/clear/budget without invulnerability or enemy reset. Wave 1 has no lobbers: zero landing fills cannot validate lobber readability. Wave clear is not settlement/shop/restart acceptance. Fixed square inputs are a diagnostic bot, not human skill. D suppresses hit-stop; R calls production hit-stop. Clock mode is caller-declared and unverified. Enemy strafe uses wall clock and instance IDs; no deterministic claim."}
+	report["process_id"] = OS.get_process_id()
 	report["source_sha256_before"] = source_hashes_before
 	report["pressure_capture"] = pressure_capture
 	report["source_sha256_after"] = _source_hashes()
@@ -301,6 +302,7 @@ func _source_hashes() -> Dictionary:
 func _observe_stress_sample(sample: Dictionary) -> void:
 	var bodies := StressObserver.Ledger.entities(scene.wave_director.active_enemies, view.canvas_transform,
 		Rect2(Vector2.ZERO,Vector2(view.size)), scene.player.global_position, scene.player.get_body_radius())
+	bodies["player_radius"] = scene.player.get_body_radius()
 	var warnings: Array[Dictionary] = []
 	for shot in scene.projectiles.get_children():
 		if shot is LobScript and not shot.is_queued_for_deletion():

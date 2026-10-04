@@ -273,13 +273,130 @@ def check_report(report: dict) -> dict:
     return result
 
 
+def check_pressure_capture(report: dict) -> list[str]:
+    """Independent optional stress observer integrity; never certify visual quality."""
+    from check_late_crowd_report import check_entities
+    import re
+    errors = []
+    def require(ok, message):
+        if not ok: errors.append(message)
+    try:
+        run, capture, samples = report["run"], report["pressure_capture"], report["samples"]
+        require(run["scenario"] == "stress60" and run["capture"] == "peak", "wrong pressure capture configuration")
+        require(report["initial"]["enemies"] == 60, "not the existing stress60 startup")
+        require(capture["valid"] is True, "producer pressure capture invalid")
+        require(capture["viewport"] == [1280,720] and capture["display"] not in ("", "headless") and bool(capture["adapter"]), "not expected native pressure viewport")
+        rows, history, frames = capture["observations"], capture["capture_history"], capture["frames"]
+        if not all(isinstance(value,list) for value in (samples,rows,history,frames)):
+            return errors + ["pressure samples/observations/history/frames must be arrays"]
+        require(bool(rows) and len(rows) == len(samples), "pressure observations must cover every base sample")
+        for index, (row, sample) in enumerate(zip(rows, samples), 1):
+            if not isinstance(row,dict) or not isinstance(sample,dict):
+                return errors + ["pressure/base observations must be objects"]
+            require(all(row.get(k) == v for k,v in sample.items()), "pressure/base sample substitution")
+            require(row["index"] == index == sample["step"] and row["frame"] == sample["physics_frame"] and _close(row["wall"],sample["wall_seconds"]), "pressure physics binding mismatch")
+            require(row["segment"] == 1 and row["eligible"] is (sample["health"] > 0), "invalid pressure eligibility or segment")
+            entities = row["entities"]
+            errors.extend(check_entities(entities, entities["canvas"]))
+            require(row["live"] == len(entities["bodies"]) and 0 <= row["live"] <= 60 and row["visible"] == entities["visible"], "pressure live/visible count mismatch")
+            require(all(b["kind"].lower() in ENEMY_KINDS for b in entities["bodies"]), "foreign pressure actor kind")
+            radius = entities["player_radius"]
+            require(_number(radius) and radius>0, "invalid pressure player radius")
+            if _number(radius) and radius>0:
+                gap = min((math.dist(row["position"],b["position"])-radius-b["radius"] for b in entities["bodies"]),default=None)
+                require((gap is None and entities["nearest_gap"] is None) or _close(gap,entities["nearest_gap"]), "pressure actor clearance mismatch")
+            warnings = row["warnings"]
+            require(len({w["id"] for w in warnings}) == len(warnings), "duplicate pressure warning")
+            for w in warnings:
+                require(_integer(w["id"]) and w["id"]>0 and _vector(w["position"]) and all(_number(w[k]) for k in ("radius","elapsed","duration")) and w["radius"]>0 and 0<=w["elapsed"]<w["duration"], "invalid pressure lob warning")
+        eligible = [r for r in rows if r["eligible"]]
+        peak = max(eligible, key=lambda r:r["live"], default={})
+        require(bool(peak) and capture["peak"] == peak, "wrong pressure peak or earliest tie")
+        require(capture["visible_peak"] == max(eligible,key=lambda r:r["visible"],default={}), "wrong visible peak or earliest tie")
+        if not peak: return errors
+        previous = None
+        for h in history:
+            require(all(_integer(h[k]) and h[k]>0 for k in ("frame","process_frame","segment")), "pressure draw counters must be positive integers")
+            require(_integer(h["observation"]) and 1<=h["observation"]<=len(rows), "invalid pressure draw observation")
+            row = rows[h["observation"]-1]
+            require(row["eligible"] and h["frame"] == row["frame"] and h["segment"] == 1 and _close(h["physics_wall"],row["wall"]) and _number(h["wall"]) and row["wall"]<=h["wall"]<=report["wall_seconds"], "pressure draw binding mismatch")
+            if previous:
+                require(h["wall"]-previous["wall"]>=.1-1e-6 and h["frame"]>previous["frame"] and h["process_frame"]>previous["process_frame"], "invalid pressure draw pacing/order")
+            previous=h
+        expected = [h for h in history if abs(h["wall"]-peak["wall"])<=3]
+        require(bool(frames) and len(frames)==len(expected) and all(all(f.get(k)==v for k,v in h.items()) for f,h in zip(frames,expected)), "pressure peak frames omitted/reordered/substituted")
+        for index,f in enumerate(frames):
+            require(f["path"]==f"build/diagnostics/movement-repeatability/{run['run']}-peak/peak-{index:03d}.png" and re.fullmatch(r"[0-9a-f]{64}",f["sha256"]) is not None, "invalid pressure frame path/hash")
+        require(capture["cache_limit"]==120 and _integer(capture["max_retained"]) and len(frames)<=capture["max_retained"]<=120, "unbounded or understated pressure cache")
+        # Independent event replay: each draw follows its bound physics row;
+        # count the union, not ring+candidate references to the same bitmap.
+        draws = {h["observation"]:i for i,h in enumerate(history)}
+        require(len(draws)==len(history), "multiple pressure draws bound to one physics row")
+        ring, candidate, running_peak, maximum = [], [], None, 0
+        for row in rows:
+            if row["eligible"] and (running_peak is None or row["live"]>running_peak["live"]):
+                running_peak=row
+                candidate=[i for i in ring if history[i]["wall"]>=row["wall"]-3]
+            if row["index"] not in draws:
+                continue
+            i=draws[row["index"]]
+            h=history[i]
+            ring=[j for j in ring if history[j]["wall"]>=h["wall"]-3]+[i]
+            if running_peak is not None and abs(h["wall"]-running_peak["wall"])<=3:
+                candidate.append(i)
+            maximum=max(maximum,len(set(ring+candidate)))
+        require(capture["max_retained"]==maximum, "pressure cache union maximum mismatch")
+        window = capture["window"]
+        start, end = max(0.0,peak["wall"]-3), min(report["wall_seconds"],peak["wall"]+3)
+        times = [start]+[f["wall"] for f in frames]+[end]
+        gap = max(b-a for a,b in zip(times,times[1:]))
+        numeric = {"requested_start":peak["wall"]-3,"requested_end":peak["wall"]+3,
+                   "coverage_start":start,"coverage_end":end,"terminal_wall":report["wall_seconds"],
+                   "first_capture":frames[0]["wall"],"last_capture":frames[-1]["wall"],
+                   "left_gap":frames[0]["wall"]-start,"right_gap":end-frames[-1]["wall"],"max_gap":gap,"gap_limit":.25}
+        require(all(_close(window.get(k),v) for k,v in numeric.items()), "pressure window arithmetic mismatch")
+        left,right = peak["wall"]<3,report["wall_seconds"]<peak["wall"]+3
+        require(window["truncated_left"] is left and window["truncated_right"] is right and window["left_reason"]==("startup" if left else "none") and window["right_reason"]==(report["terminal"] if right else "none") and window["terminal_reason"]==report["terminal"], "pressure truncation declaration mismatch")
+        require(window["observed_interval_complete"] is True and gap<=.25 and all(b>=a for a,b in zip(times,times[1:])), "pressure observed interval has missing coverage")
+    except (KeyError,TypeError,ValueError,IndexError,OverflowError,AttributeError) as error:
+        errors.append(f"malformed pressure capture: {type(error).__name__}")
+    return errors
+
+
+def check_pressure_files(report: dict, project: Path) -> list[str]:
+    """Read original PNG bytes; callers must first pass the pure capture gate."""
+    import hashlib
+    from PIL import Image
+    errors=[]
+    root=project.resolve()
+    for frame in report["pressure_capture"]["frames"]:
+        try:
+            path=(root/frame["path"]).resolve()
+            if not path.is_relative_to(root) or hashlib.sha256(path.read_bytes()).hexdigest()!=frame["sha256"]:
+                errors.append("pressure PNG path/bytes mismatch")
+                continue
+            with Image.open(path) as image:
+                if image.format!="PNG" or image.size!=(1280,720) or len(set(image.convert("L").getextrema()))!=2:
+                    errors.append("pressure PNG flat or incorrectly sized")
+        except (OSError,ValueError) as error:
+            errors.append(f"unreadable pressure PNG: {type(error).__name__}")
+    return errors
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("report", type=Path)
+    parser.add_argument("--require-pressure",action="store_true")
+    parser.add_argument("--project",type=Path,default=Path(__file__).resolve().parents[2])
     arguments = parser.parse_args()
     try:
         report = json.loads(arguments.report.read_text(encoding="utf-8-sig"))
         result = check_report(report)
+        if arguments.require_pressure:
+            capture_errors=check_pressure_capture(report)
+            result["errors"].extend(capture_errors)
+            if not capture_errors: result["errors"].extend(check_pressure_files(report,arguments.project))
+            result["valid"]=not result["errors"]
     except (OSError, UnicodeError, json.JSONDecodeError) as error:
         result = _result()
         result["errors"].append(f"could not read report: {error}")

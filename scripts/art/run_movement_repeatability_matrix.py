@@ -1,4 +1,4 @@
-"""Sequential, non-release stress60 or natural_wave1 observations. Standard library only."""
+"""Sequential non-release observations; optional PNG verification uses installed Pillow."""
 from __future__ import annotations
 
 import argparse
@@ -12,9 +12,14 @@ import re
 import subprocess
 import sys
 import time
+from run_late_crowd_matrix import process_witness, stop_owned_process, check_process_identity
 
 SEEDS = (20260908, 20260909, 20260910)
 TIMEOUT_SECONDS = 50
+
+
+def capture_options_valid(scenario: str, headless: bool, capture_peak: bool) -> bool:
+    return not capture_peak or (scenario == "stress60" and not headless)
 COMPARE_FIELDS = ("position", "velocity", "health", "shield", "input", "actual_aim",
                   "dash_active", "dash_requested", "dash_cooldown", "stealth_remaining",
                   "physics_delta", "scale_before_physics", "scale_after_physics",
@@ -115,10 +120,22 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def source_hashes(project: Path) -> dict:
+def freeze_registration(path: Path, manifest: dict) -> str:
+    """Write planned slots/source once, independently of mutable run progress."""
+    with path.open("x",encoding="utf-8") as registration:
+        registration.write(json.dumps(manifest,ensure_ascii=False,indent=2,allow_nan=False)+"\n")
+    return sha256(path)
+
+
+def source_hashes(project: Path, capture_peak: bool = False) -> dict:
     files = [project / "project.godot", Path(__file__).resolve(),
              project / "scripts/art/check_movement_repeatability_report.py"]
+    files += [project / "scripts/art/run_late_crowd_matrix.py",project / "scripts/art/check_late_crowd_report.py"]
     files.extend(sorted((project / "scripts").rglob("*.gd")))
+    if capture_peak:
+        # A stable superset, including unused art, not an attribution/runtime inventory.
+        for folder in ("assets/art","scenes/ui","themes"):
+            files.extend(p for p in sorted((project/folder).rglob("*")) if p.is_file() and p.suffix in (".png",".gdshader",".tscn",".tres"))
     return {str(path.relative_to(project)).replace("\\", "/"): sha256(path) for path in files}
 
 
@@ -150,29 +167,36 @@ def run_case(slot: dict, args, output: Path, baseline_hashes: dict, checker) -> 
              f"--scenario={args.scenario}",
              f"--seed={slot['seed']}", f"--track={slot['track']}", f"--mode={slot['mode']}",
              f"--run={run_id}", f"--steps={args.steps}", "--clock=realtime"]
+    if args.capture_peak:
+        argv.append("--capture=peak")
     record = dict(slot, status="invalid", errors=[], external={"argv": argv, "cwd": str(args.project),
                   "logfile": str(log_path), "report_file": str(report_path), "timeout_seconds": case_timeout(args.scenario, args.steps),
-                  "headless": args.headless, "fixed_fps": False, "movie": False})
+                  "headless": args.headless, "fixed_fps": False, "movie": False,"exit_code":None})
     external, errors = record["external"], record["errors"]
-    if report_path.exists() or log_path.exists():
+    if report_path.exists() or log_path.exists() or (output/f"{run_id}-peak").exists():
         errors.append("Refusing existing per-run evidence")
         return record, None
-    if source_hashes(args.project) != baseline_hashes:
+    if source_hashes(args.project,args.capture_peak) != baseline_hashes:
         errors.append("Source hashes changed before launch")
         return record, None
     started = time.monotonic()
     try:
         with log_path.open("x", encoding="utf-8") as log:
-            completed = subprocess.run(argv, cwd=args.project, stdout=log, stderr=subprocess.STDOUT,
-                                       timeout=external["timeout_seconds"], check=False,
+            process = subprocess.Popen(argv,cwd=args.project,stdout=log,stderr=subprocess.STDOUT,
                                        creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
-        external["exit_code"] = completed.returncode
+            external["launcher_process_id"] = process.pid
+            print(f"CASE PROCESS {run_id} pid={process.pid}",flush=True)
+            try:
+                external["process_witness"] = process_witness(process)
+                external["exit_code"] = process.wait(timeout=external["timeout_seconds"])
+            finally:
+                if process.poll() is None: stop_owned_process(process)
     except subprocess.TimeoutExpired:
         external["exit_code"] = None
         errors.append("Godot timed out; this slot is retained, not rerun")
-    except OSError as exc:
+    except (OSError,ValueError,subprocess.SubprocessError,RuntimeError) as exc:
         external["exit_code"] = None
-        errors.append(f"Godot launch failed: {exc}")
+        errors.append(f"Godot launch/identity/owned cleanup failed: {exc}")
     external["wall_seconds_including_startup_cleanup"] = time.monotonic() - started
     log_text = log_path.read_text(encoding="utf-8", errors="replace") if log_path.exists() else ""
     external["log_sha256"] = sha256(log_path) if log_path.exists() else None
@@ -187,6 +211,7 @@ def run_case(slot: dict, args, output: Path, baseline_hashes: dict, checker) -> 
     try:
         report = json.loads(report_path.read_text(encoding="utf-8-sig"))
         external["report_sha256"] = sha256(report_path)
+        errors.extend(check_process_identity(external["launcher_process_id"],report.get("process_id"),external["process_witness"]))
         for key in ("run", "track", "seed", "mode"):
             if report["run"][key] != slot[key]:
                 errors.append(f"Report/slot mismatch: {key}")
@@ -210,10 +235,20 @@ def run_case(slot: dict, args, output: Path, baseline_hashes: dict, checker) -> 
         record["checker"] = checker(report)
         if not record["checker"]["valid"]:
             errors.extend(record["checker"]["errors"])
+        if args.capture_peak:
+            from check_movement_repeatability_report import check_pressure_capture, check_pressure_files
+            capture_errors=check_pressure_capture(report)
+            errors.extend(capture_errors)
+            if not capture_errors: errors.extend(check_pressure_files(report,args.project))
+            c=report["pressure_capture"]
+            record["pressure"]={"native_frames":len(c["frames"]),"peak_live":c["peak"].get("live"),
+                                "peak_visible":c["peak"].get("visible"),"window":c["window"],"max_retained":c["max_retained"]}
+            for relative,digest in report["source_sha256_before"].items():
+                if baseline_hashes.get(relative)!=digest: errors.append("runtime source differs from registration: "+relative)
         record["metrics"] = summarize(report)
     except (OSError, ValueError, TypeError, KeyError) as exc:
         errors.append(f"Missing/invalid report or summary fields: {exc}")
-    external["source_hashes_unchanged"] = source_hashes(args.project) == baseline_hashes
+    external["source_hashes_unchanged"] = source_hashes(args.project,args.capture_peak) == baseline_hashes
     if not external["source_hashes_unchanged"]:
         errors.append("Source hashes changed during run")
     record["status"] = "valid_measurement" if not errors else "invalid"
@@ -258,6 +293,7 @@ def main() -> int:
     parser.add_argument("--project", type=Path, default=Path(__file__).resolve().parents[2])
     parser.add_argument("--batch")
     parser.add_argument("--headless", action="store_true", help="No visual/performance acceptance")
+    parser.add_argument("--capture-peak",action="store_true",help="Native stress60 bounded peak originals and strict independent verification")
     parser.add_argument("--smoke", action="store_true", help="One case only; never a formal matrix")
     parser.add_argument("--scenario", choices=("stress60", "natural_wave1"), default="stress60")
     parser.add_argument("--steps", type=int, default=1200, help="stress60 formal: 1200; natural_wave1: 1..10800, pre-register the budget")
@@ -275,6 +311,8 @@ def main() -> int:
         parser.error("stress60 formal requires 1200 steps (smoke: 1..1200); natural_wave1: 1..10800")
     if args.scenario == "natural_wave1" and args.smoke and args.smoke_track != "R":
         parser.error("natural_wave1 smoke requires --smoke-track=R")
+    if not capture_options_valid(args.scenario,args.headless,args.capture_peak):
+        parser.error("--capture-peak requires native stress60, never headless/natural_wave1")
     args.project, args.godot = args.project.resolve(), args.godot.resolve()
     from check_movement_repeatability_report import check_report
     output = args.project / "build/diagnostics/movement-repeatability"
@@ -282,15 +320,18 @@ def main() -> int:
     if any(p.name.startswith(args.batch + "-") for p in output.iterdir()):
         parser.error("Batch prefix already has evidence; choose a fresh --batch, no overwrite/resume")
     path = output / f"{args.batch}-matrix.json"
-    hashes = source_hashes(args.project)
+    hashes = source_hashes(args.project,args.capture_peak)
     slots = make_slots(args.batch, args.smoke, args.smoke_track, args.smoke_seed, args.smoke_mode, args.scenario)
-    manifest = {"batch": args.batch, "scenario": args.scenario, "formal_matrix": not args.smoke, "acceptance": "running",
+    manifest = {"batch": args.batch, "scenario": args.scenario, "capture_peak":args.capture_peak,"formal_matrix": not args.smoke, "acceptance": "running",
                 "planned_slots": len(slots), "steps_per_slot": args.steps, "godot_sha256": sha256(args.godot),
                 "source_sha256": hashes, "runs": [dict(s, status="not_run") for s in slots],
                 "comparison_abs_tolerance": 0.000001, "low_progress_fraction": 0.1,
                 "limitations": "Measurement only, not balance/visual/performance/determinism acceptance. natural_wave1 covers only wave 1, not late-wave maximum crowding or lobber readability; stress60 injects 60 AI. Death retained; no survival selection. R wall-clock evidence is separate from sampled game time. Headless runs have no visual acceptance. Low progress means along-input travel below 10% of walk-equivalent input budget, even during dash; it is not true dash budget or proof of stuck movement. Duration accumulates physics simulation seconds. First divergence excludes wall/absolute frame identifiers."}
     with path.open("x", encoding="utf-8") as reserved:
         reserved.write("{}\n")
+    registration_path=output/f"{args.batch}-registration.json"
+    manifest["registration_sha256"]=freeze_registration(registration_path,manifest)
+    manifest["registration_file"]=str(registration_path)
     reports = {}
     save_summary(path, manifest, reports)
     try:

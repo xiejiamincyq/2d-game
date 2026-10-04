@@ -5,6 +5,11 @@ from __future__ import annotations
 import copy
 from pathlib import Path
 import sys
+import tempfile
+import json
+import subprocess
+from types import SimpleNamespace
+from unittest.mock import Mock, patch
 import unittest
 
 
@@ -33,6 +38,50 @@ def measurement(movements: list[tuple[list[float], list[float]]], deltas: list[f
 
 
 class MovementRepeatabilityMatrixTests(unittest.TestCase):
+    def test_failed_process_witness_stops_owned_process_and_retains_invalid_slot(self):
+        for error in (subprocess.CalledProcessError(1,["observation"]),
+                      json.JSONDecodeError("invalid witness","?",0),RuntimeError("cleanup failure")):
+            with self.subTest(error=type(error).__name__), tempfile.TemporaryDirectory() as directory:
+                project=Path(directory)
+                args=SimpleNamespace(godot=project/"fake.exe",project=project,headless=False,
+                    capture_peak=False,scenario="stress60",steps=1200,smoke=True)
+                process=Mock(pid=1234)
+                process.poll.return_value=None
+                with patch.object(matrix,"source_hashes",return_value={}), \
+                     patch.object(matrix.subprocess,"Popen",return_value=process), \
+                     patch.object(matrix,"process_witness",side_effect=error), \
+                     patch.object(matrix,"stop_owned_process") as stop:
+                    record,report=matrix.run_case(make_slots("unit",True)[0],args,project,{},lambda r:{"valid":True})
+                stop.assert_called_once_with(process)
+                process.wait.assert_not_called()
+                self.assertEqual(record["status"],"invalid")
+                self.assertEqual(record["external"]["launcher_process_id"],1234)
+                self.assertIsNone(record["external"]["exit_code"])
+                self.assertIsNone(report)
+                self.assertTrue(any("identity" in error for error in record["errors"]))
+
+    def test_registration_is_write_once_and_precedes_mutable_progress(self):
+        function = getattr(matrix,"freeze_registration",None)
+        self.assertTrue(callable(function),"immutable registration missing")
+        manifest = {"batch":"unit","runs":make_slots("unit"),"source_sha256":{"source":"ab"*32}}
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)/"registration.json"
+            digest = function(path,manifest)
+            original = path.read_bytes()
+            self.assertEqual(digest,matrix.sha256(path))
+            manifest["runs"][0]["status"] = "valid_measurement"
+            self.assertEqual(original,path.read_bytes())
+            with self.assertRaises(FileExistsError):
+                function(path,manifest)
+
+    def test_peak_capture_only_accepts_native_stress_not_headless_or_natural(self):
+        function=getattr(matrix,"capture_options_valid",None)
+        self.assertTrue(callable(function),"capture launch boundary missing")
+        self.assertTrue(function("stress60",False,True))
+        self.assertFalse(function("stress60",True,True))
+        self.assertFalse(function("natural_wave1",False,True))
+        self.assertTrue(function("natural_wave1",True,False))
+
     def test_natural_slots_are_18_r_only_without_stress_d_cases(self) -> None:
         slots = make_slots("natural", scenario="natural_wave1")
         expected = {("R", seed, mode, repeat) for seed in matrix.SEEDS
