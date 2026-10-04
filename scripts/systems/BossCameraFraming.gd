@@ -35,12 +35,23 @@ func track_boss(actor: OverseerBoss) -> void:
 	boss = actor
 
 func set_combat_state(playing: bool, paused_state: bool) -> void:
+	var resuming := playing and combat_paused
 	combat_playing = playing
 	combat_paused = paused_state
 	if paused_state:
 		ui.boss_direction_indicator.hide()
 	elif not playing:
 		reset_framing()
+	elif resuming and active:
+		var viewport_size := camera.get_viewport().get_visible_rect().size
+		reference_center = _clamp_reference(player.global_position, viewport_size)
+		reference.visible_rect = Rect2(reference_center - viewport_size * 0.5, viewport_size)
+		if not _has_active_boss():
+			# Main resets Camera2D smoothing on resume; discard an old edge pan
+			# if the restored actor moved while paused, rather than animating it.
+			camera.position = Vector2.ZERO
+			camera.reset_smoothing()
+			camera.force_update_scroll()
 
 func _process(delta: float) -> void:
 	step_framing(delta)
@@ -48,16 +59,18 @@ func _process(delta: float) -> void:
 func step_framing(delta: float) -> void:
 	if combat_paused:
 		return
-	if not combat_playing or not is_instance_valid(boss) or boss.is_queued_for_deletion() or not boss.visible or not boss.entrance_resolved or boss.health.current_health <= 0.0:
+	if not combat_playing:
 		reset_framing()
 		return
+	var boss_active := _has_active_boss()
+	var smoothing_changed := camera.position_smoothing_enabled == boss_active
+	camera.position_smoothing_enabled = not boss_active
 	var viewport_size := camera.get_viewport().get_visible_rect().size
 	if not active:
 		active = true
 		reference = CombatView.Reference.new()
 		reference_center = _clamp_reference(player.global_position, viewport_size)
 		presentation_center = camera.get_screen_center_position()
-		camera.position_smoothing_enabled = false
 		CombatView.attach(camera, reference)
 	reference_center = _clamp_reference(reference_center.lerp(player.global_position, minf(1.0, FOLLOW_SPEED * delta)), viewport_size)
 	reference.visible_rect = Rect2(reference_center - viewport_size * 0.5, viewport_size)
@@ -69,8 +82,10 @@ func step_framing(delta: float) -> void:
 		ui.boss_direction_indicator.hide()
 		return
 	var player_rect := Rect2(player.global_position - Vector2.ONE * PLAYER_VISUAL_RADIUS, Vector2.ONE * PLAYER_VISUAL_RADIUS * 2.0)
-	var boss_rect: Rect2 = boss.boss_visual.global_transform * boss.boss_visual.get_rect()
-	var union := player_rect.merge(boss_rect)
+	var union := player_rect
+	if boss_active:
+		var boss_rect: Rect2 = boss.boss_visual.global_transform * boss.boss_visual.get_rect()
+		union = player_rect.merge(boss_rect)
 	var required_zoom := minf(1.0, minf(solve_rect.size.x / union.size.x, solve_rect.size.y / union.size.y))
 	var feasible := required_zoom >= MIN_ZOOM
 	var desired_zoom := clampf(required_zoom, MIN_ZOOM, 1.0)
@@ -78,7 +93,9 @@ func step_framing(delta: float) -> void:
 	var desired_center := anchor + (viewport_size * 0.5 - solve_rect.get_center()) / desired_zoom
 	var zoom_value := lerpf(camera.zoom.x, desired_zoom, minf(1.0, 6.0 * delta))
 	camera.zoom = Vector2.ONE * zoom_value
-	presentation_center = presentation_center.lerp(desired_center, minf(1.0, FOLLOW_SPEED * delta))
+	# Ordinary waves retain the nominal player-follow center unless a UI/edge
+	# correction is needed; do not expose half an empty world just to center UI space.
+	presentation_center = presentation_center.lerp(desired_center, minf(1.0, FOLLOW_SPEED * delta)) if boss_active else _clamp_reference(player.global_position, viewport_size)
 	# Keep the player usable even during smoothing or impossible Boss separations.
 	var minimum := player_rect.end - (solve_rect.end - viewport_size * 0.5) / zoom_value
 	var maximum := player_rect.position - (solve_rect.position - viewport_size * 0.5) / zoom_value
@@ -89,14 +106,29 @@ func step_framing(delta: float) -> void:
 	camera.limit_right = int(world_bounds.end.x + overscan.x)
 	camera.limit_bottom = int(world_bounds.end.y + overscan.y)
 	camera.global_position = presentation_center
+	if smoothing_changed:
+		camera.reset_smoothing()
 	camera.force_update_scroll()
 	var projected_player: Rect2 = camera.get_viewport().canvas_transform * player_rect
-	var projected_boss: Rect2 = boss.boss_visual.get_global_transform_with_canvas() * boss.boss_visual.get_rect()
-	both_fit = safe_screen_rect.encloses(projected_player) and safe_screen_rect.encloses(projected_boss)
-	if both_fit:
+	if not boss_active and not safe_screen_rect.encloses(projected_player):
+		# Preserve Camera2D's ordinary 8.0 follow. Only snap an unsafe lagging
+		# projection at UI/edge corrections, never teleport the physical actor.
+		camera.reset_smoothing()
+		camera.force_update_scroll()
+		projected_player = camera.get_viewport().canvas_transform * player_rect
+	both_fit = safe_screen_rect.encloses(projected_player)
+	if not boss_active:
 		ui.boss_direction_indicator.hide()
 	else:
-		ui.boss_direction_indicator.show_direction(safe_screen_rect, projected_boss.get_center())
+		var projected_boss: Rect2 = boss.boss_visual.get_global_transform_with_canvas() * boss.boss_visual.get_rect()
+		both_fit = both_fit and safe_screen_rect.encloses(projected_boss)
+		if both_fit:
+			ui.boss_direction_indicator.hide()
+		else:
+			ui.boss_direction_indicator.show_direction(safe_screen_rect, projected_boss.get_center())
+
+func _has_active_boss() -> bool:
+	return is_instance_valid(boss) and not boss.is_queued_for_deletion() and boss.visible and boss.entrance_resolved and boss.health.current_health > 0.0
 
 func _safe_band(viewport_size: Vector2) -> Rect2:
 	var top := 0.0

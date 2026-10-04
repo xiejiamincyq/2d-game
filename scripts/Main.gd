@@ -581,6 +581,10 @@ func _transition_to(next_state: RunState) -> bool:
 			ui.hide_settlement()
 			ui.hide_manual_pause()
 	ui.set_aim_reticle_visible(run_state == RunState.PLAYING)
+	if run_state == RunState.PLAYING and is_instance_valid(boss_camera_framing):
+		# A banner/input callback may unpause after pausable _process was skipped.
+		# Establish the restored player view before that same frame is drawn.
+		boss_camera_framing.step_framing(0.0)
 	return true
 
 func get_world_bounds() -> Rect2:

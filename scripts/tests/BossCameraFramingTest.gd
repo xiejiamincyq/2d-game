@@ -55,6 +55,7 @@ func _run_checks() -> void:
 	scene.audio_enabled = false
 	view.add_child(scene)
 	await process_frame
+	seed(2026100401) # Controlled fixture only: identical terrain for paired edge images.
 	scene._build_world()
 	scene._begin_run({}) # No _start_run(), no snapshot boundary, no natural input claim.
 	_freeze_simulation(scene)
@@ -62,7 +63,7 @@ func _run_checks() -> void:
 	scene.player.entrance_visual_offset = 0.0
 	scene.player.modulate = Color.WHITE
 	scene.player.velocity = Vector2.ZERO
-	scene.run_state = MainScript.RunState.PLAYING
+	scene.run_state = MainScript.RunState.WAVE_INTRO
 	paused = false
 	camera = scene.player.get_node("PlayerCamera") as Camera2D
 	await process_frame
@@ -75,6 +76,8 @@ func _run_checks() -> void:
 	if not _check(view.get_camera_2d() == camera and camera.is_inside_tree(), "production camera is not current in the real SubViewport"):
 		return
 	if not _check(_camera_has_normal_defaults(), "ordinary no-Boss camera lost local position zero, zoom one, smoothing true/8.0 or world limits"):
+		return
+	if not await _check_ordinary_player_framing():
 		return
 
 	boss = scene.wave_director._spawn_boss_at(Vector2(0, -240)) as Node2D
@@ -203,11 +206,13 @@ func _run_checks() -> void:
 		return
 	# Explicit removal, not simulated victory, so no snapshot writes or settlement.
 	paused = false
-	scene.run_state = MainScript.RunState.PLAYING
+	scene.run_state = MainScript.RunState.WAVE_INTRO
+	scene._transition_to(MainScript.RunState.PLAYING)
+	_freeze_simulation(scene)
 	boss.free()
 	boss = null
-	rig.call("step_framing", 0.1)
-	if not _check(_camera_has_normal_defaults() and not cue.visible and not bool(rig.get("active")), "no-Boss camera did not restore its ordinary defaults/cue"):
+	_settle_camera()
+	if not _check(is_equal_approx(camera.zoom.x, 1.0) and not cue.visible and rig.active and _actor_is_clear(_player_screen_rect(), "removed-Boss/player"), "removed Boss did not hand off to protected ordinary framing"):
 		return
 	rig.call("reset_framing")
 	_check(_camera_has_normal_defaults(), "reset_framing did not preserve ordinary defaults")
@@ -236,6 +241,115 @@ func _check_navigation_isolation(rig: Node) -> bool:
 	if not _check(identical, "presentation camera changed Boss/Enemy/Director navigation or portal distance"):
 		return false
 	return _check(unisolated != before and unisolated[3] != before[3], "navigation negative control did not detect presentation zoom coupling")
+
+func _check_ordinary_player_framing() -> bool:
+	var bounds: Rect2 = MainScript.WORLD_BOUNDS.grow(-scene.player.get_body_radius())
+	scene.player.global_position = Vector2(0, bounds.position.y)
+	scene._transition_to(MainScript.RunState.PLAYING)
+	_freeze_simulation(scene)
+	paused = false
+	var first_entry := _player_screen_rect()
+	await _observe_player_frame("ordinary-entry-first-draw")
+	if not _actor_is_clear(first_entry, "ordinary-immediate-state-entry"):
+		return false
+	scene.ui.set_combo(3)
+	var rig: Node = scene.boss_camera_framing
+	for size in VIEWPORT_SIZES:
+		view.size = size
+		scene.ui.apply_viewport_size(Vector2(size))
+		await process_frame
+		await process_frame
+		var poses := [Vector2(0, bounds.position.y), bounds.position, Vector2(bounds.end.x, bounds.position.y), Vector2(bounds.position.x, 0), Vector2(bounds.end.x, 0), Vector2(bounds.position.x, bounds.end.y), Vector2(bounds.end.x, bounds.end.y), Vector2(0, bounds.end.y)]
+		for index in range(poses.size()):
+			scene.player.global_position = poses[index]
+			var original_actor_state: Dictionary = scene.player.get_snapshot_state()
+			_settle_camera()
+			var label := "ordinary-%dx%d-%02d" % [size.x, size.y, index]
+			await _observe_player_frame(label)
+			if not _actor_is_clear(_player_screen_rect(), label):
+				return false # Actual old-camera geometry fails before new API assertions.
+			if not _check(rig.active and is_equal_approx(camera.zoom.x, 1.0) and not scene.ui.boss_direction_indicator.visible, label + ": ordinary framing must be active, full-size and without Boss cue"):
+				return false
+			if not _check(MainScript.WORLD_BOUNDS.encloses(rig.reference.visible_rect) and rig.reference.visible_rect.size == Vector2(size), label + ": independent 1x navigation reference left original world"):
+				return false
+			if not _check(scene.player.get_snapshot_state() == original_actor_state, "presentation changed player gameplay snapshot"):
+				return false
+	# Real process ordering at a live resize, not 240 manually settled steps.
+	view.size = Vector2i(960, 540)
+	scene.ui.apply_viewport_size(Vector2(view.size))
+	scene.ui.show_toast("取景验收：模块提示")
+	scene.ui.set_collection_window(2.0, 3.0)
+	scene.player.global_position = Vector2(0, bounds.position.y)
+	rig.set_process(true)
+	await _observe_player_frame("ordinary-live-resize-first-draw")
+	rig.set_process(false)
+	if not _actor_is_clear(_player_screen_rect(), "ordinary-live-resize-first-draw"):
+		return false
+	if not _check(MainScript.WORLD_BOUNDS.encloses(rig.reference.visible_rect) and rig.reference.visible_rect.size == Vector2(view.size), "ordinary first resize draw retained stale navigation extent"):
+		return false
+	scene._transition_to(MainScript.RunState.WAVE_CLEAR)
+	scene._transition_to(MainScript.RunState.SETTLEMENT)
+	scene._transition_to(MainScript.RunState.PLAYING)
+	_freeze_simulation(scene)
+	rig.set_process(true)
+	await _observe_player_frame("ordinary-resume-first-draw")
+	rig.set_process(false)
+	if not _actor_is_clear(_player_screen_rect(), "ordinary-resume-first-draw"):
+		return false
+	scene.ui.set_collection_window(0.0, 3.0)
+	scene.ui.toast_panel.hide()
+	# After finite presentation pan, Director/Enemy still use the same reference.
+	var enemy := EnemyScript.new()
+	enemy.setup(EnemyScript.EnemyKind.SPITTER, 1, scene.projectiles, scene.player)
+	scene.enemies.add_child(enemy)
+	_freeze_simulation(enemy)
+	var before := [enemy.get_camera_safe_rect(), scene.wave_director.get_camera_safe_rect(), scene.wave_director.get_portal_spawn_distance()]
+	camera.global_position += Vector2(300, 150)
+	camera.zoom = Vector2.ONE * 0.8
+	camera.force_update_scroll()
+	var after := [enemy.get_camera_safe_rect(), scene.wave_director.get_camera_safe_rect(), scene.wave_director.get_portal_spawn_distance()]
+	enemy.free()
+	if not _check(before == after, "ordinary presentation fed back into navigation/spawning"):
+		return false
+	camera.zoom = Vector2.ONE
+	camera.ignore_rotation = false
+	camera.rotation = 0.025
+	camera.offset = Vector2(12, -12)
+	for frame in range(120):
+		scene.player.global_position = Vector2(sin(frame * 0.2) * 1100.0, bounds.position.y + frame * 1.0)
+		rig.step_framing(1.0 / 60.0)
+		if not _actor_is_clear(_player_screen_rect(), "ordinary-moving-shake/%d" % frame):
+			return false
+	camera.ignore_rotation = true
+	camera.rotation = 0.0
+	camera.offset = Vector2.ZERO
+	scene._transition_to(MainScript.RunState.PAUSED)
+	var frozen := [camera.position, camera.zoom]
+	rig.step_framing(1.0)
+	if not _check(frozen == [camera.position, camera.zoom], "ordinary pause moved the camera"):
+		return false
+	if not _check(scene._transition_to(MainScript.RunState.PLAYING), "ordinary pause could not resume through real Main transition"):
+		return false
+	_freeze_simulation(scene)
+	scene._transition_to(MainScript.RunState.WAVE_CLEAR)
+	paused = false
+	if not _check(_camera_has_normal_defaults() and not camera.has_meta(CombatView.REFERENCE_KEY), "ordinary clear failed to restore original camera and detach reference"):
+		return false
+	view.size = VIEWPORT_SIZES[0]
+	scene.ui.apply_viewport_size(Vector2(view.size))
+	scene.player.global_position = Vector2.ZERO
+	scene._transition_to(MainScript.RunState.SETTLEMENT)
+	scene._transition_to(MainScript.RunState.PLAYING)
+	_freeze_simulation(scene)
+	paused = false
+	await process_frame
+	await process_frame
+	return true
+
+func _observe_player_frame(_label: String) -> void:
+	# process_frame emits before Node._process; two yields allow one real pass.
+	await process_frame
+	await process_frame # Native subclass instead observes the first post-draw.
 
 func _freeze_simulation(node: Node) -> void:
 	node.set_process(false)

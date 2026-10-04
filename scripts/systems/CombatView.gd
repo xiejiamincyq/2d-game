@@ -1,7 +1,7 @@
 extends RefCounted
 
 # One reference for Boss AI, ranged enemies and the spawn director. Presentation
-# camera motion must not feed back into these mechanics during Boss framing.
+# camera motion must not feed back into these mechanics during combat framing.
 const REFERENCE_KEY := &"combat_navigation_reference"
 
 class Reference extends RefCounted:

@@ -1,4 +1,4 @@
-extends "res://scripts/art/VerifyNaturalRunRendered.gd"
+extends "res://scripts/art/VerifyPlayerNatural.gd"
 
 const Recorder = preload("res://scripts/art/VerifyNaturalRunRendered.gd")
 const MainScript = preload("res://scripts/Main.gd")
@@ -115,6 +115,12 @@ func _check_recording_path() -> void:
 	_capture()
 	if not _check(boss_view_samples.size() == 1, "actual capture path skipped Boss geometry at the clip throttle"):
 		return
+	if not _check(player_view.size() == 1 and player_view[0].ui_rects.size() == 6, "actual player capture was skipped at the clip throttle"):
+		return
+	var player_rect: Rect2 = scene.player.get_global_transform_with_canvas() * Rect2(-54, -54, 108, 108)
+	var observed_player: Array = player_view[0].player_rect
+	if not _check(Rect2(observed_player[0], observed_player[1], observed_player[2], observed_player[3]).is_equal_approx(player_rect), "player observation used world rather than viewport geometry"):
+		return
 	var row := boss_view_samples[0]
 	if not _check(row.has("player_rect") and row.player_ui_overlap_areas.size() == 6 and is_equal_approx(row.camera_zoom, 0.8) and row.framing_active == false and row.direction_cue_visible == false, "actual recording omitted or invented framing/player/cue geometry"):
 		return
@@ -147,6 +153,22 @@ func _check_recording_path() -> void:
 	if not _check(boss_view_samples.size() == 2, "unresolved Boss entrance was recorded"):
 		return
 	boss.entrance_resolved = true
+	scene.wave_director.boss = null
+	var ordinary_before := player_view.size()
+	_capture()
+	if not _check(player_view.size() == ordinary_before + 1, "ordinary no-Boss drawn player was skipped"):
+		return
+	scene.player.hide()
+	_capture()
+	if not _check(player_view.size() == ordinary_before + 1, "hidden player was recorded as a drawn body"):
+		return
+	scene.player.show()
+	scene.run_state = scene.RunState.PAUSED
+	_capture()
+	if not _check(player_view.size() == ordinary_before + 1, "paused player was recorded as combat"):
+		return
+	scene.run_state = scene.RunState.PLAYING
+	scene.wave_director.boss = boss
 	var hashes := _source_hashes()
 	if not _check(hashes.has("themes/MintFarmTheme.tres") and hashes.has("scenes/ui/HUD.tscn") and hashes.has("scripts/effects/CameraEffects.gd"), "view evidence omitted layout or camera dependencies"):
 		return
@@ -167,5 +189,10 @@ func _check_recording_path() -> void:
 	if not _check(boss_view_samples.size() == 60000 and boss_view_truncated and not valid, "recording capacity limit remained a valid observation"):
 		return
 	valid = true # Test passes by rejecting that synthetic overflow, not by accepting it.
+	player_view.resize(40000)
+	_capture()
+	if not _check(player_view.size() == 40000 and player_view_truncated and not valid, "player capacity overflow remained a valid observation"):
+		return
+	valid = true
 	view.free()
 	await process_frame
