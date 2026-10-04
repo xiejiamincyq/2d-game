@@ -1,0 +1,488 @@
+{
+  "archive": "m2-package-evidence-v1.zip",
+  "sha256": "8cf9d09b5884272f5580acdb4db64433507f7cc53f037d11fcbb53491258bb88",
+  "bytes": 3874022,
+  "scope": "Selected evidence; EXE/PCK/full input copies stay local; no real save contents or old atlas source files. Both short probes retained, only v2 passes motion gate.",
+  "members": [
+    {
+      "member": "m2-policy-v1/full-gate.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/full-gate.log",
+      "bytes": 4650,
+      "sha256": "815da0c492d43b0c454ecc1d988ac169f79e71364e33b6bfd475d15508a525ba"
+    },
+    {
+      "member": "m2-policy-v1/green.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/green.log",
+      "bytes": 109,
+      "sha256": "5a1e4faaa228df8e10e46d723d99db933f68ab9fdfa4fc1104e36d3f26abfbb2"
+    },
+    {
+      "member": "m2-policy-v1/inspect_metadata.gd",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/inspect_metadata.gd",
+      "bytes": 1882,
+      "sha256": "95bd80035e949b5590056832ec2d76db50340973e6f510adfcc641c92c2d5b2e"
+    },
+    {
+      "member": "m2-policy-v1/inspect_pack.gd",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/inspect_pack.gd",
+      "bytes": 1489,
+      "sha256": "dbc98874c0f01168814a6ff53894bc59dd8e6f56a794e0dc9d8ecb1b14f8c8a0"
+    },
+    {
+      "member": "m2-policy-v1/inspect_scenes.gd",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/inspect_scenes.gd",
+      "bytes": 951,
+      "sha256": "6a40f0e68e806333471153dc51d5db0facc67a09e8097aaa5ee7b7fc113d270b"
+    },
+    {
+      "member": "m2-policy-v1/metadata-after.json",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/metadata-after.json",
+      "bytes": 17977,
+      "sha256": "f93d2540c81d9a22bc621c6ca7084c4aa11f6cc1bf20dc3ed64bf15c151fc7b2"
+    },
+    {
+      "member": "m2-policy-v1/metadata-after.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/metadata-after.log",
+      "bytes": 103,
+      "sha256": "18b00dc7a474a58081102e7ff6fd9e1360aed2832424988de9bab71e6aa84c18"
+    },
+    {
+      "member": "m2-policy-v1/metadata-before.json",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/metadata-before.json",
+      "bytes": 17977,
+      "sha256": "fcea41b61bf125405e1995a555ba37bb9c4b24e24e37d89a01600248e64aa8ca"
+    },
+    {
+      "member": "m2-policy-v1/metadata-before.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/metadata-before.log",
+      "bytes": 103,
+      "sha256": "18b00dc7a474a58081102e7ff6fd9e1360aed2832424988de9bab71e6aa84c18"
+    },
+    {
+      "member": "m2-policy-v1/motion-green.json",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/motion-green.json",
+      "bytes": 572,
+      "sha256": "ead73d4300ecfd690c54d179a8c5f47b8536649829e308719c2b47efad0ef6de"
+    },
+    {
+      "member": "m2-policy-v1/motion-green.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/motion-green.log",
+      "bytes": 510,
+      "sha256": "bd1e9d0497d63ea93b87121906b0b48d951b02750e50460415459827df49d17c"
+    },
+    {
+      "member": "m2-policy-v1/motion-red.json",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/motion-red.json",
+      "bytes": 572,
+      "sha256": "5256d685f8c7d1faf02125e573f07d0cd24b56b142b22d08df37140a498c1767"
+    },
+    {
+      "member": "m2-policy-v1/motion-red.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/motion-red.log",
+      "bytes": 510,
+      "sha256": "08e83cb34491176ad09caa8473fdfc85bdbd6d21b51211ecd35766713572bfb5"
+    },
+    {
+      "member": "m2-policy-v1/native-driver.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/native-driver.log",
+      "bytes": 666,
+      "sha256": "4a024bbfd013dc97819da23054944fb4b57f103a03618648ce403571363b175f"
+    },
+    {
+      "member": "m2-policy-v1/native-v2-driver.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/native-v2-driver.log",
+      "bytes": 426,
+      "sha256": "ccdc5af7bf1d0ba6e780a444adc1140736e4744534e4a44f9b0a18d0fc0d9af2"
+    },
+    {
+      "member": "m2-policy-v1/native_probe_v2.gd",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/native_probe_v2.gd",
+      "bytes": 661,
+      "sha256": "127df338601cf00e18a205a01799886031d1891587a6c2bfe238ab84f41262b0"
+    },
+    {
+      "member": "m2-policy-v1/pack-after.json",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/pack-after.json",
+      "bytes": 23341,
+      "sha256": "3cbf3ae058a2ff1a7e209a938f4dedb4510647629d7e1c672539098199121503"
+    },
+    {
+      "member": "m2-policy-v1/pack-after.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/pack-after.log",
+      "bytes": 99,
+      "sha256": "b968645f052a7396cfec4aa7ca6c9050c029516488c09c0cace9ddb58a35eae8"
+    },
+    {
+      "member": "m2-policy-v1/pack-before.json",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/pack-before.json",
+      "bytes": 24228,
+      "sha256": "626ba0c3c9365df95f266e601aa776d65c3e74eafd94aa762cdfc2269dc02e1f"
+    },
+    {
+      "member": "m2-policy-v1/pack-before.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/pack-before.log",
+      "bytes": 99,
+      "sha256": "b968645f052a7396cfec4aa7ca6c9050c029516488c09c0cace9ddb58a35eae8"
+    },
+    {
+      "member": "m2-policy-v1/package_evidence.py",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/package_evidence.py",
+      "bytes": 6710,
+      "sha256": "7ade3429a61d78b126b7c1555881ecdc2825a1a0eb6f815a8fcb898f121ce6e4"
+    },
+    {
+      "member": "m2-policy-v1/red.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/red.log",
+      "bytes": 3195,
+      "sha256": "7509c946009391fe0c94a2bbbd15049fb85a4232e8541116604ef387a6946a7d"
+    },
+    {
+      "member": "m2-policy-v1/run_gameplay_v2.py",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/run_gameplay_v2.py",
+      "bytes": 1067,
+      "sha256": "3204cfcaab2dbd3f1fb441cd7a2611ca3c793a5472f5eed8e4edaf37e09f95a1"
+    },
+    {
+      "member": "m2-policy-v1/run_native.py",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/run_native.py",
+      "bytes": 4643,
+      "sha256": "c9d690c0930640ee1dce63fe15ba9d38dbb4508189fe947d17edee98eaedd767"
+    },
+    {
+      "member": "m2-policy-v1/scenes-after/export-1b2addc5123ee419445baa429c57382d-ResultScreen.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-after/export-1b2addc5123ee419445baa429c57382d-ResultScreen.tscn",
+      "bytes": 311,
+      "sha256": "c4cc13f41e9f99e105671c2babe2e70932627dc26a48634df260e718b43488d6"
+    },
+    {
+      "member": "m2-policy-v1/scenes-after/export-4a24720ee5e787dbe30abc634fa3679d-Main.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-after/export-4a24720ee5e787dbe30abc634fa3679d-Main.tscn",
+      "bytes": 178,
+      "sha256": "b55753140d97825dac1ea989a5d565694c93a52a3c8ac0b1dc44694cc55769a4"
+    },
+    {
+      "member": "m2-policy-v1/scenes-after/export-580f4d4e174896b9c9541e9479b81d57-WaveBanner.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-after/export-580f4d4e174896b9c9541e9479b81d57-WaveBanner.tscn",
+      "bytes": 324,
+      "sha256": "50c652418e1b9b9cd5bb6e9efc03d6ce477f802e531c9ccdd510ca5e3d8cbdd1"
+    },
+    {
+      "member": "m2-policy-v1/scenes-after/export-74b5c9848938f4eb9ebaf6fab3809318-HUD.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-after/export-74b5c9848938f4eb9ebaf6fab3809318-HUD.tscn",
+      "bytes": 311,
+      "sha256": "0f1d9a87a76320260989d97eb3c5b4d91f7f7a671b8d83ca0c732965c3168be2"
+    },
+    {
+      "member": "m2-policy-v1/scenes-after/export-ad0d09ec0125f069e0cac3185f983291-SettlementScreen.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-after/export-ad0d09ec0125f069e0cac3185f983291-SettlementScreen.tscn",
+      "bytes": 320,
+      "sha256": "6ec4901c9c5cc4265c7fc220ca2ed6d6630d3e766cf2217f7d27f47fab3553fe"
+    },
+    {
+      "member": "m2-policy-v1/scenes-after/export-beff87a7e597c15388245cc70b079da1-PauseScreen.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-after/export-beff87a7e597c15388245cc70b079da1-PauseScreen.tscn",
+      "bytes": 310,
+      "sha256": "9512293fe7f4a851313e88a49524ca3a35a6a8008e89c142c1c831145030e629"
+    },
+    {
+      "member": "m2-policy-v1/scenes-after/export-f46912733a4c8acf3e6ffb75c8e93f91-UpgradeScreen.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-after/export-f46912733a4c8acf3e6ffb75c8e93f91-UpgradeScreen.tscn",
+      "bytes": 314,
+      "sha256": "9d693e21a7853a82f6ad91277621ed2a3cc543d4086d0d36aedcad839f86c44c"
+    },
+    {
+      "member": "m2-policy-v1/scenes-after/global_script_class_cache.cfg",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-after/global_script_class_cache.cfg",
+      "bytes": 7929,
+      "sha256": "8a732a0c99a9855e497ab36fb726091027116c1433dfaaf44623523121d03c97"
+    },
+    {
+      "member": "m2-policy-v1/scenes-after.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-after.log",
+      "bytes": 101,
+      "sha256": "014b206e44c3fe62699de5e7369119c6645befc13b236d7300776b7da107dcde"
+    },
+    {
+      "member": "m2-policy-v1/scenes-before/export-1b2addc5123ee419445baa429c57382d-ResultScreen.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-before/export-1b2addc5123ee419445baa429c57382d-ResultScreen.tscn",
+      "bytes": 311,
+      "sha256": "383b731daa160cdcdaa5f6ac8f1c9c194edf93075c9a8905cdcd02d0a2895fb3"
+    },
+    {
+      "member": "m2-policy-v1/scenes-before/export-4a24720ee5e787dbe30abc634fa3679d-Main.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-before/export-4a24720ee5e787dbe30abc634fa3679d-Main.tscn",
+      "bytes": 178,
+      "sha256": "99d30997d36a49bc916d20862beaf8f635bcb15d94c564a0e5804727d115f8a7"
+    },
+    {
+      "member": "m2-policy-v1/scenes-before/export-580f4d4e174896b9c9541e9479b81d57-WaveBanner.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-before/export-580f4d4e174896b9c9541e9479b81d57-WaveBanner.tscn",
+      "bytes": 325,
+      "sha256": "0b61a60f000472c94369da00d0a6633e5d155cc10008465cb2b69ca4995a02fb"
+    },
+    {
+      "member": "m2-policy-v1/scenes-before/export-74b5c9848938f4eb9ebaf6fab3809318-HUD.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-before/export-74b5c9848938f4eb9ebaf6fab3809318-HUD.tscn",
+      "bytes": 311,
+      "sha256": "63ea5ae9120f25c154e1db4b99678d88b22688465bc43a945a2fc1ed287dcd0b"
+    },
+    {
+      "member": "m2-policy-v1/scenes-before/export-ad0d09ec0125f069e0cac3185f983291-SettlementScreen.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-before/export-ad0d09ec0125f069e0cac3185f983291-SettlementScreen.tscn",
+      "bytes": 319,
+      "sha256": "809c4c12b41025a34a1c466c94c7f420be543712ec6bdf67836b3caa4da29673"
+    },
+    {
+      "member": "m2-policy-v1/scenes-before/export-beff87a7e597c15388245cc70b079da1-PauseScreen.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-before/export-beff87a7e597c15388245cc70b079da1-PauseScreen.tscn",
+      "bytes": 309,
+      "sha256": "c219426f1042067fbb02a175de84ad6c5544dcb4aeb7e69e79b729398fa6e602"
+    },
+    {
+      "member": "m2-policy-v1/scenes-before/export-f46912733a4c8acf3e6ffb75c8e93f91-UpgradeScreen.tscn",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-before/export-f46912733a4c8acf3e6ffb75c8e93f91-UpgradeScreen.tscn",
+      "bytes": 314,
+      "sha256": "bb1de0ac603b250d0e031169ac25103ec8d51820dd0f54125c9f4a1d605a1d47"
+    },
+    {
+      "member": "m2-policy-v1/scenes-before/global_script_class_cache.cfg",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-before/global_script_class_cache.cfg",
+      "bytes": 7929,
+      "sha256": "0467622624fb0adfb4bec2ffe4e21488a67db95603055705c7130c3e334363f4"
+    },
+    {
+      "member": "m2-policy-v1/scenes-before.log",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/scenes-before.log",
+      "bytes": 101,
+      "sha256": "014b206e44c3fe62699de5e7369119c6645befc13b236d7300776b7da107dcde"
+    },
+    {
+      "member": "m2-policy-v1/verify_motion.py",
+      "original_path": "build/diagnostics/local-delivery/m2-policy-v1/verify_motion.py",
+      "bytes": 1136,
+      "sha256": "1fe3be3b600860a25763ac4e31cdae369f83c726ec99b2f885272ef7a52ac2ed"
+    },
+    {
+      "member": "prepare_baseline.py",
+      "original_path": "build/diagnostics/local-delivery/prepare_baseline.py",
+      "bytes": 1645,
+      "sha256": "a1ae0b6ad98f2fd2acfc6dc4b9c71097e30cd9b8d013de9e62bedf3d277b864b"
+    },
+    {
+      "member": "boot_baseline.py",
+      "original_path": "build/diagnostics/local-delivery/boot_baseline.py",
+      "bytes": 2362,
+      "sha256": "7059cad0df055d9dba37069b13a63ad4f08a36384ae143a72c06ac2c83c2a0dc"
+    },
+    {
+      "member": "standalone_native_probe.gd",
+      "original_path": "build/diagnostics/local-delivery/standalone_native_probe.gd",
+      "bytes": 4959,
+      "sha256": "8c551e8b54012a41192e700c121f784b6be2f3c7bbce27bfb505f9f7445f849e"
+    },
+    {
+      "member": "guard_user_files.py",
+      "original_path": "build/diagnostics/local-delivery/guard_user_files.py",
+      "bytes": 1748,
+      "sha256": "c8c40e70f5f1e91b182ff6605200c674658e5bf723e18b000b2712fc80315202"
+    },
+    {
+      "member": "user-files-before-v1.json",
+      "original_path": "build/diagnostics/local-delivery/user-files-before-v1.json",
+      "bytes": 2666,
+      "sha256": "f05115917938101c9f19bc17039248cc92dd7fb577be7e1f0a9b06111508babc"
+    },
+    {
+      "member": "export-m2-clean-v1/input-manifest.json",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/input-manifest.json",
+      "bytes": 157022,
+      "sha256": "502af5ae01497130292ca69b5ce156d519888ed07ae52d611eb0e18fe65e0ad4"
+    },
+    {
+      "member": "export-m2-clean-v1/import.log",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/import.log",
+      "bytes": 83202,
+      "sha256": "c2621d75da04a09dde9b5b806eb7459193adc04517aac27e055bf75c0b46d677"
+    },
+    {
+      "member": "export-m2-clean-v1/export.log",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/export.log",
+      "bytes": 22127,
+      "sha256": "2921a24953caf359f6d43ca437ac225cd7d12dfbca8e75bf5bffdf3229eb2438"
+    },
+    {
+      "member": "export-m2-clean-v1/standalone-boot.json",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/standalone-boot.json",
+      "bytes": 1863,
+      "sha256": "b17a35f3e28494ef2226c92544d602e02d55e27ef94598e44414c6ff5e1ee4c9"
+    },
+    {
+      "member": "export-m2-clean-v1/standalone-boot.log",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/standalone-boot.log",
+      "bytes": 71,
+      "sha256": "037dd8b42ca7058b62b5555724cff76b748c651cb2252ee73dac52a938d0ecd2"
+    },
+    {
+      "member": "export-m2-clean-v1/standalone-console.log",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/standalone-console.log",
+      "bytes": 73,
+      "sha256": "bb3bcf7181e550fe37f9235c4aecf24a81b757eddfeff554d88e7974feb2ed1d"
+    },
+    {
+      "member": "export-m2-clean-v1/exe-title/console.log",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/exe-title/console.log",
+      "bytes": 819,
+      "sha256": "c11aa40aded67dc2b77ec6c7d00952fdadc3b70070fc0b8e1c6be7151f064584"
+    },
+    {
+      "member": "export-m2-clean-v1/exe-title/engine.log",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/exe-title/engine.log",
+      "bytes": 227,
+      "sha256": "30f017e3f1e69acbfd443030ea81fc7b84b134ff2eedadd05785b03b13b0e5d9"
+    },
+    {
+      "member": "export-m2-clean-v1/exe-title/launcher.json",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/exe-title/launcher.json",
+      "bytes": 3581,
+      "sha256": "f908a06b2d6da1b3850ab1f030ed820f7339931fb92eecf10fb0f59e93ca0003"
+    },
+    {
+      "member": "export-m2-clean-v1/exe-title/title00000000.png",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/exe-title/title00000000.png",
+      "bytes": 89474,
+      "sha256": "6bf99ca7dbcf889d9b7293f13e8a3e2cff89a0b8b39c40c8e91df29bf4b10423"
+    },
+    {
+      "member": "export-m2-clean-v1/exe-title/title00000001.png",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/exe-title/title00000001.png",
+      "bytes": 89474,
+      "sha256": "6bf99ca7dbcf889d9b7293f13e8a3e2cff89a0b8b39c40c8e91df29bf4b10423"
+    },
+    {
+      "member": "export-m2-clean-v1/exe-title/title00000002.png",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/exe-title/title00000002.png",
+      "bytes": 89474,
+      "sha256": "6bf99ca7dbcf889d9b7293f13e8a3e2cff89a0b8b39c40c8e91df29bf4b10423"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay/console.log",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay/console.log",
+      "bytes": 330,
+      "sha256": "f6bc0a6e08061a5ec23a8a586966125498f5ae08f6703661c22d5bc5a25399cd"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay/engine.log",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay/engine.log",
+      "bytes": 193,
+      "sha256": "c7faa9a3b69fd1f83418cb971be24d71daa2d57c24fafb74f52d7dde56e10339"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay/gameplay-02.png",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay/gameplay-02.png",
+      "bytes": 486770,
+      "sha256": "c769ccda9be0b008d53df666028f7ecb4da62ad2e82852a810592ee07d4d26cc"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay/gameplay-05.png",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay/gameplay-05.png",
+      "bytes": 571634,
+      "sha256": "87d7b14788eee14213d3153081b46215875a7961c33a3f0729e888b86243b4ae"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay/gameplay-09.png",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay/gameplay-09.png",
+      "bytes": 562564,
+      "sha256": "4661ddbd8af5bb7e62aca7c8205dd1faf48503c3271dde03f398daf4bd344c0d"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay/launcher.json",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay/launcher.json",
+      "bytes": 4604,
+      "sha256": "d2c93b0b09098da831600a8c9dbbc17b5d26931a2db36e239070767e10e37ef8"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay/native-report.json",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay/native-report.json",
+      "bytes": 109177,
+      "sha256": "9ce1fc6a85c8be8b298aac9c61edbc7aeb954e671e9c1a476150032701a054d2"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay/title.png",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay/title.png",
+      "bytes": 89474,
+      "sha256": "6bf99ca7dbcf889d9b7293f13e8a3e2cff89a0b8b39c40c8e91df29bf4b10423"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay-v2/console.log",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay-v2/console.log",
+      "bytes": 242,
+      "sha256": "052e722d3a89f339155e6e868f834bbe1d82fce257c24c576d8b9f3d6eaec2ab"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay-v2/engine.log",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay-v2/engine.log",
+      "bytes": 237,
+      "sha256": "ca9b273edb5406e366babf8aa9823edd83183d1d6419744873fd0f7e1a30b23d"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay-v2/gameplay-02.png",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay-v2/gameplay-02.png",
+      "bytes": 508623,
+      "sha256": "14c28762770e823c8eaddf51d85bac2d1efaa9ebc675c0cccf441b74aba9432e"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay-v2/gameplay-05.png",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay-v2/gameplay-05.png",
+      "bytes": 531133,
+      "sha256": "4ffc33607418eda73ef9aecdf378a1ed06dcca4863e0017b222cb1b38980f7db"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay-v2/gameplay-09.png",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay-v2/gameplay-09.png",
+      "bytes": 612633,
+      "sha256": "8d56ce690c699f9b6865e2a9046f00d08986fdf6e5665e88f4fa18a6fa1e8619"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay-v2/launcher.json",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay-v2/launcher.json",
+      "bytes": 4665,
+      "sha256": "3dd8b09bcffc062d1b78a122e37f86ad3daff23e9d986a0ac4cb82d1ae6ab78e"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay-v2/native-report.json",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay-v2/native-report.json",
+      "bytes": 113417,
+      "sha256": "24e6030a301c2802e06d79f62a22ed15b67ccee3c3db94469cabdddc4b89d5e6"
+    },
+    {
+      "member": "export-m2-clean-v1/packed-gameplay-v2/title.png",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/packed-gameplay-v2/title.png",
+      "bytes": 89474,
+      "sha256": "6bf99ca7dbcf889d9b7293f13e8a3e2cff89a0b8b39c40c8e91df29bf4b10423"
+    },
+    {
+      "member": "export-m2-clean-v1/source/project.godot",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/source/project.godot",
+      "bytes": 2940,
+      "sha256": "3e71b6a5f46727e2e9d09f3094639a42fe942a07b8029a2e1a19c83c8e4d6606"
+    },
+    {
+      "member": "export-m2-clean-v1/source/export_presets.cfg",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/source/export_presets.cfg",
+      "bytes": 1307,
+      "sha256": "7fe32e2087890d388fa3ba344a6deca0500c71c5d4d9b95ea9425fbc20d1dec7"
+    },
+    {
+      "member": "export-m2-clean-v1/source/scripts/tests/test_release_pack_policy.py",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/source/scripts/tests/test_release_pack_policy.py",
+      "bytes": 4471,
+      "sha256": "c1d613e02760adae84f3154868589ed2b9eb4f20b6f030b721cf3839d2fa9fd7"
+    },
+    {
+      "member": "export-m2-clean-v1/source/scripts/art/NaturalRunPolicy.gd",
+      "original_path": "build/diagnostics/local-delivery/export-m2-clean-v1/source/scripts/art/NaturalRunPolicy.gd",
+      "bytes": 2639,
+      "sha256": "75d7ccf15e5b35355324945301afb4b8a5a57f5805a10e5d3cb14d07889b2259"
+    }
+  ]
+}

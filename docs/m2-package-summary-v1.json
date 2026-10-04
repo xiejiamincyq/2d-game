@@ -1,0 +1,129 @@
+{
+  "scope": "M2 export-only removal and short-probe input correction; not full project delivery",
+  "input_changed": [
+    "export_presets.cfg",
+    "scripts/tests/test_release_pack_policy.py"
+  ],
+  "before_pack_bytes": 6848612,
+  "after_pack_bytes": 3000912,
+  "after_pack_sha256": "7ead85380dde3ea1505d4e8904171eb9747411094731fe7e3bc17d910e116d8c",
+  "members_before": 187,
+  "members_after": 181,
+  "removed": [
+    "res://.godot/imported/player_m2_fire_120yaw.png-aefccaf8711053bec5f3023ece1fcc87.ctex",
+    "res://.godot/imported/player_m2_move_120yaw.png-904a645645e85da3edc4a188f8ec8317.ctex",
+    "res://.godot/imported/player_m2_ready_120yaw.png-ef94bb8cde83b4c93cdd18b3836d94f0.ctex",
+    "res://assets/art/actors/player/player_m2_fire_120yaw.png.import",
+    "res://assets/art/actors/player/player_m2_move_120yaw.png.import",
+    "res://assets/art/actors/player/player_m2_ready_120yaw.png.import"
+  ],
+  "changed_generated_members": [
+    "res://.godot/exported/133200997/export-1b2addc5123ee419445baa429c57382d-ResultScreen.scn",
+    "res://.godot/exported/133200997/export-4a24720ee5e787dbe30abc634fa3679d-Main.scn",
+    "res://.godot/exported/133200997/export-580f4d4e174896b9c9541e9479b81d57-WaveBanner.scn",
+    "res://.godot/exported/133200997/export-74b5c9848938f4eb9ebaf6fab3809318-HUD.scn",
+    "res://.godot/exported/133200997/export-ad0d09ec0125f069e0cac3185f983291-SettlementScreen.scn",
+    "res://.godot/exported/133200997/export-beff87a7e597c15388245cc70b079da1-PauseScreen.scn",
+    "res://.godot/exported/133200997/export-f46912733a4c8acf3e6ffb75c8e93f91-UpgradeScreen.scn",
+    "res://.godot/global_script_class_cache.cfg",
+    "res://.godot/uid_cache.bin"
+  ],
+  "converted_scene_checks": [
+    {
+      "name": "export-1b2addc5123ee419445baa429c57382d-ResultScreen.tscn",
+      "before_sha256": "383b731daa160cdcdaa5f6ac8f1c9c194edf93075c9a8905cdcd02d0a2895fb3",
+      "after_sha256": "c4cc13f41e9f99e105671c2babe2e70932627dc26a48634df260e718b43488d6",
+      "normalized_sha256": "6e2666dc04a8f2bb1987e1850a6f9fdff5ea007eacfc859629232dd372bf0926",
+      "scope": "Exact converted text after normalizing its one local script reference label and root unique_id; not arbitrary scene semantic equivalence."
+    },
+    {
+      "name": "export-4a24720ee5e787dbe30abc634fa3679d-Main.tscn",
+      "before_sha256": "99d30997d36a49bc916d20862beaf8f635bcb15d94c564a0e5804727d115f8a7",
+      "after_sha256": "b55753140d97825dac1ea989a5d565694c93a52a3c8ac0b1dc44694cc55769a4",
+      "normalized_sha256": "7fbdb5b2e92205fbf396296e3ac0dd22e292a27f7d8ea62cc77c93596d42acf5",
+      "scope": "Exact converted text after normalizing its one local script reference label and root unique_id; not arbitrary scene semantic equivalence."
+    },
+    {
+      "name": "export-580f4d4e174896b9c9541e9479b81d57-WaveBanner.tscn",
+      "before_sha256": "0b61a60f000472c94369da00d0a6633e5d155cc10008465cb2b69ca4995a02fb",
+      "after_sha256": "50c652418e1b9b9cd5bb6e9efc03d6ce477f802e531c9ccdd510ca5e3d8cbdd1",
+      "normalized_sha256": "a2b07c513274269fba84f48b41c9b9ae2918f5f6ff8365a383945d2c1ed5b274",
+      "scope": "Exact converted text after normalizing its one local script reference label and root unique_id; not arbitrary scene semantic equivalence."
+    },
+    {
+      "name": "export-74b5c9848938f4eb9ebaf6fab3809318-HUD.tscn",
+      "before_sha256": "63ea5ae9120f25c154e1db4b99678d88b22688465bc43a945a2fc1ed287dcd0b",
+      "after_sha256": "0f1d9a87a76320260989d97eb3c5b4d91f7f7a671b8d83ca0c732965c3168be2",
+      "normalized_sha256": "3f4f8faab7eac77b3db09a20aa3d3cc810d169b118105f38f978854f90fb32d2",
+      "scope": "Exact converted text after normalizing its one local script reference label and root unique_id; not arbitrary scene semantic equivalence."
+    },
+    {
+      "name": "export-ad0d09ec0125f069e0cac3185f983291-SettlementScreen.tscn",
+      "before_sha256": "809c4c12b41025a34a1c466c94c7f420be543712ec6bdf67836b3caa4da29673",
+      "after_sha256": "6ec4901c9c5cc4265c7fc220ca2ed6d6630d3e766cf2217f7d27f47fab3553fe",
+      "normalized_sha256": "76477bfb4d76d532145e7a061e6e02c1c21885f7c8621c853e784dad05526706",
+      "scope": "Exact converted text after normalizing its one local script reference label and root unique_id; not arbitrary scene semantic equivalence."
+    },
+    {
+      "name": "export-beff87a7e597c15388245cc70b079da1-PauseScreen.tscn",
+      "before_sha256": "c219426f1042067fbb02a175de84ad6c5544dcb4aeb7e69e79b729398fa6e602",
+      "after_sha256": "9512293fe7f4a851313e88a49524ca3a35a6a8008e89c142c1c831145030e629",
+      "normalized_sha256": "70fb361721a1eaea4d811b6fa59077a9f094aebc20d6f1981aa403ea9b97cfd4",
+      "scope": "Exact converted text after normalizing its one local script reference label and root unique_id; not arbitrary scene semantic equivalence."
+    },
+    {
+      "name": "export-f46912733a4c8acf3e6ffb75c8e93f91-UpgradeScreen.tscn",
+      "before_sha256": "bb1de0ac603b250d0e031169ac25103ec8d51820dd0f54125c9f4a1d605a1d47",
+      "after_sha256": "9d693e21a7853a82f6ad91277621ed2a3cc543d4086d0d36aedcad839f86c44c",
+      "normalized_sha256": "dc426ee9670c2e2664edc5e8f89a5149be3711221a0e873b724c8c84c9801a02",
+      "scope": "Exact converted text after normalizing its one local script reference label and root unique_id; not arbitrary scene semantic equivalence."
+    }
+  ],
+  "class_entries_unordered_equal": 45,
+  "packed_script_uid_mappings_equal": 55,
+  "uid_cache_binary_fully_compared": false,
+  "boot": true,
+  "actual_exe_native_title": true,
+  "packed_editor_gameplay": true,
+  "motion_red": {
+    "report": "build\\diagnostics\\local-delivery\\export-m2-clean-v1\\packed-gameplay\\native-report.json",
+    "report_sha256": "9ce1fc6a85c8be8b298aac9c61edbc7aeb954e671e9c1a476150032701a054d2",
+    "samples": 474,
+    "xy_span": [
+      0.27987477183342,
+      0.323881357908249
+    ],
+    "moving_steps_gt_2px": 0,
+    "checks": {
+      "at_least_300_samples": true,
+      "world_span_at_least_150px": false,
+      "at_least_60_moving_steps": false
+    },
+    "valid": false,
+    "scope": "Limited short-probe motion evidence, not a general obstacle escape or full-run pass."
+  },
+  "motion_green": {
+    "report": "build\\diagnostics\\local-delivery\\export-m2-clean-v1\\packed-gameplay-v2\\native-report.json",
+    "report_sha256": "24e6030a301c2802e06d79f62a22ed15b67ccee3c3db94469cabdddc4b89d5e6",
+    "samples": 476,
+    "xy_span": [
+      1163.3447265625,
+      834.395202636719
+    ],
+    "moving_steps_gt_2px": 473,
+    "checks": {
+      "at_least_300_samples": true,
+      "world_span_at_least_150px": true,
+      "at_least_60_moving_steps": true
+    },
+    "valid": true,
+    "scope": "Limited short-probe motion evidence, not a general obstacle escape or full-run pass."
+  },
+  "native_samples": 476,
+  "random_heading_changes": 6,
+  "escape_events": 0,
+  "map_seed": 95454603,
+  "final_kills": 1,
+  "final_hp": 100.0,
+  "final_state": "PLAYING"
+}

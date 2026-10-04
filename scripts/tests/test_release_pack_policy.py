@@ -8,6 +8,23 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 class ReleasePackPolicyTest(unittest.TestCase):
+    def test_export_excludes_retired_m2_atlases_but_keeps_chibi(self) -> None:
+        preset = (PROJECT_ROOT / "export_presets.cfg").read_text(encoding="utf-8")
+        exclusions = re.search(r'^exclude_filter="([^"]*)"', preset, re.MULTILINE).group(1).split(",")
+        exclusions = [pattern.strip() for pattern in exclusions]
+        for action in ("ready", "move", "fire"):
+            retired = f"assets/art/actors/player/player_m2_{action}_120yaw.png"
+            with self.subTest(retired=retired):
+                self.assertTrue((PROJECT_ROOT / retired).is_file(), "keep historical source atlas")
+                self.assertTrue(any(fnmatch.fnmatchcase(retired, pattern) for pattern in exclusions),
+                                "retired M2 atlas should not ship in the 2D chibi package")
+        for current in ("player_chibi_b_cardinal_atlas_v1.png", "player_chibi_b_weapon_cardinal_atlas_v1.png"):
+            runtime = f"assets/art/actors/player/{current}"
+            with self.subTest(runtime=runtime):
+                self.assertTrue((PROJECT_ROOT / runtime).is_file())
+                self.assertFalse(any(fnmatch.fnmatchcase(runtime, pattern) for pattern in exclusions),
+                                 "current chibi atlas must remain exportable")
+
     def test_runtime_preloads_are_not_excluded_from_the_export(self) -> None:
         preset = (PROJECT_ROOT / "export_presets.cfg").read_text(encoding="utf-8")
         exclusions = re.search(r'^exclude_filter="([^"]*)"', preset, re.MULTILINE).group(1).split(",")
