@@ -1,0 +1,217 @@
+{
+  "schema_version": 2,
+  "run": "native-perf-2b29d2d202",
+  "baseline_head": "ddad04286835b0b9634bcf28318c1937652171b2",
+  "scope": "wall-clock post-draw callback intervals; not GPU time, display presentation, audio, exported EXE or minimum-hardware acceptance",
+  "metadata": {
+    "adapter": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "arguments": [
+      "--script",
+      "res://build/diagnostics/local-perf-v1/NativePerformanceProbe.gd"
+    ],
+    "base_pilot": "VerifyNaturalRun: real input, original combat clock, isolated save, audio disabled",
+    "display_driver": "Windows",
+    "engine": {
+      "build": "official",
+      "hash": "5b4e0cb0fd279832bbdd69fed5354d4e5ad26f88",
+      "hex": 263936,
+      "major": 4,
+      "minor": 7,
+      "patch": 0,
+      "status": "stable",
+      "string": "4.7-stable (official)",
+      "timestamp": 0
+    },
+    "max_fps": 0,
+    "probe_sha256": "eb6e580407c950abcd484506fb72a95b48fd201b511cb2799b4be0b3722f5e7e",
+    "renderer": "forward_plus",
+    "scope": "wall-clock post-draw callback intervals; not GPU time, display presentation, audio, exported EXE or minimum-hardware acceptance",
+    "vsync_mode": 1
+  },
+  "pid": 40412,
+  "raw_callback_records": 28727,
+  "warmup_removed": 720,
+  "all_raw": {
+    "records": 28727,
+    "mean_ms": 5.439358199603161,
+    "p95_ms": 12.256,
+    "p99_ms": 15.981,
+    "maximum_ms": 51.917,
+    "over_16_667_ms": 184,
+    "over_50_ms": 1,
+    "maximum_registry_size": 72
+  },
+  "after_warmup": {
+    "records": 28007,
+    "mean_ms": 5.456727068232942,
+    "p95_ms": 12.314,
+    "p99_ms": 16.005,
+    "maximum_ms": 51.917,
+    "over_16_667_ms": 184,
+    "over_50_ms": 1,
+    "maximum_registry_size": 72
+  },
+  "waves": [
+    {
+      "wave": 1,
+      "raw": {
+        "records": 3985,
+        "mean_ms": 4.822003513174404,
+        "p95_ms": 8.499,
+        "p99_ms": 10.5,
+        "maximum_ms": 51.917,
+        "over_16_667_ms": 8,
+        "over_50_ms": 1,
+        "maximum_registry_size": 36
+      },
+      "after_120_record_warmup": {
+        "records": 3865,
+        "mean_ms": 4.823822250970246,
+        "p95_ms": 8.519,
+        "p99_ms": 10.616,
+        "maximum_ms": 51.917,
+        "over_16_667_ms": 8,
+        "over_50_ms": 1,
+        "maximum_registry_size": 36
+      }
+    },
+    {
+      "wave": 2,
+      "raw": {
+        "records": 3713,
+        "mean_ms": 4.791807702666308,
+        "p95_ms": 9.666,
+        "p99_ms": 10.789,
+        "maximum_ms": 12.203,
+        "over_16_667_ms": 0,
+        "over_50_ms": 0,
+        "maximum_registry_size": 47
+      },
+      "after_120_record_warmup": {
+        "records": 3593,
+        "mean_ms": 4.792806568327303,
+        "p95_ms": 9.695,
+        "p99_ms": 10.792,
+        "maximum_ms": 12.203,
+        "over_16_667_ms": 0,
+        "over_50_ms": 0,
+        "maximum_registry_size": 47
+      }
+    },
+    {
+      "wave": 3,
+      "raw": {
+        "records": 4528,
+        "mean_ms": 5.069395097173145,
+        "p95_ms": 11.01,
+        "p99_ms": 12.687,
+        "maximum_ms": 15.648,
+        "over_16_667_ms": 0,
+        "over_50_ms": 0,
+        "maximum_registry_size": 57
+      },
+      "after_120_record_warmup": {
+        "records": 4408,
+        "mean_ms": 5.077620916515427,
+        "p95_ms": 11.101,
+        "p99_ms": 12.698,
+        "maximum_ms": 15.648,
+        "over_16_667_ms": 0,
+        "over_50_ms": 0,
+        "maximum_registry_size": 57
+      }
+    },
+    {
+      "wave": 4,
+      "raw": {
+        "records": 3772,
+        "mean_ms": 5.595611611876988,
+        "p95_ms": 13.046,
+        "p99_ms": 16.267,
+        "maximum_ms": 22.717,
+        "over_16_667_ms": 27,
+        "over_50_ms": 0,
+        "maximum_registry_size": 50
+      },
+      "after_120_record_warmup": {
+        "records": 3652,
+        "mean_ms": 5.622973713033954,
+        "p95_ms": 13.085,
+        "p99_ms": 16.322,
+        "maximum_ms": 22.717,
+        "over_16_667_ms": 27,
+        "over_50_ms": 0,
+        "maximum_registry_size": 50
+      }
+    },
+    {
+      "wave": 5,
+      "raw": {
+        "records": 3111,
+        "mean_ms": 6.178300225008036,
+        "p95_ms": 14.292,
+        "p99_ms": 17.048,
+        "maximum_ms": 23.345,
+        "over_16_667_ms": 44,
+        "over_50_ms": 0,
+        "maximum_registry_size": 52
+      },
+      "after_120_record_warmup": {
+        "records": 2991,
+        "mean_ms": 6.235050484787696,
+        "p95_ms": 14.339,
+        "p99_ms": 17.08,
+        "maximum_ms": 23.345,
+        "over_16_667_ms": 44,
+        "over_50_ms": 0,
+        "maximum_registry_size": 52
+      }
+    },
+    {
+      "wave": 6,
+      "raw": {
+        "records": 9618,
+        "mean_ms": 5.819007797878977,
+        "p95_ms": 13.367,
+        "p99_ms": 16.781,
+        "maximum_ms": 36.954,
+        "over_16_667_ms": 105,
+        "over_50_ms": 0,
+        "maximum_registry_size": 72
+      },
+      "after_120_record_warmup": {
+        "records": 9498,
+        "mean_ms": 5.832347757422616,
+        "p95_ms": 13.384,
+        "p99_ms": 16.863,
+        "maximum_ms": 36.954,
+        "over_16_667_ms": 105,
+        "over_50_ms": 0,
+        "maximum_registry_size": 72
+      }
+    }
+  ],
+  "natural": {
+    "terminal": "victory",
+    "samples": 9377,
+    "result": {
+      "elapsed": 147.528516882971,
+      "health": 120.0,
+      "kills": 603,
+      "snapshot_cleared": true,
+      "terminal": "victory",
+      "text": "清剿完成\n抵达波次 6/6\n击杀数量 603\n作战用时 02:27\n等级  火力:2  机动:1  工程:6\n\n按 R 或按钮重新开始",
+      "wave": 6
+    },
+    "restart_verified": true,
+    "actual_steps_over_2px": 8416,
+    "pilot_random_heading_changes": 124,
+    "pilot_escape_events": 6,
+    "real_saves_unchanged": true,
+    "hit_stop_samples": 885,
+    "last_physics_sample_wall_seconds": 171.858008
+  },
+  "metric_notes": "nearest-rank percentile; 16.667ms is a reference only, not an approved release budget; gauges not used as frame timings; observer overhead/background load/focus/power/thermal control not isolated",
+  "correction_note": "v1 field reported_playing_wall_seconds was misleading: last sample wall includes START/WAVE_INTRO/SETTLEMENT, not net PLAYING duration or whole-process wall time. Raw records and all interval statistics unchanged.",
+  "supersedes_summary": "docs/performance/native-natural-baseline-v1.json"
+}
