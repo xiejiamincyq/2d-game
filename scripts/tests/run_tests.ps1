@@ -103,6 +103,7 @@ $artTests = @(
     "EnemyDasherArtTest",
     "EnemyStaticArtTest",
     "ProjectileLandingVisualTest",
+    "LobberVisualLifecycleTest",
     "ChibiRuntimeArtTest",
     "PlayerOcclusionOutlineTest",
     "FriendlyEffectLayerTest"

@@ -1,6 +1,32 @@
 extends Node2D
 class_name LobbedProjectile
 
+const WARNING_COLOR := Color("f27a4b")
+const OUTLINE_COLOR := Color("123b3b")
+const HIGHLIGHT_COLOR := Color("f3eddc")
+
+# A brief broken rim marks the instantaneous impact, not a persistent hazard.
+class ImpactVisual extends Node2D:
+	const DURATION := 0.20
+	var radius := 72.0
+	var elapsed := 0.0
+
+	func _process(delta: float) -> void:
+		elapsed += maxf(0.0, delta)
+		queue_redraw()
+		if elapsed >= DURATION:
+			queue_free()
+
+	func _draw() -> void:
+		var alpha := clampf(1.0 - elapsed / DURATION, 0.0, 1.0)
+		for index in range(6):
+			var angle := TAU * index / 6.0
+			draw_arc(Vector2.ZERO, radius, angle, angle + PI * 0.22, 8, Color(OUTLINE_COLOR, alpha), 5.0, true)
+			draw_arc(Vector2.ZERO, radius, angle, angle + PI * 0.22, 8, Color(WARNING_COLOR, alpha), 3.0, true)
+			var direction := Vector2.RIGHT.rotated(angle)
+			draw_line(direction * radius * 0.78, direction * radius, Color(OUTLINE_COLOR, alpha), 4.0, true)
+			draw_line(direction * radius * 0.78, direction * radius, Color(WARNING_COLOR, alpha), 2.0, true)
+
 var target_player: Node2D
 var target_position := Vector2.ZERO
 var damage := 14.0
@@ -8,7 +34,7 @@ var splash_radius := 72.0
 var flight_duration := 0.85
 var elapsed := 0.0
 var start_position := Vector2.ZERO
-var tint := Color("f559bf")
+var tint := WARNING_COLOR
 var landing_fill: Node2D
 
 func configure(origin: Vector2, destination: Vector2, target: Node2D) -> void:
@@ -40,6 +66,12 @@ func _physics_process(delta: float) -> void:
 		_explode()
 
 func _explode() -> void:
+	if get_parent() != null:
+		var impact := ImpactVisual.new()
+		impact.name = "LobImpact"
+		impact.radius = splash_radius
+		get_parent().add_child(impact)
+		impact.global_position = target_position
 	if is_instance_valid(target_player) and target_player.global_position.distance_to(target_position) <= splash_radius:
 		if target_player.has_method("take_damage"):
 			target_player.take_damage(damage)
@@ -47,10 +79,13 @@ func _explode() -> void:
 
 func _draw() -> void:
 	var arc_height := sin(clampf(elapsed / maxf(0.01, flight_duration), 0.0, 1.0) * PI) * 18.0
-	draw_circle(Vector2(0.0, -arc_height), 7.0, tint)
-	draw_circle(Vector2(0.0, -arc_height), 3.0, Color.WHITE)
+	var center := Vector2(0.0, -arc_height)
+	draw_circle(center, 9.0, OUTLINE_COLOR)
+	draw_circle(center, 7.0, tint)
+	draw_circle(center + Vector2(-2.0, -2.0), 2.5, HIGHLIGHT_COLOR)
 	var landing_local := to_local(target_position)
-	draw_arc(landing_local, splash_radius, 0.0, TAU, 40, Color(tint, 0.78), 2.0)
+	draw_arc(landing_local, splash_radius, 0.0, TAU, 48, OUTLINE_COLOR, 5.0, true)
+	draw_arc(landing_local, splash_radius, 0.0, TAU, 48, tint, 3.0, true)
 
 func _update_landing_fill() -> void:
 	if is_instance_valid(landing_fill):
