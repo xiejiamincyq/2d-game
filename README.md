@@ -4,11 +4,11 @@
 
 ## 本机直接试玩（不需要安装 Godot）
 
-本机已保留独立 Windows 试玩包：打开 `build/playtest/5分钟超载-audio-exit-v2/`，双击 `five-minute-overdrive.exe`；同目录的 `.pck` 必须保留。可以复制整个目录，不需要打开编辑器或运行测试。旧hud/ranged/radius/lob/c5c5710目录保留历史版本；新包加入音频退出收尾并保留开局波次显示修复。
+本机已保留当前 Windows 试玩候选：打开 `build/playtest/5分钟超载-current-v7/`，双击 `five-minute-overdrive.exe`；同目录的 `.pck` 必须保留。可以复制整个目录，不需要打开编辑器或运行测试。旧包保留；v7重新导入/导出当前工作树，加入普通敌人受击颜色修复，并保留音频退出收尾和开局波次显示修复。
 
-这是本机文件，不随 Git 克隆下载，也不是公开发布。五个实际EXE普通关窗/暂停/自然失败/R重开短测退出0，三路日志无错误或泄漏；完整EXE通关、声音听感和人工手感未代签。操作、核验哈希及待验内容见[本地试玩交接](docs/local-playtest-handoff-v6.md)。
+这是本机文件，不随 Git 克隆下载，也不是公开发布。v7第一个实际EXE进程验证了开局、冲刺、自然失败/R回标题、暂停冻结和普通关窗，退出0且三路日志无错误或泄漏；第二进程窗口工具占用/截图错配，验证未完成，不算通过。完整EXE通关、声音听感和人工手感未代签。操作、核验哈希及失败记录见[本地试玩交接](docs/local-playtest-handoff-v7.md)。
 
-源码现已加入[普通敌人持续受击可读性修复](docs/enemy-readability-review-v1.md)，上述v6包尚未包含这项改动；需查看该修复时按下面Godot运行方式启动当前工作树，下一次本机冻结包再更新，不把旧包当作最新源码构建。
+v7的190份生产输入与本机当前工作树逐hash一致；相对[历史v6包](docs/local-playtest-handoff-v6.md)只改变[普通敌人持续受击可读性修复](docs/enemy-readability-review-v1.md)。构建包含原有未提交资源，不称干净HEAD；旧v6不含该修复，历史验证不自动移植为v7通过。
 
 当前生产输入另有[一次自然通关与完整首收集窗口](docs/collection-natural-review-v1.md)的62原图、六景短片和修订离线校验；原检查器失败独立保留，不等于独立EXE完整流程或全项目验收。
 

@@ -1,0 +1,9 @@
+{
+  "path": "docs/local-playtest-evidence-v7.zip",
+  "bytes": 745137,
+  "sha256": "81e138104440800040c7d92484dbb90d04529b9b077da7e4bbb499aba09de861",
+  "members": 46,
+  "selected_game_images": 14,
+  "failed_sessions": 1,
+  "scope": "local candidate; first ordinary EXE process verified; second independent check failed due Computer Use availability/capture mismatch and watchdog; not overall acceptance"
+}
