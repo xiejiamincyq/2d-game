@@ -32,7 +32,7 @@ class ImpactVisual extends Node2D:
 
 var target_player: Node2D
 var target_position := Vector2.ZERO
-var damage := 14.0
+var damage := 42.0
 var splash_radius := 72.0
 var flight_duration := 0.85
 var elapsed := 0.0

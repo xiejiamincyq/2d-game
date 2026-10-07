@@ -37,6 +37,7 @@ const BASE_DRONE_LASER_COLOR := Palette.TEAL
 const THUNDER_MATRIX_LASER_COLOR := Palette.MINT
 const THUNDER_MATRIX_DRONE_DAMAGE_MULTIPLIER := 1.8
 const THUNDER_MATRIX_ARC_DAMAGE_MULTIPLIER := 0.70
+const THUNDER_MATRIX_INTERVAL_MULTIPLIER := 1.50
 const DRONE_MAX_TURN_SPEED_RADIANS := deg_to_rad(150.0)
 const ARC_EXPANSION_SPEED_SCALE: float = 0.5
 const ARC_DAMAGE_PER_LEVEL: float = 5.4
@@ -961,6 +962,8 @@ func _emit_arc_pulse() -> void:
 
 func get_arc_pulse_interval() -> float:
 	var interval := maxf(0.7, arc_base_interval - arc_pulse_level * 0.20)
+	if active_build_evolutions.has("thunder_matrix"):
+		interval *= THUNDER_MATRIX_INTERVAL_MULTIPLIER
 	if overdrive_active:
 		interval /= OVERDRIVE_ARC_FREQUENCY_MULTIPLIER
 	return interval

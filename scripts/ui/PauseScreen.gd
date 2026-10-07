@@ -40,7 +40,8 @@ func _ready() -> void:
 	box.add_child(title)
 
 	var hint := Label.new()
-	hint.text = "升级与购买将在波次清剿完成后统一进行"
+	hint.text = "敌人基础伤害为旧版三倍，请留意珊瑚色预警\n追击者：扇形爪击与锁向扑击，侧移躲避\nWASD 移动 · 左键射击 · 右键冲刺 · Space 暂停\n升级与购买在波次清剿完成后进行"
+	hint.add_theme_font_size_override("font_size", 16)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hint.add_theme_color_override("font_color", Color("1c625c"))
 	box.add_child(hint)

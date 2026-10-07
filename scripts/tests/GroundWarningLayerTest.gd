@@ -52,7 +52,7 @@ func _initialize() -> void:
 		lob.configure(Vector2(100, 40), player.global_position, player)
 		ground(lob.get_node_or_null("LandingFill"), "lob landing rim/fill")
 		check(effective_z(lob) == effective_z(shots) and effective_z(lob) > Outline.OUTLINE_Z_INDEX, "flying lob core must remain foreground")
-		check(lob.splash_radius == 72 and lob.flight_duration == 0.85 and lob.damage == 14, "lob combat defaults changed")
+		check(lob.splash_radius == 72 and lob.flight_duration == 0.85 and lob.damage == 42, "lob combat defaults changed")
 		lob._physics_process(0.425)
 		check(lob.global_position.is_equal_approx(Vector2(170, 60)) and lob.target_position == Vector2(240, 80), "lob flight interpolation/locked target changed")
 		var landing := lob.get_node_or_null("LandingFill") as Node2D
@@ -61,7 +61,7 @@ func _initialize() -> void:
 		var impact := shots.get_node_or_null("LobImpact")
 		ground(impact, "lob impact rim")
 		check(impact != null and impact.radius == 72 and impact.DURATION == 0.20 and impact.global_position == Vector2(240, 80), "impact radius/duration/destination changed")
-		check(player.health.current_health == 86, "lob splash must still damage real player for 14")
+		check(player.health.current_health == 58, "lob splash must still damage real player for 42")
 		if impact != null:
 			impact._process(0.10)
 			check(not impact.is_queued_for_deletion(), "impact ended before 0.20 seconds")
@@ -85,10 +85,10 @@ func _initialize() -> void:
 		ground(attack.get_node_or_null("GroundFill"), "tentacle sweep/slam/hose")
 		check(attack.start_sweep(player.global_position), "valid sweep start rejected")
 		attack.advance_attack(0.99)
-		check(attack.attack_stage == Tentacle.AttackStage.WARNING and player.health.current_health == 86, "sweep warning timing changed")
+		check(attack.attack_stage == Tentacle.AttackStage.WARNING and player.health.current_health == 58, "sweep warning timing changed")
 		player.health.invulnerable_time = 0
 		attack.advance_attack(0.02)
-		check(attack.attack_stage == Tentacle.AttackStage.ACTIVE and player.health.current_health == 68, "active sweep must still hit once for 18")
+		check(attack.attack_stage == Tentacle.AttackStage.ACTIVE and player.health.current_health == 4, "active sweep must still hit once for 54")
 		attack.cancel_attack()
 		var targets: Array[Vector2] = attack.make_slam_targets(player.global_position)
 		check(attack.start_slam(targets) and attack.get_slam_targets() == targets and attack.SLAM_RADIUS == 45 and attack.SLAM_WARNING_SECONDS == 1.1, "slam target lock/radius/timing changed")
@@ -111,7 +111,7 @@ func _initialize() -> void:
 		pattern.advance(0.002)
 		check(pattern.get_total_spawned() == plan.size() / 2, "fan first round count changed")
 		for shot in pattern._spawned_projectiles:
-			check(effective_z(shot) == effective_z(shots) and shot.damage == 9 and shot.radius == 5, "Boss live bullet must retain foreground/damage/collision radius")
+			check(effective_z(shot) == effective_z(shots) and shot.damage == 27 and shot.radius == 5, "Boss live bullet must retain foreground/damage/collision radius")
 		for mode in ["ordinary", "overdrive", "hostile"]:
 			var bullet := Bullet.new()
 			bullet.overdrive_visual = mode == "overdrive"

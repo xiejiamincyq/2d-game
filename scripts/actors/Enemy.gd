@@ -21,6 +21,7 @@ const HealthComponentScript = preload("res://scripts/components/HealthComponent.
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
 const EnemyFlockScript = preload("res://scripts/components/EnemyFlock.gd")
+const ScrapperAttackScript = preload("res://scripts/components/ScrapperAttack.gd")
 const DASHER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png")
 const SCRAPPER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png")
 const BRUISER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png")
@@ -65,7 +66,7 @@ static var next_formation_slot_index := 0
 var kind: EnemyKind = EnemyKind.SCRAPPER
 var feedback_weight: int = FeedbackWeight.MEDIUM
 var speed: float = 90.0
-var contact_damage: float = 8.0
+var contact_damage: float = 24.0
 var coin_value: int = 1
 var shield_drop_value: float = 0.0
 var shoot_cooldown: float = 0.0
@@ -106,12 +107,14 @@ var static_visual_base_scale := Vector2.ONE
 var static_motion_elapsed := 0.0
 var formation_slot_index := -1
 var ground_warning: Node2D
+var basic_attack: RefCounted = ScrapperAttackScript.new()
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	if formation_slot_index < 0:
 		formation_slot_index = next_formation_slot_index
 		next_formation_slot_index = posmod(next_formation_slot_index + 1, 64)
 	kind = enemy_kind
+	basic_attack.cooldown = 1.6 + posmod(formation_slot_index, 8) * 0.17
 	projectile_parent = projectiles
 	target_player = target
 	var scale_factor := 1.0 + float(wave_index) * 0.13
@@ -119,26 +122,26 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 		EnemyKind.SCRAPPER:
 			feedback_weight = FeedbackWeight.MEDIUM
 			speed = 80.0 + wave_index * 3.0
-			contact_damage = 8.0
+			contact_damage = 24.0
 			coin_value = 1
 			_add_health(36.0 * scale_factor)
 		EnemyKind.DASHER:
 			feedback_weight = FeedbackWeight.LIGHT
 			speed = 145.0 + wave_index * 4.0
-			contact_damage = 6.0
+			contact_damage = 18.0
 			coin_value = 2
 			_add_health(22.0 * scale_factor)
 		EnemyKind.SPITTER:
 			feedback_weight = FeedbackWeight.LIGHT
 			speed = 58.0 + wave_index * 2.0
-			contact_damage = 5.0
+			contact_damage = 15.0
 			coin_value = 3
 			shoot_cooldown = randf_range(1.0, 2.0)
 			_add_health(28.0 * scale_factor)
 		EnemyKind.BRUISER:
 			feedback_weight = FeedbackWeight.HEAVY
 			speed = 54.0 + wave_index * 1.5
-			contact_damage = 18.0
+			contact_damage = 54.0
 			coin_value = 8
 			shield_drop_value = 17.0 + wave_index * 1.5
 			body_radius = 24.0
@@ -149,7 +152,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 		EnemyKind.MARKSMAN:
 			feedback_weight = FeedbackWeight.LIGHT
 			speed = 62.0 + wave_index * 1.5
-			contact_damage = 5.0
+			contact_damage = 15.0
 			coin_value = 5
 			shoot_cooldown = randf_range(0.8, 1.4)
 			ranged_windup_duration = MARKSMAN_TELEGRAPH_SECONDS
@@ -159,7 +162,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 		EnemyKind.LOBBER:
 			feedback_weight = FeedbackWeight.MEDIUM
 			speed = 48.0 + wave_index * 1.2
-			contact_damage = 8.0
+			contact_damage = 24.0
 			coin_value = 7
 			shoot_cooldown = randf_range(1.0, 1.8)
 			ranged_windup_duration = 0.72
@@ -170,7 +173,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 		EnemyKind.OVERSEER:
 			feedback_weight = FeedbackWeight.HEAVY
 			speed = 42.0
-			contact_damage = 24.0
+			contact_damage = 72.0
 			coin_value = 60
 			body_radius = 40.0
 			attack_range = 64.0
@@ -218,8 +221,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	_update_burn(delta)
 	if death_resolved:
+		basic_attack.cancel()
 		return
 	if spawn_impulse_remaining > 0.0:
+		if basic_attack.is_active():
+			basic_attack.cancel()
+			_queue_visual_redraw()
 		velocity = spawn_impulse_velocity
 		move_and_slide()
 		_clamp_to_world_bounds()
@@ -230,6 +237,9 @@ func _physics_process(delta: float) -> void:
 		return
 	var player := get_target_player()
 	if player == null:
+		if basic_attack.is_active():
+			basic_attack.cancel()
+			_queue_visual_redraw()
 		if is_target_hidden():
 			_update_hidden_target_dispersion(delta)
 		else:
@@ -247,6 +257,21 @@ func _physics_process(delta: float) -> void:
 	elif is_ranged_kind():
 		desired = _get_ranged_desired_velocity(to_player, get_camera_safe_rect())
 	else:
+		if kind == EnemyKind.SCRAPPER and not is_attacking:
+			basic_attack.consider(self, player, delta)
+			if basic_attack.is_active():
+				basic_attack.advance(delta)
+				velocity = basic_attack.get_velocity()
+				move_and_slide()
+				_clamp_to_world_bounds()
+				basic_attack.resolve_hit(self, player)
+				if get_slide_collision_count() > 0:
+					basic_attack.finish_motion()
+				_update_static_motion(delta)
+				flash_timer = maxf(0.0, flash_timer - delta)
+				_update_hit_flash()
+				_queue_visual_redraw()
+				return
 		_update_melee_attack(delta, player, to_player.length())
 		if is_attacking:
 			velocity = Vector2.ZERO
@@ -555,6 +580,8 @@ func _queue_visual_redraw() -> void:
 		ground_warning.queue_redraw()
 
 func _draw_ground_warning() -> void:
+	if kind == EnemyKind.SCRAPPER:
+		basic_attack.draw_warning(ground_warning, self)
 	var accent := Color(1.0, 0.72, 0.1)
 	if kind == EnemyKind.SPITTER:
 		accent = Color(0.7, 0.2, 1.0)
@@ -711,7 +738,7 @@ func _update_spitter(delta: float, player: Node2D) -> void:
 	shoot_cooldown = randf_range(1.8, 2.7)
 	var shot := ProjectileScript.new()
 	shot.velocity = (player.global_position - global_position).normalized() * 260.0
-	shot.damage = 7.0
+	shot.damage = 21.0
 	shot.radius = 5.0
 	shot.lifetime = 6.0
 	shot.target_group = &"player"
@@ -764,7 +791,7 @@ func _fire_marksman(player: Node2D) -> void:
 	projectile_parent.add_child(shot)
 	shot.global_position = global_position
 	shot.velocity = (ranged_target_position - global_position).normalized() * ENEMY_PROJECTILE_BASE_SPEED * MARKSMAN_PROJECTILE_SPEED_MULTIPLIER
-	shot.damage = 12.0
+	shot.damage = 36.0
 	shot.lifetime = 2.0
 	shot.target_group = &"player"
 	shot.tint = HostilePalette.CORAL
@@ -776,7 +803,7 @@ func _fire_lobber(player: Node2D) -> void:
 	var shot := LobbedProjectileScript.new()
 	projectile_parent.add_child(shot)
 	shot.configure(global_position, ranged_target_position, player)
-	shot.damage = 16.0
+	shot.damage = 48.0
 	shot.splash_radius = 72.0
 	shot.flight_duration = 0.9
 
@@ -820,7 +847,7 @@ func _fire_overseer_burst() -> void:
 		projectile_parent.add_child(shot)
 		shot.global_position = global_position
 		shot.velocity = Vector2.RIGHT.rotated(TAU * float(index) / 12.0) * 310.0
-		shot.damage = 10.0
+		shot.damage = 30.0
 		shot.lifetime = 3.0
 		shot.target_group = &"player"
 		shot.tint = HostilePalette.CORAL

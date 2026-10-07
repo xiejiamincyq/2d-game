@@ -57,7 +57,7 @@ func test_launch(kind: int, transformed: bool) -> bool:
 	if not check(shots.get_child_count() == expected_count, "actual launch count changed"):
 		return false
 	var radius := 3.0 if kind == EnemyScript.EnemyKind.MARKSMAN else 5.0
-	var damage := 12.0 if kind == EnemyScript.EnemyKind.MARKSMAN else (7.0 if kind == EnemyScript.EnemyKind.SPITTER else 10.0)
+	var damage := 36.0 if kind == EnemyScript.EnemyKind.MARKSMAN else (21.0 if kind == EnemyScript.EnemyKind.SPITTER else 30.0)
 	var speed := 910.0 if kind == EnemyScript.EnemyKind.MARKSMAN else (260.0 if kind == EnemyScript.EnemyKind.SPITTER else 310.0)
 	var lifetime := 2.0 if kind == EnemyScript.EnemyKind.MARKSMAN else (6.0 if kind == EnemyScript.EnemyKind.SPITTER else 3.0)
 	var shot_index := 0

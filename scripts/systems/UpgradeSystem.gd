@@ -62,16 +62,16 @@ var upgrade_pool: Array[Dictionary] = [
 	{"id": "drone_pierce", "label": "穿透棱镜", "description": "激光无视遮挡，点燃阈值降至 0.3 秒", "family": "automation", "kind": "support", "requires": "drone", "max_rank": 1, "base_cost": 48},
 	{"id": "drone", "label": "无人机部署", "description": "无人机 +1，单机伤害 +3%", "family": "automation", "kind": "core", "max_rank": 4, "base_cost": 52},
 	{"id": "drone_damage", "label": "激光放大器", "description": "无人机激光伤害 +16%", "family": "automation", "kind": "core", "requires": "drone", "max_rank": 5, "base_cost": 34},
-	{"id": "arc", "label": "电弧启动器", "description": "首次解锁；后续强化伤害与半径", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 45},
-	{"id": "arc_capacitor", "label": "电弧电容", "description": "电弧伤害 +14%、半径 +18、蓄能 -6%", "family": "automation", "kind": "core", "requires": "arc", "max_rank": 5, "base_cost": 36},
-	{"id": "arc_relay", "label": "电弧继电器", "description": "电弧伤害 +8%、半径 +8、蓄能 -16%", "family": "automation", "kind": "support", "requires": "arc", "max_rank": 4, "base_cost": 30},
-	{"id": "health", "label": "维修矩阵", "description": "最大生命 +20%，修复部分损伤", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 40},
+	{"id": "arc", "label": "电弧启动器", "description": "首次解锁；每层伤害 +5.4、半径 +18、间隔 -0.2s；后续基础伤害 +16%、半径 +14", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 45},
+	{"id": "arc_capacitor", "label": "电弧电容", "description": "基础电弧伤害 +14%、半径 +18、基础间隔 -6%（最低 1.15s）", "family": "automation", "kind": "core", "requires": "arc", "max_rank": 5, "base_cost": 36},
+	{"id": "arc_relay", "label": "电弧继电器", "description": "基础电弧伤害 +8%、半径 +8、基础间隔 -16%（最低 1.15s）", "family": "automation", "kind": "support", "requires": "arc", "max_rank": 4, "base_cost": 30},
+	{"id": "health", "label": "维修矩阵", "description": "最大生命 +20%；回复原上限 40% + 原缺失生命 20%（不超上限）", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 40},
 	{"id": "shield_capacity", "label": "护盾扩容", "description": "护盾上限 +20，并立即补满护盾", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 42},
 
 	# Evolutions are guaranteed candidates only after their family qualifies.
-	{"id": "orbital_storm", "label": "榴弹协议", "description": "终极进化：射速 -80%、弹速 -60%，榴弹近敌爆炸造成 300% 小范围伤害", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
-	{"id": "rift_overdrive", "label": "顶级刺客", "description": "终极进化：冲刺距离与冷却各 +20%；冲刺后获得 1.2s 无碰撞隐身、30% 移速与灼烧紫焰", "family": "mobility", "kind": "evolution", "requires": "mine", "max_rank": 1, "base_cost": 120},
-	{"id": "thunder_matrix", "label": "雷网矩阵", "description": "终极进化：电弧覆盖全屏但伤害 -30%，无人机激光变紫且伤害 +80%", "family": "automation", "kind": "evolution", "requires": ["drone", "arc"], "max_rank": 1, "base_cost": 120},
+	{"id": "orbital_storm", "label": "榴弹协议", "description": "终极进化：射速 -80%；基础弹速为 48%，继承移动速度 30%；近敌爆炸造成 300% 伤害", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
+	{"id": "rift_overdrive", "label": "顶级刺客", "description": "终极进化：冲刺距离/冷却 +20%；地刺伤害 +28%、间距 -30%（最低22）；冲刺后 1.2s 隐身穿敌（不穿地形）、移速 +30%、灼烧焰迹", "family": "mobility", "kind": "evolution", "requires": "mine", "max_rank": 1, "base_cost": 120},
+	{"id": "thunder_matrix", "label": "雷网矩阵", "description": "终极进化：全屏电弧伤害 -30%、触发间隔 +50%；薄荷色无人机激光伤害 +80%", "family": "automation", "kind": "evolution", "requires": ["drone", "arc"], "max_rank": 1, "base_cost": 120},
 ]
 
 func setup(target_player: Node) -> void:
@@ -124,8 +124,10 @@ func restore_snapshot_state(state: Dictionary) -> bool:
 	for offer_value in settlement["offers"]:
 		var restored_offer := (offer_value as Dictionary).duplicate(true)
 		var restored_id := _canonical_card_id(String(restored_offer.get("id", "")))
-		if restored_id != String(restored_offer.get("id", "")):
-			var replacement := _find_catalog_entry(restored_id)
+		var replacement := _find_catalog_entry(restored_id)
+		# Presentation comes from the current catalog, not stale saved wording.
+		# Keep prices, sold flags and transaction IDs exactly as saved.
+		if not replacement.is_empty():
 			restored_offer["id"] = restored_id
 			for key in ["label", "description", "family", "kind", "max_rank", "requires"]:
 				if replacement.has(key):

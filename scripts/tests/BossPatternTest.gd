@@ -62,7 +62,7 @@ func _initialize() -> void:
 		if not _assert_true(projectile.get_child_count() == 1, "Boss projectile did not initialize its collision shape"):
 			return
 		var shot_shape: CollisionShape2D = projectile.get_child(0)
-		if not _assert_true(is_equal_approx(projectile.radius, 5.0) and is_equal_approx((shot_shape.shape as CircleShape2D).radius, 5.0) and is_equal_approx(projectile.damage, 9.0), "Boss projectile visual revision changed its radius, collision or damage"):
+		if not _assert_true(is_equal_approx(projectile.radius, 5.0) and is_equal_approx((shot_shape.shape as CircleShape2D).radius, 5.0) and is_equal_approx(projectile.damage, 27.0), "Boss projectile visual revision changed its radius, collision or damage"):
 			return
 
 	var deterministic_a: Node2D = BossProjectilePatternScript.new()

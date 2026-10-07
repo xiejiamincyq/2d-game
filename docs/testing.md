@@ -34,6 +34,8 @@ python scripts/tests/test_validate_manifest.py
 
 ## 套件职责
 
+本轮战斗反馈新增：`EnemyDamageMultiplierTest`以真实敌方发射体验证全部三倍基础伤害并检查友方负控；`ThunderMatrixIntervalTest`观察实际电弧波节点和读档后的间隔；`ScrapperAttackTest`覆盖预警、锁向、一次伤害、位移域和实体墙碰撞；`AimReticleOutlineTest`验证准心状态/中心/黑色要求；`GameplayDescriptionsTest`检查现行文案、存档展示刷新、交易事实与真实回血。均接入标准严格门。原生像素/连续Input与实际PCK仍是分列门，不由headless状态测试代签。
+
 Godot子进程以实际退出码和engine日志的一次pass计数核对，同时异步捕获stdout/stderr；三路任一路出现错误/对象或资源泄漏均拒绝通过。`AudioLifecycleTest`覆盖实际音频对象回收，`MainCloseTest`覆盖关闭/重开竞争；`test_audio_exit_timeout.py`隔离运行预期超时退出1的负夹具，不放宽正常错误门。源码合同检查`test_runner_audio_exit_gate.py`不是runner端到端负测试。
 
 自然整局长测是额外验收，不由标准短套件自动代替。命令、预注册策略、隔离存档与已执行三种子结果见[自然整局验证](natural-run-validation-v1.md)。`NaturalRunPolicyTest`与Python记录检查器已纳入标准运行器；headless通过不代表连续画面或人工手感通过。

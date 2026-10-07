@@ -53,7 +53,7 @@ func test_case(parent_z: int, distance: float) -> bool:
 	lob.set_physics_process(false)
 	if not check(lob.tint.is_equal_approx(Color("f27a4b")), "actual enemy launch did not keep coral"):
 		return false
-	if not check(lob.damage == 16.0 and lob.flight_duration == 0.9 and lob.splash_radius == 72.0, "enemy mechanical overrides changed"):
+	if not check(lob.damage == 48.0 and lob.flight_duration == 0.9 and lob.splash_radius == 72.0, "enemy mechanical overrides changed"):
 		return false
 	lob._physics_process(0.45)
 	if not check(lob.global_position.is_equal_approx(Vector2(110, 25)) and target.hits == 0 and not lob.is_queued_for_deletion(), "half-flight position or timing changed"):
@@ -65,7 +65,7 @@ func test_case(parent_z: int, distance: float) -> bool:
 		return false
 	lob._physics_process(lob.flight_duration - lob.elapsed)
 	var hit := distance <= 72.0
-	if not check(target.hits == (1 if hit else 0) and target.damage_taken == (16.0 if hit else 0.0) and lob.is_queued_for_deletion(), "exact damage radius or landing moment changed"):
+	if not check(target.hits == (1 if hit else 0) and target.damage_taken == (48.0 if hit else 0.0) and lob.is_queued_for_deletion(), "exact damage radius or landing moment changed"):
 		return false
 	var impact := shots.get_node_or_null("LobImpact")
 	if not check(impact != null, "landing has no surviving visual impact after projectile deletion"):

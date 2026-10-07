@@ -168,7 +168,8 @@ func _build_start_screen() -> void:
 	title.add_theme_font_size_override("font_size", 34)
 	box.add_child(title)
 	var subtitle := Label.new()
-	subtitle.text = "移动、射击、冲刺，清剿所有波次"
+	subtitle.text = "随机障碍地图 · 闪避敌人预警 · 波次结算构筑"
+	subtitle.tooltip_text = "敌人基础伤害提高至旧版三倍。追击者新增锁向爪击与扑击；Space 暂停查看操作与躲避说明。"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(subtitle)
 	start_button = Button.new()

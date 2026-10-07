@@ -63,7 +63,7 @@ func _initialize() -> void:
 		and is_equal_approx(attack.SWEEP_RANGE, 300.0)
 		and is_equal_approx(attack.SWEEP_ARC_DEGREES, 54.0)
 		and is_equal_approx(attack.SLAM_WARNING_SECONDS, 1.1)
-		and is_equal_approx(attack.SWEEP_DAMAGE, 18.0),
+		and is_equal_approx(attack.SWEEP_DAMAGE, 54.0),
 		"sweep combat constants did not match the contract"
 	):
 		return
@@ -84,10 +84,10 @@ func _initialize() -> void:
 	boss.start_tentacle_sweep(player.global_position)
 	attack.advance_attack(attack.SWEEP_WARNING_SECONDS + 0.01)
 	attack.advance_attack(0.08)
-	if not _assert_true(player.damage_events == [18.0], "sweep did not hit once for 18 damage"):
+	if not _assert_true(player.damage_events == [54.0], "sweep did not hit once for 54 damage"):
 		return
 	attack.advance_attack(attack.SWEEP_ACTIVE_SECONDS)
-	if not _assert_true(player.damage_events == [18.0], "one sweep hit the player more than once"):
+	if not _assert_true(player.damage_events == [54.0], "one sweep hit the player more than once"):
 		return
 
 	player.damage_events.clear()
@@ -144,7 +144,7 @@ func _initialize() -> void:
 	player.global_position = slam_hit_targets[0]
 	boss.start_tentacle_slam(slam_hit_targets)
 	attack.advance_attack(attack.SLAM_WARNING_SECONDS)
-	if not _assert_true(player.damage_events == [20.0], "slam did not hit a marked point for 20 damage"):
+	if not _assert_true(player.damage_events == [60.0], "slam did not hit a marked point for 60 damage"):
 		return
 	if not _assert_true(projectiles.get_child_count() == 30, "two slam markers did not add exactly twelve projectiles"):
 		return

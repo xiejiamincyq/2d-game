@@ -48,6 +48,10 @@ $gameplayTests = @(
     "ProjectilePickupTest",
     "GrenadeVelocityTest",
     "EnemyProjectileRadiusTest",
+    "EnemyDamageMultiplierTest",
+    "ThunderMatrixIntervalTest",
+    "ScrapperAttackTest",
+    "GameplayDescriptionsTest",
     "RateTest",
     "DashTest",
     "StealthTerrainTest_30Hz",
@@ -95,6 +99,7 @@ $gameplayTests = @(
     "StateTest",
     "GateFailureTest",
     "UITest",
+    "AimReticleOutlineTest",
     "SettlementUITest",
     "PerformanceTest",
     "SmokeTest"

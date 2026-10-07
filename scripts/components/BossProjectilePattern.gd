@@ -224,7 +224,7 @@ func _spawn_projectile(event: Dictionary) -> void:
 		return
 	var shot: Node2D = BossProjectileScript.new()
 	shot.velocity = Vector2(event.direction) * float(event.speed)
-	shot.damage = 9.0
+	shot.damage = 27.0
 	shot.radius = 5.0
 	shot.lifetime = 6.0
 	shot.target_group = &"player"

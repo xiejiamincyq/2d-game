@@ -39,7 +39,7 @@ func _initialize() -> void:
 		return
 	if not _assert_true(is_equal_approx(enemy.speed, EXPECTED_OVERDRIVE_DASHER_SPEED), "art integration changed the five-minute-overdrive Dasher speed"):
 		return
-	if not _assert_true(is_equal_approx(enemy.contact_damage, 6.0), "art integration changed Dasher contact damage"):
+	if not _assert_true(is_equal_approx(enemy.contact_damage, 18.0), "art integration changed Dasher contact damage"):
 		return
 
 	var player := Node2D.new()
