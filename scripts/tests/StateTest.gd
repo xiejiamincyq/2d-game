@@ -34,6 +34,8 @@ func _initialize() -> void:
 	scene._start_run()
 	if not _assert_true(scene.run_state == scene.RunState.START and scene.player.is_entrance_active(), "start did not enter the player entrance gate"):
 		return
+	if not _assert_true(scene.ui.hud.wave_label.text == "波次 1 / %d    剩余 0" % scene.wave_director.waves.size(), "first visible entrance HUD did not reflect the director wave total"):
+		return
 	scene.player.advance_entrance(scene.player.get_entrance_duration() + 0.01)
 	if not _assert_true(scene.run_state == scene.RunState.WAVE_INTRO and paused, "start did not enter WAVE_INTRO"):
 		return

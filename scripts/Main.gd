@@ -320,6 +320,7 @@ func _begin_run(snapshot: Dictionary) -> void:
 	ui.set_progression_state(upgrade_system.get_progression_state())
 	ui.set_run_stats(kill_count, elapsed_seconds)
 	if snapshot.is_empty():
+		ui.set_wave(1, wave_director.waves.size(), 0)
 		ui.hide_start_screen()
 		player.begin_entrance()
 	else:

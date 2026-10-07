@@ -18,6 +18,8 @@ func _initialize() -> void:
 	await process_frame
 	if not _assert_true(ui.get("hud") != null, "GameUI did not instantiate a HUD component"):
 		return
+	if not _assert_true(ui.hud.wave_label.text == "波次 -- / --", "HUD invented a wave count before receiving director state"):
+		return
 	var aim_reticle := ui.get("aim_reticle") as Control
 	if not _assert_true(
 		aim_reticle != null

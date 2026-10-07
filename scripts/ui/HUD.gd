@@ -75,7 +75,7 @@ func _build_hud() -> void:
 	grid.add_child(progression_box.get_parent())
 
 	var wave_box := _make_card()
-	wave_label = _make_title("波次 1 / 8")
+	wave_label = _make_title("波次 -- / --")
 	stats_label = _make_label("击杀 0    用时 00:00")
 	wave_box.add_child(wave_label)
 	wave_box.add_child(stats_label)
