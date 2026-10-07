@@ -3,7 +3,9 @@ class_name AimReticle
 
 const RETICLE_SIZE := Vector2(24.0, 24.0)
 const CREAM := Color("f3eddc")
-const OUTLINE := Color("123b3b")
+const OUTLINE := Color.BLACK
+const OUTLINE_WIDTH := 6.0
+const CAP_PADDING := 2.0
 
 func _ready() -> void:
 	custom_minimum_size = RETICLE_SIZE
@@ -32,5 +34,7 @@ func _draw() -> void:
 	for direction in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]:
 		var inner: Vector2 = center + direction * 5.0
 		var outer: Vector2 = center + direction * 9.0
-		draw_line(inner, outer, OUTLINE, 4.0, true)
-		draw_line(inner, outer, CREAM, 2.0, true)
+		# Extend the black underlay past both tips: side-only edging disappears
+		# against light floors and white effects. Keep the aim point and 24px box.
+		draw_line(inner - direction * CAP_PADDING, outer + direction * CAP_PADDING, OUTLINE, OUTLINE_WIDTH, true)
+		draw_line(inner, outer, CREAM, 2.0, false)
