@@ -1,6 +1,7 @@
 extends SceneTree
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
+const PlayerScript = preload("res://scripts/actors/Player.gd")
 class Target extends Node2D:
 	var hits: Array[float] = []
 	var stealthed := false
@@ -95,6 +96,23 @@ func _initialize() -> void:
 		enemy._physics_process(0.01)
 		check(not attack.is_active(), "hidden target did not cancel warning")
 		check(attack.cooldown >= 3.9, "cancel did not enforce attack cooldown")
+		var real_player := PlayerScript.new()
+		real_player.position = Vector2(110, 250)
+		arena.add_child(real_player)
+		real_player.set_physics_process(false)
+		real_player.health.set_process(false)
+		real_player.shield = 0.0
+		var pouncer := EnemyScript.new()
+		pouncer.setup(EnemyScript.EnemyKind.SCRAPPER, 0, arena, real_player)
+		pouncer.position = Vector2(0, 250)
+		arena.add_child(pouncer)
+		pouncer.set_physics_process(false)
+		pouncer.basic_attack.begin(pouncer, real_player, 1)
+		for frame in range(60):
+			await physics_frame
+			pouncer._physics_process(1.0 / 60.0)
+		check(real_player.health.current_health == 76.0, "real player collision stopped pounce before damage reach")
+		check(pouncer.position.x <= 80.0, "real pounce crossed player collider")
 	arena.queue_free()
 	await process_frame
 	await process_frame
