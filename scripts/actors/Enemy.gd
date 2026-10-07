@@ -103,6 +103,7 @@ var static_visual_half_height := 0.0
 var static_visual_base_scale := Vector2.ONE
 var static_motion_elapsed := 0.0
 var formation_slot_index := -1
+var ground_warning: Node2D
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	if formation_slot_index < 0:
@@ -185,6 +186,12 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 
 func _ready() -> void:
 	add_to_group("enemies")
+	ground_warning = Node2D.new()
+	ground_warning.name = "GroundWarning"
+	ground_warning.z_as_relative = false
+	ground_warning.z_index = -1
+	ground_warning.draw.connect(_draw_ground_warning)
+	add_child(ground_warning)
 	match kind:
 		EnemyKind.SCRAPPER:
 			_create_static_visual(SCRAPPER_TEXTURE, SCRAPPER_RUNTIME_SCALE, "ScrapperVisual")
@@ -246,7 +253,7 @@ func _physics_process(delta: float) -> void:
 			if flash_timer > 0.0:
 				flash_timer -= delta
 			_update_hit_flash()
-			queue_redraw()
+			_queue_visual_redraw()
 			return
 		desired = _get_melee_desired_velocity(to_player)
 	desired = _apply_arena_navigation(desired, player.global_position)
@@ -262,7 +269,7 @@ func _physics_process(delta: float) -> void:
 			_update_lobber(delta, player)
 	if flash_timer > 0.0:
 		flash_timer = maxf(0.0, flash_timer - delta)
-		queue_redraw()
+		_queue_visual_redraw()
 	_update_hit_flash()
 	_update_static_motion(delta)
 
@@ -500,31 +507,41 @@ func _draw() -> void:
 		draw_rect(Rect2(-body_radius * 0.55, status_y, body_radius * 1.1, 5), accent)
 	if static_visual == null:
 		draw_rect(Rect2(-body_radius - 2, -3, (body_radius + 2) * 2.0, 6), body_color.darkened(0.25))
+	if static_visual == null:
+		draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
+		draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
+
+func _queue_visual_redraw() -> void:
+	queue_redraw()
+	if is_instance_valid(ground_warning):
+		ground_warning.queue_redraw()
+
+func _draw_ground_warning() -> void:
+	var accent := Color(1.0, 0.72, 0.1)
+	if kind == EnemyKind.SPITTER:
+		accent = Color(0.7, 0.2, 1.0)
 	if is_attacking:
 		var p := 1.0 - clampf(attack_timer / maxf(0.01, attack_windup), 0.0, 1.0)
-		draw_arc(Vector2.ZERO, attack_range, -PI * 0.85, PI * 0.85, 24, Color(1.0, 0.55, 0.15, 0.25 + p * 0.45), 4.0)
+		ground_warning.draw_arc(Vector2.ZERO, attack_range, -PI * 0.85, PI * 0.85, 24, Color(1.0, 0.55, 0.15, 0.25 + p * 0.45), 4.0)
 	if ranged_is_winding_up:
 		var charge := 1.0 - clampf(ranged_windup_remaining / maxf(0.01, ranged_windup_duration), 0.0, 1.0)
 		var warning_color := HostilePalette.CORAL if kind in [EnemyKind.MARKSMAN, EnemyKind.LOBBER, EnemyKind.OVERSEER] else accent
 		var target_local := to_local(ranged_target_position)
 		if kind == EnemyKind.MARKSMAN:
-			draw_line(Vector2.ZERO, target_local, Color(0.02, 0.04, 0.06, 0.78), 5.0)
-			draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.32 + charge * 0.58), 1.5 + charge * 1.5)
+			ground_warning.draw_line(Vector2.ZERO, target_local, Color(0.02, 0.04, 0.06, 0.78), 5.0)
+			ground_warning.draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.32 + charge * 0.58), 1.5 + charge * 1.5)
 		elif kind == EnemyKind.LOBBER:
 			# Stop the aim line at the landing rim; never paint across its center.
 			var rim := target_local - target_local.normalized() * 72.0
-			draw_line(Vector2.ZERO, rim, Color(HostilePalette.OUTLINE, 0.8), 5.0, true)
-			draw_line(Vector2.ZERO, rim, Color(warning_color, 0.25 + charge * 0.55), 3.0, true)
+			ground_warning.draw_line(Vector2.ZERO, rim, Color(HostilePalette.OUTLINE, 0.8), 5.0, true)
+			ground_warning.draw_line(Vector2.ZERO, rim, Color(warning_color, 0.25 + charge * 0.55), 3.0, true)
 		else:
-			draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.25 + charge * 0.55), 2.0 + charge * 2.0)
+			ground_warning.draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.25 + charge * 0.55), 2.0 + charge * 2.0)
 		if kind == EnemyKind.LOBBER:
-			draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(HostilePalette.OUTLINE, 0.9), 5.0, true)
-			draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(warning_color, 0.5 + charge * 0.4), 3.0, true)
+			ground_warning.draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(HostilePalette.OUTLINE, 0.9), 5.0, true)
+			ground_warning.draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(warning_color, 0.5 + charge * 0.4), 3.0, true)
 		elif kind == EnemyKind.OVERSEER:
-			draw_arc(Vector2.ZERO, body_radius + 18.0 + charge * 12.0, 0.0, TAU, 40, Color(warning_color, 0.75), 4.0)
-	if static_visual == null:
-		draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
-		draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
+			ground_warning.draw_arc(Vector2.ZERO, body_radius + 18.0 + charge * 12.0, 0.0, TAU, 40, Color(warning_color, 0.75), 4.0)
 
 func should_show_health_bar() -> bool:
 	if health == null or health.current_health <= 0.0:
@@ -593,7 +610,7 @@ func take_damage(
 	var killed: bool = health.current_health <= 0.0
 	flash_timer = 0.08
 	_update_hit_flash()
-	queue_redraw()
+	_queue_visual_redraw()
 	damage_resolved.emit(
 		self,
 		resolved_source,
@@ -645,7 +662,7 @@ func _update_melee_attack(delta: float, player: Node2D, distance: float) -> void
 	if attack_timer <= -attack_recovery:
 		is_attacking = false
 		attack_cooldown = 0.15
-		queue_redraw()
+		_queue_visual_redraw()
 
 func _update_spitter(delta: float, player: Node2D) -> void:
 	if not _is_in_visible_engagement_zone(player):
@@ -674,14 +691,14 @@ func _update_lobber(delta: float, player: Node2D) -> void:
 func _update_ranged_windup(delta: float, player: Node2D, attack_kind: int) -> void:
 	if ranged_is_winding_up:
 		ranged_windup_remaining -= delta
-		queue_redraw()
+		_queue_visual_redraw()
 		if ranged_windup_remaining <= 0.0:
 			ranged_is_winding_up = false
 			if attack_kind == EnemyKind.MARKSMAN:
 				_fire_marksman(player)
 			else:
 				_fire_lobber(player)
-			queue_redraw()
+			_queue_visual_redraw()
 		return
 	if not _is_in_visible_engagement_zone(player):
 		return
@@ -698,7 +715,7 @@ func _update_ranged_windup(delta: float, player: Node2D, attack_kind: int) -> vo
 	else:
 		ranged_target_position = player.global_position
 	shoot_cooldown = randf_range(1.7, 2.4) if attack_kind == EnemyKind.MARKSMAN else randf_range(2.2, 3.0)
-	queue_redraw()
+	_queue_visual_redraw()
 
 func _fire_marksman(player: Node2D) -> void:
 	if projectile_parent == null or not is_instance_valid(player):
@@ -729,11 +746,11 @@ func _update_overseer(delta: float, player: Node2D, distance: float) -> void:
 	_request_boss_reinforcements_at_health_thresholds()
 	if ranged_is_winding_up:
 		ranged_windup_remaining -= delta
-		queue_redraw()
+		_queue_visual_redraw()
 		if ranged_windup_remaining <= 0.0:
 			ranged_is_winding_up = false
 			_fire_overseer_burst()
-			queue_redraw()
+			_queue_visual_redraw()
 		return
 	shoot_cooldown -= delta
 	if shoot_cooldown <= 0.0 and projectile_parent != null and distance <= 520.0:
@@ -741,7 +758,7 @@ func _update_overseer(delta: float, player: Node2D, distance: float) -> void:
 		ranged_windup_remaining = ranged_windup_duration
 		ranged_target_position = player.global_position
 		shoot_cooldown = 3.4
-		queue_redraw()
+		_queue_visual_redraw()
 		return
 	_update_melee_attack(delta, player, distance)
 

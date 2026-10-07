@@ -18,6 +18,7 @@ var world_bounds: Rect2 = Rect2()
 var damage_source: StringName = DamageTypes.PROJECTILE
 var damage_multiplier_provider: Callable
 var overdrive_visual: bool = false
+var overdrive_trail: Node2D
 
 func _ready() -> void:
 	monitoring = true
@@ -29,6 +30,13 @@ func _ready() -> void:
 	add_child(shape)
 	body_entered.connect(_on_body_entered)
 	area_entered.connect(_on_area_entered)
+	if overdrive_visual and target_group != &"player":
+		overdrive_trail = Node2D.new()
+		overdrive_trail.name = "OverdriveTrail"
+		overdrive_trail.z_as_relative = false
+		overdrive_trail.z_index = -1
+		overdrive_trail.draw.connect(_draw_overdrive_trail)
+		add_child(overdrive_trail)
 
 func _physics_process(delta: float) -> void:
 	global_position += velocity * delta
@@ -46,7 +54,11 @@ func _draw() -> void:
 		draw_circle(Vector2.ZERO, radius, tint)
 		draw_circle(Vector2(-radius * 0.2, -radius * 0.2), radius * 0.4, HostilePalette.CREAM)
 		return
-	if overdrive_visual:
+	draw_rect(Rect2(Vector2(-radius, -radius), Vector2(radius * 2.0, radius * 2.0)), tint)
+	draw_rect(Rect2(Vector2(-radius * 0.5, -radius * 0.5), Vector2(radius, radius)), Color.WHITE)
+
+func _draw_overdrive_trail() -> void:
+	if overdrive_visual and target_group != &"player":
 		var direction := velocity.normalized()
 		if direction == Vector2.ZERO:
 			direction = Vector2.RIGHT
@@ -57,12 +69,10 @@ func _draw() -> void:
 			direction * radius * 0.5,
 			-direction * radius * 1.2 - side * radius * 1.1,
 		])
-		draw_colored_polygon(trail, Color(Palette.TEAL, 0.26))
-		draw_line(-direction * radius * 6.0, direction * radius * 0.5, Color(Palette.CREAM, 0.68), 1.5)
-		draw_circle(Vector2.ZERO, radius * 3.0, Color(Palette.MINT, 0.14))
-		draw_circle(Vector2.ZERO, radius * 1.75, Color(Palette.MINT, 0.32))
-	draw_rect(Rect2(Vector2(-radius, -radius), Vector2(radius * 2.0, radius * 2.0)), tint)
-	draw_rect(Rect2(Vector2(-radius * 0.5, -radius * 0.5), Vector2(radius, radius)), Color.WHITE)
+		overdrive_trail.draw_colored_polygon(trail, Color(Palette.TEAL, 0.26))
+		overdrive_trail.draw_line(-direction * radius * 6.0, direction * radius * 0.5, Color(Palette.CREAM, 0.68), 1.5)
+		overdrive_trail.draw_circle(Vector2.ZERO, radius * 3.0, Color(Palette.MINT, 0.14))
+		overdrive_trail.draw_circle(Vector2.ZERO, radius * 1.75, Color(Palette.MINT, 0.32))
 
 func _on_body_entered(body: Node) -> void:
 	_try_hit(body)

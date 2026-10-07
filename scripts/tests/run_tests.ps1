@@ -112,7 +112,8 @@ $artTests = @(
     "LobberVisualLifecycleTest",
     "ChibiRuntimeArtTest",
     "PlayerOcclusionOutlineTest",
-    "FriendlyEffectLayerTest"
+    "FriendlyEffectLayerTest",
+    "GroundWarningLayerTest"
 )
 
 if ($Group -eq "gameplay") {

@@ -64,8 +64,11 @@ func _initialize() -> void:
 		if not _assert_true(source.find("queue_redraw()") == -1, "%s redraws a static visual every frame" % path):
 			return
 	var enemy_source := FileAccess.get_file_as_string("res://scripts/actors/Enemy.gd").replace("\r\n", "\n")
-	var conditional_redraw := "\tif flash_timer > 0.0:\n\t\tflash_timer = maxf(0.0, flash_timer - delta)\n\t\tqueue_redraw()"
+	var conditional_redraw := "\tif flash_timer > 0.0:\n\t\tflash_timer = maxf(0.0, flash_timer - delta)\n\t\t_queue_visual_redraw()"
 	if not _assert_true(enemy_source.find(conditional_redraw) != -1, "Enemy redraw is not gated by its flash state"):
+		return
+	var visual_redraw := "func _queue_visual_redraw() -> void:\n\tqueue_redraw()\n\tif is_instance_valid(ground_warning):\n\t\tground_warning.queue_redraw()"
+	if not _assert_true(enemy_source.find(visual_redraw) != -1 and enemy_source.count("queue_redraw()") == 2, "Enemy redraw must update both retained layers only through the gated helper"):
 		return
 
 	var audio: Node = AudioManagerScript.new()

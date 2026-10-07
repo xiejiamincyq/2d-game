@@ -1,0 +1,73 @@
+{
+  "scope": "Static real-component visual-layer fix only; no natural fight/EXE/performance/human/license acceptance",
+  "source_sha256": {
+    "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png": "ad652e11b0f9a701f44322846c425634bf771da7f4a7c78fc7d0c87a7f310354",
+    "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png": "9f8d33ed98f5af8a304d7101f0267b1331312e7788bad8aea348e9944c0cb45b",
+    "scripts/actors/Enemy.gd": "b73c0b168fe4fb566329fe30d7a9e75f82edea464f65ad57086876eacb9f351d",
+    "scripts/actors/Player.gd": "88fa20e1eb7c4d862b0837bf6db73f0f1c29862a75a320448d511daee9be4eb6",
+    "scripts/art/VerifyGroundWarningLayers.gd": "41bce9196e483958c607017aa5c73765c8957261adbc4d607ff1b26d9a7ac2ee",
+    "scripts/components/BossProjectilePattern.gd": "e5747eea3e85e639474e090acda851f4264a541f68993617d21454dc564988ca",
+    "scripts/components/LobbedProjectile.gd": "9f75146c567dad75d4d33cb2710a4e28d92fa2ee2b1e7f38a43e0528276d6c86",
+    "scripts/components/Projectile.gd": "8e175c4fdf9a7e0cdf6d1b15987d9b662715adc976b5527478007a95c49f89b0",
+    "scripts/components/TentacleAttack.gd": "e04de93445b131af4077531ae34d521684dafa09b7364d7a72855231238b8371"
+  },
+  "cases": 40,
+  "target_cases": 32,
+  "old_opaque_overlap_range": [
+    48,
+    440
+  ],
+  "new_opaque_overlap_all_zero": true,
+  "mechanics_equal": true,
+  "independent_review": {
+    "critical": 0,
+    "required": 0
+  },
+  "gate": {
+    "godot_suites": 74,
+    "assertions": 173603,
+    "python_suites": 34,
+    "tests": 250,
+    "closed": {
+      "exit_code": 0,
+      "timeout": false,
+      "pid": 40996,
+      "wall_seconds": 81.07862091064453,
+      "errors": {
+        "stdout.log": [],
+        "stderr.log": [],
+        "engine.log": []
+      },
+      "real_saves_before": {
+        "five_minute_overdrive_run_v1.json": "absent",
+        "five_minute_overdrive_run_v1.json.tmp": "absent",
+        "five_minute_overdrive_run_v1.json.bak": "absent",
+        "five_minute_overdrive_run_test_v1.json": "absent",
+        "five_minute_overdrive_run_test_v1.json.tmp": "absent",
+        "five_minute_overdrive_run_test_v1.json.bak": "absent"
+      },
+      "real_saves_after": {
+        "five_minute_overdrive_run_v1.json": "absent",
+        "five_minute_overdrive_run_v1.json.tmp": "absent",
+        "five_minute_overdrive_run_v1.json.bak": "absent",
+        "five_minute_overdrive_run_test_v1.json": "absent",
+        "five_minute_overdrive_run_test_v1.json.tmp": "absent",
+        "five_minute_overdrive_run_test_v1.json.bak": "absent"
+      },
+      "protected_after": {
+        "protected_paths": 20,
+        "changed": []
+      }
+    }
+  },
+  "earlier_failed_gate_retained": {
+    "exit_code": 1,
+    "reason": "PerformanceTest old literal redraw entry; exact flash gate retained; helper-only redraw guard added"
+  },
+  "archive": {
+    "path": "docs/ground-warning-evidence-v1.zip",
+    "sha256": "37af82c88131eb4344b64f00fab440a460622bf69dead31b62e8b25dc81bf4ab",
+    "bytes": 2412907,
+    "members": 218
+  }
+}

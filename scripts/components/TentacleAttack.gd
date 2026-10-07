@@ -209,7 +209,7 @@ func _finish_attack() -> void:
 func _exit_tree() -> void:
 	cancel_attack()
 
-func _draw() -> void:
+func _draw_ground_boundaries() -> void:
 	if attack_stage == AttackStage.IDLE:
 		return
 	if attack_kind == AttackKind.SWEEP:
@@ -219,12 +219,12 @@ func _draw() -> void:
 
 func _draw_sweep() -> void:
 	var half_arc := deg_to_rad(SWEEP_ARC_DEGREES * 0.5)
-	draw_arc(Vector2.ZERO, SWEEP_RANGE, sweep_angle - half_arc, sweep_angle + half_arc, 24, OUTLINE_COLOR, 5.0, true)
-	draw_arc(Vector2.ZERO, SWEEP_RANGE, sweep_angle - half_arc, sweep_angle + half_arc, 24, WARNING_COLOR, 3.0, true)
+	ground_fill.draw_arc(Vector2.ZERO, SWEEP_RANGE, sweep_angle - half_arc, sweep_angle + half_arc, 24, OUTLINE_COLOR, 5.0, true)
+	ground_fill.draw_arc(Vector2.ZERO, SWEEP_RANGE, sweep_angle - half_arc, sweep_angle + half_arc, 24, WARNING_COLOR, 3.0, true)
 	for edge_angle in [sweep_angle - half_arc, sweep_angle + half_arc]:
 		var endpoint := Vector2.RIGHT.rotated(edge_angle) * SWEEP_RANGE
-		draw_line(Vector2.ZERO, endpoint, OUTLINE_COLOR, 4.0, true)
-		draw_line(Vector2.ZERO, endpoint, WARNING_COLOR, 2.0, true)
+		ground_fill.draw_line(Vector2.ZERO, endpoint, OUTLINE_COLOR, 4.0, true)
+		ground_fill.draw_line(Vector2.ZERO, endpoint, WARNING_COLOR, 2.0, true)
 	if attack_stage == AttackStage.ACTIVE:
 		_draw_active_hose(half_arc)
 
@@ -238,11 +238,11 @@ func _draw_active_hose(half_arc: float) -> void:
 		var bend := sin(ratio * PI) * sin(progress * PI) * 0.05
 		var angle := clampf(direction_angle + bend, sweep_angle - half_arc + 0.03, sweep_angle + half_arc - 0.03)
 		points.append(Vector2.RIGHT.rotated(angle) * lerpf(56.0, SWEEP_RANGE - 10.0, ratio))
-	draw_polyline(points, OUTLINE_COLOR, 13.0, true)
-	draw_polyline(points, Color("35b8ac"), 8.0, true)
+	ground_fill.draw_polyline(points, OUTLINE_COLOR, 13.0, true)
+	ground_fill.draw_polyline(points, Color("35b8ac"), 8.0, true)
 	var tip := points[points.size() - 1]
-	draw_circle(tip, 8.0, OUTLINE_COLOR)
-	draw_circle(tip, 5.0, WARNING_COLOR)
+	ground_fill.draw_circle(tip, 8.0, OUTLINE_COLOR)
+	ground_fill.draw_circle(tip, 5.0, WARNING_COLOR)
 
 func _draw_ground_fill() -> void:
 	if attack_stage == AttackStage.IDLE:
@@ -250,6 +250,7 @@ func _draw_ground_fill() -> void:
 	if attack_kind == AttackKind.SLAM:
 		for world_target in slam_targets:
 			ground_fill.draw_circle(ground_fill.to_local(world_target), SLAM_RADIUS, Color(WARNING_COLOR, 0.08))
+		_draw_ground_boundaries()
 		return
 	if attack_kind != AttackKind.SWEEP:
 		return
@@ -259,12 +260,13 @@ func _draw_ground_fill() -> void:
 		var angle := sweep_angle - half_arc + (half_arc * 2.0 * float(index) / 24.0)
 		points.append(Vector2.RIGHT.rotated(angle) * SWEEP_RANGE)
 	ground_fill.draw_colored_polygon(points, Color(WARNING_COLOR, 0.08 if attack_stage == AttackStage.WARNING else 0.14))
+	_draw_ground_boundaries()
 
 func _draw_slam() -> void:
 	for world_target in slam_targets:
 		var local_target := to_local(world_target)
-		draw_arc(local_target, SLAM_RADIUS, 0.0, TAU, 36, OUTLINE_COLOR, 5.0, true)
-		draw_arc(local_target, SLAM_RADIUS, 0.0, TAU, 36, WARNING_COLOR, 3.0, true)
+		ground_fill.draw_arc(local_target, SLAM_RADIUS, 0.0, TAU, 36, OUTLINE_COLOR, 5.0, true)
+		ground_fill.draw_arc(local_target, SLAM_RADIUS, 0.0, TAU, 36, WARNING_COLOR, 3.0, true)
 		for axis in [Vector2.RIGHT, Vector2.DOWN]:
-			draw_line(local_target - axis * 12.0, local_target + axis * 12.0, OUTLINE_COLOR, 4.0, true)
-			draw_line(local_target - axis * 12.0, local_target + axis * 12.0, WARNING_COLOR, 2.0, true)
+			ground_fill.draw_line(local_target - axis * 12.0, local_target + axis * 12.0, OUTLINE_COLOR, 4.0, true)
+			ground_fill.draw_line(local_target - axis * 12.0, local_target + axis * 12.0, WARNING_COLOR, 2.0, true)

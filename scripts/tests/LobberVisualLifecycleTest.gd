@@ -71,7 +71,7 @@ func test_case(parent_z: int, distance: float) -> bool:
 	if not check(impact != null, "landing has no surviving visual impact after projectile deletion"):
 		return false
 	impact.set_process(false)
-	if not check(impact.global_position.is_equal_approx(Vector2(40, 30)) and impact.radius == 72.0 and impact.z_index == 0 and impact.z_as_relative, "impact footprint or projectile-parent layer changed"):
+	if not check(impact.global_position.is_equal_approx(Vector2(40, 30)) and impact.radius == 72.0 and impact.z_index == -1 and not impact.z_as_relative, "impact footprint changed or non-colliding ground rim inherited the foreground parent"):
 		return false
 	await process_frame
 	if not check(not is_instance_valid(lob) and is_instance_valid(impact), "impact did not survive only as a short independent visual"):

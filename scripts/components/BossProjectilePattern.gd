@@ -36,6 +36,11 @@ var _spawned_projectiles: Array[Node] = []
 var _spawn_budget := SPAWN_BURST_CAPACITY
 var _total_spawned := 0
 
+func _ready() -> void:
+	# This node draws only the locked ground aim fan; live shots use their own parent.
+	z_as_relative = false
+	z_index = -1
+
 func configure(
 	projectiles: Node,
 	bounds: Rect2,

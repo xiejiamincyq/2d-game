@@ -10,6 +10,9 @@ class ImpactVisual extends Node2D:
 	const DURATION := 0.20
 	var radius := 72.0
 	var elapsed := 0.0
+	func _ready() -> void:
+		z_as_relative = false
+		z_index = -1
 
 	func _process(delta: float) -> void:
 		elapsed += maxf(0.0, delta)
@@ -83,9 +86,6 @@ func _draw() -> void:
 	draw_circle(center, 9.0, OUTLINE_COLOR)
 	draw_circle(center, 7.0, tint)
 	draw_circle(center + Vector2(-2.0, -2.0), 2.5, HIGHLIGHT_COLOR)
-	var landing_local := to_local(target_position)
-	draw_arc(landing_local, splash_radius, 0.0, TAU, 48, OUTLINE_COLOR, 5.0, true)
-	draw_arc(landing_local, splash_radius, 0.0, TAU, 48, tint, 3.0, true)
 
 func _update_landing_fill() -> void:
 	if is_instance_valid(landing_fill):
@@ -94,3 +94,5 @@ func _update_landing_fill() -> void:
 
 func _draw_landing_fill() -> void:
 	landing_fill.draw_circle(Vector2.ZERO, splash_radius, Color(tint, 0.08))
+	landing_fill.draw_arc(Vector2.ZERO, splash_radius, 0.0, TAU, 48, OUTLINE_COLOR, 5.0, true)
+	landing_fill.draw_arc(Vector2.ZERO, splash_radius, 0.0, TAU, 48, tint, 3.0, true)

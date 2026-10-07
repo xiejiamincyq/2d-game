@@ -85,7 +85,7 @@ func _test_landing_case(parent_z: int, ancestor_z: int, parent_relative: bool, p
 	var expected_parent_z := parent_z + (ancestor_z if parent_relative else 0)
 	if not check(_effective_z(shots) == expected_parent_z and _effective_z(lob) == expected_parent_z + projectile_z, "projectile hierarchy did not preserve relative/absolute parent z behavior"):
 		return false
-	if not check(_effective_z(shots) > OutlineScript.OUTLINE_Z_INDEX and _effective_z(lob) > OutlineScript.OUTLINE_Z_INDEX, "projectile parent and boundary must remain above outline layer 21"):
+	if not check(_effective_z(shots) > OutlineScript.OUTLINE_Z_INDEX and _effective_z(lob) > OutlineScript.OUTLINE_Z_INDEX, "projectile parent and flying core must remain above outline layer 21"):
 		return false
 	var fill_z := _effective_z(fill)
 	if not check(fill_z > FLOOR_Z and fill_z < ACTOR_BODY_Z, "LandingFill effective z=%d must lie strictly between floor -100 and actor body 0 (parent=%d ancestor=%d relative=%s)" % [fill_z, parent_z, ancestor_z, parent_relative]):
