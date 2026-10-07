@@ -648,7 +648,6 @@ func _update_spitter(delta: float, player: Node2D) -> void:
 		return
 	shoot_cooldown = randf_range(1.8, 2.7)
 	var shot := ProjectileScript.new()
-	shot.global_position = global_position
 	shot.velocity = (player.global_position - global_position).normalized() * 260.0
 	shot.damage = 7.0
 	shot.radius = 5.0
@@ -657,6 +656,7 @@ func _update_spitter(delta: float, player: Node2D) -> void:
 	shot.tint = Color(0.55, 1.0, 0.2)
 	shot.world_bounds = world_bounds
 	projectile_parent.add_child(shot)
+	shot.global_position = global_position
 
 func _update_marksman(delta: float, player: Node2D) -> void:
 	_update_ranged_windup(delta, player, EnemyKind.MARKSMAN)
@@ -697,11 +697,12 @@ func _fire_marksman(player: Node2D) -> void:
 	if projectile_parent == null or not is_instance_valid(player):
 		return
 	var shot := ProjectileScript.new()
+	# Projectile._ready builds the physics circle from the configured radius.
+	shot.radius = 3.0
 	projectile_parent.add_child(shot)
 	shot.global_position = global_position
 	shot.velocity = (ranged_target_position - global_position).normalized() * ENEMY_PROJECTILE_BASE_SPEED * MARKSMAN_PROJECTILE_SPEED_MULTIPLIER
 	shot.damage = 12.0
-	shot.radius = 3.0
 	shot.lifetime = 2.0
 	shot.target_group = &"player"
 	shot.tint = Color("33fff2")
@@ -753,11 +754,11 @@ func _fire_overseer_burst() -> void:
 		return
 	for index in range(12):
 		var shot := ProjectileScript.new()
+		shot.radius = 5.0
 		projectile_parent.add_child(shot)
 		shot.global_position = global_position
 		shot.velocity = Vector2.RIGHT.rotated(TAU * float(index) / 12.0) * 310.0
 		shot.damage = 10.0
-		shot.radius = 5.0
 		shot.lifetime = 3.0
 		shot.target_group = &"player"
 		shot.tint = Color("ff571f")

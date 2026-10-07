@@ -44,6 +44,7 @@ $gameplayTests = @(
     "CombatFeedbackTest",
     "DamageTest",
     "ProjectilePickupTest",
+    "EnemyProjectileRadiusTest",
     "RateTest",
     "DashTest",
     "StealthTerrainTest_30Hz",
