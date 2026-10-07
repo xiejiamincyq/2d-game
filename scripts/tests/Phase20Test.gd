@@ -67,7 +67,7 @@ func _initialize() -> void:
 	player.activate_build_evolution("orbital_storm")
 	player.velocity = Vector2(100.0, 50.0)
 	player._spawn_bullet(Vector2.RIGHT)
-	if not _assert_true(fired[-1].velocity.is_equal_approx(Vector2(348.0, 50.0)), "grenade did not combine player inertia with 40% muzzle speed"):
+	if not _assert_true(fired[-1].velocity.is_equal_approx(Vector2(327.6, 15.0)), "grenade did not combine 30% player inertia with 48% muzzle speed"):
 		return
 
 	player.set_overdrive_active(true)

@@ -293,9 +293,9 @@ func _initialize() -> void:
 		storm_shot_count == player.weapon_lines
 		and is_equal_approx(grenade_rate, player.fire_rate * 0.2)
 		and spawned_shots[-1].get_script() == player.GrenadeProjectileScript
-		and is_equal_approx(spawned_shots[-1].velocity.length(), player.projectile_speed * 0.40)
+		and is_equal_approx(spawned_shots[-1].velocity.length(), player.projectile_speed * 0.48)
 		and is_equal_approx(spawned_shots[-1].damage, player.weapon_damage * 3.0),
-		"ballistics evolution did not replace each shot with a 20%-rate/40%-speed/300%-damage grenade"
+		"ballistics evolution did not replace each shot with a 20%-rate/48%-speed/300%-damage grenade"
 	):
 		return
 	var grenade: Node = spawned_shots[-1]

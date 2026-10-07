@@ -101,8 +101,8 @@ func _initialize() -> void:
 	player._spawn_bullet(Vector2.RIGHT)
 	if not _assert_true(
 		is_equal_approx(player.get_effective_fire_rate(), player.fire_rate * 0.20)
-		and fired[-1].velocity.is_equal_approx(Vector2(348.0, 50.0)),
-		"grenade did not use 20% fire rate, 40% muzzle speed, and player inertia"
+		and fired[-1].velocity.is_equal_approx(Vector2(327.6, 15.0)),
+		"grenade did not use 20% fire rate, 48% muzzle speed, and 30% player inertia"
 	):
 		return
 
