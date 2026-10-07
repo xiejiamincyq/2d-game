@@ -20,6 +20,7 @@ const LobbedProjectileScript = preload("res://scripts/components/LobbedProjectil
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
+const EnemyFlockScript = preload("res://scripts/components/EnemyFlock.gd")
 const DASHER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png")
 const SCRAPPER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png")
 const BRUISER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png")
@@ -96,6 +97,7 @@ var burn_status: RefCounted = BurnStatusScript.new()
 var hidden_dispersion_direction := Vector2.ZERO
 var hidden_dispersion_timer := 0.0
 var neighbor_provider: Callable
+var flock: RefCounted = EnemyFlockScript.new()
 var arena_navigation: Node
 var static_visual: Sprite2D
 var static_flash_material: ShaderMaterial
@@ -257,7 +259,10 @@ func _physics_process(delta: float) -> void:
 			return
 		desired = _get_melee_desired_velocity(to_player)
 	desired = _apply_arena_navigation(desired, player.global_position)
-	velocity = desired * get_effective_move_speed()
+	if _uses_flocking():
+		velocity = _resolve_flock_velocity(desired, to_player, delta)
+	else:
+		velocity = desired * get_effective_move_speed()
 	move_and_slide()
 	_clamp_to_world_bounds()
 	match kind:
@@ -344,8 +349,41 @@ func _get_melee_desired_velocity(to_player: Vector2) -> Vector2:
 		pursuit
 		+ orbit_direction * angular_urgency * surround_progress * MELEE_SURROUND_MAX_BLEND
 	).normalized()
+	if _uses_flocking():
+		return formation_direction # Local separation is applied after map navigation.
 	var separation := _get_melee_separation_direction()
 	return (formation_direction + separation * MELEE_SEPARATION_WEIGHT).normalized()
+
+func _uses_flocking() -> bool:
+	return body_radius < 24.0 and kind != EnemyKind.OVERSEER
+
+func _resolve_flock_velocity(desired: Vector2, to_player: Vector2, delta: float) -> Vector2:
+	var flock_velocity: Vector2 = flock.steer(self, desired, _get_neighbor_candidates(), get_effective_move_speed(), body_radius, delta)
+	var radial_intent := Vector2.ZERO
+	var safe_rect := get_camera_safe_rect() if is_ranged_kind() else Rect2()
+	if is_ranged_kind():
+		if safe_rect.has_point(global_position):
+			if to_player.length() < get_dynamic_ranged_min_distance(safe_rect):
+				radial_intent = -to_player.normalized()
+			elif to_player.length() > get_dynamic_ranged_max_distance(safe_rect):
+				radial_intent = to_player.normalized()
+	# The flock cannot reverse the ranged role's retreat/approach policy.
+	if radial_intent != Vector2.ZERO and flock_velocity.dot(radial_intent) < 0.0:
+		flock_velocity = flock_velocity.slide(radial_intent)
+		if flock_velocity.length_squared() < 0.001:
+			var side := 1.0 if formation_slot_index % 2 == 0 else -1.0
+			flock_velocity = radial_intent.orthogonal() * side * get_effective_move_speed() * 0.28
+	# Terrain avoidance follows social steering without erasing its pace.
+	var resolved := _apply_local_avoidance(flock_velocity.normalized()).normalized() * flock_velocity.length()
+	if radial_intent != Vector2.ZERO and resolved.dot(radial_intent) < 0.0:
+		resolved = resolved.slide(radial_intent)
+	if is_ranged_kind():
+		# Reapply the existing camera guard after social/terrain steering. Camera
+		# return has priority over range retreat at an edge, just as before flocking.
+		if resolved.length_squared() < 0.001 and not safe_rect.has_point(global_position):
+			resolved = _get_ranged_desired_velocity(to_player, safe_rect) * get_effective_move_speed()
+		resolved = constrain_ranged_direction(resolved, safe_rect)
+	return resolved
 
 func _get_melee_separation_direction() -> Vector2:
 	var separation := Vector2.ZERO

@@ -26,6 +26,7 @@ signal boss_entrance_warning(display_name: String)
 signal victory
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
+const EnemyNeighborGridScript = preload("res://scripts/components/EnemyNeighborGrid.gd")
 const OverseerBossScript = preload("res://scripts/actors/OverseerBoss.gd")
 const SpawnPortalScript = preload("res://scripts/world/SpawnPortal.gd")
 
@@ -66,6 +67,7 @@ var wave_running: bool = false
 var world_bounds: Rect2 = Rect2()
 var spawn_rng := RandomNumberGenerator.new()
 var active_enemies: Array[Node] = []
+var neighbor_grid := EnemyNeighborGridScript.new()
 var active_portals: Array[Node] = []
 var portal_spawn_queues: Dictionary = {}
 var portal_spawn_timers: Dictionary = {}
@@ -106,6 +108,7 @@ func restore_stable_boundary(pending_stage: int, boundary: String) -> bool:
 		return false
 	spawn_queue.clear()
 	active_enemies.clear()
+	neighbor_grid.invalidate()
 	active_portals.clear()
 	portal_spawn_queues.clear()
 	portal_spawn_timers.clear()
@@ -403,6 +406,7 @@ func _spawn_boss_at(position: Vector2) -> Node:
 	active_boss = boss
 	boss_trickle_timer = BOSS_TRICKLE_INTERVAL
 	active_enemies.append(boss)
+	neighbor_grid.invalidate()
 	boss.health_changed.connect(_on_boss_health_changed)
 	boss_spawned.emit(boss, OverseerBossScript.DISPLAY_NAME, float(boss.health.max_health))
 	boss_health_changed.emit(float(boss.health.current_health), float(boss.health.max_health), int(boss.get_phase()))
@@ -421,6 +425,7 @@ func _on_boss_died(boss: Node, dropped_coins: int, source: StringName) -> void:
 
 func _on_boss_tree_exiting(boss: Node) -> void:
 	active_enemies.erase(boss)
+	neighbor_grid.invalidate()
 	if boss == active_boss:
 		active_boss = null
 	if boss_defeat_pending and not boss_defeated_for_wave:
@@ -539,7 +544,8 @@ func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = 
 	else:
 		enemy.velocity = Vector2.ZERO
 	active_enemies.append(enemy)
-	enemy.set_neighbor_provider(get_active_enemies)
+	neighbor_grid.invalidate()
+	enemy.set_neighbor_provider(_get_enemy_neighbors.bind(enemy))
 	enemy.tree_exiting.connect(_on_enemy_tree_exiting.bind(enemy), CONNECT_ONE_SHOT)
 	enemy.died.connect(_on_enemy_died)
 	if enemy.has_signal("reinforcements_requested"):
@@ -801,6 +807,7 @@ func _deferred_spawn_drops(position: Vector2, coin_value: int, shield_value: flo
 
 func _on_enemy_tree_exiting(enemy: Node) -> void:
 	active_enemies.erase(enemy)
+	neighbor_grid.invalidate()
 
 func _on_portal_closed(portal: Node) -> void:
 	_release_portal_state(portal, portal.get_instance_id())
@@ -816,6 +823,10 @@ func _release_portal_state(portal: Node, portal_id: int) -> void:
 
 func get_active_enemies() -> Array[Node]:
 	return active_enemies
+
+func _get_enemy_neighbors(enemy: Node2D) -> Array[Node]:
+	neighbor_grid.refresh(active_enemies, Engine.get_physics_frames())
+	return neighbor_grid.neighbors(enemy)
 
 func get_active_boss() -> Node:
 	return active_boss if is_instance_valid(active_boss) else null

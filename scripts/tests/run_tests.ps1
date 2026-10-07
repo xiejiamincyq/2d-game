@@ -88,6 +88,9 @@ $gameplayTests = @(
     "Phase21Test",
     "DroneVisualLifecycleTest",
     "EnemyBehaviorTest",
+    "EnemyFlockTest",
+    "EnemyFlockPolicyTest",
+    "EnemyNeighborGridTest",
     "UpgradeTest",
     "StateTest",
     "GateFailureTest",
@@ -134,7 +137,7 @@ foreach ($test in $tests) {
     $fixedStepArguments = ""
     $userArguments = ""
     $frameBudget = if ($test -in @("AudioLifecycleTest", "MainCloseTest")) { 12000 }
-        elseif ($test -eq "DashTest") { 1800 }
+        elseif ($test -in @("DashTest", "EnemyFlockTest", "EnemyFlockPolicyTest", "EnemyNeighborGridTest")) { 1800 }
         elseif ($test -in @("PortalRuntimeClockTest", "BossRuntimeClockTest", "CombatStatusLayoutTest")) { 600 }
         else { 120 }
     # Clock tests observe real portal/Boss warnings at 60 FPS.
