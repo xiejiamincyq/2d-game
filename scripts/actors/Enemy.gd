@@ -28,6 +28,7 @@ const MARKSMAN_TEXTURE := preload("res://assets/art/actors/enemies/enemy_marksma
 const LOBBER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png")
 const OVERSEER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png")
 const ENEMY_HIT_FLASH_SHADER := preload("res://assets/art/shaders/dasher_hit_flash.gdshader")
+const HIT_FLASH_AMOUNT := 0.35 # Preserve faction color and detail during sustained hits.
 
 const DASHER_RUNTIME_SCALE := Vector2(0.5, 0.5)
 const SCRAPPER_RUNTIME_SCALE := Vector2(0.44, 0.44)
@@ -573,7 +574,7 @@ func _update_enemy_facing(target_global_position: Vector2) -> void:
 		static_visual.flip_h = face_left
 
 func _update_hit_flash() -> void:
-	var amount := 1.0 if flash_timer > 0.0 else 0.0
+	var amount := HIT_FLASH_AMOUNT if flash_timer > 0.0 else 0.0
 	if static_flash_material != null:
 		static_flash_material.set_shader_parameter("flash_amount", amount)
 

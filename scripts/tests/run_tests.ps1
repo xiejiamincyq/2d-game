@@ -104,6 +104,7 @@ $artTests = @(
     "LateCrowdLedgerTest",
     "StressCaptureTest",
     "BossReadabilityTest",
+    "EnemyReadabilityTest",
     "EnemyDasherArtTest",
     "EnemyStaticArtTest",
     "ProjectileLandingVisualTest",

@@ -67,7 +67,7 @@ func _initialize() -> void:
 		if not _assert_true(enemy.should_show_health_bar() == (fixture.kind in [EnemyScript.EnemyKind.BRUISER, EnemyScript.EnemyKind.OVERSEER]), "damaged heavy enemy lost health feedback"):
 			return
 		var material := visual.material as ShaderMaterial
-		if not _assert_true(float(material.get_shader_parameter("flash_amount")) > 0.99, "static enemy hit flash did not activate"):
+		if not _assert_true(is_equal_approx(float(material.get_shader_parameter("flash_amount")), 0.35), "static enemy palette-preserving hit flash did not activate"):
 			return
 		enemy._physics_process(0.1)
 		if not _assert_true(is_zero_approx(float(material.get_shader_parameter("flash_amount"))), "static enemy hit flash did not clear"):

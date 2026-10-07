@@ -1,0 +1,38 @@
+{
+  "scope": "enemy flash-only fix; anchored component, not natural gameplay or pixel actor alpha",
+  "head_before_commit": "e3450f26211d28449fc27f810f0575a254af4c1d",
+  "selected_sources": 79,
+  "source_delta": [
+    "scripts/actors/Enemy.gd"
+  ],
+  "current_after_sources_match": true,
+  "fixture_samples": 1680,
+  "non_flash_field_differences": 0,
+  "runtime_original_png": 8,
+  "continuous_center_roi_near_white_before": 28393,
+  "continuous_center_roi_near_white_after": 2,
+  "node_alpha_only": true,
+  "full_gate": {
+    "godot_suites": 72,
+    "assertions": 173350,
+    "python_suites": 33,
+    "python_tests": 238,
+    "exit_code": 0
+  },
+  "protected_user_files": {
+    "protected_paths": 20,
+    "changed": []
+  },
+  "archive": {
+    "path": "docs/enemy-readability-evidence-v1.zip",
+    "bytes": 5102671,
+    "sha256": "3bba8fa81b5850fb22759cb0a5c2043a3328753bb37d67cfb423298d88600569",
+    "members": 88
+  },
+  "remaining": [
+    "natural dense composition and complete collection",
+    "six-scene overall review",
+    "fresh EXE rebuild",
+    "human hardware license release gates"
+  ]
+}

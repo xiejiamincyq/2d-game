@@ -67,7 +67,7 @@ func _initialize() -> void:
 
 	var flash_material := visual.material as ShaderMaterial
 	enemy.take_damage(1.0)
-	if not _assert_true(float(flash_material.get_shader_parameter("flash_amount")) > 0.99, "Dasher hit flash did not activate immediately"):
+	if not _assert_true(is_equal_approx(float(flash_material.get_shader_parameter("flash_amount")), 0.35), "Dasher palette-preserving hit flash did not activate immediately"):
 		return
 	enemy._physics_process(0.1)
 	if not _assert_true(is_zero_approx(float(flash_material.get_shader_parameter("flash_amount"))), "Dasher hit flash did not clear after its timer"):
