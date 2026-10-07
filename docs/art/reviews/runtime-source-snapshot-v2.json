@@ -1,0 +1,771 @@
+{
+  "base_head": "208c688d2e7708c88dfb2bff9078e31cba3b782f",
+  "scope": "12 current bitmaps plus literal assets references in production .gd files; not whole dependency closure",
+  "manifest_count": 59,
+  "manifest_license_counts": {
+    "pending": 57,
+    "not-applicable": 2
+  },
+  "bitmaps": [
+    {
+      "asset_id": "combat_hit",
+      "manifest": {
+        "path": "docs/art/manifests/characters-combat/combat_hit.production-v1-chibi-b.json",
+        "bytes": 1437,
+        "sha256": "a33d3d49bf638dae412caa339e7a6bfdb57e821f4ec530d462639d25cbd7890a"
+      },
+      "runtime": {
+        "path": "assets/art/effects/combat_hit_chibi_b_v1.png",
+        "bytes": 22403,
+        "sha256": "026e13c4665d58ea0298eb822525410ef51b7680038e317b7cf647dd2b7299ac",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "review_state": "style-approved",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen built-in with deterministic 128px packing",
+      "declared_source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "declared_runtime_target": {
+        "width": 128,
+        "height": 128
+      },
+      "recorded_sources": [
+        {
+          "path": "assets/art/source/chibi_b/combat_hit_alpha_v1.png",
+          "bytes": 721957,
+          "sha256": "a33366baadc6ac8e7d6513b78a7560f7f6e5976271143db3d750046354355edd",
+          "png_dimensions": [
+            1254,
+            1254
+          ]
+        }
+      ],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    },
+    {
+      "asset_id": "enemy_bruiser_chibi_b",
+      "manifest": {
+        "path": "docs/art/manifests/characters-combat/enemy_bruiser.production-v2-chibi-b.json",
+        "bytes": 1701,
+        "sha256": "8006b976f472583eb7536740b30ad179c2f1d27bf12e4533d01a8f64550941d7"
+      },
+      "runtime": {
+        "path": "assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png",
+        "bytes": 26395,
+        "sha256": "1db9d68975612537d734e9660017144b77ba3954b15dcd5a882ac659e332e9ad",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "review_state": "style-approved",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen built-in with background extraction and deterministic 128px packing",
+      "declared_source_dimensions": {
+        "width": 1402,
+        "height": 1122
+      },
+      "declared_runtime_target": {
+        "width": 128,
+        "height": 128
+      },
+      "recorded_sources": [
+        {
+          "path": "assets/art/source/chibi_b/enemy_bruiser_alpha_v1.png",
+          "bytes": 1613366,
+          "sha256": "a63c6d65498d7924994876129e148100e0b11095bcff2dcc5c0787c01d1dd9ce",
+          "png_dimensions": [
+            1402,
+            1122
+          ]
+        }
+      ],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    },
+    {
+      "asset_id": "enemy_dasher_chibi_b",
+      "manifest": {
+        "path": "docs/art/manifests/characters-combat/enemy_dasher.production-v2-chibi-b.json",
+        "bytes": 1607,
+        "sha256": "f3daeae714e14bcc9a67674c0b759f8a6b9f6e26521e84044403497d4b6c78c9"
+      },
+      "runtime": {
+        "path": "assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png",
+        "bytes": 27618,
+        "sha256": "5c3a0d230793715ddb3d15526916d1ef30c65d44252a82d7f8632e8896876ebb",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "review_state": "style-approved",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen built-in with transparent-background correction and connected-component packing",
+      "declared_source_dimensions": {
+        "width": 2048,
+        "height": 1024
+      },
+      "declared_runtime_target": {
+        "width": 128,
+        "height": 128
+      },
+      "recorded_sources": [
+        {
+          "path": "assets/art/source/chibi_b/enemy_lineup_alpha_v1.png",
+          "bytes": 1198937,
+          "sha256": "8596004f697ff9409a2d95305cf88f04591c6ddb165d5eada44e6e85e7c6632f",
+          "png_dimensions": [
+            2048,
+            1024
+          ]
+        }
+      ],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    },
+    {
+      "asset_id": "enemy_lobber_chibi_b",
+      "manifest": {
+        "path": "docs/art/manifests/characters-combat/enemy_lobber.production-v2-chibi-b.json",
+        "bytes": 1572,
+        "sha256": "6ad6d886b4dfe5b9082c31b9126ddc52c258a88fbc7b6ee76c1faedc0d2b07ea"
+      },
+      "runtime": {
+        "path": "assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png",
+        "bytes": 17070,
+        "sha256": "222df622318156390a1e061bcfcb427f9f0bf181f88cea701cf60c1a89087e5f",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "review_state": "style-approved",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen built-in with transparent-background correction and connected-component packing",
+      "declared_source_dimensions": {
+        "width": 2048,
+        "height": 1024
+      },
+      "declared_runtime_target": {
+        "width": 128,
+        "height": 128
+      },
+      "recorded_sources": [
+        {
+          "path": "assets/art/source/chibi_b/enemy_lineup_alpha_v1.png",
+          "bytes": 1198937,
+          "sha256": "8596004f697ff9409a2d95305cf88f04591c6ddb165d5eada44e6e85e7c6632f",
+          "png_dimensions": [
+            2048,
+            1024
+          ]
+        }
+      ],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    },
+    {
+      "asset_id": "enemy_marksman_chibi_b",
+      "manifest": {
+        "path": "docs/art/manifests/characters-combat/enemy_marksman.production-v2-chibi-b.json",
+        "bytes": 1566,
+        "sha256": "cd0ae75e2108c545638fc62afca0e796d36a97c5e870f1ae779dadef76a115c2"
+      },
+      "runtime": {
+        "path": "assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png",
+        "bytes": 19600,
+        "sha256": "cc94485c28547ae3da9aa25619b751ee72f756461d4d27bbb471c1190098bd70",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "review_state": "style-approved",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen built-in with transparent-background correction and connected-component packing",
+      "declared_source_dimensions": {
+        "width": 2048,
+        "height": 1024
+      },
+      "declared_runtime_target": {
+        "width": 128,
+        "height": 128
+      },
+      "recorded_sources": [
+        {
+          "path": "assets/art/source/chibi_b/enemy_lineup_alpha_v1.png",
+          "bytes": 1198937,
+          "sha256": "8596004f697ff9409a2d95305cf88f04591c6ddb165d5eada44e6e85e7c6632f",
+          "png_dimensions": [
+            2048,
+            1024
+          ]
+        }
+      ],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    },
+    {
+      "asset_id": "enemy_overseer_chibi_b",
+      "manifest": {
+        "path": "docs/art/manifests/characters-combat/enemy_overseer.production-v2-chibi-b.json",
+        "bytes": 1594,
+        "sha256": "a886a15e00538e98a335d711d85bf9f30fec3a14734d4df7f30ea21f6bcd83fc"
+      },
+      "runtime": {
+        "path": "assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png",
+        "bytes": 28858,
+        "sha256": "e4f96efbbf441a834551c9937dddb159512b36462861bf814ad9f416f390048c",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "review_state": "style-approved",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen built-in with transparent-background correction and connected-component packing",
+      "declared_source_dimensions": {
+        "width": 2048,
+        "height": 1024
+      },
+      "declared_runtime_target": {
+        "width": 128,
+        "height": 128
+      },
+      "recorded_sources": [
+        {
+          "path": "assets/art/source/chibi_b/enemy_lineup_alpha_v1.png",
+          "bytes": 1198937,
+          "sha256": "8596004f697ff9409a2d95305cf88f04591c6ddb165d5eada44e6e85e7c6632f",
+          "png_dimensions": [
+            2048,
+            1024
+          ]
+        }
+      ],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    },
+    {
+      "asset_id": "enemy_scrapper_chibi_b",
+      "manifest": {
+        "path": "docs/art/manifests/characters-combat/enemy_scrapper.production-v2-chibi-b.json",
+        "bytes": 1652,
+        "sha256": "862d59a800a7a3ffa1ead5a693c6c301aacf285c0b46ef75dcd8466034315570"
+      },
+      "runtime": {
+        "path": "assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png",
+        "bytes": 19243,
+        "sha256": "9692680a6dfd2e9f8cb9c8f89320f5179728f96aff164bbe21fad951ba235a87",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "review_state": "style-approved",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen built-in with background extraction and deterministic 128px packing",
+      "declared_source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "declared_runtime_target": {
+        "width": 128,
+        "height": 128
+      },
+      "recorded_sources": [
+        {
+          "path": "assets/art/source/chibi_b/enemy_scrapper_alpha_v1.png",
+          "bytes": 672399,
+          "sha256": "bce0bb4edc52def7b0658e751c927583f6c1aa5353887a545df306afd1a0f520",
+          "png_dimensions": [
+            1254,
+            1254
+          ]
+        }
+      ],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    },
+    {
+      "asset_id": "enemy_spitter_chibi_b",
+      "manifest": {
+        "path": "docs/art/manifests/characters-combat/enemy_spitter.production-v2-chibi-b.json",
+        "bytes": 1567,
+        "sha256": "9edf76a86c1af474047c0bc1ea9f0d3e225208b20bceaa9b2ddc11616b50c2fe"
+      },
+      "runtime": {
+        "path": "assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png",
+        "bytes": 23077,
+        "sha256": "86f9bd41666452242aeb85d6d5ad3f84df94618ee12aa4197932459dbc01afba",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "review_state": "style-approved",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen built-in with transparent-background correction and connected-component packing",
+      "declared_source_dimensions": {
+        "width": 2048,
+        "height": 1024
+      },
+      "declared_runtime_target": {
+        "width": 128,
+        "height": 128
+      },
+      "recorded_sources": [
+        {
+          "path": "assets/art/source/chibi_b/enemy_lineup_alpha_v1.png",
+          "bytes": 1198937,
+          "sha256": "8596004f697ff9409a2d95305cf88f04591c6ddb165d5eada44e6e85e7c6632f",
+          "png_dimensions": [
+            2048,
+            1024
+          ]
+        }
+      ],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    },
+    {
+      "asset_id": "player_chibi_b_cardinal",
+      "manifest": {
+        "path": "docs/art/manifests/characters-combat/player_base.production-v2-chibi-b.json",
+        "bytes": 1961,
+        "sha256": "f7d53d0b79553adbf493548564c5100f526e25b13a4598f32cc57a66f2934a4a"
+      },
+      "runtime": {
+        "path": "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+        "bytes": 51732,
+        "sha256": "ad652e11b0f9a701f44322846c425634bf771da7f4a7c78fc7d0c87a7f310354",
+        "png_dimensions": [
+          256,
+          256
+        ]
+      },
+      "review_state": "style-approved",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen built-in with background extraction and deterministic 2x2 packing",
+      "declared_source_dimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "declared_runtime_target": {
+        "width": 256,
+        "height": 256
+      },
+      "recorded_sources": [
+        {
+          "path": "assets/art/source/chibi_b/player_cardinal_alpha_v1.png",
+          "bytes": 1423958,
+          "sha256": "6e2983dd02db93daa7ca68549eab4354e80203d8915119c20957cf16878d3c42",
+          "png_dimensions": [
+            1536,
+            1024
+          ]
+        }
+      ],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    },
+    {
+      "asset_id": "player_weapon_chibi_b",
+      "manifest": {
+        "path": "docs/art/manifests/characters-combat/player_weapon.production-v2-chibi-b.json",
+        "bytes": 1742,
+        "sha256": "efe3fb52498ef2a643a17618429a0900e7200caafd792e76c6de1a1d6e0d3f8b"
+      },
+      "runtime": {
+        "path": "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+        "bytes": 27100,
+        "sha256": "9f8d33ed98f5af8a304d7101f0267b1331312e7788bad8aea348e9944c0cb45b",
+        "png_dimensions": [
+          256,
+          256
+        ]
+      },
+      "review_state": "style-approved",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen built-in with background extraction and deterministic 128px packing",
+      "declared_source_dimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "declared_runtime_target": {
+        "width": 256,
+        "height": 256
+      },
+      "recorded_sources": [
+        {
+          "path": "assets/art/source/chibi_b/player_weapon_alpha_v1.png",
+          "bytes": 1032727,
+          "sha256": "0560018aa6f5580f6ee3447e76ceacec8682bdfb284c7d63754e4ee8833d1df7",
+          "png_dimensions": [
+            1536,
+            1024
+          ]
+        }
+      ],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    },
+    {
+      "asset_id": "mint_farm_floor_b_v1",
+      "manifest": {
+        "path": "docs/art/manifests/mint_farm_floor_b_v1.json",
+        "bytes": 1647,
+        "sha256": "b2e0fc2f9b80e461658015b607d4355b6c0a0d23b654921b2710c843fad1d77e"
+      },
+      "runtime": {
+        "path": "assets/art/environment/mint_farm_floor_b_v1.png",
+        "bytes": 980749,
+        "sha256": "3124d80676757709edc28182d3f6ac950f716d8d1586794edc8bed1b3041f257",
+        "png_dimensions": [
+          1254,
+          1254
+        ]
+      },
+      "review_state": "draft",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen",
+      "declared_source_dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "declared_runtime_target": {
+        "width": 512,
+        "height": 512
+      },
+      "recorded_sources": [],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    },
+    {
+      "asset_id": "mint_farm_props_b_v1",
+      "manifest": {
+        "path": "docs/art/manifests/mint_farm_props_b_v1.json",
+        "bytes": 2786,
+        "sha256": "99709179e7dd6f2f608738032be5f8902b760d1c692962e3df913485ae069074"
+      },
+      "runtime": {
+        "path": "assets/art/environment/mint_farm_props_b_packed_v1.png",
+        "bytes": 787884,
+        "sha256": "672c0cae193f66d1e8168443831f78c2622a757cfe1b6e24508322b041dddfc3",
+        "png_dimensions": [
+          1088,
+          1088
+        ]
+      },
+      "review_state": "draft",
+      "license_review_state": "pending",
+      "declared_generation_model": "imagegen",
+      "declared_source_dimensions": {
+        "width": 1088,
+        "height": 1088
+      },
+      "declared_runtime_target": {
+        "width": 220,
+        "height": 184
+      },
+      "recorded_sources": [
+        {
+          "path": "docs/art/sources/mint_farm_props_b_original_v1.png",
+          "bytes": 799614,
+          "sha256": "c44e54ea26f83b80def5f3bbf18b899e48930083c24f65bf6963f98b9cf5c131",
+          "png_dimensions": [
+            2172,
+            724
+          ]
+        }
+      ],
+      "source_proof_scope": "recorded file existence/hash only; not reconstruction or rights approval"
+    }
+  ],
+  "literal_asset_references": [
+    {
+      "file": {
+        "path": "assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png",
+        "bytes": 26395,
+        "sha256": "1db9d68975612537d734e9660017144b77ba3954b15dcd5a882ac659e332e9ad",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/actors/Enemy.gd",
+          "line": 24
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png",
+        "bytes": 27618,
+        "sha256": "5c3a0d230793715ddb3d15526916d1ef30c65d44252a82d7f8632e8896876ebb",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/actors/Enemy.gd",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png",
+        "bytes": 17070,
+        "sha256": "222df622318156390a1e061bcfcb427f9f0bf181f88cea701cf60c1a89087e5f",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/actors/Enemy.gd",
+          "line": 27
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png",
+        "bytes": 19600,
+        "sha256": "cc94485c28547ae3da9aa25619b751ee72f756461d4d27bbb471c1190098bd70",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/actors/Enemy.gd",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png",
+        "bytes": 28858,
+        "sha256": "e4f96efbbf441a834551c9937dddb159512b36462861bf814ad9f416f390048c",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/actors/Enemy.gd",
+          "line": 28
+        },
+        {
+          "script": "scripts/actors/OverseerBoss.gd",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png",
+        "bytes": 19243,
+        "sha256": "9692680a6dfd2e9f8cb9c8f89320f5179728f96aff164bbe21fad951ba235a87",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/actors/Enemy.gd",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png",
+        "bytes": 23077,
+        "sha256": "86f9bd41666452242aeb85d6d5ad3f84df94618ee12aa4197932459dbc01afba",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/actors/Enemy.gd",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png",
+        "bytes": 51732,
+        "sha256": "ad652e11b0f9a701f44322846c425634bf771da7f4a7c78fc7d0c87a7f310354",
+        "png_dimensions": [
+          256,
+          256
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/actors/Player.gd",
+          "line": 61
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png",
+        "bytes": 27100,
+        "sha256": "9f8d33ed98f5af8a304d7101f0267b1331312e7788bad8aea348e9944c0cb45b",
+        "png_dimensions": [
+          256,
+          256
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/actors/Player.gd",
+          "line": 62
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/effects/combat_hit_chibi_b_v1.png",
+        "bytes": 22403,
+        "sha256": "026e13c4665d58ea0298eb822525410ef51b7680038e317b7cf647dd2b7299ac",
+        "png_dimensions": [
+          128,
+          128
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/effects/CombatVfx.gd",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/environment/floor_surface.gdshader",
+        "bytes": 807,
+        "sha256": "fbcdb3c34a32dee12904983630370b68c69e9200fbaf8fea71e33a25258c90c9"
+      },
+      "references": [
+        {
+          "script": "scripts/world/FloorGrid.gd",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/environment/mint_farm_floor_b_v1.png",
+        "bytes": 980749,
+        "sha256": "3124d80676757709edc28182d3f6ac950f716d8d1586794edc8bed1b3041f257",
+        "png_dimensions": [
+          1254,
+          1254
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/world/FloorGrid.gd",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/environment/mint_farm_props_b_packed_v1.png",
+        "bytes": 787884,
+        "sha256": "672c0cae193f66d1e8168443831f78c2622a757cfe1b6e24508322b041dddfc3",
+        "png_dimensions": [
+          1088,
+          1088
+        ]
+      },
+      "references": [
+        {
+          "script": "scripts/world/ArenaObstacle.gd",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/environment/prop_alpha.gdshader",
+        "bytes": 320,
+        "sha256": "4ff920523cf1243c5a2304a45ff6e77430c5904e71ff0e9dedc137ed537a8d71"
+      },
+      "references": [
+        {
+          "script": "scripts/world/ArenaObstacle.gd",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/shaders/dasher_hit_flash.gdshader",
+        "bytes": 253,
+        "sha256": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9"
+      },
+      "references": [
+        {
+          "script": "scripts/actors/Enemy.gd",
+          "line": 29
+        },
+        {
+          "script": "scripts/actors/OverseerBoss.gd",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/art/shaders/player_occlusion_outline.gdshader",
+        "bytes": 949,
+        "sha256": "aa4ac1a2fe5a54fec6afcd38637b65c962f17b5878237398c6bfb040f75937a6"
+      },
+      "references": [
+        {
+          "script": "scripts/effects/PlayerOcclusionOutline.gd",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "assets/audio/overdrive_bone_breaking.mp3",
+        "bytes": 44347,
+        "sha256": "cdeae6778c84761b7a0d634c5036c3366b997f5351ef055f007e45b80592e5ef"
+      },
+      "references": [
+        {
+          "script": "scripts/systems/AudioManager.gd",
+          "line": 6
+        }
+      ]
+    }
+  ],
+  "export_preset": {
+    "path": "export_presets.cfg",
+    "bytes": 1307,
+    "sha256": "7fe32e2087890d388fa3ba344a6deca0500c71c5d4d9b95ea9425fbc20d1dec7"
+  },
+  "retained_local_package": {
+    "path": "build/diagnostics/local-delivery/export-m2-clean-v1/package/five-minute-overdrive.pck",
+    "bytes": 3000912,
+    "sha256": "7ead85380dde3ea1505d4e8904171eb9747411094731fe7e3bc17d910e116d8c"
+  },
+  "package_scope": "hash identifies prior verified local package; this snapshot does not reconstruct or enumerate it"
+}

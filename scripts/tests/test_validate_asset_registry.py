@@ -10,7 +10,7 @@ from pathlib import Path
 ART_SCRIPTS = Path(__file__).resolve().parents[1] / "art"
 sys.path.insert(0, str(ART_SCRIPTS))
 
-from validate_asset_registry import validate_registry  # noqa: E402
+from validate_asset_registry import parse_registry, validate_registry  # noqa: E402
 
 
 HEADER = """# Registry
@@ -38,6 +38,22 @@ def write_manifest(directory: Path, asset_id: str, state: str, evidence: dict[st
 
 
 class AssetRegistryValidationTest(unittest.TestCase):
+    def test_current_chibi_and_environment_manifests_are_registered(self) -> None:
+        root = Path(__file__).resolve().parents[2]
+        entries = parse_registry((root / "docs/art/asset-registry.md").read_text(encoding="utf-8"))
+        registered = {entry.asset_id: entry for entry in entries}
+        manifests = root / "docs/art/manifests"
+        current = sorted((manifests / "characters-combat").glob("*.production-v*-chibi-b.json"))
+        current += [manifests / "mint_farm_floor_b_v1.json", manifests / "mint_farm_props_b_v1.json"]
+        self.assertEqual(len(current), 12, "current B-style bitmap batch must not disappear from coverage")
+        for path in current:
+            manifest = json.loads(path.read_text(encoding="utf-8"))
+            with self.subTest(manifest=path.name):
+                self.assertIn(manifest["asset_id"], registered)
+                entry = registered[manifest["asset_id"]]
+                self.assertEqual(entry.runtime_path, manifest["runtime_path"])
+                self.assertEqual(entry.review_state, manifest["review_state"])
+
     def test_planned_missing_asset_is_allowed(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
