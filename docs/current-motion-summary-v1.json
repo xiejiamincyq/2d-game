@@ -1,0 +1,620 @@
+{
+  "base_head": "3b7e9944a884dda7a9ee2ccb3738c0d5c4a84e5e",
+  "registration_sha256": "ff7b7083bf37d9bf64ee8c82e142da78f4f4d2d76b7e84152ae2afa2b9decfb2",
+  "scope": "three current-source native diagnostic flow runs and limited clips; not S2-S5/human/audio/EXE acceptance",
+  "selected_run_sources": 53,
+  "eligible_bound_inputs": 190,
+  "cross_run_sources_equal_and_current": true,
+  "formal_saves_equal_before_after_and_across_runs": true,
+  "steps": 27687,
+  "native_frames": 510,
+  "clips": 17,
+  "changed_bound_production_paths_since_old_pressure": [
+    "scripts/Main.gd",
+    "scripts/actors/Enemy.gd",
+    "scripts/components/LobbedProjectile.gd",
+    "scripts/components/Projectile.gd",
+    "scripts/systems/AudioManager.gd",
+    "scripts/ui/HUD.gd"
+  ],
+  "runs": [
+    {
+      "run": "current-motion-20261007-08-v1",
+      "engine_pid": 39364,
+      "terminal": "victory",
+      "map_seed": 426363786,
+      "steps": 8828,
+      "missing": [
+        "overlap"
+      ],
+      "clips": {
+        "boss": {
+          "frames": 30,
+          "wall_span": 1.93330499999999,
+          "max_wall_gap": 0.07048199999999838,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "3": 30
+          },
+          "dash_frames": 0,
+          "overlap_frames": 0,
+          "boss_active_frames": 15,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 29,
+          "vfr": {
+            "run": "current-motion-20261007-08-v1-boss",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 2.001,
+            "wall_span": 1.93330499999999,
+            "maximum_capture_gap": 0.07048199999999838,
+            "max_pts_error": 0.0004959999999918918,
+            "manifest_sha256": "db1cebeb5060a3bac1421b5d1d6b6d0759b864506392d06ba3e8452f8fc80786",
+            "video_sha256": "da490eb91b5c44d4f79153bb9c02b3c74f077b3052d78248246dce149b1a1b73",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "crowd": {
+          "frames": 30,
+          "wall_span": 1.9317990000000007,
+          "max_wall_gap": 0.07550300000000032,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "0": 20,
+            "2": 10
+          },
+          "dash_frames": 3,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 29,
+          "vfr": {
+            "run": "current-motion-20261007-08-v1-crowd",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 2.0,
+            "wall_span": 1.9317990000000007,
+            "maximum_capture_gap": 0.07550300000000032,
+            "max_pts_error": 0.0004930000000000767,
+            "manifest_sha256": "47da7364dc2bbb033a11d3dc2c99c4ec7fead65f682bcd7a5a5a72c03d214375",
+            "video_sha256": "b2b4873819cf439e6bd21eea98ec6c74f749c00675fd82dfedc3c1601ec41b2a",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "dash": {
+          "frames": 30,
+          "wall_span": 1.9261310000000007,
+          "max_wall_gap": 0.07549399999999995,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "2": 26,
+            "0": 4
+          },
+          "dash_frames": 3,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 20,
+          "vfr": {
+            "run": "current-motion-20261007-08-v1-dash",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 1.987,
+            "wall_span": 1.9261310000000007,
+            "maximum_capture_gap": 0.07549399999999995,
+            "max_pts_error": 0.000486999999999016,
+            "manifest_sha256": "38461b5cced5a46c4f001c19c3413c812072c6cebafd33b7c3fc676fa0f8fbbb",
+            "video_sha256": "12e09a83dd520930f6b96ba05cdb2bd6a0375f90dad25031a8be34258f5195f8",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "opening": {
+          "frames": 30,
+          "wall_span": 1.9370439999999998,
+          "max_wall_gap": 0.07099100000000025,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "3": 3,
+            "0": 27
+          },
+          "dash_frames": 0,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 25,
+          "vfr": {
+            "run": "current-motion-20261007-08-v1-opening",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 1.997,
+            "wall_span": 1.9370439999999998,
+            "maximum_capture_gap": 0.07099100000000025,
+            "max_pts_error": 0.0004920000000006031,
+            "manifest_sha256": "3bd7b86a6c96cb91d5ac8b92125489540730e2ac96ba2dd7894ee3e2e6204a0d",
+            "video_sha256": "d4081d740e22e7df40c4d429280089892f8d0f5a0057a6d36414f17f13edd3a9",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "shop": {
+          "frames": 30,
+          "wall_span": 1.9136880000000005,
+          "max_wall_gap": 0.06931300000000107,
+          "states": {
+            "SETTLEMENT": 12,
+            "WAVE_INTRO": 15,
+            "PLAYING": 3
+          },
+          "cardinals": {
+            "3": 27,
+            "2": 3
+          },
+          "dash_frames": 0,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 16,
+          "moving_adjacent_screen_over_0_01px": 3,
+          "vfr": {
+            "run": "current-motion-20261007-08-v1-shop",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 1.962,
+            "wall_span": 1.9136880000000005,
+            "maximum_capture_gap": 0.06931300000000107,
+            "max_pts_error": 0.0004920000000013802,
+            "manifest_sha256": "a25a0917d7cbd5287a8197714ce3b4888e94a43def12deaf7efa306b9e45110e",
+            "video_sha256": "9b1f433b8cede7dc84d33f0407a32f4a00bba0de4f6bea417f07a4079115260c",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        }
+      },
+      "random_heading_changes": 119,
+      "escape_attempts": 7,
+      "scope": "limited native clips; conditions only required on first frame; not all-frames action coverage",
+      "moving_adjacent_samples_over_0_01px": 8611,
+      "capture_sha256": "7b317100711fe2638bec1b76a37c57e966556e849b73d173c8b6afab47fd4661",
+      "report_sha256": "d0126876230cb365223bb039dd0b88b67cc07c6e836f50d31b799b1912ddba8d"
+    },
+    {
+      "run": "current-motion-20261007-09-v1",
+      "engine_pid": 38640,
+      "terminal": "victory",
+      "map_seed": 2573397633,
+      "steps": 10151,
+      "missing": [],
+      "clips": {
+        "boss": {
+          "frames": 30,
+          "wall_span": 1.9351290000000176,
+          "max_wall_gap": 0.07225600000001009,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "3": 30
+          },
+          "dash_frames": 0,
+          "overlap_frames": 0,
+          "boss_active_frames": 19,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 29,
+          "vfr": {
+            "run": "current-motion-20261007-09-v1-boss",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 2.003,
+            "wall_span": 1.9351290000000176,
+            "maximum_capture_gap": 0.07225600000001009,
+            "max_pts_error": 0.00048600000002441135,
+            "manifest_sha256": "ff9b7398336328ed385736bb12367d21f236c8351d737abd9cdf6ed33072ff1f",
+            "video_sha256": "4a26b88af72535655ef0c7307a0856cf6e0528853695a440c1e2d8c13101f40b",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "crowd": {
+          "frames": 30,
+          "wall_span": 1.933117000000001,
+          "max_wall_gap": 0.07121899999999926,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "2": 20,
+            "1": 10
+          },
+          "dash_frames": 2,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 29,
+          "vfr": {
+            "run": "current-motion-20261007-09-v1-crowd",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 2.001,
+            "wall_span": 1.933117000000001,
+            "maximum_capture_gap": 0.07121899999999926,
+            "max_pts_error": 0.000490000000000268,
+            "manifest_sha256": "7e9d2fa609a0b531b70fc06947ff11dee04680c7cee2e83cfd48bdd9bd182754",
+            "video_sha256": "90bf96d8e6c63054f54a43c7659789a646821dbe6cfcd1d9de923bad7be3eb42",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "dash": {
+          "frames": 30,
+          "wall_span": 1.9336969999999996,
+          "max_wall_gap": 0.07279999999999998,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "0": 18,
+            "2": 12
+          },
+          "dash_frames": 3,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 20,
+          "vfr": {
+            "run": "current-motion-20261007-09-v1-dash",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 2.001,
+            "wall_span": 1.9336969999999996,
+            "maximum_capture_gap": 0.07279999999999998,
+            "max_pts_error": 0.0004819999999998714,
+            "manifest_sha256": "9ca86c7c078e74c76d28a206960bfc9bbbc6c4e83293146ad9cd4d426457403b",
+            "video_sha256": "a5dabf0a92df14e7f31cc3617cf725b589e21410db809ce8d292338823be3fe4",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "opening": {
+          "frames": 30,
+          "wall_span": 1.9412400000000005,
+          "max_wall_gap": 0.07128500000000004,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "3": 18,
+            "0": 12
+          },
+          "dash_frames": 2,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 19,
+          "vfr": {
+            "run": "current-motion-20261007-09-v1-opening",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 2.005,
+            "wall_span": 1.9412400000000005,
+            "maximum_capture_gap": 0.07128500000000004,
+            "max_pts_error": 0.0004659999999998554,
+            "manifest_sha256": "9329afb82cf7d3af468fab141a353c789e0047cdfbbb7ba86aa638b4b2392d2d",
+            "video_sha256": "bc63bd7a1cd2022b514d65d464cbf0831b65344102f46922b90e4912156f1de5",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "overlap": {
+          "frames": 30,
+          "wall_span": 1.9143630000000087,
+          "max_wall_gap": 0.07089299999998389,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "2": 15,
+            "1": 15
+          },
+          "dash_frames": 1,
+          "overlap_frames": 9,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 29,
+          "vfr": {
+            "run": "current-motion-20261007-09-v1-overlap",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 1.963,
+            "wall_span": 1.9143630000000087,
+            "maximum_capture_gap": 0.07089299999998389,
+            "max_pts_error": 0.0004839999999963762,
+            "manifest_sha256": "ddee2f70ed1e50d25c5f77a8a735f974183d3b3d3e2fb3fb244b648ed6cda186",
+            "video_sha256": "e9dc50b6ee362470e03e4c3086b2c8ad3e79950e313f9ddf824c9101c5ce34fa",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "shop": {
+          "frames": 30,
+          "wall_span": 1.9203689999999973,
+          "max_wall_gap": 0.0721480000000021,
+          "states": {
+            "SETTLEMENT": 12,
+            "WAVE_INTRO": 15,
+            "PLAYING": 3
+          },
+          "cardinals": {
+            "3": 28,
+            "1": 2
+          },
+          "dash_frames": 0,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 16,
+          "moving_adjacent_screen_over_0_01px": 3,
+          "vfr": {
+            "run": "current-motion-20261007-09-v1-shop",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 1.978,
+            "wall_span": 1.9203689999999973,
+            "maximum_capture_gap": 0.0721480000000021,
+            "max_pts_error": 0.00047699999999822884,
+            "manifest_sha256": "c85008d4ae27364d80b9b0fd05b495796351b6be60d06c93830cf61504a942c6",
+            "video_sha256": "02ee9d1ffb04eae31cd73f573a9c02e06210f8d16fbda0829e15355dc5ba0e72",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        }
+      },
+      "random_heading_changes": 140,
+      "escape_attempts": 7,
+      "scope": "limited native clips; conditions only required on first frame; not all-frames action coverage",
+      "moving_adjacent_samples_over_0_01px": 10117,
+      "capture_sha256": "c163ed688e405e81c672269760a9bbf0981d827c4e56aecd2d670f327fe0e6e5",
+      "report_sha256": "8ffcbb08e7f7f5a76355f8eece6e6c274b5a4ceb380a3f5bb733f32f86f42a83"
+    },
+    {
+      "run": "current-motion-20261007-10-v1",
+      "engine_pid": 40780,
+      "terminal": "victory",
+      "map_seed": 4177793213,
+      "steps": 8708,
+      "missing": [],
+      "clips": {
+        "boss": {
+          "frames": 30,
+          "wall_span": 1.9359149999999943,
+          "max_wall_gap": 0.06943899999998848,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "0": 30
+          },
+          "dash_frames": 0,
+          "overlap_frames": 0,
+          "boss_active_frames": 15,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 29,
+          "vfr": {
+            "run": "current-motion-20261007-10-v1-boss",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 2.004,
+            "wall_span": 1.9359149999999943,
+            "maximum_capture_gap": 0.06943899999998848,
+            "max_pts_error": 0.0004799999999858251,
+            "manifest_sha256": "c3b2db323af8b56aa8d64fbf89ad5ef3cac69ecf712d1f295b01002ce6ead6e5",
+            "video_sha256": "da676a13a7649aa034200aa9991055620183793db0955c4b22375591640d3089",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "crowd": {
+          "frames": 30,
+          "wall_span": 1.9503529999999998,
+          "max_wall_gap": 0.0838479999999997,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "3": 28,
+            "0": 2
+          },
+          "dash_frames": 0,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 27,
+          "vfr": {
+            "run": "current-motion-20261007-10-v1-crowd",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 2.018,
+            "wall_span": 1.9503529999999998,
+            "maximum_capture_gap": 0.0838479999999997,
+            "max_pts_error": 0.0004960000000001075,
+            "manifest_sha256": "94a323fa9d16c47e9d002b816a8623105ea630fa6acfa42a8c7768f006b3204f",
+            "video_sha256": "abb07ebebac16fb72159f961dda70261c9d003240ae01f9847b38bb4b82071de",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "dash": {
+          "frames": 30,
+          "wall_span": 1.9339750000000002,
+          "max_wall_gap": 0.06834700000000016,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "3": 29,
+            "0": 1
+          },
+          "dash_frames": 2,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 29,
+          "vfr": {
+            "run": "current-motion-20261007-10-v1-dash",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 2.002,
+            "wall_span": 1.9339750000000002,
+            "maximum_capture_gap": 0.06834700000000016,
+            "max_pts_error": 0.0004839999999997069,
+            "manifest_sha256": "30ef7df0f9ba74e1698bd0121b2d6e16fd28c7c3ecf3227730aa40fc1a78501a",
+            "video_sha256": "1609b2e424a99869c288a71bf3ccd18c69a27fab5c4640d6961ccc834a66788d",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "opening": {
+          "frames": 30,
+          "wall_span": 1.9389690000000002,
+          "max_wall_gap": 0.06868300000000005,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "3": 28,
+            "1": 2
+          },
+          "dash_frames": 2,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 25,
+          "vfr": {
+            "run": "current-motion-20261007-10-v1-opening",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 2.007,
+            "wall_span": 1.9389690000000002,
+            "maximum_capture_gap": 0.06868300000000005,
+            "max_pts_error": 0.0004919999999998259,
+            "manifest_sha256": "38f49d288837da00c3378fe37fec5aec4c19d47f777f0e63afdb38e4a607ba1b",
+            "video_sha256": "6d5f2d67413f5d84356d936dd3cdc22571da2a35569029c6af902ac71cdc39cc",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "overlap": {
+          "frames": 30,
+          "wall_span": 1.9314559999999972,
+          "max_wall_gap": 0.06972799999999779,
+          "states": {
+            "PLAYING": 30
+          },
+          "cardinals": {
+            "3": 3,
+            "1": 17,
+            "2": 10
+          },
+          "dash_frames": 0,
+          "overlap_frames": 16,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 30,
+          "moving_adjacent_screen_over_0_01px": 29,
+          "vfr": {
+            "run": "current-motion-20261007-10-v1-overlap",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 1.995,
+            "wall_span": 1.9314559999999972,
+            "maximum_capture_gap": 0.06972799999999779,
+            "max_pts_error": 0.0004959999999998299,
+            "manifest_sha256": "6e8c14836ca23626ec6921d698b5a5803fdc6fbe88508dd37ddb95a44cac5345",
+            "video_sha256": "c10ec20de6467b5f34a3a36db3558aa6c4b92df715392efad6676f1c4e557d2f",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        },
+        "shop": {
+          "frames": 30,
+          "wall_span": 1.8919139999999999,
+          "max_wall_gap": 0.07900899999999922,
+          "states": {
+            "SETTLEMENT": 12,
+            "WAVE_INTRO": 15,
+            "PLAYING": 3
+          },
+          "cardinals": {
+            "3": 29,
+            "0": 1
+          },
+          "dash_frames": 0,
+          "overlap_frames": 0,
+          "boss_active_frames": 0,
+          "min_player_alpha": 1.0,
+          "unique_image_hashes": 16,
+          "moving_adjacent_screen_over_0_01px": 3,
+          "vfr": {
+            "run": "current-motion-20261007-10-v1-shop",
+            "valid": true,
+            "native_frames": 30,
+            "encoded_frames": 31,
+            "tail_repeat_frames": 1,
+            "duration": 1.918,
+            "wall_span": 1.8919139999999999,
+            "maximum_capture_gap": 0.07900899999999922,
+            "max_pts_error": 0.00047000000000096964,
+            "manifest_sha256": "d91bc45278b7fe326373b97d0d13c24de3269c785567912e80eeb0e85c7494d7",
+            "video_sha256": "9517045c406ed215a820c2325cb7f9d6775f9b18657fca3d36118808df9016c6",
+            "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+          }
+        }
+      },
+      "random_heading_changes": 115,
+      "escape_attempts": 5,
+      "scope": "limited native clips; conditions only required on first frame; not all-frames action coverage",
+      "moving_adjacent_samples_over_0_01px": 8312,
+      "capture_sha256": "280f1a3e8835af82d1a758392dbbf1a4c6bdf18674aef33e91859efa48e03474",
+      "report_sha256": "29dae5c3bf527e4032167379e11c9c22087efbe34aa04ab6735bdee7226b4b57"
+    }
+  ]
+}

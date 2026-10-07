@@ -1,0 +1,3576 @@
+{
+  "scope": "all original capture/log/report/derived video files in three local ZIPs; selected 53 source snapshot, not complete project",
+  "archives": [
+    {
+      "path": "build/diagnostics/current-motion-v1/raw-current-motion-20261007-08-v1.zip",
+      "bytes": 100735418,
+      "sha256": "45f343579ba2a6c41d3dc9eae9c2f7f7f31f799099dc55b07d7394f064ffad5d",
+      "members": 271,
+      "original_data_members": 270,
+      "member_index": {
+        "build/diagnostics/current-motion-v1/registration.json": {
+          "sha256": "ff7b7083bf37d9bf64ee8c82e142da78f4f4d2d76b7e84152ae2afa2b9decfb2",
+          "bytes": 22719
+        },
+        "tasks/current-motion-acceptance-plan.md": {
+          "sha256": "4fa0fa958a826ac8e752296d9e32bbf930cd807f2baf462fc7a9183618ac2aa9",
+          "bytes": 2429
+        },
+        "build/diagnostics/current-motion-v1/run_serial.py": {
+          "sha256": "12d8a12cc85a96c21584c66c368b9bd5a391da418f5f6ef034f9f41cbe7198bc",
+          "bytes": 4924
+        },
+        "build/diagnostics/current-motion-v1/inspect_clips.py": {
+          "sha256": "08e71d654f71d49b89b6f6062b3be39c24f11e924232d13a86560695a7182b39",
+          "bytes": 4866
+        },
+        "build/diagnostics/current-motion-v1/close_evidence.py": {
+          "sha256": "97e6fc772f0c8ce51173dd25281e1e9bfe8556e7e5dbb00b463cb02bb186ce30",
+          "bytes": 7390
+        },
+        "build/diagnostics/current-motion-v1/close-evidence-failed-v1.py": {
+          "sha256": "26892a5077dc6c7d3b3e09686bbe568626f5cc8d3129c5959ce7330aecedd64d",
+          "bytes": 7082
+        },
+        "build/diagnostics/current-motion-v1/probe_encoding.py": {
+          "sha256": "36ed82ef1266741a75a9219b256456f910daded3b6b8ee59de8c0d42d9a8c611",
+          "bytes": 921
+        },
+        "build/diagnostics/current-motion-v1/encoding-red-v1.log": {
+          "sha256": "7dadfb60b1b09caf78515b927e01ff98c9116a1572ca90921f8a8ad3a063af79",
+          "bytes": 323
+        },
+        "build/diagnostics/current-motion-v1/encoding-green-v1.log": {
+          "sha256": "ac9d85a023cebddece6d5f36cc5775c12914aa59a5f606e2d7d68f84800342cc",
+          "bytes": 24
+        },
+        "build/diagnostics/current-motion-v1/encoding-old-stdout.bin": {
+          "sha256": "6097a483d3d7514772c8dcac0f4ef4d0f1ceb16af37697aa8a6aba027bee4fe9",
+          "bytes": 136
+        },
+        "build/diagnostics/current-motion-v1/encoding-old-stderr.bin": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "build/diagnostics/current-motion-v1/encoding-fixed-stdout.bin": {
+          "sha256": "83fc8536828eba4d7868e7e297c45bdb6da568410a99d48760b36a7b3ef83f90",
+          "bytes": 140
+        },
+        "build/diagnostics/current-motion-v1/encoding-fixed-stderr.bin": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "scripts/art/check_natural_render.py": {
+          "sha256": "09a0ab4b0892e25bd53a80130a77c6627f46b41309ef3de4e3b61ef2c03a7216",
+          "bytes": 4947
+        },
+        "build/diagnostics/late-observer/encode_peak.py": {
+          "sha256": "9a5623ae325f4276cd6268a91d41a38a2adfc13c949794a9dceedd39859dc6bc",
+          "bytes": 3488
+        },
+        "build/diagnostics/current-motion-v1/registry-validation-v2.log": {
+          "sha256": "6630b23cbe0800bca12776f6f340f59fdd25921aa8c07f39ca7e706b108c6f1f",
+          "bytes": 1738
+        },
+        "assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png": {
+          "sha256": "1db9d68975612537d734e9660017144b77ba3954b15dcd5a882ac659e332e9ad",
+          "bytes": 26395
+        },
+        "assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png": {
+          "sha256": "5c3a0d230793715ddb3d15526916d1ef30c65d44252a82d7f8632e8896876ebb",
+          "bytes": 27618
+        },
+        "assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png": {
+          "sha256": "222df622318156390a1e061bcfcb427f9f0bf181f88cea701cf60c1a89087e5f",
+          "bytes": 17070
+        },
+        "assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png": {
+          "sha256": "cc94485c28547ae3da9aa25619b751ee72f756461d4d27bbb471c1190098bd70",
+          "bytes": 19600
+        },
+        "assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png": {
+          "sha256": "e4f96efbbf441a834551c9937dddb159512b36462861bf814ad9f416f390048c",
+          "bytes": 28858
+        },
+        "assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png": {
+          "sha256": "9692680a6dfd2e9f8cb9c8f89320f5179728f96aff164bbe21fad951ba235a87",
+          "bytes": 19243
+        },
+        "assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png": {
+          "sha256": "86f9bd41666452242aeb85d6d5ad3f84df94618ee12aa4197932459dbc01afba",
+          "bytes": 23077
+        },
+        "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png": {
+          "sha256": "ad652e11b0f9a701f44322846c425634bf771da7f4a7c78fc7d0c87a7f310354",
+          "bytes": 51732
+        },
+        "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png": {
+          "sha256": "9f8d33ed98f5af8a304d7101f0267b1331312e7788bad8aea348e9944c0cb45b",
+          "bytes": 27100
+        },
+        "assets/art/environment/floor_surface.gdshader": {
+          "sha256": "fbcdb3c34a32dee12904983630370b68c69e9200fbaf8fea71e33a25258c90c9",
+          "bytes": 807
+        },
+        "assets/art/environment/mint_farm_floor_b_v1.png": {
+          "sha256": "3124d80676757709edc28182d3f6ac950f716d8d1586794edc8bed1b3041f257",
+          "bytes": 980749
+        },
+        "assets/art/environment/mint_farm_props_b_packed_v1.png": {
+          "sha256": "672c0cae193f66d1e8168443831f78c2622a757cfe1b6e24508322b041dddfc3",
+          "bytes": 787884
+        },
+        "assets/art/environment/prop_alpha.gdshader": {
+          "sha256": "4ff920523cf1243c5a2304a45ff6e77430c5904e71ff0e9dedc137ed537a8d71",
+          "bytes": 320
+        },
+        "assets/art/shaders/dasher_hit_flash.gdshader": {
+          "sha256": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9",
+          "bytes": 253
+        },
+        "scenes/ui/HUD.tscn": {
+          "sha256": "8e2907f7196de67f32e03421135fd6e9e19a98463124b2e09dc9f8e6f76319d9",
+          "bytes": 304
+        },
+        "scripts/Main.gd": {
+          "sha256": "a35bbed599d8018fbb6e109bdb53e030e21bd8f22ca4f5ab60c525b5b9d34473",
+          "bytes": 27680
+        },
+        "scripts/actors/Enemy.gd": {
+          "sha256": "fc1be0a84d0edb40138c5282cd85329870e07f1d61410b41891ee750ce129dbd",
+          "bytes": 31552
+        },
+        "scripts/actors/OverseerBoss.gd": {
+          "sha256": "e1105bef7807d585c3a4fe1ee9b3442cf73ebd1c213e29bb565d17cfbc772ec6",
+          "bytes": 13992
+        },
+        "scripts/actors/Player.gd": {
+          "sha256": "88fa20e1eb7c4d862b0837bf6db73f0f1c29862a75a320448d511daee9be4eb6",
+          "bytes": 44251
+        },
+        "scripts/art/NaturalRunDiagnostic.tscn": {
+          "sha256": "dcad36109beca46ad85415e8774a04f012fb9fa94b7bc538048fa195fbdf6a6e",
+          "bytes": 662
+        },
+        "scripts/art/NaturalRunMain.gd": {
+          "sha256": "dba6c3c8a50c23a00851377128b6096777698c32b7fa82bb30a2ef4b86198762",
+          "bytes": 1101
+        },
+        "scripts/art/NaturalRunPolicy.gd": {
+          "sha256": "75d7ccf15e5b35355324945301afb4b8a5a57f5805a10e5d3cb14d07889b2259",
+          "bytes": 2639
+        },
+        "scripts/art/VerifyNaturalRun.gd": {
+          "sha256": "c4de015e0c33e588db08d5765647d9f20ae622359934ff93232e70fd042f9b3c",
+          "bytes": 21971
+        },
+        "scripts/art/VerifyNaturalRunRendered.gd": {
+          "sha256": "d7faecf562fc71f65e5d0c67e02475071245a50186871d76dcbdeddbbd01a5ff",
+          "bytes": 12965
+        },
+        "scripts/art/check_natural_run_report.py": {
+          "sha256": "db64c6437cf1ba18fb519a0cf037b5b27dd4ae91f16a610c9753324a87df8d8d",
+          "bytes": 9040
+        },
+        "scripts/components/ArcPulseVisual.gd": {
+          "sha256": "23923c95df928acfbafb114ebedb30c89d0fa5c5d6d546acb0d5e382af546842",
+          "bytes": 3337
+        },
+        "scripts/components/BossAttackDirector.gd": {
+          "sha256": "df82489a27dddf90f46e8587d80e4a34be355386085f8b331abae12c4faa2ad6",
+          "bytes": 6340
+        },
+        "scripts/components/BossProjectilePattern.gd": {
+          "sha256": "4c09821b66952d4eaca4e8e90429460f9a1d22297f2bd51a8c73dbeedbdca162",
+          "bytes": 9087
+        },
+        "scripts/components/FlameTrail.gd": {
+          "sha256": "7039420b5daf277a5d0a927b381ada6752e848c99a17fc6a5f7fbb9ebf2a9ce2",
+          "bytes": 2212
+        },
+        "scripts/components/LaserBeam.gd": {
+          "sha256": "bfe5fe105607d56b747c97eb8d9a45d8e0537e517768eac03cfd9dc06fa7d5f2",
+          "bytes": 1024
+        },
+        "scripts/components/LobbedProjectile.gd": {
+          "sha256": "ba13a9b7dfbc38eec4472195122f1b59a965754cd71b989137d0e42c4bef9bf4",
+          "bytes": 3451
+        },
+        "scripts/components/Projectile.gd": {
+          "sha256": "ca5b25bd0595f7c2f99a732eaf1f142cc8b88c5792a857f82694dd2c01ec7b8e",
+          "bytes": 3206
+        },
+        "scripts/components/SpikeTrap.gd": {
+          "sha256": "b7ecb803d6bed2d09d329b6dc4a93ab5361f2673779f96de0ac873de4ceb7665",
+          "bytes": 3540
+        },
+        "scripts/components/TentacleAttack.gd": {
+          "sha256": "deb68380a599518a88ea2f7c843732612cbaef3372507eb0ec40ef161eb896f5",
+          "bytes": 9866
+        },
+        "scripts/effects/CameraEffects.gd": {
+          "sha256": "48a5f1f389374d8f368a5b9f8da9b875b296f332ebf2ffc292f5d0078c143c1f",
+          "bytes": 1619
+        },
+        "scripts/effects/CombatVfx.gd": {
+          "sha256": "0f82292ca621853de84658efd3fa671eb7d595cbff2b017c0528fe2f97ef95ce",
+          "bytes": 8751
+        },
+        "scripts/effects/FriendlyEffectPalette.gd": {
+          "sha256": "4893c1bf09210ef0dc265f96f8e2faa70c2f8478035f643e40a5f7b2d0b16d4f",
+          "bytes": 265
+        },
+        "scripts/systems/BossCameraFraming.gd": {
+          "sha256": "42cf856efa4156d596f0b6b4352605a0c540505479b24a4f9bb6c33179157f6e",
+          "bytes": 7401
+        },
+        "scripts/systems/CombatFeedback.gd": {
+          "sha256": "ab49d2a4ba23a7131c1db7ab60c9659a7503ed8791802193bc291de59266ab4a",
+          "bytes": 6819
+        },
+        "scripts/systems/CombatView.gd": {
+          "sha256": "9b0eb9cef8243ff6a433e1daf9b6db74ebd27d4820788b66d5d9b92f03d4f4a0",
+          "bytes": 1128
+        },
+        "scripts/systems/RunSnapshotStore.gd": {
+          "sha256": "328a6c5f284c4528776e30338f8797c0a6202a5fa1f2f859172544b2cfd9ab51",
+          "bytes": 8908
+        },
+        "scripts/systems/UpgradeSystem.gd": {
+          "sha256": "8bed9bb1da7a10b5758af9630fdcb2aa2f78ba8c7117ff4bebc45683165bf45e",
+          "bytes": 22024
+        },
+        "scripts/systems/WaveDirector.gd": {
+          "sha256": "d47d7ac885cfdf65faa4375fc4a33df3d1140e29442c2f227437e47eeadcc48b",
+          "bytes": 33336
+        },
+        "scripts/ui/AimReticle.gd": {
+          "sha256": "def21b4a2d9fe38318814adc6ad19e7fb9f384976693052b345797a2ab970a8a",
+          "bytes": 1091
+        },
+        "scripts/ui/BossDirectionIndicator.gd": {
+          "sha256": "12f4107eae086656790d2e8dfee77816f43cc2bc7231e514e9b8051ef767914e",
+          "bytes": 1411
+        },
+        "scripts/ui/BossHealthBar.gd": {
+          "sha256": "0b4b0baa58d17680c872dd357bf5246c9fb1df609f80a24da6116d8188811893",
+          "bytes": 6115
+        },
+        "scripts/ui/DroneLockReticle.gd": {
+          "sha256": "0d04a88ab53e86b362c666522fef7ffc2a1f16958fba9b54860232eaf464eb57",
+          "bytes": 605
+        },
+        "scripts/ui/GameUI.gd": {
+          "sha256": "b1d6622435e14870d28d998b31df2ddabe8bae9aa913a3528fac3c0f29769353",
+          "bytes": 15229
+        },
+        "scripts/ui/HUD.gd": {
+          "sha256": "1771b3644a450e5bc84b01f1c69519c53cc8d6f32b09fd0e2794d5e75dea4cc9",
+          "bytes": 13402
+        },
+        "scripts/world/ArenaLayout.gd": {
+          "sha256": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+          "bytes": 10548
+        },
+        "scripts/world/ArenaObstacle.gd": {
+          "sha256": "ca44d87f9b3e2e75d0e61b6b2a38e2c3387e5f58f95349c98e2cb772048d28f3",
+          "bytes": 3470
+        },
+        "scripts/world/FloorGrid.gd": {
+          "sha256": "d502d160a4d1d9de9280c7d12f043ec221ebdf365c84570f9bd28d07251a450c",
+          "bytes": 947
+        },
+        "themes/MintFarmTheme.tres": {
+          "sha256": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63",
+          "bytes": 4478
+        },
+        "build/diagnostics/natural-run/current-motion-20261007-08-v1.json": {
+          "sha256": "d0126876230cb365223bb039dd0b88b67cc07c6e836f50d31b799b1912ddba8d",
+          "bytes": 5079208
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1.json": {
+          "sha256": "7b317100711fe2638bec1b76a37c57e966556e849b73d173c8b6afab47fd4661",
+          "bytes": 2858237
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/capture-check.log": {
+          "sha256": "cbf11c424ac30abfbae0eb4e79bbebb88a5f2b47a6d1d1e9ff27c1a4bb45b06c",
+          "bytes": 165
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/closed.json": {
+          "sha256": "44d44472aac3322a73cf476cbd6f15e6761da94515ca64094e276eb8196f03f3",
+          "bytes": 372
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/engine.log": {
+          "sha256": "ed9abf383b7a719e9eabfcc31102795bc1af4704f6d59c6a01c12d3903826ca0",
+          "bytes": 3093
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/launch.json": {
+          "sha256": "30c8480d1b0c2cc596cd29d04c2dade661319f52f7b7843d669d2ae646874d7c",
+          "bytes": 780
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/motion-summary.json": {
+          "sha256": "8d780cd675357aedad6be613d0abe9375be930a6e4519b01aec1cb2863298228",
+          "bytes": 12251
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/report-check.log": {
+          "sha256": "a9271eabc6a18e45fbc644e55dcd472adda2ae00e60975d3658812eb83499175",
+          "bytes": 144
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/six-check.log": {
+          "sha256": "3497a5887e316b0c633ad54b143257879823299e50099393275a616c9db3afdc",
+          "bytes": 204
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/stderr.log": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/stdout.log": {
+          "sha256": "576e5bfb5277bd1059134012531453e46b7097b3b9589b9a4f0f2d7d5f04d1c1",
+          "bytes": 3152
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/boss-actor-contact.png": {
+          "sha256": "9d464ce528751957afc8b375ed77c5e38464288ad2578a70d839f7f271824a3d",
+          "bytes": 1148071
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/boss-encode.log": {
+          "sha256": "df93f5e56a577a3ee386dae2834ffd67fa2f8770e59152061dd0104c3f4e9995",
+          "bytes": 3881
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/boss-encoder-manifest.json": {
+          "sha256": "db1cebeb5060a3bac1421b5d1d6b6d0759b864506392d06ba3e8452f8fc80786",
+          "bytes": 20209
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/boss-full-contact.png": {
+          "sha256": "f509677f70b0867f1ff2127f4ef3de6a18dd9afcef04350838a2eacbe00dc2e3",
+          "bytes": 1744209
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/crowd-actor-contact.png": {
+          "sha256": "06ad08bdee2da5713f48d59831df7fc3ec068e82f734b86988e73ac73f1fd01d",
+          "bytes": 1183247
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/crowd-encode.log": {
+          "sha256": "23ba4850ede45bb18aa3ec63184c47c912f9fab7cf2749cd01e0aa35f8eb32f0",
+          "bytes": 3884
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/crowd-encoder-manifest.json": {
+          "sha256": "47da7364dc2bbb033a11d3dc2c99c4ec7fead65f682bcd7a5a5a72c03d214375",
+          "bytes": 20180
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/crowd-full-contact.png": {
+          "sha256": "bc326ab9400a2526ffd186cfd0c92d7182e7ddc6ab5c04fea68834138da0b93d",
+          "bytes": 1955432
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/dash-actor-contact.png": {
+          "sha256": "c0559aee730ecbf797917b8054ad3a62dc2999a635a90677a230311a1da281f8",
+          "bytes": 1287687
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/dash-encode.log": {
+          "sha256": "7201fe1ee6a679df36de31a7ed7c879821c4a475c1411a99e61d8c85d6f0e2ab",
+          "bytes": 3882
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/dash-encoder-manifest.json": {
+          "sha256": "38461b5cced5a46c4f001c19c3413c812072c6cebafd33b7c3fc676fa0f8fbbb",
+          "bytes": 20167
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/dash-full-contact.png": {
+          "sha256": "90d494184f464fb82cb0186262151b2a388149c7f2dfa6a51318914d856ca21d",
+          "bytes": 1954609
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/opening-actor-contact.png": {
+          "sha256": "8069705c103df2f5e08293f17133c662d1c168741d92e09250f3f7f12d1f7795",
+          "bytes": 975214
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/opening-encode.log": {
+          "sha256": "6c7e79f38b82f01aada77cc2237cef436ba94f0fd7e26a50d800f315e2fd69e4",
+          "bytes": 3892
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/opening-encoder-manifest.json": {
+          "sha256": "3bd7b86a6c96cb91d5ac8b92125489540730e2ac96ba2dd7894ee3e2e6204a0d",
+          "bytes": 20176
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/opening-full-contact.png": {
+          "sha256": "91b4bdb0cdcefb0e7169217c4f416ac19466c8f1be781101374e9930e4e05d1f",
+          "bytes": 1598092
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/shop-actor-contact.png": {
+          "sha256": "1271a58cb99f92424714043655a6dfa81d1dabcfcf4f0029332f372ead477fb6",
+          "bytes": 141567
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/shop-encode.log": {
+          "sha256": "687c5db90a68c6c12d7bd6aff6e66f24bbb99498562ccb0fe7334faf82b91598",
+          "bytes": 3881
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/shop-encoder-manifest.json": {
+          "sha256": "a25a0917d7cbd5287a8197714ce3b4888e94a43def12deaf7efa306b9e45110e",
+          "bytes": 19616
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-08-v1/visual/shop-full-contact.png": {
+          "sha256": "0b6c256f99810fc1011a6c2668eb0af6e2ecda56eb9896ae4608ee5b9bad016c",
+          "bytes": 616182
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-boss.ffconcat": {
+          "sha256": "df64a9883388059bae243f21886dae60c170d3347ba8fd81cb76748fa3dcbb4e",
+          "bytes": 5893
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-boss.ffprobe.json": {
+          "sha256": "1abb3daa136ac71f249ef2fa7909d7120dedec5a709a7f99fde0c44ac3cc44b0",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-boss.mp4": {
+          "sha256": "da490eb91b5c44d4f79153bb9c02b3c74f077b3052d78248246dce149b1a1b73",
+          "bytes": 654147
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-boss.video.json": {
+          "sha256": "dc018dd1f8fe3419e99af39a283d16d52c513a19398459e3501e68a345279b66",
+          "bytes": 575
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-crowd.ffconcat": {
+          "sha256": "e1c12414fc5eadee67b4a19d3d1bb220bed408e594847e26bc3a99b14029cc49",
+          "bytes": 5924
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-crowd.ffprobe.json": {
+          "sha256": "089f0035adbf5841414ab88cd5c8063bd3aa763e38e311c125a3943b170489d0",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-crowd.mp4": {
+          "sha256": "b2b4873819cf439e6bd21eea98ec6c74f749c00675fd82dfedc3c1601ec41b2a",
+          "bytes": 950833
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-crowd.video.json": {
+          "sha256": "ce9678157351cce364f5e20a76f50092a8f4c01585ef6809599a3e244cecc2a3",
+          "bytes": 576
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-dash.ffconcat": {
+          "sha256": "9a9537fbc79395bd1da101acddf10cfd77476363ed5c01c76e95fd000865f733",
+          "bytes": 5893
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-dash.ffprobe.json": {
+          "sha256": "81ce2182655daa9b4ee204da06ea401be8efedc3a5420ad96282e08102aad55d",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-dash.mp4": {
+          "sha256": "12e09a83dd520930f6b96ba05cdb2bd6a0375f90dad25031a8be34258f5195f8",
+          "bytes": 988124
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-dash.video.json": {
+          "sha256": "0cd754b47bcfb67ec5fa2430d5943d7057692492e91b8064c81599a4551e4cdd",
+          "bytes": 576
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-opening.ffconcat": {
+          "sha256": "6ba1a71d7ed473ba033e3db0b30dbf594351edb3303538d44166f9a2b64ac98d",
+          "bytes": 5986
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-opening.ffprobe.json": {
+          "sha256": "9a4c0a9bcbc880da0b70c1f6905806b214d2a7fc3ed71881c830b7f5df96cf50",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-opening.mp4": {
+          "sha256": "d4081d740e22e7df40c4d429280089892f8d0f5a0057a6d36414f17f13edd3a9",
+          "bytes": 570971
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-opening.video.json": {
+          "sha256": "76a73ec9727926c6bcf25fbdff4fbb932511680145915bd85e385e54e6bea0e3",
+          "bytes": 580
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-shop.ffconcat": {
+          "sha256": "c5919b864d6c8a6148bb7936cfd4bc8ad6f77f4326e91aed3158e6131632a344",
+          "bytes": 5893
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-shop.ffprobe.json": {
+          "sha256": "cf96d10d6abc1fbafe479b7c5e3d6d1983b75152f876817f5d63d58653b5cf4f",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-shop.mp4": {
+          "sha256": "9b1f433b8cede7dc84d33f0407a32f4a00bba0de4f6bea417f07a4079115260c",
+          "bytes": 277860
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-08-v1-shop.video.json": {
+          "sha256": "2c43fbed6ebbedd7368f40a73032c0be96f40eb00876edc36ec2fd855d6ddc08",
+          "bytes": 577
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-000.png": {
+          "sha256": "1fbde4a2b0b0f4bc3d3f0aabb700d588ced8a66692b2db8f9c0a1eeeedd92c5f",
+          "bytes": 544417
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-001.png": {
+          "sha256": "a6dd05304c602b19d3086a9ac103af357a75bbf391a74406f61d27737ca94589",
+          "bytes": 553055
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-002.png": {
+          "sha256": "dd7a05f9136a908a8d15488a239d2e7ae75edf6bb3f864052a5370e06bfa036c",
+          "bytes": 543051
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-003.png": {
+          "sha256": "78d3d4a72a44424c2632af5810cc9df0d07479553619029ddbb785266d5a4c9a",
+          "bytes": 552873
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-004.png": {
+          "sha256": "95ee595e93510aa6c5b2d91d72e4c1fa403d93b36e040a56e4c56a6545bc95f7",
+          "bytes": 556099
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-005.png": {
+          "sha256": "22ba327b6ed42a385e2ca1f352522dafd94d793aceed974bbe1523e2d8466715",
+          "bytes": 543241
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-006.png": {
+          "sha256": "a06f308d20cb746d686c1170ca5e62e7272071b90b305782f5102fe351de1c40",
+          "bytes": 546432
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-007.png": {
+          "sha256": "a8a1c18082e973789d43444b6a7661eae5dabbbd66e292dd089ac3fde27c8b8b",
+          "bytes": 521697
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-008.png": {
+          "sha256": "9c5983f6f367423cb4c4c22c25bc4e7ab32cc5192e2f0f076dc2ab4564e01198",
+          "bytes": 527388
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-009.png": {
+          "sha256": "8e01bfd185c8ac1e0d8be4af8fd3a05840459f094c62487bd3012831b2db875f",
+          "bytes": 524503
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-010.png": {
+          "sha256": "76212aa9e148d9f0313e057635465cfb42f914a6ece74535a136563a3402da05",
+          "bytes": 527867
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-011.png": {
+          "sha256": "f6b4524ddf3784743175ef6b956e79ec8e351bf296a1f0d2eb499c0f12763783",
+          "bytes": 530980
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-012.png": {
+          "sha256": "2b15a67c12c9106c04fcc59b15116f0be2b6e40428dafa9392e9947faf8f6ba3",
+          "bytes": 530478
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-013.png": {
+          "sha256": "8f64a7b457ab868897d7c45f7d835a9ea9a9b7822f2332e7746d777190e504ae",
+          "bytes": 528522
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-014.png": {
+          "sha256": "16652662b9e38ba0f2422189cd6f7ba2effd2a73d187ff5ebca82d08238a7276",
+          "bytes": 532209
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-015.png": {
+          "sha256": "f2ab076effee88309cbee92c000d3dc23f61726605d2f24e154ed9a4b8ed8059",
+          "bytes": 528209
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-016.png": {
+          "sha256": "26654ca9ed9a31a3798ba557f7a37685cac311d7d368c48397fdc058d93a504a",
+          "bytes": 532905
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-017.png": {
+          "sha256": "d37d0f45bbef3795172fbc9909e6b886d7fa8799767df28324b7d1c29cde404f",
+          "bytes": 526617
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-018.png": {
+          "sha256": "6f12ad43132e7bec9bea6727e89670df8bb2193506c9e13ed546b7e8e5091a9a",
+          "bytes": 531580
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-019.png": {
+          "sha256": "66666651487380ad5f72252cfdd07d465727fa82a2c01f14b89718457853d8cc",
+          "bytes": 531449
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-020.png": {
+          "sha256": "c4f477433fead6f5ea79fec7dcdeba0a76953f6bd5b4578ea88e15c6eeb02dad",
+          "bytes": 534179
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-021.png": {
+          "sha256": "310b2005e2cfb8b9721d72ae39af692269aa7a81afc784ff13c5e7a1a14c8c55",
+          "bytes": 534896
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-022.png": {
+          "sha256": "dc340f7a4c41bedac7da467745d766619263bd13502704554700806e5fc79edf",
+          "bytes": 533466
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-023.png": {
+          "sha256": "ff75fa1f36637a3e0083d1bfcba9fd25d83ef6fc5ab93ebf04a0a29b2443a9d5",
+          "bytes": 537558
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-024.png": {
+          "sha256": "dfe0904993c4ba186786bb47708c90231e31126c77de05876bb81be3a7a5db36",
+          "bytes": 538125
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-025.png": {
+          "sha256": "f9fbe2ad74f3c1a889172a19a4ef53baffc76cdca0aa19ae62f98fbb108403ec",
+          "bytes": 534801
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-026.png": {
+          "sha256": "e35d7025e82210dc2a1ec94c8b21b5544e7c1e74b8c8900c39681ee431a9fd24",
+          "bytes": 531805
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-027.png": {
+          "sha256": "797a60e4ca3e24d4e85a192c661c828736352ab77f6a4ba3a1f0e8f97e71942c",
+          "bytes": 532733
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-028.png": {
+          "sha256": "3bfee4739b4f9b2fc32450115ea5b5e9bff6f48a562bf9c991d1bb3068107455",
+          "bytes": 521821
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/boss-029.png": {
+          "sha256": "d9b8dfcc62b734108f0e145b8b0c11afe89df368396deb454d6c8ddee8858f93",
+          "bytes": 523607
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-000.png": {
+          "sha256": "fd338a70688e95215fd761130971661dc33180547956d32a382a9dbe8c43aa21",
+          "bytes": 621395
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-001.png": {
+          "sha256": "ac5c3235268de4bcf2a2361f705d6cae1152080e8994835fa06a7b02cce9c027",
+          "bytes": 623104
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-002.png": {
+          "sha256": "cfbdeb68f95e6ba1deaeaf52d5657d5b2dce3bc7c8bf53f1a5249b2018d87da8",
+          "bytes": 628131
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-003.png": {
+          "sha256": "6fbc4fe9c7d447d37cfc122d173a710ee2f9c92f3543714beee2347bcdd767c7",
+          "bytes": 621156
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-004.png": {
+          "sha256": "8203c50303cc493df272e014b555effffcdb7195e3bf5f8ca3523b888dd71cb5",
+          "bytes": 616405
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-005.png": {
+          "sha256": "7d5edb29b86c82ab0c09a4a82a6bc0feeb3271dcfc1fe2707ff73265ceb640ea",
+          "bytes": 618083
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-006.png": {
+          "sha256": "89a2e7d2fdd4885b7fe7f0a43db9697dda85b68ef7cc127f8d9635460010aa2e",
+          "bytes": 616593
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-007.png": {
+          "sha256": "869e1ef93a4a451827bfeb2c9059396d5c4f83ecf03acc5202a4027fdd0b797d",
+          "bytes": 604683
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-008.png": {
+          "sha256": "70529269144117148ecce15a74512bc5fc61d421d609d30b59986de0c4450ec2",
+          "bytes": 613780
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-009.png": {
+          "sha256": "4a7cdc95fe76dd4e966dbb84a8e2e703f1ba321a7e3086ea221e8b42abd7943d",
+          "bytes": 600654
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-010.png": {
+          "sha256": "094a774ff4f60fbf0521c5ba0f74d08e0818f5dfe37bfd70ce6e1adf0e24c8d7",
+          "bytes": 609037
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-011.png": {
+          "sha256": "11679952c5f9ee0f6b2ca9b4b222949f865737cb7d9067ec9134ce2762ef7e3c",
+          "bytes": 599997
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-012.png": {
+          "sha256": "8e5237bdf902754b657d9b91f3647c14251af28479115791befdd9dc9af50cff",
+          "bytes": 604914
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-013.png": {
+          "sha256": "aa452fb497cdcf672d887544deca1ba1d2a3751e34916ab7dfaaf2ccbeb07f02",
+          "bytes": 615588
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-014.png": {
+          "sha256": "701ad92c1b2581097a6946cc15dcc8dbeb28de99647fd4935a82e5577b0a2fc1",
+          "bytes": 613860
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-015.png": {
+          "sha256": "465d89c5e534ba48a422ab4b6070e7a95f9d306ebc363a16cc3f82f7fd815b99",
+          "bytes": 610010
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-016.png": {
+          "sha256": "75d82071d5ace9ccedc17f687fe71ac94084eaca0ffd348373709e1a5d569f4a",
+          "bytes": 619099
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-017.png": {
+          "sha256": "0b85bf31eccd8a73f837adbf10ca928018187a784352dda18a2a59afc0d13b24",
+          "bytes": 620846
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-018.png": {
+          "sha256": "7ff4586cb3757ac388b926602329f29cebbf9ef4225a7530ea93f646fefc1a8c",
+          "bytes": 623725
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-019.png": {
+          "sha256": "7b66c18691182cd1591aadf0a612c89eeb56e8b4331330560aa77d0a1249186e",
+          "bytes": 628479
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-020.png": {
+          "sha256": "1ca57924f7cbdf76074731bc012eea554191ceebf5d1df3bc7aa25d67264ce2b",
+          "bytes": 637806
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-021.png": {
+          "sha256": "cc36f1e7c4153596eda164783a1143a2d14ca6838ce1531b43eccd350fddeb48",
+          "bytes": 644630
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-022.png": {
+          "sha256": "380c491bcb8dfe5d2347f78635dcc14ac8d7c45c704af505c21cdb13505d12f6",
+          "bytes": 643359
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-023.png": {
+          "sha256": "9a14d7e968621f343c0ec5264ba5661c790d8ec81b141291dafe31e79fea365f",
+          "bytes": 653174
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-024.png": {
+          "sha256": "3245b4df9e7ee451ff142d6e9905fd707746d6ea2fba7ff9afb7fc82985286da",
+          "bytes": 647057
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-025.png": {
+          "sha256": "6df90520a4e2d51bf1bb552ae7ed3b3b9c85e06a1a40cee1fd117b127acb237a",
+          "bytes": 649070
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-026.png": {
+          "sha256": "390cd3c933d2709a25112c50732ffb178c69c275db1fc04d6c223f6ba9ef4e55",
+          "bytes": 645231
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-027.png": {
+          "sha256": "348fcefdcbed52d4c66c297bc988d4c309b92d58e468fb759cad1f97c1f52e08",
+          "bytes": 651087
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-028.png": {
+          "sha256": "726e52ab8cf128f348d2e12378d2fe7b81e4a27b9a35e4db91602a348aee04e1",
+          "bytes": 645527
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/crowd-029.png": {
+          "sha256": "d5470d0f48e77551ba53388f723cddf522601fe0133f35006a51637c32b86140",
+          "bytes": 643820
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-000.png": {
+          "sha256": "7b66c18691182cd1591aadf0a612c89eeb56e8b4331330560aa77d0a1249186e",
+          "bytes": 628479
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-001.png": {
+          "sha256": "1ca57924f7cbdf76074731bc012eea554191ceebf5d1df3bc7aa25d67264ce2b",
+          "bytes": 637806
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-002.png": {
+          "sha256": "cc36f1e7c4153596eda164783a1143a2d14ca6838ce1531b43eccd350fddeb48",
+          "bytes": 644630
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-003.png": {
+          "sha256": "380c491bcb8dfe5d2347f78635dcc14ac8d7c45c704af505c21cdb13505d12f6",
+          "bytes": 643359
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-004.png": {
+          "sha256": "9a14d7e968621f343c0ec5264ba5661c790d8ec81b141291dafe31e79fea365f",
+          "bytes": 653174
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-005.png": {
+          "sha256": "3245b4df9e7ee451ff142d6e9905fd707746d6ea2fba7ff9afb7fc82985286da",
+          "bytes": 647057
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-006.png": {
+          "sha256": "6df90520a4e2d51bf1bb552ae7ed3b3b9c85e06a1a40cee1fd117b127acb237a",
+          "bytes": 649070
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-007.png": {
+          "sha256": "390cd3c933d2709a25112c50732ffb178c69c275db1fc04d6c223f6ba9ef4e55",
+          "bytes": 645231
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-008.png": {
+          "sha256": "348fcefdcbed52d4c66c297bc988d4c309b92d58e468fb759cad1f97c1f52e08",
+          "bytes": 651087
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-009.png": {
+          "sha256": "726e52ab8cf128f348d2e12378d2fe7b81e4a27b9a35e4db91602a348aee04e1",
+          "bytes": 645527
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-010.png": {
+          "sha256": "d5470d0f48e77551ba53388f723cddf522601fe0133f35006a51637c32b86140",
+          "bytes": 643820
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-011.png": {
+          "sha256": "ae02b505c24c744e972c803ebdda121cecfec15be3506800edcfdabe5be514f9",
+          "bytes": 638120
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-012.png": {
+          "sha256": "db0be452fcf0e8b2bfca961db1361017a739521d526bb03aa645cf127220ebfc",
+          "bytes": 646242
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-013.png": {
+          "sha256": "0b157266889c02fa27a67acb2845891832499bdc27fc78a425b6dbc1d5470f95",
+          "bytes": 647685
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-014.png": {
+          "sha256": "3d4a9337f380a4655523a6a2b7d95c063cabadc8c34f5c5a04d9d1ceb6bf7788",
+          "bytes": 644377
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-015.png": {
+          "sha256": "57c725a6ad42c201550da00b4f20bba69d362b933c88eaedf3309a5d48f0dfdc",
+          "bytes": 641897
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-016.png": {
+          "sha256": "15262b8420f836cf52dc1cad8835acced6a8fbd01ae7476901f07d01d6f3e90e",
+          "bytes": 638470
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-017.png": {
+          "sha256": "4bf96de6e90fce14de7bb65be7c804d350b429ec785da9e0d246279b2622a25d",
+          "bytes": 639891
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-018.png": {
+          "sha256": "83936a2171f99f9ff6306049a65e6842b21cd7f3866335033c91eb190218a436",
+          "bytes": 631588
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-019.png": {
+          "sha256": "800a8c398f5b1906dd57c799cbb0ac83e22b2363f4f243e43e5aad2c69d4b350",
+          "bytes": 631955
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-020.png": {
+          "sha256": "f70198c50a05af85c4838e32edf1c25baa360fe9f871e65cb6b616149af9c59d",
+          "bytes": 635537
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-021.png": {
+          "sha256": "ebe8c01d3ed41cf69bf90439b26bacec5a7dd496ad5d0057611fa6e8698d141e",
+          "bytes": 629816
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-022.png": {
+          "sha256": "38ee7c6ec68694b059db6a402bc124c0cff0d3a7eeb1e79fb926125506e3cef0",
+          "bytes": 627057
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-023.png": {
+          "sha256": "343aa5a171a50b4e2d88950d8a978db74fe90b0eefdfc6c2f6de4b3e2edb7072",
+          "bytes": 627328
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-024.png": {
+          "sha256": "7bcf5f9b4dddf7386f76fd3d078ebfac4170d709628b3eb7e44d5f76d59984e1",
+          "bytes": 623021
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-025.png": {
+          "sha256": "6d97ee9c577acb5bb90b4c6a63c68733f7adf1fda8a76ec6a6de9c03fdd02e2f",
+          "bytes": 626201
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-026.png": {
+          "sha256": "278f1c018242181b47279f88d448facaf600bd1c4f9b85167480938ed2547ff0",
+          "bytes": 628696
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-027.png": {
+          "sha256": "ebfa25bb91c09ae7f4af5e0cbfb6c49b40c94294d6f32c8da3327a9b6d8bd249",
+          "bytes": 622702
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-028.png": {
+          "sha256": "75bfca0056efc6d08d4b0dd929531ed787834ff6c6ae5f514919145685529039",
+          "bytes": 622403
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/dash-029.png": {
+          "sha256": "f11708bbd43c34a5605f34d3b7f2013045707b8901892aff5c75e945c293934a",
+          "bytes": 623836
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-000.png": {
+          "sha256": "53a1b1d5e0290bfab243209a57788ef19bdc40fb3465b60cff24417c44109f70",
+          "bytes": 493671
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-001.png": {
+          "sha256": "b98a96ca1e83be92b750d790e2f069d8aadbdfaad101687f2e7daaec9bd3f827",
+          "bytes": 491042
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-002.png": {
+          "sha256": "13adda4293aaebe6b23ed698a390117d3858071736963ddc15f6cdccb25f7b67",
+          "bytes": 487596
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-003.png": {
+          "sha256": "11033d2a06db00c153bb25d84aae1ced15e92198fa5b80ef7404bb12c90e0f8f",
+          "bytes": 499403
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-004.png": {
+          "sha256": "d51c87228507f92d5867528cd6aae95d1aecf72a4a9af9279ef442dc225ec9a5",
+          "bytes": 500083
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-005.png": {
+          "sha256": "20c260cc6f65342839567dc8b6ef7572654be99e258eb3a20c8b52d5be4bb2a9",
+          "bytes": 497483
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-006.png": {
+          "sha256": "3dba3d2fc47f5f2e851ff769cf70274f30edc5c83d5af543db127e9b00fecc0f",
+          "bytes": 513212
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-007.png": {
+          "sha256": "c238b3774411c699bbcd31b4f0547fb997a06712f474dbf16ec33188fceb56e5",
+          "bytes": 517058
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-008.png": {
+          "sha256": "ef5231da4b20f5783fa6e2bd192c0104b02c652d78e990e8c6d3aa3dd49a9f27",
+          "bytes": 524228
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-009.png": {
+          "sha256": "52c09eb1b575788d8f0817cf760002af297033be1e9bc80e4d430b3a61aaeea9",
+          "bytes": 532130
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-010.png": {
+          "sha256": "f3f0ee31d00f5b8c76b3307ee6b31ba86b1bf5d199977cb1bf694e79c4e27eec",
+          "bytes": 531482
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-011.png": {
+          "sha256": "5453fbc2c3ec46231d3f3b404a170d42f4dd65e7430340a4e8c74725b4eab6c8",
+          "bytes": 522749
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-012.png": {
+          "sha256": "0470287e71f54a31952f28466ef778308a7c4e3d91d7d832dde4a8a0b82076fd",
+          "bytes": 542249
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-013.png": {
+          "sha256": "841fb02a9a12e9471195024a68cecc98f7d0ada8d9661d8e049982f3e39e0459",
+          "bytes": 540445
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-014.png": {
+          "sha256": "31d3c3bfec473374a444dad9872bb319e324804f687b49fb95b4e344ccc22139",
+          "bytes": 550742
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-015.png": {
+          "sha256": "6d130d1d6825353867a32567ecbe3d1b5112cfeb0adf9675aa8ccfe1c14e1447",
+          "bytes": 551131
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-016.png": {
+          "sha256": "39c3106ad62a7a6818444f48c09a7fe6648dbdee07c2621f71bf25ef4a75d4ef",
+          "bytes": 557032
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-017.png": {
+          "sha256": "125049e2ca7291e591687d7d09f7bcc35bc6ed24172c030c8362257cb08ead64",
+          "bytes": 545742
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-018.png": {
+          "sha256": "4419ecbc039f6959120e1cf2b90f0576b897ff5ff5089f7486b9cdef2917927c",
+          "bytes": 549485
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-019.png": {
+          "sha256": "c14c095535bf816daf32c7cce17332fc3ef4ba447fd2d4407a65002c5e4043ba",
+          "bytes": 552968
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-020.png": {
+          "sha256": "f2dcd43cf8f5be57bb0774a378093b0f0b3ebef3705c0aab445ffa092a4d314f",
+          "bytes": 547459
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-021.png": {
+          "sha256": "a0d798fa936b811c1fac4f42cbd42d34110e4665f8692c21cd0f3c90aeecb6aa",
+          "bytes": 562313
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-022.png": {
+          "sha256": "c3b972dd602a96e3f4caea1746e5ea122f1591bdf9f8c647d929227c2fa86455",
+          "bytes": 565771
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-023.png": {
+          "sha256": "2a0b77491eedc573920347fa6c5dbfd9ed8f5810d3f207a9b4b4a8c477cbedc9",
+          "bytes": 573718
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-024.png": {
+          "sha256": "6ae18fe5db3c06c6894c23bcab63dc1ecb9d4ab340c3b54eb8cfdf140afcbb7c",
+          "bytes": 576529
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-025.png": {
+          "sha256": "65a7e3d8bf9edd91f94ab3e10d1686c3750b2c71c4b721988821814ccd56036c",
+          "bytes": 581551
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-026.png": {
+          "sha256": "ae18cbda76d3f8ce4ebaa813f6d089655a15168fafddfe131648cb64dae39723",
+          "bytes": 571511
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-027.png": {
+          "sha256": "91d3741e48a2fdbc42e982e924647e4383cfaf6d0172fa5c1a8a4c419ed2642d",
+          "bytes": 583015
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-028.png": {
+          "sha256": "b6f025900145d197347f4b8b572567a047e5898e2ca679befee16cfa9039ed42",
+          "bytes": 576352
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/opening-029.png": {
+          "sha256": "5f9e63c37923c8e71d39242fb65198bb20e762812896788e5054eb3e0414fdb7",
+          "bytes": 585619
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-000.png": {
+          "sha256": "03244ff706cec2007aad21de3cde4ae03fb826fe87fc01aca0417dedb3b5f6fa",
+          "bytes": 207089
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-001.png": {
+          "sha256": "03244ff706cec2007aad21de3cde4ae03fb826fe87fc01aca0417dedb3b5f6fa",
+          "bytes": 207089
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-002.png": {
+          "sha256": "03244ff706cec2007aad21de3cde4ae03fb826fe87fc01aca0417dedb3b5f6fa",
+          "bytes": 207089
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-003.png": {
+          "sha256": "03244ff706cec2007aad21de3cde4ae03fb826fe87fc01aca0417dedb3b5f6fa",
+          "bytes": 207089
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-004.png": {
+          "sha256": "6b1b729a7914e5a54dc9764217556330c64d1510d43bad8a84123020778b408f",
+          "bytes": 217303
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-005.png": {
+          "sha256": "6b1b729a7914e5a54dc9764217556330c64d1510d43bad8a84123020778b408f",
+          "bytes": 217303
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-006.png": {
+          "sha256": "6b1b729a7914e5a54dc9764217556330c64d1510d43bad8a84123020778b408f",
+          "bytes": 217303
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-007.png": {
+          "sha256": "6b1b729a7914e5a54dc9764217556330c64d1510d43bad8a84123020778b408f",
+          "bytes": 217303
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-008.png": {
+          "sha256": "671785bf1417c009f7131fb1c1f3f6c0733eaddb6cfdad44568737dc653c6858",
+          "bytes": 209124
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-009.png": {
+          "sha256": "671785bf1417c009f7131fb1c1f3f6c0733eaddb6cfdad44568737dc653c6858",
+          "bytes": 209124
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-010.png": {
+          "sha256": "671785bf1417c009f7131fb1c1f3f6c0733eaddb6cfdad44568737dc653c6858",
+          "bytes": 209124
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-011.png": {
+          "sha256": "671785bf1417c009f7131fb1c1f3f6c0733eaddb6cfdad44568737dc653c6858",
+          "bytes": 209124
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-012.png": {
+          "sha256": "17c655d8ca3027ea21dd17da3b786824815cf6b5bd590c08ec0c5335eb8ff1ac",
+          "bytes": 503931
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-013.png": {
+          "sha256": "02382edc1f912ba4dc35ddab280fc2546084bc1adbd6c5b85f0241940a34d734",
+          "bytes": 499300
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-014.png": {
+          "sha256": "1dd4ec5ec5398a24693d289956762bfb5ada67c1e1e844bc564971a4dba813e2",
+          "bytes": 492732
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-015.png": {
+          "sha256": "180df65e59df60561af763220a0f2ea0edf81dc8655a9bfae144eb449e1570ab",
+          "bytes": 505343
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-016.png": {
+          "sha256": "32dc662a491af540c53ce2e8364070238b1510d25feb6b6259d1d859385c186b",
+          "bytes": 504280
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-017.png": {
+          "sha256": "4174fd7764c55367b0ff6bbb3b62b91f05e3c2315244d12757b72c2cce4282e4",
+          "bytes": 496526
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-018.png": {
+          "sha256": "4174fd7764c55367b0ff6bbb3b62b91f05e3c2315244d12757b72c2cce4282e4",
+          "bytes": 496526
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-019.png": {
+          "sha256": "4174fd7764c55367b0ff6bbb3b62b91f05e3c2315244d12757b72c2cce4282e4",
+          "bytes": 496526
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-020.png": {
+          "sha256": "4174fd7764c55367b0ff6bbb3b62b91f05e3c2315244d12757b72c2cce4282e4",
+          "bytes": 496526
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-021.png": {
+          "sha256": "4174fd7764c55367b0ff6bbb3b62b91f05e3c2315244d12757b72c2cce4282e4",
+          "bytes": 496526
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-022.png": {
+          "sha256": "4174fd7764c55367b0ff6bbb3b62b91f05e3c2315244d12757b72c2cce4282e4",
+          "bytes": 496526
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-023.png": {
+          "sha256": "6b17c7bd1725de5ebe1e8dea81727731343dc7984bb9a382b451d1f1603c1d25",
+          "bytes": 499499
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-024.png": {
+          "sha256": "1a3b2762def9663acb6ef71fece7355ef04df9eb0af08ade332fab02b40eed1b",
+          "bytes": 500773
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-025.png": {
+          "sha256": "ead318e518c3d159f0cc4e74dc465f8c121c87c75efb97f9af7cd08c2c56ebb0",
+          "bytes": 501535
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-026.png": {
+          "sha256": "42b0b78c233aae63d7b902a0281b3633e9f05408469dd3e24b54ddc4e202aad1",
+          "bytes": 498796
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-027.png": {
+          "sha256": "6584fa754d339c6be9cff262878fe1e7f84885ec2a10e5a49d0c3d4207384948",
+          "bytes": 520832
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-028.png": {
+          "sha256": "bcfb51486792560a5aeab1d9a11ec7218e19adb58a5ea6e23d5b184f11d2a49b",
+          "bytes": 521493
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-08-v1/shop-029.png": {
+          "sha256": "b89b5d238a6e1e31d8f897eb506bc7da4fe4707b84488f35e371084e14ee8e9c",
+          "bytes": 523217
+        }
+      }
+    },
+    {
+      "path": "build/diagnostics/current-motion-v1/raw-current-motion-20261007-09-v1.zip",
+      "bytes": 123014925,
+      "sha256": "e428e3a80f8810b94e8ad7b87d1348cd16d71a220343cc3de026b017711317db",
+      "members": 309,
+      "original_data_members": 308,
+      "member_index": {
+        "build/diagnostics/current-motion-v1/registration.json": {
+          "sha256": "ff7b7083bf37d9bf64ee8c82e142da78f4f4d2d76b7e84152ae2afa2b9decfb2",
+          "bytes": 22719
+        },
+        "tasks/current-motion-acceptance-plan.md": {
+          "sha256": "4fa0fa958a826ac8e752296d9e32bbf930cd807f2baf462fc7a9183618ac2aa9",
+          "bytes": 2429
+        },
+        "build/diagnostics/current-motion-v1/run_serial.py": {
+          "sha256": "12d8a12cc85a96c21584c66c368b9bd5a391da418f5f6ef034f9f41cbe7198bc",
+          "bytes": 4924
+        },
+        "build/diagnostics/current-motion-v1/inspect_clips.py": {
+          "sha256": "08e71d654f71d49b89b6f6062b3be39c24f11e924232d13a86560695a7182b39",
+          "bytes": 4866
+        },
+        "build/diagnostics/current-motion-v1/close_evidence.py": {
+          "sha256": "97e6fc772f0c8ce51173dd25281e1e9bfe8556e7e5dbb00b463cb02bb186ce30",
+          "bytes": 7390
+        },
+        "build/diagnostics/current-motion-v1/close-evidence-failed-v1.py": {
+          "sha256": "26892a5077dc6c7d3b3e09686bbe568626f5cc8d3129c5959ce7330aecedd64d",
+          "bytes": 7082
+        },
+        "build/diagnostics/current-motion-v1/probe_encoding.py": {
+          "sha256": "36ed82ef1266741a75a9219b256456f910daded3b6b8ee59de8c0d42d9a8c611",
+          "bytes": 921
+        },
+        "build/diagnostics/current-motion-v1/encoding-red-v1.log": {
+          "sha256": "7dadfb60b1b09caf78515b927e01ff98c9116a1572ca90921f8a8ad3a063af79",
+          "bytes": 323
+        },
+        "build/diagnostics/current-motion-v1/encoding-green-v1.log": {
+          "sha256": "ac9d85a023cebddece6d5f36cc5775c12914aa59a5f606e2d7d68f84800342cc",
+          "bytes": 24
+        },
+        "build/diagnostics/current-motion-v1/encoding-old-stdout.bin": {
+          "sha256": "6097a483d3d7514772c8dcac0f4ef4d0f1ceb16af37697aa8a6aba027bee4fe9",
+          "bytes": 136
+        },
+        "build/diagnostics/current-motion-v1/encoding-old-stderr.bin": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "build/diagnostics/current-motion-v1/encoding-fixed-stdout.bin": {
+          "sha256": "83fc8536828eba4d7868e7e297c45bdb6da568410a99d48760b36a7b3ef83f90",
+          "bytes": 140
+        },
+        "build/diagnostics/current-motion-v1/encoding-fixed-stderr.bin": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "scripts/art/check_natural_render.py": {
+          "sha256": "09a0ab4b0892e25bd53a80130a77c6627f46b41309ef3de4e3b61ef2c03a7216",
+          "bytes": 4947
+        },
+        "build/diagnostics/late-observer/encode_peak.py": {
+          "sha256": "9a5623ae325f4276cd6268a91d41a38a2adfc13c949794a9dceedd39859dc6bc",
+          "bytes": 3488
+        },
+        "build/diagnostics/current-motion-v1/registry-validation-v2.log": {
+          "sha256": "6630b23cbe0800bca12776f6f340f59fdd25921aa8c07f39ca7e706b108c6f1f",
+          "bytes": 1738
+        },
+        "assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png": {
+          "sha256": "1db9d68975612537d734e9660017144b77ba3954b15dcd5a882ac659e332e9ad",
+          "bytes": 26395
+        },
+        "assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png": {
+          "sha256": "5c3a0d230793715ddb3d15526916d1ef30c65d44252a82d7f8632e8896876ebb",
+          "bytes": 27618
+        },
+        "assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png": {
+          "sha256": "222df622318156390a1e061bcfcb427f9f0bf181f88cea701cf60c1a89087e5f",
+          "bytes": 17070
+        },
+        "assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png": {
+          "sha256": "cc94485c28547ae3da9aa25619b751ee72f756461d4d27bbb471c1190098bd70",
+          "bytes": 19600
+        },
+        "assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png": {
+          "sha256": "e4f96efbbf441a834551c9937dddb159512b36462861bf814ad9f416f390048c",
+          "bytes": 28858
+        },
+        "assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png": {
+          "sha256": "9692680a6dfd2e9f8cb9c8f89320f5179728f96aff164bbe21fad951ba235a87",
+          "bytes": 19243
+        },
+        "assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png": {
+          "sha256": "86f9bd41666452242aeb85d6d5ad3f84df94618ee12aa4197932459dbc01afba",
+          "bytes": 23077
+        },
+        "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png": {
+          "sha256": "ad652e11b0f9a701f44322846c425634bf771da7f4a7c78fc7d0c87a7f310354",
+          "bytes": 51732
+        },
+        "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png": {
+          "sha256": "9f8d33ed98f5af8a304d7101f0267b1331312e7788bad8aea348e9944c0cb45b",
+          "bytes": 27100
+        },
+        "assets/art/environment/floor_surface.gdshader": {
+          "sha256": "fbcdb3c34a32dee12904983630370b68c69e9200fbaf8fea71e33a25258c90c9",
+          "bytes": 807
+        },
+        "assets/art/environment/mint_farm_floor_b_v1.png": {
+          "sha256": "3124d80676757709edc28182d3f6ac950f716d8d1586794edc8bed1b3041f257",
+          "bytes": 980749
+        },
+        "assets/art/environment/mint_farm_props_b_packed_v1.png": {
+          "sha256": "672c0cae193f66d1e8168443831f78c2622a757cfe1b6e24508322b041dddfc3",
+          "bytes": 787884
+        },
+        "assets/art/environment/prop_alpha.gdshader": {
+          "sha256": "4ff920523cf1243c5a2304a45ff6e77430c5904e71ff0e9dedc137ed537a8d71",
+          "bytes": 320
+        },
+        "assets/art/shaders/dasher_hit_flash.gdshader": {
+          "sha256": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9",
+          "bytes": 253
+        },
+        "scenes/ui/HUD.tscn": {
+          "sha256": "8e2907f7196de67f32e03421135fd6e9e19a98463124b2e09dc9f8e6f76319d9",
+          "bytes": 304
+        },
+        "scripts/Main.gd": {
+          "sha256": "a35bbed599d8018fbb6e109bdb53e030e21bd8f22ca4f5ab60c525b5b9d34473",
+          "bytes": 27680
+        },
+        "scripts/actors/Enemy.gd": {
+          "sha256": "fc1be0a84d0edb40138c5282cd85329870e07f1d61410b41891ee750ce129dbd",
+          "bytes": 31552
+        },
+        "scripts/actors/OverseerBoss.gd": {
+          "sha256": "e1105bef7807d585c3a4fe1ee9b3442cf73ebd1c213e29bb565d17cfbc772ec6",
+          "bytes": 13992
+        },
+        "scripts/actors/Player.gd": {
+          "sha256": "88fa20e1eb7c4d862b0837bf6db73f0f1c29862a75a320448d511daee9be4eb6",
+          "bytes": 44251
+        },
+        "scripts/art/NaturalRunDiagnostic.tscn": {
+          "sha256": "dcad36109beca46ad85415e8774a04f012fb9fa94b7bc538048fa195fbdf6a6e",
+          "bytes": 662
+        },
+        "scripts/art/NaturalRunMain.gd": {
+          "sha256": "dba6c3c8a50c23a00851377128b6096777698c32b7fa82bb30a2ef4b86198762",
+          "bytes": 1101
+        },
+        "scripts/art/NaturalRunPolicy.gd": {
+          "sha256": "75d7ccf15e5b35355324945301afb4b8a5a57f5805a10e5d3cb14d07889b2259",
+          "bytes": 2639
+        },
+        "scripts/art/VerifyNaturalRun.gd": {
+          "sha256": "c4de015e0c33e588db08d5765647d9f20ae622359934ff93232e70fd042f9b3c",
+          "bytes": 21971
+        },
+        "scripts/art/VerifyNaturalRunRendered.gd": {
+          "sha256": "d7faecf562fc71f65e5d0c67e02475071245a50186871d76dcbdeddbbd01a5ff",
+          "bytes": 12965
+        },
+        "scripts/art/check_natural_run_report.py": {
+          "sha256": "db64c6437cf1ba18fb519a0cf037b5b27dd4ae91f16a610c9753324a87df8d8d",
+          "bytes": 9040
+        },
+        "scripts/components/ArcPulseVisual.gd": {
+          "sha256": "23923c95df928acfbafb114ebedb30c89d0fa5c5d6d546acb0d5e382af546842",
+          "bytes": 3337
+        },
+        "scripts/components/BossAttackDirector.gd": {
+          "sha256": "df82489a27dddf90f46e8587d80e4a34be355386085f8b331abae12c4faa2ad6",
+          "bytes": 6340
+        },
+        "scripts/components/BossProjectilePattern.gd": {
+          "sha256": "4c09821b66952d4eaca4e8e90429460f9a1d22297f2bd51a8c73dbeedbdca162",
+          "bytes": 9087
+        },
+        "scripts/components/FlameTrail.gd": {
+          "sha256": "7039420b5daf277a5d0a927b381ada6752e848c99a17fc6a5f7fbb9ebf2a9ce2",
+          "bytes": 2212
+        },
+        "scripts/components/LaserBeam.gd": {
+          "sha256": "bfe5fe105607d56b747c97eb8d9a45d8e0537e517768eac03cfd9dc06fa7d5f2",
+          "bytes": 1024
+        },
+        "scripts/components/LobbedProjectile.gd": {
+          "sha256": "ba13a9b7dfbc38eec4472195122f1b59a965754cd71b989137d0e42c4bef9bf4",
+          "bytes": 3451
+        },
+        "scripts/components/Projectile.gd": {
+          "sha256": "ca5b25bd0595f7c2f99a732eaf1f142cc8b88c5792a857f82694dd2c01ec7b8e",
+          "bytes": 3206
+        },
+        "scripts/components/SpikeTrap.gd": {
+          "sha256": "b7ecb803d6bed2d09d329b6dc4a93ab5361f2673779f96de0ac873de4ceb7665",
+          "bytes": 3540
+        },
+        "scripts/components/TentacleAttack.gd": {
+          "sha256": "deb68380a599518a88ea2f7c843732612cbaef3372507eb0ec40ef161eb896f5",
+          "bytes": 9866
+        },
+        "scripts/effects/CameraEffects.gd": {
+          "sha256": "48a5f1f389374d8f368a5b9f8da9b875b296f332ebf2ffc292f5d0078c143c1f",
+          "bytes": 1619
+        },
+        "scripts/effects/CombatVfx.gd": {
+          "sha256": "0f82292ca621853de84658efd3fa671eb7d595cbff2b017c0528fe2f97ef95ce",
+          "bytes": 8751
+        },
+        "scripts/effects/FriendlyEffectPalette.gd": {
+          "sha256": "4893c1bf09210ef0dc265f96f8e2faa70c2f8478035f643e40a5f7b2d0b16d4f",
+          "bytes": 265
+        },
+        "scripts/systems/BossCameraFraming.gd": {
+          "sha256": "42cf856efa4156d596f0b6b4352605a0c540505479b24a4f9bb6c33179157f6e",
+          "bytes": 7401
+        },
+        "scripts/systems/CombatFeedback.gd": {
+          "sha256": "ab49d2a4ba23a7131c1db7ab60c9659a7503ed8791802193bc291de59266ab4a",
+          "bytes": 6819
+        },
+        "scripts/systems/CombatView.gd": {
+          "sha256": "9b0eb9cef8243ff6a433e1daf9b6db74ebd27d4820788b66d5d9b92f03d4f4a0",
+          "bytes": 1128
+        },
+        "scripts/systems/RunSnapshotStore.gd": {
+          "sha256": "328a6c5f284c4528776e30338f8797c0a6202a5fa1f2f859172544b2cfd9ab51",
+          "bytes": 8908
+        },
+        "scripts/systems/UpgradeSystem.gd": {
+          "sha256": "8bed9bb1da7a10b5758af9630fdcb2aa2f78ba8c7117ff4bebc45683165bf45e",
+          "bytes": 22024
+        },
+        "scripts/systems/WaveDirector.gd": {
+          "sha256": "d47d7ac885cfdf65faa4375fc4a33df3d1140e29442c2f227437e47eeadcc48b",
+          "bytes": 33336
+        },
+        "scripts/ui/AimReticle.gd": {
+          "sha256": "def21b4a2d9fe38318814adc6ad19e7fb9f384976693052b345797a2ab970a8a",
+          "bytes": 1091
+        },
+        "scripts/ui/BossDirectionIndicator.gd": {
+          "sha256": "12f4107eae086656790d2e8dfee77816f43cc2bc7231e514e9b8051ef767914e",
+          "bytes": 1411
+        },
+        "scripts/ui/BossHealthBar.gd": {
+          "sha256": "0b4b0baa58d17680c872dd357bf5246c9fb1df609f80a24da6116d8188811893",
+          "bytes": 6115
+        },
+        "scripts/ui/DroneLockReticle.gd": {
+          "sha256": "0d04a88ab53e86b362c666522fef7ffc2a1f16958fba9b54860232eaf464eb57",
+          "bytes": 605
+        },
+        "scripts/ui/GameUI.gd": {
+          "sha256": "b1d6622435e14870d28d998b31df2ddabe8bae9aa913a3528fac3c0f29769353",
+          "bytes": 15229
+        },
+        "scripts/ui/HUD.gd": {
+          "sha256": "1771b3644a450e5bc84b01f1c69519c53cc8d6f32b09fd0e2794d5e75dea4cc9",
+          "bytes": 13402
+        },
+        "scripts/world/ArenaLayout.gd": {
+          "sha256": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+          "bytes": 10548
+        },
+        "scripts/world/ArenaObstacle.gd": {
+          "sha256": "ca44d87f9b3e2e75d0e61b6b2a38e2c3387e5f58f95349c98e2cb772048d28f3",
+          "bytes": 3470
+        },
+        "scripts/world/FloorGrid.gd": {
+          "sha256": "d502d160a4d1d9de9280c7d12f043ec221ebdf365c84570f9bd28d07251a450c",
+          "bytes": 947
+        },
+        "themes/MintFarmTheme.tres": {
+          "sha256": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63",
+          "bytes": 4478
+        },
+        "build/diagnostics/natural-run/current-motion-20261007-09-v1.json": {
+          "sha256": "8ffcbb08e7f7f5a76355f8eece6e6c274b5a4ceb380a3f5bb733f32f86f42a83",
+          "bytes": 5914587
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1.json": {
+          "sha256": "c163ed688e405e81c672269760a9bbf0981d827c4e56aecd2d670f327fe0e6e5",
+          "bytes": 3098134
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/capture-check.log": {
+          "sha256": "2e50f59d89d8e265ce859a67c5467d87b060614b19f06420efc337476e6018b5",
+          "bytes": 156
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/closed.json": {
+          "sha256": "b6377962561db64b3a2f10f16bf1364068acd1cf44a6f0391b5a25260a1c2620",
+          "bytes": 371
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/engine.log": {
+          "sha256": "2d8488c13784519798c25f05831cd75efe87d37dddbac2b7e8d76875487abc77",
+          "bytes": 3293
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/launch.json": {
+          "sha256": "2e51fce9fd22df38111c2fafa015da74296479ff5f0ba8626b06561e2148e0df",
+          "bytes": 780
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/motion-summary.json": {
+          "sha256": "f07b26da09cb78a70cdfe09fc0a489f19fb39c1dfbf9f3934a8c1e856aa3ad6e",
+          "bytes": 13364
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/report-check.log": {
+          "sha256": "ed023a0b03337e45a9d83ed62e764d5820f4e87e52e6420ed6938e5708d92c38",
+          "bytes": 145
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/six-check.log": {
+          "sha256": "2e50f59d89d8e265ce859a67c5467d87b060614b19f06420efc337476e6018b5",
+          "bytes": 156
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/stderr.log": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/stdout.log": {
+          "sha256": "8288f219b53bad6fe51c99a17dc7c511bb57f147871e611e039b586389060ff9",
+          "bytes": 3356
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/boss-actor-contact.png": {
+          "sha256": "0520787c26620f1b2455ee14aa5755872a32a345305634b09b47c69c5277d979",
+          "bytes": 1053633
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/boss-encode.log": {
+          "sha256": "118735a9379a35bab5ddce2a2ecde7e529b2becf3bbbe9ab9d25aafea28cd583",
+          "bytes": 3884
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/boss-encoder-manifest.json": {
+          "sha256": "ff9b7398336328ed385736bb12367d21f236c8351d737abd9cdf6ed33072ff1f",
+          "bytes": 20194
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/boss-full-contact.png": {
+          "sha256": "20d83ec459b062410862875322a5634b6ef3ca86232831886659a1ca0f60017e",
+          "bytes": 1615348
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/crowd-actor-contact.png": {
+          "sha256": "ad8146c128355965614dc800c1a6a12349de04e2f622c2fcd5070364ab9920aa",
+          "bytes": 1088257
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/crowd-encode.log": {
+          "sha256": "c8453633af79f322f63b67c9efa0a1091cc93ce6dbc86b59579e76f0112c7441",
+          "bytes": 3885
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/crowd-encoder-manifest.json": {
+          "sha256": "7e9d2fa609a0b531b70fc06947ff11dee04680c7cee2e83cfd48bdd9bd182754",
+          "bytes": 20189
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/crowd-full-contact.png": {
+          "sha256": "9725121406f0a1eed6b7b1df8e9354c077ce2dbb4a44be578d2064d6f93f40b9",
+          "bytes": 1836378
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/dash-actor-contact.png": {
+          "sha256": "ac8866647d96f79ec3a74de9a13fcb3cdca32a52691a6ccfd51ff170123124c4",
+          "bytes": 1100423
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/dash-encode.log": {
+          "sha256": "c167f74cb05ca187d85bb2c54dc0649cc33bab3d130c94d7fada28f5fd4134f4",
+          "bytes": 3883
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/dash-encoder-manifest.json": {
+          "sha256": "9ca86c7c078e74c76d28a206960bfc9bbbc6c4e83293146ad9cd4d426457403b",
+          "bytes": 20147
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/dash-full-contact.png": {
+          "sha256": "2218371d2ce76766808654600ff963fc40add7555e76499996c7fc1d2cd52c1c",
+          "bytes": 1899280
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/opening-actor-contact.png": {
+          "sha256": "db68b59643fb8af61c1c56f07e01fa094fe8c7a3af61530d070c626e8bc48f60",
+          "bytes": 988110
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/opening-encode.log": {
+          "sha256": "2b006e3c6009f597a258fdf732b9ef8b15057296a3793efe3e03ce424d0a5668",
+          "bytes": 3840
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/opening-encoder-manifest.json": {
+          "sha256": "9329afb82cf7d3af468fab141a353c789e0047cdfbbb7ba86aa638b4b2392d2d",
+          "bytes": 20189
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/opening-full-contact.png": {
+          "sha256": "0c162e0ae0564ad35745c37b627fae2bc7bd4bd44c25e19e96425363b2964e94",
+          "bytes": 1610112
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/overlap-actor-contact.png": {
+          "sha256": "e9c4dece82250f7c3581b6209a1ae6ef740ded9646d945a76dd432dfcdb002a2",
+          "bytes": 1340022
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/overlap-encode.log": {
+          "sha256": "8d769b771d99224ee1728ec50433343a1f34efcbe9673fbb524e5171feec7540",
+          "bytes": 3894
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/overlap-encoder-manifest.json": {
+          "sha256": "ddee2f70ed1e50d25c5f77a8a735f974183d3b3d3e2fb3fb244b648ed6cda186",
+          "bytes": 22037
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/overlap-full-contact.png": {
+          "sha256": "8a68006cab8e8bbdefd759aa0ea08d0f95d9dfc88ab60ecb7ec9fecdad7b6c9b",
+          "bytes": 2124487
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/shop-actor-contact.png": {
+          "sha256": "0acdc4a02e738b5ddb7954cac5cd10cb3e03e1ff1f3e887e452c3dfab376268f",
+          "bytes": 173714
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/shop-encode.log": {
+          "sha256": "a9a42c8b49897686caacd7592df189174d7480021a0d5040b1293bb0b90552df",
+          "bytes": 3881
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/shop-encoder-manifest.json": {
+          "sha256": "c85008d4ae27364d80b9b0fd05b495796351b6be60d06c93830cf61504a942c6",
+          "bytes": 19671
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-09-v1/visual/shop-full-contact.png": {
+          "sha256": "bad02c07b5cd763f250acb1536500b5bdfe6ea9f8f08d65128f548a084f38062",
+          "bytes": 582949
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-boss.ffconcat": {
+          "sha256": "c7ee0d1eb05aa949c607ba46c421a9b6df52710172011071cd75541a8ff76843",
+          "bytes": 5893
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-boss.ffprobe.json": {
+          "sha256": "08d728b5f6bc026e99e0a2bb63f965111e36f9ae12a3705a35dc984989880858",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-boss.mp4": {
+          "sha256": "4a26b88af72535655ef0c7307a0856cf6e0528853695a440c1e2d8c13101f40b",
+          "bytes": 536147
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-boss.video.json": {
+          "sha256": "ac51ca6aa72d225aed7e6836d26f7b46357a31b508213157b514cea311285b8b",
+          "bytes": 578
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-crowd.ffconcat": {
+          "sha256": "c93a5f22e3f3e4d15682c282deb005c7431df8343a984f57172901b2673df1ef",
+          "bytes": 5924
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-crowd.ffprobe.json": {
+          "sha256": "60c24aa420c30b4e8bba904ea44566b73d1144a397a60bec744eaf50c0f62b1d",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-crowd.mp4": {
+          "sha256": "90bf96d8e6c63054f54a43c7659789a646821dbe6cfcd1d9de923bad7be3eb42",
+          "bytes": 1096016
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-crowd.video.json": {
+          "sha256": "2b730dc0ea8bfd83bd731138615c2fe534a3109819ae2d2a73b57faa2bdbd24a",
+          "bytes": 576
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-dash.ffconcat": {
+          "sha256": "d9420077b6391a9f1a3f4cfacf1ff8adedcacb182257bf4ad0285926f42caa37",
+          "bytes": 5893
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-dash.ffprobe.json": {
+          "sha256": "07632a492451edece5bbbddb37fb8a025c201b7ac311caf580936ec2b2dbfbf4",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-dash.mp4": {
+          "sha256": "a5dabf0a92df14e7f31cc3617cf725b589e21410db809ce8d292338823be3fe4",
+          "bytes": 901372
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-dash.video.json": {
+          "sha256": "c3cbb7a9810d850707bc359750c0fe5bb0ddfeeb146f71418adc75bb8192c4ab",
+          "bytes": 577
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-opening.ffconcat": {
+          "sha256": "ecab1021ada04e3f294ffb27999d0dd64ac0bad96fb47feb4ec4d24d09a2ed38",
+          "bytes": 5986
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-opening.ffprobe.json": {
+          "sha256": "1cdb6b0d629e7202833ab25e399a57b141cc33f7b7da5349ffcbb1e9b8ed01bc",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-opening.mp4": {
+          "sha256": "bc63bd7a1cd2022b514d65d464cbf0831b65344102f46922b90e4912156f1de5",
+          "bytes": 581126
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-opening.video.json": {
+          "sha256": "edeb1a4f87ebd078d7a4a2b912c71d7904aaa011165ea6b227c37d77da800621",
+          "bytes": 580
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-overlap.ffconcat": {
+          "sha256": "3c94d5d1000eb71fdea946d2cb1fd6e1dbdade766cbebcc4a5d062b9cb4a49e4",
+          "bytes": 5986
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-overlap.ffprobe.json": {
+          "sha256": "390dae38ee726de1b115c0fa7d71942789b1fcad75e5b6984bee0857ee1c1d98",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-overlap.mp4": {
+          "sha256": "e9dc50b6ee362470e03e4c3086b2c8ad3e79950e313f9ddf824c9101c5ce34fa",
+          "bytes": 1418293
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-overlap.video.json": {
+          "sha256": "f96441a83f2edd0f4fe7c3aea185bd97cfff79495549cf6b36473676af1f797d",
+          "bytes": 580
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-shop.ffconcat": {
+          "sha256": "a9af5aef9b4f67ed0ae3b201b04bf9d3adc39bf12c185b2e19b70d5234bc0264",
+          "bytes": 5893
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-shop.ffprobe.json": {
+          "sha256": "df712fcabe0e744ba44a22e961a760580de95014acb958c549dae4a079e6baf3",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-shop.mp4": {
+          "sha256": "02ee9d1ffb04eae31cd73f573a9c02e06210f8d16fbda0829e15355dc5ba0e72",
+          "bytes": 280839
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-09-v1-shop.video.json": {
+          "sha256": "aa0dbf3cf7ebb18d7e3e61b5b52bf4982d420b2b0860f16138cc2952f4b444d8",
+          "bytes": 577
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-000.png": {
+          "sha256": "5de945929102e903855cadd37ffdaac44d0cfea85133597b048818913e541e22",
+          "bytes": 526222
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-001.png": {
+          "sha256": "749040f752720bae1bcc7ca2f0af040c2860e1d454907b17a5bd609d8472f57d",
+          "bytes": 523847
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-002.png": {
+          "sha256": "52a452e15062a9ead48cfe61d5d9032cdcf10550364547a8f68eac951a3c1beb",
+          "bytes": 527430
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-003.png": {
+          "sha256": "c31347b1c4c9ccebd990186f09f66f379b19009b1f5d73144a8d523a801f19b0",
+          "bytes": 528309
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-004.png": {
+          "sha256": "b2a697dea6b29e369260be0fe35dcb9710c15adfcd8bef9f892845f977e5b837",
+          "bytes": 516865
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-005.png": {
+          "sha256": "01f39d3823820ff06000e09d6d274c7549637fa97840c3a4514d765f0c66825e",
+          "bytes": 521211
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-006.png": {
+          "sha256": "532b274bd59323dc33829c27263ec4dbe8d11496b6a3ff70be08a5aa88c90a97",
+          "bytes": 522691
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-007.png": {
+          "sha256": "257da45376be8c154eee518e34dc6bc780b4d8444dd594815f300b15fd3c99bf",
+          "bytes": 525711
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-008.png": {
+          "sha256": "53e1efb55624f0e1af7005d2dc098d539a5f492414b2498a960ade409ee0dcff",
+          "bytes": 516529
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-009.png": {
+          "sha256": "48eb18586f344af81ee2ace82b216b0ce3321529dfa1d2acac732a0359779349",
+          "bytes": 527763
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-010.png": {
+          "sha256": "721b9dae5f678c1f799cb58c0192154a89561832e4b65e0601215930bbd27f0f",
+          "bytes": 525383
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-011.png": {
+          "sha256": "927e2279076950609505c3285ffa66910a7618fc875d2b8c8fe1c32ab8d2f259",
+          "bytes": 526596
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-012.png": {
+          "sha256": "0183d7934edbd312288758a9dcc5da0bad27125369a4d06425be663691c1407d",
+          "bytes": 526545
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-013.png": {
+          "sha256": "3b5ec352c8ddb5ceac38d788c0d8e3bec91e4368c674e6c03c3f360c453bc066",
+          "bytes": 532778
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-014.png": {
+          "sha256": "0ca3d229f6f2c3c1431418ea1e4da61a5af767205626a877da6b5886e47347b5",
+          "bytes": 531533
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-015.png": {
+          "sha256": "8668020409c4e83228a22dd6ca2eb71880e4f6631b2961ca28b769d7780fd5a6",
+          "bytes": 535377
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-016.png": {
+          "sha256": "60c164d3217cbd5dc0a4388a21d8f697723a7be48dd6dcee91d10d1cdeb4fd8b",
+          "bytes": 530929
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-017.png": {
+          "sha256": "c60ad317b4db9b0e2851a458cc4c94e02634cb873b7dc4e6553d7c5b488f413b",
+          "bytes": 534715
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-018.png": {
+          "sha256": "b191ec6f4601121d0b2a9c82d83bcb5f254ff048c9dbc6502b1a15bc10d114d8",
+          "bytes": 530983
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-019.png": {
+          "sha256": "eb22501f9e5e28e2cbc1e890c5055ef83621c2ead4a734ef837cce17670cceb3",
+          "bytes": 518417
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-020.png": {
+          "sha256": "af768c9cc79fede0e7f2ebb5f11bd696850a7158029bd939184d0063da7d2fbd",
+          "bytes": 517144
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-021.png": {
+          "sha256": "578e7d0d727f52ca0624b737ec6bbcc63f51e15307fc357c7561fdd4896242da",
+          "bytes": 520267
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-022.png": {
+          "sha256": "f7eb1cf6b118330952d13607ad6b0bfcdc9af088f2320c508ed5aeea87282ae2",
+          "bytes": 518513
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-023.png": {
+          "sha256": "eb763e2382cf943ab1e9ee9b8270a904af33ddd16451c00b0a9da6ffc2bffcf9",
+          "bytes": 508463
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-024.png": {
+          "sha256": "a4d0aebcfdff8a96cd158a81f89326124e0504d2382c33e7db161ee783d786fd",
+          "bytes": 517550
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-025.png": {
+          "sha256": "17b8af7673dcf01975080385c9fc942802bced74f563e22b8c3fe6d6340ad3c6",
+          "bytes": 505790
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-026.png": {
+          "sha256": "7325b5f23474c3588d3911d1f0c2ea7d8b5c9dba5f918b74c7fa08a29907ac53",
+          "bytes": 516026
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-027.png": {
+          "sha256": "d7f4761e0907d25fde415b5242103c260d558ee46a2dcbacc60d94563dd3fd8e",
+          "bytes": 512251
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-028.png": {
+          "sha256": "189bfd816ac168ed1fa19ffc28b7235a241e2df28b762cecce0d209cc9271da4",
+          "bytes": 515097
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/boss-029.png": {
+          "sha256": "7ec8587d48407dad02b5a2e4b289e09dde4c403ef0bcceb04e8ebff36351e006",
+          "bytes": 513792
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-000.png": {
+          "sha256": "345e71e7ae503e2e21c5ddca3136057a112bd95448082896aca25aaef570f1e4",
+          "bytes": 650912
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-001.png": {
+          "sha256": "a537abc469e2c949e0a78315a655da0a8a9ec19091fa2351e68ca8bfd5aab6f0",
+          "bytes": 653435
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-002.png": {
+          "sha256": "bdb074142aa14c96a8af7f68a00c5dea31cd4adaae895b542657d4248656694e",
+          "bytes": 663951
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-003.png": {
+          "sha256": "8124054da105e65228e039d3084635db5b95798fa2b3290fc9e9dc2e07d2d283",
+          "bytes": 662468
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-004.png": {
+          "sha256": "21e6b82b5a18219eeaed9ea95e043400c688cafc8bf3cf0f6e4d8383cfb70b6b",
+          "bytes": 651982
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-005.png": {
+          "sha256": "408a52f20a30246bafbf0acb49993b780b80424623a75f9fc59c93249f40e85b",
+          "bytes": 649859
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-006.png": {
+          "sha256": "b2a30711ada3e774611f14e6674895cd53e6181e28de42d1e09cabdf0586bfe9",
+          "bytes": 641369
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-007.png": {
+          "sha256": "9be0f429fa548171bafeb1171f2c05588d3dde00798efde8de255c60a4452a66",
+          "bytes": 625445
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-008.png": {
+          "sha256": "685a21d4fe0a5ce46a5f088734670b066a1d2c86a67174e69022f55fb45769f7",
+          "bytes": 618026
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-009.png": {
+          "sha256": "24ce67dca533069c09b0f738a3a35be0a2140ae120b6aa746490dcb98c3001a0",
+          "bytes": 619952
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-010.png": {
+          "sha256": "a690c5bb8228185619fcb293773e262eb8a415298d7779a997de0fe56565f996",
+          "bytes": 633290
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-011.png": {
+          "sha256": "e82d2ac44791b989676d820af6f625317656d153fec33b518aa822d7040eafe0",
+          "bytes": 633449
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-012.png": {
+          "sha256": "b877b246d2d926012bb8a33c24c94ca0597087374ba658ae0310b647c600b98a",
+          "bytes": 638266
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-013.png": {
+          "sha256": "30de01d9e5839bbee237e273ed9ff33fab97765add92d007bcc96b7c9fe1d6db",
+          "bytes": 636630
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-014.png": {
+          "sha256": "c68d6dd7ffbe1ad1acb533cb3fb6cac34d90bd45d65dc1278ea3e5dd103f550c",
+          "bytes": 626230
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-015.png": {
+          "sha256": "9dfcab075146aea3a677f7d7d8d5c6d5f0a5558599195d9414b435bd9c555e1f",
+          "bytes": 627301
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-016.png": {
+          "sha256": "a7aadf1159b927914a7e8c549cc826c91bb5620e5a54ffa790d456eea5edee67",
+          "bytes": 623806
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-017.png": {
+          "sha256": "d55229daf19969064343a03b9e6b1ab173b8702876e8a1ec1af172f6c54798c9",
+          "bytes": 629727
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-018.png": {
+          "sha256": "4c1f3bc2ac212f2f9ab1ad8e9edce8f18fe65ea6a8d3c9b0c6da1297e50635c1",
+          "bytes": 628029
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-019.png": {
+          "sha256": "c8398f7eac21112a0974eceec9ea71b89ec8eea83f4f2d8780090cdf06256707",
+          "bytes": 616686
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-020.png": {
+          "sha256": "867e8ec8910a577738f7b35f9fc8869a88e22c9303d7249f111b42b31f3dfee2",
+          "bytes": 629125
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-021.png": {
+          "sha256": "4c2e0d4ac2d6ed1c9623979d24848183c20e49b58306ebaf0004b9eb199a9140",
+          "bytes": 617289
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-022.png": {
+          "sha256": "01b4ff87fae65b6c867dbe28554c9d51f9fe3ded18bf6852be7934a332ef5509",
+          "bytes": 623126
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-023.png": {
+          "sha256": "572c2ea6ddb1795c27fc11e503d3b628b41dfbc527b22ab2ee89d78de2b11e35",
+          "bytes": 617913
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-024.png": {
+          "sha256": "7b70222faf8e76739c67f179105df30af80c0cd917e1727c5c8a78b87e80db8a",
+          "bytes": 620397
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-025.png": {
+          "sha256": "7ce1dc47291c2cb78cc85f3474d071781f6fdd450a283b35c8143d49eeea1c10",
+          "bytes": 615857
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-026.png": {
+          "sha256": "3c49c3730e54d8563c44a5a1c3260ab3387650b52e7cd5859d2b95033041635e",
+          "bytes": 613531
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-027.png": {
+          "sha256": "a0d833285945af38ee4ac1fa477623cc47ecccf163fa026e777a2cbb6b507bea",
+          "bytes": 612262
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-028.png": {
+          "sha256": "080d66dc2abf60ccb8502b3c5096d6dbe5ce4cfaf605bdd9df7564be68047186",
+          "bytes": 614598
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/crowd-029.png": {
+          "sha256": "b9d2be3f85c7b0082069db979556c214158a3da272cefd29be6935187f219dbe",
+          "bytes": 612667
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-000.png": {
+          "sha256": "26faa8adbe2d75d9cffa4d6754641cf4707b7604e0142a1a7a3c90cfbb3e31c8",
+          "bytes": 563387
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-001.png": {
+          "sha256": "4675f4687565eacc24ae6122a33e2fa44cfeb21a1d45a313d3cb055243d15a28",
+          "bytes": 570054
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-002.png": {
+          "sha256": "135c3e99337534fc0d80adcfb41e69cd1a30a8ad6dd8153c82f007b70d52db00",
+          "bytes": 571268
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-003.png": {
+          "sha256": "bc8b14b5c36887c367afeea9b18e67e7ebe103537547a5414a59e95d73ab81a6",
+          "bytes": 576230
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-004.png": {
+          "sha256": "f152c9adedb169a791109b01f093e8b00c04f1a332e1632a5dd12bf368f0c833",
+          "bytes": 573332
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-005.png": {
+          "sha256": "dccf9c200fba912e7759a5ca5cbbc8ff5da17d4fdd0303523e00730ab5f0fda0",
+          "bytes": 573121
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-006.png": {
+          "sha256": "16b35c9ef4e32171e260fede9340188621487b2cd904380e2981aedd8fc14ed3",
+          "bytes": 575534
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-007.png": {
+          "sha256": "707b0a6a4094957316a4edccfc81a127eef7d8b33fd4fe9bfa9ea627491e99a9",
+          "bytes": 585269
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-008.png": {
+          "sha256": "843e6ab91de46155f4cb2ee3117902acc220a747fa08d41d3a603bc7ac1e3a7d",
+          "bytes": 583540
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-009.png": {
+          "sha256": "662773d62656d0895f1776f101116ca3ad280b72d21a1c47783772ab3d68232e",
+          "bytes": 587163
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-010.png": {
+          "sha256": "b78ad59865e38d3e6df3781d242e19693b0a76a7c55c526c2afb5a6fa1dcede5",
+          "bytes": 585982
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-011.png": {
+          "sha256": "cc2bba3c4e4fb794687ea5d660a80ecd74d5cf65a3c5704dea719e502780ba60",
+          "bytes": 590135
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-012.png": {
+          "sha256": "d38ae44fc92f492f374703a60a3b271aded8cd786cd5a304a80ce6ab84eb5690",
+          "bytes": 597803
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-013.png": {
+          "sha256": "a9c3e2e488d050e2e6cb02d8de75a746f402b248fb4675c0135113e3ad26b488",
+          "bytes": 602746
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-014.png": {
+          "sha256": "af539d44d0251b3ce9ccd5db211acab457f739a379244d3c33580825ab6bf9b2",
+          "bytes": 608595
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-015.png": {
+          "sha256": "3d6a5c53d3ecade1f89031088da92075d18bc9b0c762cc5ce84815fbc2d90e73",
+          "bytes": 612752
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-016.png": {
+          "sha256": "80141823d8840572491ff64c798fe84d1b9976c8e06eec59c3db46649c46a7f6",
+          "bytes": 611060
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-017.png": {
+          "sha256": "2114f0d18489aacb8eb5703367dffa7699b0d4e08593c4e0b689eb2bebd8e712",
+          "bytes": 609289
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-018.png": {
+          "sha256": "c4aa90fa2320789738731ddd57d6896d44de4da1320246971e7943f02d4e7d72",
+          "bytes": 609882
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-019.png": {
+          "sha256": "bdfa762498979a74058cc81d863ad7f3be20e7d74ba4d3440742208b404e3b47",
+          "bytes": 612296
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-020.png": {
+          "sha256": "f148069d6362e10bb7e5971654f39fd96956005e1416832833763b96d3fa6157",
+          "bytes": 616966
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-021.png": {
+          "sha256": "e28d436c8d0a00aeffdfb04cccf50e3670578571e34478a5b2730d08ac0176ed",
+          "bytes": 624091
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-022.png": {
+          "sha256": "2981a359e7e542e811da4196f713af95dc93c12863164ac95c0f0953f1d81cf9",
+          "bytes": 632708
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-023.png": {
+          "sha256": "7ee0574c7ae89a734816fee2d676a9a9bfa7b81db2c750ea91f92c8f2838f10c",
+          "bytes": 630056
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-024.png": {
+          "sha256": "e3e2cea666ea1bc2dd5a71f4168d28768fce1f6d4fff1a0522a002d6eb4544f9",
+          "bytes": 630290
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-025.png": {
+          "sha256": "1abe553fca7e06676cebb58ea8b8f187c868dd3a8f58b8a2bfe84e3e5e901371",
+          "bytes": 632588
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-026.png": {
+          "sha256": "d8b723dadca142b14fc975530083909b5d3e9923512663e843eec4648669d276",
+          "bytes": 629188
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-027.png": {
+          "sha256": "50ceb935fd88325c594da870a098e4df2b1f937df2b417d24a1d35d77300c55d",
+          "bytes": 632360
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-028.png": {
+          "sha256": "3f8f4bf47f1be650996fc93473cbfc7aeadd9db8e54eea1b2c66ab1e6ebf01ba",
+          "bytes": 635318
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/dash-029.png": {
+          "sha256": "121d7f4d4ac649af38867e9e8c1ceed76cc945107c5ce733bc5b7bedb7fe6755",
+          "bytes": 635172
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-000.png": {
+          "sha256": "24abdad8e9c20f3aeb62042c6448288a492fdbf8e31c5533ae73c3db01b8b70d",
+          "bytes": 500441
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-001.png": {
+          "sha256": "bd0059229c7fe39a0d21ecc0e5e3e3f0e98a96028e28cdf9ff8a45fc335ffa0e",
+          "bytes": 500269
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-002.png": {
+          "sha256": "b793d3c03b93e405c128a55ca1b34f35f2cb8c465ebff7c03763386f29d3b685",
+          "bytes": 499186
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-003.png": {
+          "sha256": "020541063cc46a13b3969b614c33b6da1f3c3eac03d863c34d996ab007e9880c",
+          "bytes": 512386
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-004.png": {
+          "sha256": "77705ca185f7a1c9db4a69eb0442056871c9c682754dadfc6b8cdd3665990b51",
+          "bytes": 516571
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-005.png": {
+          "sha256": "ce776a428f9e087a41429e05cfacee6a79b0ae666bdd0be87f4af3dbd2ac6fa1",
+          "bytes": 527228
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-006.png": {
+          "sha256": "552058635f45d9ffcbc3f33f274f8369d716748b8379ae5fa910e623932c33be",
+          "bytes": 537360
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-007.png": {
+          "sha256": "d57adc6573dfe58e8e0d1881546c345c701e49b9ca307adced431e4ebafc9c6d",
+          "bytes": 541884
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-008.png": {
+          "sha256": "325a0f09d5f7b41ac8708d29b1f1435987fb1e604e8c0f17f78631ad60733721",
+          "bytes": 540549
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-009.png": {
+          "sha256": "0f38f97add6a051d3d6b88ca88f8da7e80b67556cd2e0f7007f6dfbf6d17429a",
+          "bytes": 548877
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-010.png": {
+          "sha256": "5b8ed415d10a5d199f25b15938944830caf0b8741326dbef92bf41e20ff69f92",
+          "bytes": 534476
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-011.png": {
+          "sha256": "a5e0cb5c2ec911979bb39ebcf6b07c57d0966da5938a2fe755bd4deebd8aeaaa",
+          "bytes": 538247
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-012.png": {
+          "sha256": "ab07e11c93f052a5e7c8354a72a1275c472c3bba3b158ecce471bb5be9deb140",
+          "bytes": 543809
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-013.png": {
+          "sha256": "cef931c251fdf6e50f37fba6f3717e71da2b7dc42f5d79ca73700ba9895dd69b",
+          "bytes": 548428
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-014.png": {
+          "sha256": "38ab7b19ce9cbaa146b221849c7a2f0e78d4dcf400a5b92785044540d9399bd0",
+          "bytes": 544516
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-015.png": {
+          "sha256": "6b12a759646d034420acc78ff1ffa518c62818b7913fa476287aebe5c0a90fc7",
+          "bytes": 549990
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-016.png": {
+          "sha256": "a189b8924d285aef82f368119e7677d329cb126d56923ed414bc90fcf876d786",
+          "bytes": 550785
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-017.png": {
+          "sha256": "c59f2527de078260e8b27d436f529e78250552b9a81dea1d9540da77d367ed14",
+          "bytes": 546505
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-018.png": {
+          "sha256": "654690be1c073b42a5babeacefef5ccc65465654fb1ad0ed871f0aaf6353d15b",
+          "bytes": 546137
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-019.png": {
+          "sha256": "f8293e0fdd7a9b122e8b5744d8b21b6306e30cb1e292a4ddca9730956ae2056c",
+          "bytes": 550399
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-020.png": {
+          "sha256": "42a20d2ae395ffe22decd8ae771a333577c12ca3e45c5473595cbc3bb764927c",
+          "bytes": 545664
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-021.png": {
+          "sha256": "e0d2d6a4da21d0aab9273e6d351be030a9f4c9c591a8758feefa0233e977cda4",
+          "bytes": 549335
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-022.png": {
+          "sha256": "6aa4b319f12f1a4f29dfa330a521f1fcdf447e101201a95ab2cd7ecf8ee7dace",
+          "bytes": 548426
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-023.png": {
+          "sha256": "1e6570d2364941255fbc52fa43a35ee3c3e87045818dca96d51f1da93f496f94",
+          "bytes": 549668
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-024.png": {
+          "sha256": "a933a19e1035ffeb35c24b3701edb6afc4769348517431e7ade6f663bfe58562",
+          "bytes": 555995
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-025.png": {
+          "sha256": "b976b7d44436034936357c05e5267f272534d04bc36e2b8d76f43497f247fc86",
+          "bytes": 565917
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-026.png": {
+          "sha256": "470d774684ceba952a36c4764b23948f25dafd0b0abe5ee1a9a19f75abfbe98b",
+          "bytes": 564743
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-027.png": {
+          "sha256": "66e19f17cafadff06bc05203dba52b91008c12fc0bee583654ce9695f318159c",
+          "bytes": 571157
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-028.png": {
+          "sha256": "26faa8adbe2d75d9cffa4d6754641cf4707b7604e0142a1a7a3c90cfbb3e31c8",
+          "bytes": 563387
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/opening-029.png": {
+          "sha256": "4675f4687565eacc24ae6122a33e2fa44cfeb21a1d45a313d3cb055243d15a28",
+          "bytes": 570054
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-000.png": {
+          "sha256": "4abe1a3b6ccc7c54692147c3e3bc62288b24f66adeb9309c1c0fa91c9e5e838e",
+          "bytes": 653343
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-001.png": {
+          "sha256": "9ae1b94f23e7f2c309f8d6e92ba8fef71f3afbac8cc849f38a5928bc79f305aa",
+          "bytes": 666666
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-002.png": {
+          "sha256": "12c1e7cf38477b3eb985653b64f689db20ef685c4c2e76cebfa6266fbe4e8cb1",
+          "bytes": 670253
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-003.png": {
+          "sha256": "75b7f53acc423507e12c10c5e92721a4183738c3e3dfbd01366356c88a362ffa",
+          "bytes": 664463
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-004.png": {
+          "sha256": "0af42c18094ce88e1115a069284e942628f99e40c11b2724d1ec66b8706ea763",
+          "bytes": 661731
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-005.png": {
+          "sha256": "8056500ee3996c28b44a3077632d639b56d68d7561f175502f45dab189931619",
+          "bytes": 671270
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-006.png": {
+          "sha256": "727acfc5aded3727ea93c7e7a7091ef2603be019d0890586e7a1548b1d3af892",
+          "bytes": 669052
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-007.png": {
+          "sha256": "cd2768e2e43f9a35b74c524884d57a8daebf6677f31b6b1786f6d4dc6547d6ce",
+          "bytes": 670472
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-008.png": {
+          "sha256": "bdf2a0c6a22a9b309f9160c47a8aaba36821ef74637663064c1854deca3f41d4",
+          "bytes": 669440
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-009.png": {
+          "sha256": "ac0f7aa3055d04b1d90688c28ba88ef75e6ff8575fdc0b03f4383457e8aad154",
+          "bytes": 659139
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-010.png": {
+          "sha256": "6a3f00d9690ff66b847a102c011192b9545e9ea2f4084c5b9fa4569048624f4c",
+          "bytes": 647193
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-011.png": {
+          "sha256": "da4623dfcd8b1db3ba9707172966b1d3fefc0041597cf7f01b4a570c46833dcb",
+          "bytes": 646906
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-012.png": {
+          "sha256": "f15f606dc011f1b03e2218944d3ac39aeb29816200da1d29660b016e2c1eddbe",
+          "bytes": 666927
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-013.png": {
+          "sha256": "7c8088837dde6f53744b50f3aa786cd39f2a9fcdd3b6811c2f446dd4657e305c",
+          "bytes": 659075
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-014.png": {
+          "sha256": "a38b5a586119a79e2ec403752ff1bb1d2280b36c0634f64fe7fd0b341d5d93c4",
+          "bytes": 648295
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-015.png": {
+          "sha256": "037f4f891a95f68d02e4befcbfe24435517593c05bd9fe7dbe8082b198dfb2be",
+          "bytes": 640394
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-016.png": {
+          "sha256": "026f2a7f5dab5cccdf1591d67ce959fa380444f8922e5e1c1a5687e27ea0086e",
+          "bytes": 663539
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-017.png": {
+          "sha256": "1dacd621085809a96dce9da14472c5e6d8cd1362c02d1064ed80ba64712e5c3c",
+          "bytes": 660720
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-018.png": {
+          "sha256": "59bba109d503860b8764d3ac15d3eb54601ac18205e0b7ca8c2fe63eacf0f12b",
+          "bytes": 660810
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-019.png": {
+          "sha256": "fde10542a9f1b1138c2528e733eca5ea04c0671efc2bd9d5d2b5a5a4d289755b",
+          "bytes": 652563
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-020.png": {
+          "sha256": "3b6ad8fff4b18d09f9e0d6b6933134bda3931ca2e25b72dea0eacc49c3651230",
+          "bytes": 675071
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-021.png": {
+          "sha256": "c6bc50b7c4fcd9e5b8183914460831cd497186f5763f2f7549f275d9966110b2",
+          "bytes": 669491
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-022.png": {
+          "sha256": "618c24219e7cd23443c68f1cb8ca879eb86f59801b849c79a2b23d9341e42e36",
+          "bytes": 649537
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-023.png": {
+          "sha256": "6a08f6ed08010d2dc47d51d09ffe5e56d756ad333b7c178404532a92dc5023bf",
+          "bytes": 651916
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-024.png": {
+          "sha256": "29a2a3850bcc128c35f1f9c7f9df6982d969deddef0c8b08d58a13140989b1df",
+          "bytes": 646944
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-025.png": {
+          "sha256": "15f4b83cbb7b24806b9c239fca1b8dbdf749104cc8059bb4b03eb6d8cedb9f0f",
+          "bytes": 652728
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-026.png": {
+          "sha256": "f6d9ce42ab039ba466381364774f93822603d66bbbb418da6b7f5561993ce840",
+          "bytes": 648497
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-027.png": {
+          "sha256": "88f024549a7bb4058e2382aea07e4b3edb48a056c81c931f9cc215a77f3cbc4e",
+          "bytes": 649467
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-028.png": {
+          "sha256": "be6539ee9e55130c1d72be905fa90f0b13acb5cc16800d8ea26a8c485c0b6fe3",
+          "bytes": 656218
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/overlap-029.png": {
+          "sha256": "fcdd7facad50aea3a7f8bfdde424f3dfa687616abd7113f3c0ee0dff47155a23",
+          "bytes": 629938
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-000.png": {
+          "sha256": "f51405e1a858a7c81e0d4edef94eda17118a1aa433bad9a8bcde3fbe1bebbb86",
+          "bytes": 203575
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-001.png": {
+          "sha256": "f51405e1a858a7c81e0d4edef94eda17118a1aa433bad9a8bcde3fbe1bebbb86",
+          "bytes": 203575
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-002.png": {
+          "sha256": "f51405e1a858a7c81e0d4edef94eda17118a1aa433bad9a8bcde3fbe1bebbb86",
+          "bytes": 203575
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-003.png": {
+          "sha256": "f51405e1a858a7c81e0d4edef94eda17118a1aa433bad9a8bcde3fbe1bebbb86",
+          "bytes": 203575
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-004.png": {
+          "sha256": "a58f6c4ef942b8c5a71715a192236ad036ecd7589fdb62cb50074cada1639018",
+          "bytes": 209264
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-005.png": {
+          "sha256": "a58f6c4ef942b8c5a71715a192236ad036ecd7589fdb62cb50074cada1639018",
+          "bytes": 209264
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-006.png": {
+          "sha256": "a58f6c4ef942b8c5a71715a192236ad036ecd7589fdb62cb50074cada1639018",
+          "bytes": 209264
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-007.png": {
+          "sha256": "a58f6c4ef942b8c5a71715a192236ad036ecd7589fdb62cb50074cada1639018",
+          "bytes": 209264
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-008.png": {
+          "sha256": "cb7126668a445186d1bf8f3498f95a4fc6585eebe1af0703ade614f702aeab9f",
+          "bytes": 203037
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-009.png": {
+          "sha256": "cb7126668a445186d1bf8f3498f95a4fc6585eebe1af0703ade614f702aeab9f",
+          "bytes": 203037
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-010.png": {
+          "sha256": "cb7126668a445186d1bf8f3498f95a4fc6585eebe1af0703ade614f702aeab9f",
+          "bytes": 203037
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-011.png": {
+          "sha256": "cb7126668a445186d1bf8f3498f95a4fc6585eebe1af0703ade614f702aeab9f",
+          "bytes": 203037
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-012.png": {
+          "sha256": "93686fad02efc21568908eef6b49669f21af5045be03d385749516f0de7d78a0",
+          "bytes": 478380
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-013.png": {
+          "sha256": "1c1eb01121fc0f49899bc6687860327ab15697d4aab8c2feaa9a7f94153a2a9f",
+          "bytes": 473308
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-014.png": {
+          "sha256": "a638025fe75b616e8c7deb5cb6d501b7c0e90ac492f4a86b13363dc515ac4371",
+          "bytes": 467287
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-015.png": {
+          "sha256": "4179db714475d936885511cb35dcd7f7f4afc5d85fe25bdb6af1f9d704b63a85",
+          "bytes": 479654
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-016.png": {
+          "sha256": "ba17c656bb5d778fb00b0940266a2f320cca86c1ef78265f35fa10569bebb298",
+          "bytes": 478445
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-017.png": {
+          "sha256": "acbd50c782cb376b5f257ea7d75b2069441d39724b879517672898e6ca96bd06",
+          "bytes": 470714
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-018.png": {
+          "sha256": "acbd50c782cb376b5f257ea7d75b2069441d39724b879517672898e6ca96bd06",
+          "bytes": 470714
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-019.png": {
+          "sha256": "acbd50c782cb376b5f257ea7d75b2069441d39724b879517672898e6ca96bd06",
+          "bytes": 470714
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-020.png": {
+          "sha256": "acbd50c782cb376b5f257ea7d75b2069441d39724b879517672898e6ca96bd06",
+          "bytes": 470714
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-021.png": {
+          "sha256": "acbd50c782cb376b5f257ea7d75b2069441d39724b879517672898e6ca96bd06",
+          "bytes": 470714
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-022.png": {
+          "sha256": "acbd50c782cb376b5f257ea7d75b2069441d39724b879517672898e6ca96bd06",
+          "bytes": 470714
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-023.png": {
+          "sha256": "5ec69c79ed23863c9a2a0266f924a73754253569276caca3f8c4168e6cfbb49e",
+          "bytes": 473717
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-024.png": {
+          "sha256": "115dd54cddcbd0484524157ce04a1d26cea156ba8eadca44c48dba7e1a1818b2",
+          "bytes": 474992
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-025.png": {
+          "sha256": "300f6a6a3b053bc2cd486a809cbf7ca2372022a90e51fb321f3af9723082d9a3",
+          "bytes": 475628
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-026.png": {
+          "sha256": "89b30904fb1df27ddef2647f788fa798cad279590811fb88833b04b38d8ecf39",
+          "bytes": 473170
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-027.png": {
+          "sha256": "7be7ffe405575476fc0d927cc25642d2d9f8e026150f3b37f3047bf7f2e93cfe",
+          "bytes": 491668
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-028.png": {
+          "sha256": "fb288b76778e741b46cf9d07b33c53248c8b95510fdfa0c9f81700bf9ff37c23",
+          "bytes": 496206
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-09-v1/shop-029.png": {
+          "sha256": "f91e82c08788c1471d42956bacdba18eb1d02840a24157d300a1097669550150",
+          "bytes": 500596
+        }
+      }
+    },
+    {
+      "path": "build/diagnostics/current-motion-v1/raw-current-motion-20261007-10-v1.zip",
+      "bytes": 120560407,
+      "sha256": "e461e341ef2a90c0a46f41dc0e7c81d12127727c8d4f2884d50acdc2618ef9e2",
+      "members": 309,
+      "original_data_members": 308,
+      "member_index": {
+        "build/diagnostics/current-motion-v1/registration.json": {
+          "sha256": "ff7b7083bf37d9bf64ee8c82e142da78f4f4d2d76b7e84152ae2afa2b9decfb2",
+          "bytes": 22719
+        },
+        "tasks/current-motion-acceptance-plan.md": {
+          "sha256": "4fa0fa958a826ac8e752296d9e32bbf930cd807f2baf462fc7a9183618ac2aa9",
+          "bytes": 2429
+        },
+        "build/diagnostics/current-motion-v1/run_serial.py": {
+          "sha256": "12d8a12cc85a96c21584c66c368b9bd5a391da418f5f6ef034f9f41cbe7198bc",
+          "bytes": 4924
+        },
+        "build/diagnostics/current-motion-v1/inspect_clips.py": {
+          "sha256": "08e71d654f71d49b89b6f6062b3be39c24f11e924232d13a86560695a7182b39",
+          "bytes": 4866
+        },
+        "build/diagnostics/current-motion-v1/close_evidence.py": {
+          "sha256": "97e6fc772f0c8ce51173dd25281e1e9bfe8556e7e5dbb00b463cb02bb186ce30",
+          "bytes": 7390
+        },
+        "build/diagnostics/current-motion-v1/close-evidence-failed-v1.py": {
+          "sha256": "26892a5077dc6c7d3b3e09686bbe568626f5cc8d3129c5959ce7330aecedd64d",
+          "bytes": 7082
+        },
+        "build/diagnostics/current-motion-v1/probe_encoding.py": {
+          "sha256": "36ed82ef1266741a75a9219b256456f910daded3b6b8ee59de8c0d42d9a8c611",
+          "bytes": 921
+        },
+        "build/diagnostics/current-motion-v1/encoding-red-v1.log": {
+          "sha256": "7dadfb60b1b09caf78515b927e01ff98c9116a1572ca90921f8a8ad3a063af79",
+          "bytes": 323
+        },
+        "build/diagnostics/current-motion-v1/encoding-green-v1.log": {
+          "sha256": "ac9d85a023cebddece6d5f36cc5775c12914aa59a5f606e2d7d68f84800342cc",
+          "bytes": 24
+        },
+        "build/diagnostics/current-motion-v1/encoding-old-stdout.bin": {
+          "sha256": "6097a483d3d7514772c8dcac0f4ef4d0f1ceb16af37697aa8a6aba027bee4fe9",
+          "bytes": 136
+        },
+        "build/diagnostics/current-motion-v1/encoding-old-stderr.bin": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "build/diagnostics/current-motion-v1/encoding-fixed-stdout.bin": {
+          "sha256": "83fc8536828eba4d7868e7e297c45bdb6da568410a99d48760b36a7b3ef83f90",
+          "bytes": 140
+        },
+        "build/diagnostics/current-motion-v1/encoding-fixed-stderr.bin": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "scripts/art/check_natural_render.py": {
+          "sha256": "09a0ab4b0892e25bd53a80130a77c6627f46b41309ef3de4e3b61ef2c03a7216",
+          "bytes": 4947
+        },
+        "build/diagnostics/late-observer/encode_peak.py": {
+          "sha256": "9a5623ae325f4276cd6268a91d41a38a2adfc13c949794a9dceedd39859dc6bc",
+          "bytes": 3488
+        },
+        "build/diagnostics/current-motion-v1/registry-validation-v2.log": {
+          "sha256": "6630b23cbe0800bca12776f6f340f59fdd25921aa8c07f39ca7e706b108c6f1f",
+          "bytes": 1738
+        },
+        "assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png": {
+          "sha256": "1db9d68975612537d734e9660017144b77ba3954b15dcd5a882ac659e332e9ad",
+          "bytes": 26395
+        },
+        "assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png": {
+          "sha256": "5c3a0d230793715ddb3d15526916d1ef30c65d44252a82d7f8632e8896876ebb",
+          "bytes": 27618
+        },
+        "assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png": {
+          "sha256": "222df622318156390a1e061bcfcb427f9f0bf181f88cea701cf60c1a89087e5f",
+          "bytes": 17070
+        },
+        "assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png": {
+          "sha256": "cc94485c28547ae3da9aa25619b751ee72f756461d4d27bbb471c1190098bd70",
+          "bytes": 19600
+        },
+        "assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png": {
+          "sha256": "e4f96efbbf441a834551c9937dddb159512b36462861bf814ad9f416f390048c",
+          "bytes": 28858
+        },
+        "assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png": {
+          "sha256": "9692680a6dfd2e9f8cb9c8f89320f5179728f96aff164bbe21fad951ba235a87",
+          "bytes": 19243
+        },
+        "assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png": {
+          "sha256": "86f9bd41666452242aeb85d6d5ad3f84df94618ee12aa4197932459dbc01afba",
+          "bytes": 23077
+        },
+        "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png": {
+          "sha256": "ad652e11b0f9a701f44322846c425634bf771da7f4a7c78fc7d0c87a7f310354",
+          "bytes": 51732
+        },
+        "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png": {
+          "sha256": "9f8d33ed98f5af8a304d7101f0267b1331312e7788bad8aea348e9944c0cb45b",
+          "bytes": 27100
+        },
+        "assets/art/environment/floor_surface.gdshader": {
+          "sha256": "fbcdb3c34a32dee12904983630370b68c69e9200fbaf8fea71e33a25258c90c9",
+          "bytes": 807
+        },
+        "assets/art/environment/mint_farm_floor_b_v1.png": {
+          "sha256": "3124d80676757709edc28182d3f6ac950f716d8d1586794edc8bed1b3041f257",
+          "bytes": 980749
+        },
+        "assets/art/environment/mint_farm_props_b_packed_v1.png": {
+          "sha256": "672c0cae193f66d1e8168443831f78c2622a757cfe1b6e24508322b041dddfc3",
+          "bytes": 787884
+        },
+        "assets/art/environment/prop_alpha.gdshader": {
+          "sha256": "4ff920523cf1243c5a2304a45ff6e77430c5904e71ff0e9dedc137ed537a8d71",
+          "bytes": 320
+        },
+        "assets/art/shaders/dasher_hit_flash.gdshader": {
+          "sha256": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9",
+          "bytes": 253
+        },
+        "scenes/ui/HUD.tscn": {
+          "sha256": "8e2907f7196de67f32e03421135fd6e9e19a98463124b2e09dc9f8e6f76319d9",
+          "bytes": 304
+        },
+        "scripts/Main.gd": {
+          "sha256": "a35bbed599d8018fbb6e109bdb53e030e21bd8f22ca4f5ab60c525b5b9d34473",
+          "bytes": 27680
+        },
+        "scripts/actors/Enemy.gd": {
+          "sha256": "fc1be0a84d0edb40138c5282cd85329870e07f1d61410b41891ee750ce129dbd",
+          "bytes": 31552
+        },
+        "scripts/actors/OverseerBoss.gd": {
+          "sha256": "e1105bef7807d585c3a4fe1ee9b3442cf73ebd1c213e29bb565d17cfbc772ec6",
+          "bytes": 13992
+        },
+        "scripts/actors/Player.gd": {
+          "sha256": "88fa20e1eb7c4d862b0837bf6db73f0f1c29862a75a320448d511daee9be4eb6",
+          "bytes": 44251
+        },
+        "scripts/art/NaturalRunDiagnostic.tscn": {
+          "sha256": "dcad36109beca46ad85415e8774a04f012fb9fa94b7bc538048fa195fbdf6a6e",
+          "bytes": 662
+        },
+        "scripts/art/NaturalRunMain.gd": {
+          "sha256": "dba6c3c8a50c23a00851377128b6096777698c32b7fa82bb30a2ef4b86198762",
+          "bytes": 1101
+        },
+        "scripts/art/NaturalRunPolicy.gd": {
+          "sha256": "75d7ccf15e5b35355324945301afb4b8a5a57f5805a10e5d3cb14d07889b2259",
+          "bytes": 2639
+        },
+        "scripts/art/VerifyNaturalRun.gd": {
+          "sha256": "c4de015e0c33e588db08d5765647d9f20ae622359934ff93232e70fd042f9b3c",
+          "bytes": 21971
+        },
+        "scripts/art/VerifyNaturalRunRendered.gd": {
+          "sha256": "d7faecf562fc71f65e5d0c67e02475071245a50186871d76dcbdeddbbd01a5ff",
+          "bytes": 12965
+        },
+        "scripts/art/check_natural_run_report.py": {
+          "sha256": "db64c6437cf1ba18fb519a0cf037b5b27dd4ae91f16a610c9753324a87df8d8d",
+          "bytes": 9040
+        },
+        "scripts/components/ArcPulseVisual.gd": {
+          "sha256": "23923c95df928acfbafb114ebedb30c89d0fa5c5d6d546acb0d5e382af546842",
+          "bytes": 3337
+        },
+        "scripts/components/BossAttackDirector.gd": {
+          "sha256": "df82489a27dddf90f46e8587d80e4a34be355386085f8b331abae12c4faa2ad6",
+          "bytes": 6340
+        },
+        "scripts/components/BossProjectilePattern.gd": {
+          "sha256": "4c09821b66952d4eaca4e8e90429460f9a1d22297f2bd51a8c73dbeedbdca162",
+          "bytes": 9087
+        },
+        "scripts/components/FlameTrail.gd": {
+          "sha256": "7039420b5daf277a5d0a927b381ada6752e848c99a17fc6a5f7fbb9ebf2a9ce2",
+          "bytes": 2212
+        },
+        "scripts/components/LaserBeam.gd": {
+          "sha256": "bfe5fe105607d56b747c97eb8d9a45d8e0537e517768eac03cfd9dc06fa7d5f2",
+          "bytes": 1024
+        },
+        "scripts/components/LobbedProjectile.gd": {
+          "sha256": "ba13a9b7dfbc38eec4472195122f1b59a965754cd71b989137d0e42c4bef9bf4",
+          "bytes": 3451
+        },
+        "scripts/components/Projectile.gd": {
+          "sha256": "ca5b25bd0595f7c2f99a732eaf1f142cc8b88c5792a857f82694dd2c01ec7b8e",
+          "bytes": 3206
+        },
+        "scripts/components/SpikeTrap.gd": {
+          "sha256": "b7ecb803d6bed2d09d329b6dc4a93ab5361f2673779f96de0ac873de4ceb7665",
+          "bytes": 3540
+        },
+        "scripts/components/TentacleAttack.gd": {
+          "sha256": "deb68380a599518a88ea2f7c843732612cbaef3372507eb0ec40ef161eb896f5",
+          "bytes": 9866
+        },
+        "scripts/effects/CameraEffects.gd": {
+          "sha256": "48a5f1f389374d8f368a5b9f8da9b875b296f332ebf2ffc292f5d0078c143c1f",
+          "bytes": 1619
+        },
+        "scripts/effects/CombatVfx.gd": {
+          "sha256": "0f82292ca621853de84658efd3fa671eb7d595cbff2b017c0528fe2f97ef95ce",
+          "bytes": 8751
+        },
+        "scripts/effects/FriendlyEffectPalette.gd": {
+          "sha256": "4893c1bf09210ef0dc265f96f8e2faa70c2f8478035f643e40a5f7b2d0b16d4f",
+          "bytes": 265
+        },
+        "scripts/systems/BossCameraFraming.gd": {
+          "sha256": "42cf856efa4156d596f0b6b4352605a0c540505479b24a4f9bb6c33179157f6e",
+          "bytes": 7401
+        },
+        "scripts/systems/CombatFeedback.gd": {
+          "sha256": "ab49d2a4ba23a7131c1db7ab60c9659a7503ed8791802193bc291de59266ab4a",
+          "bytes": 6819
+        },
+        "scripts/systems/CombatView.gd": {
+          "sha256": "9b0eb9cef8243ff6a433e1daf9b6db74ebd27d4820788b66d5d9b92f03d4f4a0",
+          "bytes": 1128
+        },
+        "scripts/systems/RunSnapshotStore.gd": {
+          "sha256": "328a6c5f284c4528776e30338f8797c0a6202a5fa1f2f859172544b2cfd9ab51",
+          "bytes": 8908
+        },
+        "scripts/systems/UpgradeSystem.gd": {
+          "sha256": "8bed9bb1da7a10b5758af9630fdcb2aa2f78ba8c7117ff4bebc45683165bf45e",
+          "bytes": 22024
+        },
+        "scripts/systems/WaveDirector.gd": {
+          "sha256": "d47d7ac885cfdf65faa4375fc4a33df3d1140e29442c2f227437e47eeadcc48b",
+          "bytes": 33336
+        },
+        "scripts/ui/AimReticle.gd": {
+          "sha256": "def21b4a2d9fe38318814adc6ad19e7fb9f384976693052b345797a2ab970a8a",
+          "bytes": 1091
+        },
+        "scripts/ui/BossDirectionIndicator.gd": {
+          "sha256": "12f4107eae086656790d2e8dfee77816f43cc2bc7231e514e9b8051ef767914e",
+          "bytes": 1411
+        },
+        "scripts/ui/BossHealthBar.gd": {
+          "sha256": "0b4b0baa58d17680c872dd357bf5246c9fb1df609f80a24da6116d8188811893",
+          "bytes": 6115
+        },
+        "scripts/ui/DroneLockReticle.gd": {
+          "sha256": "0d04a88ab53e86b362c666522fef7ffc2a1f16958fba9b54860232eaf464eb57",
+          "bytes": 605
+        },
+        "scripts/ui/GameUI.gd": {
+          "sha256": "b1d6622435e14870d28d998b31df2ddabe8bae9aa913a3528fac3c0f29769353",
+          "bytes": 15229
+        },
+        "scripts/ui/HUD.gd": {
+          "sha256": "1771b3644a450e5bc84b01f1c69519c53cc8d6f32b09fd0e2794d5e75dea4cc9",
+          "bytes": 13402
+        },
+        "scripts/world/ArenaLayout.gd": {
+          "sha256": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+          "bytes": 10548
+        },
+        "scripts/world/ArenaObstacle.gd": {
+          "sha256": "ca44d87f9b3e2e75d0e61b6b2a38e2c3387e5f58f95349c98e2cb772048d28f3",
+          "bytes": 3470
+        },
+        "scripts/world/FloorGrid.gd": {
+          "sha256": "d502d160a4d1d9de9280c7d12f043ec221ebdf365c84570f9bd28d07251a450c",
+          "bytes": 947
+        },
+        "themes/MintFarmTheme.tres": {
+          "sha256": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63",
+          "bytes": 4478
+        },
+        "build/diagnostics/natural-run/current-motion-20261007-10-v1.json": {
+          "sha256": "29dae5c3bf527e4032167379e11c9c22087efbe34aa04ab6735bdee7226b4b57",
+          "bytes": 5063055
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1.json": {
+          "sha256": "280f1a3e8835af82d1a758392dbbf1a4c6bdf18674aef33e91859efa48e03474",
+          "bytes": 2440093
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/capture-check.log": {
+          "sha256": "2e50f59d89d8e265ce859a67c5467d87b060614b19f06420efc337476e6018b5",
+          "bytes": 156
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/closed.json": {
+          "sha256": "81f85b9b7090bdfcf4e4a68ee773f551a6d73d162a2025e38788750fec03cf6e",
+          "bytes": 372
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/engine.log": {
+          "sha256": "1859c06a60037961dce5797aa749dbf47ed34429c1aea0a3cec0b84bb5ccf74d",
+          "bytes": 3175
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/launch.json": {
+          "sha256": "2dc778d60935535fccee0a138b403cc661f0c3b73ba9cf50c75c8b55447a4595",
+          "bytes": 779
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/motion-summary.json": {
+          "sha256": "3c2cc15e92dbd6998ca0736cecb892d2c86370717203cb2ee35701d19cece755",
+          "bytes": 13379
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/report-check.log": {
+          "sha256": "87255b2601d62c62560c5cb43e68434087bfc1d0efdf6a086f65891c4e24b18f",
+          "bytes": 144
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/six-check.log": {
+          "sha256": "2e50f59d89d8e265ce859a67c5467d87b060614b19f06420efc337476e6018b5",
+          "bytes": 156
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/stderr.log": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/stdout.log": {
+          "sha256": "3e4d35885ca30af5554e934b71330d2f5fe7606d28c9f56aab67d3c73219073a",
+          "bytes": 3236
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/boss-actor-contact.png": {
+          "sha256": "19d62d53c6dc2aad63779ba792bae00acf5b446b2f1749b802602bc74ad3a5e8",
+          "bytes": 1161091
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/boss-encode.log": {
+          "sha256": "d9a3a5a8881f30b39f246941183cc5281eedef75f065c562336563f53e2bed86",
+          "bytes": 3883
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/boss-encoder-manifest.json": {
+          "sha256": "c3b2db323af8b56aa8d64fbf89ad5ef3cac69ecf712d1f295b01002ce6ead6e5",
+          "bytes": 20191
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/boss-full-contact.png": {
+          "sha256": "09fd7c715efcf03f2745d0693b67a07c3d00592e5317db6407dba050d9c2448c",
+          "bytes": 1637454
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/crowd-actor-contact.png": {
+          "sha256": "8d8e130bc6db7ac98ef39e6b79f232e563466ceecaf2211e1fa0a9469408f3bc",
+          "bytes": 1008670
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/crowd-encode.log": {
+          "sha256": "a39deec8c86bc750daaf5133b23397f89513d9a5618ae81bb728a79321a89568",
+          "bytes": 3885
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/crowd-encoder-manifest.json": {
+          "sha256": "94a323fa9d16c47e9d002b816a8623105ea630fa6acfa42a8c7768f006b3204f",
+          "bytes": 20202
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/crowd-full-contact.png": {
+          "sha256": "00e806455431045854af4cdad90d58142cef70f830e67bd1c0acaf3fcff95e2e",
+          "bytes": 1865750
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/dash-actor-contact.png": {
+          "sha256": "ae533d4979b8162823bf917773a0195425f207db84968e4db07b36c4502480a3",
+          "bytes": 1003739
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/dash-encode.log": {
+          "sha256": "4de9351fd63589886b5502222e943acccf5da1f5abe57ceb6b380604ee43f1f0",
+          "bytes": 3883
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/dash-encoder-manifest.json": {
+          "sha256": "30ef7df0f9ba74e1698bd0121b2d6e16fd28c7c3ecf3227730aa40fc1a78501a",
+          "bytes": 20163
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/dash-full-contact.png": {
+          "sha256": "cfa374284baed861eb6b44e9c37161c9f776d8cf447a7b6c492286e524579766",
+          "bytes": 1822055
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/opening-actor-contact.png": {
+          "sha256": "bb52c4bfcf306cc8e1f822c6e97b901d89ee98230c8f2372548498f02cf0a890",
+          "bytes": 965924
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/opening-encode.log": {
+          "sha256": "0f918c2bd858d82bcd300695baf52448b696a510381e772814961051cdd3ad3f",
+          "bytes": 3892
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/opening-encoder-manifest.json": {
+          "sha256": "38f49d288837da00c3378fe37fec5aec4c19d47f777f0e63afdb38e4a607ba1b",
+          "bytes": 20204
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/opening-full-contact.png": {
+          "sha256": "dac1888204f4338d50493042fc76f10f0741267ff6cf7db002e86c21ff679ba5",
+          "bytes": 1477003
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/overlap-actor-contact.png": {
+          "sha256": "4bee4b94a8ff77aeb838fbdf9d4586546aa0fada54510c6445da1cba47515fa3",
+          "bytes": 1114244
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/overlap-encode.log": {
+          "sha256": "04ca8e85d4e1d1f9d5b7673479fd849ac75ec8dd9814ac82ee676ab14f38250c",
+          "bytes": 3894
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/overlap-encoder-manifest.json": {
+          "sha256": "6e8c14836ca23626ec6921d698b5a5803fdc6fbe88508dd37ddb95a44cac5345",
+          "bytes": 22455
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/overlap-full-contact.png": {
+          "sha256": "763fbae002cd13e1d6c0124869ff29bd08df15827bc7720eae21dc290629e8d6",
+          "bytes": 2189663
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/shop-actor-contact.png": {
+          "sha256": "1404fa9245d0d9dd8d02cc434dc19d7c6705b97fe23e50e6003bafc5d06f6722",
+          "bytes": 306831
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/shop-encode.log": {
+          "sha256": "e21165a65125d090350f9ee1b4066d3a2dd8ce9c22bf5a36baa4c301c539c567",
+          "bytes": 3881
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/shop-encoder-manifest.json": {
+          "sha256": "d91bc45278b7fe326373b97d0d13c24de3269c785567912e80eeb0e85c7494d7",
+          "bytes": 19652
+        },
+        "build/diagnostics/current-motion-v1/current-motion-20261007-10-v1/visual/shop-full-contact.png": {
+          "sha256": "775177d8a815e37bd6f3aed6e81af2530329259326c5180a007f1edb242695b8",
+          "bytes": 592178
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-boss.ffconcat": {
+          "sha256": "1a6e7084050681e42601092f7b79220019277c3edd98d293ccfe195e16fb804a",
+          "bytes": 5893
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-boss.ffprobe.json": {
+          "sha256": "a7625cc9ada08044f6dc4f169d7ad1187432328178797e4a745921d585a22992",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-boss.mp4": {
+          "sha256": "da676a13a7649aa034200aa9991055620183793db0955c4b22375591640d3089",
+          "bytes": 554464
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-boss.video.json": {
+          "sha256": "bddb381d0e8a2c59474deab40ee6cdc53b733f4331ecec4d6519a9ceac1820e2",
+          "bytes": 577
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-crowd.ffconcat": {
+          "sha256": "cf40f0ad8376d62d5f2c005215d94acad7e03f00eaa279cc42eccbdc0f2ddf93",
+          "bytes": 5924
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-crowd.ffprobe.json": {
+          "sha256": "2f234d0334456b2a21450998dec3ae2a27cc24a72fe990538d2cfa9d4250e765",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-crowd.mp4": {
+          "sha256": "abb07ebebac16fb72159f961dda70261c9d003240ae01f9847b38bb4b82071de",
+          "bytes": 918420
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-crowd.video.json": {
+          "sha256": "4f732579a25bc6ac24c58e2e308de9c355f93010991309f028c87cc36084d609",
+          "bytes": 577
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-dash.ffconcat": {
+          "sha256": "375f097208add1ae3ccba607d985570e2650e37433690a69902c11a38352c66f",
+          "bytes": 5893
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-dash.ffprobe.json": {
+          "sha256": "a976dbb135a66b20185835ce042fcd4b3730a5c6fb050a9f30c0d5e0706dedb9",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-dash.mp4": {
+          "sha256": "1609b2e424a99869c288a71bf3ccd18c69a27fab5c4640d6961ccc834a66788d",
+          "bytes": 903176
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-dash.video.json": {
+          "sha256": "c5efb3bdbac51ef4ef7db50ac56c53d3bc294262130e10e5050a4b67c4a5a8a8",
+          "bytes": 577
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-opening.ffconcat": {
+          "sha256": "293eddb81e44f2e24eebe8eb6d68f0136d8e7991219af60584dbd2f6d7430871",
+          "bytes": 5986
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-opening.ffprobe.json": {
+          "sha256": "3705cca8cbabb253dbcec890cd21b847e57c587664a6ef31781609cb1f9456d3",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-opening.mp4": {
+          "sha256": "6d5f2d67413f5d84356d936dd3cdc22571da2a35569029c6af902ac71cdc39cc",
+          "bytes": 557498
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-opening.video.json": {
+          "sha256": "14cd5c757929c2ac34b09e1f31abb101ca0de257932673af98d8d0a10f3de798",
+          "bytes": 580
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-overlap.ffconcat": {
+          "sha256": "863517bd407eaa750cf11192a58a7bda5df1a8698aeb87018b917fde511e7ffc",
+          "bytes": 5986
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-overlap.ffprobe.json": {
+          "sha256": "fc03c3aebd7d667fcf2d2b1225aad498368f91a33b7ff96b5eafdd0f1bc2711d",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-overlap.mp4": {
+          "sha256": "c10ec20de6467b5f34a3a36db3558aa6c4b92df715392efad6676f1c4e557d2f",
+          "bytes": 1173423
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-overlap.video.json": {
+          "sha256": "95517cf079a1210bc96c442ab0aaa25e4ae71dffe2e1e4053cbd7958af76cd4a",
+          "bytes": 580
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-shop.ffconcat": {
+          "sha256": "c7407407e127c9c725c81765ecd1e2c5a3b00e1b98735065aa13f283e026a62e",
+          "bytes": 5893
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-shop.ffprobe.json": {
+          "sha256": "d388e6f6551dd470c4e7b91b0cdbd3b30415941ecc49a3a0b5c00732c0cb83f9",
+          "bytes": 4582
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-shop.mp4": {
+          "sha256": "9517045c406ed215a820c2325cb7f9d6775f9b18657fca3d36118808df9016c6",
+          "bytes": 248771
+        },
+        "build/diagnostics/late-observer/current-motion-20261007-10-v1-shop.video.json": {
+          "sha256": "005b0b06ee14acf4eb7f9f968628a9300888d1c8d5e5d1852afa23d70f38addb",
+          "bytes": 578
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-000.png": {
+          "sha256": "3669a739b36ad0ba146b65ad71db7864f8c200a0d56293cecaefb502d2575d2c",
+          "bytes": 566513
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-001.png": {
+          "sha256": "4659d64e2a90cfc8262df4b404961ce35cd4a0b2ef27e92e0ea80463a7a7ff38",
+          "bytes": 567067
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-002.png": {
+          "sha256": "c4c8a8e4568b1d00e31574bf420fd55ebb8453d7a2b67492db62125bbe9bb9c7",
+          "bytes": 567728
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-003.png": {
+          "sha256": "1bb0bd65a9c247e25a32d097d7e58dfd1533a23248e43405a400cde7116b8230",
+          "bytes": 563326
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-004.png": {
+          "sha256": "140fa8dc50f8da8adea1be108b1d39e3203190df31b45fa437ffb5731e9d50bf",
+          "bytes": 551559
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-005.png": {
+          "sha256": "126e612200999c7252c0f87f5811e389039a9e0d19a2b1180d66c30daf24b787",
+          "bytes": 554998
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-006.png": {
+          "sha256": "600b1a751d3936b9c55f1ead5d15a95f34b9eba659ccb5bc4535d6cdecf5e1b7",
+          "bytes": 562637
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-007.png": {
+          "sha256": "0dd757d8893eb1998f2302167d6b6acd3fd2b4abaaca7047f8844878e9e911b3",
+          "bytes": 533013
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-008.png": {
+          "sha256": "501780a0f6f9e71a695922788d4350fb794b877ed0a82c52693daaececa9d042",
+          "bytes": 530918
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-009.png": {
+          "sha256": "0e277b4ec0b3fe8c95f978ff96e5faa50fd70af1bda1b3fe06bf7547831e48b8",
+          "bytes": 527717
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-010.png": {
+          "sha256": "2d371d768f3f7ce879c8c5c9d0e774389ac139833ff9a40b32fe240dca5f6ed0",
+          "bytes": 530124
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-011.png": {
+          "sha256": "b9eb2bbc02581e981b8ffd4badeffaed3d17550b0497e9dde95e9212caa9e485",
+          "bytes": 528423
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-012.png": {
+          "sha256": "ea43afd372d10ddbbee9ce32e9724667e58c95b9e6ad62c896ce65d4e223c0a6",
+          "bytes": 527785
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-013.png": {
+          "sha256": "85500369a9e0cd8b42d12fef5604f60d5742b951c12bc727ad1c91bfe1139d65",
+          "bytes": 524930
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-014.png": {
+          "sha256": "272f62eaae3865dd6d7d15008a9e2a46deb17219b3af07bb7bf4f600a42ba09f",
+          "bytes": 525556
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-015.png": {
+          "sha256": "09d9a3cb409f177eba48a308236f84ee6fdcaa890ffa4253d4240c0fbd176f56",
+          "bytes": 529600
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-016.png": {
+          "sha256": "da49e789a5805e4db2c534e16bd276903ae261d42584c8b9c89fd01a5cc3b83e",
+          "bytes": 528496
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-017.png": {
+          "sha256": "dbe58ceeffffe8d45f804b3ec1d0debd177969fad3b83c77b1020469703d0154",
+          "bytes": 527435
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-018.png": {
+          "sha256": "deb159154e360550f8f572a43599aee39e178e8a2e8bf36e8f2d3cecfa83ba56",
+          "bytes": 529100
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-019.png": {
+          "sha256": "fdef0c4825da78b3d55fd55ea1769661786323e10973d63b821c0c5e420b349e",
+          "bytes": 537057
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-020.png": {
+          "sha256": "352a8eb45b5381fdcc1207add8974a705599320d829f8c30aa2205a8f2cfe3a8",
+          "bytes": 536260
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-021.png": {
+          "sha256": "2cadf3c1c8388fc261fe8260b76e0b407d39a54d776b5dfde86e22abae2b519f",
+          "bytes": 535819
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-022.png": {
+          "sha256": "5ec5616871e6e69c7f75cbe70e16ff1cecc2fe4507cf6def59464c9a42a39859",
+          "bytes": 536534
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-023.png": {
+          "sha256": "1fee1e885715b9818d84a1b8ea40cc56de35bae291788262ced69b6856c07ca4",
+          "bytes": 536491
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-024.png": {
+          "sha256": "207945eb9c501b61f7643a89d16de80967403f4e95a81e4566ad0acae01d97e5",
+          "bytes": 541336
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-025.png": {
+          "sha256": "24094686b39674966ae08aeae9812378ad8210809d1a396f8e072e44e97e11d8",
+          "bytes": 541147
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-026.png": {
+          "sha256": "68e1cdb23172bb7374952f66a56479afd1796c20e30dd4acfb689f10a2ff033e",
+          "bytes": 532629
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-027.png": {
+          "sha256": "6f0531c03a5dfebbad79a8d178a6cc1e7d3c3f07df35be806f48e0850db2a9ac",
+          "bytes": 542839
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-028.png": {
+          "sha256": "9a48b137521ee6680bb95d2509c4070fc5c394e79af6c7504391087f6cc3c555",
+          "bytes": 540628
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/boss-029.png": {
+          "sha256": "3ada4f5762519f97c046777581f312db2a8c6283dfe50a08f41afd144836d48b",
+          "bytes": 530043
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-000.png": {
+          "sha256": "ee33b5e3d175f48927f8682414f83234d8cda1cf1f5bc69fc3e2178ee08b59d7",
+          "bytes": 566083
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-001.png": {
+          "sha256": "c7de7e0b6910eb469c78885d73a5b812330c08cfeea739e8218a6256d364f267",
+          "bytes": 571861
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-002.png": {
+          "sha256": "d99dd2d88352adb04b5abc6e0139250680329a4e34e4f5aca7294121160281f9",
+          "bytes": 569001
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-003.png": {
+          "sha256": "6e2a876f1abb7c8372e92a6f8816bde6f98347feec989da5366e960cffebf429",
+          "bytes": 571786
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-004.png": {
+          "sha256": "7d78cf85dee6a4a43e0c396af3939f1c7080f6dc7a68fb2f077455678d7dacd7",
+          "bytes": 577711
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-005.png": {
+          "sha256": "29316aef6105d9174a5a19adaa105fb151f79f31291e2de7deba4cfb5867c898",
+          "bytes": 585158
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-006.png": {
+          "sha256": "e531d216973874416b4f15106fdb778ee2e4039e3f9f2d5f49fc85339da4ca47",
+          "bytes": 581359
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-007.png": {
+          "sha256": "aa9fcab6ac1a1bab33fafaa16d1c2b58e89e2c9583d90af16fe634875c43010b",
+          "bytes": 589453
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-008.png": {
+          "sha256": "d0c92cce070d10c079c9131d4db3c3b73ba6fda670380d712f0b0f10bb44684a",
+          "bytes": 588522
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-009.png": {
+          "sha256": "54914f4b6756f106708db103aab50e67cf8fbb516f82a2f763ff057bfedb5a94",
+          "bytes": 584074
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-010.png": {
+          "sha256": "5aba3c80436fe2e275d7cd4b4c080fa46d60556686f65204cd2efbbc750c307e",
+          "bytes": 598236
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-011.png": {
+          "sha256": "25f0e18c1e19d9032254697f5371b2c648e95c9ec3c55e0f6a47dceac99a962d",
+          "bytes": 605263
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-012.png": {
+          "sha256": "e51e92250a9bad123ba12156647a407eb913a983fc8ef122e7110e0c30cab99f",
+          "bytes": 606889
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-013.png": {
+          "sha256": "bf923adfb18f7a60d7d212bf4cdd359adc38357c0216c13ded6998647baee362",
+          "bytes": 604988
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-014.png": {
+          "sha256": "62ed45527d7c263d6645516c4bee69ebe93a2489c06b146cf97ef05ec33acbad",
+          "bytes": 615637
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-015.png": {
+          "sha256": "add4f5987aae52896e244ae26d5adc953780b86e464ad280b8401b4a9879beba",
+          "bytes": 622571
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-016.png": {
+          "sha256": "777f2486fdf44c57ff2c18f70eae93a77a592b8eaa5776b5202fdaa83ac62fc0",
+          "bytes": 624536
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-017.png": {
+          "sha256": "0320d9f2e14fbeaacc17eb699d55fed8d6f55d4070306c5fc8a49f6b514c7a80",
+          "bytes": 625724
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-018.png": {
+          "sha256": "b998f921700065c5a57b657e58aef4c9587c785dfc16b5dc0702159c277339cc",
+          "bytes": 623247
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-019.png": {
+          "sha256": "6c1fa32151a2731bd2322f67bfc6d130e37bf1e8d61caecdc938ea88c7cdcdc2",
+          "bytes": 631442
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-020.png": {
+          "sha256": "020fb9dcccadb7e4c5b0ce1f48ccc3f62bd89f8d7c7f745252f52426c2688675",
+          "bytes": 627628
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-021.png": {
+          "sha256": "4c8f0f6d49510d4a93d22567a3cf79d89763aa9eedbd55366f281fd19d36e0ae",
+          "bytes": 629138
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-022.png": {
+          "sha256": "f447cf376a5d6be38d9ac9ef82a5b8e03617920138a24bb8871c65a3859de807",
+          "bytes": 632847
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-023.png": {
+          "sha256": "a12d845854a637911ce7a682a1f48f20cdf02c1673f0d24733f7538008b860fe",
+          "bytes": 628963
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-024.png": {
+          "sha256": "b9fa0f0c24ae82aa8b8df903a5511ac2f1ed734d10ab39c0f8a614cd882a2257",
+          "bytes": 633339
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-025.png": {
+          "sha256": "76abcbecb1b6612a274278b5832d06f0502be904de4416549a2dcb8b7cebc596",
+          "bytes": 620641
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-026.png": {
+          "sha256": "53dbce8b08d8c9de095f91d98021171317c56b7bf48991954c40864c3e91c0c2",
+          "bytes": 625068
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-027.png": {
+          "sha256": "eb19f1a9cfa72e1d9f597db6160785c8979aa3166c97b794a212732c16a391d3",
+          "bytes": 625290
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-028.png": {
+          "sha256": "3bba66e730ed56c48c060e62773636a9f33967b253a572f2e012bcf58e40df8d",
+          "bytes": 619133
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/crowd-029.png": {
+          "sha256": "0e751fada679294de83cf948a498afee1ac5be59f542d35f16c0d02f83851952",
+          "bytes": 623773
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-000.png": {
+          "sha256": "24f117be16361ebc73bfdea55c420ca6e52652b5d4b8e7894c41ab7459d613ef",
+          "bytes": 552515
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-001.png": {
+          "sha256": "b632cb31ab492e28c70047a75d607eca35b319dc09b0bd312d5135a98196b240",
+          "bytes": 558438
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-002.png": {
+          "sha256": "70affa23961c0123a949cee3e991519d51918f8c4840cc4848779294e1dc08db",
+          "bytes": 558726
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-003.png": {
+          "sha256": "853ce48f7e431133ae532ae794fb06c6baecaa47023a530fd331481b4e08782c",
+          "bytes": 560167
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-004.png": {
+          "sha256": "4a5ec71f05e6f91cb3efa7903cf6eb478e267b2e7fa2f10983df681f05b22225",
+          "bytes": 559691
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-005.png": {
+          "sha256": "ee33b5e3d175f48927f8682414f83234d8cda1cf1f5bc69fc3e2178ee08b59d7",
+          "bytes": 566083
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-006.png": {
+          "sha256": "c7de7e0b6910eb469c78885d73a5b812330c08cfeea739e8218a6256d364f267",
+          "bytes": 571861
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-007.png": {
+          "sha256": "d99dd2d88352adb04b5abc6e0139250680329a4e34e4f5aca7294121160281f9",
+          "bytes": 569001
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-008.png": {
+          "sha256": "6e2a876f1abb7c8372e92a6f8816bde6f98347feec989da5366e960cffebf429",
+          "bytes": 571786
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-009.png": {
+          "sha256": "7d78cf85dee6a4a43e0c396af3939f1c7080f6dc7a68fb2f077455678d7dacd7",
+          "bytes": 577711
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-010.png": {
+          "sha256": "29316aef6105d9174a5a19adaa105fb151f79f31291e2de7deba4cfb5867c898",
+          "bytes": 585158
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-011.png": {
+          "sha256": "e531d216973874416b4f15106fdb778ee2e4039e3f9f2d5f49fc85339da4ca47",
+          "bytes": 581359
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-012.png": {
+          "sha256": "aa9fcab6ac1a1bab33fafaa16d1c2b58e89e2c9583d90af16fe634875c43010b",
+          "bytes": 589453
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-013.png": {
+          "sha256": "d0c92cce070d10c079c9131d4db3c3b73ba6fda670380d712f0b0f10bb44684a",
+          "bytes": 588522
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-014.png": {
+          "sha256": "54914f4b6756f106708db103aab50e67cf8fbb516f82a2f763ff057bfedb5a94",
+          "bytes": 584074
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-015.png": {
+          "sha256": "5aba3c80436fe2e275d7cd4b4c080fa46d60556686f65204cd2efbbc750c307e",
+          "bytes": 598236
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-016.png": {
+          "sha256": "25f0e18c1e19d9032254697f5371b2c648e95c9ec3c55e0f6a47dceac99a962d",
+          "bytes": 605263
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-017.png": {
+          "sha256": "e51e92250a9bad123ba12156647a407eb913a983fc8ef122e7110e0c30cab99f",
+          "bytes": 606889
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-018.png": {
+          "sha256": "bf923adfb18f7a60d7d212bf4cdd359adc38357c0216c13ded6998647baee362",
+          "bytes": 604988
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-019.png": {
+          "sha256": "62ed45527d7c263d6645516c4bee69ebe93a2489c06b146cf97ef05ec33acbad",
+          "bytes": 615637
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-020.png": {
+          "sha256": "add4f5987aae52896e244ae26d5adc953780b86e464ad280b8401b4a9879beba",
+          "bytes": 622571
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-021.png": {
+          "sha256": "777f2486fdf44c57ff2c18f70eae93a77a592b8eaa5776b5202fdaa83ac62fc0",
+          "bytes": 624536
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-022.png": {
+          "sha256": "0320d9f2e14fbeaacc17eb699d55fed8d6f55d4070306c5fc8a49f6b514c7a80",
+          "bytes": 625724
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-023.png": {
+          "sha256": "b998f921700065c5a57b657e58aef4c9587c785dfc16b5dc0702159c277339cc",
+          "bytes": 623247
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-024.png": {
+          "sha256": "6c1fa32151a2731bd2322f67bfc6d130e37bf1e8d61caecdc938ea88c7cdcdc2",
+          "bytes": 631442
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-025.png": {
+          "sha256": "020fb9dcccadb7e4c5b0ce1f48ccc3f62bd89f8d7c7f745252f52426c2688675",
+          "bytes": 627628
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-026.png": {
+          "sha256": "4c8f0f6d49510d4a93d22567a3cf79d89763aa9eedbd55366f281fd19d36e0ae",
+          "bytes": 629138
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-027.png": {
+          "sha256": "f447cf376a5d6be38d9ac9ef82a5b8e03617920138a24bb8871c65a3859de807",
+          "bytes": 632847
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-028.png": {
+          "sha256": "a12d845854a637911ce7a682a1f48f20cdf02c1673f0d24733f7538008b860fe",
+          "bytes": 628963
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/dash-029.png": {
+          "sha256": "b9fa0f0c24ae82aa8b8df903a5511ac2f1ed734d10ab39c0f8a614cd882a2257",
+          "bytes": 633339
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-000.png": {
+          "sha256": "c3943f63c234b9b5e130e6d78cdf524bbb71ce6f1d813be5d730cf3cf202a44f",
+          "bytes": 478056
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-001.png": {
+          "sha256": "98ec1d71593b6b70a46b8f595dc60b1b03584df354392ce874b5908850f3a728",
+          "bytes": 474818
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-002.png": {
+          "sha256": "147deb2b552d0d7fb57d8631c5b4875ed54f10bd6fc5eb3d30fa516a66b78d18",
+          "bytes": 469741
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-003.png": {
+          "sha256": "bb29c67fb3a47cf70b08c02b9fa137fdbae9f38c995f7da1e5bb1022572a70c8",
+          "bytes": 475478
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-004.png": {
+          "sha256": "b2c866829343f450c1b9f9794dc4fbe0c19553a4d46a3023d1ae42f4992ddb4a",
+          "bytes": 476591
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-005.png": {
+          "sha256": "be1445e481203998a1afe7d29a0f7a65429961c562dc5350ff1cb351cddbbd55",
+          "bytes": 483178
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-006.png": {
+          "sha256": "b2bca4f015569e5be5a7b76ad4654d8d243706fc6dc32d5b4f981704453096b7",
+          "bytes": 490128
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-007.png": {
+          "sha256": "34101ce9d6a698a714643bbc9036709fdbd0c0e6afcdb34db8eb67e15346504a",
+          "bytes": 497160
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-008.png": {
+          "sha256": "1296801e57fd75262c698dfd03d34a84d4c2507ef3878d7e7c83f99ccb2bfd8c",
+          "bytes": 490802
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-009.png": {
+          "sha256": "9e377885e04ce1ba66dfd0168d61f4e7dbe4209d7b5fd5ca8f3cf362a8eb32f8",
+          "bytes": 496349
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-010.png": {
+          "sha256": "938126295f60c43f0fbab48f62caf8a6f96fbdc3965a08cafa5b0186de4a428b",
+          "bytes": 507720
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-011.png": {
+          "sha256": "58cb3fc1d4dd4a842cc6d4b0a8efb6af42b6c074f088d741c9775f34b72049df",
+          "bytes": 504003
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-012.png": {
+          "sha256": "3e38877b81ffdb7b6bf9ea824641b325f4d9e0a72cd822b639adbe94e5c119c5",
+          "bytes": 513917
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-013.png": {
+          "sha256": "c9d37045edb35869c894c68289834a097ac9a0895f6b4945f1fee5dbc5ec79f4",
+          "bytes": 513076
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-014.png": {
+          "sha256": "168a2a234517757a663c7ed0caae829af4c971bb881f1231412f5e04eb135a7c",
+          "bytes": 511475
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-015.png": {
+          "sha256": "90d85231480c03e80e40a2e254074c278896319e5caf2b7e43f7f8cab43ef416",
+          "bytes": 517109
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-016.png": {
+          "sha256": "f61c2c7911c0bb5fdd584c7ed7887e723176e38e0c6a49c73701ce17992a9d4f",
+          "bytes": 514646
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-017.png": {
+          "sha256": "dcf45aeb1a5b0e71cfe83451db48bcdc15ab916a2636f5d54bbfb3b4bb4a6ef3",
+          "bytes": 527646
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-018.png": {
+          "sha256": "9e6c4c073d95ab46936fc0d516f0b89054da0d9bc1bbb504dcb00badfd87ea44",
+          "bytes": 528575
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-019.png": {
+          "sha256": "65bebb9924fbc950910727ebd5df4877438db984f3cee7cc7941bbbd536e2459",
+          "bytes": 536765
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-020.png": {
+          "sha256": "acfcc4a1fb0d4ca8ae35646a400ef8bcfbc31defc8c0940cef5667e4d8339627",
+          "bytes": 537933
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-021.png": {
+          "sha256": "a9cd51c1fb3d438ae7a623e7b933a4a23ced8a943e07199c3c4298501f7de6b0",
+          "bytes": 539521
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-022.png": {
+          "sha256": "fc03909f4ccf2022ea17226eddd07d86c5ead23bc4c0d5e5d4c838b89bd2206f",
+          "bytes": 539227
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-023.png": {
+          "sha256": "fbba2c27742afc2f831f00fa0b170974a731adc52cc4a18664ce7ee508f82373",
+          "bytes": 547597
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-024.png": {
+          "sha256": "1d37f5bf0523f122c01353aca57417aa9c149a331d7adc7e993cd244023592cc",
+          "bytes": 547195
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-025.png": {
+          "sha256": "24f117be16361ebc73bfdea55c420ca6e52652b5d4b8e7894c41ab7459d613ef",
+          "bytes": 552515
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-026.png": {
+          "sha256": "b632cb31ab492e28c70047a75d607eca35b319dc09b0bd312d5135a98196b240",
+          "bytes": 558438
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-027.png": {
+          "sha256": "70affa23961c0123a949cee3e991519d51918f8c4840cc4848779294e1dc08db",
+          "bytes": 558726
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-028.png": {
+          "sha256": "853ce48f7e431133ae532ae794fb06c6baecaa47023a530fd331481b4e08782c",
+          "bytes": 560167
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/opening-029.png": {
+          "sha256": "4a5ec71f05e6f91cb3efa7903cf6eb478e267b2e7fa2f10983df681f05b22225",
+          "bytes": 559691
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-000.png": {
+          "sha256": "5e12c5692c28195c466244dbbeb6429de8d680e2959a268ab3788534bf711a19",
+          "bytes": 662520
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-001.png": {
+          "sha256": "fe085d21ffcac3fb61d7e36950182f13d1f1f48a332a9508125efc6666a99ce8",
+          "bytes": 653539
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-002.png": {
+          "sha256": "3295c41ab2f6bb7161eff45e6e95f4f37059a9197339fc6238833146df6d3986",
+          "bytes": 660209
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-003.png": {
+          "sha256": "e1cf24f215f3ae10c5a79ceeb54eaddb8b328258a1c294635d90a160cf532c56",
+          "bytes": 654926
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-004.png": {
+          "sha256": "ecb32c8ac42e7d67e12a0c7e737308aa891516790122f21dcde618fcac9b7000",
+          "bytes": 667963
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-005.png": {
+          "sha256": "b525ff57f3cbf5dafc73a6e9249abc72a014f38f6bc47000271e8b6e1b5f8d13",
+          "bytes": 657719
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-006.png": {
+          "sha256": "67645203c20577435a9839e9d2aa33812c77c5770211a09b259e522835608244",
+          "bytes": 652410
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-007.png": {
+          "sha256": "1468d2b9d7eb72e7877408b808579a99d04c6322140f8c8997195d7bf188717c",
+          "bytes": 656481
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-008.png": {
+          "sha256": "ab9ad4f0ea292f7355f939f08871216b26fb072ab09a0cffef634d98ac32ceca",
+          "bytes": 658117
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-009.png": {
+          "sha256": "173f52b93ac2f6d0b5386926ca384e6404a5c1e9db35800eabd45b722cb96d9e",
+          "bytes": 641939
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-010.png": {
+          "sha256": "8438b66cdaa907bb19de05e6c18378ac0c2f54b73210cc89ab5758745b4cd70e",
+          "bytes": 654091
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-011.png": {
+          "sha256": "b21f772f05dfe2d94cd7e9287761bd1b92de788f7e6a17d53d4daa3b86d67ba8",
+          "bytes": 635245
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-012.png": {
+          "sha256": "ce57107202ae5fa2acaafa972625428b70eff5bf0d73e0743f1d6ed5603c6e53",
+          "bytes": 639344
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-013.png": {
+          "sha256": "7b50e355215f62a87d2ab70630c9ca4c28710dc0934d5122b53701005b29da05",
+          "bytes": 645737
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-014.png": {
+          "sha256": "24f641242c76595ee464595cde624f2fd36933170df2d195d5fd53e95fb51326",
+          "bytes": 648760
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-015.png": {
+          "sha256": "589ab74766060ddd07fdd064bbb77d4aeef5f3793008514f14908874e09df6f5",
+          "bytes": 639156
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-016.png": {
+          "sha256": "ec34b4cb3c3e762112b8039b444880b39454c23e65fb846b3c156693c0dff11e",
+          "bytes": 654710
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-017.png": {
+          "sha256": "a161f27cb6b0f18264caaeaa160dbe4b32bfa89d43c489bac61fcb4564b4637c",
+          "bytes": 660882
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-018.png": {
+          "sha256": "cd6b5fcd7f7ac5e195e0fc95d8381259d86456eebbc342b10d6c4730bb5f5900",
+          "bytes": 631587
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-019.png": {
+          "sha256": "d6c1941891773425de4fed2fe74063e7c16d1d81c47065364675553c289eb6c9",
+          "bytes": 620475
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-020.png": {
+          "sha256": "82502f8e57e34bbee3ab886305748af51303b8b4d025fca7d75596d2b0bb7484",
+          "bytes": 616347
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-021.png": {
+          "sha256": "ba4c3d8732367b12461f6ae80a066c1c92c29e359e7877e1843e745b10136a73",
+          "bytes": 616384
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-022.png": {
+          "sha256": "84166c5b995da00a6d89dd6ed59bee701f1a02563692b52cb74cd24f8d62f604",
+          "bytes": 615439
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-023.png": {
+          "sha256": "a1dd343cfa0bd18f90cdd78b9721e60ae5b8e461e41c41dd47656e602a34fda5",
+          "bytes": 621995
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-024.png": {
+          "sha256": "37caa15c95740e84453fa1be62336f72e4b96a67ecc2e0ab5b54533bd1c77a2f",
+          "bytes": 616501
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-025.png": {
+          "sha256": "93a7b47d1eb702155459525563974b17d827d256e708f8898c2d415a1368c817",
+          "bytes": 620166
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-026.png": {
+          "sha256": "5cb5c7e4c391869ce19095e5ba0d49e91e6f096825428be4026d9b138de2a01a",
+          "bytes": 613068
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-027.png": {
+          "sha256": "3fcb2665343548604257b7c32179db3d275e7eec076644c7ce933fde11d65ead",
+          "bytes": 611915
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-028.png": {
+          "sha256": "e9ecdb87f1c4eb3022c3935251da9ae3e24cb1947e8d5f534dd96e47b94993d6",
+          "bytes": 620996
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/overlap-029.png": {
+          "sha256": "2e288a5107a0cf56890971c7245f08ca176e3a08708951af2941a04f31712894",
+          "bytes": 621831
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-000.png": {
+          "sha256": "4890ca198730ab54103647085e571b8a03d9f64f183811237d3100131dbce603",
+          "bytes": 196484
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-001.png": {
+          "sha256": "4890ca198730ab54103647085e571b8a03d9f64f183811237d3100131dbce603",
+          "bytes": 196484
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-002.png": {
+          "sha256": "4890ca198730ab54103647085e571b8a03d9f64f183811237d3100131dbce603",
+          "bytes": 196484
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-003.png": {
+          "sha256": "4890ca198730ab54103647085e571b8a03d9f64f183811237d3100131dbce603",
+          "bytes": 196484
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-004.png": {
+          "sha256": "9405e3c6a9bda2f268c29e5bb86c149c2c0f26f908bac332358e301c572e0cd7",
+          "bytes": 202690
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-005.png": {
+          "sha256": "9405e3c6a9bda2f268c29e5bb86c149c2c0f26f908bac332358e301c572e0cd7",
+          "bytes": 202690
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-006.png": {
+          "sha256": "9405e3c6a9bda2f268c29e5bb86c149c2c0f26f908bac332358e301c572e0cd7",
+          "bytes": 202690
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-007.png": {
+          "sha256": "9405e3c6a9bda2f268c29e5bb86c149c2c0f26f908bac332358e301c572e0cd7",
+          "bytes": 202690
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-008.png": {
+          "sha256": "1f30272eff4045766b42e868f79fe10d018fac4e274e835a7a470b1d1df346e9",
+          "bytes": 198640
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-009.png": {
+          "sha256": "1f30272eff4045766b42e868f79fe10d018fac4e274e835a7a470b1d1df346e9",
+          "bytes": 198640
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-010.png": {
+          "sha256": "1f30272eff4045766b42e868f79fe10d018fac4e274e835a7a470b1d1df346e9",
+          "bytes": 198640
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-011.png": {
+          "sha256": "1f30272eff4045766b42e868f79fe10d018fac4e274e835a7a470b1d1df346e9",
+          "bytes": 198640
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-012.png": {
+          "sha256": "19d9ece2439dc7133053f2bc7041d66f755e349ea9660caf46685d676c6c91ac",
+          "bytes": 492033
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-013.png": {
+          "sha256": "adda513df02957d073e2642553c909d8e6b7b6e381d9cfaaa9813985bfe64af2",
+          "bytes": 489596
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-014.png": {
+          "sha256": "edf3cf8c1d58b17007155812f912b6f7b13ca2d72b33124238cff13b40f26eec",
+          "bytes": 481700
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-015.png": {
+          "sha256": "2022ce619447cb4548468fcfc41e43e7a21bdce2514af109ee325b3103ed1610",
+          "bytes": 493466
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-016.png": {
+          "sha256": "709f6d2fdc91a80bcbc0a6cdf810974c3f4058ea8630e74acaaf3226b81634b6",
+          "bytes": 495120
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-017.png": {
+          "sha256": "40ed36a489e18a9f52c70575f3b9947f5089eeb152e8fde88cdf7d33c926aaf2",
+          "bytes": 485285
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-018.png": {
+          "sha256": "40ed36a489e18a9f52c70575f3b9947f5089eeb152e8fde88cdf7d33c926aaf2",
+          "bytes": 485285
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-019.png": {
+          "sha256": "40ed36a489e18a9f52c70575f3b9947f5089eeb152e8fde88cdf7d33c926aaf2",
+          "bytes": 485285
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-020.png": {
+          "sha256": "40ed36a489e18a9f52c70575f3b9947f5089eeb152e8fde88cdf7d33c926aaf2",
+          "bytes": 485285
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-021.png": {
+          "sha256": "40ed36a489e18a9f52c70575f3b9947f5089eeb152e8fde88cdf7d33c926aaf2",
+          "bytes": 485285
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-022.png": {
+          "sha256": "40ed36a489e18a9f52c70575f3b9947f5089eeb152e8fde88cdf7d33c926aaf2",
+          "bytes": 485285
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-023.png": {
+          "sha256": "78b14ad1523a16aae342f4fa7c2123de82a2c40371e3e5af391f7928ce68a028",
+          "bytes": 485809
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-024.png": {
+          "sha256": "490010318672b274dffa670b02812d163d8712d9f07739487ae5583ef0851c06",
+          "bytes": 488632
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-025.png": {
+          "sha256": "81735f6c39803cf8f06132c9e71d3e0f1a272fba7a1d657eb08b8121b79b9f9d",
+          "bytes": 489875
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-026.png": {
+          "sha256": "c5f49219dc1d9733af9ce5be7e1ffbb02b28b61e8731b00ac36ff81dfc3962be",
+          "bytes": 488865
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-027.png": {
+          "sha256": "9a24317243bd9493589b2fff4b7ac4a07f0a458fcb80b8b5405a2fc56b2576cf",
+          "bytes": 491166
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-028.png": {
+          "sha256": "236a67a649d828fe33b076c2253da76e6ab45859f9015246994b7056e3d44b31",
+          "bytes": 488310
+        },
+        "build/diagnostics/natural-run/captures-current-motion-20261007-10-v1/shop-029.png": {
+          "sha256": "53931e80c78b4dfe1db7651f2355976a019a196803ebbf8081b1a8f4e86ba14e",
+          "bytes": 498962
+        }
+      }
+    }
+  ]
+}
