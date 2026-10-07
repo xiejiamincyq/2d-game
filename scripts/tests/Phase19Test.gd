@@ -233,7 +233,13 @@ func _initialize() -> void:
 	):
 		return
 
-	TestSupport.stop_audio(scene.audio)
+	# Two fast process frames do not guarantee that the audio thread has mixed.
+	scene.audio.begin_shutdown()
+	var audio_deadline := Time.get_ticks_msec() + 2000
+	while not scene.audio.is_shutdown_complete() and Time.get_ticks_msec() < audio_deadline:
+		await process_frame
+	if not _assert_true(scene.audio.is_shutdown_complete(), "fixture audio did not drain before teardown"):
+		return
 	feedback.reset_all()
 	scene.queue_free()
 	player.queue_free()

@@ -27,6 +27,7 @@ const OVERDRIVE_CHARGE_PER_KILL := 9.0
 const OVERDRIVE_CHARGE_DECAY_PER_SECOND := 7.0
 const OVERDRIVE_DRAIN_PER_SECOND := 34.0
 const HEADLESS_SNAPSHOT_PATH := "user://five_minute_overdrive_run_test_v1.json"
+const AUDIO_SHUTDOWN_TIMEOUT_MS := 2000
 
 enum RunState { START, WAVE_INTRO, PLAYING, BOSS_INTRO, WAVE_CLEAR, SETTLEMENT, PAUSED, RESULT }
 
@@ -60,9 +61,12 @@ var run_state: RunState = RunState.START
 var pending_wave_summary: Dictionary = {}
 var snapshot_store: Node
 var audio_enabled := true
+var closing := false
+var restarting := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	get_tree().auto_accept_quit = false
 	randomize()
 	RenderingServer.set_default_clear_color(Color(0.025, 0.032, 0.045))
 	snapshot_store = RunSnapshotStoreScript.new()
@@ -74,10 +78,14 @@ func _ready() -> void:
 	ui.set_continue_available(snapshot_store.has_valid_snapshot())
 
 func _unhandled_input(event: InputEvent) -> void:
+	if closing or restarting:
+		return
 	if run_state == RunState.RESULT and event is InputEventKey and event.pressed and event.keycode == KEY_R:
 		_restart_run()
 
 func _process(delta: float) -> void:
+	if closing or restarting:
+		return
 	if run_state == RunState.PLAYING:
 		elapsed_seconds += delta
 		_update_combo(delta)
@@ -185,13 +193,13 @@ func _draw_floor() -> void:
 	world.add_child(boundary)
 
 func _start_run() -> void:
-	if run_started:
+	if run_started or closing or restarting:
 		return
 	snapshot_store.clear_snapshot()
 	_begin_run({})
 
 func _continue_run() -> void:
-	if run_started:
+	if run_started or closing or restarting:
 		return
 	var snapshot: Dictionary = snapshot_store.load_snapshot()
 	if snapshot.is_empty():
@@ -200,7 +208,7 @@ func _continue_run() -> void:
 	_begin_run(snapshot)
 
 func _begin_run(snapshot: Dictionary) -> void:
-	if run_started:
+	if run_started or closing or restarting:
 		return
 	Engine.time_scale = 1.0
 	run_started = true
@@ -342,7 +350,7 @@ func _begin_run(snapshot: Dictionary) -> void:
 			ui.show_settlement()
 
 func _on_player_entrance_finished() -> void:
-	if run_state != RunState.START or wave_director == null:
+	if closing or restarting or run_state != RunState.START or wave_director == null:
 		return
 	if not wave_director.prepare_next_wave():
 		_fail_progression_gate("玩家入场后首波准备失败")
@@ -389,6 +397,8 @@ func _on_wave_finished(summary: Dictionary) -> void:
 	)
 
 func _on_wave_banner_finished(context: StringName) -> void:
+	if closing or restarting:
+		return
 	if context == &"wave_intro" and run_state == RunState.WAVE_INTRO:
 		if wave_director.begin_prepared_wave():
 			_transition_to(RunState.PLAYING)
@@ -410,7 +420,7 @@ func _on_wave_banner_finished(context: StringName) -> void:
 		_fail_progression_gate("波次结算生成失败")
 
 func _on_settlement_offer_selected(offer: Dictionary) -> void:
-	if run_state != RunState.SETTLEMENT:
+	if closing or restarting or run_state != RunState.SETTLEMENT:
 		return
 	var state: Dictionary = upgrade_system.get_settlement_state()
 	var changed: bool = upgrade_system.purchase_settlement_offer(offer) if bool(state.get("reward_claimed", false)) else upgrade_system.claim_free_offer(offer)
@@ -428,7 +438,7 @@ func _save_current_settlement_snapshot(completed_wave: int) -> bool:
 	)
 
 func _on_settlement_close_requested() -> void:
-	if run_state != RunState.SETTLEMENT:
+	if closing or restarting or run_state != RunState.SETTLEMENT:
 		return
 	if not wave_director.can_advance_after_settlement():
 		ui.show_toast("下一波尚未就绪，请重试")
@@ -470,7 +480,7 @@ func _on_victory() -> void:
 	_end_run(true)
 
 func _save_stable_snapshot(boundary: String, pending_stage: int) -> bool:
-	if not run_started or player == null or upgrade_system == null or snapshot_store == null:
+	if closing or restarting or not run_started or player == null or upgrade_system == null or snapshot_store == null:
 		return false
 	var growth: Dictionary = upgrade_system.get_snapshot_state()
 	var snapshot := {
@@ -491,7 +501,7 @@ func _save_stable_snapshot(boundary: String, pending_stage: int) -> bool:
 	return snapshot_store.save_snapshot(snapshot)
 
 func _end_run(victory: bool) -> void:
-	if game_over:
+	if game_over or closing or restarting:
 		return
 	game_over = true
 	ui.hide_boss_health()
@@ -506,7 +516,7 @@ func _end_run(victory: bool) -> void:
 	_transition_to(RunState.RESULT)
 
 func _toggle_manual_pause() -> void:
-	if not run_started or game_over:
+	if not run_started or game_over or closing or restarting:
 		return
 	if run_state == RunState.PLAYING:
 		_transition_to(RunState.PAUSED)
@@ -514,14 +524,29 @@ func _toggle_manual_pause() -> void:
 		_transition_to(RunState.PLAYING)
 
 func _restart_run() -> void:
+	if closing or restarting:
+		return
+	restarting = true
+	get_tree().paused = true
+	var drained: bool = await _drain_audio_for_scene_exit()
+	if closing:
+		return
+	if not drained:
+		_finish_close(1)
+		return
 	manual_paused = false
 	if snapshot_store != null:
 		snapshot_store.clear_snapshot()
 	_reset_combat_feedback()
 	get_tree().paused = false
+	_reload_current_scene()
+
+func _reload_current_scene() -> void:
 	get_tree().reload_current_scene()
 
 func _transition_to(next_state: RunState) -> bool:
+	if closing or restarting:
+		return false
 	if next_state == run_state:
 		return true
 	var allowed: Dictionary = {
@@ -654,6 +679,33 @@ func _set_overdrive(active: bool) -> void:
 			combat_vfx.request_effect(&"ring", player.global_position, Vector2.UP, 2.0)
 		if is_instance_valid(camera_effects):
 			camera_effects.request_impact(0.55, Vector2.UP)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		_request_close()
+
+func _request_close() -> void:
+	if closing:
+		return
+	closing = true
+	get_tree().paused = true
+	var drained: bool = await _drain_audio_for_scene_exit()
+	_finish_close(0 if drained else 1)
+
+func _drain_audio_for_scene_exit() -> bool:
+	if not is_instance_valid(audio):
+		return true
+	audio.begin_shutdown()
+	var deadline := Time.get_ticks_msec() + AUDIO_SHUTDOWN_TIMEOUT_MS
+	while not audio.is_shutdown_complete():
+		if Time.get_ticks_msec() >= deadline:
+			push_error("Audio shutdown timed out before scene exit")
+			return false
+		await get_tree().process_frame
+	return true
+
+func _finish_close(exit_code: int) -> void:
+	get_tree().quit(exit_code)
 
 func _exit_tree() -> void:
 	if is_instance_valid(boss_camera_framing):

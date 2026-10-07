@@ -35,10 +35,12 @@ var laser_loop_player: AudioStreamPlayer
 var voice_pool: Array[AudioStreamPlayer] = []
 var voice_cursor: int = 0
 var silent_mode := false
+var shutting_down := false
+var _playback_refs: Array[WeakRef] = []
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	if silent_mode:
+	if silent_mode or shutting_down:
 		return
 	streams["bgm"] = _make_bgm_loop()
 	streams["shoot"] = _make_gunshot()
@@ -78,6 +80,7 @@ func _ready() -> void:
 		voice_pool.append(voice)
 
 func _process(delta: float) -> void:
+	_prune_playback_refs()
 	for source in hit_cooldowns.keys():
 		hit_cooldowns[source] = maxf(0.0, float(hit_cooldowns[source]) - delta)
 	kill_confirm_cooldown = maxf(0.0, kill_confirm_cooldown - delta)
@@ -86,6 +89,8 @@ func _process(delta: float) -> void:
 		boss_cue_cooldowns[cue] = maxf(0.0, float(boss_cue_cooldowns[cue]) - delta)
 
 func play_hit(source: StringName, feedback_weight: int = EnemyScript.FeedbackWeight.MEDIUM) -> bool:
+	if shutting_down:
+		return false
 	var resolved: StringName = source if hit_stream_names.has(source) else DamageTypes.GENERIC
 	if float(hit_cooldowns.get(resolved, 0.0)) > 0.0:
 		return false
@@ -94,6 +99,8 @@ func play_hit(source: StringName, feedback_weight: int = EnemyScript.FeedbackWei
 	return true
 
 func play_shot() -> bool:
+	if shutting_down:
+		return false
 	if shoot_cooldown > 0.0:
 		return false
 	shoot_cooldown = SHOOT_COOLDOWN
@@ -101,6 +108,8 @@ func play_shot() -> bool:
 	return true
 
 func play_kill_confirm() -> bool:
+	if shutting_down:
+		return false
 	if kill_confirm_cooldown > 0.0:
 		return false
 	kill_confirm_cooldown = KILL_CONFIRM_COOLDOWN
@@ -108,6 +117,8 @@ func play_kill_confirm() -> bool:
 	return true
 
 func play_overdrive_kill() -> bool:
+	if shutting_down:
+		return false
 	if kill_confirm_cooldown > 0.0:
 		return false
 	kill_confirm_cooldown = KILL_CONFIRM_COOLDOWN
@@ -115,6 +126,8 @@ func play_overdrive_kill() -> bool:
 	return true
 
 func play_boss_cue(cue: StringName) -> bool:
+	if shutting_down:
+		return false
 	var key := String(cue)
 	if not streams.has(key):
 		return false
@@ -133,16 +146,18 @@ func _get_hit_stream_name(source: StringName, feedback_weight: int) -> String:
 	return String(hit_stream_names.get(source, "enemy_hit"))
 
 func set_laser_active(active: bool) -> void:
+	if shutting_down:
+		return
 	if not is_instance_valid(laser_loop_player):
 		laser_loop_player = null
 		return
 	if active and not laser_loop_player.playing:
-		laser_loop_player.play()
+		_play_tracked(laser_loop_player)
 	elif not active and laser_loop_player.playing:
 		laser_loop_player.stop()
 
 func play(name: String) -> void:
-	if silent_mode:
+	if silent_mode or shutting_down:
 		return
 	if not streams.has(name):
 		return
@@ -157,10 +172,10 @@ func play(name: String) -> void:
 		voice.stop()
 	voice.stream = streams[name]
 	voice.volume_db = -8.0
-	voice.play()
+	_play_tracked(voice)
 
 func play_bgm() -> void:
-	if silent_mode:
+	if silent_mode or shutting_down:
 		return
 	if bgm_player == null:
 		bgm_player = AudioStreamPlayer.new()
@@ -168,7 +183,43 @@ func play_bgm() -> void:
 		add_child(bgm_player)
 	_apply_bgm_volume()
 	if not bgm_player.playing:
-		bgm_player.play()
+		_play_tracked(bgm_player)
+
+# Terminal disposal, not a pause: re-entering the tree cannot restart this manager.
+# The caller must keep SceneTree frames running until is_shutdown_complete().
+# Track replaced/stopped voices too, because stop() retires them asynchronously.
+func _play_tracked(player: AudioStreamPlayer) -> void:
+	player.play()
+	if player.has_stream_playback():
+		_playback_refs.append(weakref(player.get_stream_playback()))
+
+func _prune_playback_refs() -> void:
+	for index in range(_playback_refs.size() - 1, -1, -1):
+		if _playback_refs[index].get_ref() == null:
+			_playback_refs.remove_at(index)
+
+func begin_shutdown() -> void:
+	if shutting_down:
+		return
+	shutting_down = true
+	for child in get_children():
+		if child is AudioStreamPlayer:
+			if child.has_stream_playback():
+				_playback_refs.append(weakref(child.get_stream_playback()))
+			child.stop()
+			child.stream = null
+	streams.clear()
+	voice_pool.clear()
+	bgm_player = null
+	laser_loop_player = null
+
+func is_shutdown_complete() -> bool:
+	_prune_playback_refs()
+	return shutting_down and _playback_refs.is_empty()
+
+func _exit_tree() -> void:
+	# Best effort only. Normal close drains before this synchronous callback.
+	begin_shutdown()
 
 func stop_bgm() -> void:
 	if bgm_player != null:

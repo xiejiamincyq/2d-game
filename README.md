@@ -4,9 +4,9 @@
 
 ## 本机直接试玩（不需要安装 Godot）
 
-本机已保留独立 Windows 试玩包：打开 `build/playtest/5分钟超载-hud-initial-v1/`，双击 `five-minute-overdrive.exe`；同目录的 `.pck` 必须保留。可以复制整个目录，不需要打开编辑器或运行测试。旧ranged-v1/radius-v1/lob-v1/c5c5710目录保留历史版本；新包加入开局波次显示修复。
+本机已保留独立 Windows 试玩包：打开 `build/playtest/5分钟超载-audio-exit-v2/`，双击 `five-minute-overdrive.exe`；同目录的 `.pck` 必须保留。可以复制整个目录，不需要打开编辑器或运行测试。旧hud/ranged/radius/lob/c5c5710目录保留历史版本；新包加入音频退出收尾并保留开局波次显示修复。
 
-这是本机文件，不随 Git 克隆下载，也不是公开发布。当前实际EXE开场显示已验证，但退出有2个ObjectDB泄漏，干净退出门未通过；完整EXE操作、实际声音和人工手感未代签。操作、核验哈希及待验内容见[本地试玩交接](docs/local-playtest-handoff-v5.md)。
+这是本机文件，不随 Git 克隆下载，也不是公开发布。五个实际EXE普通关窗/暂停/自然失败/R重开短测退出0，三路日志无错误或泄漏；完整EXE通关、声音听感和人工手感未代签。操作、核验哈希及待验内容见[本地试玩交接](docs/local-playtest-handoff-v6.md)。
 
 ## 环境要求
 

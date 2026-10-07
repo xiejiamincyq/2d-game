@@ -34,6 +34,8 @@ python scripts/tests/test_validate_manifest.py
 
 ## 套件职责
 
+Godot子进程以实际退出码和engine日志的一次pass计数核对，同时异步捕获stdout/stderr；三路任一路出现错误/对象或资源泄漏均拒绝通过。`AudioLifecycleTest`覆盖实际音频对象回收，`MainCloseTest`覆盖关闭/重开竞争；`test_audio_exit_timeout.py`隔离运行预期超时退出1的负夹具，不放宽正常错误门。源码合同检查`test_runner_audio_exit_gate.py`不是runner端到端负测试。
+
 自然整局长测是额外验收，不由标准短套件自动代替。命令、预注册策略、隔离存档与已执行三种子结果见[自然整局验证](natural-run-validation-v1.md)。`NaturalRunPolicyTest`与Python记录检查器已纳入标准运行器；headless通过不代表连续画面或人工手感通过。
 
 ### 玩法套件（Godot）

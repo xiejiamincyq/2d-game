@@ -42,6 +42,8 @@ $gameplayTests = @(
     "EconomyBuildTest",
     "CombatEventTest",
     "CombatFeedbackTest",
+    "AudioLifecycleTest",
+    "MainCloseTest",
     "DamageTest",
     "ProjectilePickupTest",
     "EnemyProjectileRadiusTest",
@@ -127,7 +129,8 @@ foreach ($test in $tests) {
     $scriptTest = $test
     $fixedStepArguments = ""
     $userArguments = ""
-    $frameBudget = if ($test -eq "DashTest") { 1800 }
+    $frameBudget = if ($test -in @("AudioLifecycleTest", "MainCloseTest")) { 12000 }
+        elseif ($test -eq "DashTest") { 1800 }
         elseif ($test -in @("PortalRuntimeClockTest", "BossRuntimeClockTest", "CombatStatusLayoutTest")) { 600 }
         else { 120 }
     # Clock tests observe real portal/Boss warnings at 60 FPS.
@@ -150,12 +153,17 @@ foreach ($test in $tests) {
     $startInfo.Arguments = "--headless --audio-driver Dummy --path . --log-file `"$logPath`" $fixedStepArguments --script res://scripts/tests/$scriptTest.gd --quit-after $frameBudget $userArguments"
     $startInfo.UseShellExecute = $false
     $startInfo.CreateNoWindow = $true
+    $startInfo.RedirectStandardOutput = $true
+    $startInfo.RedirectStandardError = $true
     $process = [System.Diagnostics.Process]::new()
     $process.StartInfo = $startInfo
     [void]$process.Start()
+    $stdoutTask = $process.StandardOutput.ReadToEndAsync()
+    $stderrTask = $process.StandardError.ReadToEndAsync()
     if (-not $process.WaitForExit(120000)) {
         # Process.Kill(Boolean) is unavailable in Windows PowerShell 5.1.
         $process.Kill()
+        [void]$process.WaitForExit(5000)
         $failures.Add("${test}: timed out after 120 seconds")
         if (Test-Path -LiteralPath $logPath) {
             Remove-Item -LiteralPath $logPath -Force
@@ -163,11 +171,14 @@ foreach ($test in $tests) {
         continue
     }
     $output = ""
+    $stdout = $stdoutTask.GetAwaiter().GetResult()
+    $stderr = $stderrTask.GetAwaiter().GetResult()
     if (Test-Path -LiteralPath $logPath) {
         $output = Get-Content -Raw -LiteralPath $logPath
         Remove-Item -LiteralPath $logPath -Force
     }
     $matches = [regex]::Matches($output, "TEST PASS: $scriptTest ([1-9][0-9]*)")
+    $diagnosticOutput = $output + "`n" + $stdout + "`n" + $stderr
     if ($process.ExitCode -ne 0) {
         $failures.Add("${test}: exited with $($process.ExitCode)")
     }
@@ -176,12 +187,12 @@ foreach ($test in $tests) {
     } else {
         $totalAssertions += [int]$matches[0].Groups[1].Value
     }
-    if ($output -match $forbidden) {
+    if ($diagnosticOutput -match $forbidden) {
         $failures.Add("${test}: output contained a forbidden error or leak marker")
     }
     if ($failures | Where-Object { $_ -like "${test}:*" }) {
         Write-Host "===== $test FAILED =====" -ForegroundColor Red
-        Write-Host $output
+        Write-Host $diagnosticOutput
     } else {
         Write-Host "TEST SUITE PASS: $test" -ForegroundColor Green
     }

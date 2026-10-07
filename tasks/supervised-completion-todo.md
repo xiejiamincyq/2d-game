@@ -32,6 +32,7 @@
   - [x] S2-D矩阵驱动：14项纯测试红绿、受审56源/64总冻结项、独立复核、late-n01事前登记及原生进程父链探针通过，见[驱动报告](../docs/late-matrix-driver-v1.md)。已启动3自然前缀+18独立恢复；完整矩阵/18窗口/36压力仍欠，不提前勾S2整体。
   - [x] S2-D自然正式矩阵：late-n01事前登记21槽全部退出0，3自然checkpoint+18独立副本恢复全胜利，112086战斗步，18峰窗口/989原PNG/18VFR逐原记录外核。9walk全程最长低进展0、dash最长21步后正常完成；1196项/19原始卷仅本地闭合，仓库只留摘要/卷索引/六原图抽样，不冒称可移植raw包。见[完整自然测量](../docs/late-natural-matrix-v1.md)；36压力、完整LOBber投掷/人工视觉/S2—S5整体仍未通过。
 - [ ] S3 六景前后与运动证据、四向展示；本地实际看图验收。
+  - [x] 音频关闭/重开实际回收：加严runner三路门后发现Phase19夹具4个ObjectDB漏，真实修夹具/完整71 Godot170771+33 Python238退出0；fresh包五个普通EXE进程关窗/暂停/自然败局/R重开均退出0且三路无错误/泄漏，六存档/20脏文件不变。见[验收](../docs/audio-exit-review-v1.md)及[试玩v6](../docs/local-playtest-handoff-v6.md)。仅所测短路径，不代签EXE整局/音频听感/最低硬件/授权，S3—S5整体不勾。
   - [x] 普通敌弹圆形深青轮廓/珊瑚酸绿分色，LOB蓄力去中心染色、线止边界；32配色红绿、四向core旧1024→新0/默认友方ROI不变、最终69Godot170078+31Python235、自然8835步胜利/17个精确普通Projectile脚本观测零不一致，见[本片记录](../docs/ranged-warning-visual-review-v1.md)与[本机包v4](../docs/local-playtest-handoff-v4.md)。仅所列固定姿态/单自然种子/标题启动，不是全部密集视觉、EXE整局或S3整体。
   - [x] 保留v4实际EXE普通窗口开始/自然死亡/R回标题/暂停冻结13.833秒/继续，第二真实EXE进程读取自己生成的第一波开场存档；两进程退出0、正式存档/20原脏文件不变。见[窗口输入记录](../docs/exe-window-input-review-v1.md)。独立审查检出第一进程console有2个ObjectDB泄漏，原helper漏扫console，干净退出门失败；第二进程无console归档，不证明无泄漏。本证据片没有生产修改或新全套回归，不等于完整六波/胜利/手感；开场旧1/8与泄漏须处理，不勾S3—S5整体。
   - [x] 开场HUD旧1/8初始化显示修复：两个实际状态红→绿；69 Godot170082断言+31 Python235测试，fresh副本190输入只有Main/HUD两项生产变化，新保留EXE普通开始显示1/6已看原图。见[修复记录](../docs/hud-initial-wave-review-v1.md)与[交接v5](../docs/local-playtest-handoff-v5.md)。native退出0但stderr再次2个ObjectDB泄漏，不算干净退出通过；先定位泄漏，S3—S5整体不勾。
