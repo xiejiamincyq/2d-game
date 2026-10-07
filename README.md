@@ -10,7 +10,7 @@
 
 v8的190份生产输入与现行工作树、自然运行登记和fresh副本逐hash一致，相对[历史v7](docs/local-playtest-handoff-v7.md)恰好5生产文件改变绘制分层。构建包含原有未提交资源，不称干净HEAD；v7不含[地面预警分层修复](docs/ground-warning-review-v1.md)，不可当现行源包。
 
-分层修复后的现行源码另有[自然通关/六景/首收集复核](docs/ground-warning-natural-review-v1.md)及[无读回本机性能基线](docs/performance/native-current-baseline-v1.md)，不是独立EXE完整流程或全项目验收。严格组件前后与当前六景after分列，不宣称六景连续同条件配对已完成。
+分层修复后的现行源码另有[自然通关/六景/首收集复核](docs/ground-warning-natural-review-v1.md)及[无读回本机性能基线](docs/performance/native-current-baseline-v1.md)，不是独立EXE完整流程或全项目验收。[综合六景前后](docs/paired-six-scenes-review-v1.md)已完成原基线到当前的180组同条件关键帧、四向与真实看图；与自然连续证据分列合并为S3技术视觉验收，不冒称自然同条件前后录像或人工签收。
 
 ## 环境要求
 

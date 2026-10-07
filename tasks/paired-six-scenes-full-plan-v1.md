@@ -39,7 +39,8 @@
 - [x] 复制时before992文件/after1226文件，两侧636项共同assets逐hash差异=[]。前后隔离副本各一次 `--headless --editor --quit` 导入实际退出0，六条engine/stdout/stderr日志错误/泄漏均为空。这是导入准备，不是六景渲染或S3通过。导入后当前副本/工作树190生产输入仍匹配v8、20保护文件不变。
 - [x] 导入后before全部356项非assets原Git归档成员与实际副本逐hash差异=[]；before Main SHA256 `1d7713053beca403c31bac13de9b02d33d5db9e1c9f1460c4c4fe7056fd668d4`，after Main `a35bbed599d8018fbb6e109bdb53e030e21bd8f22ca4f5ab60c525b5b9d34473`。原始before归档SHA256 `148d2e9bfc57fae231e58fc283d3caaf3fb37d26dfa4fafeae40931526c8217d`。导入后636共同assets仍完全一致，运行着色器未引用TIME；未留活跃原生测试进程。
 - [x] 独立来源核对指出原归档684文件中214文本与Git blob原字节不同，但全部仅CRLF→LF转换，规范化后非换行差异0。before Main的Git blob SHA256为 `7048eea47c7575a6f1e9b520bd9b4cbe220c900a8e61af015aa570fb907c49fb`；与上项实际归档SHA分列。保留原副本及导入记录，不重写为LF或冒称全量原字节与blob一致。
-- [ ] 相同夹具冒烟/完整两侧360原图及透明参考；尚未运行，不以副本准备签S3。
-- [ ] 全量配对核算、实际看图/独立复核、S3判定和最终全项目冻结审查。
+- [x] 同字节夹具最终full-v2两侧360彩色原图及360透明参考、180配对/实际退出0；原smoke/full-v1错误与覆盖缺项保留，见[最终报告](../docs/paired-six-scenes-review-v1.md)。
+- [x] 全量配对核算、实际看图/独立复核无Required，与既有自然连续证据分列合并为S3技术视觉验收；不代人工/音频/硬件/许可。
+- [ ] 最终全项目完成合同与冻结索引审查；不重新启动已完成历史矩阵。
 
 不覆盖已有tasks/plan.md、历史自然失败或v8交接归档。外部human_pending、听感、最低硬件及来源/许可仍单列；它们不授权扩张项目范围或伪造签收。
