@@ -88,11 +88,14 @@ Godot子进程以实际退出码和engine日志的一次pass计数核对，同�
 | `EnemyDasherArtTest` | Dasher A/B 图集与运行时表现契约 |
 | `EnemyStaticArtTest` | 静态敌人精灵运行时契约 |
 | `EnemyReadabilityTest` | 七类敌人连续命中的35%受击提亮、80ms边界、伤害事件与死亡回收；节点Alpha非像素透明度证据 |
+| `CollectionCaptureTest` | 首窗口采样策略9断言＋真实HUD Range步长/归零4断言；信号/flush全链另看原生收集证据 |
 | `ProjectileLandingVisualTest` | 投射物落点视觉表现 |
 | `ChibiRuntimeArtTest` | chibi 运行时美术资产契约 |
 | `PlayerOcclusionOutlineTest` | 玩家被遮挡时的轮廓提示契约 |
 
 ### Python 管线套件
+
+`test_collection_capture.py`覆盖完整窗口、数值/UI/状态、帧号与间隔、矩形/路径、隐藏尾及真实0.01进度步长的12项测试。自然62原图与原失败检查、独立offline-v2修订范围见[收集实测](collection-natural-review-v1.md)，不把单元测试当自然画面或人工手感验收。
 
 | 套件 | 职责 |
 | --- | --- |

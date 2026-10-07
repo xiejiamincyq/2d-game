@@ -4,13 +4,83 @@ const Lobbed = preload("res://scripts/components/LobbedProjectile.gd")
 const CLIPS := ["opening", "crowd", "dash", "overlap", "boss", "shop"]
 const CLIP_FRAMES := 30
 var clips: Dictionary = {}
-var pending_images: Array[Dictionary] = [] # At most 180 RGBA frames, ~633 MiB, diagnostic-only.
+var pending_images: Array[Dictionary] = [] # At most 308 RGBA entries, ~1.06 GiB upper bound; same-draw clips may share an Image. Diagnostic-only.
 var capture_dir := ""
 var last_capture_frame := -4
 var boss_view_samples: Array[Dictionary] = []
 var boss_view_truncated := false
 var overdrive_draw_frames := 0
 var overdrive_body_tint_conflicts := 0
+var collection := {"start": {}, "end": {}, "frames": [], "complete": false}
+var collection_director: Node
+var collection_last_frame := -1
+var enemy_flash_counts := [0, 0, 0, 0, 0, 0, 0]
+var enemy_flash_conflicts := 0
+
+static func collection_capture_due(active: bool, ended: bool, complete: bool, frame: int, last: int) -> bool:
+	return not complete and (ended or (active and (last < 0 or frame - last >= 3)))
+
+func _collection_start(summary: Dictionary, duration: float) -> void:
+	if collection.start.is_empty():
+		collection.start = {"wall": float(Time.get_ticks_usec() - started) / 1000000.0,
+			"duration": duration, "wave": summary.get("wave", -1)}
+
+func _collection_change(remaining: float, _duration: float) -> void:
+	if not collection.start.is_empty() and collection.end.is_empty() and is_zero_approx(remaining):
+		collection.end = {"wall": float(Time.get_ticks_usec() - started) / 1000000.0,
+			"remaining": remaining, "wave": scene.wave_director.wave_index + 1}
+
+func _capture_collection() -> void:
+	var director: Node = scene.wave_director
+	if not director.has_signal("collection_window_started"):
+		return # Component test directors do not represent this natural lifecycle.
+	if not collection.complete and director != collection_director:
+		collection_director = director
+		director.collection_window_started.connect(_collection_start)
+		director.collection_window_changed.connect(_collection_change)
+	if scene.run_state == scene.RunState.PLAYING:
+		var screen := Rect2(Vector2.ZERO, Vector2(view.size))
+		for enemy in director.active_enemies:
+			if not is_instance_valid(enemy) or not enemy is EnemyScript or enemy.is_queued_for_deletion() or enemy.flash_timer <= 0.0 or enemy.health.current_health <= 0.0:
+				continue
+			var visual: Sprite2D = enemy.static_visual
+			if visual != null and visual.is_visible_in_tree() and screen.intersects(visual.get_global_transform_with_canvas() * visual.get_rect()):
+				enemy_flash_counts[enemy.kind] += 1
+				if not is_equal_approx(float(enemy.static_flash_material.get_shader_parameter("flash_amount")), 0.35):
+					enemy_flash_conflicts += 1
+	var frame := Engine.get_physics_frames()
+	if collection.start.is_empty() or not collection_capture_due(director.collection_window_active, not collection.end.is_empty(), collection.complete, frame, collection_last_frame):
+		return
+	if collection.frames.size() >= 128 or DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(capture_dir)) != OK:
+		valid = false
+		terminal = "capture_error"
+		return
+	var bitmap := view.get_texture().get_image()
+	if bitmap == null or bitmap.is_empty() or bitmap.get_size() != Vector2i(1280, 720):
+		valid = false
+		terminal = "capture_error"
+		return
+	var hud: Node = scene.ui.hud
+	var panel: Control = hud.collection_panel
+	var overdrive: Control = hud.overdrive_panel
+	var rect := panel.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, panel.size)
+	var other_rect := overdrive.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, overdrive.size)
+	var path := capture_dir + "collection-%03d.png" % collection.frames.size()
+	var row := {"wall": float(Time.get_ticks_usec() - started) / 1000000.0, "frame": frame,
+		"process_frame": Engine.get_process_frames(), "state": scene.RunState.keys()[scene.run_state],
+		"remaining": director.collection_window_remaining, "bar_value": hud.collection_bar.value,
+		"bar_max": hud.collection_bar.max_value, "label": hud.collection_label.text,
+		"visible": panel.is_visible_in_tree(), "alpha": panel.modulate.a,
+		"rect": [rect.position.x, rect.position.y, rect.size.x, rect.size.y],
+		"overdrive_visible": overdrive.is_visible_in_tree(),
+		"overdrive_rect": [other_rect.position.x, other_rect.position.y, other_rect.size.x, other_rect.size.y],
+		"path": path.trim_prefix("res://"), "sha256": ""}
+	collection.frames.append(row)
+	pending_images.append({"image": bitmap, "record": row, "path": path})
+	collection_last_frame = frame
+	if not collection.end.is_empty():
+		collection.complete = true
+		print("NATURAL_COLLECTION_COMPLETE frames=%d" % collection.frames.size())
 
 static func measure_boss_view(sprite_rect: Rect2, viewport_rect: Rect2, ui_rects: Array) -> Dictionary:
 	var total_area := sprite_rect.get_area()
@@ -61,6 +131,7 @@ func _initialize() -> void:
 func _capture() -> void:
 	if started == 0 or reloading or not terminal.is_empty() or not is_instance_valid(view) or not view.is_inside_tree() or not is_instance_valid(scene) or not is_instance_valid(scene.player):
 		return
+	_capture_collection() # Whole first natural window; independent of the six short clip quotas.
 	if scene.run_state == scene.RunState.PLAYING and scene.player.overdrive_active:
 		overdrive_draw_frames += 1
 		if not scene.player.modulate.is_equal_approx(Color.WHITE):
@@ -190,12 +261,16 @@ static func visual_source_paths() -> Array[String]:
 
 func _source_hashes() -> Dictionary:
 	var hashes := super._source_hashes()
+	hashes["scripts/art/check_natural_render.py"] = FileAccess.get_sha256("res://scripts/art/check_natural_render.py")
 	for path in visual_source_paths():
 		hashes[path] = FileAccess.get_sha256("res://" + path)
 	return hashes
 
 func _finish() -> void:
 	RenderingServer.frame_post_draw.disconnect(_capture)
+	if is_instance_valid(collection_director):
+		collection_director.collection_window_started.disconnect(_collection_start)
+		collection_director.collection_window_changed.disconnect(_collection_change)
 	paused = true
 	for index in range(pending_images.size()):
 		var pending: Dictionary = pending_images[index]
@@ -217,6 +292,7 @@ func _finish() -> void:
 		file.store_string(JSON.stringify({"run": config.run, "clips": clips, "missing": missing, "viewport": [1280, 720], "source_sha256": source_before,
 			"boss_view": boss_view_samples, "boss_view_truncated": boss_view_truncated,
 			"overdrive_draw_frames": overdrive_draw_frames, "overdrive_body_tint_conflicts": overdrive_body_tint_conflicts,
+			"collection": collection, "enemy_flash_counts": enemy_flash_counts, "enemy_flash_conflicts": enemy_flash_conflicts,
 			"adapter": RenderingServer.get_video_adapter_name(), "display": DisplayServer.get_name(), "scope": "natural rendered frame readbacks; Boss view rectangles are conservative texture AABBs, not opaque-pixel masks; not performance, paired before/after or human acceptance"}))
 		file.close()
 	valid = valid and not boss_view_truncated
