@@ -95,6 +95,7 @@ $gameplayTests = @(
 )
 $artTests = @(
     "FriendlyEffectPaletteTest",
+    "HostileEffectPaletteTest",
     "NaturalRunPolicyTest",
     "NaturalRunSnapshotCheckTest",
     "NaturalRunRenderedTest",

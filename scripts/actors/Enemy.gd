@@ -14,6 +14,7 @@ signal damage_resolved(
 )
 
 const ProjectileScript = preload("res://scripts/components/Projectile.gd")
+const HostilePalette = preload("res://scripts/effects/HostileEffectPalette.gd")
 const CombatView = preload("res://scripts/systems/CombatView.gd")
 const LobbedProjectileScript = preload("res://scripts/components/LobbedProjectile.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
@@ -503,16 +504,21 @@ func _draw() -> void:
 		draw_arc(Vector2.ZERO, attack_range, -PI * 0.85, PI * 0.85, 24, Color(1.0, 0.55, 0.15, 0.25 + p * 0.45), 4.0)
 	if ranged_is_winding_up:
 		var charge := 1.0 - clampf(ranged_windup_remaining / maxf(0.01, ranged_windup_duration), 0.0, 1.0)
-		var warning_color := Color("ff571f") if kind in [EnemyKind.MARKSMAN, EnemyKind.OVERSEER] else accent
+		var warning_color := HostilePalette.CORAL if kind in [EnemyKind.MARKSMAN, EnemyKind.LOBBER, EnemyKind.OVERSEER] else accent
 		var target_local := to_local(ranged_target_position)
 		if kind == EnemyKind.MARKSMAN:
 			draw_line(Vector2.ZERO, target_local, Color(0.02, 0.04, 0.06, 0.78), 5.0)
 			draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.32 + charge * 0.58), 1.5 + charge * 1.5)
+		elif kind == EnemyKind.LOBBER:
+			# Stop the aim line at the landing rim; never paint across its center.
+			var rim := target_local - target_local.normalized() * 72.0
+			draw_line(Vector2.ZERO, rim, Color(HostilePalette.OUTLINE, 0.8), 5.0, true)
+			draw_line(Vector2.ZERO, rim, Color(warning_color, 0.25 + charge * 0.55), 3.0, true)
 		else:
 			draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.25 + charge * 0.55), 2.0 + charge * 2.0)
 		if kind == EnemyKind.LOBBER:
-			draw_circle(target_local, 72.0, Color(warning_color, 0.06 + charge * 0.08))
-			draw_arc(target_local, 72.0, 0.0, TAU, 36, Color(warning_color, 0.5 + charge * 0.4), 2.0)
+			draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(HostilePalette.OUTLINE, 0.9), 5.0, true)
+			draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(warning_color, 0.5 + charge * 0.4), 3.0, true)
 		elif kind == EnemyKind.OVERSEER:
 			draw_arc(Vector2.ZERO, body_radius + 18.0 + charge * 12.0, 0.0, TAU, 40, Color(warning_color, 0.75), 4.0)
 	if static_visual == null:
@@ -653,7 +659,7 @@ func _update_spitter(delta: float, player: Node2D) -> void:
 	shot.radius = 5.0
 	shot.lifetime = 6.0
 	shot.target_group = &"player"
-	shot.tint = Color(0.55, 1.0, 0.2)
+	shot.tint = HostilePalette.ACID
 	shot.world_bounds = world_bounds
 	projectile_parent.add_child(shot)
 	shot.global_position = global_position
@@ -705,7 +711,7 @@ func _fire_marksman(player: Node2D) -> void:
 	shot.damage = 12.0
 	shot.lifetime = 2.0
 	shot.target_group = &"player"
-	shot.tint = Color("33fff2")
+	shot.tint = HostilePalette.CORAL
 	shot.world_bounds = world_bounds
 
 func _fire_lobber(player: Node2D) -> void:
@@ -761,7 +767,7 @@ func _fire_overseer_burst() -> void:
 		shot.damage = 10.0
 		shot.lifetime = 3.0
 		shot.target_group = &"player"
-		shot.tint = Color("ff571f")
+		shot.tint = HostilePalette.CORAL
 		shot.world_bounds = world_bounds
 
 func _clamp_to_world_bounds() -> void:

@@ -2,6 +2,7 @@ extends Area2D
 class_name Projectile
 
 const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
+const HostilePalette = preload("res://scripts/effects/HostileEffectPalette.gd")
 
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 
@@ -39,6 +40,12 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _draw() -> void:
+	if target_group == &"player":
+		# Visual padding only: the physics circle remains the configured radius.
+		draw_circle(Vector2.ZERO, radius + 1.5, HostilePalette.OUTLINE)
+		draw_circle(Vector2.ZERO, radius, tint)
+		draw_circle(Vector2(-radius * 0.2, -radius * 0.2), radius * 0.4, HostilePalette.CREAM)
+		return
 	if overdrive_visual:
 		var direction := velocity.normalized()
 		if direction == Vector2.ZERO:
