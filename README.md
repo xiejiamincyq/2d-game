@@ -4,15 +4,15 @@
 
 ## 本机直接试玩（不需要安装 Godot）
 
-当前本地技术收尾已闭合，统一入口见[最终冻结索引](docs/local-project-freeze-v1.md)：S1—S5证据及有限继承范围、试玩包hash、既存脏资源和待验项在同一处。旧报告的“下一步”保留历史；不表示重新启动已完成矩阵，不代人工/听感/最低硬件/许可签收，仍不发布。
+最新本机候选为 **v9**：打开 `build/playtest/5分钟超载-current-v9/`，双击 `five-minute-overdrive.exe`；同目录 `.pck` 必须保留。不需要编辑器或运行测试。可以复制整个目录。旧v8保留，但不包含本次玩法修复。
 
-本机已保留最新 Windows 试玩候选：打开 `build/playtest/5分钟超载-current-v8/`，双击 `five-minute-overdrive.exe`；同目录的 `.pck` 必须保留。可以复制整个目录，不需要打开编辑器或运行测试。旧包保留；v8加入地面预警/非碰撞友弹拖尾分层修复，保留普通敌受击、音频退出和开局波次显示修复。
+v9根据真人反馈降低榴弹玩家速度继承至30%、基础飞行速度提升20%，加入小怪局部群体对齐/聚合/分离及慢大怪绕行，碰撞盒不缩小。完整回归78 Godot+35 Python套件通过；最终源正常输入流程通关，实际PCK四套玩法测试及普通EXE标题启动退出通过。源码自然通关不是普通EXE完整通关，自动运行不代签真人手感。[本次玩法与试玩交接](docs/local-playtest-handoff-v9.md)包含hash、首次导出失败和验证边界。
 
-这是本机文件，不随Git克隆下载，也不是公开发布。v8第一实际EXE进程验证了启动、自然失败/R标题、Space暂停稳定和正常关窗；第二进程工具失败保留。后续[普通EXE初始边界跨进程继续](docs/local-playtest-continue-v8-v2.md)已实际按C恢复第一波、Space暂停并正常退出0，正式存档及包不变。完整EXE通关、商店边界普通EXE续存、声音听感、最低硬件及人工手感未代签。操作、哈希、失败及历史证据适用范围见[本地试玩交接](docs/local-playtest-handoff-v8.md)及后续补充。
+这是本机文件，不随Git克隆下载，也不是公开发布；含原有未提交资源，不称干净HEAD构建。声音听感、最低硬件、来源许可和人工手感仍待验。
 
-v8的190份生产输入与现行工作树、自然运行登记和fresh副本逐hash一致，相对[历史v7](docs/local-playtest-handoff-v7.md)恰好5生产文件改变绘制分层。构建包含原有未提交资源，不称干净HEAD；v7不含[地面预警分层修复](docs/ground-warning-review-v1.md)，不可当现行源包。
+### v8历史冻结与证据
 
-分层修复后的现行源码另有[自然通关/六景/首收集复核](docs/ground-warning-natural-review-v1.md)及[无读回本机性能基线](docs/performance/native-current-baseline-v1.md)，不是独立EXE完整流程或全项目验收。[综合六景前后](docs/paired-six-scenes-review-v1.md)已完成原基线到当前的180组同条件关键帧、四向与真实看图；与自然连续证据分列合并为S3技术视觉验收，不冒称自然同条件前后录像或人工签收。
+先前[最终冻结索引](docs/local-project-freeze-v1.md)、[v8交接](docs/local-playtest-handoff-v8.md)、[普通EXE跨进程继续](docs/local-playtest-continue-v8-v2.md)、[自然六景](docs/ground-warning-natural-review-v1.md)、[六景前后](docs/paired-six-scenes-review-v1.md)及[性能基线](docs/performance/native-current-baseline-v1.md)保持历史记录。它们绑定v8/当时源码，不把旧运动、伤亡、性能数字或190份输入声明冒称v9重测；本次入口及194份输入以v9交接为准，不重新启动旧18/36/20矩阵。
 
 ## 环境要求
 

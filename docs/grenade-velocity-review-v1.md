@@ -7,3 +7,5 @@
 相关`DamageTest`51、`Phase19Test`25、`Phase20Test`17、`RateTest`10、`ProjectilePickupTest`20均实际退出0，合计6套196断言；三通道无错误/泄漏标记。隔离APPDATA，不写正式存档。资源导入另退出0。原日志保留在本机ignored `build/diagnostics/gameplay-feedback-v1/{grenade-red-v1,grenade-green-v1,grenade-green-v2}`，失败不覆盖。
 
 本片只修速度，不称已解决小怪群体移动，也不称旧v8已包含修复。执行计划见[试玩反馈方案](../tasks/gameplay-feedback-plan-v1.md)。完整回归与新本机v9导出安排在群体运动片完成后；此前可运行当前Godot源码，v8仍是历史包。未修改任何位图、来源/许可或发布权限。
+
+后续已完成群体运动修复、最终完整回归和新包；[v9交接](local-playtest-handoff-v9.md)另列最终源/实际PCK测试，不覆盖上面的分片历史记录。
