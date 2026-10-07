@@ -1,0 +1,350 @@
+{
+  "run": "ground-warning-natural-20261007-09-v1",
+  "engine_pid": 34928,
+  "terminal": "victory",
+  "map_seed": 2573397633,
+  "steps": 10907,
+  "missing": [],
+  "restart_verified": true,
+  "source_sha256": {
+    "assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png": "1db9d68975612537d734e9660017144b77ba3954b15dcd5a882ac659e332e9ad",
+    "assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png": "5c3a0d230793715ddb3d15526916d1ef30c65d44252a82d7f8632e8896876ebb",
+    "assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png": "222df622318156390a1e061bcfcb427f9f0bf181f88cea701cf60c1a89087e5f",
+    "assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png": "cc94485c28547ae3da9aa25619b751ee72f756461d4d27bbb471c1190098bd70",
+    "assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png": "e4f96efbbf441a834551c9937dddb159512b36462861bf814ad9f416f390048c",
+    "assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png": "9692680a6dfd2e9f8cb9c8f89320f5179728f96aff164bbe21fad951ba235a87",
+    "assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png": "86f9bd41666452242aeb85d6d5ad3f84df94618ee12aa4197932459dbc01afba",
+    "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png": "ad652e11b0f9a701f44322846c425634bf771da7f4a7c78fc7d0c87a7f310354",
+    "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png": "9f8d33ed98f5af8a304d7101f0267b1331312e7788bad8aea348e9944c0cb45b",
+    "assets/art/environment/floor_surface.gdshader": "fbcdb3c34a32dee12904983630370b68c69e9200fbaf8fea71e33a25258c90c9",
+    "assets/art/environment/mint_farm_floor_b_v1.png": "3124d80676757709edc28182d3f6ac950f716d8d1586794edc8bed1b3041f257",
+    "assets/art/environment/mint_farm_props_b_packed_v1.png": "672c0cae193f66d1e8168443831f78c2622a757cfe1b6e24508322b041dddfc3",
+    "assets/art/environment/prop_alpha.gdshader": "4ff920523cf1243c5a2304a45ff6e77430c5904e71ff0e9dedc137ed537a8d71",
+    "assets/art/shaders/dasher_hit_flash.gdshader": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9",
+    "scenes/ui/HUD.tscn": "8e2907f7196de67f32e03421135fd6e9e19a98463124b2e09dc9f8e6f76319d9",
+    "scripts/Main.gd": "a35bbed599d8018fbb6e109bdb53e030e21bd8f22ca4f5ab60c525b5b9d34473",
+    "scripts/actors/Enemy.gd": "b73c0b168fe4fb566329fe30d7a9e75f82edea464f65ad57086876eacb9f351d",
+    "scripts/actors/OverseerBoss.gd": "e1105bef7807d585c3a4fe1ee9b3442cf73ebd1c213e29bb565d17cfbc772ec6",
+    "scripts/actors/Player.gd": "88fa20e1eb7c4d862b0837bf6db73f0f1c29862a75a320448d511daee9be4eb6",
+    "scripts/art/NaturalRunDiagnostic.tscn": "dcad36109beca46ad85415e8774a04f012fb9fa94b7bc538048fa195fbdf6a6e",
+    "scripts/art/NaturalRunMain.gd": "dba6c3c8a50c23a00851377128b6096777698c32b7fa82bb30a2ef4b86198762",
+    "scripts/art/NaturalRunPolicy.gd": "75d7ccf15e5b35355324945301afb4b8a5a57f5805a10e5d3cb14d07889b2259",
+    "scripts/art/VerifyNaturalRun.gd": "c4de015e0c33e588db08d5765647d9f20ae622359934ff93232e70fd042f9b3c",
+    "scripts/art/VerifyNaturalRunRendered.gd": "e98819b19e79463192705e7c3fd80259860ac5f271ef0f3c37e69e472a253a89",
+    "scripts/art/check_natural_render.py": "b088ee262fea12ba59803fdbbf3802248b08001c8d65a382e3f353d0bbefc106",
+    "scripts/art/check_natural_run_report.py": "db64c6437cf1ba18fb519a0cf037b5b27dd4ae91f16a610c9753324a87df8d8d",
+    "scripts/components/ArcPulseVisual.gd": "23923c95df928acfbafb114ebedb30c89d0fa5c5d6d546acb0d5e382af546842",
+    "scripts/components/BossAttackDirector.gd": "df82489a27dddf90f46e8587d80e4a34be355386085f8b331abae12c4faa2ad6",
+    "scripts/components/BossProjectilePattern.gd": "e5747eea3e85e639474e090acda851f4264a541f68993617d21454dc564988ca",
+    "scripts/components/FlameTrail.gd": "7039420b5daf277a5d0a927b381ada6752e848c99a17fc6a5f7fbb9ebf2a9ce2",
+    "scripts/components/LaserBeam.gd": "bfe5fe105607d56b747c97eb8d9a45d8e0537e517768eac03cfd9dc06fa7d5f2",
+    "scripts/components/LobbedProjectile.gd": "9f75146c567dad75d4d33cb2710a4e28d92fa2ee2b1e7f38a43e0528276d6c86",
+    "scripts/components/Projectile.gd": "8e175c4fdf9a7e0cdf6d1b15987d9b662715adc976b5527478007a95c49f89b0",
+    "scripts/components/SpikeTrap.gd": "b7ecb803d6bed2d09d329b6dc4a93ab5361f2673779f96de0ac873de4ceb7665",
+    "scripts/components/TentacleAttack.gd": "e04de93445b131af4077531ae34d521684dafa09b7364d7a72855231238b8371",
+    "scripts/effects/CameraEffects.gd": "48a5f1f389374d8f368a5b9f8da9b875b296f332ebf2ffc292f5d0078c143c1f",
+    "scripts/effects/CombatVfx.gd": "0f82292ca621853de84658efd3fa671eb7d595cbff2b017c0528fe2f97ef95ce",
+    "scripts/effects/FriendlyEffectPalette.gd": "4893c1bf09210ef0dc265f96f8e2faa70c2f8478035f643e40a5f7b2d0b16d4f",
+    "scripts/systems/BossCameraFraming.gd": "42cf856efa4156d596f0b6b4352605a0c540505479b24a4f9bb6c33179157f6e",
+    "scripts/systems/CombatFeedback.gd": "ab49d2a4ba23a7131c1db7ab60c9659a7503ed8791802193bc291de59266ab4a",
+    "scripts/systems/CombatView.gd": "9b0eb9cef8243ff6a433e1daf9b6db74ebd27d4820788b66d5d9b92f03d4f4a0",
+    "scripts/systems/RunSnapshotStore.gd": "328a6c5f284c4528776e30338f8797c0a6202a5fa1f2f859172544b2cfd9ab51",
+    "scripts/systems/UpgradeSystem.gd": "8bed9bb1da7a10b5758af9630fdcb2aa2f78ba8c7117ff4bebc45683165bf45e",
+    "scripts/systems/WaveDirector.gd": "d47d7ac885cfdf65faa4375fc4a33df3d1140e29442c2f227437e47eeadcc48b",
+    "scripts/ui/AimReticle.gd": "def21b4a2d9fe38318814adc6ad19e7fb9f384976693052b345797a2ab970a8a",
+    "scripts/ui/BossDirectionIndicator.gd": "12f4107eae086656790d2e8dfee77816f43cc2bc7231e514e9b8051ef767914e",
+    "scripts/ui/BossHealthBar.gd": "0b4b0baa58d17680c872dd357bf5246c9fb1df609f80a24da6116d8188811893",
+    "scripts/ui/DroneLockReticle.gd": "0d04a88ab53e86b362c666522fef7ffc2a1f16958fba9b54860232eaf464eb57",
+    "scripts/ui/GameUI.gd": "b1d6622435e14870d28d998b31df2ddabe8bae9aa913a3528fac3c0f29769353",
+    "scripts/ui/HUD.gd": "1771b3644a450e5bc84b01f1c69519c53cc8d6f32b09fd0e2794d5e75dea4cc9",
+    "scripts/world/ArenaLayout.gd": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+    "scripts/world/ArenaObstacle.gd": "ca44d87f9b3e2e75d0e61b6b2a38e2c3387e5f58f95349c98e2cb772048d28f3",
+    "scripts/world/FloorGrid.gd": "d502d160a4d1d9de9280c7d12f043ec221ebdf365c84570f9bd28d07251a450c",
+    "themes/MintFarmTheme.tres": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63"
+  },
+  "enemy_flash_counts": [
+    7559,
+    2189,
+    902,
+    3153,
+    1063,
+    956,
+    0
+  ],
+  "enemy_flash_conflicts": 0,
+  "collection": {
+    "frames": 62,
+    "start": {
+      "duration": 3.0,
+      "wall": 17.759758,
+      "wave": 1
+    },
+    "end": {
+      "remaining": 0.0,
+      "wall": 20.773823,
+      "wave": 1
+    },
+    "wall_span": 3.016933999999999,
+    "max_gap": 0.05401700000000176,
+    "first_lag": 0.004697000000000173,
+    "tail_lag": 0.007566000000000628,
+    "states": {
+      "PLAYING": 61,
+      "WAVE_CLEAR": 1
+    },
+    "visible_frames": 61,
+    "overdrive_visible_frames": 62,
+    "min_positive_physics_gap": 3,
+    "tail_physics_gap": 1,
+    "ui_crop_box": [
+      438,
+      578,
+      842,
+      720
+    ],
+    "vfr": {
+      "run": "ground-warning-natural-20261007-09-v1-collection",
+      "valid": true,
+      "native_frames": 62,
+      "encoded_frames": 63,
+      "tail_repeat_frames": 1,
+      "duration": 3.068,
+      "wall_span": 3.016933999999999,
+      "maximum_capture_gap": 0.05401700000000176,
+      "max_pts_error": 0.0004899999999997684,
+      "manifest_sha256": "6a0483053ce76b505c7b59ff3e09721a4886f2414ba816fe99f230166ffd4d80",
+      "video_sha256": "97ae43c057029a0a60c5845241a3cffa8d017c1bf2014cac701dad7f971917e6",
+      "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+    }
+  },
+  "clips": {
+    "boss": {
+      "frames": 30,
+      "wall_span": 1.9340070000000082,
+      "states": {
+        "PLAYING": 30
+      },
+      "dash_frames": 0,
+      "overlap_frames": 0,
+      "boss_attack_frames": 19,
+      "cardinals": {
+        "2": 30
+      },
+      "min_player_alpha": 1.0,
+      "vfr": {
+        "run": "ground-warning-natural-20261007-09-v1-boss",
+        "valid": true,
+        "native_frames": 30,
+        "encoded_frames": 31,
+        "tail_repeat_frames": 1,
+        "duration": 2.001,
+        "wall_span": 1.9340070000000082,
+        "maximum_capture_gap": 0.07013699999998835,
+        "max_pts_error": 0.00047600000000103115,
+        "manifest_sha256": "ebc1fd4d53a912d57959cc2673251cbeb257f111df155f809866c2f16dbb9456",
+        "video_sha256": "ff866de99cc90102c35dccbadc87d2bccc73019130f3252fb3f0652be39aa002",
+        "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+      }
+    },
+    "crowd": {
+      "frames": 30,
+      "wall_span": 1.9357629999999997,
+      "states": {
+        "PLAYING": 30
+      },
+      "dash_frames": 0,
+      "overlap_frames": 0,
+      "boss_attack_frames": 0,
+      "cardinals": {
+        "2": 6,
+        "0": 24
+      },
+      "min_player_alpha": 1.0,
+      "vfr": {
+        "run": "ground-warning-natural-20261007-09-v1-crowd",
+        "valid": true,
+        "native_frames": 30,
+        "encoded_frames": 31,
+        "tail_repeat_frames": 1,
+        "duration": 2.003,
+        "wall_span": 1.9357629999999997,
+        "maximum_capture_gap": 0.07057800000000114,
+        "max_pts_error": 0.00048599999999998644,
+        "manifest_sha256": "1e2562312f160c31105b1a0ebd856eeafaef997d850449e820d2a591e5c8766a",
+        "video_sha256": "79a26d716a41182c2a137498f1d9180e460048f41c9461a8ee26bd0a90d9f0a0",
+        "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+      }
+    },
+    "dash": {
+      "frames": 30,
+      "wall_span": 1.9370630000000002,
+      "states": {
+        "PLAYING": 30
+      },
+      "dash_frames": 3,
+      "overlap_frames": 0,
+      "boss_attack_frames": 0,
+      "cardinals": {
+        "0": 18,
+        "2": 12
+      },
+      "min_player_alpha": 1.0,
+      "vfr": {
+        "run": "ground-warning-natural-20261007-09-v1-dash",
+        "valid": true,
+        "native_frames": 30,
+        "encoded_frames": 31,
+        "tail_repeat_frames": 1,
+        "duration": 2.0,
+        "wall_span": 1.9370630000000002,
+        "maximum_capture_gap": 0.07103400000000004,
+        "max_pts_error": 0.00048399999999992893,
+        "manifest_sha256": "4d9ed3cf7b7b9753d38397796befac523736d049c4b5be5de1e8802b3ff5adff",
+        "video_sha256": "b924b8aa9eb54e327097e0afbaf0b4ae5186b78773dadb5921607dd5e10672e5",
+        "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+      }
+    },
+    "opening": {
+      "frames": 30,
+      "wall_span": 1.9345400000000001,
+      "states": {
+        "PLAYING": 30
+      },
+      "dash_frames": 2,
+      "overlap_frames": 0,
+      "boss_attack_frames": 0,
+      "cardinals": {
+        "3": 18,
+        "0": 12
+      },
+      "min_player_alpha": 1.0,
+      "vfr": {
+        "run": "ground-warning-natural-20261007-09-v1-opening",
+        "valid": true,
+        "native_frames": 30,
+        "encoded_frames": 31,
+        "tail_repeat_frames": 1,
+        "duration": 1.997,
+        "wall_span": 1.9345400000000001,
+        "maximum_capture_gap": 0.0695020000000004,
+        "max_pts_error": 0.00048200000000009346,
+        "manifest_sha256": "bbd2cc8e380a9560ec8393bce980c2f45d4776be5b1fe59b52748e76e4fb3ed2",
+        "video_sha256": "666fb78787139ae76053ea796baaccc56c10782ad96cb091674d0f41e39eb642",
+        "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+      }
+    },
+    "overlap": {
+      "frames": 30,
+      "wall_span": 1.9350749999999977,
+      "states": {
+        "PLAYING": 30
+      },
+      "dash_frames": 3,
+      "overlap_frames": 9,
+      "boss_attack_frames": 0,
+      "cardinals": {
+        "1": 21,
+        "3": 7,
+        "2": 2
+      },
+      "min_player_alpha": 1.0,
+      "vfr": {
+        "run": "ground-warning-natural-20261007-09-v1-overlap",
+        "valid": true,
+        "native_frames": 30,
+        "encoded_frames": 31,
+        "tail_repeat_frames": 1,
+        "duration": 2.003,
+        "wall_span": 1.9350749999999977,
+        "maximum_capture_gap": 0.07228700000001709,
+        "max_pts_error": 0.00048399999999904075,
+        "manifest_sha256": "ecf7369062f5d074b881997b30d39ada56964680631a41a0129e1635a895991a",
+        "video_sha256": "5ffa54c82290713b04d4d40888a56916971ff436d9495f74f4dfcf75e3e3576f",
+        "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+      }
+    },
+    "shop": {
+      "frames": 30,
+      "wall_span": 1.8978350000000006,
+      "states": {
+        "SETTLEMENT": 12,
+        "WAVE_INTRO": 15,
+        "PLAYING": 3
+      },
+      "dash_frames": 0,
+      "overlap_frames": 0,
+      "boss_attack_frames": 0,
+      "cardinals": {
+        "3": 27,
+        "0": 3
+      },
+      "min_player_alpha": 1.0,
+      "vfr": {
+        "run": "ground-warning-natural-20261007-09-v1-shop",
+        "valid": true,
+        "native_frames": 30,
+        "encoded_frames": 31,
+        "tail_repeat_frames": 1,
+        "duration": 1.93,
+        "wall_span": 1.8978350000000006,
+        "maximum_capture_gap": 0.07897600000000082,
+        "max_pts_error": 0.0004749999999995591,
+        "manifest_sha256": "400fd0f7498f57b8877800c6cfd8ed2e8377128cfcd8353150fd4b4bec83479f",
+        "video_sha256": "df760372f5b394686444bc8352d6bb38bd1b3daf3dd1dafc8ba79595f059d5e2",
+        "scope": "offline VFR viewing copy, source PNGs retained; not 60fps/performance/pixel-equality proof"
+      }
+    }
+  },
+  "moving_adjacent_samples_over_0_01px": 10525,
+  "random_heading_changes": 146,
+  "escape_attempts": 6,
+  "report_sha256": "d409b7115c65e4b39612707169c0b41e1e9a9ed66ca89974c90e0649f7dff0b2",
+  "capture_sha256": "76fa7a2f9efae2752b2e3813c9a6d21092252851fcf8383243914aac20c40a3b",
+  "scope": "First complete collection plus six short clips; actual wall-time VFR with one final still; not full-game video, audio, 60FPS/performance, pixel-alpha or human acceptance",
+  "closed": {
+    "run": "ground-warning-natural-20261007-09-v1",
+    "launcher_pid": 18796,
+    "engine_pid": 34928,
+    "exit_code": 0,
+    "timeout": false,
+    "wall_seconds": 253.04389333724976,
+    "channel_errors": {
+      "engine.log": [],
+      "stdout.log": [],
+      "stderr.log": []
+    },
+    "bound_source_changes": [],
+    "real_saves_before": {
+      "user://five_minute_overdrive_run_v1.json": "absent",
+      "user://five_minute_overdrive_run_v1.json.tmp": "absent",
+      "user://five_minute_overdrive_run_v1.json.bak": "absent",
+      "user://five_minute_overdrive_run_test_v1.json": "absent",
+      "user://five_minute_overdrive_run_test_v1.json.tmp": "absent",
+      "user://five_minute_overdrive_run_test_v1.json.bak": "absent"
+    },
+    "real_saves_after": {
+      "user://five_minute_overdrive_run_v1.json": "absent",
+      "user://five_minute_overdrive_run_v1.json.tmp": "absent",
+      "user://five_minute_overdrive_run_v1.json.bak": "absent",
+      "user://five_minute_overdrive_run_test_v1.json": "absent",
+      "user://five_minute_overdrive_run_test_v1.json.tmp": "absent",
+      "user://five_minute_overdrive_run_test_v1.json.bak": "absent"
+    },
+    "protected_after": {
+      "protected_paths": 20,
+      "changed": []
+    },
+    "checker_exit_codes": {
+      "report": 0,
+      "capture": 0,
+      "six": 0,
+      "collection": 0
+    }
+  },
+  "visual_review": {
+    "main_viewed": "six 30-frame native player grids, six context grids, all 62 native collection UI crops, four full viewport frames",
+    "paired_scope": "prior 40 real components x four directions; not six continuous same-pose before/after clips",
+    "shop_player_crop": "offscreen player crop is black in settlement/intro; use actual full shop viewport instead",
+    "independent": "no required new layer defect; optional existing heart pickup overlaps part of face"
+  }
+}

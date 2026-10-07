@@ -4,13 +4,13 @@
 
 ## 本机直接试玩（不需要安装 Godot）
 
-本机已保留最近一次冻结的 Windows 试玩候选：打开 `build/playtest/5分钟超载-current-v7/`，双击 `five-minute-overdrive.exe`；同目录的 `.pck` 必须保留。可以复制整个目录，不需要打开编辑器或运行测试。旧包保留；v7导出冻结时的工作树，加入普通敌人受击颜色修复，并保留音频退出收尾和开局波次显示修复。
+本机已保留最新 Windows 试玩候选：打开 `build/playtest/5分钟超载-current-v8/`，双击 `five-minute-overdrive.exe`；同目录的 `.pck` 必须保留。可以复制整个目录，不需要打开编辑器或运行测试。旧包保留；v8加入地面预警/非碰撞友弹拖尾分层修复，保留普通敌受击、音频退出和开局波次显示修复。
 
-这是本机文件，不随 Git 克隆下载，也不是公开发布。v7第一个实际EXE进程验证了开局、冲刺、自然失败/R回标题、暂停冻结和普通关窗，退出0且三路日志无错误或泄漏；第二进程窗口工具占用/截图错配，验证未完成，不算通过。完整EXE通关、声音听感和人工手感未代签。操作、核验哈希及失败记录见[本地试玩交接](docs/local-playtest-handoff-v7.md)。
+这是本机文件，不随Git克隆下载，也不是公开发布。v8第一实际EXE进程验证了启动、自然失败/R标题、Space暂停稳定和正常关窗，退出0且三路日志无错误/泄漏；第二进程窗口工具失败后清理退出非零，跨OS继续未验证。完整EXE通关、声音听感、最低硬件及人工手感未代签。操作、哈希、失败及历史证据适用范围见[本地试玩交接](docs/local-playtest-handoff-v8.md)。
 
-v7的190份生产输入与冻结时工作树逐hash一致；相对[历史v6包](docs/local-playtest-handoff-v6.md)只改变[普通敌人持续受击可读性修复](docs/enemy-readability-review-v1.md)。构建包含原有未提交资源，不称干净HEAD；旧v6不含该修复，历史验证不自动移植为v7通过。随后源码新增[地面预警分层修复](docs/ground-warning-review-v1.md)，**v7不含该修复，不能称与现行源码全同**；更新本地包前可用Godot运行现行源码。
+v8的190份生产输入与现行工作树、自然运行登记和fresh副本逐hash一致，相对[历史v7](docs/local-playtest-handoff-v7.md)恰好5生产文件改变绘制分层。构建包含原有未提交资源，不称干净HEAD；v7不含[地面预警分层修复](docs/ground-warning-review-v1.md)，不可当现行源包。
 
-分层修复前的生产输入另有[一次自然通关与完整首收集窗口](docs/collection-natural-review-v1.md)的62原图、六景短片和修订离线校验；原检查器失败独立保留，不等于修复后源码的自然运行、独立EXE完整流程或全项目验收。
+分层修复后的现行源码另有[自然通关/六景/首收集复核](docs/ground-warning-natural-review-v1.md)及[无读回本机性能基线](docs/performance/native-current-baseline-v1.md)，不是独立EXE完整流程或全项目验收。严格组件前后与当前六景after分列，不宣称六景连续同条件配对已完成。
 
 ## 环境要求
 
