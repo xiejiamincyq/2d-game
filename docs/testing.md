@@ -34,6 +34,8 @@ python scripts/tests/test_validate_manifest.py
 
 ## 套件职责
 
+AB敌怪特效新增：`EnemyHitFeedbackTest`用七种真实敌怪和Boss验证受击边缘、局部尺寸/时长/节流、拒绝伤害、移动附着、过期停用及暂停；`EnemyAttackFeedbackTest`验证四方向斩痕/扑击几何、锁定警告域、阶段/取消清理以及敌方短尾迹和玩家弹丸隔离。两套接入严格门；原生受控动画与打包内测试仍单独验证，详见[AB运行审查](art/enemy-feedback-ab-runtime-review-v1.md)。
+
 本轮战斗反馈新增：`EnemyDamageMultiplierTest`以真实敌方发射体验证全部三倍基础伤害并检查友方负控；`ThunderMatrixIntervalTest`观察实际电弧波节点和读档后的间隔；`ScrapperAttackTest`覆盖预警、锁向、一次伤害、位移域和实体墙碰撞；`AimReticleOutlineTest`验证准心状态/中心/黑色要求；`GameplayDescriptionsTest`检查现行文案、存档展示刷新、交易事实与真实回血。均接入标准严格门。原生像素/连续Input与实际PCK仍是分列门，不由headless状态测试代签。
 
 Godot子进程以实际退出码和engine日志的一次pass计数核对，同时异步捕获stdout/stderr；三路任一路出现错误/对象或资源泄漏均拒绝通过。`AudioLifecycleTest`覆盖实际音频对象回收，`MainCloseTest`覆盖关闭/重开竞争；`test_audio_exit_timeout.py`隔离运行预期超时退出1的负夹具，不放宽正常错误门。源码合同检查`test_runner_audio_exit_gate.py`不是runner端到端负测试。
