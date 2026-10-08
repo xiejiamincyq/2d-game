@@ -22,6 +22,7 @@ const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
 const EnemyFlockScript = preload("res://scripts/components/EnemyFlock.gd")
 const ScrapperAttackScript = preload("res://scripts/components/ScrapperAttack.gd")
+const HitFeedbackScript = preload("res://scripts/effects/EnemyHitFeedback.gd")
 const DASHER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png")
 const SCRAPPER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png")
 const BRUISER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png")
@@ -108,6 +109,7 @@ var static_motion_elapsed := 0.0
 var formation_slot_index := -1
 var ground_warning: Node2D
 var basic_attack: RefCounted = ScrapperAttackScript.new()
+var hit_feedback: Node2D
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	if formation_slot_index < 0:
@@ -191,6 +193,9 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 
 func _ready() -> void:
 	add_to_group("enemies")
+	hit_feedback = HitFeedbackScript.new()
+	hit_feedback.name = "HitFeedback"
+	add_child(hit_feedback)
 	ground_warning = Node2D.new()
 	ground_warning.name = "GroundWarning"
 	ground_warning.z_as_relative = false
@@ -673,6 +678,8 @@ func take_damage(
 	var resolved_source: StringName = DamageTypes.resolve(source)
 	var actual_damage: float = maxf(0.0, health_before - health.current_health)
 	var killed: bool = health.current_health <= 0.0
+	if is_instance_valid(hit_feedback):
+		hit_feedback.request_hit(hit_direction, body_radius, actual_damage)
 	flash_timer = 0.08
 	_update_hit_flash()
 	_queue_visual_redraw()

@@ -24,6 +24,7 @@ const TentacleAttackScript = preload("res://scripts/components/TentacleAttack.gd
 const BossAttackDirectorScript = preload("res://scripts/components/BossAttackDirector.gd")
 const OVERSEER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png")
 const HIT_FLASH_SHADER := preload("res://assets/art/shaders/dasher_hit_flash.gdshader")
+const HitFeedbackScript = preload("res://scripts/effects/EnemyHitFeedback.gd")
 
 const DISPLAY_NAME := "深渊监工 / OVERSEER"
 const BODY_RADIUS := 56.0
@@ -59,6 +60,7 @@ var hidden_dispersion_timer := 0.0
 var boss_visual: Sprite2D
 var boss_flash_material: ShaderMaterial
 var visual_motion_elapsed := 0.0
+var hit_feedback: Node2D
 
 func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -109,6 +111,9 @@ func cancel_boss_attacks() -> void:
 func _ready() -> void:
 	add_to_group(&"enemies")
 	add_to_group(&"bosses")
+	hit_feedback = HitFeedbackScript.new()
+	hit_feedback.name = "HitFeedback"
+	add_child(hit_feedback)
 	var collision := CollisionShape2D.new()
 	var circle := CircleShape2D.new()
 	circle.radius = body_radius
@@ -265,6 +270,8 @@ func take_damage(
 		attack_director.set_health_phase(resolved_phase)
 	var resolved_source: StringName = DamageTypes.resolve(source)
 	var actual_damage := maxf(0.0, health_before - float(health.current_health))
+	if is_instance_valid(hit_feedback):
+		hit_feedback.request_hit(hit_direction, body_radius, actual_damage)
 	flash_timer = 0.08
 	if boss_flash_material != null:
 		boss_flash_material.set_shader_parameter("flash_amount", HIT_FLASH_AMOUNT)
