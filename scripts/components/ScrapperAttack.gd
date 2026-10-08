@@ -1,4 +1,5 @@
 extends RefCounted
+const Drawing = preload("res://scripts/effects/HostileAttackDrawing.gd")
 
 # Only basic chasers use these locked, dodgeable strikes. The actor owns motion
 # and collision; this controller never teleports or modifies player damage rules.
@@ -125,7 +126,23 @@ func draw_warning(canvas: Node2D, actor: Node2D) -> void:
 	if not is_active() or stage == Stage.RECOVERY:
 		return
 	var points := get_warning_polygon(actor)
-	canvas.draw_colored_polygon(points, Color("f27a4b55") if stage == Stage.WARNING else Color("f27a4baa"))
+	canvas.draw_colored_polygon(points, Color("f27a4b55") if stage == Stage.WARNING else Color("f27a4b22"))
 	points.append(points[0])
 	canvas.draw_polyline(points, Color("123b3b"), 5.0, true)
 	canvas.draw_polyline(points, Color("f27a4b"), 3.0, true)
+	Drawing.draw_strokes(canvas, get_attack_strokes(actor))
+
+func get_attack_strokes(actor: Node2D) -> Array[PackedVector2Array]:
+	if stage != Stage.ACTIVE:
+		return []
+	var base := origin - actor.global_position
+	if move == Move.CLAW:
+		return Drawing.claw_strokes(base, direction, (elapsed - 0.5) / 0.12, CLAW_RADIUS, CLAW_HALF_ANGLE)
+	var strokes: Array[PackedVector2Array] = []
+	var traveled := clampf((actor.global_position - origin).dot(direction), 0.0, POUNCE_SPEED * POUNCE_DURATION)
+	var tail_end := maxf(0.0, traveled - actor.body_radius * 0.90)
+	var tail_start := maxf(0.0, tail_end - actor.body_radius * 2.5)
+	for offset in [-0.65, 0.0, 0.65]:
+		var side: Vector2 = direction.orthogonal() * actor.body_radius * float(offset)
+		strokes.append(PackedVector2Array([base + direction * tail_start + side, base + direction * tail_end + side]))
+	return strokes

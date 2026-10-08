@@ -14,6 +14,20 @@ Native Vulkan controlled capture `build/diagnostics/enemy-feedback-ab/hit-v1`: r
 
 Self-review across correctness, simplicity, architecture, security and performance: Critical0 / Required0 after the type fix. No new dependencies, events, persistent allocation per hit, gameplay range/timing changes, shader changes, or unrelated dirty-resource edits.
 
-## Remaining approved scope
+## Slice 2 — active attack strokes and hostile flight cues
 
-Active claw/pounce traces, ordinary melee slash, hostile bullet/Boss diamond trails and lob impact clarity; exact warning geometry and all damage/timing retained. Then controlled animated native and dense-scene rendering, full strict tests and a fresh local playtest package. Slice1 is not completion of the full attack-effects request.
+Scrapper claw draws three outlined coral arc segments only in ACTIVE, with angle swept from the existing locked direction. Pounce draws at most three bounded speed lines behind the actual traveled position, inside its locked corridor. Active ground fill is reduced to 0x22 alpha, while the original warning polygon and 5/3px border are unchanged. Warning/recovery/cancellation have no attack strokes. Ordinary close melee uses the same drawing helper and a visual-only locked direction, without changing its hit calculation. Shared hostile bullets and Boss diamonds gain one small tapered trail behind the head, at most4.2 radii; player shots and stationary shots get no hostile trail. Lob flight has a short direction tick, and its existing 200ms broken impact rim gets a thin cream accent. Boss sweep retains the hose silhouette with a coral active center stroke. No new projectile, hit region, attack timing, muzzle event or particle-per-frame allocation is introduced.
+
+Attack test: original code produced three intentional missing-feature failures; final EnemyAttackFeedbackTest803 assertions check four directions, five attack fractions, locked-domain containment, active/warning/recovery/cancel state, bounded stroke counts and hostile/friendly projectile separation. Existing Scrapper21, enemyDamage63, ProjectilePickup20, BossTentacle79, BossPattern265, ProjectileLandingVisual33, LobberVisualLifecycle68, GroundWarningLayer231, FriendlyEffectLayer33 also passed.
+
+Added real pause test found the ALWAYS-processing Boss's inherited hit child expired during pause. Explicit tree-pause guard fixed it; EnemyHitFeedbackTest now82 assertions. This fix affects decoration only, not Boss attack clocks or processing policy.
+
+Native `combined-v2` controlled fixture: 90 manually advanced 60Hz steps,45 encoded frame captures;7 claw ACTIVE steps,18 pounce ACTIVE steps and14 Boss sweep ACTIVE steps;48 simultaneous real damage actors with a visible Player. Bright/dark hit captures and expiry checks also pass. MP4 is encoded from those exact native PNGs at30fps, not an AI animation. Viewed mid-claw, mid-pounce and dense frames; no screen-filling burst, actor transparency, or oversized trail. This is a bounded fixture, not natural full-game input or a benchmark.
+
+![AB active native fixture](previews/characters-combat/enemy-feedback-ab-active-v1.png)
+
+Controlled real Main scene capture `main-v3`: random obstacle map, normal player/HUD,16 accepted-hit enemies plus selected active claw/pounce states; synthetic incoming directions originate at the player. Actual native1280x720 screenshot viewed. Initial diagnostic `main-v1` leaked two pending objects during premature fixture teardown, rejected; existing SmokeTest's250ms audio-release wait makes subsequent captures error/leak-free. `main-v2` used an inverted synthetic incoming direction and is retained but superseded by `main-v3`; this was a diagnostic correction, not a production-code fix. No production audio/lifecycle code changed. Original user saves are not accessed for these runs: process APPDATA is isolated. This staged scene does not prove a normal-input playthrough, random obstacle navigation or full EXE combat acceptance.
+
+![AB effects in a controlled Main scene](previews/characters-combat/enemy-feedback-ab-main-v2.png)
+
+Final full strict gate:85 Godot suites /174906 assertions and35 Python suites /269 tests, actual exit0, no timeout; retained under ignored `build/diagnostics/gameplay-feedback-v2/enemy-feedback-ab-full-v1`. Earlier failures remain retained rather than erased. Self-review: Critical0 / Required0 after pause/type corrections; unchanged damage, collision, AI, intervals, health, shader/body opacity, camera/audio/hit-stop. Package verification recorded separately in the v11 handoff.

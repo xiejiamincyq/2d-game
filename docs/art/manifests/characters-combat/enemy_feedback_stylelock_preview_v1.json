@@ -21,6 +21,8 @@
   "license_review_state": "pending",
   "review_state": "preview",
   "preview_only": true,
+  "human_selection": "2026-10-08: combine A and B",
+  "selected_implementation": "native procedural outlined strokes and compact actor-local contact core; comparison board not imported",
   "approval_required": "human A/B/C selection; then engine-scale animated review before production approval",
   "preview_path": "docs/art/previews/characters-combat/enemy-feedback-abc-v1.png",
   "preview_sha256": "f9214e833f0dd258695ce89367220f6ba6930196b4bc5c8af109f64463de5dc8",

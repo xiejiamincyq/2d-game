@@ -50,12 +50,27 @@ func _physics_process(delta: float) -> void:
 func _draw() -> void:
 	if target_group == &"player":
 		# Visual padding only: the physics circle remains the configured radius.
+		_draw_hostile_trail()
 		draw_circle(Vector2.ZERO, radius + 1.5, HostilePalette.OUTLINE)
 		draw_circle(Vector2.ZERO, radius, tint)
 		draw_circle(Vector2(-radius * 0.2, -radius * 0.2), radius * 0.4, HostilePalette.CREAM)
 		return
 	draw_rect(Rect2(Vector2(-radius, -radius), Vector2(radius * 2.0, radius * 2.0)), tint)
 	draw_rect(Rect2(Vector2(-radius * 0.5, -radius * 0.5), Vector2(radius, radius)), Color.WHITE)
+
+func get_hostile_trail_points() -> PackedVector2Array:
+	if target_group != &"player" or velocity.length_squared() < 0.001:
+		return PackedVector2Array()
+	var direction := velocity.normalized()
+	var side := direction.orthogonal()
+	return PackedVector2Array([-direction * radius * 4.2, -direction * radius * 0.7 + side * radius * 0.65, -direction * radius * 0.7 - side * radius * 0.65])
+
+func _draw_hostile_trail() -> void:
+	var points := get_hostile_trail_points()
+	if points.is_empty():
+		return
+	draw_colored_polygon(points, Color(tint, 0.35))
+	draw_polyline(points + PackedVector2Array([points[0]]), Color(HostilePalette.OUTLINE, 0.80), 1.5, true)
 
 func _draw_overdrive_trail() -> void:
 	if overdrive_visual and target_group != &"player":

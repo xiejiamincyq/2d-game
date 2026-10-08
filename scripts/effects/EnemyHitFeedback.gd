@@ -31,6 +31,9 @@ func request_hit(incoming: Vector2, body_radius: float, damage: float) -> void:
 	queue_redraw()
 
 func _process(delta: float) -> void:
+	# Boss entrance uses ALWAYS processing; hit decoration still freezes in menus.
+	if get_tree().paused:
+		return
 	life = maxf(0.0, life - maxf(0.0, delta))
 	cooldown = maxf(0.0, cooldown - maxf(0.0, delta))
 	queue_redraw()

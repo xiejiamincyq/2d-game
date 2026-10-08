@@ -240,6 +240,7 @@ func _draw_active_hose(half_arc: float) -> void:
 		points.append(Vector2.RIGHT.rotated(angle) * lerpf(56.0, SWEEP_RANGE - 10.0, ratio))
 	ground_fill.draw_polyline(points, OUTLINE_COLOR, 13.0, true)
 	ground_fill.draw_polyline(points, Color("35b8ac"), 8.0, true)
+	ground_fill.draw_polyline(points, Color(WARNING_COLOR, 0.85), 2.5, true)
 	var tip := points[points.size() - 1]
 	ground_fill.draw_circle(tip, 8.0, OUTLINE_COLOR)
 	ground_fill.draw_circle(tip, 5.0, WARNING_COLOR)

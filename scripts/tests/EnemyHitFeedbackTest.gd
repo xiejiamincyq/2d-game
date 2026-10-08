@@ -63,6 +63,13 @@ func _initialize() -> void:
 		boss.take_damage(1, Damage.LASER, Vector2.LEFT)
 		check(boss_effect.life > 0 and boss_effect.anchor.x > 0, "accepted Boss hit missing edge impact")
 		check(is_equal_approx(float(boss.boss_flash_material.get_shader_parameter("flash_amount")), 0.35), "Boss whiteout protection changed")
+		boss.set_physics_process(false)
+		var pause_life: float = boss_effect.life
+		paused = true
+		for frame in range(4):
+			await process_frame
+		check(is_equal_approx(boss_effect.life, pause_life), "always-processing Boss impact advanced during pause")
+		paused = false
 	stage.free()
 	await process_frame
 	print("TEST %s: EnemyHitFeedbackTest %d" % ["PASS" if failures == 0 else "FAIL", assertions])

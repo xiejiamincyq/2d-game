@@ -23,6 +23,7 @@ const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
 const EnemyFlockScript = preload("res://scripts/components/EnemyFlock.gd")
 const ScrapperAttackScript = preload("res://scripts/components/ScrapperAttack.gd")
 const HitFeedbackScript = preload("res://scripts/effects/EnemyHitFeedback.gd")
+const AttackDrawing = preload("res://scripts/effects/HostileAttackDrawing.gd")
 const DASHER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png")
 const SCRAPPER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png")
 const BRUISER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png")
@@ -85,6 +86,7 @@ var is_attacking: bool = false
 var ranged_keep_min: float = 320.0
 var ranged_keep_max: float = 520.0
 var attack_anchor_position: Vector2 = Vector2.ZERO
+var attack_visual_direction := Vector2.RIGHT
 var world_bounds: Rect2 = Rect2()
 var death_resolved: bool = false
 var target_player: Node2D
@@ -593,6 +595,8 @@ func _draw_ground_warning() -> void:
 	if is_attacking:
 		var p := 1.0 - clampf(attack_timer / maxf(0.01, attack_windup), 0.0, 1.0)
 		ground_warning.draw_arc(Vector2.ZERO, attack_range, -PI * 0.85, PI * 0.85, 24, Color(1.0, 0.55, 0.15, 0.25 + p * 0.45), 4.0)
+		if attack_has_hit and attack_timer >= -0.12:
+			AttackDrawing.draw_strokes(ground_warning, AttackDrawing.claw_strokes(Vector2.ZERO, attack_visual_direction, -attack_timer / 0.12, attack_range, PI / 3.0))
 	if ranged_is_winding_up:
 		var charge := 1.0 - clampf(ranged_windup_remaining / maxf(0.01, ranged_windup_duration), 0.0, 1.0)
 		var warning_color := HostilePalette.CORAL if kind in [EnemyKind.MARKSMAN, EnemyKind.LOBBER, EnemyKind.OVERSEER] else accent
@@ -722,6 +726,9 @@ func _update_melee_attack(delta: float, player: Node2D, distance: float) -> void
 	if not is_attacking and attack_cooldown <= 0.0 and distance <= attack_range:
 		is_attacking = true
 		attack_anchor_position = global_position
+		attack_visual_direction = global_position.direction_to(player.global_position)
+		if attack_visual_direction == Vector2.ZERO:
+			attack_visual_direction = Vector2.RIGHT
 		attack_timer = attack_windup
 		attack_has_hit = false
 	if not is_attacking:

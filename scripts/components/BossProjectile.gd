@@ -2,6 +2,7 @@ extends "res://scripts/components/Projectile.gd"
 class_name BossProjectile
 
 func _draw() -> void:
+	_draw_hostile_trail()
 	var outer := PackedVector2Array([
 		Vector2(0.0, -radius * 1.65),
 		Vector2(radius * 1.35, 0.0),

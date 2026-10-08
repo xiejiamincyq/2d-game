@@ -29,6 +29,7 @@ class ImpactVisual extends Node2D:
 			var direction := Vector2.RIGHT.rotated(angle)
 			draw_line(direction * radius * 0.78, direction * radius, Color(OUTLINE_COLOR, alpha), 4.0, true)
 			draw_line(direction * radius * 0.78, direction * radius, Color(WARNING_COLOR, alpha), 2.0, true)
+			draw_line(direction * radius * 0.80, direction * radius * 0.90, Color(HIGHLIGHT_COLOR, alpha), 1.0, true)
 
 var target_player: Node2D
 var target_position := Vector2.ZERO
@@ -86,6 +87,11 @@ func _draw() -> void:
 	draw_circle(center, 9.0, OUTLINE_COLOR)
 	draw_circle(center, 7.0, tint)
 	draw_circle(center + Vector2(-2.0, -2.0), 2.5, HIGHLIGHT_COLOR)
+	var progress := clampf(elapsed / maxf(0.01, flight_duration), 0.0, 1.0)
+	var travel := (target_position - start_position).normalized()
+	if progress > 0.0 and travel != Vector2.ZERO:
+		draw_line(center - travel * 16.0, center - travel * 9.0, OUTLINE_COLOR, 4.0, true)
+		draw_line(center - travel * 16.0, center - travel * 9.0, tint, 2.0, true)
 
 func _update_landing_fill() -> void:
 	if is_instance_valid(landing_fill):
