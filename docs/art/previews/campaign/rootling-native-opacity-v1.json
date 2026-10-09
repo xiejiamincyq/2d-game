@@ -1,0 +1,8 @@
+{
+	"head_core_opaque": true,
+	"opaque_pixels": 1951,
+	"partial_alpha_pixels": 0,
+	"passed": true,
+	"scope": "actual GPU native scene at idle/rest only; not combat or all-pose alpha proof",
+	"transparent_corner": 0.0
+}

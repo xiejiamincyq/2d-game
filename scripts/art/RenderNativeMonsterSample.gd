@@ -31,6 +31,11 @@ func clip_label_y() -> float:
 func sample_name() -> String:
 	return "NativeMonsterSample"
 
+func pose_at(actor: Node2D, clip: String, seconds: float) -> void:
+	actor.reset_sample()
+	actor.play_clip(clip)
+	actor.player.seek(seconds, true)
+
 func label(parent: Node, text: String, at: Vector2, size: int) -> void:
 	var item := Label.new()
 	item.text = text
@@ -88,11 +93,9 @@ func _initialize() -> void:
 			var clip: String = CLIPS[index / 2]
 			var length: float = actor.player.get_animation(clip).length
 			# Actual seconds at 60Hz, not normalized slow-motion warnings/attacks.
-			actor.reset_sample()
-			actor.play_clip(clip)
 			var seconds := float(frame) / 60.0
 			var sample_time := fmod(seconds, length) if clip in ["idle", "walk"] else minf(seconds, length)
-			actor.player.seek(sample_time, true)
+			pose_at(actor, clip, sample_time)
 		await process_frame
 		await RenderingServer.frame_post_draw
 		var capture := viewport.get_texture().get_image()
