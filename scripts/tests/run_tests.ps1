@@ -45,6 +45,8 @@ $gameplayTests = @(
     "CampaignMenuIntegrationTest",
     "NurseryMapTest",
     "NurseryMovementTest",
+    "NurseryEncounterTest",
+    "NurseryClearanceProofTest",
     "NativeMonsterSampleTest",
     "NativePaperSkinTest",
     "RootlingDraftTest",
@@ -161,6 +163,7 @@ foreach ($test in $tests) {
     $userArguments = ""
     $frameBudget = if ($test -in @("AudioLifecycleTest", "MainCloseTest")) { 12000 }
         elseif ($test -eq "NurseryMovementTest") { 6000 }
+        elseif ($test -eq "NurseryEncounterTest") { 1800 }
         elseif ($test -in @("DashTest", "ScrapperAttackTest", "EnemyFlockTest", "EnemyFlockPolicyTest", "EnemyNeighborGridTest")) { 1800 }
         elseif ($test -in @("PortalRuntimeClockTest", "BossRuntimeClockTest", "CombatStatusLayoutTest")) { 600 }
         else { 120 }
@@ -170,6 +173,10 @@ foreach ($test in $tests) {
         # Three real-time 30/60/120Hz routes await physics, not idle frames.
         # Cap idle throughput so quit-after cannot exhaust before physics runs;
         # keep the positive pass marker, frame bound and wall-clock watchdog.
+        $fixedStepArguments = "--max-fps 120"
+    }
+    if ($test -eq "NurseryEncounterTest") {
+        # This fixture waits the real Boss entrance, preserving its hit gate.
         $fixedStepArguments = "--max-fps 120"
     }
     if ($test -match '^(StealthTerrainTest|StealthRecoveryTest|StealthRecoverySideEffectTest|StealthRecoveryQueryTest|StealthRecoveryAccountingTest)_(30|60|120)Hz$') {
