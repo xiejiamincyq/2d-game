@@ -1,0 +1,330 @@
+{
+	"passed": true,
+	"samples": [
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1953,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1953,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1992,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1992,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 2017,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 2017,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1990,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1990,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 2049,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 2049,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1993,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1993,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 1951,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 2105,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 2105,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"opaque": 2137,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"opaque": 2137,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		}
+	],
+	"scope": "GPU Enemy-created body with actual hit shader, six clips at three visual samples and two flash amounts; not every continuous pose or human gameplay approval"
+}

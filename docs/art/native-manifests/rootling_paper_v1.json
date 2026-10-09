@@ -3,7 +3,7 @@
   "runtime_scene": "res://scenes/actors/native/rootling_paper_v3.tscn",
   "motion_library": "res://assets/art/actors/native/rootling_motion_v3.tres",
   "role": "ordinary",
-  "review_state": "draft",
+  "review_state": "style-approved",
   "bone_count": 12,
   "required_clips": ["idle", "walk", "warning", "attack", "hit", "death"],
   "license_origin": "project-original",
@@ -16,7 +16,11 @@
     "motion": "docs/art/previews/campaign/rootling-native-resource-v1.mp4",
     "contact_sheet": "docs/art/previews/campaign/rootling-native-resource-v1.png",
     "dark_ground_group": "docs/art/previews/campaign/rootling-native-readability-v1.png",
-    "rest_opacity_report": "docs/art/previews/campaign/rootling-native-opacity-v1.json"
+    "rest_opacity_report": "docs/art/previews/campaign/rootling-native-opacity-v1.json",
+    "main_capture": "docs/art/previews/campaign/native-scrapper-main-v1.mp4",
+    "main_report": "docs/art/previews/campaign/native-scrapper-main-v1.json",
+    "sampled_shader_opacity": "docs/art/previews/campaign/native-scrapper-opacity-v1.json",
+    "integration_review": "docs/art/native-scrapper-integration-review-v1.md"
   },
-  "limitations": "Editable native candidate only. Not integrated in Main, no full style-lock batch, no combat/human-playtest approval. Large attack production remains deferred."
+  "limitations": "Style group approved; basic SCRAPPER runtime integration and short Main normal-input pilot verified. Not final or full gameplay/human-playtest/performance approval, not all native enemies or six chapters. Large attack production remains deferred."
 }
