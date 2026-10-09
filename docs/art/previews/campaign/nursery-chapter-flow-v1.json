@@ -1,0 +1,377 @@
+{
+	"actions": [
+		{
+			"button": "六区档案",
+			"physics_frame": 8
+		},
+		{
+			"button": "进入区域",
+			"physics_frame": 16
+		},
+		{
+			"button": "进入遭遇",
+			"physics_frame": 75
+		},
+		{
+			"button": "5. 无人机部署\n无人机 +1，单机伤害 +3%\n卡牌层数 0\n[ 免费领取 ]",
+			"physics_frame": 2345
+		},
+		{
+			"button": "完成整备并继续探索",
+			"physics_frame": 2347
+		},
+		{
+			"button": "进入遭遇",
+			"physics_frame": 2348
+		},
+		{
+			"button": "6. 激光放大器\n无人机激光伤害 +16%\n卡牌层数 0\n[ 免费领取 ]",
+			"physics_frame": 3306
+		},
+		{
+			"button": "1. 超频弹芯\n子弹伤害 +14%\n卡牌层数 0\n[ 50 金币 ]",
+			"physics_frame": 3308
+		},
+		{
+			"button": "完成整备并继续探索",
+			"physics_frame": 3309
+		},
+		{
+			"button": "保守补给：12金币 · 恢复最多20生命",
+			"physics_frame": 3311
+		},
+		{
+			"button": "迎战过渡首领",
+			"physics_frame": 3313
+		}
+	],
+	"assertions": 8689,
+	"moves": 8501,
+	"run_seed": 2156691711,
+	"samples": [
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_000.png",
+			"health": 100.0,
+			"kills": 0,
+			"label": "INTRO",
+			"physics_frame": 24,
+			"position": [
+				0.0,
+				0.0
+			],
+			"sha256": "b05a1d8580318827443a3f6824e0ab70ed50b8db794497dd16aa9528500860f0",
+			"shots": 0,
+			"state": "INTRO",
+			"step": 0,
+			"wall_usec": 1399327
+		},
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_001.png",
+			"health": 100.0,
+			"kills": 0,
+			"label": "periodic",
+			"physics_frame": 25,
+			"position": [
+				0.0,
+				0.0
+			],
+			"sha256": "b05a1d8580318827443a3f6824e0ab70ed50b8db794497dd16aa9528500860f0",
+			"shots": 0,
+			"state": "INTRO",
+			"step": 0,
+			"wall_usec": 1428726
+		},
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_002.png",
+			"health": 100.0,
+			"kills": 0,
+			"label": "COMBAT",
+			"physics_frame": 76,
+			"position": [
+				0.0,
+				0.0
+			],
+			"sha256": "5a3b30b2861397da13aa16726fabb2c4213ab8815c9c572f5f0bd4c74af263f6",
+			"shots": 0,
+			"state": "COMBAT",
+			"step": 52,
+			"wall_usec": 2262327
+		},
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_003.png",
+			"health": 100.0,
+			"kills": 17,
+			"label": "periodic",
+			"physics_frame": 1825,
+			"position": [
+				-881.843383789063,
+				733.337524414063
+			],
+			"sha256": "1e2eada934c2091c0f4d7ef8a9660ddc1a9afd46fb3abea8296a44fad8eb7c63",
+			"shots": 376,
+			"state": "COMBAT",
+			"step": 1800,
+			"wall_usec": 31397074
+		},
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_004.png",
+			"health": 100.0,
+			"kills": 18,
+			"label": "COLLECT",
+			"physics_frame": 2164,
+			"position": [
+				-649.064270019531,
+				-441.503448486328
+			],
+			"sha256": "3cc575987cb59c71cd41b547bf2009a2f168bd9768a621d620e75fcb645fe8cc",
+			"shots": 449,
+			"state": "COLLECT",
+			"step": 2140,
+			"wall_usec": 37052399
+		},
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_005.png",
+			"health": 100.0,
+			"kills": 18,
+			"label": "REWARD",
+			"physics_frame": 2345,
+			"position": [
+				-48.9303970336914,
+				-596.596435546875
+			],
+			"sha256": "cfa64890a7b214954d3eabf4fe981fe481c5d8c629a81b8c904a6723c8d220c2",
+			"shots": 488,
+			"state": "REWARD",
+			"step": 2321,
+			"wall_usec": 40099825
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_006.png",
+			"health": 100.0,
+			"kills": 18,
+			"label": "INTRO",
+			"physics_frame": 2348,
+			"position": [
+				-48.9303970336914,
+				-596.596435546875
+			],
+			"sha256": "ef57f8ee52a01f9d678fb2b9fcd0a7eccf7ab21fb2eaacb2deb9a120dd2b5b79",
+			"shots": 488,
+			"state": "INTRO",
+			"step": 2323,
+			"wall_usec": 40151566
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_007.png",
+			"health": 100.0,
+			"kills": 18,
+			"label": "COMBAT",
+			"physics_frame": 2350,
+			"position": [
+				-48.9303970336914,
+				-596.596435546875
+			],
+			"sha256": "051336c4a63d00a0120242b6e9e8db63e70d68b6c3825a916d93056b17800c04",
+			"shots": 488,
+			"state": "COMBAT",
+			"step": 2324,
+			"wall_usec": 40194530
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_008.png",
+			"health": 100.0,
+			"kills": 47,
+			"label": "COLLECT",
+			"physics_frame": 3125,
+			"position": [
+				-788.467529296875,
+				-265.571868896484
+			],
+			"sha256": "88d69fc2e055e8a3306140e7e8d4bc77d2dd9a3a1da325f2c779824d6a72c595",
+			"shots": 763,
+			"state": "COLLECT",
+			"step": 3098,
+			"wall_usec": 53105749
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_009.png",
+			"health": 100.0,
+			"kills": 47,
+			"label": "REWARD",
+			"physics_frame": 3306,
+			"position": [
+				-378.856903076172,
+				-777.015563964844
+			],
+			"sha256": "2b8de817f6bb74bcef0cde81595ad25db5c6a5434d136ee43a2b45819a5e6878",
+			"shots": 802,
+			"state": "REWARD",
+			"step": 3278,
+			"wall_usec": 56111895
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_010.png",
+			"health": 100.0,
+			"kills": 47,
+			"label": "ROUTE",
+			"physics_frame": 3311,
+			"position": [
+				-378.856903076172,
+				-777.015563964844
+			],
+			"sha256": "24fb10b93ddda62f42eb6e0da57b86e71ac03ff826d08a69737941d58bf632b2",
+			"shots": 802,
+			"state": "ROUTE",
+			"step": 3281,
+			"wall_usec": 56197665
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_011.png",
+			"health": 100.0,
+			"kills": 47,
+			"label": "BOSS_READY",
+			"physics_frame": 3313,
+			"position": [
+				-378.856903076172,
+				-777.015563964844
+			],
+			"sha256": "1215c2c731d3632dc9ed8c08ac78c9639ab42a108d752f72e0df4aafa53e7df4",
+			"shots": 802,
+			"state": "BOSS_READY",
+			"step": 3282,
+			"wall_usec": 56238349
+		},
+		{
+			"boss_health": 10800.0,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_012.png",
+			"health": 100.0,
+			"kills": 47,
+			"label": "BOSS",
+			"physics_frame": 3316,
+			"position": [
+				-378.856903076172,
+				-777.015563964844
+			],
+			"sha256": "5afad2880b0c058f51366f69e86fb73ffd88bb4c788f20e8facabb7593246f4a",
+			"shots": 802,
+			"state": "BOSS",
+			"step": 3283,
+			"wall_usec": 56282273
+		},
+		{
+			"boss_health": 10017.5585361597,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_013.png",
+			"health": 46.0,
+			"kills": 47,
+			"label": "periodic",
+			"physics_frame": 3634,
+			"position": [
+				437.839630126953,
+				-611.597412109375
+			],
+			"sha256": "c25eda81b9089ec086e0ec2160c1a9fb1c735a71b96a37fb08880c9010da7525",
+			"shots": 872,
+			"state": "BOSS",
+			"step": 3600,
+			"wall_usec": 61586569
+		},
+		{
+			"boss_health": 5636.86523119095,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_014.png",
+			"health": 46.0,
+			"kills": 53,
+			"label": "periodic",
+			"physics_frame": 5434,
+			"position": [
+				-584.395202636719,
+				139.382263183594
+			],
+			"sha256": "6200e3f52b0b92fbea1e7b31601e25a5351369bdea7d8a855adf3d067257a3b3",
+			"shots": 1260,
+			"state": "BOSS",
+			"step": 5400,
+			"wall_usec": 91579229
+		},
+		{
+			"boss_health": 2174.81893730313,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_015.png",
+			"health": 46.0,
+			"kills": 61,
+			"label": "periodic",
+			"physics_frame": 7234,
+			"position": [
+				-1363.71325683594,
+				-525.751892089844
+			],
+			"sha256": "0ed5b7da8a9cff238f202c3ca58fdb9e4797e2563af35db02bd2a08eb63b6e2d",
+			"shots": 1647,
+			"state": "BOSS",
+			"step": 7200,
+			"wall_usec": 121583460
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/nursery-flow-v4/frame_016.png",
+			"health": 19.0,
+			"kills": 62,
+			"label": "CLEARED",
+			"physics_frame": 8675,
+			"position": [
+				-392.047424316406,
+				738.513000488281
+			],
+			"sha256": "9264c33d53c55856da4d0d6496261414be37a56719db3f72f94a90cab9cff3ef",
+			"shots": 1959,
+			"state": "CLEARED",
+			"step": 8642,
+			"wall_usec": 145605312
+		}
+	],
+	"scope": "Real Main pointer UI and Input.warp_mouse cursor, ordinary movement/aim/fire; no stat writes/direct damage; transitional actors, not human or final art acceptance",
+	"shots": 1959,
+	"sources": {
+		"scripts/Main.gd": "89dfb856975028d25ffa69c18aec02ade84b1326086f6dfd79293cc721fd4920",
+		"scripts/actors/Enemy.gd": "9c7f67b12dad2464fd4bfd5fd64a3facb4ec3488f0f35ec3ea8eaca34e793d79",
+		"scripts/actors/OverseerBoss.gd": "232ba86a8c47606ad60b5bf46a1096469287a35675fb1b2b5cd2979dd75504a1",
+		"scripts/actors/Player.gd": "e00266ab0e26ff656a01f285910823e1f2a3f9ff3c339b773fc4b56189731087",
+		"scripts/art/NaturalRunPolicy.gd": "75d7ccf15e5b35355324945301afb4b8a5a57f5805a10e5d3cb14d07889b2259",
+		"scripts/art/VerifyNurseryChapterFlow.gd": "1eb54c6f07d97a1d8823a007d34cc9ce36137934a82094ecdebf304bbb18ed14",
+		"scripts/campaign/NurseryChapter.gd": "b63bb97c3928f2cd6899bd4533381e7e9d777b31fa6fe84bd4355d391285664d",
+		"scripts/systems/CampaignProgress.gd": "092eba7d1a02b57dd97a6603bdb3c253de5de9c426c7b12d129987f53de15539",
+		"scripts/systems/CampaignProgressStore.gd": "abf16a27db865a6f37d408c954ab70512171274fb5e7fa3fc90d2e7749410036",
+		"scripts/systems/NurseryEncounterDirector.gd": "0cb69a41c3906f3aafa4d4a245a39cade03da8e0eb5da4d85767463bd3aa697a",
+		"scripts/systems/UpgradeSystem.gd": "b06312a74909c05e2f7cc77edec0ae4ec9576e518bd6848b169c8b1ec2ab0317",
+		"scripts/ui/NurseryChapterUI.gd": "d29c8869862cd12a8db104209fa322fd0ee088af393a5d888eef42849947fa16",
+		"scripts/world/NurseryArenaLayout.gd": "05364e8ffb6a0b12ac74cdfdb5c05b0f2005bca5ad80083d8fdf71cd318964a7"
+	},
+	"valid": true
+}
