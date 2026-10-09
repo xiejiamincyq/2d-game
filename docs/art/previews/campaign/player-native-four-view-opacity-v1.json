@@ -1,0 +1,596 @@
+{
+	"adjacent_pixel_changes": 59,
+	"alpha_samples": [
+		{
+			"clip": "idle",
+			"opaque": 2654,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "idle",
+			"opaque": 2650,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "idle",
+			"opaque": 2654,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2654,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2654,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2654,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2654,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2626,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2654,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "dash",
+			"opaque": 2654,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "dash",
+			"opaque": 2620,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "dash",
+			"opaque": 2654,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2654,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2642,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2654,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "death",
+			"opaque": 2654,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "death",
+			"opaque": 2722,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "death",
+			"opaque": 2723,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2654,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2611,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2654,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Front"
+		},
+		{
+			"clip": "idle",
+			"opaque": 2701,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "idle",
+			"opaque": 2701,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "idle",
+			"opaque": 2701,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2701,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2701,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2701,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2701,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2715,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2701,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "dash",
+			"opaque": 2701,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "dash",
+			"opaque": 2635,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "dash",
+			"opaque": 2701,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2701,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2688,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2701,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "death",
+			"opaque": 2701,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "death",
+			"opaque": 2838,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "death",
+			"opaque": 2847,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2701,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2689,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2701,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Back"
+		},
+		{
+			"clip": "idle",
+			"opaque": 2145,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "idle",
+			"opaque": 2152,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "idle",
+			"opaque": 2145,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2145,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2145,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2145,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2145,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2143,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2145,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "dash",
+			"opaque": 2145,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "dash",
+			"opaque": 1996,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "dash",
+			"opaque": 2145,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2145,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2134,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2145,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "death",
+			"opaque": 2145,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "death",
+			"opaque": 2105,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "death",
+			"opaque": 2082,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2145,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2174,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2145,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Left"
+		},
+		{
+			"clip": "idle",
+			"opaque": 2198,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "idle",
+			"opaque": 2206,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "idle",
+			"opaque": 2198,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2198,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2198,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "walk",
+			"opaque": 2198,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2198,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2174,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "shoot",
+			"opaque": 2198,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "dash",
+			"opaque": 2198,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "dash",
+			"opaque": 2070,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "dash",
+			"opaque": 2198,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2198,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2188,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "hit",
+			"opaque": 2198,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "death",
+			"opaque": 2198,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "death",
+			"opaque": 2206,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "death",
+			"opaque": 2221,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2198,
+			"phase": 0.0,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2228,
+			"phase": 0.5,
+			"translucent": 0,
+			"view": "Right"
+		},
+		{
+			"clip": "entrance",
+			"opaque": 2198,
+			"phase": 1.0,
+			"translucent": 0,
+			"view": "Right"
+		}
+	],
+	"frames": 60,
+	"scope": "Native GPU resource-only four-view seven-action review; not gameplay",
+	"valid": true
+}

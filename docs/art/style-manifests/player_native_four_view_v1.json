@@ -1,0 +1,25 @@
+{
+  "contract": "native-player-resource-preview-v1",
+  "asset_id": "paper_ranger_four_view_v1",
+  "review_state": "style-approved",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "runtime_scene": "res://scenes/actors/native/player_paper_v1.tscn",
+  "runtime_controller": "res://scripts/components/NativePlayerView.gd",
+  "authoring_source": ["res://scenes/art/technical/PlayerPaperDraft.gd", "res://scenes/art/technical/PlayerPaperMotion.gd"],
+  "views": ["Front", "Back", "Left", "Right"],
+  "bones_per_view": 13,
+  "required_clips": ["idle", "walk", "shoot", "dash", "hit", "death", "entrance"],
+  "motion_libraries": [
+    "res://assets/art/actors/native/player_front_motion_v1.tres",
+    "res://assets/art/actors/native/player_back_motion_v1.tres",
+    "res://assets/art/actors/native/player_left_motion_v1.tres",
+    "res://assets/art/actors/native/player_right_motion_v1.tres"
+  ],
+  "preview": "res://docs/art/previews/campaign/player-native-four-view-v1.png",
+  "opacity_report": "res://docs/art/previews/campaign/player-native-four-view-opacity-v1.json",
+  "review_document": "res://docs/art/native-player-resource-review-v1.md",
+  "structural_gate": "res://scripts/tests/NativePlayerResourceTest.gd",
+  "external_raster_dependencies": [],
+  "limitations": ["Resource preview, not an old PNG production manifest", "Not yet included in the single-view native catalog schema", "No Player/Main integration or gameplay approval", "No all-character skeleton completion", "No large attack work", "No six-chapter completion"]
+}
