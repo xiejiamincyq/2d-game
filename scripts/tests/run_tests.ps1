@@ -43,6 +43,8 @@ $gameplayTests = @(
     "CampaignProgressStoreTest",
     "CampaignMenuTest",
     "CampaignMenuIntegrationTest",
+    "NurseryMapTest",
+    "NurseryMovementTest",
     "NativeMonsterSampleTest",
     "NativePaperSkinTest",
     "RootlingDraftTest",
@@ -158,11 +160,18 @@ foreach ($test in $tests) {
     $fixedStepArguments = ""
     $userArguments = ""
     $frameBudget = if ($test -in @("AudioLifecycleTest", "MainCloseTest")) { 12000 }
+        elseif ($test -eq "NurseryMovementTest") { 6000 }
         elseif ($test -in @("DashTest", "ScrapperAttackTest", "EnemyFlockTest", "EnemyFlockPolicyTest", "EnemyNeighborGridTest")) { 1800 }
         elseif ($test -in @("PortalRuntimeClockTest", "BossRuntimeClockTest", "CombatStatusLayoutTest")) { 600 }
         else { 120 }
     # Clock tests observe real portal/Boss warnings at 60 FPS.
     # Their own five-second watchdogs remain the lifecycle failure bounds.
+    if ($test -eq "NurseryMovementTest") {
+        # Three real-time 30/60/120Hz routes await physics, not idle frames.
+        # Cap idle throughput so quit-after cannot exhaust before physics runs;
+        # keep the positive pass marker, frame bound and wall-clock watchdog.
+        $fixedStepArguments = "--max-fps 120"
+    }
     if ($test -match '^(StealthTerrainTest|StealthRecoveryTest|StealthRecoverySideEffectTest|StealthRecoveryQueryTest|StealthRecoveryAccountingTest)_(30|60|120)Hz$') {
         $scriptTest = $Matches[1]
         $physicsHz = $Matches[2]
