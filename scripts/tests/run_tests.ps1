@@ -40,6 +40,7 @@ Write-Host "RESOURCE IMPORT PASS" -ForegroundColor Green
 $gameplayTests = @(
     "CampaignCatalogTest",
     "CampaignProgressTest",
+    "CampaignProgressStoreTest",
     "BalanceTest",
     "EconomyBuildTest",
     "CombatEventTest",

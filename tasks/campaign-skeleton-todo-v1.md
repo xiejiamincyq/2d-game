@@ -10,16 +10,17 @@
   - 验收：1..6、独立主题/Boss ID；初始/越界/锁关/顺序击杀/重玩/六关封顶；合法状态往返、非法导入不破坏状态。
   - 验证：CampaignCatalogTest / CampaignProgressTest RED→GREEN；全量门禁。
   - 实际结果：两套先退出1再通过109/165断言；89 Godot套件174866断言、35 Python套件269测试通过，日志 `build/diagnostics/campaign-goal/m0-2-full-green-v1.log`。目录ID只是未来内容契约，不冒称六关可玩；正式动画与磁盘进度未完成。
-- [ ] M0.3：独立永久进度store，文件保存与失败保护。
+- [x] M0.3：独立永久进度store，文件保存与失败保护（尚未接入Main）。
   - 验收：真实文件跨实例恢复；旧run存档保留；损坏/写入失败/中断恢复有明确结果。
   - 验证：CampaignProgressStoreTest及隔离存档证据。
+  - 实际结果：专项RED退出1→GREEN 70断言；全量90 Godot套件174939断言、35 Python套件269测试通过。隔离的两个进程分别保存/读取[1,2]通关记录，开放3、锁定4；未访问用户真实存档。[存档审查与边界](../docs/campaign-progress-store-review-v1.md)。
 
 ## M1 风格与骨骼风险先验
 
 - [ ] M1.1：参考与原创最小风格锁，逐资产制作玩家/普通敌怪/大型静态样板/效果。
   - 验收：自主选定预览、有效manifest、原创/CC0来源记录，当前尺度可读；大型不制作攻击动画。
   - 验证：alpha/manifest/registry检查、原生小尺寸画面与审查文档。
-  - 首次预览未生成：imagegen的output moderation_blocked；[失败记录](../docs/art/campaign-style-preview-attempt-v1.md)。仅有有效preview manifest，不能算美术/骨骼完成。保持目标active，下一步M0.3独立存档，然后原生骨骼技术样板；不规避图像服务过滤，不擅自调用付费API。
+  - 首次预览未生成：imagegen的output moderation_blocked；[失败记录](../docs/art/campaign-style-preview-attempt-v1.md)。仅有有效preview manifest，不能算美术/骨骼完成。M0.3已通过，下一步核对免费拆件包并制作原生骨骼技术样板；不规避图像服务过滤，不擅自调用付费API。
 - [ ] M1.2：一只普通怪真正骨骼+新待机/走路/预警/攻击/受击/死亡。
   - 验收：肢体骨链/rest pose；取消/死亡/暂停不残留；时钟与碰撞不被动画改变。
   - 验证：骨骼及动画状态专项测试、连续原生预览、初步密集预算。
