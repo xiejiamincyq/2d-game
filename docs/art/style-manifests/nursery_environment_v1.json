@@ -1,0 +1,19 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "nursery_environment_v1",
+  "review_state": "style-approved",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/nursery-map-review-v1.md",
+  "environment_preview": "res://docs/art/previews/campaign/nursery-map-overview-521-v2.png",
+  "prop_preview": "res://docs/art/previews/campaign/nursery-prop-style-v2.png",
+  "runtime_evidence": "res://docs/art/previews/campaign/nursery-map-runtime-v2.json",
+  "assets": [
+    {"role": "environment-props", "id": "seed_house_plant_bed_root_wall", "authoring_source": "res://scripts/world/NurseryPropArt.gd", "scope": "original native drawings; collision aligned opaque base and yielding upper decoration"},
+    {"role": "environment-ground", "id": "nursery_soil_paths", "authoring_source": "res://scripts/world/NurseryFloor.gd", "scope": "quiet floor, sparse marks and clear Boss pocket; no damaging zone"},
+    {"role": "chapter-map", "id": "mist_nursery", "authoring_source": "res://scenes/world/mist_nursery.tscn", "scope": "seeded independent editable map; not yet a playable Main chapter"}
+  ],
+  "external_raster_dependencies": [],
+  "reference_policy": "Free-reference audit is documented separately in campaign-free-reference-sources-v1.md. These scenery drawings use original coordinates; no external environment images imported or copied.",
+  "limitations": ["Not a raster production manifest or six maps completed", "v1 style preview rejected for framing; v2 replaces only evidence", "Ordinary input collision tests and isolated map render are not Main encounter/Boss acceptance", "Existing transitional player is not new skeleton acceptance", "No large enemy attack animations created", "Not human playtest or whole goal completion"]
+}

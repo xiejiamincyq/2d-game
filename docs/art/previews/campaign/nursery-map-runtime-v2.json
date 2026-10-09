@@ -1,0 +1,591 @@
+{
+	"adjacent_player_moves": 143,
+	"assertions": 215,
+	"captures": [
+		{
+			"path": "docs/art/previews/campaign/nursery-prop-style-v2.png",
+			"sha256": "b0f609eefb97e991215b18e8f97a2d9b17c58ea60ae5a88b716d41d3ec7388f4"
+		},
+		{
+			"path": "docs/art/previews/campaign/nursery-map-overview-0-v2.png",
+			"sha256": "5699ff65b300a3da42183379aa1c920638fa7f0ae22a9793788d8acc5eb0698d"
+		},
+		{
+			"path": "docs/art/previews/campaign/nursery-map-overview-521-v2.png",
+			"sha256": "426dd71d9c3c6cc1494c0af68c17b274bcc847732a295ed06146ab2a38529ca0"
+		},
+		{
+			"path": "docs/art/previews/campaign/nursery-map-overview-20261009-v2.png",
+			"sha256": "5d298aa24e94e0404ca0daf98eeb7a13dc6c5c8076bdf02527e03e7ae55e8451"
+		},
+		{
+			"path": "docs/art/previews/campaign/nursery-map-player-start-v2.png",
+			"sha256": "56bc48bcf4aa855c14d18673b89f23af3d72473d731e5c89c58500b0240fd8c7"
+		},
+		{
+			"path": "docs/art/previews/campaign/nursery-map-player-end-v2.png",
+			"sha256": "72f56f00fa3b2b41111afca1e899fef3060c1be6598451d5d794aa427eec1655"
+		}
+	],
+	"contract": "nursery-map-native-proof-v1",
+	"limits": [
+		"Isolated chapter map, not Main encounter integration or Boss clear.",
+		"Player is actual existing transitional renderer; not new player skeleton acceptance.",
+		"Overview zoom only for review, not normal gameplay camera.",
+		"Input route is scripted, not a human playtest or pathfinder performance test.",
+		"Frame timing is measured; video nominal frame rate is not a performance claim."
+	],
+	"movement_samples": [
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_000.png",
+			"physics_frame": 40,
+			"position": [
+				-1197.78747558594,
+				-595.37841796875
+			],
+			"sha256": "c6d416d81f5adb5e800e5e7a1617d5c9de26ee585be86ca4b434623012c13020",
+			"wall_usec": 1172683,
+			"waypoint": 0
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_001.png",
+			"physics_frame": 43,
+			"position": [
+				-1197.78747558594,
+				-607.128479003906
+			],
+			"sha256": "9a0a49a440718ee679971a08947d9562a5190bcb038a2f47cf205abdf05b4fd2",
+			"wall_usec": 1233410,
+			"waypoint": 0
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_002.png",
+			"physics_frame": 46,
+			"position": [
+				-1197.78747558594,
+				-618.878540039063
+			],
+			"sha256": "41cdd5422530993267d061710cb7ed42f220b8ab66545c8833c6010816cc8ef7",
+			"wall_usec": 1280804,
+			"waypoint": 0
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_003.png",
+			"physics_frame": 49,
+			"position": [
+				-1197.78747558594,
+				-630.628601074219
+			],
+			"sha256": "a56e8d1e12c0506ce11ea83f675d4a5ab9502bf716067e9cee35ee904353c2d3",
+			"wall_usec": 1329407,
+			"waypoint": 0
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_004.png",
+			"physics_frame": 52,
+			"position": [
+				-1197.78747558594,
+				-642.378662109375
+			],
+			"sha256": "de1cedea7a634f1c804c4dec7c31da806341c3a098d2d357cab460aea76c71db",
+			"wall_usec": 1382272,
+			"waypoint": 0
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_005.png",
+			"physics_frame": 55,
+			"position": [
+				-1197.78747558594,
+				-654.128723144531
+			],
+			"sha256": "afd9109ad4155f0bbbb521b8e5c2d217815b1fdbcadd53bbecc1da1e1a284dbe",
+			"wall_usec": 1429072,
+			"waypoint": 0
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_006.png",
+			"physics_frame": 58,
+			"position": [
+				-1197.78747558594,
+				-665.878784179688
+			],
+			"sha256": "479cb6d80313c7bfaee118666cd2724a1e5efcf8cd408dd152024023ca8c19ad",
+			"wall_usec": 1480920,
+			"waypoint": 0
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_007.png",
+			"physics_frame": 61,
+			"position": [
+				-1197.78747558594,
+				-677.628845214844
+			],
+			"sha256": "eb60a8bdc5c6bbcd7a46870da309e3a36dd11ce4084bf276f0ec52eedad09448",
+			"wall_usec": 1533246,
+			"waypoint": 0
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_008.png",
+			"physics_frame": 64,
+			"position": [
+				-1197.78747558594,
+				-689.37890625
+			],
+			"sha256": "d0fd35996b5df797c16c2a668ba1ee34af695309aae07e93522be77bd33f427b",
+			"wall_usec": 1580816,
+			"waypoint": 0
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_009.png",
+			"physics_frame": 67,
+			"position": [
+				-1197.78747558594,
+				-701.128967285156
+			],
+			"sha256": "33b5f1259b3b6cff8229d983854bd8a44a58d8c7e331c3cd67f038c9488afdf6",
+			"wall_usec": 1628017,
+			"waypoint": 0
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_010.png",
+			"physics_frame": 70,
+			"position": [
+				-1197.78747558594,
+				-712.879028320313
+			],
+			"sha256": "95abf8f6f5c5e7ef5fb114845340a59c40fdf56615152e62e90f4f440baa368e",
+			"wall_usec": 1680479,
+			"waypoint": 0
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_011.png",
+			"physics_frame": 72,
+			"position": [
+				-1189.95739746094,
+				-713.108276367188
+			],
+			"sha256": "a39be0deb81a45bc859b0990d5d9f7eb6d3a7597e1c91b0ca6662b56fa116771",
+			"wall_usec": 1714099,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_012.png",
+			"physics_frame": 75,
+			"position": [
+				-1178.21228027344,
+				-713.4521484375
+			],
+			"sha256": "268e9c20b04ec676fbe8984440fd93198fc60c115d1748435c5bee538ff55de2",
+			"wall_usec": 1761832,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_013.png",
+			"physics_frame": 78,
+			"position": [
+				-1166.46716308594,
+				-713.796020507813
+			],
+			"sha256": "ad1174e9be2cbed39365e2b751083cfd336b3b746c4616a93d65aebb88cc3924",
+			"wall_usec": 1814409,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_014.png",
+			"physics_frame": 81,
+			"position": [
+				-1154.72204589844,
+				-714.139892578125
+			],
+			"sha256": "49bb93487b68f85e0a732378f300918854791df182d76a466ca6f743852d9ba0",
+			"wall_usec": 1867420,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_015.png",
+			"physics_frame": 84,
+			"position": [
+				-1142.97692871094,
+				-714.483825683594
+			],
+			"sha256": "b23fc8cbbaa855be192bdb72062944318a7557d1dbc066b3833a75c9992e7afe",
+			"wall_usec": 1915251,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_016.png",
+			"physics_frame": 87,
+			"position": [
+				-1131.23181152344,
+				-714.827819824219
+			],
+			"sha256": "de839cf4597bb8f77f142ab47b90e8e014798c5fb4fabb53f8d4a9c8623c512c",
+			"wall_usec": 1966591,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_017.png",
+			"physics_frame": 90,
+			"position": [
+				-1119.48669433594,
+				-715.171813964844
+			],
+			"sha256": "2af74836d4880bbcef8f00efec0543a8229b8257e23e16079ff58c26e51bb50d",
+			"wall_usec": 2018408,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_018.png",
+			"physics_frame": 93,
+			"position": [
+				-1107.74157714844,
+				-715.515747070313
+			],
+			"sha256": "ff8f7c98cbbd0efd07fb79ed147330f5f55b29ba56f51647395a0320c55cbe15",
+			"wall_usec": 2062192,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_019.png",
+			"physics_frame": 96,
+			"position": [
+				-1095.99645996094,
+				-715.859741210938
+			],
+			"sha256": "1711e5f4e8c65f1c77c7dde2f03f537c2f3714c3935cc10236f0a7b60945818f",
+			"wall_usec": 2115732,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_020.png",
+			"physics_frame": 99,
+			"position": [
+				-1084.25134277344,
+				-716.203674316406
+			],
+			"sha256": "6c438c705c60f2201616c5ef0d84dc3428a2e842924ef2d9367ffaf3f69a84e9",
+			"wall_usec": 2166358,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_021.png",
+			"physics_frame": 102,
+			"position": [
+				-1072.50622558594,
+				-716.547668457031
+			],
+			"sha256": "5b2e02bcf063f5ed31bdfa6fd19f735808a786c2f60efe1f744ad76ba4b5d8fa",
+			"wall_usec": 2214356,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_022.png",
+			"physics_frame": 105,
+			"position": [
+				-1060.76110839844,
+				-716.8916015625
+			],
+			"sha256": "197ebc0e8d4c286e2ee78baaa148773b6a6c3a77cae242824d75159186951124",
+			"wall_usec": 2262462,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_023.png",
+			"physics_frame": 108,
+			"position": [
+				-1049.01599121094,
+				-717.235595703125
+			],
+			"sha256": "6fff01b63e0a9648c4d6bd6e51c9ef495a5a70466fefd61252cd77ef76c05e2d",
+			"wall_usec": 2315315,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_024.png",
+			"physics_frame": 111,
+			"position": [
+				-1037.27087402344,
+				-717.57958984375
+			],
+			"sha256": "4fdfc7af94cba21097c2b27bed7f4cdb6e4d54e4bceae81854359b4234df77e8",
+			"wall_usec": 2370096,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_025.png",
+			"physics_frame": 114,
+			"position": [
+				-1025.52575683594,
+				-717.923522949219
+			],
+			"sha256": "2d7225c4f110054afadd75abf384930b30b421263d2b78194d274a65b09c7864",
+			"wall_usec": 2414837,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_026.png",
+			"physics_frame": 117,
+			"position": [
+				-1013.78082275391,
+				-718.267517089844
+			],
+			"sha256": "095908a01d53ec7e89a79af060c7612eb143877863646c7275c8a9c7afcd2dc6",
+			"wall_usec": 2461791,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_027.png",
+			"physics_frame": 120,
+			"position": [
+				-1002.03588867188,
+				-718.611450195313
+			],
+			"sha256": "36b2a86aa6dfb47e6f44b937af47c120ab4f0bc8082579c60919e2f543a397d3",
+			"wall_usec": 2515038,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_028.png",
+			"physics_frame": 123,
+			"position": [
+				-990.290954589844,
+				-718.955444335938
+			],
+			"sha256": "4a31e4b7ed06cc9ecc946295602b1160d125c28e89af026f17066cfcc46b5856",
+			"wall_usec": 2566837,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_029.png",
+			"physics_frame": 126,
+			"position": [
+				-978.546020507813,
+				-719.299377441406
+			],
+			"sha256": "0f137e33b0719eaf9235d7ffee7905829178590126758762c97ffeff7ad760fb",
+			"wall_usec": 2614365,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_030.png",
+			"physics_frame": 129,
+			"position": [
+				-966.801086425781,
+				-719.643371582031
+			],
+			"sha256": "66fb9c182555e0b36ab07fb6acd18f68b2995f3945df477c3e9a4095cc076d54",
+			"wall_usec": 2666850,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_031.png",
+			"physics_frame": 132,
+			"position": [
+				-955.05615234375,
+				-719.9873046875
+			],
+			"sha256": "c6edb48631b5f3177718d15da3a623ad35f013044a7be8d2bff4ed83f6a576f4",
+			"wall_usec": 2714483,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_032.png",
+			"physics_frame": 135,
+			"position": [
+				-943.311218261719,
+				-720.331298828125
+			],
+			"sha256": "be726c28eb5e633e4a50c7561f5d2466e986e390b1324e22a7d933dfc510dd7f",
+			"wall_usec": 2762202,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_033.png",
+			"physics_frame": 138,
+			"position": [
+				-931.566284179688,
+				-720.675231933594
+			],
+			"sha256": "afde70b76967f535ea19048be0308beabc93d12decdccafd4a66370912d72607",
+			"wall_usec": 2814540,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_034.png",
+			"physics_frame": 141,
+			"position": [
+				-919.821350097656,
+				-721.019226074219
+			],
+			"sha256": "da95799d4b4bdf20f0db2e8b1d3ed3f50b07a38c0c78bdcc83c8b8377a35f126",
+			"wall_usec": 2864511,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_035.png",
+			"physics_frame": 144,
+			"position": [
+				-908.076416015625,
+				-721.363159179688
+			],
+			"sha256": "07deb67a7d980670c0d23182e814c2b07f09305a2d0045bc9062cafb84eb45bc",
+			"wall_usec": 2915243,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_036.png",
+			"physics_frame": 147,
+			"position": [
+				-896.331481933594,
+				-721.707092285156
+			],
+			"sha256": "a4e7a11a419c4c47be1d6f79f9ee97dcd17009eecf7eb30d8e314fc46abd7615",
+			"wall_usec": 2966484,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_037.png",
+			"physics_frame": 150,
+			"position": [
+				-884.586547851563,
+				-722.051086425781
+			],
+			"sha256": "038a04403a0a5462de9b90a47f3b488191b96e78d62b3c75bc57f9380218da61",
+			"wall_usec": 3014491,
+			"waypoint": 1
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_038.png",
+			"physics_frame": 152,
+			"position": [
+				-884.210571289063,
+				-714.226745605469
+			],
+			"sha256": "bdbbb6889bebf485a94026285708c09250531e7e5796c54c37fefb7410eef32b",
+			"wall_usec": 3047667,
+			"waypoint": 2
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_039.png",
+			"physics_frame": 155,
+			"position": [
+				-883.646606445313,
+				-702.490234375
+			],
+			"sha256": "e08efa53f18f01a305ad595c2bad3b0a708c5c2a7dfb7a0816fbbe05c1e62a92",
+			"wall_usec": 3096634,
+			"waypoint": 2
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_040.png",
+			"physics_frame": 158,
+			"position": [
+				-883.082641601563,
+				-690.753723144531
+			],
+			"sha256": "8d32c393bc6044aa56ec302346b133066b40669363b3616ec70d26c8bf6502e7",
+			"wall_usec": 3147483,
+			"waypoint": 2
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_041.png",
+			"physics_frame": 161,
+			"position": [
+				-882.518676757813,
+				-679.017211914063
+			],
+			"sha256": "c83ed331f5cdbd37889bed07abc8237f46a71444c8080c87136aecb9b36900c4",
+			"wall_usec": 3199869,
+			"waypoint": 2
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_042.png",
+			"physics_frame": 164,
+			"position": [
+				-881.954711914063,
+				-667.280700683594
+			],
+			"sha256": "4585bd4a16e7b43eb8e9e0e8de61abeced685cf3ed45e161769f06d1344ff4f2",
+			"wall_usec": 3247420,
+			"waypoint": 2
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_043.png",
+			"physics_frame": 167,
+			"position": [
+				-881.390747070313,
+				-655.544189453125
+			],
+			"sha256": "50c4877a6158dd285cefe14b783c298f62cfb4bd041681230fb09551b7d8a838",
+			"wall_usec": 3299317,
+			"waypoint": 2
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_044.png",
+			"physics_frame": 170,
+			"position": [
+				-880.826782226563,
+				-643.807678222656
+			],
+			"sha256": "99d96b919b5ca7ff51c20d7a2cd91b3a82e7097c7fda1b0b9c4ef4736e45d281",
+			"wall_usec": 3347695,
+			"waypoint": 2
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_045.png",
+			"physics_frame": 173,
+			"position": [
+				-880.262878417969,
+				-632.071166992188
+			],
+			"sha256": "af1e85284d320c027857171bac39bd6e03d90543bbcabc3ceaff5c447f537689",
+			"wall_usec": 3396062,
+			"waypoint": 2
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_046.png",
+			"physics_frame": 176,
+			"position": [
+				-879.699035644531,
+				-620.334655761719
+			],
+			"sha256": "cd229aa951bd5014f6af3cacd70df11e537b305da8378d1d48c74e66f43d30e8",
+			"wall_usec": 3447623,
+			"waypoint": 2
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_047.png",
+			"physics_frame": 179,
+			"position": [
+				-879.135131835938,
+				-608.59814453125
+			],
+			"sha256": "00522b48a5c065acd8afe3bff63af0d6f8126a0a73fc08608a17ee6f01d96668",
+			"wall_usec": 3495501,
+			"waypoint": 2
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/nursery-map-frames-v2/frame_048.png",
+			"physics_frame": 182,
+			"position": [
+				-878.5712890625,
+				-596.861633300781
+			],
+			"sha256": "3b0f22dd38f577ec9a6c86e4ddeaa088588c73d04413b1fab3158775f90adf10",
+			"wall_usec": 3547409,
+			"waypoint": 2
+		}
+	],
+	"sources": {
+		"scenes/world/mist_nursery.tscn": "47d161d00a7927488dc887fde4ccec7872d0c5eea0ed7ce1fe038b9b44f7a12d",
+		"scripts/actors/Player.gd": "e00266ab0e26ff656a01f285910823e1f2a3f9ff3c339b773fc4b56189731087",
+		"scripts/art/VerifyNurseryMap.gd": "422144a2e3131800bd97ae2d979496e5329ffbb6285aca7e8153dfb6198f6409",
+		"scripts/world/NurseryArenaLayout.gd": "05364e8ffb6a0b12ac74cdfdb5c05b0f2005bca5ad80083d8fdf71cd318964a7",
+		"scripts/world/NurseryFloor.gd": "ef972fed595b3c6991526c8970d22870f0512cfb40005de7320fe3bef5a22283",
+		"scripts/world/NurseryMap.gd": "bc3309e64122b893d6d202e6317ed4955880113b8b6f66acca150dce0b7516ef",
+		"scripts/world/NurseryObstacle.gd": "2f4994b9d158270b6179be28ec6288158332ad1a94cbfc7edc5940d45c9b220a",
+		"scripts/world/NurseryPropArt.gd": "18b945a39280ed63e7e774abadeddf1dd878be15a4e742b0e2069ffef5026728"
+	},
+	"valid": true,
+	"waypoints_reached": 3
+}
