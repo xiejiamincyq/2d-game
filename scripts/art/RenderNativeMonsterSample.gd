@@ -7,6 +7,30 @@ const MOTION := "res://build/diagnostics/campaign-goal/native-monster-motion-v3"
 const CLIPS := ["idle", "walk", "warning", "attack", "hit", "death"]
 var actors: Array[Node2D] = []
 
+func new_actor() -> Node2D:
+	return Sample.instantiate()
+
+func output_path() -> String:
+	return OUTPUT
+
+func motion_path() -> String:
+	return MOTION
+
+func subtitle() -> String:
+	return "CC0 Kenney cutouts - 12 real joints - new animation keys - no old game sprites"
+
+func enlargement() -> float:
+	return 2.5
+
+func first_row_y() -> float:
+	return 230.0
+
+func clip_label_y() -> float:
+	return -146.0
+
+func sample_name() -> String:
+	return "NativeMonsterSample"
+
 func label(parent: Node, text: String, at: Vector2, size: int) -> void:
 	var item := Label.new()
 	item.text = text
@@ -26,21 +50,21 @@ func _initialize() -> void:
 	background.color = Color("dfd6bd")
 	viewport.add_child(background)
 	label(viewport, "NATIVE BONES / TECHNICAL SAMPLE / NOT FINAL ART", Vector2(28, 18), 26)
-	label(viewport, "CC0 Kenney cutouts - 12 real joints - new animation keys - no old game sprites", Vector2(28, 55), 16)
+	label(viewport, subtitle(), Vector2(28, 55), 16)
 	for index in CLIPS.size():
 		var column := index % 3
 		var row := index / 3
-		var center := Vector2(215 + column * 420, 230 + row * 300)
-		label(viewport, CLIPS[index].to_upper(), center + Vector2(-95, -146), 20)
+		var center := Vector2(215 + column * 420, first_row_y() + row * 300)
+		label(viewport, CLIPS[index].to_upper(), center + Vector2(-95, clip_label_y()), 20)
 		for enlarged in [true, false]:
-			var actor := Sample.instantiate()
+			var actor = new_actor()
 			actor.position = center + (Vector2(-45, 0) if enlarged else Vector2(95, -5))
-			actor.scale = Vector2.ONE * (2.5 if enlarged else 1.0)
+			actor.scale = Vector2.ONE * (enlargement() if enlarged else 1.0)
 			viewport.add_child(actor)
 			actor.player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 			actor.play_clip(CLIPS[index])
 			actors.append(actor)
-		label(viewport, "2.5x joints", center + Vector2(-90, 70), 13)
+		label(viewport, "%.1fx joints" % enlargement(), center + Vector2(-90, 70), 13)
 		label(viewport, "actual size", center + Vector2(54, 70), 13)
 	# Contact sheet is a mid-pose comparison. Motion below uses real clip seconds.
 	for index in actors.size():
@@ -50,12 +74,12 @@ func _initialize() -> void:
 	await process_frame
 	await RenderingServer.frame_post_draw
 	var sheet := viewport.get_texture().get_image()
-	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT).get_base_dir())
-	if sheet == null or sheet.is_empty() or sheet.save_png(ProjectSettings.globalize_path(OUTPUT)) != OK:
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_path()).get_base_dir())
+	if sheet == null or sheet.is_empty() or sheet.save_png(ProjectSettings.globalize_path(output_path())) != OK:
 		push_error("TEST FAIL: Native monster contact sheet save failed")
 		quit(1)
 		return
-	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(MOTION))
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(motion_path()))
 	var different_frames := 0
 	var previous_hash := 0
 	for frame in 60:
@@ -80,7 +104,7 @@ func _initialize() -> void:
 		if frame > 0 and frame_hash != previous_hash:
 			different_frames += 1
 		previous_hash = frame_hash
-		var destination := ProjectSettings.globalize_path(MOTION.path_join("frame_%03d.png" % frame))
+		var destination := ProjectSettings.globalize_path(motion_path().path_join("frame_%03d.png" % frame))
 		if capture.save_png(destination) != OK:
 			push_error("TEST FAIL: Native monster motion frame save failed")
 			quit(1)
@@ -91,5 +115,5 @@ func _initialize() -> void:
 		return
 	viewport.queue_free()
 	await process_frame
-	print("RENDER PASS: NativeMonsterSample 60 frames, %d adjacent pixel changes, %dx%d" % [different_frames, SIZE.x, SIZE.y])
+	print("RENDER PASS: %s 60 frames, %d adjacent pixel changes, %dx%d" % [sample_name(), different_frames, SIZE.x, SIZE.y])
 	quit(0)

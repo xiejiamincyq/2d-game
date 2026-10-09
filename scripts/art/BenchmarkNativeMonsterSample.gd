@@ -4,6 +4,15 @@ extends SceneTree
 const Sample = preload("res://scenes/art/technical/NativeMonsterSample.tscn")
 const OUTPUT := "res://build/diagnostics/campaign-goal/native-monster-density-v4.json"
 
+func new_actor() -> Node2D:
+	return Sample.instantiate()
+
+func output_path() -> String:
+	return OUTPUT
+
+func sample_name() -> String:
+	return "NativeMonsterSample"
+
 func percentile(values: Array[float], fraction: float) -> float:
 	var sorted := values.duplicate()
 	sorted.sort()
@@ -20,7 +29,7 @@ func _initialize() -> void:
 		root.add_child(viewport)
 		var start := Time.get_ticks_usec()
 		for index in count:
-			var actor := Sample.instantiate()
+			var actor = new_actor()
 			actor.position = Vector2(32 + (index % 32) * 39, 80 + (index / 32) * 78)
 			viewport.add_child(actor)
 			actor.play_clip("walk")
@@ -42,13 +51,13 @@ func _initialize() -> void:
 		viewport.queue_free()
 		await process_frame
 		await process_frame
-	var evidence := {"scope": "visual-only native skeleton, walk loop, 1280x720 offscreen viewport; not Main, AI, physics, input, present/drop or player experience", "engine": Engine.get_version_info().string, "renderer": RenderingServer.get_current_rendering_method(), "vsync_requested": "disabled", "scenarios": scenarios}
-	var file := FileAccess.open(OUTPUT, FileAccess.WRITE)
+	var evidence := {"sample": sample_name(), "scope": "visual-only native skeleton, walk loop, 1280x720 offscreen viewport; not Main, AI, physics, input, present/drop or player experience", "engine": Engine.get_version_info().string, "renderer": RenderingServer.get_current_rendering_method(), "vsync_requested": "disabled", "scenarios": scenarios}
+	var file := FileAccess.open(output_path(), FileAccess.WRITE)
 	if file == null:
 		push_error("TEST FAIL: Native density evidence cannot be saved")
 		quit(1)
 		return
 	file.store_string(JSON.stringify(evidence, "\t"))
 	file.close()
-	print("BENCHMARK PASS: NativeMonsterSample visual-only density recorded")
+	print("BENCHMARK PASS: %s visual-only density recorded" % sample_name())
 	quit(0)
