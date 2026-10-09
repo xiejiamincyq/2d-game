@@ -21,10 +21,13 @@
   - 已有：12个真实Bone2D关节、六个新关键帧动作、取消/rest/死亡终止/暂停/左右翻转；独立于游戏碰撞与伤害。
   - 验证：专项缺文件RED退出1→当前GREEN 245断言；1280×720原生渲染60帧、59次相邻像素变化。CC0拆件逐文件hash与许可证留存，导出排除技术场景。[样板审查与后续风险](../docs/art/native-monster-technical-review-v1.md)。
   - 密集样板测量发现256只约3840绘制调用；官方图集切换像素不等价且批次改善小，已撤回。正式角色需更紧凑的皮肤/可批绘制结构，不直接复制技术样板去填满六关。
-- [ ] M1.1：参考与原创最小风格锁，逐资产制作玩家/普通敌怪/大型静态样板/效果。
+- [x] M1.1：参考与原创最小风格锁，逐资产制作玩家/普通敌怪/大型静态样板/效果（仅方向锁，不是全角色齐备）。
   - 验收：自主选定预览、有效manifest、原创/CC0来源记录，当前尺度可读；大型不制作攻击动画。
   - 验证：alpha/manifest/registry检查、原生小尺寸画面与审查文档。
-  - 首次预览未生成：imagegen的output moderation_blocked；[失败记录](../docs/art/campaign-style-preview-attempt-v1.md)。仅有有效preview manifest，不能算正式美术完成。免费拆件包与M1.T技术样板已完成；下一步正式角色风格锁与更低绘制成本的原生皮肤结构。不规避图像服务过滤，不擅自调用付费API。
+  - 首次预览未生成：imagegen的output moderation_blocked；[失败记录](../docs/art/campaign-style-preview-attempt-v1.md)。当时仅有preview manifest，未算美术完成；后续采用合法原创原生几何制作，不规避图像服务过滤、不擅自调用付费API。
+  - 后续合法原创原生几何路线完成四资源最小组：奶油兜帽青绿巡界员、树根普通怪、独立比例岩根大型静态、0.14秒/14px紧凑墨刺。自主审查采用该方向；[原生GPU预览与来源/边界](../docs/art/paper-style-group-review-v1.md)，独立style-manifest不伪装PNG源或正式runtime资源。
+  - 专项41断言通过；GPU玩家静态1610、大型rest3612个完全不透明像素，均0半透明；五效果phase四次像素变化，终点清除、像素半径≤15。玩家不是四朝向齐备，大型没有动画库/攻击，仍未接Main。
+  - 本轮全量退出0：96 Godot套件176309断言、35 Python套件270测试；实际PCK3,081,856字节、旧Main120帧无错误/泄漏，新技术作者脚本仍排除导出。日志`paper-style-group-full-v1.log`/`paper-style-group-release-v1.log`。
 - [x] M1.S：原创普通怪加权原生纸偶皮肤与绘制风险验证（隔离草稿，未完成M1.1/M1.2）。
   - 已有：一张Polygon2D、十二骨完整权重、新目标六动作；固定rest草稿共享不可变皮肤/动作资源，实例骨骼独立。预览60帧59次变化，256只绘制调用3840→256；缓存后批量创建192.933→50.100ms。
   - [皮肤审查及测量边界](../docs/art/rootling-paper-skin-review-v1.md)。旧v13仍是当前可玩包；大型攻击继续禁止提前开工。

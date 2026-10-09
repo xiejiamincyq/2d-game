@@ -1,0 +1,61 @@
+{
+	"samples": [
+		{
+			"asset": "FIELD SCOUT",
+			"farthest_opaque_pixel": 44.1418151855469,
+			"opaque": 1610,
+			"partial_alpha": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"asset": "STONE BULWARK",
+			"farthest_opaque_pixel": 66.1853485107422,
+			"opaque": 3612,
+			"partial_alpha": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"asset": "COMPACT IMPACT",
+			"farthest_opaque_pixel": 4.5276927947998,
+			"opaque": 51,
+			"partial_alpha": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"asset": "COMPACT IMPACT",
+			"farthest_opaque_pixel": 6.67083215713501,
+			"opaque": 76,
+			"partial_alpha": 0,
+			"passed": true,
+			"phase": 0.25
+		},
+		{
+			"asset": "COMPACT IMPACT",
+			"farthest_opaque_pixel": 8.74642753601074,
+			"opaque": 67,
+			"partial_alpha": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"asset": "COMPACT IMPACT",
+			"farthest_opaque_pixel": 10.9772491455078,
+			"opaque": 57,
+			"partial_alpha": 0,
+			"passed": true,
+			"phase": 0.75
+		},
+		{
+			"asset": "COMPACT IMPACT",
+			"farthest_opaque_pixel": 0.0,
+			"opaque": 0,
+			"partial_alpha": 0,
+			"passed": true,
+			"phase": 1.0
+		}
+	],
+	"scope": "GPU original player/front and large/rest; effect five visual phases, not gameplay or all actions"
+}

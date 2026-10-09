@@ -1,0 +1,19 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "paper_style_group_v1",
+  "review_state": "style-approved",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "preview": "res://docs/art/previews/campaign/paper-style-group-v1.png",
+  "opacity_report": "res://docs/art/previews/campaign/paper-style-opacity-v1.json",
+  "review_document": "res://docs/art/paper-style-group-review-v1.md",
+  "assets": [
+    {"role": "player", "id": "field_scout", "authoring_source": "res://scenes/art/technical/PaperStyleActor.gd", "scope": "front static pose and true hand weapon socket only"},
+    {"role": "ordinary", "id": "root_pursuer", "authoring_source": "res://scenes/art/technical/RootlingPaperShapes.gd", "candidate_scene": "res://scenes/actors/native/rootling_paper_v3.tscn", "scope": "new native candidate; not yet gameplay bound"},
+    {"role": "large", "id": "stone_bulwark", "authoring_source": "res://scenes/art/technical/PaperStyleActor.gd", "scope": "own native proportions and static skin; no animation library or attack"},
+    {"role": "effect", "id": "compact_impact", "authoring_source": "res://scenes/art/technical/PaperImpactDraft.gd", "scope": "five visual phases; 0.14 second design duration, 14 pixel radius"}
+  ],
+  "external_raster_dependencies": [],
+  "reference_policy": "Original coordinates and colors, no tracing or copied character composition. Existing free-reference audit remains separate; no third-party artwork embedded here.",
+  "limitations": ["Not a production native-runtime manifest", "Not gameplay-approved or final", "No player four-view/action completion", "No all-character skeleton gate", "No large enemy attack work", "No Main integration or six-chapter completion"]
+}
