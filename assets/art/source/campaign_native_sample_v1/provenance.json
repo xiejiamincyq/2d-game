@@ -1,0 +1,26 @@
+{
+  "purpose": "technical native Bone2D cutout sample only; not final character art",
+  "author": "Kenney",
+  "work": "Monster Builder Pack 1.0",
+  "work_url": "https://kenney.nl/assets/monster-builder-pack",
+  "download_url": "https://kenney.nl/media/pages/assets/monster-builder-pack/663e4ef6de-1677495438/kenney_monster-builder-pack.zip",
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "verified_date": "2026-10-09",
+  "archive_sha256": "6e64b7979499c7465f0ce1abfdde91db057875bda50ece61b47aa0c0005dd566",
+  "license_file": "License.txt",
+  "license_formatting": "License text preserved; trailing whitespace and line endings normalized in this checked-in copy. Original bytes remain in the audited download archive.",
+  "source_directory": "PNG/Default",
+  "source_files_sha256": {
+    "arm_whiteB.png": "6a524ece6171d94a63b792a492741e3f07769898e7ba39f5f03be2409ca904f3",
+    "body_whiteA.png": "da9a03c4bc6149c1bc5d07dacaa53d832df0ecc9e52e5012306887834dcaddcc",
+    "body_whiteC.png": "9b6942c182a2ca2bfdd469a326cd4a8215551bee76375f33b542c843547588e3",
+    "detail_white_ear.png": "ce9b7aad4627081b8ace5bdbe66dcac99e04ccad1b40a75cb0360cff9b8ddf52",
+    "eye_psycho_dark.png": "647aed113c4e61c7a5e46ee66229a21d162efba06d95222b8cc4df5485ef223d",
+    "leg_whiteE.png": "2c13be6511c1e21f379a16341374668c010acf1f1fbe3abec0cda41d712834f1",
+    "mouth_closed_teeth.png": "99f1ba48139539787ba367a0121fe0558c08284a50774b0ecf3f4894bfc44412"
+  },
+  "modifications": "PNG bytes unchanged. Scene-only tint, scale, pivot, articulation; all six animation keyframe sequences newly authored.",
+  "production_review_state": "not_submitted",
+  "export_policy": "source parts and technical scene excluded from Windows release preset"
+}

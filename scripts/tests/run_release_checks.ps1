@@ -34,6 +34,7 @@ $forbiddenExportEntries = @(
     "res://assets/art/actors/player/technical_previews/",
     "res://assets/art/actors/player/turnaround_directions/",
     "res://scripts/art/",
+    "res://scenes/art/technical/",
     "res://scripts/tests/"
 )
 

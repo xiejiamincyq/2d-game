@@ -8,6 +8,12 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 class ReleasePackPolicyTest(unittest.TestCase):
+    def test_native_technical_sample_does_not_ship(self) -> None:
+        preset = (PROJECT_ROOT / "export_presets.cfg").read_text(encoding="utf-8")
+        gate = (PROJECT_ROOT / "scripts/tests/run_release_checks.ps1").read_text(encoding="utf-8")
+        self.assertIn("scenes/art/technical/*", preset)
+        self.assertIn("res://scenes/art/technical/", gate)
+
     def test_export_excludes_retired_m2_atlases_but_keeps_chibi(self) -> None:
         preset = (PROJECT_ROOT / "export_presets.cfg").read_text(encoding="utf-8")
         exclusions = re.search(r'^exclude_filter="([^"]*)"', preset, re.MULTILINE).group(1).split(",")
