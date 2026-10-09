@@ -14,7 +14,6 @@ func _assert_true(condition: bool, message: String) -> bool:
 
 func _initialize() -> void:
 	for fixture in [
-		{"kind": EnemyScript.EnemyKind.SCRAPPER, "path": "res://assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png", "radius": 14.0, "damage": 24.0, "scale": Vector2(0.44, 0.44)},
 		{"kind": EnemyScript.EnemyKind.SPITTER, "path": "res://assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png", "radius": 14.0, "damage": 15.0, "scale": Vector2(0.45, 0.45)},
 		{"kind": EnemyScript.EnemyKind.BRUISER, "path": "res://assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png", "radius": 24.0, "damage": 54.0, "scale": Vector2(0.66, 0.66)},
 		{"kind": EnemyScript.EnemyKind.MARKSMAN, "path": "res://assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png", "radius": 14.0, "damage": 15.0, "scale": Vector2(0.55, 0.55)},

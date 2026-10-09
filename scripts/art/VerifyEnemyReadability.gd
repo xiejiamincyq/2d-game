@@ -68,14 +68,15 @@ func _run() -> void:
 			enemy.take_damage(0.1, enemy.DamageTypes.LASER)
 			enemy.velocity = Vector2.LEFT * enemy.speed if index >= 7 else Vector2.RIGHT * enemy.speed
 			enemy._update_static_motion(1.0 / 60.0)
+			var art: Node2D = enemy.get_visual_node()
 			poses.append({"frame": frame, "actor": index, "kind": enemy.kind,
 				"position": [enemy.position.x, enemy.position.y], "velocity": [enemy.velocity.x, enemy.velocity.y],
 				"health": enemy.health.current_health, "radius": enemy.body_radius, "speed": enemy.speed,
 				"contact_damage": enemy.contact_damage, "alpha": enemy.modulate.a,
-				"visual_alpha": enemy.static_visual.modulate.a, "flip_h": enemy.static_visual.flip_h,
-				"visual_offset": [enemy.static_visual.position.x, enemy.static_visual.position.y],
-				"visual_rotation": enemy.static_visual.rotation,
-				"visual_scale": [enemy.static_visual.scale.x, enemy.static_visual.scale.y],
+				"visual_alpha": art.modulate.a, "flip_h": enemy.native_visual.get_node("Facing").scale.x < 0 if enemy.native_visual != null else enemy.static_visual.flip_h,
+				"visual_offset": [art.position.x, art.position.y],
+				"visual_rotation": art.rotation,
+				"visual_scale": [art.scale.x, art.scale.y],
 				"flash_timer": enemy.flash_timer, "flash_amount": enemy.static_flash_material.get_shader_parameter("flash_amount")})
 		if frame == 0:
 			valid = await _capture("single") and valid

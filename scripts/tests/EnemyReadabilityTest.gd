@@ -51,7 +51,8 @@ func _initialize() -> void:
 			if not _check(is_equal_approx(enemy.flash_timer, 0.08), "accepted hit changed the 80 ms timer"):
 				return
 			enemy._physics_process(1.0 / 60.0)
-			if not _check(is_equal_approx(enemy.modulate.a, 1.0) and is_equal_approx(enemy.static_visual.modulate.a, 1.0), "feedback made actor translucent"):
+			var visual: Node2D = enemy.native_visual if enemy.native_visual != null else enemy.static_visual
+			if not _check(is_equal_approx(enemy.modulate.a, 1.0) and is_equal_approx(visual.modulate.a, 1.0), "feedback made actor translucent"):
 				return
 		if not _check(is_equal_approx(enemy.health.current_health, initial_health - 12.0) and events[0] == 120 and events[2] == 120 and is_equal_approx(events[1], 12.0), "feedback changed continuous damage or events"):
 			return

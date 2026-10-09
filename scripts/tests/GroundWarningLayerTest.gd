@@ -75,7 +75,8 @@ func _initialize() -> void:
 			enemy.ranged_target_position = player.global_position
 			enemy.is_attacking = true
 			ground(enemy.get_node_or_null("GroundWarning"), "enemy %d aim/melee cue" % kind)
-			check(effective_z(enemy.static_visual) == effective_z(enemy), "enemy %d sprite must not be grounded with its warnings" % kind)
+			var visual: Node2D = enemy.native_visual if enemy.native_visual != null else enemy.static_visual
+			check(effective_z(visual) == effective_z(enemy), "enemy %d body must not be grounded with its warnings" % kind)
 		var boss := EnemyActor.new()
 		shots.add_child(boss)
 		boss.global_position = Vector2(100, 40)

@@ -54,12 +54,13 @@ func _process(_delta: float) -> void:
 	for enemy in enemies.get_children():
 		if not is_instance_valid(enemy) or enemy.is_queued_for_deletion() or not enemy.is_visible_in_tree():
 			continue
-		# Bosses use a separate renderer and are not static-art occluders.
-		if not "static_visual" in enemy or enemy.static_visual == null:
+		# Bosses use a separate renderer; ordinary native actors share this
+		# bounded visual interface without restoring a fake Sprite2D dependency.
+		if not enemy.has_method("get_visual_node"):
 			continue
 		if enemy.global_position.y <= player.global_position.y:
 			continue
-		var art: Sprite2D = enemy.static_visual
-		if art.is_visible_in_tree() and (art.global_transform * art.get_rect()).intersects(body):
+		var art: Node2D = enemy.get_visual_node()
+		if art != null and art.is_visible_in_tree() and (art.global_transform * enemy.get_visual_rect()).intersects(body):
 			visible = true
 			return

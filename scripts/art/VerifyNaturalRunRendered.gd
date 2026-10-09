@@ -43,8 +43,8 @@ func _capture_collection() -> void:
 		for enemy in director.active_enemies:
 			if not is_instance_valid(enemy) or not enemy is EnemyScript or enemy.is_queued_for_deletion() or enemy.flash_timer <= 0.0 or enemy.health.current_health <= 0.0:
 				continue
-			var visual: Sprite2D = enemy.static_visual
-			if visual != null and visual.is_visible_in_tree() and screen.intersects(visual.get_global_transform_with_canvas() * visual.get_rect()):
+			var visual: Node2D = enemy.get_visual_node()
+			if visual != null and visual.is_visible_in_tree() and screen.intersects(visual.get_global_transform_with_canvas() * enemy.get_visual_rect()):
 				enemy_flash_counts[enemy.kind] += 1
 				if not is_equal_approx(float(enemy.static_flash_material.get_shader_parameter("flash_amount")), 0.35):
 					enemy_flash_conflicts += 1
@@ -257,6 +257,8 @@ static func visual_source_paths() -> Array[String]:
 		if filename.ends_with("_chibi_b_v1.png"):
 			var path: String = "assets/art/actors/enemies/" + filename
 			paths.append(path)
+	for path in ["scripts/components/NativeActorView.gd", "scripts/components/NativeScrapperMotion.gd", "scenes/actors/native/rootling_paper_v3.tscn", "assets/art/actors/native/rootling_motion_v3.tres", "scripts/effects/PlayerOcclusionOutline.gd"]:
+		paths.append(path)
 	return paths
 
 func _source_hashes() -> Dictionary:

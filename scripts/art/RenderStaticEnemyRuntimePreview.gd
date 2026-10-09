@@ -2,7 +2,7 @@ extends SceneTree
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 
-const OUTPUT_PATH := "res://docs/art/previews/characters-combat/enemy-static-runtime-v1.png"
+const OUTPUT_PATH := "res://docs/art/previews/characters-combat/enemy-mixed-native-runtime-v2.png"
 const VIEWPORT_SIZE := Vector2i(1536, 900)
 
 func _initialize() -> void:
@@ -19,11 +19,11 @@ func _initialize() -> void:
 	background.color = Color("071018")
 	viewport.add_child(background)
 	_add_grid(background)
-	_add_label(background, "B CHIBI ENEMIES — SINGLE-SPRITE RUNTIME GATE", Vector2(42, 24), 28)
-	_add_label(background, "fixed elevated-oblique camera · right-facing masters · horizontal player-facing flip", Vector2(42, 60), 16)
+	_add_label(background, "ENEMY MIGRATION — NATIVE SCRAPPER + LEGACY SPRITES", Vector2(42, 24), 28)
+	_add_label(background, "transitional roster, not all-native completion · horizontal player-facing flip", Vector2(42, 60), 16)
 
 	var fixtures := [
-		{"kind": EnemyScript.EnemyKind.SCRAPPER, "name": "SCRAPPER", "scale": EnemyScript.SCRAPPER_RUNTIME_SCALE},
+		{"kind": EnemyScript.EnemyKind.SCRAPPER, "name": "NATIVE ROOTLING", "scale": Vector2.ONE},
 		{"kind": EnemyScript.EnemyKind.DASHER, "name": "DASHER", "scale": EnemyScript.DASHER_RUNTIME_SCALE},
 		{"kind": EnemyScript.EnemyKind.SPITTER, "name": "SPITTER", "scale": EnemyScript.SPITTER_RUNTIME_SCALE},
 		{"kind": EnemyScript.EnemyKind.BRUISER, "name": "BRUISER", "scale": EnemyScript.BRUISER_RUNTIME_SCALE},
@@ -77,9 +77,13 @@ func _spawn_enemy(parent: Node, kind: int, position: Vector2, visual_scale: Vect
 	parent.add_child(enemy)
 	await process_frame
 	enemy.set_physics_process(false)
-	enemy.static_visual.scale = visual_scale
-	enemy.static_visual.flip_h = flip_h
-	enemy.static_visual_half_height = 64.0 * visual_scale.y
+	if enemy.static_visual != null:
+		enemy.static_visual.scale = visual_scale
+		enemy.static_visual_half_height = 64.0 * visual_scale.y
+	else:
+		enemy.native_visual.scale = visual_scale
+		enemy.static_visual_half_height = 58.0 * visual_scale.y
+	enemy._update_enemy_facing(enemy.global_position + Vector2(-100 if flip_h else 100, 0))
 	enemy.queue_redraw()
 
 func _add_label(parent: Control, value: String, position: Vector2, font_size: int) -> void:

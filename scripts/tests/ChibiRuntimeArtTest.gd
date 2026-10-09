@@ -106,7 +106,8 @@ func _initialize() -> void:
 	]:
 		var enemy := await _spawn_enemy(int(fixture.kind))
 		enemies.append(enemy)
-		if not _assert_true(enemy.static_visual.texture.resource_path == fixture.path, "enemy did not use its B-style art: " + fixture.path):
+		var accepted: bool = enemy.native_visual != null and enemy.static_visual == null if fixture.kind == EnemyScript.EnemyKind.SCRAPPER else enemy.static_visual.texture.resource_path == fixture.path
+		if not _assert_true(accepted, "enemy did not use its current approved actor resource: " + fixture.path):
 			return
 	var bruiser: CharacterBody2D = enemies[3]
 	var collision_shape := bruiser.get_child(bruiser.get_child_count() - 1) as CollisionShape2D

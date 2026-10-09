@@ -24,8 +24,9 @@ const EnemyFlockScript = preload("res://scripts/components/EnemyFlock.gd")
 const ScrapperAttackScript = preload("res://scripts/components/ScrapperAttack.gd")
 const HitFeedbackScript = preload("res://scripts/effects/EnemyHitFeedback.gd")
 const AttackDrawing = preload("res://scripts/effects/HostileAttackDrawing.gd")
+const NATIVE_SCRAPPER := preload("res://scenes/actors/native/rootling_paper_v3.tscn")
+const NativeMotion = preload("res://scripts/components/NativeScrapperMotion.gd")
 const DASHER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png")
-const SCRAPPER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_scrapper_chibi_b_v1.png")
 const BRUISER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png")
 const SPITTER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png")
 const MARKSMAN_TEXTURE := preload("res://assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png")
@@ -35,7 +36,6 @@ const ENEMY_HIT_FLASH_SHADER := preload("res://assets/art/shaders/dasher_hit_fla
 const HIT_FLASH_AMOUNT := 0.35 # Preserve faction color and detail during sustained hits.
 
 const DASHER_RUNTIME_SCALE := Vector2(0.5, 0.5)
-const SCRAPPER_RUNTIME_SCALE := Vector2(0.44, 0.44)
 const BRUISER_RUNTIME_SCALE := Vector2(0.66, 0.66)
 const SPITTER_RUNTIME_SCALE := Vector2(0.45, 0.45)
 const MARKSMAN_RUNTIME_SCALE := Vector2(0.55, 0.55)
@@ -105,6 +105,8 @@ var neighbor_provider: Callable
 var flock: RefCounted = EnemyFlockScript.new()
 var arena_navigation: Node
 var static_visual: Sprite2D
+var native_visual: Node2D
+var native_motion: RefCounted
 var static_flash_material: ShaderMaterial
 var static_visual_half_height := 0.0
 var static_visual_base_scale := Vector2.ONE
@@ -211,7 +213,7 @@ func _ready() -> void:
 	add_child(ground_warning)
 	match kind:
 		EnemyKind.SCRAPPER:
-			_create_static_visual(SCRAPPER_TEXTURE, SCRAPPER_RUNTIME_SCALE, "ScrapperVisual")
+			_create_native_visual()
 		EnemyKind.DASHER:
 			_create_static_visual(DASHER_TEXTURE, DASHER_RUNTIME_SCALE, "DasherVisual")
 		EnemyKind.SPITTER:
@@ -235,6 +237,10 @@ func _physics_process(delta: float) -> void:
 	if death_resolved:
 		basic_attack.cancel()
 		return
+	if flash_timer > 0.0:
+		flash_timer = maxf(0.0, flash_timer - delta)
+		_queue_visual_redraw()
+	_update_hit_flash()
 	if spawn_impulse_remaining > 0.0:
 		if basic_attack.is_active():
 			basic_attack.cancel()
@@ -288,8 +294,6 @@ func _physics_process(delta: float) -> void:
 				if get_slide_collision_count() > 0:
 					basic_attack.finish_motion()
 				_update_static_motion(delta)
-				flash_timer = maxf(0.0, flash_timer - delta)
-				_update_hit_flash()
 				_queue_visual_redraw()
 				return
 		_update_melee_attack(delta, player, to_player.length())
@@ -297,9 +301,6 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector2.ZERO
 			global_position = attack_anchor_position
 			_update_static_motion(delta)
-			if flash_timer > 0.0:
-				flash_timer -= delta
-			_update_hit_flash()
 			_queue_visual_redraw()
 			return
 		desired = _get_melee_desired_velocity(to_player)
@@ -317,10 +318,6 @@ func _physics_process(delta: float) -> void:
 			_update_marksman(delta, player)
 		EnemyKind.LOBBER:
 			_update_lobber(delta, player)
-	if flash_timer > 0.0:
-		flash_timer = maxf(0.0, flash_timer - delta)
-		_queue_visual_redraw()
-	_update_hit_flash()
 	_update_static_motion(delta)
 
 func apply_spawn_impulse(initial_velocity: Vector2, duration: float, elapsed: float = 0.0) -> void:
@@ -577,7 +574,7 @@ func _draw() -> void:
 	if flash_timer > 0.0:
 		body_color = Color.WHITE
 	var size := body_radius * 1.7
-	if static_visual == null:
+	if static_visual == null and native_visual == null:
 		draw_rect(Rect2(Vector2(-size * 0.5, -size * 0.5), Vector2(size, size)), body_color)
 	if should_show_health_bar():
 		var bar_rect := get_health_bar_rect()
@@ -586,9 +583,9 @@ func _draw() -> void:
 	elif should_show_status_marker():
 		var status_y := -static_visual_half_height - 6.0 if static_visual != null else -body_radius - 3.0
 		draw_rect(Rect2(-body_radius * 0.55, status_y, body_radius * 1.1, 5), accent)
-	if static_visual == null:
+	if static_visual == null and native_visual == null:
 		draw_rect(Rect2(-body_radius - 2, -3, (body_radius + 2) * 2.0, 6), body_color.darkened(0.25))
-	if static_visual == null:
+	if static_visual == null and native_visual == null:
 		draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
 		draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
 	if should_show_attack_marker():
@@ -596,14 +593,22 @@ func _draw() -> void:
 
 func get_health_bar_rect() -> Rect2:
 	var width := body_radius * 1.6
-	var top := -static_visual_half_height - 8.0 if static_visual != null else -body_radius - 12.0
+	var top := -static_visual_half_height - 8.0 if static_visual != null or native_visual != null else -body_radius - 12.0
 	return Rect2(-width * 0.5, top, width, 6.0)
+
+func get_visual_node() -> Node2D:
+	return native_visual if native_visual != null else static_visual
+
+func get_visual_rect() -> Rect2:
+	if native_visual != null:
+		return native_visual.body_rect
+	return static_visual.get_rect() if static_visual != null else Rect2()
 
 func get_attack_marker_top() -> float:
 	# Keep the warning's outlined dot clear of the persistent small-enemy bar.
 	if should_show_health_bar():
 		return get_health_bar_rect().position.y - 6.0
-	return -static_visual_half_height - 7.0 if static_visual != null else -body_radius - 7.0
+	return -static_visual_half_height - 7.0 if static_visual != null or native_visual != null else -body_radius - 7.0
 
 func should_show_attack_marker() -> bool:
 	if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER] or death_resolved or is_target_hidden():
@@ -651,7 +656,19 @@ func should_show_health_bar() -> bool:
 
 func should_show_status_marker() -> bool:
 	# Colored placeholder strips duplicate the illustrated silhouettes and carry no state.
-	return static_visual == null and kind not in [EnemyKind.BRUISER, EnemyKind.OVERSEER]
+	return static_visual == null and native_visual == null and kind not in [EnemyKind.BRUISER, EnemyKind.OVERSEER]
+
+func _create_native_visual() -> void:
+	native_visual = NATIVE_SCRAPPER.instantiate()
+	native_visual.name = "NativeVisual"
+	native_visual.show_behind_parent = true
+	add_child(native_visual)
+	static_visual_half_height = 58.0 # Tall leaf crest plus native walk bob, not collision radius.
+	static_flash_material = ShaderMaterial.new()
+	static_flash_material.shader = ENEMY_HIT_FLASH_SHADER
+	static_flash_material.set_shader_parameter("flash_amount", 0.0)
+	native_visual.get_node("Facing/Skin").material = static_flash_material
+	native_motion = NativeMotion.new(native_visual)
 
 func _create_static_visual(texture: Texture2D, visual_scale: Vector2, node_name: String) -> void:
 	static_visual = Sprite2D.new()
@@ -670,6 +687,9 @@ func _create_static_visual(texture: Texture2D, visual_scale: Vector2, node_name:
 	add_child(static_visual)
 
 func _update_static_motion(delta: float) -> void:
+	if native_visual != null:
+		native_motion.update(self, delta)
+		return
 	if static_visual == null:
 		return
 	if kind == EnemyKind.SCRAPPER and basic_attack.stage == basic_attack.Stage.WARNING and basic_attack.move == basic_attack.Move.POUNCE:
@@ -694,6 +714,8 @@ func _update_enemy_facing(target_global_position: Vector2) -> void:
 	var face_left := target_global_position.x < global_position.x
 	if static_visual != null:
 		static_visual.flip_h = face_left
+	if native_visual != null:
+		native_visual.set_facing_left(face_left)
 
 func _update_hit_flash() -> void:
 	var amount := HIT_FLASH_AMOUNT if flash_timer > 0.0 else 0.0
@@ -716,6 +738,9 @@ func take_damage(
 	if is_instance_valid(hit_feedback):
 		hit_feedback.request_hit(hit_direction, body_radius, actual_damage)
 	flash_timer = 0.08
+	if native_visual != null and not killed:
+		native_motion.notify_hit()
+		native_motion.update(self, 0.0)
 	_update_hit_flash()
 	_queue_visual_redraw()
 	damage_resolved.emit(
@@ -748,6 +773,10 @@ func _die(source: StringName) -> void:
 	if death_resolved:
 		return
 	death_resolved = true
+	if native_visual != null:
+		static_flash_material.set_shader_parameter("flash_amount", 0.0)
+		native_motion.release_death(get_parent())
+		native_visual = null
 	died.emit(self, coin_value, source)
 	queue_free()
 

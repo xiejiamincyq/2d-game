@@ -77,6 +77,20 @@ func _initialize() -> void:
 	outline._process(0.0)
 	if not check(outline.visible and player.modulate.a == 1.0 and enemy.modulate.a == 1.0, "outline alters actor opacity or remains hidden"):
 		return
+	enemy.hide()
+	var native := EnemyScript.new()
+	native.process_mode = Node.PROCESS_MODE_DISABLED
+	native.setup(EnemyScript.EnemyKind.SCRAPPER, 1, fixture, player)
+	native.position = Vector2(0, 24)
+	enemies.add_child(native)
+	outline._process(0.0)
+	if not check(outline.visible, "native foreground actor no longer triggers player contour"):
+		fixture.free()
+		return
+	native.position.x = 180
+	outline._process(0.0)
+	if not check(not outline.visible, "native visual bounds produce distant false occlusion"):
+		return
 	player.health.died.emit()
 	if not check(not outline.visible, "death did not immediately clear contour before pause"):
 		return

@@ -88,7 +88,7 @@ func _spawn_enemy(parent: Node, kind: int, position: Vector2, flip_h: bool, movi
 	parent.add_child(enemy)
 	await process_frame
 	enemy.set_physics_process(false)
-	enemy.static_visual.flip_h = flip_h
+	enemy._update_enemy_facing(enemy.global_position + Vector2(-100 if flip_h else 100, 0))
 	if moving:
 		enemy.velocity = Vector2.RIGHT * 100.0
 		enemy._update_static_motion(0.12)

@@ -35,8 +35,12 @@ func _initialize() -> void:
 			check(not enemy.should_show_health_bar(), "dead bar visible")
 			enemy.health.current_health = enemy.health.max_health
 			# Placeholder fallback remains valid without a texture.
-			enemy.static_visual.free()
-			enemy.static_visual = null
+			if enemy.static_visual != null:
+				enemy.static_visual.free()
+				enemy.static_visual = null
+			else:
+				enemy.native_visual.free()
+				enemy.native_visual = null
 			bar = enemy.get_health_bar_rect()
 			check(bar.end.y < -enemy.body_radius, "placeholder bar overlaps body")
 		var health_node = enemy.health
