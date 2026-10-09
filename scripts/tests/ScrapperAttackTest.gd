@@ -33,7 +33,7 @@ func _initialize() -> void:
 		target.position = Vector2(50, 0)
 		check(attack.begin(enemy, target, 0), "claw did not start")
 		var heading: Vector2 = attack.direction
-		attack.advance(0.49)
+		attack.advance(0.21)
 		attack.resolve_hit(enemy, target)
 		check(target.hits.is_empty(), "warning dealt damage")
 		attack.advance(0.02)
@@ -45,7 +45,7 @@ func _initialize() -> void:
 		check(attack.begin(enemy, target, 0), "displacement claw rejected")
 		enemy.position = Vector2(20, 0)
 		target.position = Vector2(75, 0)
-		attack.advance(0.51)
+		attack.advance(0.23)
 		attack.resolve_hit(enemy, target)
 		check(target.hits.is_empty(), "displaced actor damaged outside locked claw warning")
 		attack.cancel()
@@ -53,13 +53,13 @@ func _initialize() -> void:
 		target.position = Vector2(50, 0)
 		check(attack.begin(enemy, target, 0), "second claw rejected")
 		target.position = Vector2(0, 50)
-		attack.advance(0.51)
+		attack.advance(0.23)
 		attack.resolve_hit(enemy, target)
 		check(target.hits.is_empty() and attack.direction == heading, "claw tracked dodging player")
 		attack.cancel()
 		target.position = Vector2(110, 0)
 		check(attack.begin(enemy, target, 1), "pounce did not start")
-		attack.advance(0.59)
+		attack.advance(0.29)
 		check(attack.get_velocity() == Vector2.ZERO, "pounce moved during warning")
 		attack.advance(0.02)
 		check(attack.get_velocity().is_equal_approx(Vector2(330, 0)), "pounce speed/direction wrong")
@@ -108,11 +108,15 @@ func _initialize() -> void:
 		arena.add_child(pouncer)
 		pouncer.set_physics_process(false)
 		pouncer.basic_attack.begin(pouncer, real_player, 1)
+		var pounce_peak_x := 0.0
 		for frame in range(60):
 			await physics_frame
+			var was_pouncing: bool = pouncer.basic_attack.stage == pouncer.basic_attack.Stage.ACTIVE
 			pouncer._physics_process(1.0 / 60.0)
+			if was_pouncing:
+				pounce_peak_x = maxf(pounce_peak_x, pouncer.position.x)
 		check(real_player.health.current_health == 76.0, "real player collision stopped pounce before damage reach")
-		check(pouncer.position.x <= 80.0, "real pounce crossed player collider")
+		check(pounce_peak_x <= 80.0, "real pounce crossed player collider before recovery pursuit")
 	arena.queue_free()
 	await process_frame
 	await process_frame

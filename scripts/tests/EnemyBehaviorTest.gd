@@ -99,6 +99,9 @@ func _initialize() -> void:
 	spitter.global_position = player.global_position + Vector2(runtime_min + 24.0, 0)
 	spitter.shoot_cooldown = 0.0
 	spitter._update_spitter(1.0, player)
+	if not _assert_true(spitter.ranged_is_winding_up and projectiles.get_child_count() == 0, "visible Spitter skipped head warning"):
+		return
+	spitter._update_spitter(0.19, player)
 	if not _assert_true(projectiles.get_child_count() == 1, "visible Spitter inside its distance ring did not fire"):
 		return
 

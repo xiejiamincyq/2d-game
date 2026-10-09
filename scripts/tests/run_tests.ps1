@@ -44,6 +44,7 @@ $gameplayTests = @(
     "CombatFeedbackTest",
     "EnemyHitFeedbackTest",
     "EnemyAttackFeedbackTest",
+    "EnemyCompactAttackTest",
     "AudioLifecycleTest",
     "MainCloseTest",
     "DamageTest",

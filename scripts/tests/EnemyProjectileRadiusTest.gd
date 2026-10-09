@@ -51,6 +51,7 @@ func test_launch(kind: int, transformed: bool) -> bool:
 			enemy._fire_marksman(target)
 		EnemyScript.EnemyKind.SPITTER:
 			enemy._update_spitter(0.0, target)
+			enemy._update_spitter(0.19, target)
 		EnemyScript.EnemyKind.OVERSEER:
 			enemy._fire_overseer_burst()
 	var expected_count := 12 if kind == EnemyScript.EnemyKind.OVERSEER else 1

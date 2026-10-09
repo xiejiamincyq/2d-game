@@ -22,10 +22,10 @@ class ImpactVisual extends Node2D:
 
 	func _draw() -> void:
 		var alpha := clampf(1.0 - elapsed / DURATION, 0.0, 1.0)
-		for index in range(6):
-			var angle := TAU * index / 6.0
-			draw_arc(Vector2.ZERO, radius, angle, angle + PI * 0.22, 8, Color(OUTLINE_COLOR, alpha), 5.0, true)
-			draw_arc(Vector2.ZERO, radius, angle, angle + PI * 0.22, 8, Color(WARNING_COLOR, alpha), 3.0, true)
+		for index in range(3):
+			var angle := TAU * index / 3.0
+			draw_arc(Vector2.ZERO, radius, angle, angle + PI * 0.22, 8, Color(OUTLINE_COLOR, alpha), 3.0, true)
+			draw_arc(Vector2.ZERO, radius, angle, angle + PI * 0.22, 8, Color(WARNING_COLOR, alpha), 1.5, true)
 			var direction := Vector2.RIGHT.rotated(angle)
 			draw_line(direction * radius * 0.78, direction * radius, Color(OUTLINE_COLOR, alpha), 4.0, true)
 			draw_line(direction * radius * 0.78, direction * radius, Color(WARNING_COLOR, alpha), 2.0, true)
@@ -100,5 +100,5 @@ func _update_landing_fill() -> void:
 
 func _draw_landing_fill() -> void:
 	landing_fill.draw_circle(Vector2.ZERO, splash_radius, Color(tint, 0.08))
-	landing_fill.draw_arc(Vector2.ZERO, splash_radius, 0.0, TAU, 48, OUTLINE_COLOR, 5.0, true)
-	landing_fill.draw_arc(Vector2.ZERO, splash_radius, 0.0, TAU, 48, tint, 3.0, true)
+	landing_fill.draw_arc(Vector2.ZERO, splash_radius, 0.0, TAU, 48, OUTLINE_COLOR, 3.0, true)
+	landing_fill.draw_arc(Vector2.ZERO, splash_radius, 0.0, TAU, 48, tint, 1.5, true)

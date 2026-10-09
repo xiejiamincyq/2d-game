@@ -10,6 +10,10 @@ const CLAW_HALF_ANGLE := PI / 5.0
 const POUNCE_SPEED := 330.0
 const POUNCE_DURATION := 0.30
 const COOLDOWN := 4.0
+const CLAW_WARNING := 0.22
+const POUNCE_WARNING := 0.30
+const CLAW_ACTIVE := 0.12
+const RECOVERY := 0.20
 var stage := Stage.IDLE
 var move := Move.CLAW
 var elapsed := 0.0
@@ -25,8 +29,18 @@ func is_active() -> bool:
 
 func cancel() -> void:
 	stage = Stage.IDLE
-	cooldown = COOLDOWN
+	# Preserve the old full cycle while releasing movement sooner.
+	cooldown = COOLDOWN + get_released_delay()
 	did_hit = false
+
+func get_warning_duration() -> float:
+	return CLAW_WARNING if move == Move.CLAW else POUNCE_WARNING
+
+func get_active_duration() -> float:
+	return CLAW_ACTIVE if move == Move.CLAW else POUNCE_DURATION
+
+func get_released_delay() -> float:
+	return (0.5 if move == Move.CLAW else 0.6) - get_warning_duration() + 0.4 - RECOVERY
 
 func begin(actor: Node2D, target: Node2D, chosen: int) -> bool:
 	if is_active() or not is_instance_valid(target):
@@ -52,7 +66,7 @@ func consider(actor: Node2D, target: Node2D, delta: float) -> void:
 	var distance := actor.global_position.distance_to(target.global_position)
 	if distance > 36.0 and distance <= CLAW_RADIUS and next_move == Move.CLAW:
 		begin(actor, target, Move.CLAW)
-	elif distance >= 80.0 and distance <= 160.0:
+	elif distance >= 80.0 and distance <= POUNCE_SPEED * POUNCE_DURATION + get_contact_reach(actor) - 2.0:
 		begin(actor, target, Move.POUNCE)
 	elif distance > 36.0 and distance <= CLAW_RADIUS:
 		begin(actor, target, Move.CLAW)
@@ -61,9 +75,9 @@ func advance(delta: float) -> void:
 	if not is_active():
 		return
 	elapsed += maxf(0.0, delta)
-	var warning := 0.5 if move == Move.CLAW else 0.6
-	var active := 0.12 if move == Move.CLAW else POUNCE_DURATION
-	if elapsed >= warning + active + 0.4:
+	var warning := get_warning_duration()
+	var active := get_active_duration()
+	if elapsed >= warning + active + RECOVERY:
 		next_move = Move.POUNCE if move == Move.CLAW else Move.CLAW
 		cancel()
 	elif elapsed >= warning + active:
@@ -77,7 +91,7 @@ func get_velocity() -> Vector2:
 func finish_motion() -> void:
 	if stage == Stage.ACTIVE and move == Move.POUNCE:
 		stage = Stage.RECOVERY
-		elapsed = 0.6 + POUNCE_DURATION
+		elapsed = get_warning_duration() + POUNCE_DURATION
 
 func is_point_in_warning(actor: Node2D, point: Vector2) -> bool:
 	return Geometry2D.is_point_in_polygon(point - actor.global_position, get_warning_polygon(actor))
@@ -88,7 +102,7 @@ func get_contact_reach(actor: CharacterBody2D) -> float:
 	return actor.body_radius + target_radius + actor.safe_margin + 0.5
 
 func resolve_hit(actor: CharacterBody2D, target: Node2D) -> void:
-	if stage != Stage.ACTIVE or did_hit or not is_instance_valid(target):
+	if stage != Stage.ACTIVE or did_hit or not is_instance_valid(target) or not target.has_method("take_damage"):
 		return
 	var offset := target.global_position - actor.global_position
 	var in_reach: bool = offset.length() <= get_contact_reach(actor)
@@ -123,13 +137,8 @@ func get_warning_polygon(actor: Node2D) -> PackedVector2Array:
 	return points
 
 func draw_warning(canvas: Node2D, actor: Node2D) -> void:
-	if not is_active() or stage == Stage.RECOVERY:
+	if stage != Stage.ACTIVE:
 		return
-	var points := get_warning_polygon(actor)
-	canvas.draw_colored_polygon(points, Color("f27a4b55") if stage == Stage.WARNING else Color("f27a4b22"))
-	points.append(points[0])
-	canvas.draw_polyline(points, Color("123b3b"), 5.0, true)
-	canvas.draw_polyline(points, Color("f27a4b"), 3.0, true)
 	Drawing.draw_strokes(canvas, get_attack_strokes(actor))
 
 func get_attack_strokes(actor: Node2D) -> Array[PackedVector2Array]:
@@ -137,12 +146,12 @@ func get_attack_strokes(actor: Node2D) -> Array[PackedVector2Array]:
 		return []
 	var base := origin - actor.global_position
 	if move == Move.CLAW:
-		return Drawing.claw_strokes(base, direction, (elapsed - 0.5) / 0.12, CLAW_RADIUS, CLAW_HALF_ANGLE)
+		return Drawing.claw_strokes(base, direction, (elapsed - get_warning_duration()) / CLAW_ACTIVE, CLAW_RADIUS, CLAW_HALF_ANGLE)
 	var strokes: Array[PackedVector2Array] = []
 	var traveled := clampf((actor.global_position - origin).dot(direction), 0.0, POUNCE_SPEED * POUNCE_DURATION)
 	var tail_end := maxf(0.0, traveled - actor.body_radius * 0.90)
 	var tail_start := maxf(0.0, tail_end - actor.body_radius * 2.5)
-	for offset in [-0.65, 0.0, 0.65]:
+	for offset in [0.0]:
 		var side: Vector2 = direction.orthogonal() * actor.body_radius * float(offset)
 		strokes.append(PackedVector2Array([base + direction * tail_start + side, base + direction * tail_end + side]))
 	return strokes

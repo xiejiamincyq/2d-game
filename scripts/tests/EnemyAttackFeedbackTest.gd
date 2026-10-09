@@ -32,10 +32,10 @@ func _initialize() -> void:
 				check(attack.get_attack_strokes(actor).is_empty(), "decorative attack strokes shown during warning")
 				for fraction in [0.0, 0.25, 0.5, 0.75, 0.99]:
 					attack.stage = attack.Stage.ACTIVE
-					attack.elapsed = (0.5 + 0.12 * fraction) if move == 0 else (0.6 + 0.30 * fraction)
+					attack.elapsed = attack.get_warning_duration() + attack.get_active_duration() * fraction
 					actor.position = attack.direction * 99.0 * fraction if move == 1 else Vector2.ZERO
 					var strokes: Array = attack.get_attack_strokes(actor)
-					check(strokes.size() <= 3, "stroke budget exceeded")
+					check(strokes.size() <= 1, "compact stroke budget exceeded")
 					for stroke: PackedVector2Array in strokes:
 						for point: Vector2 in stroke:
 							check(Geometry2D.is_point_in_polygon(point + actor.position, polygon), "stroke center outside locked warning geometry")

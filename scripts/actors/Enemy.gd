@@ -47,7 +47,7 @@ const RANGED_MIN_VIEW_FRACTION := 0.38
 const RANGED_MAX_VIEW_FRACTION := 0.48
 const ENEMY_PROJECTILE_BASE_SPEED := 260.0
 const MARKSMAN_PROJECTILE_SPEED_MULTIPLIER := 3.5
-const MARKSMAN_TELEGRAPH_SECONDS := 0.5
+const MARKSMAN_TELEGRAPH_SECONDS := 0.30
 const MARKSMAN_TELEGRAPH_LENGTH := 1400.0
 const BASE_MOVE_SPEED_MULTIPLIER := 1.10
 const MELEE_ENEMY_SPEED := 235.0 * 0.90
@@ -77,8 +77,9 @@ var projectile_parent: Node
 var flash_timer: float = 0.0
 var body_radius: float = 14.0
 var attack_range: float = 32.0
-var attack_windup: float = 0.32
-var attack_recovery: float = 0.55
+var attack_windup: float = 0.18
+var attack_recovery: float = 0.20
+var melee_cycle_duration := 1.02
 var attack_timer: float = 0.0
 var attack_cooldown: float = 0.0
 var attack_has_hit: bool = false
@@ -136,6 +137,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 			coin_value = 2
 			_add_health(22.0 * scale_factor)
 		EnemyKind.SPITTER:
+			ranged_windup_duration = 0.18
 			feedback_weight = FeedbackWeight.LIGHT
 			speed = 58.0 + wave_index * 2.0
 			contact_damage = 15.0
@@ -152,6 +154,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 			attack_range = 46.0
 			attack_windup = 0.5
 			attack_recovery = 0.75
+			melee_cycle_duration = 1.40
 			_add_health(300.0 * scale_factor)
 		EnemyKind.MARKSMAN:
 			feedback_weight = FeedbackWeight.LIGHT
@@ -169,12 +172,14 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 			contact_damage = 24.0
 			coin_value = 7
 			shoot_cooldown = randf_range(1.0, 1.8)
-			ranged_windup_duration = 0.72
+			ranged_windup_duration = 0.35
 			ranged_keep_min = 230.0
 			ranged_keep_max = 460.0
 			body_radius = 17.0
 			_add_health(72.0 * scale_factor)
 		EnemyKind.OVERSEER:
+			attack_windup = 0.32
+			attack_recovery = 0.55
 			feedback_weight = FeedbackWeight.HEAVY
 			speed = 42.0
 			contact_damage = 72.0
@@ -256,7 +261,10 @@ func _physics_process(delta: float) -> void:
 	hidden_dispersion_timer = 0.0
 	var to_player: Vector2 = player.global_position - global_position
 	var desired: Vector2 = to_player.normalized()
-	_update_enemy_facing(player.global_position)
+	var facing_target := player.global_position
+	if kind == EnemyKind.SCRAPPER and basic_attack.stage in [basic_attack.Stage.WARNING, basic_attack.Stage.ACTIVE]:
+		facing_target = global_position + basic_attack.direction * 100.0
+	_update_enemy_facing(facing_target)
 	if kind == EnemyKind.OVERSEER:
 		_update_overseer(delta, player, to_player.length())
 		if is_attacking or ranged_is_winding_up:
@@ -269,6 +277,11 @@ func _physics_process(delta: float) -> void:
 			if basic_attack.is_active():
 				basic_attack.advance(delta)
 				velocity = basic_attack.get_velocity()
+				if basic_attack.stage == basic_attack.Stage.RECOVERY or not basic_attack.is_active():
+					var pursuit := _apply_arena_navigation(_get_melee_desired_velocity(to_player), player.global_position)
+					velocity = _resolve_flock_velocity(pursuit, to_player, delta)
+				if not basic_attack.is_active():
+					attack_cooldown = maxf(attack_cooldown, basic_attack.get_released_delay())
 				move_and_slide()
 				_clamp_to_world_bounds()
 				basic_attack.resolve_hit(self, player)
@@ -580,6 +593,14 @@ func _draw() -> void:
 	if static_visual == null:
 		draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
 		draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
+	if should_show_attack_marker():
+		var top := -static_visual_half_height - 7.0 if static_visual != null else -body_radius - 7.0
+		AttackDrawing.draw_head_warning(self, top)
+
+func should_show_attack_marker() -> bool:
+	if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER] or death_resolved or is_target_hidden():
+		return false
+	return (kind == EnemyKind.SCRAPPER and basic_attack.stage == basic_attack.Stage.WARNING) or (is_attacking and attack_timer > 0.0) or ranged_is_winding_up
 
 func _queue_visual_redraw() -> void:
 	queue_redraw()
@@ -594,7 +615,8 @@ func _draw_ground_warning() -> void:
 		accent = Color(0.7, 0.2, 1.0)
 	if is_attacking:
 		var p := 1.0 - clampf(attack_timer / maxf(0.01, attack_windup), 0.0, 1.0)
-		ground_warning.draw_arc(Vector2.ZERO, attack_range, -PI * 0.85, PI * 0.85, 24, Color(1.0, 0.55, 0.15, 0.25 + p * 0.45), 4.0)
+		if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER] and attack_timer > 0.0:
+			ground_warning.draw_arc(Vector2.ZERO, attack_range, -PI * 0.85, PI * 0.85, 24, Color(1.0, 0.55, 0.15, 0.25 + p * 0.45), 3.0)
 		if attack_has_hit and attack_timer >= -0.12:
 			AttackDrawing.draw_strokes(ground_warning, AttackDrawing.claw_strokes(Vector2.ZERO, attack_visual_direction, -attack_timer / 0.12, attack_range, PI / 3.0))
 	if ranged_is_winding_up:
@@ -602,18 +624,14 @@ func _draw_ground_warning() -> void:
 		var warning_color := HostilePalette.CORAL if kind in [EnemyKind.MARKSMAN, EnemyKind.LOBBER, EnemyKind.OVERSEER] else accent
 		var target_local := to_local(ranged_target_position)
 		if kind == EnemyKind.MARKSMAN:
-			ground_warning.draw_line(Vector2.ZERO, target_local, Color(0.02, 0.04, 0.06, 0.78), 5.0)
-			ground_warning.draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.32 + charge * 0.58), 1.5 + charge * 1.5)
-		elif kind == EnemyKind.LOBBER:
-			# Stop the aim line at the landing rim; never paint across its center.
-			var rim := target_local - target_local.normalized() * 72.0
-			ground_warning.draw_line(Vector2.ZERO, rim, Color(HostilePalette.OUTLINE, 0.8), 5.0, true)
-			ground_warning.draw_line(Vector2.ZERO, rim, Color(warning_color, 0.25 + charge * 0.55), 3.0, true)
-		else:
+			if ranged_windup_remaining <= 0.10:
+				ground_warning.draw_line(Vector2.ZERO, target_local, Color(0.02, 0.04, 0.06, 0.65), 3.0)
+				ground_warning.draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.65), 1.0)
+		elif kind == EnemyKind.OVERSEER:
 			ground_warning.draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.25 + charge * 0.55), 2.0 + charge * 2.0)
 		if kind == EnemyKind.LOBBER:
-			ground_warning.draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(HostilePalette.OUTLINE, 0.9), 5.0, true)
-			ground_warning.draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(warning_color, 0.5 + charge * 0.4), 3.0, true)
+			ground_warning.draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(HostilePalette.OUTLINE, 0.8), 3.0, true)
+			ground_warning.draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(warning_color, 0.7), 1.5, true)
 		elif kind == EnemyKind.OVERSEER:
 			ground_warning.draw_arc(Vector2.ZERO, body_radius + 18.0 + charge * 12.0, 0.0, TAU, 40, Color(warning_color, 0.75), 4.0)
 
@@ -645,6 +663,11 @@ func _create_static_visual(texture: Texture2D, visual_scale: Vector2, node_name:
 
 func _update_static_motion(delta: float) -> void:
 	if static_visual == null:
+		return
+	if kind == EnemyKind.SCRAPPER and basic_attack.stage == basic_attack.Stage.WARNING and basic_attack.move == basic_attack.Move.POUNCE:
+		static_visual.position = basic_attack.direction * 2.0
+		static_visual.rotation = signf(basic_attack.direction.x) * 0.06
+		static_visual.scale = static_visual_base_scale * Vector2(1.03, 0.97)
 		return
 	if velocity.length_squared() > 1.0:
 		static_motion_elapsed += delta
@@ -740,18 +763,33 @@ func _update_melee_attack(delta: float, player: Node2D, distance: float) -> void
 			player.take_damage(contact_damage)
 	if attack_timer <= -attack_recovery:
 		is_attacking = false
-		attack_cooldown = 0.15
+		attack_cooldown = maxf(0.15, melee_cycle_duration - attack_windup - attack_recovery)
 		_queue_visual_redraw()
 
 func _update_spitter(delta: float, player: Node2D) -> void:
+	if ranged_is_winding_up:
+		ranged_windup_remaining -= delta
+		_queue_visual_redraw()
+		if ranged_windup_remaining <= 0.0:
+			ranged_is_winding_up = false
+			_fire_spitter()
+		return
 	if not _is_in_visible_engagement_zone(player):
 		return
 	shoot_cooldown -= delta
 	if shoot_cooldown > 0.0 or projectile_parent == null:
 		return
-	shoot_cooldown = randf_range(1.8, 2.7)
+	shoot_cooldown = randf_range(1.8, 2.7) - ranged_windup_duration
+	ranged_target_position = player.global_position
+	ranged_is_winding_up = true
+	ranged_windup_remaining = ranged_windup_duration
+	_queue_visual_redraw()
+
+func _fire_spitter() -> void:
+	if projectile_parent == null:
+		return
 	var shot := ProjectileScript.new()
-	shot.velocity = (player.global_position - global_position).normalized() * 260.0
+	shot.velocity = (ranged_target_position - global_position).normalized() * 260.0
 	shot.damage = 21.0
 	shot.radius = 5.0
 	shot.lifetime = 6.0
@@ -794,6 +832,7 @@ func _update_ranged_windup(delta: float, player: Node2D, attack_kind: int) -> vo
 	else:
 		ranged_target_position = player.global_position
 	shoot_cooldown = randf_range(1.7, 2.4) if attack_kind == EnemyKind.MARKSMAN else randf_range(2.2, 3.0)
+	shoot_cooldown += (0.5 if attack_kind == EnemyKind.MARKSMAN else 0.72) - ranged_windup_duration
 	_queue_visual_redraw()
 
 func _fire_marksman(player: Node2D) -> void:

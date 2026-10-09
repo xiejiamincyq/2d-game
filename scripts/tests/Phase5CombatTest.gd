@@ -80,15 +80,15 @@ func _initialize() -> void:
 	var locked_marksman_direction: Vector2 = (player.global_position - marksman.global_position).normalized()
 	if not _assert_true(
 		marksman.ranged_is_winding_up
-		and is_equal_approx(marksman.ranged_windup_duration, 0.5)
+		and is_equal_approx(marksman.ranged_windup_duration, 0.3)
 		and marksman.global_position.distance_to(marksman.ranged_target_position) >= 1200.0
 		and projectiles.get_child_count() == 0,
-		"Marksman did not provide a long harmless 0.5 second trajectory warning"
+		"Marksman did not provide a harmless compact 0.3 second warning"
 	):
 		return
 	player.global_position = Vector2(0.0, 140.0)
 	marksman._update_marksman(marksman.ranged_windup_duration - 0.01, player)
-	if not _assert_true(projectiles.get_child_count() == 0, "Marksman fired before the 0.5 second dodge window elapsed"):
+	if not _assert_true(projectiles.get_child_count() == 0, "Marksman fired before the 0.3 second dodge window elapsed"):
 		return
 	marksman._update_marksman(0.02, player)
 	var marksman_shot: Node = projectiles.get_child(0)

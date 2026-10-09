@@ -106,6 +106,7 @@ func test_enemy(kind: int) -> void:
 		match kind:
 			EnemyScript.EnemyKind.SPITTER:
 				enemy._update_spitter(0.0, player)
+				enemy._update_spitter(0.19, player)
 				expected = 21.0
 			EnemyScript.EnemyKind.MARKSMAN:
 				enemy._fire_marksman(player)

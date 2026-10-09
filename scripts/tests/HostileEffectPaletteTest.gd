@@ -48,6 +48,7 @@ func test_launch(kind: int) -> bool:
 			enemy._fire_marksman(target)
 		EnemyScript.EnemyKind.SPITTER:
 			enemy._update_spitter(0.0, target)
+			enemy._update_spitter(0.19, target)
 		EnemyScript.EnemyKind.OVERSEER:
 			enemy._fire_overseer_burst()
 	if not check(shots.get_child_count() == (12 if kind == EnemyScript.EnemyKind.OVERSEER else 1), "actual producer failed to launch"):
