@@ -6,9 +6,10 @@
 
 - [x] M0.1：当前代码/工作树核验、用户范围与延期规则写入规格、免费参考许可页检查。
   - 验证：现有Main/WaveDirector/RunSnapshotStore/GameUI结构已读；新系统不把pending_stage映射为chapter；仅参考Kenney作品页，尚未下载/导入。
-- [ ] M0.2：六关目录和纯顺序解锁模型。
+- [x] M0.2：六关目录和纯顺序解锁模型（尚未接入游戏菜单/战斗）。
   - 验收：1..6、独立主题/Boss ID；初始/越界/锁关/顺序击杀/重玩/六关封顶；合法状态往返、非法导入不破坏状态。
   - 验证：CampaignCatalogTest / CampaignProgressTest RED→GREEN；全量门禁。
+  - 实际结果：两套先退出1再通过109/165断言；89 Godot套件174866断言、35 Python套件269测试通过，日志 `build/diagnostics/campaign-goal/m0-2-full-green-v1.log`。目录ID只是未来内容契约，不冒称六关可玩；正式动画与磁盘进度未完成。
 - [ ] M0.3：独立永久进度store，文件保存与失败保护。
   - 验收：真实文件跨实例恢复；旧run存档保留；损坏/写入失败/中断恢复有明确结果。
   - 验证：CampaignProgressStoreTest及隔离存档证据。

@@ -38,6 +38,8 @@ if ($importExitCode -ne 0 -or $importOutput -match $forbidden) {
 Write-Host "RESOURCE IMPORT PASS" -ForegroundColor Green
 
 $gameplayTests = @(
+    "CampaignCatalogTest",
+    "CampaignProgressTest",
     "BalanceTest",
     "EconomyBuildTest",
     "CombatEventTest",
