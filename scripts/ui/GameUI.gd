@@ -6,6 +6,8 @@ signal settlement_close_requested
 signal wave_banner_finished(context: StringName)
 signal start_requested
 signal continue_requested
+signal chapter_requested(chapter: int)
+signal quit_requested
 signal restart_requested
 signal pause_requested
 signal bgm_volume_changed(value: float)
@@ -21,6 +23,7 @@ const BossEntranceOverlayScript = preload("res://scripts/ui/BossEntranceOverlay.
 const AimReticleScript = preload("res://scripts/ui/AimReticle.gd")
 const BossDirectionIndicatorScript = preload("res://scripts/ui/BossDirectionIndicator.gd")
 const MintFarmTheme = preload("res://themes/MintFarmTheme.tres")
+const CampaignStartScreen = preload("res://scripts/ui/CampaignStartScreen.gd")
 
 var root: Control
 var hud: Control
@@ -32,7 +35,8 @@ var boss_health_bar: Control
 var boss_entrance_overlay: Control
 var aim_reticle: Control
 var boss_direction_indicator: Control
-var start_backdrop: ColorRect
+var start_backdrop: Control
+var start_screen: Control
 var start_panel: PanelContainer
 var start_button: Button
 var continue_button: Button
@@ -148,48 +152,24 @@ func _refresh_status_layout() -> void:
 	combat_status_stack.size = Vector2(available_width, combat_status_stack.get_combined_minimum_size().y)
 
 func _build_start_screen() -> void:
-	start_backdrop = ColorRect.new()
-	start_backdrop.color = Color("9bd7bdee")
-	start_backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	root.add_child(start_backdrop)
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	start_backdrop.add_child(center)
-	start_panel = PanelContainer.new()
-	start_panel.custom_minimum_size = Vector2(520, 370)
-	center.add_child(start_panel)
-	var box := VBoxContainer.new()
-	box.alignment = BoxContainer.ALIGNMENT_CENTER
-	box.add_theme_constant_override("separation", 18)
-	start_panel.add_child(box)
-	var title := Label.new()
-	title.text = "废土清剿协议"
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 34)
-	box.add_child(title)
-	var subtitle := Label.new()
-	subtitle.text = "随机障碍地图 · 闪避敌人预警 · 波次结算构筑"
-	subtitle.tooltip_text = "敌人基础伤害提高至旧版三倍。追击者新增锁向爪击与扑击；Space 暂停查看操作与躲避说明。"
-	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	box.add_child(subtitle)
-	start_button = Button.new()
-	start_button.text = "开始清剿"
-	start_button.custom_minimum_size = Vector2(220, 52)
-	start_button.focus_mode = Control.FOCUS_ALL
-	start_button.pressed.connect(func() -> void: start_requested.emit())
-	box.add_child(start_button)
-	continue_button = Button.new()
-	continue_button.text = "继续清剿"
-	continue_button.custom_minimum_size = Vector2(220, 48)
-	continue_button.focus_mode = Control.FOCUS_ALL
-	continue_button.pressed.connect(func() -> void: continue_requested.emit())
-	box.add_child(continue_button)
-	set_continue_available(false)
+	start_screen = CampaignStartScreen.new()
+	start_screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.add_child(start_screen)
+	start_backdrop = start_screen
+	start_panel = start_screen.cover_panel
+	start_button = start_screen.start_button
+	continue_button = start_screen.continue_button
+	start_screen.start_requested.connect(func() -> void: start_requested.emit())
+	start_screen.continue_requested.connect(func() -> void: continue_requested.emit())
+	start_screen.chapter_requested.connect(func(chapter: int) -> void: chapter_requested.emit(chapter))
+	start_screen.quit_requested.connect(func() -> void: quit_requested.emit())
+	start_screen.bgm_volume_changed.connect(_forward_bgm_volume)
+	start_screen.bgm_mute_changed.connect(_forward_bgm_mute)
 
 func _connect_components() -> void:
 	hud.pause_requested.connect(func() -> void: pause_requested.emit())
-	hud.bgm_volume_changed.connect(func(value: float) -> void: bgm_volume_changed.emit(value))
-	hud.bgm_mute_changed.connect(func(muted: bool) -> void: bgm_mute_changed.emit(muted))
+	hud.bgm_volume_changed.connect(_forward_bgm_volume)
+	hud.bgm_mute_changed.connect(_forward_bgm_mute)
 	pause_screen.resume_requested.connect(func() -> void: pause_requested.emit())
 	pause_screen.restart_requested.connect(func() -> void: restart_requested.emit())
 	settlement_screen.offer_selected.connect(func(offer: Dictionary) -> void: settlement_offer_selected.emit(offer))
@@ -220,7 +200,7 @@ func _bind_compatibility_references() -> void:
 	bgm_volume_slider = hud.bgm_volume_slider
 
 func _unhandled_input(event: InputEvent) -> void:
-	if start_panel.visible and event is InputEventKey and event.pressed and not event.echo:
+	if start_screen.visible and start_screen.page == CampaignStartScreen.Page.COVER and event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_C and continue_button.visible and not continue_button.disabled:
 			continue_requested.emit()
 			return
@@ -239,7 +219,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					settlement_button.pressed.emit()
 			return
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_SPACE:
-		if not start_panel.visible and not settlement_screen.visible and not result_screen.visible:
+		if not start_screen.visible and not settlement_screen.visible and not result_screen.visible:
 			pause_requested.emit()
 			return
 
@@ -251,7 +231,7 @@ func apply_viewport_size(viewport_size: Vector2) -> void:
 	result_screen.apply_viewport_size(viewport_size)
 	wave_banner.apply_viewport_size(viewport_size)
 	boss_entrance_overlay.apply_viewport_size(viewport_size)
-	start_panel.custom_minimum_size = Vector2(minf(520.0, viewport_size.x - 40.0), minf(370.0, viewport_size.y - 40.0))
+	start_screen.apply_viewport_size(viewport_size)
 	_queue_status_layout()
 
 func set_health(current: float, maximum: float) -> void:
@@ -345,20 +325,31 @@ func hide_result() -> void:
 
 func show_start_screen() -> void:
 	hud.visible = false
-	start_backdrop.visible = true
-	start_panel.visible = true
-	start_button.grab_focus()
+	start_screen.show()
+	start_screen.show_page(CampaignStartScreen.Page.COVER)
 
 func set_continue_available(available: bool) -> void:
 	if continue_button == null:
 		return
-	continue_button.visible = available
-	continue_button.disabled = not available
+	start_screen.set_continue_available(available)
 
 func hide_start_screen() -> void:
 	hud.visible = true
-	start_backdrop.visible = false
+	start_screen.hide()
 	start_panel.visible = false
+
+func set_bgm_state(volume: float, muted: bool) -> void:
+	hud.bgm_volume_slider.set_value_no_signal(clampf(volume, 0, 1) * 100)
+	hud.bgm_toggle_button.set_pressed_no_signal(muted)
+	start_screen.set_bgm_state(volume, muted)
+
+func _forward_bgm_volume(value: float) -> void:
+	set_bgm_state(value, hud.bgm_toggle_button.button_pressed)
+	bgm_volume_changed.emit(value)
+
+func _forward_bgm_mute(muted: bool) -> void:
+	set_bgm_state(hud.bgm_volume_slider.value / 100, muted)
+	bgm_mute_changed.emit(muted)
 
 func set_aim_reticle_visible(active: bool) -> void:
 	if aim_reticle != null and aim_reticle.has_method("set_active"):

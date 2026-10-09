@@ -18,6 +18,8 @@ const CombatFeedbackScript = preload("res://scripts/systems/CombatFeedback.gd")
 const CombatVfxScript = preload("res://scripts/effects/CombatVfx.gd")
 const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
 const BossCameraFramingScript = preload("res://scripts/systems/BossCameraFraming.gd")
+const CampaignProgressScript = preload("res://scripts/systems/CampaignProgress.gd")
+const CampaignStoreScript = preload("res://scripts/systems/CampaignProgressStore.gd")
 
 const WORLD_BOUNDS := Rect2(-1400, -900, 2800, 1800)
 const CAMERA_SMOOTHING_CANDIDATES: Array[float] = [0.0, 8.0, 16.0, 20.0]
@@ -63,6 +65,8 @@ var snapshot_store: Node
 var audio_enabled := true
 var closing := false
 var restarting := false
+var campaign_progress = CampaignProgressScript.new()
+var campaign_store_path: String = CampaignStoreScript.DEFAULT_PATH
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -74,6 +78,7 @@ func _ready() -> void:
 		snapshot_store.save_path = HEADLESS_SNAPSHOT_PATH
 	add_child(snapshot_store)
 	_build_world()
+	_load_campaign_menu()
 	ui.show_start_screen()
 	ui.set_continue_available(snapshot_store.has_valid_snapshot())
 
@@ -174,6 +179,27 @@ func _build_world() -> void:
 	ui.pause_requested.connect(_toggle_manual_pause)
 	ui.bgm_volume_changed.connect(audio.set_bgm_volume)
 	ui.bgm_mute_changed.connect(audio.set_bgm_muted)
+	ui.quit_requested.connect(_request_close)
+	ui.set_bgm_state(audio.bgm_volume_linear, audio.bgm_muted)
+
+func _load_campaign_menu() -> void:
+	var path := campaign_store_path
+	if DisplayServer.get_name() == "headless" and path == CampaignStoreScript.DEFAULT_PATH:
+		path = "user://five_minute_overdrive_campaign_test_v1.json"
+	var store = CampaignStoreScript.new(path)
+	var status: int = store.load_progress(campaign_progress)
+	var notice := ""
+	match status:
+		CampaignStoreScript.LoadResult.RECOVERED:
+			notice = "存档异常：已只读加载备份，原文件保留；六关开局暂不可用。"
+		CampaignStoreScript.LoadResult.CORRUPT, CampaignStoreScript.LoadResult.IO_ERROR:
+			notice = "存档异常：未覆盖原文件；当前试玩仍可进入。"
+		CampaignStoreScript.LoadResult.UNSUPPORTED_VERSION:
+			notice = "存档异常：版本不兼容，未降级或覆盖；当前试玩仍可进入。"
+	# No chapter encounter is ready yet. Never reinterpret old waves as a chapter.
+	# This path is read-only; selecting regions never saves permanent progress.
+	var ready_chapters: Array[int] = []
+	ui.start_screen.set_campaign(campaign_progress, ready_chapters, notice)
 
 func _draw_floor() -> void:
 	var floor := Node2D.new()

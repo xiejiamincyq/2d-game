@@ -112,7 +112,7 @@ func _initialize() -> void:
 	var panel_style := ui.start_panel.get_theme_stylebox("panel") as StyleBoxFlat
 	if not _assert_true(panel_style != null and panel_style.bg_color.is_equal_approx(Color("f3eddc")), "shared UI panel did not use the approved opaque cream palette"):
 		return
-	if not _assert_true(panel_style.border_color.is_equal_approx(Color("123b3b")) and panel_style.border_width_left >= 3, "shared UI panel lost its conspicuous deep-teal outline"):
+	if not _assert_true(panel_style.border_color.is_equal_approx(Color("142520")) and panel_style.border_width_left >= 3, "new paper menu panel lost its conspicuous ink outline"):
 		return
 	var label_color: Color = ui.root.theme.get_color("font_color", "Label")
 	var button_color: Color = ui.root.theme.get_color("font_color", "Button")
@@ -144,7 +144,7 @@ func _initialize() -> void:
 	ui.set_overdrive_charge(20, false)
 	if not _assert_true((ui.hud.overdrive_bar.get_theme_stylebox("fill") as StyleBoxFlat).bg_color.is_equal_approx(Color("35b8ac")) and (ui.hud.overdrive_panel.get_theme_stylebox("panel") as StyleBoxFlat).border_color.is_equal_approx(Color("123b3b")), "inactive overdrive did not restore teal and its outline"):
 		return
-	if not _assert_true(ui.start_panel.get_theme_stylebox("panel") != ui.hud.overdrive_panel.get_theme_stylebox("panel") and panel_style.border_color.is_equal_approx(Color("123b3b")), "dynamic overdrive styling mutated the shared panel theme"):
+	if not _assert_true(ui.start_panel.get_theme_stylebox("panel") != ui.hud.overdrive_panel.get_theme_stylebox("panel") and panel_style.border_color.is_equal_approx(Color("142520")), "dynamic overdrive styling mutated the separate menu theme"):
 		return
 	for button in [ui.start_button, ui.continue_button, ui.hud.pause_button, ui.pause_screen.resume_button, pause_restart_button, ui.result_screen.restart_button, ui.settlement_screen.close_button]:
 		if not _assert_true(button.get_combined_minimum_size().y >= 44.0 and button.focus_mode == Control.FOCUS_ALL, "%s lost its 44px keyboard-focusable target" % button.name):

@@ -1,0 +1,110 @@
+{
+	"assertions": 110,
+	"captures": [
+		{
+			"file": "paper-menu-cover-960x540-v1.png",
+			"page": "cover",
+			"sha256": "014c85192a6d233e656890bd986295fd4aa11eb392cdcf96fc8801132caf8302",
+			"size": [
+				960,
+				540
+			]
+		},
+		{
+			"file": "paper-menu-regions-960x540-v1.png",
+			"page": "regions",
+			"sha256": "30653a611aeb3be076bd21c06c860739898445db607d3d2f75e49b56b3e906a7",
+			"size": [
+				960,
+				540
+			]
+		},
+		{
+			"file": "paper-menu-settings-960x540-v1.png",
+			"page": "settings",
+			"sha256": "b819fc8cebf9d31bafb788c1f77fb4532e3ff840b7a6ce66db7dc59fd1703a2f",
+			"size": [
+				960,
+				540
+			]
+		},
+		{
+			"file": "paper-menu-cover-1280x720-v1.png",
+			"page": "cover",
+			"sha256": "95bd39743112f2fd7e42e04b7e719bcf2e1cf4b0dfccfd2b125724eedaa68609",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"file": "paper-menu-regions-1280x720-v1.png",
+			"page": "regions",
+			"sha256": "ed846a531e5a1042ec65ae4d3ee0fde6f220913606ee49b41227449645a915af",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"file": "paper-menu-settings-1280x720-v1.png",
+			"page": "settings",
+			"sha256": "0f12e0cf8dbced182f7560084dfcb51fbb95900e55d9ca97e89a18eae4046902",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"file": "paper-menu-cover-1920x1080-v1.png",
+			"page": "cover",
+			"sha256": "f2d968a753a892c9c7e6b15e20e4330bd26f92703a6a3e9cae73da6233f61a3a",
+			"size": [
+				1920,
+				1080
+			]
+		},
+		{
+			"file": "paper-menu-regions-1920x1080-v1.png",
+			"page": "regions",
+			"sha256": "353fa2bc6f44261a3db744e19c9e83212b7c83524282d5b7a01899388ca6cbb6",
+			"size": [
+				1920,
+				1080
+			]
+		},
+		{
+			"file": "paper-menu-settings-1920x1080-v1.png",
+			"page": "settings",
+			"sha256": "9dc9d1e0e9d2484efb8754485ee9536317d287b547acb702f3c11f3377629eee",
+			"size": [
+				1920,
+				1080
+			]
+		}
+	],
+	"limits": [
+		"Only menu input/startup, not full gameplay or chapter completion.",
+		"ExitProbe redirects process termination only; production audio drain is inherited.",
+		"No chapter is playable yet. Demo remains old wave mode."
+	],
+	"renderer": "NVIDIA GeForce RTX 5060 Laptop GPU",
+	"schema": "campaign-menu-runtime-v1",
+	"sources": {
+		"scripts/Main.gd": "5ef439256ee7f7ca0d91ef9bfefe9c90d86ff6a54bb96a7b39de5b0f560811a8",
+		"scripts/ui/CampaignBackdrop.gd": "e6727ffef4e848e2a4f4c77159cafab0d63463cb6b6b80c26bdb972003307251",
+		"scripts/ui/CampaignMenuTheme.gd": "f75aed6df8e74e317224746acff0a44ee74e14847508f8389df5bd324cb7d932",
+		"scripts/ui/CampaignRegionIcon.gd": "1c03f050af12dbd3db187e85f1c05dfe716ab07c5e246dbba651829629ed16b0",
+		"scripts/ui/CampaignStartScreen.gd": "6f5f67ff2f87ffb3f0862884b3317c69d7f0b6ee4643db90a29939cbc0f581e7",
+		"scripts/ui/GameUI.gd": "ebda9da803efdeed0cfcb0b0e0006f87ba712e536f973360a135b63a662c1fc4"
+	},
+	"user_saves_after": {
+		"user://five_minute_overdrive_campaign_v1.json": "absent",
+		"user://five_minute_overdrive_run_v1.json": "absent"
+	},
+	"user_saves_before": {
+		"user://five_minute_overdrive_campaign_v1.json": "absent",
+		"user://five_minute_overdrive_run_v1.json": "absent"
+	},
+	"valid": true
+}

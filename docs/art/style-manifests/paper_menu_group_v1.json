@@ -1,0 +1,19 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "paper_menu_group_v1",
+  "review_state": "style-approved",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/campaign-menu-review-v1.md",
+  "environment_preview": "res://docs/art/previews/campaign/paper-environment-style-v1.png",
+  "ui_preview": "res://docs/art/previews/campaign/paper-ui-style-v1.png",
+  "runtime_evidence": "res://docs/art/previews/campaign/paper-menu-runtime-v1.json",
+  "assets": [
+    {"role": "menu-environment", "id": "abandoned_seed_house", "authoring_source": "res://scripts/ui/CampaignBackdrop.gd", "scope": "structure, ground crop and sparse mist; decoration only, no map collision"},
+    {"role": "ui-theme", "id": "ink_paper_menu", "authoring_source": "res://scripts/ui/CampaignMenuTheme.gd", "scope": "opaque panel, button state family and keyboard focus"},
+    {"role": "ui-icons", "id": "six_region_glyphs", "authoring_source": "res://scripts/ui/CampaignRegionIcon.gd", "scope": "six original small native glyphs; not Boss portraits"}
+  ],
+  "external_raster_dependencies": [],
+  "reference_policy": "Original native coordinates; no third-party images or font files embedded. Existing free-reference license audit is separate.",
+  "limitations": ["Not a raster production manifest", "Not final six gameplay maps", "Current chapter launch readiness list is empty", "Old playable run remains wave mode", "Not human acceptance or whole goal completion", "No large enemy attack animations created"]
+}
