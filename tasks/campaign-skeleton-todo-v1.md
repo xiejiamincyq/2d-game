@@ -19,6 +19,7 @@
 - [ ] M1.1：参考与原创最小风格锁，逐资产制作玩家/普通敌怪/大型静态样板/效果。
   - 验收：自主选定预览、有效manifest、原创/CC0来源记录，当前尺度可读；大型不制作攻击动画。
   - 验证：alpha/manifest/registry检查、原生小尺寸画面与审查文档。
+  - 首次预览未生成：imagegen的output moderation_blocked；[失败记录](../docs/art/campaign-style-preview-attempt-v1.md)。仅有有效preview manifest，不能算美术/骨骼完成。保持目标active，下一步M0.3独立存档，然后原生骨骼技术样板；不规避图像服务过滤，不擅自调用付费API。
 - [ ] M1.2：一只普通怪真正骨骼+新待机/走路/预警/攻击/受击/死亡。
   - 验收：肢体骨链/rest pose；取消/死亡/暂停不残留；时钟与碰撞不被动画改变。
   - 验证：骨骼及动画状态专项测试、连续原生预览、初步密集预算。

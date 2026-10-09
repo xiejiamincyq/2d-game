@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "asset_id": "enemy_root_pursuer_inkpaper_preview_v1",
+  "batch": "characters-combat",
+  "asset_class": "enemy",
+  "purpose": "Original small-enemy style-lock preview for the human-authorized native skeleton campaign; not yet a rig or runtime replacement.",
+  "runtime_path": "res://assets/art/actors/enemies/enemy_root_pursuer_inkpaper_preview_v1.png",
+  "source_dimensions": {"width": 1024, "height": 1024},
+  "runtime_target": {"width": 64, "height": 64},
+  "aspect_ratio": "1:1",
+  "background": "transparent",
+  "camera": "fixed elevated three-quarter 2D, not a 3D render",
+  "facing": "front three-quarter slightly toward the right, full body",
+  "palette": ["#182a28", "#e6dbc5", "#648f74", "#a46b44", "#e18459"],
+  "lighting": "restrained upper-left illustrated light, matte graphic planes",
+  "prompt": "Use case: stylized-concept. Asset type: original isolated small-enemy master for a Godot 2D skeletal game, style-lock preview only. Create one original squat nursery rootling made of entwined woody roots: oversized asymmetric bark head, tiny moss-and-leaf crest, broken clay seedling collar, short torso, two separate chunky claw arms with visibly designed elbows and two sturdy split-toe feet with designed knees. Expressive ivory eyes and a tiny copper seed charm. Full body visible, fixed slightly elevated three-quarter 2D view, facing a little right; both feet readable. Style: original ink-outline paper-puppet wasteland fable, chibi proportions, bold dark contour, restrained hand-drawn hatching, matte flat layered illustration rather than rendered 3D, five large muted color groups, compact clean silhouette readable at 64px. True transparent alpha background, opaque character body, no floor, no cast background shadow. Square 1024x1024 composition, character fills about 85% of the canvas height without cropping. No text, no logos, no border, no watermark. Do not imitate any existing game's characters, costume or composition; do not reuse the previous bio-farm artwork. Keep limb articulation visually distinct so a later hand-authored cutout rig can be designed; this image itself is not an animation or rig.",
+  "negative_constraints": ["no existing copyrighted character design", "no photorealism or glossy 3D", "no semi-transparent body", "no opaque background or checkerboard", "no cropped limbs", "no detached extra limbs", "no text, labels, watermark or frame", "no noisy fine cables or excessive glow"],
+  "references": ["https://kenney.nl/assets/monster-builder-pack", "docs/campaign-skeleton-spec-v1.md"],
+  "generation_model": "imagegen",
+  "runtime_evidence": {"gameplay_capture": "", "alpha_report": "", "review_document": ""},
+  "license_review_state": "pending",
+  "review_state": "preview"
+}
