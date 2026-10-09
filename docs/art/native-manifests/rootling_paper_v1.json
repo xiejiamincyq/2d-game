@@ -1,0 +1,22 @@
+{
+  "asset_id": "enemy_root_pursuer_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/rootling_paper_v3.tscn",
+  "motion_library": "res://assets/art/actors/native/rootling_motion_v3.tres",
+  "role": "ordinary",
+  "review_state": "draft",
+  "bone_count": 12,
+  "required_clips": ["idle", "walk", "warning", "attack", "hit", "death"],
+  "license_origin": "project-original",
+  "source_design": "scenes/art/technical/RootlingPaperShapes.gd",
+  "source_rig": "scenes/art/technical/RootlingDraft.gd",
+  "motion_lineage": "New keys authored for this goal in NativeMonsterSample.gd; no v13 animation or old texture reused",
+  "external_raster_dependencies": [],
+  "palette": ["#1c2926", "#927758", "#b39a72", "#648a68", "#eadcc1"],
+  "preview_evidence": {
+    "motion": "docs/art/previews/campaign/rootling-native-resource-v1.mp4",
+    "contact_sheet": "docs/art/previews/campaign/rootling-native-resource-v1.png",
+    "dark_ground_group": "docs/art/previews/campaign/rootling-native-readability-v1.png",
+    "rest_opacity_report": "docs/art/previews/campaign/rootling-native-opacity-v1.json"
+  },
+  "limitations": "Editable native candidate only. Not integrated in Main, no full style-lock batch, no combat/human-playtest approval. Large attack production remains deferred."
+}
