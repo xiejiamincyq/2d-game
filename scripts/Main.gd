@@ -20,6 +20,8 @@ const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
 const BossCameraFramingScript = preload("res://scripts/systems/BossCameraFraming.gd")
 const CampaignProgressScript = preload("res://scripts/systems/CampaignProgress.gd")
 const CampaignStoreScript = preload("res://scripts/systems/CampaignProgressStore.gd")
+const NurseryChapterScene = preload("res://scenes/campaign/nursery_chapter.tscn")
+const CAMPAIGN_READY_CHAPTERS: Array[int] = [1]
 
 const WORLD_BOUNDS := Rect2(-1400, -900, 2800, 1800)
 const CAMERA_SMOOTHING_CANDIDATES: Array[float] = [0.0, 8.0, 16.0, 20.0]
@@ -63,10 +65,13 @@ var run_state: RunState = RunState.START
 var pending_wave_summary: Dictionary = {}
 var snapshot_store: Node
 var audio_enabled := true
+var initial_bgm_volume := 0.65
+var initial_bgm_muted := false
 var closing := false
 var restarting := false
 var campaign_progress = CampaignProgressScript.new()
 var campaign_store_path: String = CampaignStoreScript.DEFAULT_PATH
+var campaign_storage_ok := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -173,8 +178,11 @@ func _build_world() -> void:
 	audio = AudioManagerScript.new()
 	audio.silent_mode = not audio_enabled
 	add_child(audio)
+	audio.set_bgm_volume(initial_bgm_volume)
+	audio.set_bgm_muted(initial_bgm_muted)
 	ui.start_requested.connect(_start_run)
 	ui.continue_requested.connect(_continue_run)
+	ui.chapter_requested.connect(_start_campaign_chapter)
 	ui.restart_requested.connect(_restart_run)
 	ui.pause_requested.connect(_toggle_manual_pause)
 	ui.bgm_volume_changed.connect(audio.set_bgm_volume)
@@ -188,6 +196,7 @@ func _load_campaign_menu() -> void:
 		path = "user://five_minute_overdrive_campaign_test_v1.json"
 	var store = CampaignStoreScript.new(path)
 	var status: int = store.load_progress(campaign_progress)
+	campaign_storage_ok = status in [CampaignStoreScript.LoadResult.MISSING, CampaignStoreScript.LoadResult.LOADED]
 	var notice := ""
 	match status:
 		CampaignStoreScript.LoadResult.RECOVERED:
@@ -196,10 +205,33 @@ func _load_campaign_menu() -> void:
 			notice = "存档异常：未覆盖原文件；当前试玩仍可进入。"
 		CampaignStoreScript.LoadResult.UNSUPPORTED_VERSION:
 			notice = "存档异常：版本不兼容，未降级或覆盖；当前试玩仍可进入。"
-	# No chapter encounter is ready yet. Never reinterpret old waves as a chapter.
-	# This path is read-only; selecting regions never saves permanent progress.
-	var ready_chapters: Array[int] = []
-	ui.start_screen.set_campaign(campaign_progress, ready_chapters, notice)
+	# Content readiness and permanent unlock are distinct. Only chapter 1 exists;
+	# its explicitly labelled transitional actors do not pass the full art gate.
+	ui.start_screen.set_campaign(campaign_progress, CAMPAIGN_READY_CHAPTERS, notice)
+
+func _can_start_campaign_chapter(chapter: int) -> bool:
+	return not run_started and not closing and not restarting and run_state == RunState.START and campaign_storage_ok and chapter in CAMPAIGN_READY_CHAPTERS and campaign_progress.is_unlocked(chapter)
+
+func _start_campaign_chapter(chapter: int) -> void:
+	if not _can_start_campaign_chapter(chapter):
+		return
+	restarting = true
+	get_tree().paused = true
+	var destination := NurseryChapterScene.instantiate()
+	destination.campaign_store_path = campaign_store_path
+	destination.audio_enabled = audio_enabled
+	destination.bgm_volume = audio.bgm_volume_linear
+	destination.bgm_muted = audio.bgm_muted
+	var drained: bool = await _drain_audio_for_scene_exit()
+	if closing or not drained:
+		destination.free()
+		if not drained:
+			_finish_close(1)
+		return
+	get_tree().paused = false
+	get_tree().root.add_child(destination)
+	get_tree().current_scene = destination
+	queue_free()
 
 func _draw_floor() -> void:
 	var floor := Node2D.new()

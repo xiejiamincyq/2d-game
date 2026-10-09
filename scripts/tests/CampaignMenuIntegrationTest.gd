@@ -28,7 +28,7 @@ func _run() -> void:
 	check(not scene.run_started and scene.player == null, "opening the menu started gameplay")
 	var menu = scene.ui.start_screen
 	menu.regions_button.pressed.emit()
-	check(not scene.run_started and menu.launch_button.disabled, "unbuilt campaign is secretly routed to old waves")
+	check(not scene.run_started and not menu.launch_button.disabled, "ready first chapter unavailable or selection started old waves")
 	var event := InputEventKey.new()
 	event.pressed = true
 	event.keycode = KEY_ENTER

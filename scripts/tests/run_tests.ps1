@@ -43,10 +43,13 @@ $gameplayTests = @(
     "CampaignProgressStoreTest",
     "CampaignMenuTest",
     "CampaignMenuIntegrationTest",
+    "CampaignChapterLaunchTest",
     "NurseryMapTest",
     "NurseryMovementTest",
     "NurseryEncounterTest",
     "NurseryClearanceProofTest",
+    "NurseryChapterTest",
+    "NurseryProjectileDropTest",
     "NativeMonsterSampleTest",
     "NativePaperSkinTest",
     "RootlingDraftTest",
@@ -163,7 +166,7 @@ foreach ($test in $tests) {
     $userArguments = ""
     $frameBudget = if ($test -in @("AudioLifecycleTest", "MainCloseTest")) { 12000 }
         elseif ($test -eq "NurseryMovementTest") { 6000 }
-        elseif ($test -eq "NurseryEncounterTest") { 1800 }
+        elseif ($test -in @("NurseryEncounterTest", "NurseryChapterTest", "NurseryProjectileDropTest", "CampaignChapterLaunchTest")) { 1800 }
         elseif ($test -in @("DashTest", "ScrapperAttackTest", "EnemyFlockTest", "EnemyFlockPolicyTest", "EnemyNeighborGridTest")) { 1800 }
         elseif ($test -in @("PortalRuntimeClockTest", "BossRuntimeClockTest", "CombatStatusLayoutTest")) { 600 }
         else { 120 }
@@ -175,7 +178,7 @@ foreach ($test in $tests) {
         # keep the positive pass marker, frame bound and wall-clock watchdog.
         $fixedStepArguments = "--max-fps 120"
     }
-    if ($test -eq "NurseryEncounterTest") {
+    if ($test -in @("NurseryEncounterTest", "NurseryChapterTest", "NurseryProjectileDropTest", "CampaignChapterLaunchTest")) {
         # This fixture waits the real Boss entrance, preserving its hit gate.
         $fixedStepArguments = "--max-fps 120"
     }
