@@ -45,7 +45,7 @@ func _initialize() -> void:
 			return
 		if not _assert_true(enemy.has_method("should_show_health_bar") and enemy.has_method("should_show_status_marker"), "enemy marker visibility policy missing"):
 			return
-		if not _assert_true(enemy.should_show_health_bar() == (fixture.kind == EnemyScript.EnemyKind.OVERSEER), "full-health enemy bar priority incorrect"):
+		if not _assert_true(enemy.should_show_health_bar() == (fixture.kind != EnemyScript.EnemyKind.BRUISER), "living small enemy or overseer must show full-health bar"):
 			return
 		if not _assert_true(not enemy.should_show_status_marker(), "illustrated enemy still has a decorative status strip"):
 			return
@@ -64,7 +64,7 @@ func _initialize() -> void:
 			return
 
 		enemy.take_damage(1.0)
-		if not _assert_true(enemy.should_show_health_bar() == (fixture.kind in [EnemyScript.EnemyKind.BRUISER, EnemyScript.EnemyKind.OVERSEER]), "damaged heavy enemy lost health feedback"):
+		if not _assert_true(enemy.should_show_health_bar(), "damaged enemy lost health feedback"):
 			return
 		var material := visual.material as ShaderMaterial
 		if not _assert_true(is_equal_approx(float(material.get_shader_parameter("flash_amount")), 0.35), "static enemy palette-preserving hit flash did not activate"):
@@ -73,7 +73,7 @@ func _initialize() -> void:
 		if not _assert_true(is_zero_approx(float(material.get_shader_parameter("flash_amount"))), "static enemy hit flash did not clear"):
 			return
 		enemy.health.current_health = enemy.health.max_health
-		if not _assert_true(enemy.should_show_health_bar() == (fixture.kind == EnemyScript.EnemyKind.OVERSEER), "restored full health did not hide incidental bar"):
+		if not _assert_true(enemy.should_show_health_bar() == (fixture.kind != EnemyScript.EnemyKind.BRUISER), "restored health must preserve small bars and hide incidental heavy bar"):
 			return
 		enemy.health.current_health = 0.0
 		if not _assert_true(not enemy.should_show_health_bar(), "dead enemy retains a health bar"):

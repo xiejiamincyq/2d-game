@@ -580,11 +580,9 @@ func _draw() -> void:
 	if static_visual == null:
 		draw_rect(Rect2(Vector2(-size * 0.5, -size * 0.5), Vector2(size, size)), body_color)
 	if should_show_health_bar():
-		var bar_width := body_radius * 1.6
-		var bar_y := -static_visual_half_height - 8.0 if static_visual != null else -body_radius - 12.0
-		var bar_rect := Rect2(-bar_width * 0.5, bar_y, bar_width, 6.0)
+		var bar_rect := get_health_bar_rect()
 		draw_rect(bar_rect, Color("061019"))
-		draw_rect(Rect2(bar_rect.position + Vector2.ONE, Vector2((bar_width - 2.0) * get_health_ratio(), 4.0)), accent)
+		draw_rect(Rect2(bar_rect.position + Vector2.ONE, Vector2((bar_rect.size.x - 2.0) * get_health_ratio(), 4.0)), accent)
 	elif should_show_status_marker():
 		var status_y := -static_visual_half_height - 6.0 if static_visual != null else -body_radius - 3.0
 		draw_rect(Rect2(-body_radius * 0.55, status_y, body_radius * 1.1, 5), accent)
@@ -594,8 +592,18 @@ func _draw() -> void:
 		draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
 		draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
 	if should_show_attack_marker():
-		var top := -static_visual_half_height - 7.0 if static_visual != null else -body_radius - 7.0
-		AttackDrawing.draw_head_warning(self, top)
+		AttackDrawing.draw_head_warning(self, get_attack_marker_top())
+
+func get_health_bar_rect() -> Rect2:
+	var width := body_radius * 1.6
+	var top := -static_visual_half_height - 8.0 if static_visual != null else -body_radius - 12.0
+	return Rect2(-width * 0.5, top, width, 6.0)
+
+func get_attack_marker_top() -> float:
+	# Keep the warning's outlined dot clear of the persistent small-enemy bar.
+	if should_show_health_bar():
+		return get_health_bar_rect().position.y - 6.0
+	return -static_visual_half_height - 7.0 if static_visual != null else -body_radius - 7.0
 
 func should_show_attack_marker() -> bool:
 	if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER] or death_resolved or is_target_hidden():
@@ -638,8 +646,8 @@ func _draw_ground_warning() -> void:
 func should_show_health_bar() -> bool:
 	if health == null or health.current_health <= 0.0:
 		return false
-	# Overseers retain persistent priority; ordinary heavies show useful damage state.
-	return kind == EnemyKind.OVERSEER or (kind == EnemyKind.BRUISER and health.current_health < health.max_health)
+	# Small enemies and overseers keep bars; preserve bruisers' damaged-only policy.
+	return kind != EnemyKind.BRUISER or health.current_health < health.max_health
 
 func should_show_status_marker() -> bool:
 	# Colored placeholder strips duplicate the illustrated silhouettes and carry no state.
