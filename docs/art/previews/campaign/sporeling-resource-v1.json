@@ -1,0 +1,142 @@
+{
+	"adjacent_pixel_changes": 59,
+	"gait_frames": 60,
+	"passed": true,
+	"samples": [
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"opaque_pixels": 2669,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"opaque_pixels": 2666,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"opaque_pixels": 2678,
+			"partial_pixels": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"opaque_pixels": 2669,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"opaque_pixels": 2658,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"opaque_pixels": 2699,
+			"partial_pixels": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"opaque_pixels": 2669,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"opaque_pixels": 2682,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"opaque_pixels": 2686,
+			"partial_pixels": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"opaque_pixels": 2694,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"opaque_pixels": 2673,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"opaque_pixels": 2669,
+			"partial_pixels": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"opaque_pixels": 2669,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"opaque_pixels": 2685,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"opaque_pixels": 2676,
+			"partial_pixels": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"opaque_pixels": 2669,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"opaque_pixels": 2627,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"opaque_pixels": 2603,
+			"partial_pixels": 0,
+			"phase": 0.85
+		}
+	],
+	"scope": "Original new editable spore shooter resource, 18 GPU poses at native scale and 2x labeled review sheet; continuous 60-frame gait. Not actual combat or human acceptance.",
+	"sources": {
+		"assets/art/actors/native/sporeling_motion_v1.tres": "d4002943788a3d478d079069c071979e46388a3fc68589c292345f7bba7718c5",
+		"scenes/actors/native/sporeling_paper_v1.tscn": "5513ba1c566b8262b23464322031cc128ea8c3b081fbd5e2bc92edd79f2871fa",
+		"scenes/art/technical/SporelingDraft.gd": "da930416be31486f3ddf621b18aab6dec15378363cbbb3a73cb01337ca41a8f8",
+		"scenes/art/technical/SporelingShapes.gd": "e0cf2c99ab54829f97a14ec30087b94d9ab20929efa218d63a5a90fadc68f1a0",
+		"scripts/art/RenderSporelingResource.gd": "6234a5534678b36eafd095b6c2037e0a66da2385e0257329fc219ec0d490ea4d",
+		"scripts/components/NativeActorView.gd": "b22f246bd383d7e531a9b3fc639e1ba3bfc22840cc8e8146555300f5f3dee0cf"
+	}
+}
