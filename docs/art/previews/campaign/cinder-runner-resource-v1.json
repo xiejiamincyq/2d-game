@@ -1,0 +1,142 @@
+{
+	"adjacent_pixel_changes": 59,
+	"gait_frames": 60,
+	"passed": true,
+	"samples": [
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"opaque_pixels": 2239,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"opaque_pixels": 2235,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"opaque_pixels": 2253,
+			"partial_pixels": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"opaque_pixels": 2248,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"opaque_pixels": 2200,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"opaque_pixels": 2261,
+			"partial_pixels": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"opaque_pixels": 2239,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"opaque_pixels": 2308,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"opaque_pixels": 2334,
+			"partial_pixels": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"opaque_pixels": 2318,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"opaque_pixels": 2307,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"opaque_pixels": 2295,
+			"partial_pixels": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"opaque_pixels": 2239,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"opaque_pixels": 2243,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"opaque_pixels": 2236,
+			"partial_pixels": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"opaque_pixels": 2239,
+			"partial_pixels": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"opaque_pixels": 2176,
+			"partial_pixels": 0,
+			"phase": 0.4
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"opaque_pixels": 2121,
+			"partial_pixels": 0,
+			"phase": 0.85
+		}
+	],
+	"scope": "Original new editable forge runner resource, 18 GPU poses at native scale and 2x labeled review sheet; continuous 60-frame gait. Not actual combat or human acceptance.",
+	"sources": {
+		"assets/art/actors/native/cinder_runner_motion_v1.tres": "9320e0536f8649e163e138d3c6d8a47e9395280e18dfeb58e936594d5257d409",
+		"scenes/actors/native/cinder_runner_paper_v1.tscn": "232a62702e5381da3fc9dc4a02b17ec91901d389437c699289565edb54de3397",
+		"scenes/art/technical/CinderRunnerDraft.gd": "c1fb22bfa63996cd56701f40658e6430254272e4df50f3859a46cd089a4ad23d",
+		"scenes/art/technical/CinderRunnerShapes.gd": "c20b878df5f84c13a395bdea9ae9cb2d131b16e704fd1947ff418e36cfd459b0",
+		"scripts/art/RenderCinderRunnerResource.gd": "0ccc865eec315824c5c8e3e26293d4a76fdbf8da2c3d110d04c1d4e33fc0cc27",
+		"scripts/components/NativeActorView.gd": "b22f246bd383d7e531a9b3fc639e1ba3bfc22840cc8e8146555300f5f3dee0cf"
+	}
+}

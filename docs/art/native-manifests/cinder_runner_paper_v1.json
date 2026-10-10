@@ -1,0 +1,10 @@
+{
+  "asset_id": "cinder_runner_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/cinder_runner_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/cinder_runner_motion_v1.tres",
+  "role": "ordinary",
+  "review_state": "style-approved",
+  "bone_count": 15,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "warning", "attack", "hit", "death"]
+}
