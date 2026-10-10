@@ -11,14 +11,15 @@
 
 ## 当前原生角色接入（墨线纸偶 Q版）
 
-`Player.gd` 已使用原创四朝向 `scenes/actors/native/player_paper_v1.tscn` 与 `NativePlayerMotion`，不加载/绘制下方旧玩家图集；`EnemyKind.SCRAPPER` 已使用原创 `rootling_paper_v3.tscn`。其他敌族/独立OverseerBoss仍为过渡贴图，不能声称全角色齐备或新大型攻击完成。原生资源按独立骨骼结构/动作契约验证，不伪填位图production manifest；四向玩家尚待统一到NativeCatalog schema。
+`Player.gd` 已使用原创四朝向 `scenes/actors/native/player_paper_v1.tscn` 与 `NativePlayerMotion`，不加载/绘制下方旧玩家图集；`EnemyKind.SCRAPPER` 已使用原创 `rootling_paper_v3.tscn`，`EnemyKind.SPITTER` 已使用14骨 `sporeling_paper_v1.tscn` 与全新六动作。其他敌族/独立OverseerBoss仍为过渡贴图，不能声称全角色齐备或新大型攻击完成。原生资源按独立骨骼结构/动作契约验证，不伪填位图production manifest；四向玩家尚待统一到NativeCatalog schema。
 
 - 玩家：style-approved；[当前接入与真实首关证据](native-player-integration-review-v1.md)、[接入manifest](style-manifests/player_native_integration_v1.json)。
 - 根须追逐者：style-approved；[原生接入审查](native-scrapper-integration-review-v1.md)。
+- 孢子射手：style-approved；[原生资源审查](sporeling-resource-review-v1.md)、[真实接入/血条及证据边界](sporeling-integration-review-v1.md)、[原生manifest](native-manifests/sporeling_paper_v1.json)。旧SPITTER纹理preload尚保留，未签导出瘦身或精确口部发弹。
 
 ## 迁移前角色与战斗位图（历史审批及部分过渡运行）
 
-本表保留原10份chibi production manifest及原`style-approved`审批，不代表当前Player/SCRAPPER还调用旧PNG。其他未迁移敌族/Boss及部分效果仍用这些过渡资源。下方薄荷环境用于旧波次演示，新第一关使用独立纸偶地图；旧[来源复核](reviews/runtime-source-reconciliation-v2.md)是迁移前快照，不提升`gameplay-approved`或`final`。
+本表保留原10份chibi production manifest及原`style-approved`审批，不代表当前Player/SCRAPPER/SPITTER还绘制旧PNG。其他未迁移敌族/Boss及部分效果仍用这些过渡资源。下方薄荷环境用于旧波次演示，新第一关使用独立纸偶地图；旧[来源复核](reviews/runtime-source-reconciliation-v2.md)是迁移前快照，不提升`gameplay-approved`或`final`。
 
 | Asset ID | 类别 | 用途 | 源尺寸 | 运行时目标 | 目标路径 | 状态 |
 |---|---|---|---:|---:|---|---|

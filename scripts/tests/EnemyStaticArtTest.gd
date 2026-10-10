@@ -27,20 +27,22 @@ func _initialize() -> void:
 		root.add_child(enemy)
 		await process_frame
 		enemy.set_physics_process(false)
-		var visual := enemy.get("static_visual") as Sprite2D
-		if not _assert_true(visual != null, "static enemy did not create a Sprite2D"):
+		var native: bool = fixture.kind == EnemyScript.EnemyKind.SPITTER
+		var visual: Node2D = enemy.get_visual_node()
+		if not _assert_true(visual != null, "enemy did not create a visual"):
 			return
-		if not _assert_true(visual.texture.resource_path == fixture.path, "static enemy loaded the wrong texture"):
+		if not _assert_true(visual.scene_file_path == "res://scenes/actors/native/sporeling_paper_v1.tscn" if native else visual.texture.resource_path == fixture.path, "enemy loaded wrong native/raster resource"):
 			return
-		if not _assert_true(visual.texture.get_size() == Vector2(128, 128), "static enemy texture is not the bounded 128px runtime canvas"):
+		if not _assert_true(visual.skeleton.get_bone_count() == 14 if native else visual.texture.get_size() == Vector2(128, 128), "enemy lacks bounded raster / complete native rig"):
 			return
-		if not _assert_true(visual.scale.is_equal_approx(fixture.scale), "static enemy display scale drifted"):
+		if not _assert_true(visual.scale.is_equal_approx(Vector2.ONE if native else fixture.scale), "enemy display scale drifted"):
 			return
 		if not _assert_true(is_equal_approx(enemy.body_radius, fixture.radius), "art integration changed collision radius"):
 			return
 		if not _assert_true(is_equal_approx(enemy.contact_damage, fixture.damage), "art integration changed contact damage"):
 			return
-		if not _assert_true(visual.material is ShaderMaterial, "static enemy lacks hit-flash material"):
+		var material: ShaderMaterial = visual.get_node("Facing/Skin").material if native else visual.material
+		if not _assert_true(material != null, "enemy lacks hit-flash material"):
 			return
 		if not _assert_true(enemy.has_method("should_show_health_bar") and enemy.has_method("should_show_status_marker"), "enemy marker visibility policy missing"):
 			return
@@ -55,17 +57,16 @@ func _initialize() -> void:
 		enemy.global_position = Vector2.ZERO
 		player.global_position = Vector2(100, 0)
 		enemy._physics_process(0.0)
-		if not _assert_true(not visual.flip_h, "right-facing static enemy flipped with player on the right"):
+		if not _assert_true(visual.get_node("Facing").scale.x == 1 if native else not visual.flip_h, "right-facing enemy flipped with player on the right"):
 			return
 		player.global_position = Vector2(-100, 0)
 		enemy._physics_process(0.0)
-		if not _assert_true(visual.flip_h, "static enemy did not flip toward player on the left"):
+		if not _assert_true(visual.get_node("Facing").scale.x == -1 if native else visual.flip_h, "enemy did not flip toward player on the left"):
 			return
 
 		enemy.take_damage(1.0)
 		if not _assert_true(enemy.should_show_health_bar(), "damaged enemy lost health feedback"):
 			return
-		var material := visual.material as ShaderMaterial
 		if not _assert_true(is_equal_approx(float(material.get_shader_parameter("flash_amount")), 0.35), "static enemy palette-preserving hit flash did not activate"):
 			return
 		enemy._physics_process(0.1)

@@ -1,0 +1,735 @@
+{
+	"passed": true,
+	"samples": [
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2668,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2668,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2687,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2687,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2694,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2694,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2694,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2694,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2677,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2677,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2675,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2675,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2623,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2623,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 2597,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 2597,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2668,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2668,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "idle",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "walk",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2687,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2687,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2694,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "warning",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2694,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2694,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2694,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2677,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2677,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "attack",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2675,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2675,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "hit",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2669,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2622,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2622,
+			"partial": 0,
+			"passed": true,
+			"phase": 0.5
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 2597,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		},
+		{
+			"clip": "death",
+			"edge_pixels": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 2597,
+			"partial": 0,
+			"passed": true,
+			"phase": 1.0
+		}
+	],
+	"scope": "Actual Enemy-created native body and hit shader retained; only actor HUD drawing excluded. Six clips x three phases x two flips x two flash states; not continuous all-pose alpha or human acceptance.",
+	"sources": {
+		"assets/art/actors/native/sporeling_motion_v1.tres": "d4002943788a3d478d079069c071979e46388a3fc68589c292345f7bba7718c5",
+		"assets/art/shaders/dasher_hit_flash.gdshader": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9",
+		"scenes/actors/native/sporeling_paper_v1.tscn": "5513ba1c566b8262b23464322031cc128ea8c3b081fbd5e2bc92edd79f2871fa",
+		"scripts/actors/Enemy.gd": "00aaf00c612569aedc282001983f7a7bdbef724fd61092e4c787c337145305de",
+		"scripts/art/VerifySporelingOpacity.gd": "480e9079247edf1edbe1022050306fd40e90ed5c0c3d495b675e28668b863abd",
+		"scripts/components/NativeActorView.gd": "b22f246bd383d7e531a9b3fc639e1ba3bfc22840cc8e8146555300f5f3dee0cf",
+		"scripts/components/NativeSporelingMotion.gd": "7195e4086f29d715c3e629da79916e01d068b06480123ae9e5d24db4a30db139"
+	}
+}

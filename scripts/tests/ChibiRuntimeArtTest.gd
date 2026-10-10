@@ -106,7 +106,7 @@ func _initialize() -> void:
 	]:
 		var enemy := await _spawn_enemy(int(fixture.kind))
 		enemies.append(enemy)
-		var accepted: bool = enemy.native_visual != null and enemy.static_visual == null if fixture.kind == EnemyScript.EnemyKind.SCRAPPER else enemy.static_visual.texture.resource_path == fixture.path
+		var accepted: bool = enemy.native_visual != null and enemy.static_visual == null if fixture.kind in [EnemyScript.EnemyKind.SCRAPPER, EnemyScript.EnemyKind.SPITTER] else enemy.static_visual.texture.resource_path == fixture.path
 		if not _assert_true(accepted, "enemy did not use its current approved actor resource: " + fixture.path):
 			return
 	var bruiser: CharacterBody2D = enemies[3]

@@ -25,6 +25,8 @@ const ScrapperAttackScript = preload("res://scripts/components/ScrapperAttack.gd
 const HitFeedbackScript = preload("res://scripts/effects/EnemyHitFeedback.gd")
 const AttackDrawing = preload("res://scripts/effects/HostileAttackDrawing.gd")
 const NATIVE_SCRAPPER := preload("res://scenes/actors/native/rootling_paper_v3.tscn")
+const NATIVE_SPITTER := preload("res://scenes/actors/native/sporeling_paper_v1.tscn")
+const NativeSporeMotion := preload("res://scripts/components/NativeSporelingMotion.gd")
 const NativeMotion = preload("res://scripts/components/NativeScrapperMotion.gd")
 const DASHER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png")
 const BRUISER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png")
@@ -217,7 +219,7 @@ func _ready() -> void:
 		EnemyKind.DASHER:
 			_create_static_visual(DASHER_TEXTURE, DASHER_RUNTIME_SCALE, "DasherVisual")
 		EnemyKind.SPITTER:
-			_create_static_visual(SPITTER_TEXTURE, SPITTER_RUNTIME_SCALE, "SpitterVisual")
+			_create_native_visual(NATIVE_SPITTER)
 		EnemyKind.BRUISER:
 			_create_static_visual(BRUISER_TEXTURE, BRUISER_RUNTIME_SCALE, "BruiserVisual")
 		EnemyKind.MARKSMAN:
@@ -658,17 +660,17 @@ func should_show_status_marker() -> bool:
 	# Colored placeholder strips duplicate the illustrated silhouettes and carry no state.
 	return static_visual == null and native_visual == null and kind not in [EnemyKind.BRUISER, EnemyKind.OVERSEER]
 
-func _create_native_visual() -> void:
-	native_visual = NATIVE_SCRAPPER.instantiate()
+func _create_native_visual(scene: PackedScene = NATIVE_SCRAPPER) -> void:
+	native_visual = scene.instantiate()
 	native_visual.name = "NativeVisual"
 	native_visual.show_behind_parent = true
 	add_child(native_visual)
-	static_visual_half_height = 58.0 # Tall leaf crest plus native walk bob, not collision radius.
+	static_visual_half_height = 60.0 if kind == EnemyKind.SPITTER else 58.0 # Cap/leaf plus gait, not collision.
 	static_flash_material = ShaderMaterial.new()
 	static_flash_material.shader = ENEMY_HIT_FLASH_SHADER
 	static_flash_material.set_shader_parameter("flash_amount", 0.0)
 	native_visual.get_node("Facing/Skin").material = static_flash_material
-	native_motion = NativeMotion.new(native_visual)
+	native_motion = NativeSporeMotion.new(native_visual) if kind == EnemyKind.SPITTER else NativeMotion.new(native_visual)
 
 func _create_static_visual(texture: Texture2D, visual_scale: Vector2, node_name: String) -> void:
 	static_visual = Sprite2D.new()
@@ -835,6 +837,8 @@ func _fire_spitter() -> void:
 	shot.world_bounds = world_bounds
 	projectile_parent.add_child(shot)
 	shot.global_position = global_position
+	if native_visual != null:
+		native_motion.notify_shot()
 
 func _update_marksman(delta: float, player: Node2D) -> void:
 	_update_ranged_windup(delta, player, EnemyKind.MARKSMAN)
