@@ -9,9 +9,16 @@
 - `gameplay-approved`：Godot 实际尺寸验收通过。
 - `final`：玩法与授权审查均完成。
 
-## 当前角色与战斗运行资源（2D Q版）
+## 当前原生角色接入（墨线纸偶 Q版）
 
-本节与下方环境表是当前位图清单。以 `Player.gd`、`Enemy.gd`、`OverseerBoss.gd`、`CombatVfx.gd` 的运行引用为依据；10份对应 chibi production manifest 保留原有 `style-approved`，本次仅补登记，不提升为 `gameplay-approved` 或 `final`。完整来源边界见[现行来源复核](reviews/runtime-source-reconciliation-v2.md)。
+`Player.gd` 已使用原创四朝向 `scenes/actors/native/player_paper_v1.tscn` 与 `NativePlayerMotion`，不加载/绘制下方旧玩家图集；`EnemyKind.SCRAPPER` 已使用原创 `rootling_paper_v3.tscn`。其他敌族/独立OverseerBoss仍为过渡贴图，不能声称全角色齐备或新大型攻击完成。原生资源按独立骨骼结构/动作契约验证，不伪填位图production manifest；四向玩家尚待统一到NativeCatalog schema。
+
+- 玩家：style-approved；[当前接入与真实首关证据](native-player-integration-review-v1.md)、[接入manifest](style-manifests/player_native_integration_v1.json)。
+- 根须追逐者：style-approved；[原生接入审查](native-scrapper-integration-review-v1.md)。
+
+## 迁移前角色与战斗位图（历史审批及部分过渡运行）
+
+本表保留原10份chibi production manifest及原`style-approved`审批，不代表当前Player/SCRAPPER还调用旧PNG。其他未迁移敌族/Boss及部分效果仍用这些过渡资源。下方薄荷环境用于旧波次演示，新第一关使用独立纸偶地图；旧[来源复核](reviews/runtime-source-reconciliation-v2.md)是迁移前快照，不提升`gameplay-approved`或`final`。
 
 | Asset ID | 类别 | 用途 | 源尺寸 | 运行时目标 | 目标路径 | 状态 |
 |---|---|---|---:|---:|---|---|
@@ -26,7 +33,7 @@
 | `enemy_overseer_chibi_b` | enemy | Enemy的Overseer纹理及独立最终Boss共用 | 2048×1024 | 128×128单帧 | `res://assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png` | style-approved |
 | `combat_hit` | effect | 命中反馈贴图 | 1254×1254 | 128×128贴图 | `res://assets/art/effects/combat_hit_chibi_b_v1.png` | style-approved |
 
-源尺寸是 manifest 的生成/处理声明；实际PNG尺寸与屏幕绘制尺寸是不同概念。玩家身体每格绘制84×84，侧向武器72×72、前后武器58×58；敌人与Boss按脚本缩放。敌人是单张贴图加程序化运动/攻击反馈，不是新增手绘逐帧动画。其来源与像素再处理未因登记而重新验收。
+源尺寸是 manifest 的生成/处理声明；实际PNG尺寸与屏幕绘制尺寸是不同概念。历史玩家每格绘制84×84、侧向武器72×72/前后58×58，已被新原生Player替换；未迁移敌人与Boss仍按脚本缩放单张图加程序化反馈，不是全套新动画。其来源与像素再处理未因登记而重新验收。
 
 ## 历史角色与战斗批次（非当前运行清单）
 

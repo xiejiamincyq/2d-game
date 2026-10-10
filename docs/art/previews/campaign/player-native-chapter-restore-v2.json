@@ -1,0 +1,14 @@
+{
+	"main_sha256": "89dfb856975028d25ffa69c18aec02ade84b1326086f6dfd79293cc721fd4920",
+	"process_id": 109712,
+	"progress_file": "res://build/diagnostics/campaign-goal/native-player-chapter-v4/campaign.json",
+	"progress_sha256": "17ba485d28713bb545b18dc7eac46cc31565339f78eae139f81848cc7585d81b",
+	"scope": "Fresh engine process, actual read-only Main menu load; first clear/unlock/replay, unbuilt second remains unavailable",
+	"state": {
+		"cleared_chapters": [
+			1
+		],
+		"version": 1
+	},
+	"valid": true
+}

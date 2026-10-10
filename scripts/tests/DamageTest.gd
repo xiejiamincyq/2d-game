@@ -160,7 +160,7 @@ func _initialize() -> void:
 	player.set_overdrive_active(false)
 	player._spawn_bullet(Vector2.RIGHT)
 	var persistent_shot: Node = spawned_shots[0]
-	if not _assert_true(is_equal_approx(persistent_shot.global_position.x, 32.5), "projectile muzzle offset did not follow the 30% larger player visual"):
+	if not _assert_true(persistent_shot.global_position.is_equal_approx(player.native_visual.get_muzzle_position()), "projectile missed actual native hand muzzle"):
 		return
 	player.set_overdrive_active(true)
 	if not _assert_true(

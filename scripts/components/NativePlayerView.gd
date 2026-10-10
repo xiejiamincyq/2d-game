@@ -17,7 +17,10 @@ func _ready() -> void:
 func set_aim(direction: Vector2) -> bool:
 	if _dead or not direction.is_finite() or direction.is_zero_approx():
 		return false
-	if absf(direction.x) > absf(direction.y):
+	# Normalize before a small tie tolerance: angle reconstruction and mouse ray
+	# normalization must choose the same body at the diagonal boundary.
+	direction = direction.normalized()
+	if absf(direction.x) > absf(direction.y) + 0.00001:
 		facing = "Right" if direction.x > 0 else "Left"
 	else:
 		facing = "Front" if direction.y > 0 else "Back"
@@ -52,5 +55,32 @@ func sample_clip(action: String, seconds: float) -> bool:
 func cancel_action() -> bool:
 	return false if _dead else sample_clip("idle", 0)
 
+func sample_moving_shot(locomotion: String, seconds: float, recoil_seconds: float) -> bool:
+	if locomotion not in ["idle", "walk"] or not is_finite(recoil_seconds) or recoil_seconds < 0 or not sample_clip(locomotion, seconds):
+		return false
+	var rig: Skeleton2D = get_node(facing + "/Skeleton2D")
+	var gait: Array[Transform2D] = []
+	for index in rig.get_bone_count():
+		gait.append(rig.get_bone(index).transform)
+	sample_clip("shoot", recoil_seconds)
+	for index in rig.get_bone_count():
+		var bone := rig.get_bone(index)
+		bone.transform = gait[index] * bone.rest.affine_inverse() * bone.transform if bone.name in [&"HandR", &"ForearmR", &"Head"] else gait[index]
+	return true
+
 func get_muzzle_position() -> Vector2:
 	return get_node(facing + "/Skeleton2D/Torso/ArmR/ForearmR/HandR/Weapon/Muzzle").global_position
+
+func aim_hand_at(point: Vector2) -> bool:
+	if _dead or not point.is_finite():
+		return false
+	var weapon: Bone2D = get_node(facing + "/Skeleton2D/Torso/ArmR/ForearmR/HandR/Weapon")
+	# Visual parallax only: never select a new body view or rotate the root. The
+	# muzzle itself moves with the wrist, so refine a bounded residual three times.
+	for iteration in 3:
+		var ray := point - get_muzzle_position()
+		if ray.is_zero_approx():
+			return false
+		var correction := wrapf(ray.angle() - weapon.global_rotation, -PI, PI)
+		weapon.rotation = clampf(weapon.rotation + correction, weapon.rest.get_rotation() - PI / 4, weapon.rest.get_rotation() + PI / 4)
+	return true

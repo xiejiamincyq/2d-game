@@ -55,6 +55,7 @@ $gameplayTests = @(
     "RootlingDraftTest",
     "NativeActorResourceTest",
     "NativePlayerResourceTest",
+    "PlayerNativeIntegrationTest",
     "NativeArtValidatorTest",
     "PaperStyleGroupTest",
     "EnemyNativeIntegrationTest",

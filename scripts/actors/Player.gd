@@ -21,6 +21,7 @@ const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
 const TerrainSweep = preload("res://scripts/world/TerrainSweep.gd")
 const StealthRecoveryMotion = preload("res://scripts/world/StealthRecoveryMotion.gd")
+const NativeMotion = preload("res://scripts/components/NativePlayerMotion.gd")
 const ALL_DAMAGE_SOURCES: StringName = &"all"
 const OVERDRIVE_MODIFIER: StringName = &"overdrive"
 const DASH_IMMUNITY_SOURCE: StringName = &"dash"
@@ -151,14 +152,14 @@ var player_weapon_texture: Texture2D
 var visual_elapsed: float = 0.0
 var visual_fire_timer: float = 0.0
 var visual_hit_timer: float = 0.0
+var native_visual: Node2D
+var native_motion: Node
 
 func _ready() -> void:
 	add_to_group("player")
 	normal_collision_layer = collision_layer
 	normal_collision_mask = collision_mask
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-	player_body_texture = _load_png_texture(PLAYER_CARDINAL_ATLAS_PATH)
-	player_weapon_texture = _load_png_texture(PLAYER_WEAPON_PATH)
 	player_collision = CollisionShape2D.new()
 	player_collision.name = "PlayerCollision"
 	var circle := CircleShape2D.new()
@@ -169,9 +170,14 @@ func _ready() -> void:
 	health.max_health = 100.0
 	add_child(health)
 	health.health_changed.connect(func(current: float, maximum: float) -> void: health_changed.emit(current, maximum))
+	native_motion = NativeMotion.new()
+	add_child(native_motion)
+	native_visual = native_motion.setup(self)
 	health.died.connect(func() -> void: died.emit())
 
 func _physics_process(delta: float) -> void:
+	if health.current_health <= 0:
+		return
 	if entrance_active:
 		velocity = Vector2.ZERO
 		dash_active = false
@@ -275,6 +281,7 @@ func begin_entrance() -> void:
 	stealth_recovery_pending = false
 	stealth_recovery_trace = {}
 	dash_timer = 0.0
+	native_motion.advance(0)
 	queue_redraw()
 
 func advance_entrance(delta: float) -> void:
@@ -287,6 +294,7 @@ func advance_entrance(delta: float) -> void:
 		entrance_visual_offset = lerpf(-entrance_fall_height, 0.0, eased)
 	else:
 		entrance_visual_offset = 0.0
+	native_motion.advance(0)
 	queue_redraw()
 	if entrance_elapsed >= get_entrance_duration():
 		entrance_active = false
@@ -318,8 +326,13 @@ func get_effective_dash_cooldown() -> float:
 	return dash_cooldown * (OVERDRIVE_DASH_COOLDOWN_MULTIPLIER if overdrive_active else 1.0)
 
 func get_body_visual_center() -> Vector2:
-	var movement_bob := absf(sin(visual_elapsed * 10.0)) * 1.6 if velocity.length_squared() > 1.0 else 0.0
-	return Vector2(0.0, entrance_visual_offset - movement_bob)
+	return Vector2(0.0, entrance_visual_offset)
+
+func get_visual_node() -> Node2D:
+	return native_visual
+
+func get_visual_rect() -> Rect2:
+	return Rect2(-36, -65, 72, 90)
 
 func _draw() -> void:
 	var visual_center := get_body_visual_center()
@@ -341,15 +354,6 @@ func _draw() -> void:
 	if dash_active:
 		draw_arc(Vector2.ZERO, dash_melee_radius, -PI * 0.2, PI * 1.2, 28, Color(Palette.CREAM, 0.65), 4.0)
 		draw_line(-dash_direction * 28.0, dash_direction * 34.0, Color(Palette.TEAL, 0.85), 4.0)
-	var cardinal_index := chibi_cardinal_index(gun_angle)
-	var destination := Rect2(-CHIBI_BODY_DRAW_SIZE * 0.5 + visual_center, CHIBI_BODY_DRAW_SIZE)
-	var source := chibi_cardinal_rect(cardinal_index)
-	var tint := Color(1.0, 0.62, 0.62) if visual_hit_timer > 0.0 else Color.WHITE
-	if cardinal_index == CHIBI_BACK:
-		_draw_chibi_weapon(visual_center, cardinal_index, tint)
-	draw_texture_rect_region(player_body_texture, destination, source, tint)
-	if cardinal_index != CHIBI_BACK:
-		_draw_chibi_weapon(visual_center, cardinal_index, tint)
 	if entrance_elapsed >= ENTRANCE_FALL_SECONDS and entrance_elapsed < get_entrance_duration():
 		_draw_landing_smoke((entrance_elapsed - ENTRANCE_FALL_SECONDS) / ENTRANCE_SMOKE_SECONDS)
 	if arc_pulse_level > 0:
@@ -410,6 +414,7 @@ func _update_visual_animation(delta: float) -> void:
 	visual_fire_timer = maxf(0.0, visual_fire_timer - delta)
 	visual_hit_timer = maxf(0.0, visual_hit_timer - delta)
 	visual_elapsed += delta
+	native_motion.advance(delta)
 
 func _load_png_texture(path: String) -> Texture2D:
 	var resource := ResourceLoader.load(path, "Texture2D")
@@ -613,6 +618,8 @@ func clear_runtime_modifiers() -> void:
 	self_modulate.a = 1.0
 	_set_stealth_collision_disabled(false)
 	_clear_drone_burn_tracks()
+	if is_instance_valid(native_motion):
+		native_motion.sync_attributes()
 
 func _multiply_damage_modifiers(source: StringName) -> float:
 	var multiplier := 1.0
@@ -633,15 +640,17 @@ func _exit_tree() -> void:
 func _fire() -> void:
 	if not _can_fire_primary():
 		return
-	var direction := (get_global_mouse_position() - global_position).normalized()
+	var aim_point := get_global_mouse_position()
+	var direction := (aim_point - global_position).normalized()
 	if direction == Vector2.ZERO:
 		direction = Vector2.RIGHT
+		aim_point = global_position + direction * 500
 	_break_stealth()
 	var spread_step := deg_to_rad(7.5)
 	var active_weapon_lines := get_active_weapon_line_count()
 	var start_offset := -spread_step * float(active_weapon_lines - 1) * 0.5
 	for line in range(active_weapon_lines):
-		_spawn_bullet(direction.rotated(start_offset + spread_step * line))
+		_spawn_bullet(direction, 1.0, aim_point, start_offset + spread_step * line)
 
 func _update_fire(delta: float, wants_fire: bool) -> int:
 	var fired_count := 0
@@ -656,11 +665,17 @@ func _update_fire(delta: float, wants_fire: bool) -> int:
 		fired_count += 1
 	return fired_count
 
-func _spawn_bullet(direction: Vector2, damage_scale: float = 1.0) -> void:
+func _spawn_bullet(direction: Vector2, damage_scale: float = 1.0, aim_point: Vector2 = Vector2.INF, spread_angle: float = 0.0) -> void:
 	visual_fire_timer = 0.5
+	var muzzle: Vector2 = native_motion.prepare_shot(direction, aim_point)
+	# Explicit-direction callers retain their original velocity contract. Real input
+	# volleys share one attached muzzle and fan around muzzle-to-cursor, not root-to-cursor.
+	if aim_point.is_finite() and not aim_point.is_equal_approx(muzzle):
+		direction = (aim_point - muzzle).normalized()
+	direction = direction.rotated(spread_angle)
 	if active_build_evolutions.has("orbital_storm"):
 		var grenade := GrenadeProjectileScript.new()
-		grenade.global_position = global_position + direction * PROJECTILE_SPAWN_OFFSET
+		grenade.global_position = muzzle
 		grenade.velocity = velocity * GRENADE_VELOCITY_INHERITANCE + direction * projectile_speed * GRENADE_SPEED_MULTIPLIER
 		grenade.damage = weapon_damage * GRENADE_DAMAGE_MULTIPLIER * maxf(0.0, damage_scale)
 		grenade.damage_multiplier_provider = Callable(self, "get_effective_damage_multiplier").bind(DamageTypes.PROJECTILE)
@@ -669,7 +684,7 @@ func _spawn_bullet(direction: Vector2, damage_scale: float = 1.0) -> void:
 		fired.emit(grenade)
 		return
 	var shot := ProjectileScript.new()
-	shot.global_position = global_position + direction * PROJECTILE_SPAWN_OFFSET
+	shot.global_position = muzzle
 	shot.velocity = velocity + direction * projectile_speed
 	shot.damage = weapon_damage * maxf(0.0, damage_scale)
 	shot.damage_multiplier_provider = Callable(
@@ -685,7 +700,7 @@ func _spawn_bullet(direction: Vector2, damage_scale: float = 1.0) -> void:
 	fired.emit(shot)
 
 func _can_fire_primary() -> bool:
-	return not dash_active
+	return health != null and health.current_health > 0 and not dash_active
 
 func _start_dash(direction: Vector2) -> void:
 	if dash_active or dash_cooldown_remaining > 0.0:

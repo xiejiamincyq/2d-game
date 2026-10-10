@@ -34,6 +34,9 @@ func _initialize() -> void:
 	var outline = load(path).new()
 	player.add_child(outline)
 	outline.setup(player, enemies, obstacles)
+	if not check(outline.get("mask_viewport") is SubViewport, "outline still consumes old player atlas instead of actual bone silhouette"):
+		fixture.free()
+		return
 	if not check(outline.z_index > 20, "decorative combat effects cover the locator contour"):
 		return
 	for entry in [[Vector2(0, 24), true], [Vector2(0, -24), false], [Vector2(180, 24), false]]:
@@ -44,8 +47,9 @@ func _initialize() -> void:
 	enemy.position = Vector2(0, 24)
 	for angle in [0.0, PI * 0.5, PI, PI * 1.5]:
 		player.gun_angle = angle
+		player._update_visual_animation(0.0)
 		outline._process(0.0)
-		if not check(outline.texture.region == player.chibi_cardinal_rect(player.chibi_cardinal_index(angle)), "outline facing mismatch"):
+		if not check(outline.mask_actor.get_node(player.native_visual.facing).visible, "native outline facing mismatch"):
 			return
 	player.stealth_remaining = 1.0
 	outline._process(0.0)

@@ -1,0 +1,30 @@
+{
+  "contract": "native-player-runtime-integration-v1",
+  "asset_id": "paper_ranger_four_view_v1",
+  "review_state": "style-approved",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "runtime_scene": "res://scenes/actors/native/player_paper_v1.tscn",
+  "runtime_actor": "res://scripts/actors/Player.gd",
+  "runtime_adapter": "res://scripts/components/NativePlayerMotion.gd",
+  "resource_manifest": "res://docs/art/style-manifests/player_native_four_view_v1.json",
+  "review_document": "res://docs/art/native-player-integration-review-v1.md",
+  "runtime_capture": "res://docs/art/previews/campaign/player-native-chapter-enemies-v2.png",
+  "opacity_report": "res://docs/art/previews/campaign/player-native-runtime-opacity-v2.json",
+  "normal_input_report": "res://docs/art/previews/campaign/player-native-chapter-flow-v2.json",
+  "visual_budget_report": "res://docs/art/previews/campaign/player-native-budget-v2.json",
+  "structural_gate": "res://scripts/tests/NativePlayerResourceTest.gd",
+  "integration_gate": "res://scripts/tests/PlayerNativeIntegrationTest.gd",
+  "runtime_integration_verified": true,
+  "human_playtest_approved": false,
+  "external_raster_dependencies": [],
+  "limitations": [
+    "Integration checkpoint, not final art or human acceptance",
+    "Single-view native catalog does not yet index four-view players",
+    "Budget probe excludes AI and physics",
+    "Two ordinary-input death attempts retained; no balance pass rate claimed",
+    "Other enemy families and Boss remain transitional",
+    "No all-character skeleton completion or new large attack work",
+    "No six-chapter completion or public release"
+  ]
+}

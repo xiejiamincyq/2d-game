@@ -34,13 +34,13 @@ func _initialize() -> void:
 	var player: CharacterBody2D = PlayerScript.new()
 	root.add_child(player)
 	await process_frame
-	if not _assert_true(player.player_body_texture.resource_path == PLAYER_ATLAS_PATH, "player did not load the four-direction body atlas"):
+	if not _assert_true(player.get_visual_node().scene_file_path == "res://scenes/actors/native/player_paper_v1.tscn", "player did not load the new four-facing native actor"):
 		return
-	if not _assert_true(player.player_weapon_texture.resource_path == PLAYER_WEAPON_PATH, "player did not load the separate weapon texture"):
+	if not _assert_true(player.player_body_texture == null and player.player_weapon_texture == null, "player still loads old atlases instead of actual bones"):
 		return
-	if not _assert_true(player.player_body_texture.get_size() == Vector2(256, 256), "player body atlas is not a 2x2 128px grid"):
+	if not _assert_true(player.get_visual_node().get_node("Front/Skeleton2D").get_bone_count() == 13, "native player lacks body/hand weapon chain"):
 		return
-	if not _assert_true(player.player_weapon_texture.get_size() == Vector2(256, 256), "player weapon atlas is not a 2x2 128px grid"):
+	if not _assert_true(player.get_visual_node().scale == Vector2.ONE * player.PLAYER_SIZE_SCALE, "native player scale drifted"):
 		return
 	if not _assert_true(CombatVfxScript.HIT_TEXTURE.resource_path == HIT_EFFECT_PATH, "combat spark did not load the B-style hit effect"):
 		return

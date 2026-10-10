@@ -9,6 +9,8 @@ const Store = preload("res://scripts/systems/CampaignProgressStore.gd")
 const Progress = preload("res://scripts/systems/CampaignProgress.gd")
 const Projectile = preload("res://scripts/components/Projectile.gd")
 const OUT := "res://build/diagnostics/campaign-goal/nursery-flow-v4/"
+var output := OUT
+var additional_sources: Array[String] = []
 var failures := 0
 var assertions := 0
 var shots := 0
@@ -48,7 +50,7 @@ func _click(button: Button) -> void:
 
 func _capture(chapter: Node, step: int, label: String) -> void:
 	await RenderingServer.frame_post_draw
-	var path := OUT + "frame_%03d.png" % samples.size()
+	var path := output + "frame_%03d.png" % samples.size()
 	check(root.get_texture().get_image().save_png(path) == OK, "native frame save failed")
 	var boss = chapter.director.get_active_boss()
 	samples.append({"step": step, "label": label, "physics_frame": Engine.get_physics_frames(), "wall_usec": Time.get_ticks_usec(), "state": chapter.director.State.keys()[chapter.director.state], "encounter": chapter.director.encounter_index, "position": [chapter.player.position.x, chapter.player.position.y], "health": chapter.player.health.current_health, "boss_health": boss.health.current_health if boss != null else null, "kills": chapter.kills, "shots": shots, "file": path.trim_prefix("res://"), "sha256": FileAccess.get_sha256(path)})
@@ -65,16 +67,16 @@ func _pick_offer(chapter: Node) -> Button:
 
 func _run() -> void:
 	check(DisplayServer.get_name() != "headless", "native rendering required")
-	check(not DirAccess.dir_exists_absolute(OUT), "must not overwrite previous proof")
+	check(not DirAccess.dir_exists_absolute(output), "must not overwrite previous proof")
 	if failures > 0:
 		quit(1)
 		return
-	DirAccess.make_dir_recursive_absolute(OUT)
-	for path in ["scripts/Main.gd", "scripts/campaign/NurseryChapter.gd", "scripts/ui/NurseryChapterUI.gd", "scripts/systems/NurseryEncounterDirector.gd", "scripts/systems/CampaignProgress.gd", "scripts/systems/CampaignProgressStore.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/actors/OverseerBoss.gd", "scripts/systems/UpgradeSystem.gd", "scripts/art/NaturalRunPolicy.gd", "scripts/art/VerifyNurseryChapterFlow.gd", "scripts/world/NurseryArenaLayout.gd"]:
+	DirAccess.make_dir_recursive_absolute(output)
+	for path in ["scripts/Main.gd", "scripts/campaign/NurseryChapter.gd", "scripts/ui/NurseryChapterUI.gd", "scripts/systems/NurseryEncounterDirector.gd", "scripts/systems/CampaignProgress.gd", "scripts/systems/CampaignProgressStore.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/actors/OverseerBoss.gd", "scripts/systems/UpgradeSystem.gd", "scripts/art/NaturalRunPolicy.gd", "scripts/art/VerifyNurseryChapterFlow.gd", "scripts/world/NurseryArenaLayout.gd"] + additional_sources:
 		sources[path] = FileAccess.get_sha256("res://" + path)
 	_release()
 	var main = MainScene.instantiate()
-	main.campaign_store_path = OUT + "campaign.json"
+	main.campaign_store_path = output + "campaign.json"
 	main.audio_enabled = false
 	root.add_child(main)
 	current_scene = main
@@ -139,18 +141,8 @@ func _run() -> void:
 				var telegraph: Node = boss.get_tentacle_attack() if boss != null else null
 				if telegraph != null and telegraph.is_attacking():
 					threats.append_array(telegraph.get_slam_targets())
-				var goal := Vector2.RIGHT.rotated(step / 180.0) * 350
-				var direction := policy.choose_direction(chapter.player.position, goal, threats, func(point: Vector2) -> bool:
-					if not chapter.map.layout.is_position_walkable(point, chapter.player.get_body_radius()):
-						return false
-					if telegraph != null and telegraph.is_attacking():
-						if telegraph.is_point_in_sweep(point):
-							return false
-						for target: Vector2 in telegraph.get_slam_targets():
-							if point.distance_to(target) < 72:
-								return false
-					return true
-				)
+				var steering := pilot_motion(chapter, policy, step, threats, telegraph, danger_distance)
+				var direction: Vector2 = steering.direction
 				for axis in [["move_left", -direction.x], ["move_right", direction.x], ["move_up", -direction.y], ["move_down", direction.y]]:
 					if axis[1] > 0:
 						Input.action_press(axis[0], axis[1])
@@ -161,7 +153,7 @@ func _run() -> void:
 				Input.warp_mouse(mouse.position)
 				root.push_input(mouse, true)
 				Input.action_press("fire")
-				if danger_distance < 80 and direction != Vector2.ZERO:
+				if steering.dash and direction != Vector2.ZERO:
 					Input.action_press("dash_melee")
 			resumed = true
 		var before: Vector2 = chapter.player.position
@@ -174,12 +166,14 @@ func _run() -> void:
 	_release()
 	var restored := Progress.new()
 	check(chapter.clear_saved and chapter.director.state == chapter.director.State.CLEARED, "ordinary run did not reach saved Boss clear")
-	check(Store.new(OUT + "campaign.json").load_progress(restored) == Store.LoadResult.LOADED and restored.is_unlocked(2), "ordinary Boss clear not persisted")
+	check(Store.new(output + "campaign.json").load_progress(restored) == Store.LoadResult.LOADED and restored.is_unlocked(2), "ordinary Boss clear not persisted")
 	check(moves > 500 and shots > 50 and chapter.kills >= 30, "insufficient actual movement/fire/kills")
 	for path in sources:
 		check(FileAccess.get_sha256("res://" + path) == sources[path], "source changed during proof")
-	var file := FileAccess.open(OUT + "report.json", FileAccess.WRITE)
-	file.store_string(JSON.stringify({"valid": failures == 0, "scope": "Real Main pointer UI and Input.warp_mouse cursor, ordinary movement/aim/fire; no stat writes/direct damage; transitional actors, not human or final art acceptance", "run_seed": chapter.run_seed, "assertions": assertions, "moves": moves, "shots": shots, "actions": actions, "sources": sources, "samples": samples}, "\t"))
+	var file := FileAccess.open(output + "report.json", FileAccess.WRITE)
+	var report := {"valid": failures == 0, "scope": "Real Main pointer UI and Input.warp_mouse cursor, ordinary movement/aim/fire; no stat writes/direct damage; transitional actors, not human or final art acceptance", "run_seed": chapter.run_seed, "assertions": assertions, "moves": moves, "shots": shots, "actions": actions, "sources": sources, "samples": samples}
+	report.merge(additional_report())
+	file.store_string(JSON.stringify(report, "\t"))
 	file.close()
 	if failures == 0:
 		print("TEST PASS: VerifyNurseryChapterFlow %d" % assertions)
@@ -188,3 +182,21 @@ func _run() -> void:
 		chapter.audio.begin_shutdown()
 		chapter.feedback.reset_all()
 		quit(1)
+
+func additional_report() -> Dictionary:
+	return {}
+
+func pilot_motion(chapter: Node, policy: RefCounted, step: int, threats: Array[Vector2], telegraph: Node, danger_distance: float) -> Dictionary:
+	var goal := Vector2.RIGHT.rotated(step / 180.0) * 350
+	var direction: Vector2 = policy.choose_direction(chapter.player.position, goal, threats, func(point: Vector2) -> bool:
+		if not chapter.map.layout.is_position_walkable(point, chapter.player.get_body_radius()):
+			return false
+		if telegraph != null and telegraph.is_attacking():
+			if telegraph.is_point_in_sweep(point):
+				return false
+			for target: Vector2 in telegraph.get_slam_targets():
+				if point.distance_to(target) < 72:
+					return false
+		return true
+	)
+	return {"direction": direction, "dash": danger_distance < 80}
