@@ -1,0 +1,335 @@
+{
+	"checks": 392,
+	"clips": [
+		"walk",
+		"hit"
+	],
+	"frames": 24,
+	"kills": 11,
+	"map_seed": 2238282609,
+	"moves": 401,
+	"observations": [
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.0333333333333333,
+			"shin": -0.0872664675116539,
+			"step": 56
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.216666666666667,
+			"shin": -0.0610864982008934,
+			"step": 64
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.0166666666666667,
+			"shin": -0.043633233755827,
+			"step": 72
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.433333333333333,
+			"shin": 0.149322614073753,
+			"step": 80
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.233333333333333,
+			"shin": -0.0174532812088728,
+			"step": 88
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.0275000000000002,
+			"shin": -0.0719948336482048,
+			"step": 96
+		},
+		{
+			"clip": "walk",
+			"hp": 14.86,
+			"pose_time": 0.477500000000002,
+			"shin": 0.00799939502030611,
+			"step": 104
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.3,
+			"shin": 0.191986203193665,
+			"step": 112
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.286666666666667,
+			"shin": 0.149322599172592,
+			"step": 120
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.256666666666667,
+			"shin": 0.0533295124769211,
+			"step": 128
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.162499999999999,
+			"shin": -0.202894508838654,
+			"step": 136
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.100833333333331,
+			"shin": -0.26398104429245,
+			"step": 144
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.0708333333333293,
+			"shin": -0.185441240668297,
+			"step": 152
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.204166666666662,
+			"shin": -0.0938114449381828,
+			"step": 160
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.321666666666662,
+			"shin": 0.261314541101456,
+			"step": 168
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.454999999999995,
+			"shin": 0.0799942463636398,
+			"step": 176
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.108333333333328,
+			"shin": -0.283616006374359,
+			"step": 184
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.24166666666666,
+			"shin": 0.0053329668007791,
+			"step": 192
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.374999999999993,
+			"shin": 0.335975915193558,
+			"step": 200
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.0283333333333262,
+			"shin": -0.0741764977574348,
+			"step": 208
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.161666666666659,
+			"shin": -0.205076187849045,
+			"step": 216
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.294999999999992,
+			"shin": 0.175987362861633,
+			"step": 224
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.428333333333325,
+			"shin": 0.165321454405785,
+			"step": 232
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.0816666666666577,
+			"shin": -0.213802829384804,
+			"step": 240
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.214999999999991,
+			"shin": -0.0654498189687729,
+			"step": 248
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.348333333333324,
+			"shin": 0.3466417491436,
+			"step": 256
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.00166666666665671,
+			"shin": -0.00436332356184721,
+			"step": 264
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.13499999999999,
+			"shin": -0.274889349937439,
+			"step": 272
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.268333333333322,
+			"shin": 0.0906601548194885,
+			"step": 280
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.401666666666655,
+			"shin": 0.250648677349091,
+			"step": 288
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.0549999999999882,
+			"shin": -0.14398966729641,
+			"step": 296
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.188333333333321,
+			"shin": -0.135263010859489,
+			"step": 304
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.321666666666654,
+			"shin": 0.261314541101456,
+			"step": 312
+		},
+		{
+			"clip": "hit",
+			"hp": 4.86,
+			"pose_time": 0.0833333333333333,
+			"shin": 0.0,
+			"step": 320
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.0799999999999801,
+			"shin": -0.209439516067505,
+			"step": 328
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.213333333333313,
+			"shin": -0.0698131695389748,
+			"step": 336
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.330833333333313,
+			"shin": 0.290645778179169,
+			"step": 344
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.464166666666646,
+			"shin": 0.0506630204617977,
+			"step": 352
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.117499999999978,
+			"shin": -0.307614296674728,
+			"step": 360
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.234999999999978,
+			"shin": -0.013089956715703,
+			"step": 368
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.368333333333313,
+			"shin": 0.357307732105255,
+			"step": 376
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.0216666666666527,
+			"shin": -0.0567231997847557,
+			"step": 384
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.139166666666658,
+			"shin": -0.26398104429245,
+			"step": 392
+		},
+		{
+			"clip": "walk",
+			"hp": 24.86,
+			"pose_time": 0.272499999999998,
+			"shin": 0.103992536664009,
+			"step": 400
+		}
+	],
+	"passed": true,
+	"scope": "Actual Main legacy wave demo, normal pointer/move/fire and natural DASHER portals; not chapter 2, full wave/Boss, every pose or human acceptance. No stat writes or forced actor spawning.",
+	"shots": 130,
+	"sources": {
+		"assets/art/actors/native/cinder_runner_motion_v1.tres": "9320e0536f8649e163e138d3c6d8a47e9395280e18dfeb58e936594d5257d409",
+		"scenes/actors/native/cinder_runner_paper_v1.tscn": "232a62702e5381da3fc9dc4a02b17ec91901d389437c699289565edb54de3397",
+		"scripts/Main.gd": "89dfb856975028d25ffa69c18aec02ade84b1326086f6dfd79293cc721fd4920",
+		"scripts/actors/Enemy.gd": "690f68b1073395f022ae4ef1550af8546d6ba0a1e7a836d180a644ebbaa74e97",
+		"scripts/art/NaturalRunPolicy.gd": "75d7ccf15e5b35355324945301afb4b8a5a57f5805a10e5d3cb14d07889b2259",
+		"scripts/art/VerifyCinderRunnerRuntime.gd": "e241311dddbd849e557b3469dfb448d762672506067908283a8d7dc801448ccc",
+		"scripts/art/VerifyNurseryChapterFlow.gd": "f15f270aeeb10da6feb1018fa575e8773b60a3c8dfdfd51e037d8a4e94fd94ab",
+		"scripts/components/NativeCinderRunnerMotion.gd": "2adbd68c49b195e42721b84f4b552d8bcb3ea355d72e21c584f25b4772c517c1",
+		"scripts/systems/WaveDirector.gd": "4ce1b9bbace964c36139701112cff4289529b22aa427f4a9d290a28a3817595b"
+	}
+}

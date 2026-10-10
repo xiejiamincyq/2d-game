@@ -26,6 +26,8 @@ const HitFeedbackScript = preload("res://scripts/effects/EnemyHitFeedback.gd")
 const AttackDrawing = preload("res://scripts/effects/HostileAttackDrawing.gd")
 const NATIVE_SCRAPPER := preload("res://scenes/actors/native/rootling_paper_v3.tscn")
 const NATIVE_SPITTER := preload("res://scenes/actors/native/sporeling_paper_v1.tscn")
+const NATIVE_DASHER := preload("res://scenes/actors/native/cinder_runner_paper_v1.tscn")
+const NativeCinderMotion := preload("res://scripts/components/NativeCinderRunnerMotion.gd")
 const NativeSporeMotion := preload("res://scripts/components/NativeSporelingMotion.gd")
 const NativeMotion = preload("res://scripts/components/NativeScrapperMotion.gd")
 const DASHER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png")
@@ -217,7 +219,7 @@ func _ready() -> void:
 		EnemyKind.SCRAPPER:
 			_create_native_visual()
 		EnemyKind.DASHER:
-			_create_static_visual(DASHER_TEXTURE, DASHER_RUNTIME_SCALE, "DasherVisual")
+			_create_native_visual(NATIVE_DASHER)
 		EnemyKind.SPITTER:
 			_create_native_visual(NATIVE_SPITTER)
 		EnemyKind.BRUISER:
@@ -665,12 +667,24 @@ func _create_native_visual(scene: PackedScene = NATIVE_SCRAPPER) -> void:
 	native_visual.name = "NativeVisual"
 	native_visual.show_behind_parent = true
 	add_child(native_visual)
-	static_visual_half_height = 60.0 if kind == EnemyKind.SPITTER else 58.0 # Cap/leaf plus gait, not collision.
+	match kind:
+		EnemyKind.SPITTER:
+			static_visual_half_height = 60.0 # Cap and gait; not collision radius.
+		EnemyKind.DASHER:
+			static_visual_half_height = 44.0 # Low ram mask and spring-shin gait.
+		_:
+			static_visual_half_height = 58.0
 	static_flash_material = ShaderMaterial.new()
 	static_flash_material.shader = ENEMY_HIT_FLASH_SHADER
 	static_flash_material.set_shader_parameter("flash_amount", 0.0)
 	native_visual.get_node("Facing/Skin").material = static_flash_material
-	native_motion = NativeSporeMotion.new(native_visual) if kind == EnemyKind.SPITTER else NativeMotion.new(native_visual)
+	match kind:
+		EnemyKind.SPITTER:
+			native_motion = NativeSporeMotion.new(native_visual)
+		EnemyKind.DASHER:
+			native_motion = NativeCinderMotion.new(native_visual)
+		_:
+			native_motion = NativeMotion.new(native_visual)
 
 func _create_static_visual(texture: Texture2D, visual_scale: Vector2, node_name: String) -> void:
 	static_visual = Sprite2D.new()

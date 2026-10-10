@@ -61,6 +61,8 @@ $gameplayTests = @(
     "EnemyNativeIntegrationTest",
     "SporelingResourceTest",
     "SporelingIntegrationTest",
+    "CinderRunnerResourceTest",
+    "CinderRunnerIntegrationTest",
     "BalanceTest",
     "EconomyBuildTest",
     "CombatEventTest",
