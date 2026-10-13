@@ -1,0 +1,127 @@
+[
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\campaign.json",
+    "sha256": "17ba485d28713bb545b18dc7eac46cc31565339f78eae139f81848cc7585d81b",
+    "file": "campaign.json"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_000.png",
+    "sha256": "d3e0a40812a3e3fe3bf95be54c18358ef339a2a7d0801706703e5ab2e24e8adf",
+    "file": "frame_000.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_001.png",
+    "sha256": "e34ec65b05c34d21fa837dcd7d43e0b014c5b5b60a820e22fdc9e2440b48bb9f",
+    "file": "frame_001.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_002.png",
+    "sha256": "dd14f74061f1a2f3e5297e47b8539745d6d788782dfb0f0f2f1a99669a264710",
+    "file": "frame_002.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_003.png",
+    "sha256": "e1559415b89a121d83570e1ab2d7e008d403d4806d4cf3e030aadcdccf3170c7",
+    "file": "frame_003.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_004.png",
+    "sha256": "60cd9a83fe70257ee10f3c107d2dc9e870c2fcfe1a9b11838869eeac1922669c",
+    "file": "frame_004.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_005.png",
+    "sha256": "9a9a363137c5d83910d3316f7b31a9aaf3ae104253b39d2b9dcb0ed1e68d4956",
+    "file": "frame_005.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_006.png",
+    "sha256": "86acf63190d7f622810322e284e430865d94c6ad35e8fb15f20c681898f14ac5",
+    "file": "frame_006.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_007.png",
+    "sha256": "3e7094bd5cab57ea125980a84d78eb0467d474dcc7920353f4c02a1c9259d02e",
+    "file": "frame_007.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_008.png",
+    "sha256": "9cb763a4019046889d7e21ab250bf2687d6a12cb8d35a3356fa17f3a64ccd7d9",
+    "file": "frame_008.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_009.png",
+    "sha256": "588ed7fd27175870f16d9feae0fcfdd9ea8f708c45b1e4c5bdd3cc9b247b24e4",
+    "file": "frame_009.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_010.png",
+    "sha256": "a91866bca3b2fe97236dccf06a27df11b733b0802c32c6fb382a99a9a21f2a34",
+    "file": "frame_010.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_011.png",
+    "sha256": "0b9044d9a3710108e9fb8dfb93b68c3cef929180c6bfe732cd1a5d24c8517e86",
+    "file": "frame_011.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_012.png",
+    "sha256": "afb23fa9c8ba1eeca075830e32484fcc8e7fe1a28b64eb9eb940558861b4570f",
+    "file": "frame_012.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_013.png",
+    "sha256": "b39ac5899fbf200539a33d0f722dc661096923356d8d28e33a311ae85fe4585b",
+    "file": "frame_013.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_014.png",
+    "sha256": "cba83b8bd0a30eafed68fba87c621585a7dc91973fdccdb896663826ae3b83df",
+    "file": "frame_014.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_015.png",
+    "sha256": "afa6c4803cb9af8bcb18f83a3c98ac63c99c1bc7e2b92e54fd916aa3d746d770",
+    "file": "frame_015.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_016.png",
+    "sha256": "1f43a6f2790f7448ac556e273bc7bf738da8dbd803dff754c0deaf61bad67ebd",
+    "file": "frame_016.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_017.png",
+    "sha256": "969e481942958072d496cd8683cc254e918cb9aa5d3bd11f71a06275958cf42e",
+    "file": "frame_017.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_018.png",
+    "sha256": "c3e3b0fe7dc48d1c8924fc4f7d78d814a9a5f9f74c0fd47ab36104fda9819298",
+    "file": "frame_018.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\frame_019.png",
+    "sha256": "1d9fb0665e854b8b5080a9698be527274a865416b845c905431fea65cb4a1fc9",
+    "file": "frame_019.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\replay_combat.png",
+    "sha256": "6ef51638c4941f2b4bd7a5b3b49dc6be975f9d8f4bae711d88db7bcece24c764",
+    "file": "replay_combat.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\replay_intro.png",
+    "sha256": "ef0e9ddd33f5acf5221aa1bcde34026e2f69012833e8c74ce9566bd9ee4085ee",
+    "file": "replay_intro.png"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2\\report.json",
+    "sha256": "935f0f12a4f77c30593cf7b3478534545d7f62de33cc6ef1c7676ee509484013",
+    "file": "report.json"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f3_replay_20261012_v2.log",
+    "sha256": "e69a1cd79d6190342765c02750557d5a61d315efbec858d0ab5ffbc346865af5",
+    "file": "f3_replay_20261012_v2.log"
+  }
+]

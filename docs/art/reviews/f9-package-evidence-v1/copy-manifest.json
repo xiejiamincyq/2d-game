@@ -1,0 +1,197 @@
+[
+  {
+    "sha256": "a291ed1084bb8453958ea19767a8df1cb5db0ee9c0b6e1f2fa2cb809a5eeee02",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\f9-final-native-pack-v1.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1.log"
+  },
+  {
+    "sha256": "4f71da661fad33613c04127a441f154cd4d7c2be649069ad48eccad71aea424e",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\f9-final-source-freeze-v1.json",
+    "original": "build/diagnostics/campaign-goal/f9-final-source-freeze-v1.json"
+  },
+  {
+    "sha256": "37aa349d528b71d8d041eb13669004343a415e17f9385f4ac26fff63a67fbcc7",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\f9-vs-f8-source-delta-v1.json",
+    "original": "build/diagnostics/campaign-goal/f9-vs-f8-source-delta-v1.json"
+  },
+  {
+    "sha256": "d481373bacbd8c273716d5a605f0a3e83b671284c76f377d6db3ccf3b28727c4",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\actual-exit.json",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/actual-exit.json"
+  },
+  {
+    "sha256": "425db1efc5904bb898b6cb1e569a61e29c3abd20c34142f73e19db85cba3613f",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\ArenaRuntimeTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/ArenaRuntimeTest.log"
+  },
+  {
+    "sha256": "5e848f0b4eeacf3c92d5bb19fa9eac40d4c649fdae014aa1cdbf6c6c9230bd80",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\BellPriestIntegrationTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/BellPriestIntegrationTest.log"
+  },
+  {
+    "sha256": "c187d7e0f060c5a7bfc8874ddb5f7a3c2849c2633867cae347c62c8901a91fea",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\CampaignMenuIntegrationTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/CampaignMenuIntegrationTest.log"
+  },
+  {
+    "sha256": "f0affb673b6a3b3a88d514fc0815b3da63d51c6023541873e4bdcbbfda12c1ba",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\CampaignMenuMotionTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/CampaignMenuMotionTest.log"
+  },
+  {
+    "sha256": "008f530320bca844c17c853ff04c5adf982904ba5f31ce438545e9a3ec9ad9c6",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\CampaignMenuTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/CampaignMenuTest.log"
+  },
+  {
+    "sha256": "ecef7bd3acdb342c23ba6f25667ce5c25e6dd23122f14c1fed86919cf633fe6b",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\CampaignPrimaryEntryTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/CampaignPrimaryEntryTest.log"
+  },
+  {
+    "sha256": "aa6eadb4adf12fd648ec51fe559cfe512a019e53040a5a656103768f8bb46e29",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\CampaignProgressStoreTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/CampaignProgressStoreTest.log"
+  },
+  {
+    "sha256": "dbe2461499677fe4bc99adb5d194a82c5f918fae1a4a009e5b5ce434dcb052d0",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\CampaignProgressTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/CampaignProgressTest.log"
+  },
+  {
+    "sha256": "aa5736c99a6f414a177f3e17421f3566881b7ea16c33c38bdd2b33b40899a349",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\CombatFeedbackTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/CombatFeedbackTest.log"
+  },
+  {
+    "sha256": "acc9f2d8eb85504117654d9a5997bdd08f88b2c06a441857f47b20bdc14eb2f0",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\directory-report.json",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/directory-report.json"
+  },
+  {
+    "sha256": "d77599ae1d5a0af4ff2778d75e3672678f4ba7db9e1a944b24279aee75c5d628",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\export.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/export.log"
+  },
+  {
+    "sha256": "7f69590ab47b6f06e6e11702d79780fe98e8d8f76fb6f342431877f3f82b713c",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\FriendlyEffectLayerTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/FriendlyEffectLayerTest.log"
+  },
+  {
+    "sha256": "58f8fa9cb7a2c0c89587a7e5d325af8daa3192c29350d4134ed0aaf1485fcfb0",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\LegacyOverseerMotionIntegrationTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/LegacyOverseerMotionIntegrationTest.log"
+  },
+  {
+    "sha256": "bb3bcf7181e550fe37f9235c4aecf24a81b757eddfeff554d88e7974feb2ed1d",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\main.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/main.log"
+  },
+  {
+    "sha256": "ed0ee308215dab9a37640c10b69258ad1661a4967d7ee06fdc5ba11d2dcdcd17",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\NativeArenaPropGeometryTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/NativeArenaPropGeometryTest.log"
+  },
+  {
+    "sha256": "38cc0121338898832395f74f5add46e9d01ad9c35a6a5adf7dc293c843ce8555",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\NativeArenaRuntimeTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/NativeArenaRuntimeTest.log"
+  },
+  {
+    "sha256": "c13e48dad6f539f5aa5fb6fefa5fef7648dee62fa84edfe5fb8186cd3dc8bc24",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\NativeCharacterRosterTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/NativeCharacterRosterTest.log"
+  },
+  {
+    "sha256": "09c8df5f3f071c8eb50b699d5a498726a2990bf206a3e35cb18709bc27efd46b",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\NativeImpactRuntimeTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/NativeImpactRuntimeTest.log"
+  },
+  {
+    "sha256": "25782a1e3789e831c804890d65fd4aec309b5085aab854196b603cca9b842832",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\NativePlayerResourceTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/NativePlayerResourceTest.log"
+  },
+  {
+    "sha256": "b92337cecde99fb81ae6cc7426e404807a24bff2dfbc0d8bb4fa9dde80686b9e",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\OriginalOverdriveAudioTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/OriginalOverdriveAudioTest.log"
+  },
+  {
+    "sha256": "0adaa9bc784f99d3249e890db7d7905e7cd3e61b693bb69e108748e1a1bbfe18",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\PlayerNativeIntegrationTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/PlayerNativeIntegrationTest.log"
+  },
+  {
+    "sha256": "452e93e4250bb0d7fec5a81e693e8f5b010ef7dc7d3ab7346d309eaafcb0e7ff",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\RiftObserverIntegrationTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/RiftObserverIntegrationTest.log"
+  },
+  {
+    "sha256": "f95d03cccef337676799c60d8b82a846d7f2dcc12939fc754c0759dfdc023ca5",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\RiftObserverMotionContractTest.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/RiftObserverMotionContractTest.log"
+  },
+  {
+    "sha256": "85eaf4703e8ddd41a8de76f5840acfac74075271094a9c2c646a5d4a32db9aee",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\VerifyRiftObserverPackedResources.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/VerifyRiftObserverPackedResources.log"
+  },
+  {
+    "sha256": "37c1a3e78b6bcbfa28e76dc023467424b9c8849d48044a5bca8c287e134b6ef4",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\runtime-gpu\\actual-exit.json",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/actual-exit.json"
+  },
+  {
+    "sha256": "f2d2bdbfbe25d8ad453c16876bb640b986e623e029aa5fcb94eff9830e12c656",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\runtime-gpu\\driver.log",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/driver.log"
+  },
+  {
+    "sha256": "80bcdb96d4a43ec36acf63b207230a248c31c41cbd178f0c2ca53c6dfb755670",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\runtime-gpu\\frame00000000.png",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000000.png"
+  },
+  {
+    "sha256": "08b01ee62162b96cf358ed76067ad7c96de0ce118fc58698c32583d7e8182b04",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\runtime-gpu\\frame00000020.png",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000020.png"
+  },
+  {
+    "sha256": "08b01ee62162b96cf358ed76067ad7c96de0ce118fc58698c32583d7e8182b04",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\runtime-gpu\\frame00000060.png",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000060.png"
+  },
+  {
+    "sha256": "f01edf6bbea62db0d8bdb406bea92e0458b1f5cdf146fae51bf504e29bb15d03",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\runtime-gpu\\frame00000090.png",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000090.png"
+  },
+  {
+    "sha256": "55832701cc7655f60cae3331fdf4ceb3b2ff6100da959bb18e599081d03e9f29",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\runtime-gpu\\frame00000124.png",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000124.png"
+  },
+  {
+    "sha256": "4f3de6df3d97048be55ff6a818d0887fe0520621b9b84d6eefea5e5ffb10fbf4",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\runtime-gpu\\frame00000125.png",
+    "original": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000125.png"
+  },
+  {
+    "sha256": "24a45bbdc78b9edad504d6b564541c0aa31b316cd58c02e2e8b088d0eb74631b",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\release\\actual-exit.json",
+    "original": "build/playtest/native-campaign-f9-v1/actual-exit.json"
+  },
+  {
+    "sha256": "f049e4e79cb79e386c741797a7e1f2b5a91619223c283a761eb8c6115cd067c6",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\release\\export.log",
+    "original": "build/playtest/native-campaign-f9-v1/export.log"
+  },
+  {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copy": "docs\\art\\reviews\\f9-package-evidence-v1\\release\\main120.log",
+    "original": "build/playtest/native-campaign-f9-v1/main120.log"
+  }
+]

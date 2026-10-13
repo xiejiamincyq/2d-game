@@ -46,6 +46,7 @@ func test_launch(kind: int, transformed: bool) -> bool:
 		return false
 	enemy.ranged_target_position = target.global_position
 	enemy.shoot_cooldown = 0.0
+	var expected_spawn: Vector2 = enemy.native_visual.get_node("Facing/Skeleton2D/Torso/ArmR/ForearmR/HandR/NeedleGun/Muzzle").global_position if kind==EnemyScript.EnemyKind.MARKSMAN else enemy.global_position
 	match kind:
 		EnemyScript.EnemyKind.MARKSMAN:
 			enemy._fire_marksman(target)
@@ -54,6 +55,9 @@ func test_launch(kind: int, transformed: bool) -> bool:
 			enemy._update_spitter(0.19, target)
 		EnemyScript.EnemyKind.OVERSEER:
 			enemy._fire_overseer_burst()
+			# The reviewed native burst now releases at its posed core, not the
+			# collision root. Keep all real circle/parent-transform/velocity checks.
+			expected_spawn = enemy.native_visual.get_node("Facing/Skeleton2D/Torso/Core/CommandOrigin").global_position
 	var expected_count := 12 if kind == EnemyScript.EnemyKind.OVERSEER else 1
 	if not check(shots.get_child_count() == expected_count, "actual launch count changed"):
 		return false
@@ -68,11 +72,13 @@ func test_launch(kind: int, transformed: bool) -> bool:
 		if not check(shape != null and shape.shape is CircleShape2D and is_equal_approx(shape.shape.radius, radius) and shot.radius == radius,
 			"kind %d declared radius %.1f but actual shape radius %.1f" % [kind, radius, shape.shape.radius]):
 			return false
-		if not check(shot.global_position.is_equal_approx(enemy.global_position) and shot.target_group == &"player" and shot.damage == damage and is_equal_approx(shot.velocity.length(), speed),
-			"kind %d transformed %s spawn %s vs %s, damage %.1f, speed %.1f" % [kind, transformed, shot.global_position, enemy.global_position, shot.damage, shot.velocity.length()]):
+		if not check(shot.global_position.is_equal_approx(expected_spawn) and shot.target_group == &"player" and shot.damage == damage and is_equal_approx(shot.velocity.length(), speed),
+			"kind %d transformed %s spawn %s vs %s, damage %.1f, speed %.1f" % [kind, transformed, shot.global_position, expected_spawn, shot.damage, shot.velocity.length()]):
 			return false
-		var direction := Vector2.RIGHT.rotated(TAU * shot_index / 12.0) if kind == EnemyScript.EnemyKind.OVERSEER else (target.global_position - enemy.global_position).normalized()
-		if not check(shot.velocity.is_equal_approx(direction * speed), "locked aim or 12-way burst direction changed"):
+		var direction := Vector2.RIGHT.rotated(TAU * shot_index / 12.0) if kind == EnemyScript.EnemyKind.OVERSEER else (target.global_position - expected_spawn).normalized()
+		# Rotated projectile parents round-trip world origins through float32.
+		# Bound absolute vector error, rather than a tiny y component's relative error.
+		if not check(shot.velocity.distance_to(direction * speed)<0.001, "locked aim or 12-way burst direction changed: kind %d transformed %s actual %s expected %s" % [kind,transformed,shot.velocity,direction*speed]):
 			return false
 		if not check(shot.lifetime == lifetime and shot.world_bounds == enemy.world_bounds and shot.pierce == 0, "lifetime, world bounds or piercing changed"):
 			return false

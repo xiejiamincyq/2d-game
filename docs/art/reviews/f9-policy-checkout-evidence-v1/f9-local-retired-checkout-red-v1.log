@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: test_checkout_without_local_only_retired_bitmap_keeps_release_policy (__main__.ReleasePackPolicyTest.test_checkout_without_local_only_retired_bitmap_keeps_release_policy) (retired='assets/art/environment/mint_farm_props_b_v1.png')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\21604\Documents\2D game\.worktrees\5���ӳ���\scripts\tests\test_release_pack_policy.py", line 93, in test_retired_bitmaps_are_preserved_but_no_longer_runtime_dependencies
+    self.assertTrue((PROJECT_ROOT / path).is_file(), "historical source must be preserved")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : historical source must be preserved
+
+----------------------------------------------------------------------
+Ran 1 test in 0.118s
+
+FAILED (failures=1)

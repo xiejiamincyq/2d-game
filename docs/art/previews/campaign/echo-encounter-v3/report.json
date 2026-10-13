@@ -1,0 +1,82 @@
+{
+	"actual_adjacent_moves": 225,
+	"bar_coral_pixels": 24,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_encounter_gpu_v3/intro.png",
+			"sha256": "2e50f674a8cba73fd8d42965fd895938c154eeea7897d9eed9254aa9bca0094c"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_encounter_gpu_v3/shade.png",
+			"sha256": "1abfb5910512c6f114ee249111eeb5439b5aff144e7e3dfd7d5d24d6ef84c8a1"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_encounter_gpu_v3/sentinel.png",
+			"sha256": "c882ed50a8ff40c9f7ddfc019bcbe9580b08c7a8c03980f8144f0f3e752f3c6d"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_encounter_gpu_v3/short-head-warning.png",
+			"sha256": "f7845518bf4bc198527c44220f7b798dde1577bc64f9cdd4ac1c30747f6fc0f5"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_encounter_gpu_v3/encounter-beat.png",
+			"sha256": "a1ae18ed679a96dff8d4e9de71ffcf10bfa95159c8eb139b0a46e44d8b456b14"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_encounter_gpu_v3/mixed.png",
+			"sha256": "cf17930d9b90a2aa517bf4a62bea6da6da3dbf395648d1000069d964c7874e9d"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_encounter_gpu_v3/paused.png",
+			"sha256": "38ecc2faeab8d77182004f92134785b6d82af6c1570f8089c3c24a6264ece0b4"
+		}
+	],
+	"checks": 2140,
+	"current_beat_coral_pixels": 8,
+	"engine_pointer_updates": 183,
+	"final_player_health": 70.0,
+	"maximum_live_enemies": 11,
+	"observed": {
+		"beat_pulse": true,
+		"beat_warning": true,
+		"sentinel_ring": true,
+		"sentinel_walk": true,
+		"sentinel_warning": true,
+		"shade_strike": true,
+		"shade_walk": true,
+		"shade_warning": true
+	},
+	"owned_player_shots": 42,
+	"passed": true,
+	"scope": "First actual seeded fifth-region encounter and actual AI/ordinary movement/fire, no post-spawn position/stat/pose/velocity/clock writes. Not Boss/chapter victory, OS input, human playtest, dense performance or six-chapter completion.",
+	"sources": {
+		"scenes/actors/native/circling_shade_paper_v1.tscn": "c7fbca75dc098a182ba577c6125d7e50d979983395090499922e36f35ad6f0b9",
+		"scenes/actors/native/echo_sentinel_paper_v1.tscn": "59316886d911cfe1e9d362737ddfbbc209ec15a1e99dfec085906510f9c20cc7",
+		"scenes/world/echo_court.tscn": "2dd3c90cda1d128b817724035854a83901998b39f6c99c71b4e338298b813733",
+		"scripts/actors/CirclingShadeEnemy.gd": "6585d71b203e7244a3585e7f848f08ee6cf92b83e73b84836e316e15eaaa78f6",
+		"scripts/actors/EchoSentinelEnemy.gd": "530e2fc17a39b1b90b73ce11bce1992cfec935b91a252b60d66e4fdcdf6512d6",
+		"scripts/actors/Enemy.gd": "4a38c0ebe3320fe89470b8c9954afd42dea57cee6f788474dcea8fb73c8321de",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/campaign/RegionalEnemyFactory.gd": "921caa3665e68e3d7ab6a04b77d85a2116d2b73abf4f17af58338848a03f42d8",
+		"scripts/components/EchoRingAttack.gd": "94c1c3d360231f953a7165f5b28b72e6cdb012a53911f8d1d911aac8cb9e31ac",
+		"scripts/components/NativeActorView.gd": "2f809462e45c77dc05dd028fecafddb8e3e021cb8415cbb3cae2a6864fe160f3",
+		"scripts/components/NativeScrapperMotion.gd": "7b840b4f9a98540ee8d4cb62e75a53950e218c9ab87852c2a92bfc0979d003ec",
+		"scripts/components/ShadeAmbushAttack.gd": "75ee3b4f0da926fbf49b48465692e692babc69f8f3fb36437bf2cbc2c11dc632",
+		"scripts/effects/EnemyWorldStatus.gd": "ec7ceb7a9e4171048ffc1f1c0168658266276cb481d3231abc9d67efa9b423f1",
+		"scripts/systems/ChapterEncounterDirector.gd": "bdc8a4587a1dea077ccdbcd5012fcdce5a5b23b46057a47c29e837125465e0b5",
+		"scripts/systems/EchoEncounterDirector.gd": "1a968b1e5c556889a1c3d8da563a112c81c4c0bbeabad92c8bab4a801946fbb5",
+		"scripts/systems/UpgradeSystem.gd": "b06312a74909c05e2f7cc77edec0ae4ec9576e518bd6848b169c8b1ec2ab0317",
+		"scripts/systems/WaveDirector.gd": "ba5089601a241308fe546415e78f6f54bc92958c2629f8f492db4949bd91f4a9",
+		"scripts/tests/EchoBeatEntitySeparationTest.gd": "72ec6c2692fc79d0d929f879a5e2868fe50abc32f44241a7594b511d32f70b2c",
+		"scripts/tests/EchoEncounterPolicyTest.gd": "cce1ded097ddb8845d550b0d54abcdaf1ec59c23938481b6bccb394d702a969c",
+		"scripts/tests/EchoEncounterRuntimeTest.gd": "7b8f6bc810b826fd718d3a14c3ba2ee3abd035d072c484f0119a17951ba6bab3",
+		"scripts/tests/EchoEncounterTest.gd": "cdf81184825bba7c74ebc9c2dc32e567bedfa49d3ded2c2af828a1690ec2ac13",
+		"scripts/tests/EchoMovementTest.gd": "3c83157387f47784f3af430681d339d1d5511bcb78d40b7ba9d4ef749fc3f16f",
+		"scripts/world/EchoArenaLayout.gd": "27399c73777778ac7db1acde672b01b9da2a478378e5f94830e253cee0dac102",
+		"scripts/world/EchoBeat.gd": "cf89e417d458c8b7264b5ad5472989ae07076e17ce63e7658b2a8be8ddaf0b3c",
+		"scripts/world/EchoField.gd": "1f5989db8117ed453f39a9ba2a0e9e1360163d00c20600b1686a7b00ecc5281a",
+		"scripts/world/EchoMap.gd": "563f1dc80d93e0d8e680e28616b67312b8564628b25b504f46362855afae43d9",
+		"scripts/world/TerrainSweep.gd": "08e472ff12bb0ab46ca2e86a88061e54be7f3f2cc3780f50d15eec12dff13255"
+	},
+	"warning_cream_pixels": 18
+}

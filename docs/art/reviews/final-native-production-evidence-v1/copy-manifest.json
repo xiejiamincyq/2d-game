@@ -1,0 +1,22 @@
+[
+  {
+    "sha256": "3d4a80b4a78e567f9f94bc62c75dac35ff7ec9d265622f7e409c018f807c88ad",
+    "destination": "docs/art/reviews/final-native-production-evidence-v1/resource-visual-bindings.json",
+    "source": "build/diagnostics/campaign-goal/f8-current-resource-visual-bindings-v1.json"
+  },
+  {
+    "sha256": "c032a0539f373da2684a039cfe5b19a509ccac1d319b4bb91c0f5f8296a084c8",
+    "destination": "docs/art/reviews/final-native-production-evidence-v1/pck-directory.json",
+    "source": "build/diagnostics/campaign-goal/f8-final-native-pack-v1/directory-report.json"
+  },
+  {
+    "sha256": "18e50caa3a447fe10039deac522f9c898e2881a2cfb9697ade82bb315bd89367",
+    "destination": "docs/art/reviews/final-native-production-evidence-v1/chapter-pack-supplement.json",
+    "source": "build/diagnostics/campaign-goal/f8-final-chapter-pack-supplement-v1/report.json"
+  },
+  {
+    "sha256": "dbc679c8c8499145f52e66c03598859bf6e20f4a68d734083712d36c149adcb7",
+    "destination": "docs/art/reviews/final-native-production-evidence-v1/current-rift-gpu.json",
+    "source": "build/diagnostics/campaign-goal/f7_final_rift_resource_gpu_v1/report.json"
+  }
+]

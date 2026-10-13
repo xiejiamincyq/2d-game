@@ -1,0 +1,11 @@
+{
+  "asset_id": "vine_guard_paper_v2",
+  "runtime_scene": "res://scenes/actors/native/vine_guard_paper_v2.tscn",
+  "motion_library": "res://assets/art/actors/native/vine_guard_motion_v2.tres",
+  "role": "boss",
+  "review_state": "style-approved",
+  "bone_count": 22,
+  "license_origin": "project-original",
+  "rig_checkpoint": "res://docs/art/native-checkpoints/vine_guard_attack_v1.json",
+  "required_clips": ["idle","walk","hit","entrance","death","lash_warning","lash_attack","lash_recovery","roots_warning","roots_attack","roots_recovery","seeds_warning","seeds_attack","seeds_recovery"]
+}

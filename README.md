@@ -1,10 +1,30 @@
 # 废土清剿协议
 
-使用 Godot 4.7 制作的 Windows 桌面纯2D Q版肉鸽战斗游戏。当前分支沿已批准的清爽玩具、薄荷实验农场和加粗轮廓方向制作，每局生成随机障碍地图；方向批准不等于所有资源或许可证验收，环境资源仍为draft。玩家在六个普通波次与最终首领战中移动、瞄准、射击和冲刺，通过波次奖励与金币商店构建枪械、无人机、电弧和地刺流派。标题“废土清剿协议”保留，旧45°/M2美术文档仅作历史记录。
+当前六关原生骨骼工程与验证已完成，见[F12逐需求验收](docs/campaign-final-f12-requirements-audit-v1.md)。[Boss公平性与二关机关](docs/campaign-boss-fairness-v1.md)：热喷口0.70秒锁点预警、正式热区10/10/16，主线17伤害技能无普通撤离路线则取消；兼容监工终态回调漏洞已修复。本机最新F12可双击 `build/playtest/native-campaign-f12-terminal-safety-v1/five-minute-overdrive.exe`，同目录PCK必须保留。[F12验包与边界](docs/campaign-f12-package-review-v1.md)。完整361 Godot/340162、38 Python/290、真空档六链/风险双恢复、同包23套7020+GPU12、三尺寸密集复算均通过；最终Git交付以本对话记录为准。旧候选保留，不混配PCK，不公开发布。
 
-## 本机直接试玩（不需要安装 Godot）
+使用 Godot 4.7 制作的 Windows 桌面纯2D Q版肉鸽战斗游戏。“5分钟超载”源码采用原创墨线纸偶、Godot原生Skeleton2D动画与六关逐Boss解锁制，每局随机障碍地图。首关保留8%血包/10%小护盾及每场保底，根刺0.8秒预警/错峰。当前24身体/27动作库与既有签收逐SHA一致；旧验证保留历史版本边界。用户已明确确认F11正常移动、四向瞄准射击与暂停恢复，F12未改对应输入源。工程完成不等于真人通六关、最低硬件保证或公开发行。保留旧波次兼容模式；旧45°/M2仅作历史。
 
-最新本机预览为 **v13**：打开 `build/playtest/5分钟超载-current-v13/`，双击 `five-minute-overdrive.exe`；同目录 `.pck` 必须保留。不需要编辑器或运行测试。旧v12/v11/v10-r2/v9保留，请勿混用PCK。
+## 当前源码：六关探索
+
+在Godot导入本工作树的 `project.godot` 后按F5。主界面“开始探索”从新进度进入第1区，已解锁时“继续探索”进入最高已解锁区；“六区档案”可选择已经解锁的关卡。击败该关真实首领并成功保存才永久解锁下一关；第6关完成后不会生成第7关。每次重新探索生成新地图种子，局内成长重新开始。永久进度不保存关卡中途状态。
+
+当前机制见[六关玩法说明](docs/campaign-gameplay-guide-v1.md)。[旧六关链](docs/campaign-fresh-chain-acceptance-v1.md)及[构筑矩阵](docs/campaign-build-uniform-matrix-v1.md)绑定各自历史源码；不能代替最近地图、资源退役与音频更新后的最终同源验收。未公开发布，不把自动驾驶测试当真人试玩。
+
+[当前收尾状态](tasks/campaign-final-live-state-v1.md)、[原生角色限定签收](docs/art/reviews/final-native-production-acceptance-v1.md)、[开始页轻动效](docs/art/reviews/paper-menu-motion-v1.md)。历史manifest/旧失败保留，pending来源素材不假批；正式消费者不使用这些待核素材。
+
+最新六关本机候选为上方F12；F10/F11及更早候选仅供历史对照。不需要编辑器，不混配旧PCK。本机文件不随Git克隆分发，未公开发布。[首关修正历史](docs/campaign-first-chapter-fairness-v1.md)。
+
+[首关真实密集性能](docs/performance/chapter-ordinary-v1.md)记录三分辨率实际风险路线与首领通关、完整慢帧/硬件/采样范围；不是冻结演员的视觉负载，也不是全六关或最低配置性能承诺。
+
+## 历史原生骨骼/前四关本机候选（不含后续六关更新）
+
+如需对照旧阶段，打开 `build/playtest/5分钟超载-native-a5-v1/` 并双击 `five-minute-overdrive.exe`；同目录 `.pck` 必须保留，不需要编辑器。这是当时只有前四关的冻结候选，不是当前六关版本。不要复制自动测试的隔离进度到玩家存档，也不要混用不同候选的EXE/PCK。
+
+[第四关A5交付与验证](docs/art/archive-chapter-review-v1.md)：两条完整正常引擎输入路线实际胜利并永久解锁5，各新进程恢复通过；251 Godot套件/36 Python套件全量、当前同PCK25专项/3325检查及实际EXE Main120通过。新候选未覆盖旧v13，非公开发布、非真人/OS输入或全六关/密集性能/全许可验收。后续[第五关回声墓庭](tasks/echo-fifth-chapter-plan-v1.md)。
+
+## 旧版v13直接试玩（保留，不含本次原生骨骼/章节）
+
+旧冻结本机预览 **v13**：打开 `build/playtest/5分钟超载-current-v13/`，双击 `five-minute-overdrive.exe`；同目录 `.pck` 必须保留。不需要编辑器或运行测试。旧v12/v11/v10-r2/v9保留，请勿混用PCK。
 
 v13为所有存活小怪添加常驻血量条，随真实血量缩短，头顶感叹号移到血条上方；大型怪和Boss原有显示规则不变。87 Godot套件、35 Python套件通过，实际PCK三套162断言通过；原生七类敌人满血/半血摆拍用于检查布局，不当作自然整局验收。[v13交接](docs/local-playtest-handoff-v13.md)。骨骼动画仍是[待批准的制作方案](docs/enemy-skeletal-animation-assessment-v1.md)，本轮未替换动画或安装MCP。
 
@@ -35,7 +55,7 @@ v10-r2历史候选落实全部敌人基础伤害三倍、黑边准心、追击�
 
 1. 安装 Godot 4.7 stable。
 2. 在 Godot Project Manager 中导入本仓库的 `project.godot`。
-3. 打开项目后按 `F6` 运行当前场景，或按 `F5` 运行主场景 `scenes/Main.tscn`。
+3. 打开项目后按 `F5` 运行正式主场景 `scenes/Main.tscn`；不要用美术诊断场景代替正式入口。
 
 ## 操作
 
@@ -45,10 +65,12 @@ v10-r2历史候选落实全部敌人基础伤害三倍、黑边准心、追击�
 - 鼠标右键：向准星方向冲刺并对路径上的敌人造成伤害
 - `Space`：暂停或继续
 - `1`–`6`：选择结算界面的卡牌
-- `C`：开始页存在有效存档时继续游戏
-- `R`：在胜利或失败结算后重新开始
+- 六关主界面：按按钮继续最高已解锁区，或从“六区档案”选关；通关/失败页可“重新探索”或“返回帐篷”。
+- `C` / `R`：仅旧版波次兼容模式的继续旧局/结算重开快捷键，不是六关中途续玩。
 
 ## 游戏内容
+
+正式六关的流程、敌族、机关、首领与保存规则以[当前六关玩法说明](docs/campaign-gameplay-guide-v1.md)为准。以下v10/七类敌人/六波次描述属于旧版兼容玩法；保留其历史验证，不当作当前全部内容。
 
 当前[完整玩法说明](docs/gameplay-guide-v10.md)与[战斗反馈验收](docs/combat-feedback-review-v2.md)：敌人全部基础伤害为v9的三倍；追击者新增锁向扇形爪击和短程扑击，均有无伤预警且不能穿墙；准心有黑色外描边。雷网矩阵电弧触发间隔延长50%，普通电弧不变。卡牌、开始/暂停提示和旧存档卡牌说明同步，历史测试和旧包不改写。
 

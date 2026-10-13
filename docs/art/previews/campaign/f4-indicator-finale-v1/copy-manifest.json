@@ -1,0 +1,92 @@
+[
+  {
+    "sha256": "b75259bd2d559907425222824ab137b070fe7c37c37b943610c7f7aabcc3a1a5",
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_indicator_finale_v2\\1280x720-pose0.png",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\1280x720-pose0.png",
+    "bytes": 67624
+  },
+  {
+    "sha256": "99a1fefc2bee97547069d5994089aac944fa49ff9c300b9c03cc93da5a2bd2f9",
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_indicator_finale_v2\\1280x720-pose1.png",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\1280x720-pose1.png",
+    "bytes": 67520
+  },
+  {
+    "sha256": "160587568414b7d581590c3c310375d1b08237e265ca7ecd8d732c3346c7aa6c",
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_indicator_finale_v2\\1280x720-pose2.png",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\1280x720-pose2.png",
+    "bytes": 66602
+  },
+  {
+    "sha256": "834372870a7fe0514f390d7e949027bb68b2cf381de33d26a319678548e2b73c",
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_indicator_finale_v2\\1920x1080-pose0.png",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\1920x1080-pose0.png",
+    "bytes": 80525
+  },
+  {
+    "sha256": "4c6e50949da40b1b5e905766cf7410660be5eb1f991d98f7539cced6ad1a913f",
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_indicator_finale_v2\\1920x1080-pose1.png",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\1920x1080-pose1.png",
+    "bytes": 81059
+  },
+  {
+    "sha256": "ac0d341efd79833ba80bf7b4b7029cde25b2bd787f18e65a1f7aaf3a781be110",
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_indicator_finale_v2\\1920x1080-pose2.png",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\1920x1080-pose2.png",
+    "bytes": 88292
+  },
+  {
+    "sha256": "9f39e7fd0f4490d203d691f6dbb0b7b457df2b4e37cc8d82cd3b7d4a08e5b0a1",
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_indicator_finale_v2\\960x540-pose0.png",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\960x540-pose0.png",
+    "bytes": 56437
+  },
+  {
+    "sha256": "e63dee57cf86e8f153b6cd1e9e8289b4791d32841077e26179533626bbd8a510",
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_indicator_finale_v2\\960x540-pose1.png",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\960x540-pose1.png",
+    "bytes": 56800
+  },
+  {
+    "sha256": "faafd6717709c05418dbc50278d4b722cc44d7c18ccb2ba9a5e8177a8b26c801",
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_indicator_finale_v2\\960x540-pose2.png",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\960x540-pose2.png",
+    "bytes": 57066
+  },
+  {
+    "sha256": "df532f63d3e75d36736ac26d21bbff79543828407ad10b561f84c82667d7a277",
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_indicator_finale_v2\\report.json",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\report.json",
+    "bytes": 3021
+  },
+  {
+    "sha256": "d662843d5e2331cc4ed6ac9fd1d5da2e4e7433781238f481399751f40f807f89",
+    "source": "build\\diagnostics\\campaign-goal\\f4-current-full-v1.log",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\f4-current-full-v1.log",
+    "bytes": 17506
+  },
+  {
+    "sha256": "166cf4dfd00048c8722fef2ae73b58ddaa470d484086cc7f0719d5512a1d8649",
+    "source": "build\\diagnostics\\campaign-goal\\f4-boss-indicator-finale-red-v1.log",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\f4-boss-indicator-finale-red-v1.log",
+    "bytes": 405
+  },
+  {
+    "sha256": "de475d5f3e232fa4c77d08e3aa1947e368d73f050e431ab9b2a75d9619323d67",
+    "source": "build\\diagnostics\\campaign-goal\\f4-boss-indicator-finale-green-v1.log",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\f4-boss-indicator-finale-green-v1.log",
+    "bytes": 1099
+  },
+  {
+    "sha256": "2a5c197e4bd0cd080dd44501923e5cb728112a82fe71ffbe0ef1f42ff28e3e72",
+    "source": "build\\diagnostics\\campaign-goal\\f4-boss-indicator-finale-green-v3.log",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\f4-boss-indicator-finale-green-v3.log",
+    "bytes": 114
+  },
+  {
+    "sha256": "7a8364f4bd082736c470e935c7af4a22559572d8ea36959b3adf54067981502b",
+    "source": "build\\diagnostics\\campaign-goal\\f4-boss-indicator-finale-gpu-v2.log",
+    "copy": "docs\\art\\previews\\campaign\\f4-indicator-finale-v1\\f4-boss-indicator-finale-gpu-v2.log",
+    "bytes": 221
+  }
+]

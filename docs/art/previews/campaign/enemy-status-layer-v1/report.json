@@ -1,0 +1,110 @@
+{
+	"angles": [
+		{
+			"angle": 0,
+			"body_overlap_pixels": 3721,
+			"crab_bar_pixels": 92,
+			"head_mask_pixels": 96,
+			"visible_head_pixels": 96
+		},
+		{
+			"angle": 1,
+			"body_overlap_pixels": 3690,
+			"crab_bar_pixels": 92,
+			"head_mask_pixels": 96,
+			"visible_head_pixels": 96
+		},
+		{
+			"angle": 2,
+			"body_overlap_pixels": 2856,
+			"crab_bar_pixels": 92,
+			"head_mask_pixels": 96,
+			"visible_head_pixels": 96
+		}
+	],
+	"boss_warning_pixels": 18,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/boss-paused.png",
+			"sha256": "8127679efaa7ca714b32ae31db442bbba997bd39d50d452c70100a8fd77febca"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/boss-warning.png",
+			"sha256": "7ac551bb5385f8112a9a080b782c04270271d0f80f3cd21e2876e2051ee9b937"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/crowded-idle-0.png",
+			"sha256": "6ea8a961aa6a5ec8359113adb05ac685a78354f9cc383aad5ac3d228b761d356"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/crowded-idle-1.png",
+			"sha256": "cbf5a5af5a9eadaa9f06cb6655f4a611168a2be038d951e7e7bd4684985b885f"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/crowded-idle-2.png",
+			"sha256": "a2c3511fd52c000cf44d40abe269c7c04b9b37593c1ccd2494061adbd6377ed8"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/crowded-warning-0.png",
+			"sha256": "b3462467d56e5b039eb552e5c3523ed5ec111d538358b5713e7491206ac256fe"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/crowded-warning-1.png",
+			"sha256": "3b6e9ee11f8cc02f305631b5866cbfcbfd18d71d0133cf6b55117b7a67f89f2d"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/crowded-warning-2.png",
+			"sha256": "74f4aa37ca8283b079c7f33398be072c7cf34f5a39cfb13785e30fb596932233"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/isolated-idle-0.png",
+			"sha256": "e0247b84fe090f264cefbcffe9e8db139d8fee1405992286dcec18f918ed740e"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/isolated-idle-1.png",
+			"sha256": "e0247b84fe090f264cefbcffe9e8db139d8fee1405992286dcec18f918ed740e"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/isolated-idle-2.png",
+			"sha256": "e0247b84fe090f264cefbcffe9e8db139d8fee1405992286dcec18f918ed740e"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/isolated-warning-0.png",
+			"sha256": "ff992e0b665c9a46b677cd66b88100142e10a9f96a029b2379cfbb1fb14d9435"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/isolated-warning-1.png",
+			"sha256": "ff992e0b665c9a46b677cd66b88100142e10a9f96a029b2379cfbb1fb14d9435"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/isolated-warning-2.png",
+			"sha256": "ff992e0b665c9a46b677cd66b88100142e10a9f96a029b2379cfbb1fb14d9435"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/enemy_status_gpu_v3/needler-hostile-bar.png",
+			"sha256": "b7abcd8beebdf4f5a108d16f9aaa5d668ae74a696a4487795122d530bcc27e41"
+		}
+	],
+	"checks": 66,
+	"failures": 0,
+	"needler_coral_pixels": 80,
+	"paused_boss_warning_pixels": 0,
+	"scope": "controlled real-actor GPU occlusion fixture; no natural fight or performance claim",
+	"sources": {
+		"scenes/actors/native/flanking_crab_paper_v1.tscn": "41dda3b4f99834f2ca736170a5ca9acd0c4d7731ebdd15469f3d8728809efbf9",
+		"scenes/actors/native/furnace_foreman_paper_v2.tscn": "d7c93e683e75c313d416922a8c71103d6dc805c8651dbfbc059a7ea318bc7511",
+		"scenes/actors/native/root_commander_paper_v2.tscn": "8b7d76e83838e5538f5901f5a567c7239515522dbb0de6f4ba18ccf096363910",
+		"scenes/actors/native/salt_needler_paper_v1.tscn": "772ca402623f41a007c3c4bd97e970a318ec8b19b87d06feb2bc132bd0ca782c",
+		"scripts/actors/Enemy.gd": "4a38c0ebe3320fe89470b8c9954afd42dea57cee6f788474dcea8fb73c8321de",
+		"scripts/actors/FlankingCrabEnemy.gd": "a3bcf058fdadf6031072778434e4371f6c7d3f0b63602fc7a866a3c395e22e8f",
+		"scripts/actors/FoundryFurnaceBoss.gd": "04a54b66dd2a989ebb80fcc0a5af702e33d231fe51fb30ca9c4ea6763353908c",
+		"scripts/actors/NurseryVineBoss.gd": "835cb60579cf8301e4ac63ba5437a4c74bf012e6992e779f7205bac454ca4884",
+		"scripts/actors/OverseerBoss.gd": "a2fc52f59e3215ea6805fa31d020144cb1458f3ed8dbbfbb863dd81484082aa4",
+		"scripts/art/RenderEnemyStatusPreview.gd": "e472549e7215458d15a2b963cbb049370ea4a40f48b1c1ddc6f23a7dbf389a37",
+		"scripts/components/CrabPincerAttack.gd": "7d9f837ddfe37270f282016756fbdada876b24a16a662c9f6d57bd3bf6bc75c3",
+		"scripts/components/FurnaceForemanAttackDirector.gd": "fcec5f455dc2e5ca8009d964df758bcb74ae64bc06de716ab1be2181503098ae",
+		"scripts/effects/EnemyWorldStatus.gd": "ec7ceb7a9e4171048ffc1f1c0168658266276cb481d3231abc9d67efa9b423f1",
+		"scripts/effects/HostileAttackDrawing.gd": "7888152661e967cd6d0ca79810ce2af0c6ecf24d33e06e2dd6dead53fcf52b89",
+		"scripts/effects/HostileEffectPalette.gd": "cbfd365efb31df010efd4f1a285e628796b06f97ee19ca98160bf66dbe1deeb1"
+	}
+}

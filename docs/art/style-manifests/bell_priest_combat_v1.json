@@ -1,0 +1,18 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "bell_priest_combat_v1",
+  "review_state": "draft",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/bell-priest-combat-review-v1.md",
+  "environment_preview": "res://docs/art/previews/campaign/bell-priest-combat-v1/battlefield/pendant-active.png",
+  "prop_preview": "res://docs/art/previews/campaign/bell-priest-combat-v1/actor/pendant-actor.png",
+  "runtime_evidence": "res://docs/art/previews/campaign/bell-priest-combat-v1/battlefield/report.json",
+  "assets": [
+    {"role": "native-boss-combat", "id": "bell_priest_actual_v1", "authoring_source": "res://scripts/actors/EchoBellPriestBoss.gd", "runtime_scene": "res://scenes/actors/native/bell_priest_paper_v2.tscn", "scope": "Original actual 26-bone Boss, sole director, three finite attacks and real Health phases; actual markers, native clips, short head warning and existing HUD consumer"},
+    {"role": "finite-original-projectiles", "id": "bell_priest_copper_v1", "authoring_source": "res://scripts/components/BellPriestPendantProjectile.gd", "scope": "Original opaque copper/cream paired pendants and crown-note art, finite ownership and bounded geometry, not copied page art or raster animation"}
+  ],
+  "external_raster_dependencies": [],
+  "limitations": ["GPU Actor and map state fixtures use controlled timing and isolated alpha scope", "Ordinary single-attack dodges are not complete chapter victory", "Main readiness remains 1 to 4; formal fifth entry and permanent unlock6 wait E5", "E4b combat gates passed: final full277/259296 and Python36/272, independent PCK49/29615 plus315/Main120/release; prior failed run retained", "No OS/human playtest, dense-performance or final licensing approval", "Whole six-chapter goal remains active; no intermediate push or public release"],
+  "reference_policy": "Continue approved project-original native ink-paper style and free-reference policy. No imagegen raster, external artwork, paid extraction or new dependency."
+}

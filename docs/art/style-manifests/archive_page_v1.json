@@ -1,0 +1,24 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "archive_page_v1",
+  "review_state": "draft",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/archive-boss-page-review-v1.md",
+  "preview": "res://docs/art/previews/campaign/archive-boss-page-v1/runtime-page.png",
+  "warning_preview": "res://docs/art/previews/campaign/archive-boss-page-v1/runtime-warning.png",
+  "opacity_report": "res://docs/art/previews/campaign/archive-boss-page-v1/report.json",
+  "external_raster_dependencies": [],
+  "assets": [
+    {"role": "hostile-projectile", "id": "archive_page", "authoring_source": "res://scripts/components/ArchivePageProjectile.gd", "scope": "Original opaque narrow folded paper, ink perimeter, one coral crease; no bloom or raster"},
+    {"role": "native-boss-adapter", "id": "archive_archivist_page_actor", "authoring_source": "res://scripts/actors/ArchiveArchivistBoss.gd", "scope": "Actual original 27-bone v2; only the page action is integrated, not full chapter"}
+  ],
+  "limitations": [
+    "Historical page-only capture; current seal evidence is separate in archive_seal_v1, brood remains unavailable",
+    "Controlled GPU clock/manual leaf step is not normal chapter play",
+    "No victory or chapter unlock proof",
+    "No whole-roster or dense-crowd performance proof",
+    "Not a final art promotion or complete license audit",
+    "No release EXE replacement or public release"
+  ]
+}

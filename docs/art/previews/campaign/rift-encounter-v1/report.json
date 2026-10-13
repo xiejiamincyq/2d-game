@@ -1,0 +1,100 @@
+{
+	"actual_adjacent_moves": 270,
+	"bar_coral_pixels": 57,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_encounter_gpu_v1/intro.png",
+			"sha256": "1b2d8e2e14face87d0b5e4ae697d263a56120ff48b76157d1ddca553303c0885"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_encounter_gpu_v1/elite.png",
+			"sha256": "cfb5009b3a3f431abe26c20b12b235edc39eeeac64781c7490352caa12889001"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_encounter_gpu_v1/cutter.png",
+			"sha256": "cc151b565a43d1397b0acba345ae13bb617eb9c048e9868db2c93080997c9106"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_encounter_gpu_v1/short-head-warning.png",
+			"sha256": "87e1b6616850ee3f0df80c237e7bb37de4ce2aecb684e716665c0007d741688c"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_encounter_gpu_v1/locked-line-cut.png",
+			"sha256": "297b7dab93e2917fb7fc52d9f2d4b97bbbebff940622a2fb8c5feaf5d01e7058"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_encounter_gpu_v1/native-elite-shards.png",
+			"sha256": "eb0eab29b7d99d462edc8ea4839a90396e6498eba9c6925b10420fe061b08cc5"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_encounter_gpu_v1/encounter-fault.png",
+			"sha256": "a939421d4325c59b4165f963082ab1da89568fe8ff858ff47ea9b7f94de552d4"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_encounter_gpu_v1/mixed.png",
+			"sha256": "1cf74682345a22cb766f7a9e46832b46886d0f3f94aa1c9d8b367e6145760a39"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_encounter_gpu_v1/paused.png",
+			"sha256": "5b900cd887b718b48143717146340a7769e1697ebee89e90a5053aa4836b3d5b"
+		}
+	],
+	"checks": 2868,
+	"current_fault_coral_pixels": 6,
+	"engine_pointer_updates": 229,
+	"final_player_health": 79.0,
+	"locked_cut_positive_pixels": 16,
+	"maximum_live_enemies": 11,
+	"native_shard_positive_pixels": 20,
+	"observed": {
+		"cutter_cut": true,
+		"cutter_walk": true,
+		"cutter_warning": true,
+		"elite_shards": true,
+		"elite_walk": true,
+		"elite_warning": true,
+		"fault_active": true,
+		"fault_warning": true
+	},
+	"owned_player_shots": 52,
+	"passed": true,
+	"scope": "Actual first seeded sixth-region natural clocks/AI/movement and fire. No post-spawn position, stats, pose, velocity or attack-clock writes. Not whole encounter clear/Boss/chapter victory, OS/human playtest, dense performance or six-chapter completion.",
+	"shard_body_samples": 394,
+	"sources": {
+		"scenes/actors/native/rift_elite_paper_v1.tscn": "917869963f685d7f81e90e20193aadc280a73f5d63bd5e9a86122a5e439fdce5",
+		"scenes/actors/native/space_cutter_paper_v1.tscn": "b4a214b31562add870150a3c36dbe28de6807163e46b3c03b7780f716ca8ddd9",
+		"scenes/world/rift_observatory.tscn": "945389fa40b9641c3b2ac11e2d06d2121bfd72bf1abcceea60c453445bd030b8",
+		"scripts/actors/Enemy.gd": "4a38c0ebe3320fe89470b8c9954afd42dea57cee6f788474dcea8fb73c8321de",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/actors/RiftEliteEnemy.gd": "471bfc9c105c43e3045fa5540655a44027de26f9c445c0b978af64bd6b5f5021",
+		"scripts/actors/SpaceCutterEnemy.gd": "c04b02ac1691aa6e9b1370da5519e15ebd2eb1b1abff9e3b08a7a9ec70c85ab0",
+		"scripts/campaign/RegionalEnemyFactory.gd": "921caa3665e68e3d7ab6a04b77d85a2116d2b73abf4f17af58338848a03f42d8",
+		"scripts/components/EliteHybridAttack.gd": "9942c4184dce131674c0858c5fb8dc95631b72d590c667c393e92282507c698e",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/components/NativeRiftEliteMotion.gd": "b07c10a6b9c6cb6889a31014c4f888d6b31c5aff8e89c02bd456091c2cca1c1b",
+		"scripts/components/NativeScrapperMotion.gd": "7b840b4f9a98540ee8d4cb62e75a53950e218c9ab87852c2a92bfc0979d003ec",
+		"scripts/components/RiftShardProjectile.gd": "80dbf49076da32eed366c209a9ca3c3413675f707a3075f151ce514981a07f6d",
+		"scripts/components/SpaceCutAttack.gd": "fc3de12a6fc945ae9fb804cf4f6f27c2451bc7a7de215a4a5dcfdf4af1bf1362",
+		"scripts/effects/EnemyWorldStatus.gd": "ec7ceb7a9e4171048ffc1f1c0168658266276cb481d3231abc9d67efa9b423f1",
+		"scripts/systems/ChapterEncounterDirector.gd": "bdc8a4587a1dea077ccdbcd5012fcdce5a5b23b46057a47c29e837125465e0b5",
+		"scripts/systems/RiftEncounterDirector.gd": "3cb16bde5a88394834d76291e0cca875c9d9d7222984115be8268e958b8c6dcc",
+		"scripts/systems/UpgradeSystem.gd": "b06312a74909c05e2f7cc77edec0ae4ec9576e518bd6848b169c8b1ec2ab0317",
+		"scripts/systems/WaveDirector.gd": "ba5089601a241308fe546415e78f6f54bc92958c2629f8f492db4949bd91f4a9",
+		"scripts/tests/EchoEncounterRuntimeTest.gd": "7b8f6bc810b826fd718d3a14c3ba2ee3abd035d072c484f0119a17951ba6bab3",
+		"scripts/tests/EchoMovementTest.gd": "3c83157387f47784f3af430681d339d1d5511bcb78d40b7ba9d4ef749fc3f16f",
+		"scripts/tests/RiftEncounterPolicyTest.gd": "ab11665ff30047645f4933bcf424c78766ad0d2c78e462a97d0ee446b531836f",
+		"scripts/tests/RiftEncounterRuntimeTest.gd": "f0ddbf84b382ba2bba4973b25b4f00228cd5c160b0e458d94e09a9aca82ac8fe",
+		"scripts/tests/RiftEncounterTest.gd": "3bbc65fdc7ffcae9b130c6d9e2768df1f2cdb65a384672175e2fe2f56945c3f0",
+		"scripts/world/RiftArenaLayout.gd": "aa2c2bceaaa5493ec5b33ce39ee87db9778350e4e8f5280a5f4041b8d0ab5f68",
+		"scripts/world/RiftFault.gd": "9eabaa6b6551a6013b3f36e4580d00be634cc0c0d9312467f128b332a830db5b",
+		"scripts/world/RiftField.gd": "200a38d06124bae032c6a87346239afe7a13de0dd090b0c25f440099d3ea7023",
+		"scripts/world/RiftFloor.gd": "b0b6db5a5b67e19d5259230e7217a085e4964d20fa3bcdf009b8ef371e61de03",
+		"scripts/world/RiftMap.gd": "e2060cc941061f76f83ab658f0544dff34edce0b76f417a8048e1dd8ae5cc10d",
+		"scripts/world/RiftObstacle.gd": "f12edb262e80b9d7b1ec74a2e4e89a0ea970e47ece86f3d50dfbe2b12fc67bec",
+		"scripts/world/RiftPropArt.gd": "3ea138ddf87600a4c468e4daf91b1aa1fd88f128d0612ba5dfaecb03de2d9301",
+		"scripts/world/TerrainSweep.gd": "08e472ff12bb0ab46ca2e86a88061e54be7f3f2cc3780f50d15eec12dff13255",
+		"themes/MintFarmTheme.tres": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63"
+	},
+	"warning_cream_pixels": 18
+}

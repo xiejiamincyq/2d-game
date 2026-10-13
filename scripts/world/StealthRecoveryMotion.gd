@@ -3,7 +3,7 @@ extends RefCounted
 const TerrainSweep = preload("res://scripts/world/TerrainSweep.gd")
 const CHANGE_EPS := 0.001
 
-# Only the enabled-body window after stealth uses this solver. Recovery is a
+# The enabled-body window after stealth or a terrain-only dash uses this solver. Recovery is a
 # read-only proposal, then one safe straight prefix; input owns a separate,
 # monotonically diminishing slide remainder. No native move/rollback/retry.
 static func move(player: CharacterBody2D, collision: CollisionShape2D, mask: int, requested: Vector2, bounds: Rect2) -> Dictionary:

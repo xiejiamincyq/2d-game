@@ -1,0 +1,27 @@
+{
+	"actual_hits": [
+		54.0,
+		60.0
+	],
+	"actual_seed_count": 3,
+	"lash_pixels": 218,
+	"passed": true,
+	"root_pixels": 1680,
+	"scope": "Actual first-chapter Actor clock fixture: native short warnings, one 54 lash hit and one 60 root hit, three actual seeds with swept flight, isolated combat-owned effect pixels. Not natural-input victory or six chapters.",
+	"seed_pixels": 170,
+	"sources": {
+		"assets/art/actors/native/vine_guard_motion_v2.tres": "10cd8c3a25552da266b86ec8a445cf60275a7360ba08f71daa27fde1f597c679",
+		"scenes/actors/native/vine_guard_paper_v2.tscn": "070d7f65820e75131e192360b3c65de305e5ad24ea9724f28dc91297c073a2e5",
+		"scripts/actors/NurseryVineBoss.gd": "328feeee2c828e5d31c7d1f15fec4a3b3fa62fe6f4408cdd621e42a69da8f62c",
+		"scripts/actors/OverseerBoss.gd": "1e038b2bde73b592eb4fbd948108885358d56b4f875885bd6a1e42e02fbc2c26",
+		"scripts/art/RenderVineGuardAttackEffects.gd": "50ef1833a8f49de655be236e6b7f329ec4e4008aa05b53c37d884fc785861508",
+		"scripts/components/NativeActorView.gd": "2f809462e45c77dc05dd028fecafddb8e3e021cb8415cbb3cae2a6864fe160f3",
+		"scripts/components/NativeBossMotion.gd": "f0f223b1e42897fac3584dcd3962518040a479bb8234038ac309074c811f740a",
+		"scripts/components/NativeProjectileOriginSafety.gd": "9be51ed7fb55861a124174653b9570589ed8d7bb65ede5b11195e77df158cc70",
+		"scripts/components/NativeVineGuardMotion.gd": "1cc1ab6b4f73b2c0160ed0177bcb6f06c92b79045284b0e4698c48565b48039d",
+		"scripts/components/Projectile.gd": "9bd92c2b9a1db6096d7b7a954e7a3ede1da51cae9e90e732bd36ca51b5d718c8",
+		"scripts/components/RiftShardProjectile.gd": "80dbf49076da32eed366c209a9ca3c3413675f707a3075f151ce514981a07f6d",
+		"scripts/components/VineGuardAttackDirector.gd": "648e3b70ff6ab2b2bcceaa70f813dbd897f56debda83b61e3d4c00c7267c9f88",
+		"scripts/components/VineSeedProjectile.gd": "4b231e725b10b2b351e6b599bc297b20f5757e2f31a69bf1c2a36574594cabfb"
+	}
+}

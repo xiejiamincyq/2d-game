@@ -1,0 +1,15 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "vine_root_readability_v3",
+  "review_state": "accepted-scoped-native-component",
+  "approval_authority": "user-approved-first-chapter-fairness-plan-2026-10-12",
+  "license_origin": "project-original",
+  "runtime_source": "res://scripts/components/VineGuardAttackDirector.gd",
+  "palette": ["#171f25", "#f27a4b", "#f3eddc", "#91b47d"],
+  "design": "Keep the original 42px root hit radius and native paper character. Coral warning fill, black/coral boundary and cream shrinking countdown. Central root after0.8s, sides staggered by0.12s; no giant flash or bloom. Original geometry, no bitmap generation or external art.",
+  "runtime_extents": [[960,540],[1280,720],[1920,1080]],
+  "runtime_evidence": "docs/art/previews/campaign/nursery-root-fairness-v3/report.json",
+  "review": "docs/campaign-first-chapter-fairness-v1.md",
+  "runtime_source_sha256": "d7ed5ebda804b682e57d7009f11afd59b1f08bff757d869b424447a0e13dbb9b",
+  "limitations": ["6 actual-map GPU images reviewed at1280x720; whole-map opaque alpha does not prove isolated actor alpha or human acceptance", "Raster PNG manifest validator does not apply to native code drawing; no raster registry entry promoted", "Gameplay timing changes are expressly user-authorized, not an incidental art migration", "Not whole-goal approval; full regressions and human feel are separate gates"]
+}

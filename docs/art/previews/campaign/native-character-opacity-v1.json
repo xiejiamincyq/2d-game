@@ -1,0 +1,734 @@
+{
+	"passed": true,
+	"samples": [
+		{
+			"body": "rootling_paper_v3",
+			"cell": 0,
+			"edge": 0,
+			"opaque": 1950,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "sporeling_paper_v1",
+			"cell": 1,
+			"edge": 0,
+			"opaque": 2682,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "cinder_runner_paper_v2",
+			"cell": 2,
+			"edge": 0,
+			"opaque": 2237,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "salt_needler_paper_v1",
+			"cell": 3,
+			"edge": 0,
+			"opaque": 2613,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "folio_lobber_paper_v1",
+			"cell": 4,
+			"edge": 0,
+			"opaque": 2573,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "stone_carrier_paper_v1",
+			"cell": 5,
+			"edge": 0,
+			"opaque": 5938,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "root_commander_paper_v1",
+			"cell": 6,
+			"edge": 0,
+			"opaque": 11350,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "ember_spark_paper_v1",
+			"cell": 7,
+			"edge": 0,
+			"opaque": 3397,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "flanking_crab_paper_v1",
+			"cell": 8,
+			"edge": 0,
+			"opaque": 5224,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "splitting_mote_paper_v1",
+			"cell": 9,
+			"edge": 0,
+			"opaque": 4111,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "capsule_planter_paper_v1",
+			"cell": 10,
+			"edge": 0,
+			"opaque": 3667,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "echo_sentinel_paper_v1",
+			"cell": 11,
+			"edge": 0,
+			"opaque": 3639,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "circling_shade_paper_v1",
+			"cell": 12,
+			"edge": 0,
+			"opaque": 2984,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "rift_elite_paper_v1",
+			"cell": 13,
+			"edge": 0,
+			"opaque": 3296,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "space_cutter_paper_v1",
+			"cell": 14,
+			"edge": 0,
+			"opaque": 3066,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "vine_guard_paper_v1",
+			"cell": 15,
+			"edge": 0,
+			"opaque": 13718,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "furnace_foreman_paper_v1",
+			"cell": 16,
+			"edge": 0,
+			"opaque": 14061,
+			"origin": "planned Boss resource only; not chapter combat",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "tide_shell_paper_v1",
+			"cell": 17,
+			"edge": 0,
+			"opaque": 13612,
+			"origin": "planned Boss resource only; not chapter combat",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "spore_archivist_paper_v1",
+			"cell": 18,
+			"edge": 0,
+			"opaque": 13860,
+			"origin": "planned Boss resource only; not chapter combat",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "bell_priest_paper_v1",
+			"cell": 19,
+			"edge": 0,
+			"opaque": 13686,
+			"origin": "planned Boss resource only; not chapter combat",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "rift_observer_paper_v1",
+			"cell": 20,
+			"edge": 0,
+			"opaque": 17787,
+			"origin": "planned Boss resource only; not chapter combat",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "player/Front",
+			"cell": 21,
+			"edge": 0,
+			"opaque": 2639,
+			"origin": "actual Player body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.29999995231628,
+				1.29999995231628
+			]
+		},
+		{
+			"body": "player/Back",
+			"cell": 22,
+			"edge": 0,
+			"opaque": 2690,
+			"origin": "actual Player body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.29999995231628,
+				1.29999995231628
+			]
+		},
+		{
+			"body": "player/Left",
+			"cell": 23,
+			"edge": 0,
+			"opaque": 2127,
+			"origin": "actual Player body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.29999995231628,
+				1.29999995231628
+			]
+		},
+		{
+			"body": "player/Right",
+			"cell": 24,
+			"edge": 0,
+			"opaque": 2196,
+			"origin": "actual Player body",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.29999995231628,
+				1.29999995231628
+			]
+		},
+		{
+			"body": "ranger_drone_paper_v1",
+			"cell": 25,
+			"edge": 0,
+			"opaque": 432,
+			"origin": "actual Player-owned companion",
+			"partial": 0,
+			"pose": "idle",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "rootling_paper_v3",
+			"cell": 0,
+			"edge": 0,
+			"opaque": 1855,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "sporeling_paper_v1",
+			"cell": 1,
+			"edge": 0,
+			"opaque": 2639,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "cinder_runner_paper_v2",
+			"cell": 2,
+			"edge": 0,
+			"opaque": 2239,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "salt_needler_paper_v1",
+			"cell": 3,
+			"edge": 0,
+			"opaque": 2620,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "folio_lobber_paper_v1",
+			"cell": 4,
+			"edge": 0,
+			"opaque": 2596,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "stone_carrier_paper_v1",
+			"cell": 5,
+			"edge": 0,
+			"opaque": 5793,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "root_commander_paper_v1",
+			"cell": 6,
+			"edge": 0,
+			"opaque": 11517,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "ember_spark_paper_v1",
+			"cell": 7,
+			"edge": 0,
+			"opaque": 3387,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "flanking_crab_paper_v1",
+			"cell": 8,
+			"edge": 0,
+			"opaque": 5144,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "splitting_mote_paper_v1",
+			"cell": 9,
+			"edge": 0,
+			"opaque": 4141,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "capsule_planter_paper_v1",
+			"cell": 10,
+			"edge": 0,
+			"opaque": 3590,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "echo_sentinel_paper_v1",
+			"cell": 11,
+			"edge": 0,
+			"opaque": 3657,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "circling_shade_paper_v1",
+			"cell": 12,
+			"edge": 0,
+			"opaque": 3041,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "rift_elite_paper_v1",
+			"cell": 13,
+			"edge": 0,
+			"opaque": 3277,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "space_cutter_paper_v1",
+			"cell": 14,
+			"edge": 0,
+			"opaque": 3075,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "vine_guard_paper_v1",
+			"cell": 15,
+			"edge": 0,
+			"opaque": 13874,
+			"origin": "production Actor body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "furnace_foreman_paper_v1",
+			"cell": 16,
+			"edge": 0,
+			"opaque": 13670,
+			"origin": "planned Boss resource only; not chapter combat",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "tide_shell_paper_v1",
+			"cell": 17,
+			"edge": 0,
+			"opaque": 13357,
+			"origin": "planned Boss resource only; not chapter combat",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "spore_archivist_paper_v1",
+			"cell": 18,
+			"edge": 0,
+			"opaque": 13722,
+			"origin": "planned Boss resource only; not chapter combat",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "bell_priest_paper_v1",
+			"cell": 19,
+			"edge": 0,
+			"opaque": 13662,
+			"origin": "planned Boss resource only; not chapter combat",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "rift_observer_paper_v1",
+			"cell": 20,
+			"edge": 0,
+			"opaque": 17773,
+			"origin": "planned Boss resource only; not chapter combat",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		},
+		{
+			"body": "player/Front",
+			"cell": 21,
+			"edge": 0,
+			"opaque": 2588,
+			"origin": "actual Player body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.29999995231628,
+				1.29999995231628
+			]
+		},
+		{
+			"body": "player/Back",
+			"cell": 22,
+			"edge": 0,
+			"opaque": 2657,
+			"origin": "actual Player body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.29999995231628,
+				1.29999995231628
+			]
+		},
+		{
+			"body": "player/Left",
+			"cell": 23,
+			"edge": 0,
+			"opaque": 2144,
+			"origin": "actual Player body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.29999995231628,
+				1.29999995231628
+			]
+		},
+		{
+			"body": "player/Right",
+			"cell": 24,
+			"edge": 0,
+			"opaque": 2205,
+			"origin": "actual Player body",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.29999995231628,
+				1.29999995231628
+			]
+		},
+		{
+			"body": "ranger_drone_paper_v1",
+			"cell": 25,
+			"edge": 0,
+			"opaque": 417,
+			"origin": "actual Player-owned companion",
+			"partial": 0,
+			"pose": "walk",
+			"scale": [
+				1.0,
+				1.0
+			]
+		}
+	],
+	"scope": "26 cells per pose: 21 NPC bodies including 5 future Boss resources, 4 actual Player directions and actual companion; source art scale, no AI/physics performance or all-chapter readiness proof",
+	"sources": {
+		"assets/art/actors/native/bell_priest_motion_v1.tres": "b1a71420f6605d4e2a0028534e2deafad8b42a2427ead0b5e9daca5883730343",
+		"assets/art/actors/native/capsule_planter_motion_v1.tres": "7c1beb3fc977fb71fe6c3795fae9d389fdb00aa1dac70eef9f86b8182edc9a89",
+		"assets/art/actors/native/cinder_runner_motion_v2.tres": "634de278be35ee5a8c482f73c00f4d852202f006048735b0daf38f41ea5d5f94",
+		"assets/art/actors/native/circling_shade_motion_v1.tres": "102d2ee79ca564928c85f703d68e80664fb2ff4bafb2a94b1b0708164ec7c58f",
+		"assets/art/actors/native/echo_sentinel_motion_v1.tres": "56d670c7474b56bdbc3d62be1d0422f18779184f4fded2cc0bc8422e4da0bf39",
+		"assets/art/actors/native/ember_spark_motion_v1.tres": "47abc9f79dc26013bb7731d5ef01ecd2e5ecfeda4b90572df9e32d898c1b7883",
+		"assets/art/actors/native/flanking_crab_motion_v1.tres": "09ae25fca18886327a851df4a19048fa2dcc9566a6fdb8eaf0b09bc18afc1a8c",
+		"assets/art/actors/native/folio_lobber_motion_v1.tres": "6b3c64d4e909abcedad1bbcf346fd9f01560388af77080ac364027a4da480561",
+		"assets/art/actors/native/furnace_foreman_motion_v1.tres": "4974be107a9c6f519dbee00d947b4bf9097f9321c90a0bbfb6579f2ac95260be",
+		"assets/art/actors/native/rift_elite_motion_v1.tres": "4efe65c965487c61a5045fc25fe4373e215232ccfa523cd9c97ba232a74c6126",
+		"assets/art/actors/native/rift_observer_motion_v1.tres": "0525621d5092253b121f524e74982267c77227af6ef908a3bc2b303e286ac4ba",
+		"assets/art/actors/native/root_commander_motion_v1.tres": "331c8b3d37f892107550ed032a4af6541d7c973ab72f696a39fae4e084bf2cfd",
+		"assets/art/actors/native/rootling_motion_v3.tres": "64bbe5cb38b4f986fb4179e83bef83d0d61448cdb82cd216ec898b16aee789fc",
+		"assets/art/actors/native/salt_needler_motion_v1.tres": "824490c69a5f74661b760ec8c8075959fd70343099081560355bfdc065c70482",
+		"assets/art/actors/native/space_cutter_motion_v1.tres": "e29847fa481ffa15278ab5d549af7d8ee5da0f93b84027972e87fa43cb619545",
+		"assets/art/actors/native/splitting_mote_motion_v1.tres": "44d4f181163f1c58abf60202199d9e9ed190be87b07102d36055a7e135519772",
+		"assets/art/actors/native/spore_archivist_motion_v1.tres": "a6a48a7ba3e8a9fc1662cc063ad4b69a121976ba7bc80dde12c0c7e95cb2871f",
+		"assets/art/actors/native/sporeling_motion_v1.tres": "d4002943788a3d478d079069c071979e46388a3fc68589c292345f7bba7718c5",
+		"assets/art/actors/native/stone_carrier_motion_v1.tres": "dd5c84dde56be40f4092826fe2166bd9e8b67999978694781b0795c6a8970c3a",
+		"assets/art/actors/native/tide_shell_motion_v1.tres": "e119b6606e3a6587f057971e38c30b5be904dec1822ed8f7a0eb11218eb20bdc",
+		"assets/art/actors/native/vine_guard_motion_v1.tres": "608817d4f58706a45a207b27fd58021b4670ededfb968705807c48cf1d0bae6a",
+		"scenes/actors/native/bell_priest_paper_v1.tscn": "3aedb94751c3b2f206266a4407857e184392e4ed52993ef81bf3956d9c1d8cf6",
+		"scenes/actors/native/capsule_planter_paper_v1.tscn": "b98af580c193e0ad6d260fd386e63956d51d6da8087d7d9cd5389e6112d0be2f",
+		"scenes/actors/native/cinder_runner_paper_v2.tscn": "838fe672fdaa922580d22d52e602a8a7d63c601e2ff84cb6a2c86093354ebe80",
+		"scenes/actors/native/circling_shade_paper_v1.tscn": "c7fbca75dc098a182ba577c6125d7e50d979983395090499922e36f35ad6f0b9",
+		"scenes/actors/native/echo_sentinel_paper_v1.tscn": "59316886d911cfe1e9d362737ddfbbc209ec15a1e99dfec085906510f9c20cc7",
+		"scenes/actors/native/ember_spark_paper_v1.tscn": "4856f9f4c8344187652e6d161f39cef5afaee21d16062e23f2997821f99e8348",
+		"scenes/actors/native/flanking_crab_paper_v1.tscn": "41dda3b4f99834f2ca736170a5ca9acd0c4d7731ebdd15469f3d8728809efbf9",
+		"scenes/actors/native/folio_lobber_paper_v1.tscn": "bbb21b8463aa1232196dd901bab914d285b3a2bd9b404d84ef0ec299a4984ec5",
+		"scenes/actors/native/furnace_foreman_paper_v1.tscn": "de63678ca335ff6b4f472ff16de6a335e6199125670ec5a80b0e2efb80e92d35",
+		"scenes/actors/native/rift_elite_paper_v1.tscn": "917869963f685d7f81e90e20193aadc280a73f5d63bd5e9a86122a5e439fdce5",
+		"scenes/actors/native/rift_observer_paper_v1.tscn": "08fe69c6543d1e691256b800cc3b5a8560e84fa751d02d40852456099be6cbe8",
+		"scenes/actors/native/root_commander_paper_v1.tscn": "6c48a483e32445741aa7916d2159b9ffe64db161730f2c68d724ab5ad15f64ac",
+		"scenes/actors/native/rootling_paper_v3.tscn": "79367d87f21a5669cc94c1bda3b0641fe8c7e129bb823420249a2f7a93692e4a",
+		"scenes/actors/native/salt_needler_paper_v1.tscn": "772ca402623f41a007c3c4bd97e970a318ec8b19b87d06feb2bc132bd0ca782c",
+		"scenes/actors/native/space_cutter_paper_v1.tscn": "b4a214b31562add870150a3c36dbe28de6807163e46b3c03b7780f716ca8ddd9",
+		"scenes/actors/native/splitting_mote_paper_v1.tscn": "f7f36681b662b8fe459610402fe42e147e597977df26be417386d7dfe0baae72",
+		"scenes/actors/native/spore_archivist_paper_v1.tscn": "9973cc97460ade041c206e384f04ab4481892a184cab7de9822e318f302ec02a",
+		"scenes/actors/native/sporeling_paper_v1.tscn": "5513ba1c566b8262b23464322031cc128ea8c3b081fbd5e2bc92edd79f2871fa",
+		"scenes/actors/native/stone_carrier_paper_v1.tscn": "99f98b9e8b11a6d6646d07f89e883b82a734798bd6b67e5ec13695c8cf512fcd",
+		"scenes/actors/native/tide_shell_paper_v1.tscn": "74523130962c49182aef2dcc6f8babda8753f838aed3111e688a174cc97d01df",
+		"scenes/actors/native/vine_guard_paper_v1.tscn": "e9752c50ffee411b2ff4a11f98e200485e8dae8e69801d13908aee6e462cc535",
+		"scripts/actors/DroneVisual.gd": "ad2cd2cda3067f8ae8f1d583ef95f6b4c0cdaa51fab36f73c79c950efd4e9deb",
+		"scripts/actors/Enemy.gd": "8acf7ef1816aa9f6deba7f34151b583bd671f156cc9b1b2b3b6afa43d5ea0393",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderNativeCharacterRoster.gd": "5c64eed8e1ffddd7cc44ed71a5432f2f0c425da08f18da6be19fa1ea61f5c113",
+		"scripts/campaign/RegionalEnemyFactory.gd": "921caa3665e68e3d7ab6a04b77d85a2116d2b73abf4f17af58338848a03f42d8",
+		"scripts/components/NativeActorView.gd": "2485aad6edc3b97270c1a4c13159c6e74a81bf533c9a16d16f66470d18275da5",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/tests/NativeCharacterRosterTest.gd": "e88231ba7e27c7c808188179e383840487ebcf3b8feab0eea97dc8419adbd4d2"
+	}
+}

@@ -1,0 +1,11 @@
+{
+  "asset_id": "spore_archivist_paper_v2",
+  "runtime_scene": "res://scenes/actors/native/spore_archivist_paper_v2.tscn",
+  "motion_library": "res://assets/art/actors/native/spore_archivist_motion_v2.tres",
+  "role": "boss",
+  "review_state": "draft",
+  "bone_count": 27,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "hit", "entrance", "death", "page_warning", "page_attack", "page_recovery", "seal_warning", "seal_attack", "seal_recovery", "brood_warning", "brood_attack", "brood_recovery"],
+  "rig_checkpoint": "res://docs/art/native-checkpoints/spore_archivist_attack_v1.json"
+}

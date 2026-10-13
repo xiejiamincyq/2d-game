@@ -28,6 +28,21 @@ static func has_body_clearance(point: Vector2, bounds: Rect2, obstacles: Array[D
 			return false
 	return true
 
+static func body_clearance_witness(point: Vector2, bounds: Rect2, obstacles: Array[Dictionary], radius: float) -> Dictionary:
+	# Signed circle gap, preserving the original 0.05px invariant/check unchanged.
+	# Diagnostic only: never recover/teleport a body or relax contact tolerance.
+	var gap := minf(minf(point.x-bounds.position.x,bounds.end.x-point.x),minf(point.y-bounds.position.y,bounds.end.y-point.y))-radius
+	var nearest := bounds
+	var index := -1
+	for at in obstacles.size():
+		var rect: Rect2 = obstacles[at].rect
+		var candidate := point.distance_to(point.clamp(rect.position,rect.end))-radius
+		if candidate<gap:
+			gap=candidate
+			nearest=rect
+			index=at
+	return {"clear":has_body_clearance(point,bounds,obstacles,radius),"gap":gap,"kind":"bounds" if index<0 else "obstacle","index":index,"rect":[nearest.position.x,nearest.position.y,nearest.size.x,nearest.size.y],"point":[point.x,point.y],"radius":radius}
+
 func check(ok: bool, message: String) -> void:
 	assertions += 1
 	if not ok:

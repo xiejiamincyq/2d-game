@@ -1,0 +1,8 @@
+{
+  "actual_exit": 0,
+  "pass_count": 1,
+  "summary": "TEST RUN PASS: 0 godot suites (0 assertions), 37 python suites (286 tests)\r",
+  "log_sha256": "cde1c9a30d60ef51df9da0de0c096c680bd03ddee7923cedd6c8615b16fdf22d",
+  "candidate_root": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9-clean-candidate-v1\\project",
+  "scope": "Actual Python runner against HEAD plus proposed related overlay, old local bitmap absent. Not an actual committed checkout, production GPU/OS play or new full Godot regression."
+}

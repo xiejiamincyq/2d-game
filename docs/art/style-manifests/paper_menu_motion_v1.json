@@ -1,0 +1,19 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "paper_menu_motion_v1",
+  "review_state": "accepted-scoped-native-component",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "runtime_source": "res://scripts/ui/CampaignAnimatedBackdrop.gd",
+  "consumer": "res://scripts/ui/CampaignStartScreen.gd",
+  "design": "New decorative variant of the approved native ink-paper seed-house. Six thin low-alpha mist bands drift at most9px horizontally and1.2px vertically in1280x720 design coordinates, scaling with the viewport; the opaque doorway has a small six-second warm-light breathing cycle. No camera, text, button or hitbox movement and no input delay.",
+  "source_extent": [1280, 720],
+  "runtime_extents": [[960, 540], [1280, 720], [1920, 1080]],
+  "background": "opaque native drawing, not a new bitmap",
+  "external_raster_dependencies": [],
+  "generation": "Project-authored native geometry and timing; no paid or traced asset input, no image generator or new runtime dependency",
+  "review": "docs/art/reviews/paper-menu-motion-v1.md",
+  "runtime_evidence": "docs/art/reviews/paper-menu-motion-evidence-v1/report.json",
+  "verification": {"state_checks": 303, "gpu_checks": 136, "captures": 19, "actual_exit": 0},
+  "limitations": ["Acceptance is limited to the native component and exact source hashes in the evidence; current full/package/chain checks are separate", "The retained static backdrop and historical approvals are not overwritten", "Not OS mouse, human acceptance, performance or whole-goal completion"]
+}

@@ -20,6 +20,24 @@ class RunnerAudioExitGateTest(unittest.TestCase):
         self.assertIn("if ($diagnosticOutput -match $forbidden)", source)
         self.assertIn('[regex]::Matches($output, "TEST PASS:', source)
 
+    def test_articulated_origin_fixture_has_real_physics_budget(self):
+        source = (ROOT / "scripts/tests/run_tests.ps1").read_text(encoding="utf-8")
+        # This fixture awaits 64 real physics registrations. The generic 120
+        # uncapped process frames exit without a PASS, despite process exit 0.
+        self.assertRegex(
+            source,
+            r'if \(\$test -in @\([^)]*"RiftObserverOriginSafetyTest"[^)]*\)\) '
+            r'\{ \$frameBudget = 3000; \$fixedStepArguments = "--max-fps 120" \}',
+        )
+
+    def test_nursery_supply_fixture_can_finish_natural_entrance(self):
+        source = (ROOT / "scripts/tests/run_tests.ps1").read_text(encoding="utf-8")
+        self.assertRegex(
+            source,
+            r'if \(\$test -eq "NurserySupplyRuntimeTest"\) '
+            r'\{ \$frameBudget = 1800; \$fixedStepArguments = "--max-fps 120" \}',
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

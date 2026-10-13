@@ -29,9 +29,9 @@ func _initialize() -> void:
 		if column > 0:
 			vfx.request_effect(VfxScript.BLAST, center)
 		if version == "before":
-			# Reproduce the previous draw rule: every spark paints a full hit texture.
+			# Reproduce the previous draw rule: every spark paints a full paper burst.
 			for spark in vfx._sparks:
-				spark["textured"] = true
+				spark["burst"] = true
 		vfx._process(0.03)
 		var label := Label.new()
 		label.text = ["Single hit", "Hit + blast", "20 hits + blast"][column]

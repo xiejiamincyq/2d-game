@@ -20,8 +20,9 @@ const CameraEffectsScript = preload("res://scripts/effects/CameraEffects.gd")
 const BossCameraFramingScript = preload("res://scripts/systems/BossCameraFraming.gd")
 const CampaignProgressScript = preload("res://scripts/systems/CampaignProgress.gd")
 const CampaignStoreScript = preload("res://scripts/systems/CampaignProgressStore.gd")
-const NurseryChapterScene = preload("res://scenes/campaign/nursery_chapter.tscn")
-const CAMPAIGN_READY_CHAPTERS: Array[int] = [1]
+const CampaignEntryPolicy = preload("res://scripts/systems/CampaignEntryPolicy.gd")
+const ChapterRegistry = preload("res://scripts/campaign/ChapterSceneRegistry.gd")
+const CAMPAIGN_READY_CHAPTERS: Array[int] = ChapterRegistry.READY_CHAPTERS
 
 const WORLD_BOUNDS := Rect2(-1400, -900, 2800, 1800)
 const CAMERA_SMOOTHING_CANDIDATES: Array[float] = [0.0, 8.0, 16.0, 20.0]
@@ -180,7 +181,8 @@ func _build_world() -> void:
 	add_child(audio)
 	audio.set_bgm_volume(initial_bgm_volume)
 	audio.set_bgm_muted(initial_bgm_muted)
-	ui.start_requested.connect(_start_run)
+	ui.start_requested.connect(_start_primary_campaign)
+	ui.legacy_start_requested.connect(_start_run)
 	ui.continue_requested.connect(_continue_run)
 	ui.chapter_requested.connect(_start_campaign_chapter)
 	ui.restart_requested.connect(_restart_run)
@@ -202,12 +204,25 @@ func _load_campaign_menu() -> void:
 		CampaignStoreScript.LoadResult.RECOVERED:
 			notice = "存档异常：已只读加载备份，原文件保留；六关开局暂不可用。"
 		CampaignStoreScript.LoadResult.CORRUPT, CampaignStoreScript.LoadResult.IO_ERROR:
-			notice = "存档异常：未覆盖原文件；当前试玩仍可进入。"
+			notice = "存档异常：未覆盖原文件；可在兼容页进入旧版波次。"
 		CampaignStoreScript.LoadResult.UNSUPPORTED_VERSION:
-			notice = "存档异常：版本不兼容，未降级或覆盖；当前试玩仍可进入。"
-	# Content readiness and permanent unlock are distinct. Only chapter 1 exists;
-	# its explicitly labelled transitional actors do not pass the full art gate.
+			notice = "存档异常：版本不兼容，未降级或覆盖；旧版波次位于兼容页。"
+	# Content readiness and permanent unlock are independent. Planned regions
+	# cannot launch merely because an earlier Boss unlocked their progress gate.
 	ui.start_screen.set_campaign(campaign_progress, CAMPAIGN_READY_CHAPTERS, notice)
+
+func _start_primary_campaign() -> void:
+	# Recompute from live progress. UI copies, labels and disabled flags are not authority.
+	if run_started or closing or restarting or run_state != RunState.START:
+		return
+	var chapter := CampaignEntryPolicy.default_chapter(campaign_progress, CAMPAIGN_READY_CHAPTERS, campaign_storage_ok)
+	if chapter == 0:
+		return
+	if campaign_progress.is_campaign_complete():
+		ui.start_screen.select_chapter(chapter)
+		ui.start_screen.show_page(ui.start_screen.Page.CHAPTERS)
+		return
+	_start_campaign_chapter(chapter)
 
 func _can_start_campaign_chapter(chapter: int) -> bool:
 	return not run_started and not closing and not restarting and run_state == RunState.START and campaign_storage_ok and chapter in CAMPAIGN_READY_CHAPTERS and campaign_progress.is_unlocked(chapter)
@@ -215,9 +230,12 @@ func _can_start_campaign_chapter(chapter: int) -> bool:
 func _start_campaign_chapter(chapter: int) -> void:
 	if not _can_start_campaign_chapter(chapter):
 		return
+	var destination: Node = ChapterRegistry.instantiate_chapter(chapter)
+	if destination == null:
+		push_error("Chapter launch destination unavailable")
+		return
 	restarting = true
 	get_tree().paused = true
-	var destination := NurseryChapterScene.instantiate()
 	destination.campaign_store_path = campaign_store_path
 	destination.audio_enabled = audio_enabled
 	destination.bgm_volume = audio.bgm_volume_linear
@@ -229,8 +247,9 @@ func _start_campaign_chapter(chapter: int) -> void:
 			_finish_close(1)
 		return
 	get_tree().paused = false
-	get_tree().root.add_child(destination)
-	get_tree().current_scene = destination
+	get_parent().add_child(destination)
+	if destination.get_parent() == get_tree().root:
+		get_tree().current_scene = destination
 	queue_free()
 
 func _draw_floor() -> void:

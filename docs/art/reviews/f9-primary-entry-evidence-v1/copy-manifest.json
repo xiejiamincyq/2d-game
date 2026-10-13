@@ -1,0 +1,92 @@
+[
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/960-page0.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\960-page0.png",
+    "sha256": "152aea5df47af8bfb8ccd2bf278b3cfb58d988fe0a527173085a812d8cd114a3"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/960-page1.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\960-page1.png",
+    "sha256": "ba0b282f803089cbb9add037fa3c73f7ebb2b4c1b013c4b66dfeaf9004ae93c5"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/960-page2.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\960-page2.png",
+    "sha256": "db7fd76824b59b6a50a47ef1d7b5090123206253ab20d696c4481f8f45b4effc"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/960-page3.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\960-page3.png",
+    "sha256": "dca2e30244f53721721b6fc0dd9801bea174b5773f5e7cea2e422c52123c34a8"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/960-actual-chapter.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\960-actual-chapter.png",
+    "sha256": "44368397880a7270ebffb36a4d7b5117733cfcac7e5fa558863276440cfb3e52"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1280-page0.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\1280-page0.png",
+    "sha256": "1d7f61b7c4ff44ded4c64b4b6dfe9bc9d120c17f4eb190f9a92b7f3274090b6b"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1280-page1.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\1280-page1.png",
+    "sha256": "d33878e225e67ddc65dbeea1bc54f9859d7e39dceca77d590d0e8fb49dc8dd7e"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1280-page2.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\1280-page2.png",
+    "sha256": "a94d15088bbe084e327cad6d5e4585c8d5019a5f93cfa72f12e5f0be98d4313d"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1280-page3.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\1280-page3.png",
+    "sha256": "4424e7f307aea8697c6ac0633a4ccb4510b0ec57169d57f02e758261207ef5a7"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1280-actual-chapter.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\1280-actual-chapter.png",
+    "sha256": "6bcf7fb5272a0f52d512303bf17298fb4f87b2b1503c105b2aeef2ef98a9141b"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1920-page0.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\1920-page0.png",
+    "sha256": "f022308a0956d0863a9643fe120ae431fc852740b6ba50f1a659e2dbcca24b11"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1920-page1.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\1920-page1.png",
+    "sha256": "3a7acc81ead7dbfb32f954a67f41df7023b73489e2f741764a252696e110396e"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1920-page2.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\1920-page2.png",
+    "sha256": "97977fb3572d06f6e0613acd1f11f314819c57470c7a0ac48eb93d4f83fd389c"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1920-page3.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\1920-page3.png",
+    "sha256": "b03776d37a1fd477d2c51c882a8e431a512bcafc9ed083dd4a07cb763ae23509"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1920-actual-chapter.png",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\1920-actual-chapter.png",
+    "sha256": "66f01f79b6b100a89bc672e83dba2a671271c26d0a958a80dba0383906d36bb5"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/report.json",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\report.json",
+    "sha256": "b1d670a8c6706cb84e2a8ee311297db1dc6f4fed15faad309d4445a20a077ccd"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/actual-exit.json",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\actual-exit.json",
+    "sha256": "674b513affe1554fa20d93b536cb7c0047933290d0552c60cd8b9c645ac42677"
+  },
+  {
+    "original": "build/diagnostics/campaign-goal/f9-primary-entry-gpu-v1.log",
+    "copy": "docs\\art\\reviews\\f9-primary-entry-evidence-v1\\f9-primary-entry-gpu-v1.log",
+    "sha256": "a15a72de0edeb8906c9bfb718b9f1e5cfac44271b5d9a42495d3e0ad6c5fb4d7"
+  }
+]

@@ -1,0 +1,70 @@
+{
+	"actual_adjacent_moves": 42,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_beat_gpu_v2/cooldown.png",
+			"sha256": "3eaf0f53834b9a655caef2540096158612f5a57cdd30ad94141d17a8075e60a0"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_beat_gpu_v2/warning-first.png",
+			"sha256": "2674e5b3832d61fbc6fc4ccf4160e984224c7ba4737761935050c321113d0624"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_beat_gpu_v2/pulse-first.png",
+			"sha256": "159580ef9c83a22fb73f8f5a0f648708e466c10185531f7c5b25e9f9bba10487"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_beat_gpu_v2/warning-second.png",
+			"sha256": "b8c51c5ea0ba48b2f8277ecd200f9fa529f0fbb2cb5d34959ca1bd5ba9cdb7d3"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_beat_gpu_v2/pulse-second.png",
+			"sha256": "c160863c019afe64d0e38441d10ed7be892d07b5ae4636802ea22d903891f148"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_beat_gpu_v2/cancelled.png",
+			"sha256": "ccd67db668ab164e726ecce14b14b00bf16da5af9b7ee2bfaaf6001597dc74d0"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_beat_gpu_v2/natural-warning.png",
+			"sha256": "8c29ec441dcee73f2df6bcb8cee5f62feec080f5bf1212dabc7927ff184728b3"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_beat_gpu_v2/natural-escape.png",
+			"sha256": "316b59bcbdd85d0a14a466167ad43fd06577bd688cf470cd58031a0bfb1e86e6"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_beat_gpu_v2/natural-960.png",
+			"sha256": "3e403c43a6d1c473f1a7323e5f7aa3dc9bd1df0cac385a9e594ffbcc7c340703"
+		}
+	],
+	"checks": 178,
+	"natural_pulse_frames": 8,
+	"passed": true,
+	"scope": "Original native local two-beat ground pixels and cancellation; six explicitly controlled clock-state captures, then a separate natural-clock actual-Player ordinary-input escape at1280/960. No fifth-region encounters/Boss/readiness/save-unlock6, OS mouse, human playtest, dense performance, final licensing or six-chapter completion.",
+	"sources": {
+		"assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+		"assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+		"assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db",
+		"assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+		"scenes/actors/native/player_paper_v1.tscn": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+		"scenes/world/echo_court.tscn": "2dd3c90cda1d128b817724035854a83901998b39f6c99c71b4e338298b813733",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderEchoBeatPreview.gd": "414b5c61a7c6136590ef6feb3a4aae1308ef433624d942656e2ae865003733a2",
+		"scripts/components/HealthComponent.gd": "1b31ea06d89f3850ac240ba307199eaa5ccb87b20ccaff125f14d3f56068975d",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/tests/EchoBeatPhysicsTest.gd": "63b6e4fd4cd235b0d1f68a8d0a82d713973a6c5d6cbaabe7775ab99cf43ffcd3",
+		"scripts/tests/EchoMovementTest.gd": "3c83157387f47784f3af430681d339d1d5511bcb78d40b7ba9d4ef749fc3f16f",
+		"scripts/world/ArenaLayout.gd": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+		"scripts/world/EchoArenaLayout.gd": "27399c73777778ac7db1acde672b01b9da2a478378e5f94830e253cee0dac102",
+		"scripts/world/EchoBeat.gd": "597eb4cb57e1833a760ed8f7c63a556c8e2bbc3afe7bb9a0e0740a167e5b7b0b",
+		"scripts/world/EchoField.gd": "1f5989db8117ed453f39a9ba2a0e9e1360163d00c20600b1686a7b00ecc5281a",
+		"scripts/world/EchoFloor.gd": "6f4c081e0258ea7f8e53e1bc4f03e5e09b91a355702497ac0e2ed05ea74e6704",
+		"scripts/world/EchoMap.gd": "563f1dc80d93e0d8e680e28616b67312b8564628b25b504f46362855afae43d9",
+		"scripts/world/EchoObstacle.gd": "0e86e962b7dd74eca3cd00e1e8ef4df3306b1b3434e5909f1598e495c8054d5e",
+		"scripts/world/EchoPropArt.gd": "af220b234dcff33903ee071bdbe8ce47b85e187ed301686ec7f39a9423ad8f10",
+		"scripts/world/TerrainSweep.gd": "08e472ff12bb0ab46ca2e86a88061e54be7f3f2cc3780f50d15eec12dff13255",
+		"themes/MintFarmTheme.tres": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63"
+	}
+}

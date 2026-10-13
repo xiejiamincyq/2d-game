@@ -1,0 +1,186 @@
+{
+	"captures": [
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/960-cover-0.png",
+			"sha256": "b29ee8ce0d013f0baa35fd6757f273ca0fad6e064ed559c7f540bdc45b847129",
+			"size": [
+				960,
+				540
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/960-cover-3.png",
+			"sha256": "c1e0610d7b86ed225193d9a9d607b30c3c0cef9126a7fb2cab3c511663e0a6eb",
+			"size": [
+				960,
+				540
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/960-cover-9.png",
+			"sha256": "c50b59dc36ca1b4dfc5989bb5217e57134a077c4e1c04d67b27bdea2ec6b8307",
+			"size": [
+				960,
+				540
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/960-page-1.png",
+			"sha256": "d355aa41ff0453e5133f93ff032d85e3457bc9cb048703f26eb333d890025af0",
+			"size": [
+				960,
+				540
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/960-page-2.png",
+			"sha256": "b4e046d34ac3d856552423f71b694e64840a1edb7b205a0de35ac206c441a51b",
+			"size": [
+				960,
+				540
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/960-page-3.png",
+			"sha256": "97f951168d0a7b9c5795071ac19be0b01f36f49963d9c1e7436e1a1ebdd8a942",
+			"size": [
+				960,
+				540
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1280-cover-0.png",
+			"sha256": "26abda452d5b9ac5feec5a3fd0e157973c902b47999759c24b0fa69ef434494a",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1280-cover-3.png",
+			"sha256": "7c8de572caea7b3a12941fb64da9963a9c26296795fae40575c7688184699987",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1280-cover-9.png",
+			"sha256": "fc03c0e631cd91c49d03967b1a58744c0fafea3a24346c63b27532508dccae7f",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1280-page-1.png",
+			"sha256": "21d592aafde600c7353fd5adf06b448236d6a1cdda26b3540da685feccd15406",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1280-page-2.png",
+			"sha256": "04a5f804e64f5bc4430fc6d4ea783e475f53c60b398fc1e8c2edf60e43bceab3",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1280-page-3.png",
+			"sha256": "7c0a88b16c3e7aa6ed61c456ff869fd4e8fa9f197446fd2671f913dda9db2815",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1280-automatic.png",
+			"sha256": "6eee12c87454887060f0a42ac6ec1174eed37695738cb29fdb45cbb6e74d8047",
+			"size": [
+				1280,
+				720
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1920-cover-0.png",
+			"sha256": "f9d64eac256d54c19e16912306dd04b0227458b6dc19aaabf334cab0eb617315",
+			"size": [
+				1920,
+				1080
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1920-cover-3.png",
+			"sha256": "de0bf5d1a7f7f76aa6c5b7579b1166242f57edc8e6808b67631ea9c629862710",
+			"size": [
+				1920,
+				1080
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1920-cover-9.png",
+			"sha256": "7ed37385aa089a05a80ad8e8269d3e054bbf76ae81c53cb2f97a63fe3b262a60",
+			"size": [
+				1920,
+				1080
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1920-page-1.png",
+			"sha256": "94859add76cdc831794b4a49730e80b6de691ab67c2ed28dd46743f9db062ad3",
+			"size": [
+				1920,
+				1080
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1920-page-2.png",
+			"sha256": "3698f5459240c9f6e9cdb2f8633ff281287566185b6e29d0b92f7016aec61425",
+			"size": [
+				1920,
+				1080
+			]
+		},
+		{
+			"opaque_background": true,
+			"path": "build/diagnostics/campaign-goal/f9_menu_motion_gpu_v3/1920-page-3.png",
+			"sha256": "fcc8c63a8c34c4e3dfdaa8526bd4c4913c0705c2e513e97c623fe8a7653432d0",
+			"size": [
+				1920,
+				1080
+			]
+		}
+	],
+	"checks": 136,
+	"passed": true,
+	"scope": "Three actual native viewport sizes, static-original exact pixel comparison, controlled0/3/9s poses and60 actual scheduled menu frames. Left reading zone and button geometry unchanged. Isolated component models, no user files, not Main normal input, OS mouse, performance or human acceptance.",
+	"sources": {
+		"build/diagnostics/campaign-goal/f9-menu-motion-static-original-v1/StaticBackdrop.gd": "e6727ffef4e848e2a4f4c77159cafab0d63463cb6b6b80c26bdb972003307251",
+		"scripts/art/RenderCampaignMenuMotion.gd": "c737a4093abaf61f0875cc59dabbd8c3a6cf1266fe936ab9ba2a4c054d485eb1",
+		"scripts/ui/CampaignAnimatedBackdrop.gd": "d03e3ee2ae860b1d1c83f55ca18b4cc7ba166f1c8dc6056851412f32c1c0eb78",
+		"scripts/ui/CampaignBackdrop.gd": "c39b5f3a3f3ce693c439f29a48859488cd3f12f8dc774c5600a2c57649bcd5c0",
+		"scripts/ui/CampaignMenuTheme.gd": "f75aed6df8e74e317224746acff0a44ee74e14847508f8389df5bd324cb7d932",
+		"scripts/ui/CampaignStartScreen.gd": "43d1637426f15a48f07476d52d7345a6b8105234e3bdba5ce1ead5726534d3f9"
+	}
+}

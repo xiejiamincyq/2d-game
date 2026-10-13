@@ -2,6 +2,7 @@ extends Control
 ## UI-only request boundary. Selection never writes progress or starts a director.
 
 signal start_requested
+signal legacy_start_requested
 signal continue_requested
 signal chapter_requested(chapter: int)
 signal quit_requested
@@ -10,15 +11,18 @@ signal bgm_mute_changed(muted: bool)
 
 const Catalog = preload("res://scripts/systems/ChapterCatalog.gd")
 const Progress = preload("res://scripts/systems/CampaignProgress.gd")
+const EntryPolicy = preload("res://scripts/systems/CampaignEntryPolicy.gd")
 const MenuTheme = preload("res://scripts/ui/CampaignMenuTheme.gd")
-const Backdrop = preload("res://scripts/ui/CampaignBackdrop.gd")
+const Backdrop = preload("res://scripts/ui/CampaignAnimatedBackdrop.gd")
 const RegionIcon = preload("res://scripts/ui/CampaignRegionIcon.gd")
-enum Page { COVER, CHAPTERS, SETTINGS }
+enum Page { COVER, CHAPTERS, SETTINGS, LEGACY }
 
 var page := Page.COVER
 var selected_chapter := 1
 var start_button: Button
 var continue_button: Button
+var legacy_button: Button
+var legacy_start_button: Button
 var regions_button: Button
 var settings_button: Button
 var quit_button: Button
@@ -40,6 +44,8 @@ var _subtitle: Label
 var _kicker: Label
 var _regions_panel: PanelContainer
 var _settings_panel: PanelContainer
+var _legacy_panel: PanelContainer
+var _cover_notice: Label
 var _back_row: HBoxContainer
 var _progress_label: Label
 var _grid: GridContainer
@@ -56,7 +62,7 @@ func _ready() -> void:
 	_margin.set_anchors_and_offsets_preset(PRESET_FULL_RECT)
 	add_child(_margin)
 	var column := VBoxContainer.new()
-	column.add_theme_constant_override("separation", 12)
+	column.add_theme_constant_override("separation", 10)
 	_margin.add_child(column)
 	_header = VBoxContainer.new()
 	_header.add_theme_constant_override("separation", 5)
@@ -75,12 +81,13 @@ func _ready() -> void:
 	body.add_child(cover_panel)
 	var actions := _box(cover_panel)
 	actions.add_child(_label("整备帐篷", 22))
-	start_button = _button(actions, "进入当前试玩", func() -> void: start_requested.emit())
-	continue_button = _button(actions, "继续上次试玩", _continue)
+	start_button = _button(actions, "开始探索", request_primary)
 	regions_button = _button(actions, "六区档案", func() -> void: show_page(Page.CHAPTERS))
 	settings_button = _button(actions, "声音设置", func() -> void: show_page(Page.SETTINGS))
+	legacy_button = _button(actions, "旧版波次（兼容）", func() -> void: show_page(Page.LEGACY))
 	quit_button = _button(actions, "退出游戏", func() -> void: quit_requested.emit())
-	var notice := _label("试玩仍为波次模式，不计入六关解锁。", 16)
+	var notice := _label("击败区域首领后解锁下一关。\n永久进度不包含关卡中途续玩。", 16)
+	_cover_notice = notice
 	notice.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	# A minimum width keeps wrapping labels from collapsing their parent panel.
 	notice.custom_minimum_size.x = 326
@@ -148,7 +155,19 @@ func _ready() -> void:
 	mute_button.toggled.connect(func(value: bool) -> void: bgm_mute_changed.emit(value))
 	settings.add_child(mute_button)
 	settings.add_child(_label("音量与游戏内音乐设置同步。", 16))
-	_footer = _label("WASD 移动 · 鼠标射击 · 空格暂停    |    原生纸偶改造进行中", 16, Color("c1caa8"))
+	_legacy_panel = PanelContainer.new()
+	_legacy_panel.custom_minimum_size.x = 380
+	_legacy_panel.size_flags_vertical = SIZE_SHRINK_BEGIN
+	body.add_child(_legacy_panel)
+	var legacy := _box(_legacy_panel)
+	legacy.add_child(_label("旧版波次 / 兼容入口", 22))
+	var legacy_notice := _label("此模式不计入六区永久进度。\n开始新局会替换原有旧版局内快照；\n六区探索不会删除它。", 16)
+	legacy_notice.custom_minimum_size.x = 326
+	legacy_notice.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	legacy.add_child(legacy_notice)
+	legacy_start_button = _button(legacy, "开始旧版波次（新局）", _legacy_start)
+	continue_button = _button(legacy, "继续旧版波次 · C", _continue)
+	_footer = _label("WASD 移动 · 鼠标射击 · 空格暂停    |    六区探索 / 原生纸偶", 16, Color("c1caa8"))
 	column.add_child(_footer)
 	set_continue_available(false)
 	set_campaign(_progress)
@@ -195,6 +214,17 @@ func set_campaign(progress: CampaignProgress, ready_chapters: Array[int] = [], s
 		if chapter >= 1 and chapter <= 6 and chapter not in _ready_chapters:
 			_ready_chapters.append(chapter)
 	_storage_notice = storage_notice
+	var target := EntryPolicy.default_chapter(_progress, _ready_chapters, storage_notice.is_empty())
+	start_button.disabled = target == 0
+	if not storage_notice.is_empty():
+		start_button.text = "请先处理存档异常"
+	elif target == 0:
+		start_button.text = "区域制作中"
+	elif _progress.is_campaign_complete():
+		start_button.text = "重返六区"
+	else:
+		start_button.text = ("开始探索" if target == 1 else "继续探索") + " · 第%d区" % target
+	_cover_notice.text = storage_notice if not storage_notice.is_empty() else "击败区域首领后解锁下一关。\n永久进度不包含关卡中途续玩。"
 	storage_label.text = storage_notice
 	storage_label.visible = not storage_notice.is_empty()
 	_progress_label.text = "通关 %d / 6 · 解锁至第 %d 区" % [_progress.to_state().cleared_chapters.size(), _progress.get_highest_unlocked_chapter()]
@@ -224,26 +254,45 @@ func _launch() -> void:
 		chapter_requested.emit(selected_chapter)
 
 func _continue() -> void:
-	if continue_button.visible and not continue_button.disabled:
+	if page == Page.LEGACY and continue_button.visible and not continue_button.disabled:
 		continue_requested.emit()
+
+func _legacy_start() -> void:
+	if page == Page.LEGACY:
+		legacy_start_requested.emit()
+
+func request_primary() -> void:
+	if page != Page.COVER:
+		return
+	if EntryPolicy.default_chapter(_progress, _ready_chapters, _storage_notice.is_empty()) == 0:
+		start_button.disabled = true
+		_link_focus()
+		return
+	if _progress.is_campaign_complete():
+		select_chapter(6)
+		show_page(Page.CHAPTERS)
+	else:
+		start_requested.emit()
 
 func show_page(next: Page) -> void:
 	page = next
 	cover_panel.visible = page == Page.COVER
 	_regions_panel.visible = page == Page.CHAPTERS
 	_settings_panel.visible = page == Page.SETTINGS
-	_title.text = ["废土清剿协议", "六区档案", "声音设置"][page]
+	_legacy_panel.visible = page == Page.LEGACY
+	_title.text = ["废土清剿协议", "六区档案", "声音设置", "旧版波次（兼容）"][page]
 	_kicker.visible = page == Page.COVER
 	_subtitle.visible = page == Page.COVER
 	# One common Back target for keyboard and integration callers.
-	if page == Page.SETTINGS:
-		back_button.reparent(_settings_panel.get_child(0))
-		_settings_panel.get_child(0).move_child(back_button, 0)
+	if page in [Page.SETTINGS, Page.LEGACY]:
+		var panel := _settings_panel if page == Page.SETTINGS else _legacy_panel
+		back_button.reparent(panel.get_child(0))
+		panel.get_child(0).move_child(back_button, 0)
 	elif back_button.get_parent() != _back_row:
 		back_button.reparent(_back_row)
 		_back_row.move_child(back_button, 0)
 	_link_focus()
-	(start_button if page == Page.COVER else back_button).grab_focus()
+	((regions_button if start_button.disabled else start_button) if page == Page.COVER else back_button).grab_focus()
 
 func apply_viewport_size(extent: Vector2) -> void:
 	var padding := 24 if extent.x < 1100 else 48
@@ -256,24 +305,25 @@ func get_active_controls() -> Array[Control]:
 	var result: Array[Control] = [_title, _footer]
 	match page:
 		Page.COVER:
-			result.append_array([cover_panel, start_button, regions_button, settings_button, quit_button])
-			if continue_button.visible:
-				result.append(continue_button)
+			result.append_array([cover_panel, start_button, regions_button, settings_button, legacy_button, quit_button])
 		Page.CHAPTERS:
 			result.append_array([_regions_panel, back_button, _progress_label, detail_label, launch_button])
 			result.append_array(chapter_buttons)
 		Page.SETTINGS:
 			result.append_array([_settings_panel, back_button, volume_slider, mute_button])
+		Page.LEGACY:
+			result.append_array([_legacy_panel, back_button, legacy_start_button])
+			if continue_button.visible:
+				result.append(continue_button)
 	return result
 
 func _link_focus() -> void:
 	var controls: Array[Control] = []
 	match page:
 		Page.COVER:
-			controls = [start_button]
-			if continue_button.visible:
-				controls.append(continue_button)
-			controls.append_array([regions_button, settings_button, quit_button])
+			if not start_button.disabled:
+				controls.append(start_button)
+			controls.append_array([regions_button, settings_button, legacy_button, quit_button])
 		Page.CHAPTERS:
 			controls = [back_button]
 			controls.append_array(chapter_buttons)
@@ -281,6 +331,10 @@ func _link_focus() -> void:
 				controls.append(launch_button)
 		Page.SETTINGS:
 			controls = [back_button, volume_slider, mute_button]
+		Page.LEGACY:
+			controls = [back_button, legacy_start_button]
+			if continue_button.visible and not continue_button.disabled:
+				controls.append(continue_button)
 	for i in controls.size():
 		var before := controls[(i - 1 + controls.size()) % controls.size()]
 		var after := controls[(i + 1) % controls.size()]

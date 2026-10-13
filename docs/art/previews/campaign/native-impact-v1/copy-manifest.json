@@ -1,0 +1,102 @@
+[
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6_native_impact_v3\\actors-baseline.png",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\actors-baseline.png",
+    "sha256": "9f4b2432492f5b5c6b8f4a7ed2eebaa8cdc120c9d17314b2508b85e14b501b78"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6_native_impact_v3\\actors-impact.png",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\actors-impact.png",
+    "sha256": "544509db26bcc967159dee0ec021b997d95a0652c75ae2e0461b627ef2a5371e"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6_native_impact_v3\\isolated.png",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\isolated.png",
+    "sha256": "0d89e567f2b0f5ddbc1467fc0e9847b144cd02f57ff796cb4cb650dadd78a637"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6_native_impact_v3\\report.json",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\report.json",
+    "sha256": "203689f6c1f4426fd72beb54f10eccdcdfce66744a3ed3d786537ec54316c6e8"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-native-impact-red-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-native-impact-red-v1.log",
+    "sha256": "f069fa2976257da340bc56bb9590877ddc811816adad62118d6ee17dafef6110"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-native-impact-red-v2.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-native-impact-red-v2.log",
+    "sha256": "19166b96edc9f173c613c230d8623d76b1099240b76d9f282f4ad04fae38bc7b"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-native-impact-green-v2.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-native-impact-green-v2.log",
+    "sha256": "e879d35ee72a6045cc9c9c69b4abcc4cdde99e427835ed93fd3259b4d3538764"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-impact-import-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-impact-import-v1.log",
+    "sha256": "83362265d98ef775947b0a397f824160c9c44088bdfc38facc07143e000b7f93"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-impact-gpu-import-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-impact-gpu-import-v1.log",
+    "sha256": "ddf8fe5a3b034c819070a3000d8e093b64008ba92c1afae21db381b70823ae8e"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-NativeImpactArtTest-green-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-NativeImpactArtTest-green-v1.log",
+    "sha256": "6a99b89870d46dde67a62266bf31cd37cfd7f3a8ea29cc48b753b5d146cca8f0"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-CombatFeedbackTest-green-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-CombatFeedbackTest-green-v1.log",
+    "sha256": "aa5736c99a6f414a177f3e17421f3566881b7ea16c33c38bdd2b33b40899a349"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-FriendlyEffectLayerTest-green-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-FriendlyEffectLayerTest-green-v1.log",
+    "sha256": "7f69590ab47b6f06e6e11702d79780fe98e8d8f76fb6f342431877f3f82b713c"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-FriendlyEffectPaletteTest-green-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-FriendlyEffectPaletteTest-green-v1.log",
+    "sha256": "6787ccdaf220f5b4a5ba2e27516bda4c6ed67e1116aaafe07503d5a3117c364e"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-ChibiRuntimeArtTest-green-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-ChibiRuntimeArtTest-green-v1.log",
+    "sha256": "5a537eb131aeebf47a80e84273196586d35f6ccc5fbb931fc2fdc1d5e63c5d2a"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-ChibiRuntimeArtTest-green-v2.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-ChibiRuntimeArtTest-green-v2.log",
+    "sha256": "833705b90181cef1142620d1dd9584e7401d7fb305408ce73d9f4feb3aa078a5"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-native-impact-gpu-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-native-impact-gpu-v1.log",
+    "sha256": "7d9e0edcc60423d73da335a7dde8f2f4b86ee8d91c51ff55ec2536c97e3b26a5"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-native-impact-gpu-v2.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-native-impact-gpu-v2.log",
+    "sha256": "b82c2858315e5d3a3d29b87273bd0aed73e6d4190fd5787f1c28cd2e4a45f038"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-native-impact-gpu-v3.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-native-impact-gpu-v3.log",
+    "sha256": "8158f0fca60a4e5fdaa2acd8b8f4a74bbd4648a47d48ce5f6c0d618238fbca5a"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-impact-policy-red-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-impact-policy-red-v1.log",
+    "sha256": "32e19e3fa4d119d80645f07c364936662880ed5fcf843dec81d42f8d9974ffaf"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f6-impact-policy-green-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-impact-v1\\f6-impact-policy-green-v1.log",
+    "sha256": "9c8eb61645c7e668fd47f897cc1a9f67973e32fe194ab0e67ef19a328d2566a4"
+  }
+]

@@ -16,6 +16,7 @@ var offer_buttons: Array[Button] = []
 var close_button: Button
 var current_state: Dictionary = {}
 var current_offers: Array[Dictionary] = []
+var chapter_scroll: ScrollContainer
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -104,6 +105,21 @@ func set_state(state: Dictionary) -> void:
 		_refresh()
 		if visible:
 			call_deferred("_focus_first_available")
+
+func enable_chapter_scroll_layout() -> void:
+	# Opt-in chapter layout: long evolution descriptions at 960x540 remain
+	# readable instead of forcing the modal off-screen. Legacy layout unchanged.
+	if chapter_scroll != null:
+		return
+	var content := panel.get_child(0) as VBoxContainer
+	panel.remove_child(content)
+	chapter_scroll = ScrollContainer.new()
+	chapter_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	chapter_scroll.follow_focus = true
+	panel.add_child(chapter_scroll)
+	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	chapter_scroll.add_child(content)
+	hint_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 func show_screen() -> void:
 	visible = true

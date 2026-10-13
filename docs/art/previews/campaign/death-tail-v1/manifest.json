@@ -1,0 +1,25 @@
+{
+  "copies": [
+    {
+      "sha256": "ddd8b084837c82277f1514d0029142c1141b20768469535782b12ab7d1e0d7bd",
+      "file": "manual_pause.png"
+    },
+    {
+      "sha256": "3145f862c1cf954de759359a541d7060ec3352bcc78e3c3a772479deaada59b2",
+      "file": "saved_clear_finished.png"
+    },
+    {
+      "sha256": "00dfbc3f9d1c1b772baf72edf6303c09b94b479f9133904c3a060c2064077b67",
+      "file": "saved_clear_mid.png"
+    },
+    {
+      "sha256": "3145f862c1cf954de759359a541d7060ec3352bcc78e3c3a772479deaada59b2",
+      "file": "saved_clear_start.png"
+    },
+    {
+      "sha256": "ac59619429dac27e14fc7d324ba4ecfee49d9e29eba4ef67f649faeea97351ed",
+      "file": "chapter-death-tail-gpu-green-v2.log"
+    }
+  ],
+  "scope": "Controlled actual Chapter death/paused save lifecycle; modal obscures actors; not ordinary victory or full visual acceptance"
+}

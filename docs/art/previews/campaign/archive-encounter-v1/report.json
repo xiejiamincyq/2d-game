@@ -1,0 +1,82 @@
+{
+	"actual_adjacent_moves": 309,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_encounter_gpu_v4/intro.png",
+			"sha256": "bcd1d598ed73b217744aabd26321e603c5cb4b7db87fa1998cc45d59a8229122"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_encounter_gpu_v4/planter.png",
+			"sha256": "0baf15b14cfcd5a6100d106eb2b1e94f6a2e5c88e3c5388e25efd5283cf64d92"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_encounter_gpu_v4/mote.png",
+			"sha256": "760c4f3324183dbbe94faf4ca3505870ed2b61e47b53938ad079127b601fadf7"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_encounter_gpu_v4/real-fragments.png",
+			"sha256": "87016b4fe1f45a17d7310145c368808aa0bf32129e7d62e8672cfefd24097bfd"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_encounter_gpu_v4/encounter-spore-active.png",
+			"sha256": "8de745ed3212ae250f161c0ed848be9d85f0180530a64b93ab9b5789a6348e18"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_encounter_gpu_v4/short-head-warning.png",
+			"sha256": "e9fc6d19a2e7ccf26cea118f8a678a58f6cd0c277682da3fd197a7336bd272dd"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_encounter_gpu_v4/live-capsule.png",
+			"sha256": "4241028f92f6ee77794ad2a55ab8d42144dad0fa1662104fa665b644ad74201c"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_encounter_gpu_v4/mixed.png",
+			"sha256": "ad72adad9cddcff485b5b00953ae16ab567dd435dea5ce667b18685cb4eee126"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_encounter_gpu_v4/paused.png",
+			"sha256": "ad72adad9cddcff485b5b00953ae16ab567dd435dea5ce667b18685cb4eee126"
+		}
+	],
+	"checks": 4055,
+	"engine_pointer_updates": 280,
+	"final_player_health": 79.0,
+	"maximum_live_capsules_observed": 1,
+	"maximum_pending_births_observed": 0,
+	"observed": {
+		"capsule": true,
+		"environment": true,
+		"fragment": true,
+		"mote": true,
+		"mote_walk": true,
+		"planter": true,
+		"planter_walk": true,
+		"warning": true
+	},
+	"owned_player_shots": 63,
+	"passed": true,
+	"scope": "First actual archive encounter, initial spawn inside a real twin-exit chamber, seeded automatic portals/real AI/real shots/real descendant births. Only ordinary movement/fire input after initial spawn. No stats/health/pose/velocity edits. Not Boss/chapter completion/OS mouse/human playtest/performance/final art or six-chapter completion.",
+	"sources": {
+		"scenes/actors/native/capsule_planter_paper_v1.tscn": "b98af580c193e0ad6d260fd386e63956d51d6da8087d7d9cd5389e6112d0be2f",
+		"scenes/actors/native/splitting_mote_paper_v1.tscn": "f7f36681b662b8fe459610402fe42e147e597977df26be417386d7dfe0baae72",
+		"scenes/world/luminous_archive.tscn": "3998b97c34fca40915e0ddc3d41bdba1f8fb56e7c527ea8cba4a4c1ab28328b9",
+		"scripts/actors/CapsulePlanterEnemy.gd": "f1dcd0881ef0f122ab5a34e210da0a3d543d1843a9e5a4fc8b2d6c2b4906275f",
+		"scripts/actors/Enemy.gd": "4a38c0ebe3320fe89470b8c9954afd42dea57cee6f788474dcea8fb73c8321de",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/actors/SplittingMoteEnemy.gd": "b2359899288b85b40ecd177d3ef0cf0125326bbc3f167a4405ce0caf5e58d17b",
+		"scripts/art/RenderArchiveEncounterPreview.gd": "663d37da7845e014b7297cad7dcb028d172b5c78a7638f1e187e9d338cd66bff",
+		"scripts/components/CapsulePlantHazard.gd": "523b61f1fd36e4cab361e9a21d69f6df2c8f0d441ad0b0045d5b45c8d49bdc1c",
+		"scripts/components/NativeCapsulePlanterMotion.gd": "99a72be5de9b50c36b5304e3ac2ff375ece4bef3b00332ab3f7fd4a0ce5b4285",
+		"scripts/components/NativeFolioMotion.gd": "40335d3e6aa24a9fd5e02ec385af2a4d670ce048fe322eb0b34c6aec726f98c5",
+		"scripts/effects/EnemyWorldStatus.gd": "ec7ceb7a9e4171048ffc1f1c0168658266276cb481d3231abc9d67efa9b423f1",
+		"scripts/systems/ArchiveEncounterDirector.gd": "987272fcb7bbcb9dfdb854ea2d09394d580c292a6da392a5934fed29026521d0",
+		"scripts/systems/ChapterEncounterDirector.gd": "aac22097915f5794ce5b3096bd33a580215b4747f4e7de67808599d99e12bbfa",
+		"scripts/systems/WaveDirector.gd": "ba5089601a241308fe546415e78f6f54bc92958c2629f8f492db4949bd91f4a9",
+		"scripts/world/ArchiveArenaLayout.gd": "797723586facd953c837b31a153f39b1b3c0fcccd85609a5a17cb0513d7e5601",
+		"scripts/world/ArchiveMap.gd": "9a82d2ae5409ade9622f64f53ffb5e863459b919d04ca2e7cb7e6d6e561bebf2",
+		"scripts/world/ArchiveSporeField.gd": "6628b7872d444a519f2b140febd47b6b63dc4ba2a1c0caac88e8f489a83b298d",
+		"scripts/world/ArchiveSporeNest.gd": "508e11f46d50684d72bf750697a766382163c1c55858a055daf4b52c34b8af59"
+	},
+	"warning_actor_bar_coral_pixels": 69,
+	"warning_cream_pixels": 18
+}

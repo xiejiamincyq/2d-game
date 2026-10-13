@@ -1,0 +1,4 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Original overdrive metrics: peak=0.528703 rms=0.063027 dc=0.000085 tail_peak=0.000000 samples=3969
+TEST PASS: OriginalOverdriveAudioTest 34

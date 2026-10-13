@@ -103,10 +103,10 @@ func _initialize() -> void:
 		return
 	if not _assert_true(is_equal_approx(float(boss.body_radius), 56.0), "Boss collision radius did not match the independent large-body contract"):
 		return
-	var boss_visual := boss.get("boss_visual") as Sprite2D
-	if not _assert_true(boss_visual != null and boss_visual.texture.resource_path == "res://assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png", "Boss did not use the B-style Overseer runtime art"):
+	var boss_visual := boss.get_visual_node() as Node2D
+	if not _assert_true(boss_visual != null and boss_visual.scene_file_path == "res://scenes/actors/native/root_overseer_paper_v1.tscn", "Boss did not use the independent native overseer action rig"):
 		return
-	if not _assert_true(boss_visual.texture.get_size() == Vector2(128, 128) and boss_visual.scale.is_equal_approx(Vector2(1.25, 1.25)), "Boss art exceeded or drifted from its bounded runtime presentation"):
+	if not _assert_true(boss_visual.get_node("Facing/Skeleton2D").get_bone_count() == 23 and boss_visual.scale.is_equal_approx(Vector2.ONE) and (boss_visual.transform*boss.get_visual_rect()).size.y <= 180, "Boss rig or bounded native presentation drifted"):
 		return
 	var boss_playable: Rect2 = director.world_bounds.grow(-float(boss.body_radius))
 	if not _assert_true(boss_playable.has_point(boss.global_position), "Boss spawned outside the playable world bounds"):
@@ -175,7 +175,7 @@ func _initialize() -> void:
 	boss.take_damage(1.0, DamageTypes.PROJECTILE, Vector2.LEFT)
 	if not _assert_true(health_events.size() >= 2 and float(health_events[-1][0]) < float(health_events[-1][1]), "Boss damage did not flow through the public health contract"):
 		return
-	var hit_flash := float((boss_visual.material as ShaderMaterial).get_shader_parameter("flash_amount"))
+	var hit_flash := float((boss_visual.get_node("Facing/Skin").material as ShaderMaterial).get_shader_parameter("flash_amount"))
 	if not _assert_true(hit_flash > 0.0 and hit_flash <= 0.4, "Boss hit feedback was absent or erased its palette"):
 		return
 	boss.take_damage(float(boss.health.max_health), DamageTypes.PROJECTILE, Vector2.LEFT)

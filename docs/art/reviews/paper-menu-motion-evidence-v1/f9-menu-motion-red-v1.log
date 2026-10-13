@@ -1,0 +1,7 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+ERROR: TEST FAIL: CampaignMenuMotionTest new menu motion is absent; backdrop is still static
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/tests/CampaignMenuMotionTest.gd:12)
+       [1] _run (res://scripts/tests/CampaignMenuMotionTest.gd:15)

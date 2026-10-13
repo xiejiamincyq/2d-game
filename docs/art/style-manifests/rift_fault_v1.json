@@ -1,0 +1,34 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "rift_fault_v1",
+  "review_state": "draft",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/rift-fault-review-v1.md",
+  "environment_preview": "res://docs/art/previews/campaign/rift-fault-v1/natural-active-1.png",
+  "prop_preview": "res://docs/art/previews/campaign/rift-fault-v1/active-middle.png",
+  "runtime_evidence": "res://docs/art/previews/campaign/rift-fault-v1/report.json",
+  "assets": [
+    {
+      "role": "environment-hazard",
+      "id": "rift_short_moving_fault",
+      "authoring_source": "res://scripts/world/RiftFault.gd",
+      "scope": "Original brass driver, short dashed amber warning, finite 20px coral footprint with dark outline. Shared visual/relative-circle clock, no tracking, moving terrain, loot or animation damage"
+    },
+    {
+      "role": "chapter-environment-owner",
+      "id": "rift_fault_field",
+      "authoring_source": "res://scripts/world/RiftField.gd",
+      "scope": "Four seeded dormant drivers, normal two/risk four and staggered safe recovery. Real encounter authorization awaits R3"
+    }
+  ],
+  "external_raster_dependencies": [],
+  "reference_policy": "Project-original native ink-paper design; no copied third-party artwork, downloads, generated raster assets or new installation.",
+  "limitations": [
+    "R2 complete: actual full289 Godot297895/36 Python272, independent PCK61 suites68198 plus315 resource/Main120/release exit0;104 sources and6 frozen items unchanged",
+    "Controlled geometry, natural physical inputs and GPU are distinct proofs",
+    "All13 PNGs reviewed and14 delivery files exact-copy verified",
+    "No encounters/observer Boss/sixth readiness or whole-goal completion",
+    "No human/OS playtest, three-resolution active combat, dense performance or final license approval"
+  ]
+}

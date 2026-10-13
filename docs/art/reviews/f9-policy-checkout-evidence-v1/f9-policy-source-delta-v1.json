@@ -1,0 +1,17 @@
+{
+  "changed": [
+    {
+      "current": "b46082f96d703d9ddf2a10b4abe7631c8419cfd4448525c75543272ce7b6d41e",
+      "old": "c676fef79d4be333cccbfabe8da7a9cf3d937683918b26a4ebc871eeb5075816",
+      "group": "supplemental_verification_sources",
+      "path": "scripts/tests/test_release_pack_policy.py"
+    }
+  ],
+  "canonical_unchanged": 1732,
+  "themes_unchanged": 2,
+  "helpers_unchanged": 2,
+  "new_freeze_sha256": "1b6b8ea59e492ce550468cff4b4bbd1f9280d6c6fda7072e92ea4bb5df29cbbf",
+  "candidate_overlay_rehashed": 2761,
+  "candidate_copy_drift": [],
+  "scope": "One verification-only Python edit. F9 prior runtime/GPU/PCK/chain remain exact canonical source-bound evidence, not a new whole-all runner claim; current Python37/286 independently passed on no-local-bitmap filesystem candidate."
+}

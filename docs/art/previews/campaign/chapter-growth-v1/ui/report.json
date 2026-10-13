@@ -1,0 +1,135 @@
+{
+	"assertions": 107,
+	"captures": [
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/960x540-unclaimed.png",
+			"sha256": "642094265ec8308d72a1f1ac87865b80093dbc098b0d7e388ffc744e044f99e5",
+			"size": [
+				960,
+				540
+			],
+			"state": "unclaimed"
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/960x540-scroll-bottom.png",
+			"sha256": "7cb4ad43d05b8322f9f187847765cb43d52cb6a57b7ecef6ccac4ed6067d4331",
+			"size": [
+				960,
+				540
+			],
+			"state": "scroll-bottom"
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/960x540-claimed.png",
+			"sha256": "61ee2789ca8aff8c0ce1b95adc6b8a83d0296fc67ac8cb0d396ddb268f5a4141",
+			"size": [
+				960,
+				540
+			],
+			"state": "claimed"
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/960x540-boss-ready.png",
+			"sha256": "622a3b520797109bc632bd8388c94d107e33a19c2518650f3a8d207f9b1473fd",
+			"size": [
+				960,
+				540
+			],
+			"state": "boss-ready"
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1280x720-unclaimed.png",
+			"sha256": "2d76aef3c30b09d91d87e342b480c580e3ab3b2c7bc1aa461860c43c271630ab",
+			"size": [
+				1280,
+				720
+			],
+			"state": "unclaimed"
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1280x720-scroll-bottom.png",
+			"sha256": "9890c62ba7dcfaf0eda9a4efbf91024bb4853cfb0951d7c19d36895ff03c3bce",
+			"size": [
+				1280,
+				720
+			],
+			"state": "scroll-bottom"
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1280x720-claimed.png",
+			"sha256": "9eb706c56f0841d2536608a75e6ae2dff15943bac3cae322a284313ce2a8192d",
+			"size": [
+				1280,
+				720
+			],
+			"state": "claimed"
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1280x720-boss-ready.png",
+			"sha256": "a130c74aef307b4ba2400a232678a13906b5084b06e480ddf6f04dbf068c2bb8",
+			"size": [
+				1280,
+				720
+			],
+			"state": "boss-ready"
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1920x1080-unclaimed.png",
+			"sha256": "8e1d11c219c14caf4661386262d6a206d8ca4e6364ca1a5fc657a403838db228",
+			"size": [
+				1920,
+				1080
+			],
+			"state": "unclaimed"
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1920x1080-scroll-bottom.png",
+			"sha256": "a2c6a9538490c394692d656d0dc37fe845ab6cd374b11889370e30c6bbc251c4",
+			"size": [
+				1920,
+				1080
+			],
+			"state": "scroll-bottom"
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1920x1080-claimed.png",
+			"sha256": "731551cff6493429b0d51cf3bd6441833093e895fae7fd6fdd64fb92310cb3c2",
+			"size": [
+				1920,
+				1080
+			],
+			"state": "claimed"
+		},
+		{
+			"file": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1920x1080-boss-ready.png",
+			"sha256": "316d89bb8ce62e830189f22224e6c057407bb9538a4520a82f0f58c4de54717a",
+			"size": [
+				1920,
+				1080
+			],
+			"state": "boss-ready"
+		}
+	],
+	"process_id": 72076,
+	"renderer": "NVIDIA GeForce RTX 5060 Laptop GPU",
+	"saves_after": {
+		"user://five_minute_overdrive_campaign_v1.json": "absent",
+		"user://five_minute_overdrive_run_v1.json": "absent"
+	},
+	"saves_before": {
+		"user://five_minute_overdrive_campaign_v1.json": "absent",
+		"user://five_minute_overdrive_run_v1.json": "absent"
+	},
+	"schema": 1,
+	"scope": "Controlled lethal combat fixture; real paused reward UI, real engine pointer claim/close, actual Player evolution and three GPU viewport sizes. Not ordinary combat, human playtest, permanent unlock, whole F3 or final game acceptance.",
+	"sources": {
+		"scripts/art/VerifyChapterFinaleUI.gd": "503cc2053ce3b0b60cce2273a077f187dcf2ce3fa9c7ff62b78eb9e11cdaf552",
+		"scripts/campaign/ChapterRun.gd": "c76e4db19e2ee1c77742de8ad682e3c7f6d021e29f0445dee29a1dfbcce98d86",
+		"scripts/systems/ChapterEncounterDirector.gd": "df699107b6a8c90f514202bac023f48974ce5994b50b48685de4bf584b266e56",
+		"scripts/systems/UpgradeSystem.gd": "a5e49d3b41ec0643509f37ac4d9fec1dbf6383345e95ae6dc28998a14ef1a6fd",
+		"scripts/tests/ChapterFinaleFlowTest.gd": "9ed2b5296fdb5b73d792a3a9cd5cee8f4f03d0580b14068c3ea1015de05acafc",
+		"scripts/ui/ChapterRunUI.gd": "3852750433b257febba714bdcf508dd2132681f9e0b2cdcaa37678499cac1a2a",
+		"scripts/ui/SettlementScreen.gd": "875a0722625512f70a7906498124fa33e14d8446610c1df8e5a77362bd6223d1"
+	},
+	"valid": true
+}

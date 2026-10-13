@@ -1,6 +1,11 @@
 extends Node2D
 class_name TentacleAttack
 
+# Visual observers only. Completion is emitted after state reset; cancellation
+# also invalidates a completed visual tail but never reports a successful hit.
+signal attack_finished(kind: int)
+signal attack_cancelled
+
 const ProjectileScript = preload("res://scripts/components/BossProjectile.gd")
 
 const WARNING_COLOR := Color("f27a4b")
@@ -124,6 +129,7 @@ func cancel_attack() -> void:
 	set_physics_process(false)
 	cleanup_projectiles()
 	_queue_visual_redraw()
+	attack_cancelled.emit()
 
 func cleanup_projectiles() -> void:
 	for shot in owned_projectiles:
@@ -199,12 +205,14 @@ func _spawn_slam_projectiles(origin: Vector2) -> void:
 		owned_projectiles.append(shot)
 
 func _finish_attack() -> void:
+	var completed_kind := attack_kind
 	attack_kind = AttackKind.NONE
 	attack_stage = AttackStage.IDLE
 	elapsed = 0.0
 	slam_targets.clear()
 	set_physics_process(false)
 	_queue_visual_redraw()
+	attack_finished.emit(completed_kind)
 
 func _exit_tree() -> void:
 	cancel_attack()

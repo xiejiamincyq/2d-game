@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "valid": true,
+  "scope": "Actual fresh-save six-leg ordinary-input chain; not human playtest or multi-seed balance",
+  "route": "supply",
+  "legs": [
+    {
+      "chapter": 1,
+      "id": "campaign_fresh_20261012_v1_s1",
+      "assertions": 14213,
+      "moves": 14002,
+      "shots": 3019,
+      "receipt": {
+        "schema": 1,
+        "actual_exit": 0,
+        "report_sha256": "9d6c7b0af570fb87c0e48758e8ca192485097a9b5e2f3b67c326c0012d002801",
+        "log_sha256": "ce7bc9b3d134eb5fe520fa8c131a094d92d1bc70b91b49d2701419a9316c2143",
+        "engine_process_id": 74684,
+        "launcher_process_id": 58052
+      }
+    },
+    {
+      "chapter": 2,
+      "id": "campaign_fresh_20261012_v1_s2",
+      "assertions": 11354,
+      "moves": 5524,
+      "shots": 1314,
+      "receipt": {
+        "schema": 1,
+        "actual_exit": 0,
+        "report_sha256": "1b25b6c9bf85a9b8a1c691c8ccd57f82e2260898716f31e20ee05e9a912876a4",
+        "log_sha256": "a55a093217b880c6bc9f684f48707227725fbbffeb29abdd9f438003843b590d",
+        "engine_process_id": 70248,
+        "launcher_process_id": 69452
+      }
+    },
+    {
+      "chapter": 3,
+      "id": "campaign_fresh_20261012_v1_s3",
+      "assertions": 19255,
+      "moves": 9533,
+      "shots": 2102,
+      "receipt": {
+        "schema": 1,
+        "actual_exit": 0,
+        "report_sha256": "6fac39588714bf464180e3670eee52423bcd427fe610ee759dd8572dc857aa77",
+        "log_sha256": "5afcafea0f352b57503991c690b552a1a904f80be50711139f30855e5b566a51",
+        "engine_process_id": 60636,
+        "launcher_process_id": 64440
+      }
+    },
+    {
+      "chapter": 4,
+      "id": "campaign_fresh_20261012_v1_s4",
+      "assertions": 19464,
+      "moves": 9497,
+      "shots": 2061,
+      "receipt": {
+        "schema": 1,
+        "actual_exit": 0,
+        "report_sha256": "03800a67fcafcd2f684957e555ed544896641aeb9d06fd8f16c029d5bc942913",
+        "log_sha256": "57e172637930f191992ad85b49d3d18fa69ae2ed93a7dbe33bed3418e7ac726f",
+        "engine_process_id": 68520,
+        "launcher_process_id": 74588
+      }
+    },
+    {
+      "chapter": 5,
+      "id": "campaign_fresh_20261012_v1_s5",
+      "assertions": 13724,
+      "moves": 6769,
+      "shots": 1460,
+      "receipt": {
+        "schema": 1,
+        "actual_exit": 0,
+        "report_sha256": "9627d3347b64c565bb418e8f467693f08ec1a5f3a799a7fe18a2527a6c6c75b2",
+        "log_sha256": "7c0b416e745b1945bf958925c2077d2086bb68f74f68be9389ce6dcb1f8a5452",
+        "engine_process_id": 64952,
+        "launcher_process_id": 65632
+      }
+    },
+    {
+      "chapter": 6,
+      "id": "campaign_fresh_20261012_v1_s6",
+      "assertions": 15426,
+      "moves": 7606,
+      "shots": 1633,
+      "receipt": {
+        "schema": 1,
+        "actual_exit": 0,
+        "report_sha256": "40f4e6cf8a0ca6285d1452faaa39dee6a7b87c91baca0307a4080b9073e3ba04",
+        "log_sha256": "acdb409bbd103d6cbb65b4014fcc4d42fa462bacda440a20769f166d43d51fec",
+        "engine_process_id": 66084,
+        "launcher_process_id": 67624
+      }
+    }
+  ],
+  "source_count": 1638
+}

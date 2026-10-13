@@ -1,7 +1,7 @@
 extends SceneTree
 
 const Main = preload("res://scripts/Main.gd")
-const Support = preload("res://scripts/tests/TestSupport.gd")
+const Support = preload("TestSupport.gd")
 var assertions := 0
 var failures := 0
 
@@ -59,7 +59,8 @@ func _run() -> void:
 	check(returned.get_script() == Main and returned.ui.start_screen.visible and not returned.run_started, "Back did not return to real tent menu")
 	check(returned.campaign_store_path == path and is_equal_approx(returned.audio.bgm_volume_linear, 0.37) and returned.audio.bgm_muted, "Back lost progress path/audio preferences")
 	check(not FileAccess.file_exists(path), "aborting chapter saved a false unlock")
-	returned.ui.start_screen.start_button.pressed.emit()
+	returned.ui.start_screen.legacy_button.pressed.emit()
+	returned.ui.start_screen.legacy_start_button.pressed.emit()
 	check(not returned._can_start_campaign_chapter(1), "active old demo admits parallel chapter")
 	paused = false
 	Support.stop_audio(returned.audio)

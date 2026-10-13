@@ -1,0 +1,11 @@
+{
+  "asset_id": "tide_shell_paper_v2",
+  "runtime_scene": "res://scenes/actors/native/tide_shell_paper_v2.tscn",
+  "motion_library": "res://assets/art/actors/native/tide_shell_motion_v2.tres",
+  "role": "boss",
+  "review_state": "draft",
+  "bone_count": 25,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "hit", "entrance", "death", "ripple_warning", "ripple_attack", "ripple_recovery", "pincer_warning", "pincer_attack", "pincer_recovery", "salt_warning", "salt_attack", "salt_recovery"],
+  "rig_checkpoint": "res://docs/art/native-checkpoints/tide_shell_attack_v1.json"
+}

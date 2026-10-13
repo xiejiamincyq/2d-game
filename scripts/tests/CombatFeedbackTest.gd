@@ -6,14 +6,14 @@ const CombatFeedbackScript = preload("res://scripts/systems/CombatFeedback.gd")
 const AudioManagerScript = preload("res://scripts/systems/AudioManager.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
-const TestSupport = preload("res://scripts/tests/TestSupport.gd")
+const TestSupport = preload("TestSupport.gd")
 
 var assertions := 0
 
-func _textured_spark_count(vfx: Node) -> int:
+func _native_burst_count(vfx: Node) -> int:
 	var count := 0
 	for spark in vfx._sparks:
-		if bool(spark.get("textured", true)):
+		if bool(spark.get("burst", true)):
 			count += 1
 	return count
 
@@ -32,14 +32,14 @@ func _initialize() -> void:
 	await process_frame
 	for index in range(20):
 		vfx.request_effect(CombatVfxScript.SPARK, Vector2.ZERO)
-	if not _assert_true(_textured_spark_count(vfx) == 3 and vfx.get_effect_count(CombatVfxScript.SPARK) == 20, "overlapping hits did not keep streaks while limiting textures to three"):
+	if not _assert_true(_native_burst_count(vfx) == 3 and vfx.get_effect_count(CombatVfxScript.SPARK) == 20, "overlapping hits did not keep streaks while limiting paper bursts to three"):
 		return
 	vfx.request_effect(CombatVfxScript.SPARK, Vector2(100.0, 0.0))
-	if not _assert_true(_textured_spark_count(vfx) == 4, "local hit budget suppressed a distant hit"):
+	if not _assert_true(_native_burst_count(vfx) == 4, "local hit budget suppressed a distant hit"):
 		return
 	vfx._process(1.0)
 	vfx.request_effect(CombatVfxScript.SPARK, Vector2.ZERO)
-	if not _assert_true(_textured_spark_count(vfx) == 1, "expired hits did not release the local budget"):
+	if not _assert_true(_native_burst_count(vfx) == 1, "expired hits did not release the local budget"):
 		return
 	vfx.clear_all()
 	var child_count_before: int = vfx.get_child_count()
@@ -72,10 +72,10 @@ func _initialize() -> void:
 	if not _assert_true(bool(vfx._rings[0].get("blast", false)), "blast ring lost its distinct visual marker"):
 		return
 	for spark in vfx._sparks:
-		if not _assert_true(not bool(spark.get("textured", true)), "blast rays still duplicate full hit textures"):
+		if not _assert_true(not bool(spark.get("burst", true)), "blast rays still duplicate full paper bursts"):
 			return
 	vfx.request_effect(CombatVfxScript.SPARK, Vector2.ZERO)
-	if not _assert_true(vfx.get_effect_count(CombatVfxScript.SPARK) == 9 and _textured_spark_count(vfx) == 1, "blast rays consumed the ordinary hit texture budget"):
+	if not _assert_true(vfx.get_effect_count(CombatVfxScript.SPARK) == 9 and _native_burst_count(vfx) == 1, "blast rays consumed the ordinary hit burst budget"):
 		return
 	vfx.clear_all()
 
@@ -102,7 +102,7 @@ func _initialize() -> void:
 	if not _assert_true(audio.streams.has("overdrive_kill"), "combat audio does not provide an overdrive kill confirmation cue"):
 		return
 	var overdrive_kill_stream: AudioStream = audio.streams["overdrive_kill"]
-	if not _assert_true(overdrive_kill_stream.resource_path == "res://assets/audio/overdrive_bone_breaking.mp3", "overdrive confirmation did not use the approved Bone Breaking source"):
+	if not _assert_true(overdrive_kill_stream is AudioStreamWAV and overdrive_kill_stream.resource_path.is_empty() and overdrive_kill_stream.get_meta(&"origin", "") == "project-original-synthesis-v1", "overdrive confirmation did not use the project-original synthesized cue"):
 		return
 	if not _assert_true(overdrive_kill_stream != audio.streams["kill_confirm"], "overdrive confirmation reused the ordinary kill cue"):
 		return
@@ -209,6 +209,18 @@ func _initialize() -> void:
 			break
 	if not _assert_true(kill_cue_assigned, "a kill did not play the dedicated confirmation cue"):
 		return
+	feedback.reset_all()
+	audio._process(1.0)
+	feedback.overdrive_active_provider = func() -> bool: return true
+	feedback.on_damage_resolved(medium_enemy, DamageTypes.PROJECTILE, 20.0, Vector2.ZERO, Vector2.RIGHT, true)
+	var overdrive_cue_assigned := false
+	for voice in audio.voice_pool:
+		if voice.stream == overdrive_kill_stream:
+			overdrive_cue_assigned = true
+			break
+	if not _assert_true(overdrive_cue_assigned, "actual lethal overdrive feedback did not route the original cue"):
+		return
+	feedback.overdrive_active_provider = Callable()
 	feedback.reset_all()
 	camera_effects.clear_all()
 	audio._process(1.0)

@@ -1,0 +1,170 @@
+{
+  "exit_observation": "Main serial exec session 16058 completed with actual engine exit 1 and outer strict exit 1",
+  "valid": false,
+  "copies": [
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_000.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_000.png",
+      "sha256": "820155e7f88b7b9cdb6fd7be7542c5185c5a795b40ddab89ea72972b89f158a5"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_001.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_001.png",
+      "sha256": "565b1aa132fafd84ee862c9c748c762a032a53af63cdc4047de22e44e3d021ae"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_002.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_002.png",
+      "sha256": "dc1803d8fc54bc3fcddd5b05bf9b98d86524f5491e7d2474e192ffbbf3faab7f"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_003.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_003.png",
+      "sha256": "0ae201cb5c4b7e2cb72ed7bce7f62b0fe195bf0eb36aacddc3ee45ed8ce31cb4"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_004.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_004.png",
+      "sha256": "664893e5b44fcb5d084ee64531fa578cc6716dca9e9b6ad8998ebf4a43504ff2"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_005.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_005.png",
+      "sha256": "286ab205e957d49fce361da6fd2918c65f82e0cb3d9a14f0d9b150fb3e7709ae"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_006.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_006.png",
+      "sha256": "1cee00f8cf01319209c301eb9867202d010aef9302c46747fc7982f4a95ce8f2"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_007.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_007.png",
+      "sha256": "a0734f4a7e354a998964bce6a9d65aa4cc41f3e8c0a7d572953ddf51aaa3f8a8"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_008.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_008.png",
+      "sha256": "4a460ac978829b5cb00af5a99365fe4da5f9ec3ab8fa9c57481717694cea8a16"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_009.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_009.png",
+      "sha256": "951288a8c6791fa996ba69d7f4a17a1ce16215ce6ce8edc9790586462d04e924"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_010.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_010.png",
+      "sha256": "706e6105fcffc2d0dac7391c0a3576487cf499c735cc526069925485aa954775"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_011.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_011.png",
+      "sha256": "7fe5e0d1f380859a9c62cd8343057f7c90863658f3440ea63536be6e0495eee7"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_012.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_012.png",
+      "sha256": "f14d63297315d411c93ed98a80e206a1aeec07e2bacde012496e4277317f4915"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_013.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_013.png",
+      "sha256": "dd6c48af35304c7a8c4fbec8502ef127d5dd04f18b272e7ec0caae496a0154cd"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_014.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_014.png",
+      "sha256": "dd6c48af35304c7a8c4fbec8502ef127d5dd04f18b272e7ec0caae496a0154cd"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_015.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_015.png",
+      "sha256": "0af8f69e95329ee3469b766c36e2abfe5a5a5c8f1369a94fd082c2608af8fd0b"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_016.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_016.png",
+      "sha256": "07cd4ae5e53ef0652a4eb3986aeba43395bfebb6cc11e565096512fd6b1c51f2"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_017.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_017.png",
+      "sha256": "24615a9b407662b991191be4bbbe1e99cbd8acc8930dc09eb3e11296a25c733d"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_018.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_018.png",
+      "sha256": "3bd2ffe444eef7fb53127152778c4a6612e278ed15952f4fa2976c917d5bfa24"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_019.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_019.png",
+      "sha256": "b07ef1fa86ad33c1427dd79824fd1d593fa8e3b6d708f2240461706a01afe5c6"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_020.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_020.png",
+      "sha256": "a7ec42fa69a2c0e3579d30233b868ece31a492abe193b6fe68fb6f00f0ef3559"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_021.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_021.png",
+      "sha256": "b0d2778551f160554f98a855e5c7df97f18e1750cdb096a06ad8def787bbdfa7"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_022.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_022.png",
+      "sha256": "f77bd8c2b8353f9f9deced67849be26ec586533a294e56e8a0e8cd28853369e8"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_023.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_023.png",
+      "sha256": "94af4ab5b6ec47656cd5aa5e354abe4c340fb714a8a545293f938c23abea8b22"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_024.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_024.png",
+      "sha256": "80bd777e8deac6e7911e1cd5c2ac08a58f61247e16cb834ea659793dbb4c8fdc"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_025.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_025.png",
+      "sha256": "a098fbfdfad594a4fc560fdee906b5f12fe2c38d289dbc1f41a8d04634ca64f6"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_026.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_026.png",
+      "sha256": "f4c78da0dfc2ceb5b549e3efa65e9c0f591d9964577f40f74365d14f6813be18"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_027.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_027.png",
+      "sha256": "e3dc70dab1aed62ad8446a320bbee4718cb6c1f627492c421f2451aa816e6e30"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_028.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_028.png",
+      "sha256": "50fc74b9bcd443b644e5ffe43d453969176b4e814ce0682d9aa4c6b52a11c8b5"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/frame_029.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/frame_029.png",
+      "sha256": "0d2cc3e87759572cb71c4ba7922fc94b2e588311705861fd88376a2f63750281"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/report.json",
+      "source": "build/diagnostics/campaign-goal/f3_fire_compensated_20261012_v1/report.json",
+      "sha256": "43424b119052000f88741f895597645958b440c1ffbd3d12b3c2c965ba6ddfb7"
+    },
+    {
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-compensated-window-failed/driver.log",
+      "source": "build/diagnostics/campaign-goal/f3-fire-compensated-ordinary-v1.log",
+      "sha256": "61e036344f2964fecb43d969a502221c384cd721f1a244df4a5ca2700700c690"
+    }
+  ],
+  "actual_exit": 1,
+  "source_count": 1658,
+  "schema": 1,
+  "scope": "Historical compensated Window run failure; not victory, input-fidelity proof, or human balance"
+}

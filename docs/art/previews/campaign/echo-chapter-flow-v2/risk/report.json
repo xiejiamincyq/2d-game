@@ -1,0 +1,882 @@
+{
+	"actions": [
+		{
+			"button": "六区档案",
+			"physics_frame": 8
+		},
+		{
+			"button": "05  回声墓庭\n已解锁",
+			"physics_frame": 16
+		},
+		{
+			"button": "进入区域",
+			"physics_frame": 16
+		},
+		{
+			"button": "进入遭遇",
+			"physics_frame": 83
+		},
+		{
+			"button": "5. 无人机部署\n无人机 +1，单机伤害 +3%\n卡牌层数 0\n[ 免费领取 ]",
+			"physics_frame": 1967
+		},
+		{
+			"button": "完成整备并继续探索",
+			"physics_frame": 1969
+		},
+		{
+			"button": "进入遭遇",
+			"physics_frame": 1970
+		},
+		{
+			"button": "1. 分裂枪膛\n枪线 +1，单发伤害 -12%\n卡牌层数 0\n[ 免费领取 ]",
+			"physics_frame": 3470
+		},
+		{
+			"button": "完成整备并继续探索",
+			"physics_frame": 3472
+		},
+		{
+			"button": "高风险四钟余拍：额外战斗 · 免费构筑 · 完成后35金币",
+			"physics_frame": 3473
+		},
+		{
+			"button": "进入遭遇",
+			"physics_frame": 3475
+		},
+		{
+			"button": "1. 线圈加速器\n弹速 +18%，子弹伤害 +4%\n卡牌层数 0\n[ 免费领取 ]",
+			"physics_frame": 4537
+		},
+		{
+			"button": "2. 灼热枪管\n射速 +9%\n卡牌层数 0\n[ 71 金币 ]",
+			"physics_frame": 4539
+		},
+		{
+			"button": "完成整备并继续探索",
+			"physics_frame": 4540
+		},
+		{
+			"button": "迎战首领",
+			"physics_frame": 4541
+		}
+	],
+	"assertions": 15420,
+	"boss_actions": {
+		"crown": true,
+		"pendant": true
+	},
+	"boss_phases": {
+		"0": true,
+		"1": true,
+		"2": true,
+		"3": true
+	},
+	"chapter": 5,
+	"expected_actual_kills": 54,
+	"health_events": [
+		{
+			"boss_action": "",
+			"frame": 3684,
+			"health": 85.0,
+			"position": [
+				453.096801757813,
+				299.974822998047
+			]
+		},
+		{
+			"boss_action": "",
+			"frame": 3715,
+			"health": 67.0,
+			"position": [
+				447.557800292969,
+				317.263793945313
+			]
+		},
+		{
+			"boss_action": "",
+			"frame": 4047,
+			"health": 87.0,
+			"position": [
+				286.619171142578,
+				257.892669677734
+			]
+		}
+	],
+	"layout_samples": [
+		{
+			"file": "res://build/diagnostics/campaign-goal/echo_risk_gpu_v2/intro_960x540.png",
+			"image_size": [
+				960,
+				540
+			],
+			"sha256": "3fcd3badd1859635d3329a4507451c2baa964d29dc5a1fb6a6c8c833dd798860",
+			"viewport_size": [
+				960.0,
+				540.0
+			],
+			"window_size": [
+				960,
+				540
+			]
+		},
+		{
+			"file": "res://build/diagnostics/campaign-goal/echo_risk_gpu_v2/intro_1280x720.png",
+			"image_size": [
+				1280,
+				720
+			],
+			"sha256": "2117782e761ca0c85632f3f3aa4399d437ec22e7f2914f1066420683a86eb157",
+			"viewport_size": [
+				1280.0,
+				720.0
+			],
+			"window_size": [
+				1280,
+				720
+			]
+		},
+		{
+			"file": "res://build/diagnostics/campaign-goal/echo_risk_gpu_v2/intro_1920x1080.png",
+			"image_size": [
+				1920,
+				1080
+			],
+			"sha256": "670ffae6e0ba5325331da6483c4416c61c74ec9e8b1bd6ebcf3dd251b11c88de",
+			"viewport_size": [
+				1920.0,
+				1080.0
+			],
+			"window_size": [
+				1920,
+				1080
+			]
+		}
+	],
+	"moves": 7603,
+	"observations": [
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": 0.0,
+			"label": "INTRO",
+			"mouse_world": [
+				491.0,
+				25.0
+			],
+			"step": 0
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": 0.0,
+			"label": "periodic",
+			"mouse_world": [
+				491.0,
+				25.0
+			],
+			"step": 0
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Front",
+			"gun_angle": 1.57079637050629,
+			"label": "COMBAT",
+			"mouse_world": [
+				0.0,
+				52.0
+			],
+			"step": 46
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": 0.0448643825948238,
+			"label": "COLLECT",
+			"mouse_world": [
+				-60.619873046875,
+				1057.36450195313
+			],
+			"step": 1748
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": -0.0000560675907763653,
+			"label": "periodic",
+			"mouse_world": [
+				130.976440429688,
+				966.3486328125
+			],
+			"step": 1800
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": -0.00472664181143045,
+			"label": "REWARD",
+			"mouse_world": [
+				532.268127441406,
+				733.156433105469
+			],
+			"step": 1929
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": -0.00472664181143045,
+			"label": "INTRO",
+			"mouse_world": [
+				20.2730102539063,
+				966.40576171875
+			],
+			"step": 1931
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Front",
+			"gun_angle": 1.57079672813416,
+			"label": "COMBAT",
+			"mouse_world": [
+				31.468505859375,
+				785.839721679688
+			],
+			"step": 1932
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": -0.00308391847647727,
+			"label": "COLLECT",
+			"mouse_world": [
+				1106.87060546875,
+				-40.18896484375
+			],
+			"step": 3248
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": -0.00108600046951324,
+			"label": "REWARD",
+			"mouse_world": [
+				766.083618164063,
+				259.032775878906
+			],
+			"step": 3430
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": -0.00108600046951324,
+			"label": "ROUTE",
+			"mouse_world": [
+				266.396331787109,
+				479.824249267578
+			],
+			"step": 3432
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": -0.00108600046951324,
+			"label": "INTRO",
+			"mouse_world": [
+				266.396331787109,
+				337.824249267578
+			],
+			"step": 3433
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Front",
+			"gun_angle": 1.57079637050629,
+			"label": "COMBAT",
+			"mouse_world": [
+				266.104522705078,
+				310.885528564453
+			],
+			"step": 3434
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Front",
+			"gun_angle": 0.806016325950623,
+			"label": "periodic",
+			"mouse_world": [
+				610.403381347656,
+				346.539428710938
+			],
+			"step": 3600
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": -0.0043749725446105,
+			"label": "COLLECT",
+			"mouse_world": [
+				235.6220703125,
+				-694.750671386719
+			],
+			"step": 4307
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": 0.00544413225725293,
+			"label": "REWARD",
+			"mouse_world": [
+				742.455627441406,
+				-221.088348388672
+			],
+			"step": 4488
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": 0.00544413225725293,
+			"label": "BOSS_READY",
+			"mouse_world": [
+				230.929382324219,
+				1.5289306640625
+			],
+			"step": 4491
+		},
+		{
+			"attack": "",
+			"attack_stage": 0,
+			"boss_position": [
+				0.0,
+				-672.0
+			],
+			"facing": "Front",
+			"gun_angle": 1.57079637050629,
+			"label": "BOSS",
+			"mouse_world": [
+				241.687286376953,
+				-165.84716796875
+			],
+			"step": 4492
+		},
+		{
+			"attack": "crown",
+			"attack_stage": 2,
+			"boss_position": [
+				-29.3989181518555,
+				-701.665893554688
+			],
+			"facing": "Right",
+			"gun_angle": -0.770607948303223,
+			"label": "periodic",
+			"mouse_world": [
+				-29.4556274414063,
+				-701.087768554688
+			],
+			"step": 5400
+		},
+		{
+			"attack": "crown",
+			"attack_stage": 3,
+			"boss_position": [
+				-26.5725688934326,
+				-688.268920898438
+			],
+			"facing": "Right",
+			"gun_angle": -0.161186754703522,
+			"label": "periodic",
+			"mouse_world": [
+				-26.5865478515625,
+				-692.178466796875
+			],
+			"step": 7200
+		},
+		{
+			"attack": "",
+			"attack_stage": -1,
+			"boss_position": [],
+			"facing": "Right",
+			"gun_angle": 0.0551006123423576,
+			"label": "CLEARED",
+			"mouse_world": [
+				-53.4177856445313,
+				-691.405395507813
+			],
+			"step": 7670
+		}
+	],
+	"pointer_checks": 7621,
+	"prerequisite_fixture": [
+		1,
+		2,
+		3,
+		4
+	],
+	"route": "risk",
+	"run_seed": 3911314638,
+	"samples": [
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_000.png",
+			"health": 100.0,
+			"kills": 0,
+			"label": "INTRO",
+			"physics_frame": 38,
+			"position": [
+				0.0,
+				0.0
+			],
+			"sha256": "272e4a81270a67d0f955ca67cb6866d150c9458a872ea0d08285f692f1451a6b",
+			"shots": 0,
+			"state": "INTRO",
+			"step": 0,
+			"wall_usec": 2222728
+		},
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_001.png",
+			"health": 100.0,
+			"kills": 0,
+			"label": "periodic",
+			"physics_frame": 39,
+			"position": [
+				0.0,
+				0.0
+			],
+			"sha256": "272e4a81270a67d0f955ca67cb6866d150c9458a872ea0d08285f692f1451a6b",
+			"shots": 0,
+			"state": "INTRO",
+			"step": 0,
+			"wall_usec": 2249802
+		},
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_002.png",
+			"health": 100.0,
+			"kills": 0,
+			"label": "COMBAT",
+			"physics_frame": 84,
+			"position": [
+				0.0,
+				0.0
+			],
+			"sha256": "8358d5e15251fdf3515226fff4e9a3c1eccb31acce5be2d378712ba67051c51d",
+			"shots": 0,
+			"state": "COMBAT",
+			"step": 46,
+			"wall_usec": 2991167
+		},
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_003.png",
+			"health": 100.0,
+			"kills": 11,
+			"label": "COLLECT",
+			"physics_frame": 1786,
+			"position": [
+				-544.573791503906,
+				1035.71862792969
+			],
+			"sha256": "0f045c876a97c85f39277fc34819d14691d9ffafd5e49faad5ff8bce239a04ac",
+			"shots": 367,
+			"state": "COLLECT",
+			"step": 1748,
+			"wall_usec": 31360846
+		},
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_004.png",
+			"health": 100.0,
+			"kills": 11,
+			"label": "periodic",
+			"physics_frame": 1839,
+			"position": [
+				-370.733459472656,
+				963.710815429688
+			],
+			"sha256": "d899f4f06b07440def46bad2306eae7e01b4a5d7bcfc890987365d5c6981629d",
+			"shots": 379,
+			"state": "COLLECT",
+			"step": 1800,
+			"wall_usec": 32246037
+		},
+		{
+			"boss_health": null,
+			"encounter": 0,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_005.png",
+			"health": 100.0,
+			"kills": 11,
+			"label": "REWARD",
+			"physics_frame": 1967,
+			"position": [
+				31.4685287475586,
+				733.839721679688
+			],
+			"sha256": "a2dff5a9f65e8eec05d4168c388959fbac1e2f599104da4595f20bcaa716c134",
+			"shots": 406,
+			"state": "REWARD",
+			"step": 1929,
+			"wall_usec": 34385021
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_006.png",
+			"health": 100.0,
+			"kills": 11,
+			"label": "INTRO",
+			"physics_frame": 1970,
+			"position": [
+				31.4685287475586,
+				733.839721679688
+			],
+			"sha256": "31edccbbaf230529884390676fae1dae2ef9ff70ca6f215b9db08f40286b6a73",
+			"shots": 406,
+			"state": "INTRO",
+			"step": 1931,
+			"wall_usec": 34439325
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_007.png",
+			"health": 100.0,
+			"kills": 11,
+			"label": "COMBAT",
+			"physics_frame": 1972,
+			"position": [
+				31.4685287475586,
+				733.839721679688
+			],
+			"sha256": "1a2815ffd61a701d9c839c4d015de17bf5925925e6b4139765c57136f21b3a47",
+			"shots": 406,
+			"state": "COMBAT",
+			"step": 1932,
+			"wall_usec": 34480442
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_008.png",
+			"health": 100.0,
+			"kills": 28,
+			"label": "COLLECT",
+			"physics_frame": 3288,
+			"position": [
+				605.395324707031,
+				-38.7136573791504
+			],
+			"sha256": "466e80a0fb4681a179cc011120ded847d7ec892343f1d7c4ce7b9140510dc682",
+			"shots": 688,
+			"state": "COLLECT",
+			"step": 3248,
+			"wall_usec": 56389454
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_009.png",
+			"health": 100.0,
+			"kills": 28,
+			"label": "REWARD",
+			"physics_frame": 3470,
+			"position": [
+				266.104522705078,
+				258.885528564453
+			],
+			"sha256": "2e428f385285f05be799a9c84c6de2d6a9b2d4be1d4dacaf0ec5b54106ccf09b",
+			"shots": 727,
+			"state": "REWARD",
+			"step": 3430,
+			"wall_usec": 59429014
+		},
+		{
+			"boss_health": null,
+			"encounter": 1,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_010.png",
+			"health": 100.0,
+			"kills": 28,
+			"label": "ROUTE",
+			"physics_frame": 3473,
+			"position": [
+				266.104522705078,
+				258.885528564453
+			],
+			"sha256": "3b41662e4b79ac045ecbea6f65320250db1410c9cef86338a776c7c48554a639",
+			"shots": 727,
+			"state": "ROUTE",
+			"step": 3432,
+			"wall_usec": 59484246
+		},
+		{
+			"boss_health": null,
+			"encounter": 2,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_011.png",
+			"health": 100.0,
+			"kills": 28,
+			"label": "INTRO",
+			"physics_frame": 3475,
+			"position": [
+				266.104522705078,
+				258.885528564453
+			],
+			"sha256": "b41cf545ec8511978157af35f6b0deb7ed912e5053212d8afa2a003ebdb48da8",
+			"shots": 727,
+			"state": "INTRO",
+			"step": 3433,
+			"wall_usec": 59521700
+		},
+		{
+			"boss_health": null,
+			"encounter": 2,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_012.png",
+			"health": 100.0,
+			"kills": 28,
+			"label": "COMBAT",
+			"physics_frame": 3477,
+			"position": [
+				266.104522705078,
+				258.885528564453
+			],
+			"sha256": "005dd69e204afc6d97af27f48cffbab47ec67153660328143f10508ed4d497f5",
+			"shots": 727,
+			"state": "COMBAT",
+			"step": 3434,
+			"wall_usec": 59555649
+		},
+		{
+			"boss_health": null,
+			"encounter": 2,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_013.png",
+			"health": 100.0,
+			"kills": 30,
+			"label": "periodic",
+			"physics_frame": 3644,
+			"position": [
+				503.619781494141,
+				235.40754699707
+			],
+			"sha256": "a98fcacb8dc8572cb8edfd5be53767753fcbbf16328bd335a91599b71ad3cd2f",
+			"shots": 801,
+			"state": "COMBAT",
+			"step": 3600,
+			"wall_usec": 62321503
+		},
+		{
+			"boss_health": null,
+			"encounter": 2,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_014.png",
+			"health": 87.0,
+			"kills": 53,
+			"label": "COLLECT",
+			"physics_frame": 4356,
+			"position": [
+				-264.377899169922,
+				-692.664306640625
+			],
+			"sha256": "154014cff2eb14eb84caf44f93d275138544e59ed3719466f28886c91f4da9d2",
+			"shots": 1331,
+			"state": "COLLECT",
+			"step": 4307,
+			"wall_usec": 74213459
+		},
+		{
+			"boss_health": null,
+			"encounter": 2,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_015.png",
+			"health": 87.0,
+			"kills": 53,
+			"label": "REWARD",
+			"physics_frame": 4537,
+			"position": [
+				241.687286376953,
+				-221.847198486328
+			],
+			"sha256": "ef62c6058469563cb302ec1c2b7ab98d0c8d16977ffee6bd0c6365a9d948a023",
+			"shots": 1409,
+			"state": "REWARD",
+			"step": 4488,
+			"wall_usec": 77209303
+		},
+		{
+			"boss_health": null,
+			"encounter": 2,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_016.png",
+			"health": 87.0,
+			"kills": 53,
+			"label": "BOSS_READY",
+			"physics_frame": 4541,
+			"position": [
+				241.687286376953,
+				-221.847198486328
+			],
+			"sha256": "ea1683d732ffa9010b7204dcb1025e7ee7867e6a4d71248a236e3e1c6f39e91b",
+			"shots": 1409,
+			"state": "BOSS_READY",
+			"step": 4491,
+			"wall_usec": 77279724
+		},
+		{
+			"boss_health": 10800.0,
+			"encounter": 2,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_017.png",
+			"health": 87.0,
+			"kills": 53,
+			"label": "BOSS",
+			"physics_frame": 4542,
+			"position": [
+				241.687286376953,
+				-221.847198486328
+			],
+			"sha256": "948f243a6883f542958f9ad56ea9904c180cbf2b5cddfc9562128484702bafef",
+			"shots": 1409,
+			"state": "BOSS",
+			"step": 4492,
+			"wall_usec": 77314639
+		},
+		{
+			"boss_health": 8188.1107199988,
+			"encounter": 2,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_018.png",
+			"health": 87.0,
+			"kills": 53,
+			"label": "periodic",
+			"physics_frame": 5451,
+			"position": [
+				-282.634246826172,
+				-452.750793457031
+			],
+			"sha256": "6a295ba9939a266842b4b8ad700ff331cb27604b5074b9a1c005daa1d95c0fdc",
+			"shots": 1835,
+			"state": "BOSS",
+			"step": 5400,
+			"wall_usec": 92440735
+		},
+		{
+			"boss_health": 1718.6306399993,
+			"encounter": 2,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_019.png",
+			"health": 87.0,
+			"kills": 53,
+			"label": "periodic",
+			"physics_frame": 7251,
+			"position": [
+				-312.839874267578,
+				-641.719299316406
+			],
+			"sha256": "fecaf233eec6ec3eefe447d3dbdfe27ae69654cca932fac2e1dea299c3e534ed",
+			"shots": 2677,
+			"state": "BOSS",
+			"step": 7200,
+			"wall_usec": 122449624
+		},
+		{
+			"boss_health": null,
+			"encounter": 2,
+			"file": "build/diagnostics/campaign-goal/echo_risk_gpu_v2/frame_020.png",
+			"health": 87.0,
+			"kills": 54,
+			"label": "CLEARED",
+			"physics_frame": 7720,
+			"position": [
+				-311.019134521484,
+				-705.613830566406
+			],
+			"sha256": "2f5b6ab9f3130e4f9a3f7404aa3a18ea0e406e3cc90685f9a7b1ac595da3613d",
+			"shots": 2897,
+			"state": "CLEARED",
+			"step": 7670,
+			"wall_usec": 130270095
+		}
+	],
+	"scope": "Actual Main -> Echo in GPU SubViewport; ordinary UI/pointer/movement/fire/dash -> real fifth Boss clear/save/unlock6. Isolated prerequisites1..4 prepared before run. No actor stats/direct damage/in-run reward writes. Not OS desktop input, human playtest, performance or six-chapter acceptance.",
+	"shots": 2897,
+	"sources": {
+		"assets/art/actors/native/bell_priest_motion_v2.tres": "77a2b470a5af2cb2aa157bf30f0e6b7868208d2765535d5ec65a503ab876431a",
+		"scenes/actors/native/bell_priest_paper_v2.tscn": "dcd4905c9609c0a468afab75611568e65fbfb06792132413b464e9210f64cc60",
+		"scenes/campaign/echo_chapter.tscn": "eee383b66d530df2b232f3eb30fbbbd330fa0b15dbffd53cc254b31ebfa77781",
+		"scenes/world/echo_court.tscn": "2dd3c90cda1d128b817724035854a83901998b39f6c99c71b4e338298b813733",
+		"scripts/Main.gd": "947878c1d34e78ca9d83347803d2ce9783c28815b3d8ef9c51cb7bf2ad2eb0c4",
+		"scripts/actors/CirclingShadeEnemy.gd": "6585d71b203e7244a3585e7f848f08ee6cf92b83e73b84836e316e15eaaa78f6",
+		"scripts/actors/EchoBellPriestBoss.gd": "cbec12f9a213f7c03d61a606bccfa8c0ad14b21884f3b44b7599212ce9d4a467",
+		"scripts/actors/EchoSentinelEnemy.gd": "530e2fc17a39b1b90b73ce11bce1992cfec935b91a252b60d66e4fdcdf6512d6",
+		"scripts/actors/Enemy.gd": "4a38c0ebe3320fe89470b8c9954afd42dea57cee6f788474dcea8fb73c8321de",
+		"scripts/actors/OverseerBoss.gd": "a2fc52f59e3215ea6805fa31d020144cb1458f3ed8dbbfbb863dd81484082aa4",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/NaturalRunPolicy.gd": "75d7ccf15e5b35355324945301afb4b8a5a57f5805a10e5d3cb14d07889b2259",
+		"scripts/art/VerifyEchoChapterFlow.gd": "deb2d0e1df03f3c71d8e23df44dfefb1d6da206a38cf5318f5176b3b295d053d",
+		"scripts/art/VerifyFoundryChapterFlow.gd": "f6949800a011ad6930e59effca8125ecd250afb3d7b272c536a795e5b60e7ad8",
+		"scripts/art/VerifyNurseryChapterFlow.gd": "4ee426303cde1c6185a43c0668b58c79afa45d43169a3ea70afca54036bcc09f",
+		"scripts/campaign/ChapterRun.gd": "3268cdb018a6b5901166fd13173d7d019daf13b5d16699e4f61c53c209ac13f5",
+		"scripts/campaign/ChapterRunDefinitions.gd": "76d6e41db437523de71f1c326f194786475ebc5e03ac09cc095c5462f16d75d2",
+		"scripts/campaign/ChapterSceneRegistry.gd": "4bad192fb2026b8e41ed898d88ec1ba41ca135e43dea044f1bd8ed4572784ab2",
+		"scripts/campaign/EchoChapter.gd": "b1493e218b17405346dcb745437a36874d0e732a04605cb517ab077c0e0c62e2",
+		"scripts/campaign/NurseryChapter.gd": "5a4b64315b9b5208098d64c1458f60065565ae0dbd43e1ab5a17a86ebe33338b",
+		"scripts/campaign/RegionalEnemyFactory.gd": "921caa3665e68e3d7ab6a04b77d85a2116d2b73abf4f17af58338848a03f42d8",
+		"scripts/components/ArchivePageProjectile.gd": "1e6b357afb9d88fb2df3970e4db1ba2a6880daa600a5ce9a8e72d946f6d92675",
+		"scripts/components/BellPriestAttackDirector.gd": "b7948cff0cd4a312ed4e76d9f2c59a50c24c0b192c5c0582d0ab1c20519d7a32",
+		"scripts/components/BellPriestCrownProjectile.gd": "bd4a9f8a8edb9df218a387bc51d296d1dfbcbdf206c1ecd806573035e9ff1076",
+		"scripts/components/BellPriestPendantProjectile.gd": "26e756046f03cfc0d9cea04a3aecb9954147f7f6a4a5a8861f1eb802a24b8397",
+		"scripts/components/BellPriestStrike.gd": "2e60918135d9298cc916d1e0ec2fd069f34856a078e0f3214bc09eca272ccf7f",
+		"scripts/components/NativeBellPriestMotion.gd": "70b581a29a7ffd1cb5c7f7eabc73841d2ebd8f08b9c16200855db6f5fbda3956",
+		"scripts/components/NativeProjectileOriginSafety.gd": "9be51ed7fb55861a124174653b9570589ed8d7bb65ede5b11195e77df158cc70",
+		"scripts/components/VineSeedProjectile.gd": "4b231e725b10b2b351e6b599bc297b20f5757e2f31a69bf1c2a36574594cabfb",
+		"scripts/effects/EnemyWorldStatus.gd": "ec7ceb7a9e4171048ffc1f1c0168658266276cb481d3231abc9d67efa9b423f1",
+		"scripts/effects/PlayerOcclusionOutline.gd": "bff9f0ca69ee90133a8e86f321d42b44237ca4cc7ee160bed721b6db85ccb273",
+		"scripts/systems/BossCameraFraming.gd": "33fe1031c560a81bb200a6ecae969a4b642be0c59fdb2e15c3e82cfdbdda402a",
+		"scripts/systems/CampaignProgress.gd": "092eba7d1a02b57dd97a6603bdb3c253de5de9c426c7b12d129987f53de15539",
+		"scripts/systems/CampaignProgressStore.gd": "abf16a27db865a6f37d408c954ab70512171274fb5e7fa3fc90d2e7749410036",
+		"scripts/systems/ChapterEncounterDirector.gd": "bdc8a4587a1dea077ccdbcd5012fcdce5a5b23b46057a47c29e837125465e0b5",
+		"scripts/systems/EchoEncounterDirector.gd": "e1687c75c9e5b5e7bbb5c3ccea97dfca1eaeb971861785744202c803183cfe3e",
+		"scripts/systems/NurseryEncounterDirector.gd": "57805781a4eddb9c75a18827c30831b4be392e1c507f15c4f8c615cee11435aa",
+		"scripts/systems/UpgradeSystem.gd": "b06312a74909c05e2f7cc77edec0ae4ec9576e518bd6848b169c8b1ec2ab0317",
+		"scripts/ui/ChapterRunUI.gd": "45a68ab19686fa6048ae3d18ed3e376e36db28d6274e4454129dd37d9ca960eb",
+		"scripts/ui/NurseryChapterUI.gd": "a8ff37aee9d468bdc9ebe5fbf354998d273fbd341003b9db98bd7990123b3670",
+		"scripts/world/EchoArenaLayout.gd": "27399c73777778ac7db1acde672b01b9da2a478378e5f94830e253cee0dac102",
+		"scripts/world/EchoBeat.gd": "cf89e417d458c8b7264b5ad5472989ae07076e17ce63e7658b2a8be8ddaf0b3c",
+		"scripts/world/EchoField.gd": "1f5989db8117ed453f39a9ba2a0e9e1360163d00c20600b1686a7b00ecc5281a",
+		"scripts/world/EchoFloor.gd": "6f4c081e0258ea7f8e53e1bc4f03e5e09b91a355702497ac0e2ed05ea74e6704",
+		"scripts/world/EchoMap.gd": "563f1dc80d93e0d8e680e28616b67312b8564628b25b504f46362855afae43d9",
+		"scripts/world/EchoPropArt.gd": "af220b234dcff33903ee071bdbe8ce47b85e187ed301686ec7f39a9423ad8f10",
+		"scripts/world/NurseryArenaLayout.gd": "05364e8ffb6a0b12ac74cdfdb5c05b0f2005bca5ad80083d8fdf71cd318964a7"
+	},
+	"valid": true
+}

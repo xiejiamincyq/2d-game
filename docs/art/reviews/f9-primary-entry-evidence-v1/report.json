@@ -1,0 +1,331 @@
+{
+	"captures": [
+		{
+			"height": 540,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/960-page0.png",
+			"sha256": "152aea5df47af8bfb8ccd2bf278b3cfb58d988fe0a527173085a812d8cd114a3",
+			"width": 960
+		},
+		{
+			"height": 540,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/960-page1.png",
+			"sha256": "ba0b282f803089cbb9add037fa3c73f7ebb2b4c1b013c4b66dfeaf9004ae93c5",
+			"width": 960
+		},
+		{
+			"height": 540,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/960-page2.png",
+			"sha256": "db7fd76824b59b6a50a47ef1d7b5090123206253ab20d696c4481f8f45b4effc",
+			"width": 960
+		},
+		{
+			"height": 540,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/960-page3.png",
+			"sha256": "dca2e30244f53721721b6fc0dd9801bea174b5773f5e7cea2e422c52123c34a8",
+			"width": 960
+		},
+		{
+			"height": 540,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/960-actual-chapter.png",
+			"sha256": "44368397880a7270ebffb36a4d7b5117733cfcac7e5fa558863276440cfb3e52",
+			"width": 960
+		},
+		{
+			"height": 720,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1280-page0.png",
+			"sha256": "1d7f61b7c4ff44ded4c64b4b6dfe9bc9d120c17f4eb190f9a92b7f3274090b6b",
+			"width": 1280
+		},
+		{
+			"height": 720,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1280-page1.png",
+			"sha256": "d33878e225e67ddc65dbeea1bc54f9859d7e39dceca77d590d0e8fb49dc8dd7e",
+			"width": 1280
+		},
+		{
+			"height": 720,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1280-page2.png",
+			"sha256": "a94d15088bbe084e327cad6d5e4585c8d5019a5f93cfa72f12e5f0be98d4313d",
+			"width": 1280
+		},
+		{
+			"height": 720,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1280-page3.png",
+			"sha256": "4424e7f307aea8697c6ac0633a4ccb4510b0ec57169d57f02e758261207ef5a7",
+			"width": 1280
+		},
+		{
+			"height": 720,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1280-actual-chapter.png",
+			"sha256": "6bcf7fb5272a0f52d512303bf17298fb4f87b2b1503c105b2aeef2ef98a9141b",
+			"width": 1280
+		},
+		{
+			"height": 1080,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1920-page0.png",
+			"sha256": "f022308a0956d0863a9643fe120ae431fc852740b6ba50f1a659e2dbcca24b11",
+			"width": 1920
+		},
+		{
+			"height": 1080,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1920-page1.png",
+			"sha256": "3a7acc81ead7dbfb32f954a67f41df7023b73489e2f741764a252696e110396e",
+			"width": 1920
+		},
+		{
+			"height": 1080,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1920-page2.png",
+			"sha256": "97977fb3572d06f6e0613acd1f11f314819c57470c7a0ac48eb93d4f83fd389c",
+			"width": 1920
+		},
+		{
+			"height": 1080,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1920-page3.png",
+			"sha256": "b03776d37a1fd477d2c51c882a8e431a512bcafc9ed083dd4a07cb763ae23509",
+			"width": 1920
+		},
+		{
+			"height": 1080,
+			"path": "build/diagnostics/campaign-goal/f9_primary_entry_gpu_v1/1920-actual-chapter.png",
+			"sha256": "66f01f79b6b100a89bc672e83dba2a671271c26d0a958a80dba0383906d36bb5",
+			"width": 1920
+		}
+	],
+	"checks": 252,
+	"clicks": [
+		{
+			"frame": 16,
+			"point": [
+				214.0,
+				261.0
+			],
+			"text": "六区档案"
+		},
+		{
+			"frame": 18,
+			"point": [
+				95.0,
+				113.0
+			],
+			"text": "← 返回帐篷"
+		},
+		{
+			"frame": 20,
+			"point": [
+				214.0,
+				313.0
+			],
+			"text": "声音设置"
+		},
+		{
+			"frame": 21,
+			"point": [
+				214.0,
+				113.0
+			],
+			"text": "← 返回帐篷"
+		},
+		{
+			"frame": 22,
+			"point": [
+				214.0,
+				365.0
+			],
+			"text": "旧版波次（兼容）"
+		},
+		{
+			"frame": 23,
+			"point": [
+				214.0,
+				113.0
+			],
+			"text": "← 返回帐篷"
+		},
+		{
+			"frame": 25,
+			"point": [
+				214.0,
+				209.0
+			],
+			"text": "开始探索 · 第1区"
+		},
+		{
+			"frame": 38,
+			"point": [
+				238.0,
+				293.0
+			],
+			"text": "六区档案"
+		},
+		{
+			"frame": 41,
+			"point": [
+				119.0,
+				145.0
+			],
+			"text": "← 返回帐篷"
+		},
+		{
+			"frame": 43,
+			"point": [
+				238.0,
+				345.0
+			],
+			"text": "声音设置"
+		},
+		{
+			"frame": 43,
+			"point": [
+				238.0,
+				145.0
+			],
+			"text": "← 返回帐篷"
+		},
+		{
+			"frame": 46,
+			"point": [
+				238.0,
+				397.0
+			],
+			"text": "旧版波次（兼容）"
+		},
+		{
+			"frame": 47,
+			"point": [
+				238.0,
+				145.0
+			],
+			"text": "← 返回帐篷"
+		},
+		{
+			"frame": 49,
+			"point": [
+				238.0,
+				241.0
+			],
+			"text": "继续探索 · 第6区"
+		},
+		{
+			"frame": 62,
+			"point": [
+				238.0,
+				293.0
+			],
+			"text": "六区档案"
+		},
+		{
+			"frame": 65,
+			"point": [
+				119.0,
+				145.0
+			],
+			"text": "← 返回帐篷"
+		},
+		{
+			"frame": 69,
+			"point": [
+				238.0,
+				345.0
+			],
+			"text": "声音设置"
+		},
+		{
+			"frame": 70,
+			"point": [
+				238.0,
+				145.0
+			],
+			"text": "← 返回帐篷"
+		},
+		{
+			"frame": 74,
+			"point": [
+				238.0,
+				397.0
+			],
+			"text": "旧版波次（兼容）"
+		},
+		{
+			"frame": 75,
+			"point": [
+				238.0,
+				145.0
+			],
+			"text": "← 返回帐篷"
+		},
+		{
+			"frame": 79,
+			"point": [
+				238.0,
+				241.0
+			],
+			"text": "重返六区"
+		},
+		{
+			"frame": 80,
+			"point": [
+				1771.0,
+				383.0
+			],
+			"text": "进入区域"
+		}
+	],
+	"passed": true,
+	"real_saves_after": {
+		"user://five_minute_overdrive_campaign_v1.json": "absent",
+		"user://five_minute_overdrive_campaign_v1.json.bak": "absent",
+		"user://five_minute_overdrive_campaign_v1.json.tmp": "absent",
+		"user://five_minute_overdrive_run_v1.json": "absent",
+		"user://five_minute_overdrive_run_v1.json.bak": "absent",
+		"user://five_minute_overdrive_run_v1.json.tmp": "absent"
+	},
+	"real_saves_before": {
+		"user://five_minute_overdrive_campaign_v1.json": "absent",
+		"user://five_minute_overdrive_campaign_v1.json.bak": "absent",
+		"user://five_minute_overdrive_campaign_v1.json.tmp": "absent",
+		"user://five_minute_overdrive_run_v1.json": "absent",
+		"user://five_minute_overdrive_run_v1.json.bak": "absent",
+		"user://five_minute_overdrive_run_v1.json.tmp": "absent"
+	},
+	"save_checks": [
+		{
+			"campaign_sha256": "absent",
+			"legacy_sha256": "25639d84c0c336d34121d60beb6b87cf882eb49ca58c18fb0ac074ec83c2fa12",
+			"preseeded_clears": 0,
+			"width": 960
+		},
+		{
+			"campaign_sha256": "dcc136a102ab9aa021fe15d45376dabd16856c57b16d9f003de8df3ad564c5e1",
+			"legacy_sha256": "25639d84c0c336d34121d60beb6b87cf882eb49ca58c18fb0ac074ec83c2fa12",
+			"preseeded_clears": 5,
+			"width": 1280
+		},
+		{
+			"campaign_sha256": "729510abc934fc3e7ea491bb4d0a321ff66ae63ca6207033247b67af8139f739",
+			"legacy_sha256": "25639d84c0c336d34121d60beb6b87cf882eb49ca58c18fb0ac074ec83c2fa12",
+			"preseeded_clears": 6,
+			"width": 1920
+		}
+	],
+	"scope": "Actual GPU, four menu pages at three sizes, ordinary engine mouse to first/sixth/replay. Prior5/6 are controlled fixtures; NOT six fresh-save victories or OS/human input.",
+	"sources": {
+		"scenes/Main.tscn": "7d9e12effe1ee1a646b2a4985c3ce294db7b4eae6427e98692f624cbe2751ff5",
+		"scripts/Main.gd": "1974d8144aa555508b441c325bcc2d346f31b3db5a68c07e7a3b97ebd0cceec7",
+		"scripts/art/VerifyCampaignPrimaryEntry.gd": "ab07e7c46475e7364e86fcc6d193f437a6149ad35c02ddd36ddf76d37b2e17b3",
+		"scripts/campaign/ChapterRun.gd": "f9a977b48aca3f0c92f610b173f3b871d7797c14a7920e1fab085f69369d4de7",
+		"scripts/campaign/ChapterRunDefinitions.gd": "76fb016a6ff824929755eb5657311f4d9b3f9573ee3719fe182c156f7c555f8c",
+		"scripts/campaign/ChapterSceneRegistry.gd": "c8731df680232d938f0f4b86801f0840442d640f4ff067888c097c17ce0e7f0a",
+		"scripts/campaign/NurseryChapter.gd": "5a4b64315b9b5208098d64c1458f60065565ae0dbd43e1ab5a17a86ebe33338b",
+		"scripts/campaign/RiftChapter.gd": "0bdc811575c7c87ddeace43181f1a2d8ed713e5f2adeb5325e0531643ef370dc",
+		"scripts/systems/CampaignEntryPolicy.gd": "40ed8c0ec4c1f51bd342d7ba7206543e432b244398087425223f9d370e531a3b",
+		"scripts/systems/CampaignProgress.gd": "092eba7d1a02b57dd97a6603bdb3c253de5de9c426c7b12d129987f53de15539",
+		"scripts/systems/CampaignProgressStore.gd": "abf16a27db865a6f37d408c954ab70512171274fb5e7fa3fc90d2e7749410036",
+		"scripts/systems/ChapterCatalog.gd": "dfc3eae86323b2608b6f66bc27ab371ab497400b3b09d4877827730466d5d5e7",
+		"scripts/systems/RunSnapshotStore.gd": "328a6c5f284c4528776e30338f8797c0a6202a5fa1f2f859172544b2cfd9ab51",
+		"scripts/ui/CampaignBackdrop.gd": "c39b5f3a3f3ce693c439f29a48859488cd3f12f8dc774c5600a2c57649bcd5c0",
+		"scripts/ui/CampaignMenuTheme.gd": "f75aed6df8e74e317224746acff0a44ee74e14847508f8389df5bd324cb7d932",
+		"scripts/ui/CampaignRegionIcon.gd": "1c03f050af12dbd3db187e85f1c05dfe716ab07c5e246dbba651829629ed16b0",
+		"scripts/ui/CampaignStartScreen.gd": "43d1637426f15a48f07476d52d7345a6b8105234e3bdba5ce1ead5726534d3f9",
+		"scripts/ui/GameUI.gd": "31ea462e14e6a4269c52ce1eaf6d8ae7a13afdf5ff2f34f07ad4cecc066dc278"
+	}
+}

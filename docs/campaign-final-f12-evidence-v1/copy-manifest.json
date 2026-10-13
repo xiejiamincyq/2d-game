@@ -1,0 +1,758 @@
+{
+  "valid": true,
+  "entries": [
+    {
+      "entry": "terminal/f11_final_chain_v2_s1/driver.log",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s1/driver.log",
+      "sha256": "0676308f7ff5fb2016cdf0791b17e14047c8012594c27072ad2035cbe2dcd1cb",
+      "bytes": 881
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s1/exit-report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s1/exit-report.json",
+      "sha256": "cc029e7ed5654aa805622809541779e6a8a0180e23c4f4d1180e7e76bc3e912d",
+      "bytes": 279
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s1/report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s1/report.json",
+      "sha256": "afd8b60880a7777ce44e678f43c68e0fc3778b0911b34f6f769396547419c555",
+      "bytes": 222268
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s1/returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s1/returned_main.png",
+      "sha256": "4ad2fcb0cd4ea30ef072012c99b2c898450587e62ff345cb01dd0977f428ee02",
+      "bytes": 127662
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s2/driver.log",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s2/driver.log",
+      "sha256": "1bcaacaca398ac423780e78110a0f12cacd5749ab1638fd9cacbf13ec535efcb",
+      "bytes": 887
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s2/exit-report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s2/exit-report.json",
+      "sha256": "d89cf8829a858a82a75da25a086db13d94cf85208a18cb1043b0c94dfca0722f",
+      "bytes": 277
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s2/report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s2/report.json",
+      "sha256": "083c790d93d1252c7ddefbaf302efd5973f8c09a10ca17325ddf3d1b6bbbd295",
+      "bytes": 223505
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s2/returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s2/returned_main.png",
+      "sha256": "ef8ca7b15f93975d1c7eb5f4c23cc856b0dfa42d8eb5d0e1c8a337c065118a83",
+      "bytes": 127709
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s3/driver.log",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s3/driver.log",
+      "sha256": "d884f39a698d89c1a5f72d65c10a5692fe3b54c1ef4c56bbc868d252af5d5d1a",
+      "bytes": 881
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s3/exit-report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s3/exit-report.json",
+      "sha256": "5f27ecf3e17d3127634b700ddef479d224e56d2098fa8615ea327f11c4a8e187",
+      "bytes": 277
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s3/report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s3/report.json",
+      "sha256": "604512c29f152ad8fbdd774c79c3478f3271383dcee07229305e941608c0799e",
+      "bytes": 224505
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s3/returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s3/returned_main.png",
+      "sha256": "16805b86a40eb174a26de65453fef3a9dc66559f2143f3bc225e3ea9abc6a0bf",
+      "bytes": 127614
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s4/driver.log",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s4/driver.log",
+      "sha256": "b12b6ce640d99216cb0e3b707e3eebbac4414c51709875236b1b6c762fe7019c",
+      "bytes": 887
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s4/exit-report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s4/exit-report.json",
+      "sha256": "babc131607f7b72ef8ddb6be90a5377afd959d857da5ac179e50cb58c0f9b0b3",
+      "bytes": 278
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s4/report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s4/report.json",
+      "sha256": "0414cf371d282d99498e77170dc8611661f2f27fd3dbe675b26f2969fb080fa7",
+      "bytes": 225677
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s4/returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s4/returned_main.png",
+      "sha256": "b92908038eadc994effa98325363e0eff88e7821b4f3265b68b32324a64a743f",
+      "bytes": 127651
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s5/driver.log",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s5/driver.log",
+      "sha256": "93bff6ac90f4f5e2ed3752691d0757d43ad519fadfc95b5d0cf1b63c8647ff4c",
+      "bytes": 917
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s5/exit-report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s5/exit-report.json",
+      "sha256": "b2366ab14b9c5c66b673e67c58b109a332402833409b447fb4ad7118852b72aa",
+      "bytes": 278
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s5/report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s5/report.json",
+      "sha256": "86cbf9f07f80205e4b500c8ec20e152e9f4e966151a83ec1536e35c41baaff74",
+      "bytes": 225692
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s5/returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s5/returned_main.png",
+      "sha256": "01f1cd001fe811aff91d6b57c76a4699a123b0d004fd7e73c3361a5491a47d58",
+      "bytes": 127779
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s6/driver.log",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s6/driver.log",
+      "sha256": "e8c3be438c352c4c751728da82cc6e853a42028e18fd5c649e4d617f15533ce0",
+      "bytes": 908
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s6/exit-report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s6/exit-report.json",
+      "sha256": "c9005f15ab00b64e98b5294fe311b65554e84f249f60ac984536aee8b58bad11",
+      "bytes": 279
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s6/report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s6/report.json",
+      "sha256": "eecd3186a952dcc88b7f8f037c9a98d2e035a4722854b905764e1c78e1701088",
+      "bytes": 226899
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s6/restore-report.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s6/restore-report.json",
+      "sha256": "244cae732c73015a77f2fdfe176f1a285951fdde7895c5fd9c8e121c99d3ff3d",
+      "bytes": 640
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2_s6/returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s6/returned_main.png",
+      "sha256": "df492fcdd08e59ba010fd2474d61e7eb08100155cda51ac35323442ec3d2dce0",
+      "bytes": 125371
+    },
+    {
+      "entry": "terminal/f11_final_chain_v2-chain-summary.json",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2-chain-summary.json",
+      "sha256": "22152821c6fcd17633b4b00af6d97ff3de9f0c5e749347fa32b7e9da3c17bb33",
+      "bytes": 3115
+    },
+    {
+      "entry": "terminal/f11-candidate-full-v7-exit.json",
+      "source": "build/diagnostics/campaign-goal/f11-candidate-full-v7-exit.json",
+      "sha256": "ccdb3918f9ee1f47f6bd8e99b663fe72b1240dd2baf4e20b2e98f1d113ee8f99",
+      "bytes": 1020
+    },
+    {
+      "entry": "terminal/f11-candidate-full-v7-sources.json",
+      "source": "build/diagnostics/campaign-goal/f11-candidate-full-v7-sources.json",
+      "sha256": "1cfba556430cf06d71f2339b9e810369325cce60e1516d2193b85b86ecefabdd",
+      "bytes": 216318
+    },
+    {
+      "entry": "terminal/f11-candidate-full-v7.log",
+      "source": "build/diagnostics/campaign-goal/f11-candidate-full-v7.log",
+      "sha256": "caf7cad7f028d64fca86c22cbb4c154d5246856a350bc9c7e41f85af3161e3da",
+      "bytes": 17495
+    },
+    {
+      "entry": "terminal/f11-raw-policy-audit-v2.json",
+      "source": "build/diagnostics/campaign-goal/f11-raw-policy-audit-v2.json",
+      "sha256": "6c26a3ac5c3166c8d4f8856935232d7d9e42c893de5bf4e30062d7a5d8ac24ab",
+      "bytes": 58085
+    },
+    {
+      "entry": "terminal/f11-secret-scope-audit-v1.json",
+      "source": "build/diagnostics/campaign-goal/f11-secret-scope-audit-v1.json",
+      "sha256": "2f8edc91bcea21db681501ccd32c9723eb57a2baf87734f821995fa870a29478",
+      "bytes": 328
+    },
+    {
+      "entry": "terminal/f12_final_risk_v1/driver.log",
+      "source": "build/diagnostics/campaign-goal/f12_final_risk_v1/driver.log",
+      "sha256": "562995260789513ef313dd31bd38d06c9a2907272dae65554c0129c2f9d0559e",
+      "bytes": 985
+    },
+    {
+      "entry": "terminal/f12_final_risk_v1/exit-report.json",
+      "source": "build/diagnostics/campaign-goal/f12_final_risk_v1/exit-report.json",
+      "sha256": "b72da19c80e007a8f0c2813daca527ca9719142626c3a0f9b09643a3e3fdf7f9",
+      "bytes": 260
+    },
+    {
+      "entry": "terminal/f12_final_risk_v1/report.json",
+      "source": "build/diagnostics/campaign-goal/f12_final_risk_v1/report.json",
+      "sha256": "c964fcf485a84b22cd00a43b145f50df9d0193f99741d5ed965e8c4e75776c0b",
+      "bytes": 228460
+    },
+    {
+      "entry": "terminal/f12_final_risk_v1/restore-report.json",
+      "source": "build/diagnostics/campaign-goal/f12_final_risk_v1/restore-report.json",
+      "sha256": "d4e27baff26675c0cedf5ebe4082307f02746d48a2a06fdb45e097cf95f86060",
+      "bytes": 641
+    },
+    {
+      "entry": "terminal/f12_performance_risk_v2_1280/driver.log",
+      "source": "build/diagnostics/campaign-goal/f12_performance_risk_v2_1280/driver.log",
+      "sha256": "50e6fdb458e979837a81795e4ec19ea5f1308fddb7f69223986814750d909fa7",
+      "bytes": 988
+    },
+    {
+      "entry": "terminal/f12_performance_risk_v2_1280/exit-report.json",
+      "source": "build/diagnostics/campaign-goal/f12_performance_risk_v2_1280/exit-report.json",
+      "sha256": "d4ef6433a2ef079e5be3a89a67389931b5e90c1a0ea2745b3e4c4a2bfe98ed1e",
+      "bytes": 344
+    },
+    {
+      "entry": "terminal/f12_performance_risk_v2_1280/report.json",
+      "source": "build/diagnostics/campaign-goal/f12_performance_risk_v2_1280/report.json",
+      "sha256": "7936528e3335545e9fa9a21f10e521c88e2518ae164772a85c5086e6302879c8",
+      "bytes": 2050937
+    },
+    {
+      "entry": "terminal/f12_performance_risk_v2_1920/driver.log",
+      "source": "build/diagnostics/campaign-goal/f12_performance_risk_v2_1920/driver.log",
+      "sha256": "db48089c3f5711b7a106d4b3585dba04b5af483b443c085de9e916af24e2cb7c",
+      "bytes": 984
+    },
+    {
+      "entry": "terminal/f12_performance_risk_v2_1920/exit-report.json",
+      "source": "build/diagnostics/campaign-goal/f12_performance_risk_v2_1920/exit-report.json",
+      "sha256": "53d5e531d689afd0404fcf0ed659db0c54d9472f952684dbdc033873abdc2283",
+      "bytes": 344
+    },
+    {
+      "entry": "terminal/f12_performance_risk_v2_1920/report.json",
+      "source": "build/diagnostics/campaign-goal/f12_performance_risk_v2_1920/report.json",
+      "sha256": "d7bf926274583f5ed402404491e4929bc3729621690803e2627f72f771b5fa66",
+      "bytes": 2012530
+    },
+    {
+      "entry": "terminal/f12_performance_risk_v2_960/driver.log",
+      "source": "build/diagnostics/campaign-goal/f12_performance_risk_v2_960/driver.log",
+      "sha256": "c8edaf413ec477c86b3d999d97f7682b6d20375be44fe203673ae177183392ca",
+      "bytes": 973
+    },
+    {
+      "entry": "terminal/f12_performance_risk_v2_960/exit-report.json",
+      "source": "build/diagnostics/campaign-goal/f12_performance_risk_v2_960/exit-report.json",
+      "sha256": "524d38e207ce4c6930c57e96574f7bb46518ec0999d20dd6274ff570877c4051",
+      "bytes": 343
+    },
+    {
+      "entry": "terminal/f12_performance_risk_v2_960/report.json",
+      "source": "build/diagnostics/campaign-goal/f12_performance_risk_v2_960/report.json",
+      "sha256": "295398448e9c89a49a8b6a91d5325ce2a91f47f2b0fb0a658cb1dbb1d099740e",
+      "bytes": 1779919
+    },
+    {
+      "entry": "terminal/f12-export-v1-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-export-v1-exit.json",
+      "sha256": "9d6fce19b3ccaefda223bf9fdb816a9df139a3c0b001a245944e61b6407d98e5",
+      "bytes": 462
+    },
+    {
+      "entry": "terminal/f12-export-v1.log",
+      "source": "build/diagnostics/campaign-goal/f12-export-v1.log",
+      "sha256": "0d7fb6fe97136c31fc168f5ec7a7878868bc1876ac2e84166e2b7f25c5b56527",
+      "bytes": 72142
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/BossEscapeGateTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/BossEscapeGateTest-exit.json",
+      "sha256": "bde722e9e67332f164a4e2c8ef6c0e205618eb19ac479e281e036ad642923f0e",
+      "bytes": 287
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/BossEscapeGateTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/BossEscapeGateTest.log",
+      "sha256": "046110dbfbc74add4f80e8c28a2cb3c08b300a13b4679a2f076cf440ea4db80e",
+      "bytes": 107
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/BossPhaseShutdownTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/BossPhaseShutdownTest-exit.json",
+      "sha256": "14ae6702cbce46acdd48b32db90a5124046e546d831e63450008ce27bcade1f1",
+      "bytes": 291
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/BossPhaseShutdownTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/BossPhaseShutdownTest.log",
+      "sha256": "5bce95b1deab440e81643e18a6d2c7eb393c6042089f1c85ef246edb73491e94",
+      "bytes": 486
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/BossReleasePreviewTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/BossReleasePreviewTest-exit.json",
+      "sha256": "25dcf8d836dd1fa898571ab189765de24e95ee93f0c5b82dc4fe3a8ed941ac4a",
+      "bytes": 293
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/BossReleasePreviewTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/BossReleasePreviewTest.log",
+      "sha256": "68bab279b6cd9e7bc047297cf43472cfa8707955376966d659305a6a5fb2ecbe",
+      "bytes": 112
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/BossWarningHitchTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/BossWarningHitchTest-exit.json",
+      "sha256": "6f5fb86ba543d3429c5743ff5abcb20f180c0ca5ddedb994f98fbe10ea3de9ca",
+      "bytes": 291
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/BossWarningHitchTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/BossWarningHitchTest.log",
+      "sha256": "d9a4ba12cf3c4024d9caec3293e95ee53541c781e408603b0f34c939023fdac2",
+      "bytes": 776
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/CampaignMenuMotionTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/CampaignMenuMotionTest-exit.json",
+      "sha256": "9df1318bdd86165c85db3c3f43ce76be28687ca64ce1654ea26b74b3e47e12a9",
+      "bytes": 293
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/CampaignMenuMotionTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/CampaignMenuMotionTest.log",
+      "sha256": "ca6fd390f1e2a9f81a5b522fa7b17c9dddc2d1bb727f19c39b1682b1ca2a43d4",
+      "bytes": 113
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/CampaignPrimaryEntryTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/CampaignPrimaryEntryTest-exit.json",
+      "sha256": "90503f46db62510ec21634fac8421d2ff9e76da02ab7cc3b4febf24c7947e33b",
+      "bytes": 295
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/CampaignPrimaryEntryTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/CampaignPrimaryEntryTest.log",
+      "sha256": "58ab295855db359f6fb83c3749183da3e2ef5ffdae2f8923362139af1710a616",
+      "bytes": 114
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/FoundryEncounterTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/FoundryEncounterTest-exit.json",
+      "sha256": "a745dea3b86b74d733d8c1bc139b61ae2d7235cac6c6ac44dc7775f968031323",
+      "bytes": 292
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/FoundryEncounterTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/FoundryEncounterTest.log",
+      "sha256": "4bb28d46e625ce0c7c109a2a79ba685f8226006e236ffd03b40cb958d164baf6",
+      "bytes": 111
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/FoundryHeatFieldTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/FoundryHeatFieldTest-exit.json",
+      "sha256": "dd3982a39e1f5c8acc0b20261f04a686799997539edf2a3b0428a8560ab697d0",
+      "bytes": 293
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/FoundryHeatFieldTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/FoundryHeatFieldTest.log",
+      "sha256": "1d8a411e32fd7905ef21ba2422139f2516a52523416d1bd88bbc90eba332bae6",
+      "bytes": 112
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/gpu-entry-exit-v1.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/gpu-entry-exit-v1.json",
+      "sha256": "b4e8aad9fd327f990007bb3de03b4a8afe0b92fa1d2b5940c4a741487e2de63d",
+      "bytes": 544
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/gpu-entry-v1.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/gpu-entry-v1.log",
+      "sha256": "99762ec9acfc0c103104f0609fe3210cdd405df6abc25093f629cdf7cb43f3e3",
+      "bytes": 309
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/LegacyOverseerMotionIntegrationTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/LegacyOverseerMotionIntegrationTest-exit.json",
+      "sha256": "d70a4ce2a65d8a50c360070d844aeba77bb6071fd7b271383df83be0b106abca",
+      "bytes": 306
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/LegacyOverseerMotionIntegrationTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/LegacyOverseerMotionIntegrationTest.log",
+      "sha256": "e989b07e901ea411e83a63ac7a19866d3985e2d92598aaa5c4b988c567310164",
+      "bytes": 125
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/NurserySupplyPolicyTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/NurserySupplyPolicyTest-exit.json",
+      "sha256": "2e92bb27eae564ae74e029374174f1355c8aa8b2958643397b7406b5aaf48799",
+      "bytes": 294
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/NurserySupplyPolicyTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/NurserySupplyPolicyTest.log",
+      "sha256": "7a16e17bfc8c42d43b5f8ac15b59243c073586c3afefd08eab422204fd86e9c1",
+      "bytes": 113
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/NurserySupplyRuntimeTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/NurserySupplyRuntimeTest-exit.json",
+      "sha256": "255da42e7e6a00029a38818e75e6b85770dab26efe67df15f3881932af3680f1",
+      "bytes": 295
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/NurserySupplyRuntimeTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/NurserySupplyRuntimeTest.log",
+      "sha256": "1109d9419b56ae7b5690588ceb2450f1489a8c5ab2dab3d94236844af6a20d1a",
+      "bytes": 114
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/summary.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/summary.json",
+      "sha256": "96ccfd186e6774b53a9cf7121e76ceb80ff6827daef6741a14cf595ef8cfd2a1",
+      "bytes": 4936
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/terminal-recompute-v1.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/terminal-recompute-v1.json",
+      "sha256": "bcc133ab430a4d4e57362109be764e2bea9fa6ce73f6d80b8c58fe67a7b820bb",
+      "bytes": 451
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/VineRootFairnessTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/VineRootFairnessTest-exit.json",
+      "sha256": "1d4e605f33a7c88573e7abee52967901a904552e30afea5be25e78a138e7c6ba",
+      "bytes": 291
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/VineRootFairnessTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/VineRootFairnessTest.log",
+      "sha256": "3675b12de828d67e4510c8e0c57fde58e512bb35a65ceafd0744c81b0bb70c54",
+      "bytes": 110
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/VineRootReentryTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/VineRootReentryTest-exit.json",
+      "sha256": "bc86419901e77dcf4898fecc31635604b32065698e52a58516b031eddf4a4c11",
+      "bytes": 290
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/VineRootReentryTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/VineRootReentryTest.log",
+      "sha256": "792497a266cc40299d0ea44a300c908d33fc7ad6dbb4d6fdb2871e4a822e63c3",
+      "bytes": 532
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/VineSeedCancellationTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/VineSeedCancellationTest-exit.json",
+      "sha256": "5880fbbd3d6303694e4702d0aa1058e7211ef54d92dcc4a706a2a581257181c0",
+      "bytes": 295
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v2/VineSeedCancellationTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v2/VineSeedCancellationTest.log",
+      "sha256": "45cd2ac2e4a1a75e9e658c9f1c49a6bafe53e8d517d2ebdafff16170d14bf4b1",
+      "bytes": 290
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/ArchiveChapterTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/ArchiveChapterTest-exit.json",
+      "sha256": "fb28d6f63bcdcd53cf68edc963fbe7ab33e2581b7a3fa0663172e0ac3cbb6971",
+      "bytes": 290
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/ArchiveChapterTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/ArchiveChapterTest.log",
+      "sha256": "c1d6f273129bb0747d6b957a150b7ca98d84fe92b931f6aa160bc4699e196a59",
+      "bytes": 109
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/CampaignMenuIntegrationTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/CampaignMenuIntegrationTest-exit.json",
+      "sha256": "15d5aac5659219c59c2986841a709ba9483e8f0b84d385fbbdb31e5d512bf5d3",
+      "bytes": 297
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/CampaignMenuIntegrationTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/CampaignMenuIntegrationTest.log",
+      "sha256": "65ac088710ed939443d9539aa40ddbc71935afa49e5f47964ceca35d88f3a4f8",
+      "bytes": 117
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/EchoChapterTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/EchoChapterTest-exit.json",
+      "sha256": "76d468ae519b2736e3a1c4044c122862de3ccf8d8049d2381b4ef19096b1d3fa",
+      "bytes": 287
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/EchoChapterTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/EchoChapterTest.log",
+      "sha256": "0e2e54f5352d74703242daea738c6915b27f0e2141d7638a851378b01c985c8e",
+      "bytes": 106
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/FoundryChapterTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/FoundryChapterTest-exit.json",
+      "sha256": "9975b7111332bdd0f5cc6bf45a872a90b2da44dcc29ae815012c4b2b08047832",
+      "bytes": 290
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/FoundryChapterTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/FoundryChapterTest.log",
+      "sha256": "e04c03f96ced2398e7ac13603c3862497b5d65fec4a75f9c39a371afed78ba23",
+      "bytes": 109
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/NurseryChapterTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/NurseryChapterTest-exit.json",
+      "sha256": "32bb1bc186dd797d489da224efac184e8bdc41885644973521feeb211d290993",
+      "bytes": 289
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/NurseryChapterTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/NurseryChapterTest.log",
+      "sha256": "20da04ac07c57d80d6fdd98f35d19cdd3de49fbfbff2913a79867ede8949bafd",
+      "bytes": 108
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/RiftChapterTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/RiftChapterTest-exit.json",
+      "sha256": "4e3f9e536b8b553d138fd4b3b405f2a038f2c4a8150c0421bc0d0e81e3bc4170",
+      "bytes": 286
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/RiftChapterTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/RiftChapterTest.log",
+      "sha256": "294cbba8778bcdce115157145fcf3fe606f912fa101e352cf3d8eb1bf3ffb269",
+      "bytes": 106
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/RiftObserverIntegrationTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/RiftObserverIntegrationTest-exit.json",
+      "sha256": "4bcfd76909bce13be9b963bc36944ada4de51c8f98b8986d71ac2e75ace87cac",
+      "bytes": 298
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/RiftObserverIntegrationTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/RiftObserverIntegrationTest.log",
+      "sha256": "95fd36707c5877adaa80544196847fc25b40f77b4ac9e61391be414c62beb372",
+      "bytes": 117
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/RiftObserverLifecycleTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/RiftObserverLifecycleTest-exit.json",
+      "sha256": "9a6e4e445cb8020f4814b471ee52ff5ebfea5106f59a4f7956c78602bb45ca16",
+      "bytes": 296
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/RiftObserverLifecycleTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/RiftObserverLifecycleTest.log",
+      "sha256": "cd4c1cfd9ab7971b18c80778c7212d02e46d4a995fcee88cd6e4e0361e89eb8c",
+      "bytes": 116
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/SaltChapterTest-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/SaltChapterTest-exit.json",
+      "sha256": "dcf11c4e7cc13e70f25aa617328681afa0ebc8055a5298e6a07bfacf6c558cf9",
+      "bytes": 287
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/SaltChapterTest.log",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/SaltChapterTest.log",
+      "sha256": "c7d3302953ce6e3098a4f0d530ad5a162cc3a67dabb582fb6deab023a92cc751",
+      "bytes": 106
+    },
+    {
+      "entry": "terminal/f12-isolated-pack-v3/summary.json",
+      "source": "build/diagnostics/campaign-goal/f12-isolated-pack-v3/summary.json",
+      "sha256": "85049b287d9ed8ffea79ed22ae82df3f19271e76d1918ceec281c1d2c611d473",
+      "bytes": 3257
+    },
+    {
+      "entry": "terminal/f12-main-smoke-v1-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-main-smoke-v1-exit.json",
+      "sha256": "c7de91b3437c61247e2689ebc0b969d61c3f9f1b92f1b9d1bc9d5feacbd3bfa5",
+      "bytes": 466
+    },
+    {
+      "entry": "terminal/f12-main-smoke-v1.log",
+      "source": "build/diagnostics/campaign-goal/f12-main-smoke-v1.log",
+      "sha256": "fde0a81d3c673308506bfc2cc3402a316d5071cc573ae36701b8bf9dfb44df30",
+      "bytes": 182
+    },
+    {
+      "entry": "terminal/f12-pack-directory-v1.json",
+      "source": "build/diagnostics/campaign-goal/f12-pack-directory-v1.json",
+      "sha256": "65265c9b2b0225dec06ff158dedd0ee51c01a82144df4c36e1e8ba0f5baf63d7",
+      "bytes": 105547
+    },
+    {
+      "entry": "terminal/f12-performance-independent-v1.json",
+      "source": "build/diagnostics/campaign-goal/f12-performance-independent-v1.json",
+      "sha256": "2d372f297957419cf52037e0b114b4225311af5ba47a0a6f503631c5c197b0f9",
+      "bytes": 13660
+    },
+    {
+      "entry": "terminal/f12-risk-restore-v2-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-risk-restore-v2-exit.json",
+      "sha256": "70aec97ebc952e8bc00b13d0a2a037e6ca86c9bb086b35fe29577caec629b472",
+      "bytes": 677
+    },
+    {
+      "entry": "terminal/f12-risk-restore-v2.log",
+      "source": "build/diagnostics/campaign-goal/f12-risk-restore-v2.log",
+      "sha256": "d4b7ce7cb8d0ec03a3b18815822362e2f22fa1bc63704c1a2f7439e75407e200",
+      "bytes": 223
+    },
+    {
+      "entry": "terminal/f12-risk-v1.log",
+      "source": "build/diagnostics/campaign-goal/f12-risk-v1.log",
+      "sha256": "562995260789513ef313dd31bd38d06c9a2907272dae65554c0129c2f9d0559e",
+      "bytes": 985
+    },
+    {
+      "entry": "terminal/f12-supply-restore-v2-exit.json",
+      "source": "build/diagnostics/campaign-goal/f12-supply-restore-v2-exit.json",
+      "sha256": "72608f70d1dc2f773e1cfaff1895fb4c1d05c64093c2907c67f4aa6317779235",
+      "bytes": 677
+    },
+    {
+      "entry": "terminal/f12-supply-restore-v2.log",
+      "source": "build/diagnostics/campaign-goal/f12-supply-restore-v2.log",
+      "sha256": "d4b7ce7cb8d0ec03a3b18815822362e2f22fa1bc63704c1a2f7439e75407e200",
+      "bytes": 223
+    },
+    {
+      "entry": "resource-reports/build/diagnostics/campaign-goal/f7_final_rift_resource_gpu_v1/report.json",
+      "source": "build/diagnostics/campaign-goal/f7_final_rift_resource_gpu_v1/report.json",
+      "sha256": "dbc679c8c8499145f52e66c03598859bf6e20f4a68d734083712d36c149adcb7",
+      "bytes": 50709
+    },
+    {
+      "entry": "resource-reports/docs/art/previews/campaign/bell-priest-actions-v2/report.json",
+      "source": "docs/art/previews/campaign/bell-priest-actions-v2/report.json",
+      "sha256": "add73a155b5bec5e6cd951d8fb6e4e89ea7bc4fe6565a30742b75187c7d93f93",
+      "bytes": 48622
+    },
+    {
+      "entry": "resource-reports/docs/art/previews/campaign/furnace-boss-actions-v1/report.json",
+      "source": "docs/art/previews/campaign/furnace-boss-actions-v1/report.json",
+      "sha256": "49f20ad55550690e6193dad8bed76de958c4ebd84d7995c8660afd705f67fcc7",
+      "bytes": 29131
+    },
+    {
+      "entry": "resource-reports/docs/art/previews/campaign/legacy-overseer-actions-resource-v1/report.json",
+      "source": "docs/art/previews/campaign/legacy-overseer-actions-resource-v1/report.json",
+      "sha256": "c2a3d191606ba22bb725d85e007d90de2891666875902483cf367ac8226ee667",
+      "bytes": 44426
+    },
+    {
+      "entry": "resource-reports/docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+      "source": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+      "sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55",
+      "bytes": 17957
+    },
+    {
+      "entry": "resource-reports/docs/art/previews/campaign/native-drone-opacity-v1.json",
+      "source": "docs/art/previews/campaign/native-drone-opacity-v1.json",
+      "sha256": "c0539df69ac23f03e99610965edf15d14a3bb1a2c92443c4b1d8c639cc2ca0fd",
+      "bytes": 4711
+    },
+    {
+      "entry": "resource-reports/docs/art/previews/campaign/player-native-runtime-opacity-v2.json",
+      "source": "docs/art/previews/campaign/player-native-runtime-opacity-v2.json",
+      "sha256": "893bb7d3f96be52134df97faf20ffdb3418e203102e3b73a2e69a84fbdbbbdb7",
+      "bytes": 29647
+    },
+    {
+      "entry": "resource-reports/docs/art/previews/campaign/root-commander-actions-opacity-v1.json",
+      "source": "docs/art/previews/campaign/root-commander-actions-opacity-v1.json",
+      "sha256": "ffee3d823e8613978452ef476f30cd6a556cf78e81a46b07d20dddb54be798c5",
+      "bytes": 23658
+    },
+    {
+      "entry": "resource-reports/docs/art/previews/campaign/spore-archivist-actions-v1/report.json",
+      "source": "docs/art/previews/campaign/spore-archivist-actions-v1/report.json",
+      "sha256": "3b0948fbbfc134aac62fa11b0635701e187bf44413c1c220854f84287517c2d6",
+      "bytes": 27844
+    },
+    {
+      "entry": "resource-reports/docs/art/previews/campaign/stone-carrier-slam-opacity-v2.json",
+      "source": "docs/art/previews/campaign/stone-carrier-slam-opacity-v2.json",
+      "sha256": "b91e998acb8ef7bd051ab2cb7d523e5a03fea3ccfdec7d9815ebceab654f29a3",
+      "bytes": 17150
+    },
+    {
+      "entry": "resource-reports/docs/art/previews/campaign/tide-shell-actions-v1/report.json",
+      "source": "docs/art/previews/campaign/tide-shell-actions-v1/report.json",
+      "sha256": "7dc7ac789b2406e1da8824be4772150a3a54b887b858709994ef9661197edde8",
+      "bytes": 27778
+    },
+    {
+      "entry": "resource-reports/docs/art/previews/campaign/vine-guard-actions-opacity-v1.json",
+      "source": "docs/art/previews/campaign/vine-guard-actions-opacity-v1.json",
+      "sha256": "4917130a71b0ee83b3a725a045cdcf83b0b2b4cad5ce90ef88a0df64d7c956a5",
+      "bytes": 30308
+    },
+    {
+      "entry": "visual-samples/f11_final_chain_v2_s1/frame_014.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s1/frame_014.png",
+      "sha256": "22331d0c5771e04dccde7ada04a3e89a0c368ae966cfc777dbccaf9c4145cec5",
+      "bytes": 95006
+    },
+    {
+      "entry": "visual-samples/f11_final_chain_v2_s1/frame_015.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s1/frame_015.png",
+      "sha256": "928e64a6dd56a45f40fccfa2a4185ef14dbc5b88bc5efb47fa2dadba7891344b",
+      "bytes": 84068
+    },
+    {
+      "entry": "visual-samples/f11_final_chain_v2_s2/frame_014.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s2/frame_014.png",
+      "sha256": "20534796c59ce54282442ad33effe9266e89a61a84b1909a991ecd57474611ca",
+      "bytes": 58065
+    },
+    {
+      "entry": "visual-samples/f11_final_chain_v2_s3/frame_015.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s3/frame_015.png",
+      "sha256": "68030d7180db5f2e67057612e54de508caa2c0960f0080c3fdc879a47a4bdde5",
+      "bytes": 56164
+    },
+    {
+      "entry": "visual-samples/f11_final_chain_v2_s4/frame_016.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s4/frame_016.png",
+      "sha256": "9fb6880270fa158f146c21d8d6b901bcce3b3efe9161ffda7acb95dec50de75f",
+      "bytes": 54311
+    },
+    {
+      "entry": "visual-samples/f11_final_chain_v2_s5/frame_014.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s5/frame_014.png",
+      "sha256": "6b0709591787ee493c355781119b387d306ca736a934608f667eddd7423500f1",
+      "bytes": 54870
+    },
+    {
+      "entry": "visual-samples/f11_final_chain_v2_s6/frame_015.png",
+      "source": "build/diagnostics/campaign-goal/f11_final_chain_v2_s6/frame_015.png",
+      "sha256": "58ed6bf71bb4b573643cb9b4db6d6408598537639b8f05268b1f73d918cecfce",
+      "bytes": 57267
+    }
+  ],
+  "archive_sha256": "d8257d085e64fb73c0411d56846c35444ebbf2fe576dabe3b3d1fd7e1552da86",
+  "entry_count": 125,
+  "scope": "Original terminal reports/logs/selected reviewed captures, including exact unchanged resource reports. No EXE/PCK, real-user save files, credentials, caches or diagnostic campaign save files. Report fields may describe isolated test progress; they are not user progress or a claim of public release."
+}

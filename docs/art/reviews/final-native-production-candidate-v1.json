@@ -1,0 +1,663 @@
+{
+  "contract": "campaign-native-production-candidate-v1",
+  "state": "candidate-not-final-approved",
+  "branch": "5分钟超载",
+  "current_body_bindings": 24,
+  "scope": "Source consumer census: player, drone, 15 distinct enemy bodies and seven Bosses. Actual roster/integration, GPU, full, pure PCK, ordinary chain and rights review remain separate evidence. Historical frozen rig manifests are preserved; stable asset ids need not equal versioned scene stems.",
+  "source_freeze": "build/diagnostics/campaign-goal/f8-final-source-freeze-v1.json",
+  "entries": [
+    {
+      "asset_id": "player_paper_v1",
+      "runtime_body_id": "player_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/player_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+        "res://assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+        "res://assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+        "res://assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db"
+      },
+      "manifest": "docs/art/native-manifests/player_paper_v1.json",
+      "manifest_sha256": "66e3b63094cc8e761a51e559eb9fe863f44ca6450a60039d2a7403063e4260e0",
+      "scene_sha256": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 13,
+      "required_clips": [
+        "idle",
+        "walk",
+        "shoot",
+        "dash",
+        "hit",
+        "death",
+        "entrance"
+      ],
+      "consumer": "scripts/components/NativePlayerMotion.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "ranger_drone_paper_v1",
+      "runtime_body_id": "ranger_drone_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/ranger_drone_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/ranger_drone_motion_v1.tres": "d2d390a44e1947293546d5482cafe01e53a622b7e4f0a5fa0a93e9bd460b844a"
+      },
+      "manifest": "docs/art/native-manifests/ranger_drone_paper_v1.json",
+      "manifest_sha256": "7c21adac02731d3fb4d67e8d95cdbb6cb9cc43db030983b9a336f6c524925fcd",
+      "scene_sha256": "386fccfe9e18e5e2a6612db71f7ba73abb964fd9e979e21d7383964b995499bd",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 10,
+      "required_clips": [
+        "idle",
+        "walk",
+        "shoot",
+        "entrance",
+        "death"
+      ],
+      "consumer": "scripts/actors/DroneVisual.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "enemy_root_pursuer_paper_v1",
+      "runtime_body_id": "rootling_paper_v3",
+      "runtime_scene": "res://scenes/actors/native/rootling_paper_v3.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/rootling_motion_v3.tres": "64bbe5cb38b4f986fb4179e83bef83d0d61448cdb82cd216ec898b16aee789fc"
+      },
+      "manifest": "docs/art/native-manifests/rootling_paper_v1.json",
+      "manifest_sha256": "921c5984b92dd6050204b9054547cf84191ac5c1a25c680dbc753da4249a11a1",
+      "scene_sha256": "79367d87f21a5669cc94c1bda3b0641fe8c7e129bb823420249a2f7a93692e4a",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 12,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/Enemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "sporeling_paper_v1",
+      "runtime_body_id": "sporeling_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/sporeling_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/sporeling_motion_v1.tres": "d4002943788a3d478d079069c071979e46388a3fc68589c292345f7bba7718c5"
+      },
+      "manifest": "docs/art/native-manifests/sporeling_paper_v1.json",
+      "manifest_sha256": "0345ed98f527e6e485816aa5ae80af9fd80fb2b46feb1483d938f51d6346ce23",
+      "scene_sha256": "5513ba1c566b8262b23464322031cc128ea8c3b081fbd5e2bc92edd79f2871fa",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 14,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/Enemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "cinder_runner_paper_v2",
+      "runtime_body_id": "cinder_runner_paper_v2",
+      "runtime_scene": "res://scenes/actors/native/cinder_runner_paper_v2.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/cinder_runner_motion_v2.tres": "634de278be35ee5a8c482f73c00f4d852202f006048735b0daf38f41ea5d5f94"
+      },
+      "manifest": "docs/art/native-manifests/cinder_runner_paper_v2.json",
+      "manifest_sha256": "ee27a340155efaf62a04a8cf46f9b94bd7fb7d821fbd1ed67f9caf0f50fc10a5",
+      "scene_sha256": "838fe672fdaa922580d22d52e602a8a7d63c601e2ff84cb6a2c86093354ebe80",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 15,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death",
+        "charge_warning",
+        "charge",
+        "charge_recovery"
+      ],
+      "consumer": "scripts/actors/Enemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "salt_needler_paper_v1",
+      "runtime_body_id": "salt_needler_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/salt_needler_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/salt_needler_motion_v1.tres": "824490c69a5f74661b760ec8c8075959fd70343099081560355bfdc065c70482"
+      },
+      "manifest": "docs/art/native-manifests/salt_needler_paper_v1.json",
+      "manifest_sha256": "83f68bae5084a537ac845997ac746af4a16a0bea377fbca1a6840d903d88da88",
+      "scene_sha256": "772ca402623f41a007c3c4bd97e970a318ec8b19b87d06feb2bc132bd0ca782c",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 16,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/Enemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "folio_lobber_paper_v1",
+      "runtime_body_id": "folio_lobber_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/folio_lobber_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/folio_lobber_motion_v1.tres": "6b3c64d4e909abcedad1bbcf346fd9f01560388af77080ac364027a4da480561"
+      },
+      "manifest": "docs/art/native-manifests/folio_lobber_paper_v1.json",
+      "manifest_sha256": "800862c2dbf924ff6af0d6b9e5be3fec14258ced63bcba3633af0effce9e0ea8",
+      "scene_sha256": "bbb21b8463aa1232196dd901bab914d285b3a2bd9b404d84ef0ec299a4984ec5",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 16,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/Enemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "stone_carrier_paper_v2",
+      "runtime_body_id": "stone_carrier_paper_v2",
+      "runtime_scene": "res://scenes/actors/native/stone_carrier_paper_v2.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/stone_carrier_motion_v2.tres": "3e8c65a253d621dd60983bcd4267a65d3df8ee6c72790a4254eba0a9cbcd3234"
+      },
+      "manifest": "docs/art/native-manifests/stone_carrier_paper_v2.json",
+      "manifest_sha256": "bc1b64af3b12277daabbb87957c148071d27a4610770db3abc333662aed09aaa",
+      "scene_sha256": "1219dc7a241857c3adb779f0407f044d3b6494a4f12873fb19a01b28fdfd1567",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 17,
+      "required_clips": [
+        "idle",
+        "walk",
+        "hit",
+        "death",
+        "entrance",
+        "slam_warning",
+        "slam_attack",
+        "slam_recovery"
+      ],
+      "consumer": "scripts/actors/Enemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "root_commander_paper_v2",
+      "runtime_body_id": "root_commander_paper_v2",
+      "runtime_scene": "res://scenes/actors/native/root_commander_paper_v2.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/root_commander_motion_v2.tres": "529cbc08c32c841a023d5eb4374a917b11d300decf2086727045273bb3f9e8f5"
+      },
+      "manifest": "docs/art/native-manifests/root_commander_paper_v2.json",
+      "manifest_sha256": "3873523096953afafd934db2ba4d9c5fe4f7161816348e4c6c2e253b70c88771",
+      "scene_sha256": "8b7d76e83838e5538f5901f5a567c7239515522dbb0de6f4ba18ccf096363910",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 23,
+      "required_clips": [
+        "idle",
+        "walk",
+        "hit",
+        "entrance",
+        "death",
+        "melee_warning",
+        "melee_attack",
+        "melee_recovery",
+        "burst_warning",
+        "burst_attack",
+        "command"
+      ],
+      "consumer": "scripts/actors/Enemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "ember_spark_paper_v1",
+      "runtime_body_id": "ember_spark_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/ember_spark_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/ember_spark_motion_v1.tres": "47abc9f79dc26013bb7731d5ef01ecd2e5ecfeda4b90572df9e32d898c1b7883"
+      },
+      "manifest": "docs/art/native-manifests/ember_spark_paper_v1.json",
+      "manifest_sha256": "cd0872d9ab6faf7c3b8b6b4cbaa42582efa0539bfbcc3df046b9c8a3f2b59697",
+      "scene_sha256": "4856f9f4c8344187652e6d161f39cef5afaee21d16062e23f2997821f99e8348",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 16,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/EmberSparkEnemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "flanking_crab_paper_v1",
+      "runtime_body_id": "flanking_crab_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/flanking_crab_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/flanking_crab_motion_v1.tres": "09ae25fca18886327a851df4a19048fa2dcc9566a6fdb8eaf0b09bc18afc1a8c"
+      },
+      "manifest": "docs/art/native-manifests/flanking_crab_paper_v1.json",
+      "manifest_sha256": "03e4f7dbab22a9709bc70887d6547626242e185685a282a22488d5cc86cd3206",
+      "scene_sha256": "41dda3b4f99834f2ca736170a5ca9acd0c4d7731ebdd15469f3d8728809efbf9",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 20,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/FlankingCrabEnemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "splitting_mote_paper_v1",
+      "runtime_body_id": "splitting_mote_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/splitting_mote_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/splitting_mote_motion_v1.tres": "44d4f181163f1c58abf60202199d9e9ed190be87b07102d36055a7e135519772"
+      },
+      "manifest": "docs/art/native-manifests/splitting_mote_paper_v1.json",
+      "manifest_sha256": "8cd8c7cd1056f83e5ec3ceeb0908e6f2501a4fa8224bb971eb762ca36452f724",
+      "scene_sha256": "f7f36681b662b8fe459610402fe42e147e597977df26be417386d7dfe0baae72",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 16,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/SplittingMoteEnemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "capsule_planter_paper_v1",
+      "runtime_body_id": "capsule_planter_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/capsule_planter_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/capsule_planter_motion_v1.tres": "7c1beb3fc977fb71fe6c3795fae9d389fdb00aa1dac70eef9f86b8182edc9a89"
+      },
+      "manifest": "docs/art/native-manifests/capsule_planter_paper_v1.json",
+      "manifest_sha256": "d6a03169da248b314474c4d27307ba0605ae8e8af08b3e24f611b6ff41ba4a4c",
+      "scene_sha256": "b98af580c193e0ad6d260fd386e63956d51d6da8087d7d9cd5389e6112d0be2f",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 20,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/CapsulePlanterEnemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "echo_sentinel_paper_v1",
+      "runtime_body_id": "echo_sentinel_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/echo_sentinel_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/echo_sentinel_motion_v1.tres": "56d670c7474b56bdbc3d62be1d0422f18779184f4fded2cc0bc8422e4da0bf39"
+      },
+      "manifest": "docs/art/native-manifests/echo_sentinel_paper_v1.json",
+      "manifest_sha256": "24764f952c30bd098dbd77ab27c380b6b19f61233adf61e006ad06137c4bdda5",
+      "scene_sha256": "59316886d911cfe1e9d362737ddfbbc209ec15a1e99dfec085906510f9c20cc7",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 20,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/EchoSentinelEnemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "circling_shade_paper_v1",
+      "runtime_body_id": "circling_shade_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/circling_shade_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/circling_shade_motion_v1.tres": "102d2ee79ca564928c85f703d68e80664fb2ff4bafb2a94b1b0708164ec7c58f"
+      },
+      "manifest": "docs/art/native-manifests/circling_shade_paper_v1.json",
+      "manifest_sha256": "248e010827b9814558ab24c1651d12d3657f008de80b02ea2827815d433e90a1",
+      "scene_sha256": "c7fbca75dc098a182ba577c6125d7e50d979983395090499922e36f35ad6f0b9",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 18,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/CirclingShadeEnemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "rift_elite_paper_v1",
+      "runtime_body_id": "rift_elite_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/rift_elite_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/rift_elite_motion_v1.tres": "4efe65c965487c61a5045fc25fe4373e215232ccfa523cd9c97ba232a74c6126"
+      },
+      "manifest": "docs/art/native-manifests/rift_elite_paper_v1.json",
+      "manifest_sha256": "1f4928c011b7a7e35099a3f6d68036f8342bb51091357b687152b6e040ca7387",
+      "scene_sha256": "917869963f685d7f81e90e20193aadc280a73f5d63bd5e9a86122a5e439fdce5",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 20,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "shard_attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/RiftEliteEnemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "space_cutter_paper_v1",
+      "runtime_body_id": "space_cutter_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/space_cutter_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/space_cutter_motion_v1.tres": "e29847fa481ffa15278ab5d549af7d8ee5da0f93b84027972e87fa43cb619545"
+      },
+      "manifest": "docs/art/native-manifests/space_cutter_paper_v1.json",
+      "manifest_sha256": "13b3326cd8aad1cb2906ba8cf6b5d06671a1b446c20b620fc57d5bc0e9a1c703",
+      "scene_sha256": "b4a214b31562add870150a3c36dbe28de6807163e46b3c03b7780f716ca8ddd9",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 19,
+      "required_clips": [
+        "idle",
+        "walk",
+        "warning",
+        "attack",
+        "hit",
+        "death"
+      ],
+      "consumer": "scripts/actors/SpaceCutterEnemy.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "vine_guard_paper_v2",
+      "runtime_body_id": "vine_guard_paper_v2",
+      "runtime_scene": "res://scenes/actors/native/vine_guard_paper_v2.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/vine_guard_motion_v2.tres": "10cd8c3a25552da266b86ec8a445cf60275a7360ba08f71daa27fde1f597c679"
+      },
+      "manifest": "docs/art/native-manifests/vine_guard_paper_v2.json",
+      "manifest_sha256": "d45992e40c7cc3845e36cf0d8978bb325595149c33be295bd3438278c0f161a5",
+      "scene_sha256": "070d7f65820e75131e192360b3c65de305e5ad24ea9724f28dc91297c073a2e5",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 22,
+      "required_clips": [
+        "idle",
+        "walk",
+        "hit",
+        "entrance",
+        "death",
+        "lash_warning",
+        "lash_attack",
+        "lash_recovery",
+        "roots_warning",
+        "roots_attack",
+        "roots_recovery",
+        "seeds_warning",
+        "seeds_attack",
+        "seeds_recovery"
+      ],
+      "consumer": "scripts/actors/NurseryVineBoss.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "furnace_foreman_paper_v2",
+      "runtime_body_id": "furnace_foreman_paper_v2",
+      "runtime_scene": "res://scenes/actors/native/furnace_foreman_paper_v2.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/furnace_foreman_motion_v2.tres": "e3eefd6e61f042ea1a910e04d83532bd5877cbc9e256d8fc6d2657f9843789fd"
+      },
+      "manifest": "docs/art/native-manifests/furnace_foreman_paper_v2.json",
+      "manifest_sha256": "f8ba81e2a94e5927fb31eb867aa93db7e0416e6ea1e12adc465d4a943a95bf53",
+      "scene_sha256": "d7c93e683e75c313d416922a8c71103d6dc805c8651dbfbc059a7ea318bc7511",
+      "declared_review_state": "style-approved",
+      "declared_license_origin": "project-original",
+      "bone_count": 23,
+      "required_clips": [
+        "idle",
+        "walk",
+        "hit",
+        "entrance",
+        "death",
+        "jet_warning",
+        "jet_attack",
+        "jet_recovery",
+        "ram_warning",
+        "ram_attack",
+        "ram_recovery",
+        "vents_warning",
+        "vents_attack",
+        "vents_recovery"
+      ],
+      "consumer": "scripts/actors/FoundryFurnaceBoss.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "tide_shell_paper_v2",
+      "runtime_body_id": "tide_shell_paper_v2",
+      "runtime_scene": "res://scenes/actors/native/tide_shell_paper_v2.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/tide_shell_motion_v2.tres": "7838b9a8c79825bc6df8d26333c5a3aebe1307cde01ba964522a4840fefd4075"
+      },
+      "manifest": "docs/art/native-manifests/tide_shell_paper_v2.json",
+      "manifest_sha256": "65372a28b4363322fbb55a388fa4725811319c0dcf56c907f8d04df80e23550c",
+      "scene_sha256": "9d00265ac80b196fe273fbabfa75dfacd2adadde15d2691a05815cfdcf179346",
+      "declared_review_state": "draft",
+      "declared_license_origin": "project-original",
+      "bone_count": 25,
+      "required_clips": [
+        "idle",
+        "walk",
+        "hit",
+        "entrance",
+        "death",
+        "ripple_warning",
+        "ripple_attack",
+        "ripple_recovery",
+        "pincer_warning",
+        "pincer_attack",
+        "pincer_recovery",
+        "salt_warning",
+        "salt_attack",
+        "salt_recovery"
+      ],
+      "consumer": "scripts/actors/SaltTideBoss.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "spore_archivist_paper_v2",
+      "runtime_body_id": "spore_archivist_paper_v2",
+      "runtime_scene": "res://scenes/actors/native/spore_archivist_paper_v2.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/spore_archivist_motion_v2.tres": "d01bdd0fdd739af74fccb1de6700b9c7ef5468ff1fa5581d37bb5cf439363569"
+      },
+      "manifest": "docs/art/native-manifests/spore_archivist_paper_v2.json",
+      "manifest_sha256": "0cf8e53f69fd0bb31c7688e1bf2d82cd6e43b88cf969842f6951e946dacb94ed",
+      "scene_sha256": "5876e9f0277930690dd6a17c69a7e5ae34ee59a6ab356bcbe691f6e6410776a5",
+      "declared_review_state": "draft",
+      "declared_license_origin": "project-original",
+      "bone_count": 27,
+      "required_clips": [
+        "idle",
+        "walk",
+        "hit",
+        "entrance",
+        "death",
+        "page_warning",
+        "page_attack",
+        "page_recovery",
+        "seal_warning",
+        "seal_attack",
+        "seal_recovery",
+        "brood_warning",
+        "brood_attack",
+        "brood_recovery"
+      ],
+      "consumer": "scripts/actors/ArchiveArchivistBoss.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "bell_priest_paper_v2",
+      "runtime_body_id": "bell_priest_paper_v2",
+      "runtime_scene": "res://scenes/actors/native/bell_priest_paper_v2.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/bell_priest_motion_v2.tres": "77a2b470a5af2cb2aa157bf30f0e6b7868208d2765535d5ec65a503ab876431a"
+      },
+      "manifest": "docs/art/native-manifests/bell_priest_paper_v2.json",
+      "manifest_sha256": "3280ba4acf6a8e151c4a7e6da5f334a3449e2fadc7b832658e5f50f21252b1d5",
+      "scene_sha256": "dcd4905c9609c0a468afab75611568e65fbfb06792132413b464e9210f64cc60",
+      "declared_review_state": "draft",
+      "declared_license_origin": "project-original",
+      "bone_count": 26,
+      "required_clips": [
+        "idle",
+        "walk",
+        "hit",
+        "entrance",
+        "death",
+        "bell_warning",
+        "bell_attack",
+        "bell_recovery",
+        "pendant_warning",
+        "pendant_attack",
+        "pendant_recovery",
+        "crown_warning",
+        "crown_attack",
+        "crown_recovery"
+      ],
+      "consumer": "scripts/actors/EchoBellPriestBoss.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "rift_observer_paper_v2",
+      "runtime_body_id": "rift_observer_paper_v2",
+      "runtime_scene": "res://scenes/actors/native/rift_observer_paper_v2.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/rift_observer_motion_v2.tres": "5afdfc43cc72792c1a1b24682262d7dc499397c40c8a755b88e4a22c59da55d5"
+      },
+      "manifest": "docs/art/native-manifests/rift_observer_paper_v2.json",
+      "manifest_sha256": "0c4f0cbefb5930f09ba9419c53f170208690cebecf304c072fd7f40d3f7b0a14",
+      "scene_sha256": "83991983baef45619ae56b6f736d0e5283e6b11911977c7b64285de22f835790",
+      "declared_review_state": "draft",
+      "declared_license_origin": "project-original",
+      "bone_count": 30,
+      "required_clips": [
+        "idle",
+        "walk",
+        "hit",
+        "entrance",
+        "death",
+        "beam_warning",
+        "beam_attack",
+        "beam_recovery",
+        "probes_warning",
+        "probes_attack",
+        "probes_recovery",
+        "refract_warning",
+        "refract_attack",
+        "refract_recovery"
+      ],
+      "consumer": "scripts/actors/RiftObserverBoss.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    },
+    {
+      "asset_id": "root_overseer_paper_v1",
+      "runtime_body_id": "root_overseer_paper_v1",
+      "runtime_scene": "res://scenes/actors/native/root_overseer_paper_v1.tscn",
+      "motion_sha256": {
+        "res://assets/art/actors/native/root_overseer_motion_v1.tres": "2413ab8c487820a01be7e7bf53b62c9308cd2bb061f1634d2757fc52713978b8"
+      },
+      "manifest": "docs/art/native-manifests/root_overseer_paper_v1.json",
+      "manifest_sha256": "acb87cea3515d4d4288b5dfa3277a1ac0e451e683d5fa0eb8da43b95bd2ce967",
+      "scene_sha256": "86460a94d2d744e471fd33e0c43dc7f5858587f27e011b222b632d3a59ca152d",
+      "declared_review_state": "draft",
+      "declared_license_origin": "project-original",
+      "bone_count": 23,
+      "required_clips": [
+        "idle",
+        "walk",
+        "hit",
+        "entrance",
+        "death",
+        "sweep_warning",
+        "sweep_attack",
+        "sweep_recovery",
+        "slam_warning",
+        "slam_attack",
+        "slam_recovery",
+        "aimed_fan_warning",
+        "aimed_fan_attack",
+        "aimed_fan_recovery",
+        "twin_spiral_warning",
+        "twin_spiral_attack",
+        "twin_spiral_recovery",
+        "broken_ring_warning",
+        "broken_ring_attack",
+        "broken_ring_recovery",
+        "phase_transition"
+      ],
+      "consumer": "scripts/actors/OverseerBoss.gd",
+      "review_result": "await-final-package-and-runtime-completion"
+    }
+  ]
+}

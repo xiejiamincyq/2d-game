@@ -15,7 +15,8 @@ func check(condition: bool, message: String) -> bool:
 
 func _initialize() -> void:
 	var path := "res://scripts/effects/PlayerOcclusionOutline.gd"
-	if not check(FileAccess.file_exists(path), "runtime outline component missing"):
+	# Exported scripts may be remapped to compiled resources, not raw .gd files.
+	if not check(ResourceLoader.exists(path), "runtime outline component missing"):
 		return
 	var fixture := Node2D.new()
 	root.add_child(fixture)

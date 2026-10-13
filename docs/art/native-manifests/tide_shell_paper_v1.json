@@ -1,0 +1,10 @@
+{
+  "asset_id": "tide_shell_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/tide_shell_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/tide_shell_motion_v1.tres",
+  "role": "boss",
+  "review_state": "style-approved",
+  "bone_count": 25,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "hit", "entrance", "death"]
+}

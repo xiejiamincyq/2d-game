@@ -1,0 +1,385 @@
+{
+  "all_resources_matched": true,
+  "entries": [
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/player-native-runtime-opacity-v2.json",
+          "report_sha256": "893bb7d3f96be52134df97faf20ffdb3418e203102e3b73a2e69a84fbdbbbdb7"
+        },
+        {
+          "path": "build/diagnostics/campaign-goal/f7_final_rift_resource_gpu_v1/report.json",
+          "report_sha256": "dbc679c8c8499145f52e66c03598859bf6e20f4a68d734083712d36c149adcb7"
+        }
+      ],
+      "scene": "scenes/actors/native/player_paper_v1.tscn",
+      "scene_sha256": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+      "asset_id": "player_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+        "res://assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+        "res://assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+        "res://assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-drone-opacity-v1.json",
+          "report_sha256": "c0539df69ac23f03e99610965edf15d14a3bb1a2c92443c4b1d8c639cc2ca0fd"
+        }
+      ],
+      "scene": "scenes/actors/native/ranger_drone_paper_v1.tscn",
+      "scene_sha256": "386fccfe9e18e5e2a6612db71f7ba73abb964fd9e979e21d7383964b995499bd",
+      "asset_id": "ranger_drone_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/ranger_drone_motion_v1.tres": "d2d390a44e1947293546d5482cafe01e53a622b7e4f0a5fa0a93e9bd460b844a"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/rootling_paper_v3.tscn",
+      "scene_sha256": "79367d87f21a5669cc94c1bda3b0641fe8c7e129bb823420249a2f7a93692e4a",
+      "asset_id": "enemy_root_pursuer_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/rootling_motion_v3.tres": "64bbe5cb38b4f986fb4179e83bef83d0d61448cdb82cd216ec898b16aee789fc"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/sporeling_paper_v1.tscn",
+      "scene_sha256": "5513ba1c566b8262b23464322031cc128ea8c3b081fbd5e2bc92edd79f2871fa",
+      "asset_id": "sporeling_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/sporeling_motion_v1.tres": "d4002943788a3d478d079069c071979e46388a3fc68589c292345f7bba7718c5"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/cinder_runner_paper_v2.tscn",
+      "scene_sha256": "838fe672fdaa922580d22d52e602a8a7d63c601e2ff84cb6a2c86093354ebe80",
+      "asset_id": "cinder_runner_paper_v2",
+      "motion_sha256": {
+        "res://assets/art/actors/native/cinder_runner_motion_v2.tres": "634de278be35ee5a8c482f73c00f4d852202f006048735b0daf38f41ea5d5f94"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/salt_needler_paper_v1.tscn",
+      "scene_sha256": "772ca402623f41a007c3c4bd97e970a318ec8b19b87d06feb2bc132bd0ca782c",
+      "asset_id": "salt_needler_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/salt_needler_motion_v1.tres": "824490c69a5f74661b760ec8c8075959fd70343099081560355bfdc065c70482"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/folio_lobber_paper_v1.tscn",
+      "scene_sha256": "bbb21b8463aa1232196dd901bab914d285b3a2bd9b404d84ef0ec299a4984ec5",
+      "asset_id": "folio_lobber_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/folio_lobber_motion_v1.tres": "6b3c64d4e909abcedad1bbcf346fd9f01560388af77080ac364027a4da480561"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        },
+        {
+          "path": "docs/art/previews/campaign/stone-carrier-slam-opacity-v2.json",
+          "report_sha256": "b91e998acb8ef7bd051ab2cb7d523e5a03fea3ccfdec7d9815ebceab654f29a3"
+        }
+      ],
+      "scene": "scenes/actors/native/stone_carrier_paper_v2.tscn",
+      "scene_sha256": "1219dc7a241857c3adb779f0407f044d3b6494a4f12873fb19a01b28fdfd1567",
+      "asset_id": "stone_carrier_paper_v2",
+      "motion_sha256": {
+        "res://assets/art/actors/native/stone_carrier_motion_v2.tres": "3e8c65a253d621dd60983bcd4267a65d3df8ee6c72790a4254eba0a9cbcd3234"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        },
+        {
+          "path": "docs/art/previews/campaign/root-commander-actions-opacity-v1.json",
+          "report_sha256": "ffee3d823e8613978452ef476f30cd6a556cf78e81a46b07d20dddb54be798c5"
+        }
+      ],
+      "scene": "scenes/actors/native/root_commander_paper_v2.tscn",
+      "scene_sha256": "8b7d76e83838e5538f5901f5a567c7239515522dbb0de6f4ba18ccf096363910",
+      "asset_id": "root_commander_paper_v2",
+      "motion_sha256": {
+        "res://assets/art/actors/native/root_commander_motion_v2.tres": "529cbc08c32c841a023d5eb4374a917b11d300decf2086727045273bb3f9e8f5"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/ember_spark_paper_v1.tscn",
+      "scene_sha256": "4856f9f4c8344187652e6d161f39cef5afaee21d16062e23f2997821f99e8348",
+      "asset_id": "ember_spark_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/ember_spark_motion_v1.tres": "47abc9f79dc26013bb7731d5ef01ecd2e5ecfeda4b90572df9e32d898c1b7883"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/flanking_crab_paper_v1.tscn",
+      "scene_sha256": "41dda3b4f99834f2ca736170a5ca9acd0c4d7731ebdd15469f3d8728809efbf9",
+      "asset_id": "flanking_crab_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/flanking_crab_motion_v1.tres": "09ae25fca18886327a851df4a19048fa2dcc9566a6fdb8eaf0b09bc18afc1a8c"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/splitting_mote_paper_v1.tscn",
+      "scene_sha256": "f7f36681b662b8fe459610402fe42e147e597977df26be417386d7dfe0baae72",
+      "asset_id": "splitting_mote_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/splitting_mote_motion_v1.tres": "44d4f181163f1c58abf60202199d9e9ed190be87b07102d36055a7e135519772"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/capsule_planter_paper_v1.tscn",
+      "scene_sha256": "b98af580c193e0ad6d260fd386e63956d51d6da8087d7d9cd5389e6112d0be2f",
+      "asset_id": "capsule_planter_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/capsule_planter_motion_v1.tres": "7c1beb3fc977fb71fe6c3795fae9d389fdb00aa1dac70eef9f86b8182edc9a89"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/echo_sentinel_paper_v1.tscn",
+      "scene_sha256": "59316886d911cfe1e9d362737ddfbbc209ec15a1e99dfec085906510f9c20cc7",
+      "asset_id": "echo_sentinel_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/echo_sentinel_motion_v1.tres": "56d670c7474b56bdbc3d62be1d0422f18779184f4fded2cc0bc8422e4da0bf39"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/circling_shade_paper_v1.tscn",
+      "scene_sha256": "c7fbca75dc098a182ba577c6125d7e50d979983395090499922e36f35ad6f0b9",
+      "asset_id": "circling_shade_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/circling_shade_motion_v1.tres": "102d2ee79ca564928c85f703d68e80664fb2ff4bafb2a94b1b0708164ec7c58f"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/rift_elite_paper_v1.tscn",
+      "scene_sha256": "917869963f685d7f81e90e20193aadc280a73f5d63bd5e9a86122a5e439fdce5",
+      "asset_id": "rift_elite_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/rift_elite_motion_v1.tres": "4efe65c965487c61a5045fc25fe4373e215232ccfa523cd9c97ba232a74c6126"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        }
+      ],
+      "scene": "scenes/actors/native/space_cutter_paper_v1.tscn",
+      "scene_sha256": "b4a214b31562add870150a3c36dbe28de6807163e46b3c03b7780f716ca8ddd9",
+      "asset_id": "space_cutter_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/space_cutter_motion_v1.tres": "e29847fa481ffa15278ab5d549af7d8ee5da0f93b84027972e87fa43cb619545"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/native-character-post-vine-opacity-v1.json",
+          "report_sha256": "ac880eb828694ef0855212b351c9ecbeabf64eea031b766e8fb2d7f6259c6e55"
+        },
+        {
+          "path": "docs/art/previews/campaign/vine-guard-actions-opacity-v1.json",
+          "report_sha256": "4917130a71b0ee83b3a725a045cdcf83b0b2b4cad5ce90ef88a0df64d7c956a5"
+        }
+      ],
+      "scene": "scenes/actors/native/vine_guard_paper_v2.tscn",
+      "scene_sha256": "070d7f65820e75131e192360b3c65de305e5ad24ea9724f28dc91297c073a2e5",
+      "asset_id": "vine_guard_paper_v2",
+      "motion_sha256": {
+        "res://assets/art/actors/native/vine_guard_motion_v2.tres": "10cd8c3a25552da266b86ec8a445cf60275a7360ba08f71daa27fde1f597c679"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/furnace-boss-actions-v1/report.json",
+          "report_sha256": "49f20ad55550690e6193dad8bed76de958c4ebd84d7995c8660afd705f67fcc7"
+        }
+      ],
+      "scene": "scenes/actors/native/furnace_foreman_paper_v2.tscn",
+      "scene_sha256": "d7c93e683e75c313d416922a8c71103d6dc805c8651dbfbc059a7ea318bc7511",
+      "asset_id": "furnace_foreman_paper_v2",
+      "motion_sha256": {
+        "res://assets/art/actors/native/furnace_foreman_motion_v2.tres": "e3eefd6e61f042ea1a910e04d83532bd5877cbc9e256d8fc6d2657f9843789fd"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/tide-shell-actions-v1/report.json",
+          "report_sha256": "7dc7ac789b2406e1da8824be4772150a3a54b887b858709994ef9661197edde8"
+        }
+      ],
+      "scene": "scenes/actors/native/tide_shell_paper_v2.tscn",
+      "scene_sha256": "9d00265ac80b196fe273fbabfa75dfacd2adadde15d2691a05815cfdcf179346",
+      "asset_id": "tide_shell_paper_v2",
+      "motion_sha256": {
+        "res://assets/art/actors/native/tide_shell_motion_v2.tres": "7838b9a8c79825bc6df8d26333c5a3aebe1307cde01ba964522a4840fefd4075"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/spore-archivist-actions-v1/report.json",
+          "report_sha256": "3b0948fbbfc134aac62fa11b0635701e187bf44413c1c220854f84287517c2d6"
+        }
+      ],
+      "scene": "scenes/actors/native/spore_archivist_paper_v2.tscn",
+      "scene_sha256": "5876e9f0277930690dd6a17c69a7e5ae34ee59a6ab356bcbe691f6e6410776a5",
+      "asset_id": "spore_archivist_paper_v2",
+      "motion_sha256": {
+        "res://assets/art/actors/native/spore_archivist_motion_v2.tres": "d01bdd0fdd739af74fccb1de6700b9c7ef5468ff1fa5581d37bb5cf439363569"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/bell-priest-actions-v2/report.json",
+          "report_sha256": "add73a155b5bec5e6cd951d8fb6e4e89ea7bc4fe6565a30742b75187c7d93f93"
+        }
+      ],
+      "scene": "scenes/actors/native/bell_priest_paper_v2.tscn",
+      "scene_sha256": "dcd4905c9609c0a468afab75611568e65fbfb06792132413b464e9210f64cc60",
+      "asset_id": "bell_priest_paper_v2",
+      "motion_sha256": {
+        "res://assets/art/actors/native/bell_priest_motion_v2.tres": "77a2b470a5af2cb2aa157bf30f0e6b7868208d2765535d5ec65a503ab876431a"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "build/diagnostics/campaign-goal/f7_final_rift_resource_gpu_v1/report.json",
+          "report_sha256": "dbc679c8c8499145f52e66c03598859bf6e20f4a68d734083712d36c149adcb7"
+        }
+      ],
+      "scene": "scenes/actors/native/rift_observer_paper_v2.tscn",
+      "scene_sha256": "83991983baef45619ae56b6f736d0e5283e6b11911977c7b64285de22f835790",
+      "asset_id": "rift_observer_paper_v2",
+      "motion_sha256": {
+        "res://assets/art/actors/native/rift_observer_motion_v2.tres": "5afdfc43cc72792c1a1b24682262d7dc499397c40c8a755b88e4a22c59da55d5"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    },
+    {
+      "resource_visual_reports": [
+        {
+          "path": "docs/art/previews/campaign/legacy-overseer-actions-resource-v1/report.json",
+          "report_sha256": "c2a3d191606ba22bb725d85e007d90de2891666875902483cf367ac8226ee667"
+        }
+      ],
+      "scene": "scenes/actors/native/root_overseer_paper_v1.tscn",
+      "scene_sha256": "86460a94d2d744e471fd33e0c43dc7f5858587f27e011b222b632d3a59ca152d",
+      "asset_id": "root_overseer_paper_v1",
+      "motion_sha256": {
+        "res://assets/art/actors/native/root_overseer_motion_v1.tres": "2413ab8c487820a01be7e7bf53b62c9308cd2bb061f1634d2757fc52713978b8"
+      },
+      "scope": "Matched current scene and every library SHA only. Historical pose matrices retain original consumer/sample limitations; not proof all dependencies or all frames remain current."
+    }
+  ],
+  "missing": []
+}

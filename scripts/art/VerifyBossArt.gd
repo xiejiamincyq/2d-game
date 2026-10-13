@@ -34,8 +34,8 @@ func _run() -> void:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--run="):
 			run_id = argument.trim_prefix("--run=")
-	if run_id not in ["before", "after", "flash-before-v1", "flash-after-v1"] or FileAccess.file_exists(OUTPUT + run_id + ".json") or FileAccess.file_exists(OUTPUT + run_id + ".png"):
-		push_error("Boss art diagnostic requires an unused before/after or flash-before-v1/flash-after-v1 ID")
+	if not run_id.replace("-","_").is_valid_identifier() or FileAccess.file_exists(OUTPUT + run_id + ".json") or FileAccess.file_exists(OUTPUT + run_id + ".png"):
+		push_error("Boss art diagnostic requires an unused safe run ID")
 		quit(1)
 		return
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT))
@@ -51,7 +51,7 @@ func _run() -> void:
 	screen.size = Vector2(1280, 720)
 	root.add_child(screen)
 	canvas.add_child(FloorScript.new())
-	_label(canvas, "FINAL BOSS / %s / native 160px presentation" % run_id, Vector2(24, 20), 26)
+	_label(canvas, "LEGACY-WAVE BOSS / %s / new native skeleton" % run_id, Vector2(24, 20), 26)
 	_label(canvas, "Frozen right/left above; actual Boss physics + scripted target below.", Vector2(24, 60))
 	_label(canvas, "Component fixed-frame preview: no Main, saves, input playtest, performance or full-run acceptance.", Vector2(24, 680), 16)
 	_label(canvas, "RIGHT", Vector2(290, 160))
@@ -77,7 +77,7 @@ func _run() -> void:
 			if moving.health.current_health < health_before:
 				accepted_hits += 1
 		poses.append({"frame": frame, "position": [moving.position.x, moving.position.y],
-			"velocity": [moving.velocity.x, moving.velocity.y], "flip_h": moving.boss_visual.flip_h,
+			"velocity": [moving.velocity.x, moving.velocity.y], "flip_h": moving.get_visual_node().get_node("Facing").scale.x<0,
 			"visual_offset": [moving.boss_visual.position.x, moving.boss_visual.position.y],
 			"visual_rotation": moving.boss_visual.rotation,
 			"visual_scale": [moving.boss_visual.scale.x, moving.boss_visual.scale.y],
@@ -92,11 +92,14 @@ func _run() -> void:
 			capture_ok = capture != null and not capture.is_empty() and capture.save_png(ProjectSettings.globalize_path(path)) == OK
 			captures[str(frame)] = {"path": path.trim_prefix("res://"), "ok": capture_ok, "sha256": FileAccess.get_sha256(path)}
 	var report := {"run": run_id, "acceptance": "component_visual_evidence_only", "viewport": [1280, 720],
-		"boss_texture": moving.boss_visual.texture.resource_path, "body_radius": moving.body_radius,
-		"health": moving.health.current_health, "right_flip": right.boss_visual.flip_h, "left_flip": left.boss_visual.flip_h,
+		"boss_scene": moving.get_visual_node().scene_file_path, "body_radius": moving.body_radius,
+		"health": moving.health.current_health, "right_flip": right.get_visual_node().get_node("Facing").scale.x<0, "left_flip": left.get_visual_node().get_node("Facing").scale.x<0,
 		"poses": poses, "screenshot_ok": capture_ok, "captures": captures, "flash_probe": flash_probe, "accepted_hits": accepted_hits,
 		"source_sha256": {"OverseerBoss.gd": FileAccess.get_sha256("res://scripts/actors/OverseerBoss.gd"),
 			"BossAttackDirector.gd": FileAccess.get_sha256("res://scripts/components/BossAttackDirector.gd"),
+			"NativeBossMotion.gd": FileAccess.get_sha256("res://scripts/components/NativeBossMotion.gd"),
+			"root_commander_paper_v1.tscn": FileAccess.get_sha256("res://scenes/actors/native/root_commander_paper_v1.tscn"),
+			"root_commander_motion_v1.tres": FileAccess.get_sha256("res://assets/art/actors/native/root_commander_motion_v1.tres"),
 			"VerifyBossArt.gd": FileAccess.get_sha256("res://scripts/art/VerifyBossArt.gd")},
 		"limitations": "Frozen poses explicitly advance entrance. Moving Boss uses engine physics; plain target is relocated at frame 180. Movie Maker fixed pacing is visual evidence only, not natural input, warning wall-clock, performance, balance, or complete Boss fight. No Main or stores instantiated."}
 	for boss in [right, left, moving]:

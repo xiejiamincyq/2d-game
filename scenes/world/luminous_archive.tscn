@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/ArchiveMap.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/world/ArchiveFloor.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/world/ArchiveArenaLayout.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/world/ArchiveSporeField.gd" id="4"]
+
+[node name="LuminousArchive" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1")
+
+[node name="Floor" type="Node2D" parent="."]
+z_index = -100
+script = ExtResource("2")
+
+[node name="Layout" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("3")
+
+[node name="SporeField" type="Node2D" parent="."]
+z_index = -80
+script = ExtResource("4")

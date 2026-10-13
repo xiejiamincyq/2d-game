@@ -1,0 +1,18 @@
+{
+	"checks": 7,
+	"passed": true,
+	"process_id": 1408,
+	"progress_sha256": "1047031f2a04fd419fcbb400b8339ca24b46b884b8e72a1c0e029f3ec865e664",
+	"ready_chapters": [
+		1,
+		2
+	],
+	"scope": "Fresh engine process, actual Main read-only progress/UI restore of prior isolated chapter-2 real-clear artifact; not another natural run or human playtest.",
+	"state": {
+		"cleared_chapters": [
+			1,
+			2
+		],
+		"version": 1
+	}
+}

@@ -1,0 +1,7 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.91 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060 Laptop GPU
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "rig_id" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://scripts/art/VerifyChapterBossEdges.gd:163)
+ERROR: Failed to load script "res://scripts/art/VerifyChapterBossEdges.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)

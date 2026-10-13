@@ -1,7 +1,7 @@
 extends SceneTree
 
 const MainScript = preload("res://scripts/Main.gd")
-const TestSupport = preload("res://scripts/tests/TestSupport.gd")
+const TestSupport = preload("TestSupport.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const CombatView = preload("res://scripts/systems/CombatView.gd")
 const VIEWPORT_SIZES := [Vector2i(1280, 720), Vector2i(960, 540), Vector2i(1920, 1080), Vector2i(2560, 1080)]
@@ -374,7 +374,7 @@ func _check_composition(player_position: Vector2, boss_position: Vector2, label:
 	scene.player.velocity = Vector2.ZERO
 	boss.velocity = Vector2.ZERO
 	_settle_camera()
-	var projected_boss := _sprite_screen_rect(boss.boss_visual)
+	var projected_boss := _project_rect(boss.get_visual_node().get_global_transform_with_canvas(),boss.get_visual_rect())
 	var projected_player := _player_screen_rect()
 	print("FRAMING %s camera_local=%s zoom=%s player=%s boss=%s" % [label, camera.position, camera.zoom, projected_player, projected_boss])
 	if not _check(camera.zoom.x >= 0.80 and camera.zoom.y >= 0.80 and camera.zoom.is_equal_approx(Vector2.ONE * camera.zoom.x), label + ": limited uniform zoom must be >=0.80"):
@@ -408,11 +408,6 @@ func _project_rect(transform: Transform2D, rect: Rect2) -> Rect2:
 	for corner in corners:
 		result = result.expand(transform * corner)
 	return result
-
-func _sprite_screen_rect(sprite: Sprite2D) -> Rect2:
-	# Full conservative texture rectangle, including transparent padding and all
-	# production Sprite2D scale/rotation/parent transforms, not a guessed radius.
-	return _project_rect(sprite.get_global_transform_with_canvas(), sprite.get_rect())
 
 func _player_screen_rect() -> Rect2:
 	return _project_rect(scene.player.get_global_transform_with_canvas(), Rect2(Vector2.ONE * -PLAYER_VISUAL_RADIUS, Vector2.ONE * PLAYER_VISUAL_RADIUS * 2.0))

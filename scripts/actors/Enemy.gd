@@ -22,20 +22,24 @@ const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
 const EnemyFlockScript = preload("res://scripts/components/EnemyFlock.gd")
 const ScrapperAttackScript = preload("res://scripts/components/ScrapperAttack.gd")
+const CinderChargeScript = preload("res://scripts/components/CinderChargeAttack.gd")
 const HitFeedbackScript = preload("res://scripts/effects/EnemyHitFeedback.gd")
 const AttackDrawing = preload("res://scripts/effects/HostileAttackDrawing.gd")
+const WorldStatusScript = preload("res://scripts/effects/EnemyWorldStatus.gd")
 const NATIVE_SCRAPPER := preload("res://scenes/actors/native/rootling_paper_v3.tscn")
 const NATIVE_SPITTER := preload("res://scenes/actors/native/sporeling_paper_v1.tscn")
-const NATIVE_DASHER := preload("res://scenes/actors/native/cinder_runner_paper_v1.tscn")
+const NATIVE_DASHER := preload("res://scenes/actors/native/cinder_runner_paper_v2.tscn")
+const NATIVE_MARKSMAN := preload("res://scenes/actors/native/salt_needler_paper_v1.tscn")
+const NATIVE_LOBBER := preload("res://scenes/actors/native/folio_lobber_paper_v1.tscn")
+const NATIVE_BRUISER := preload("res://scenes/actors/native/stone_carrier_paper_v2.tscn")
+const NATIVE_OVERSEER := preload("res://scenes/actors/native/root_commander_paper_v2.tscn")
+const NativeRootMotion := preload("res://scripts/components/NativeRootCommanderMotion.gd")
+const NativeStoneMotion := preload("res://scripts/components/NativeStoneCarrierMotion.gd")
+const NativeFolioMotion := preload("res://scripts/components/NativeFolioMotion.gd")
+const NativeNeedlerMotion := preload("res://scripts/components/NativeNeedlerMotion.gd")
 const NativeCinderMotion := preload("res://scripts/components/NativeCinderRunnerMotion.gd")
 const NativeSporeMotion := preload("res://scripts/components/NativeSporelingMotion.gd")
 const NativeMotion = preload("res://scripts/components/NativeScrapperMotion.gd")
-const DASHER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_dasher_chibi_b_v1.png")
-const BRUISER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_bruiser_chibi_b_v1.png")
-const SPITTER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_spitter_chibi_b_v1.png")
-const MARKSMAN_TEXTURE := preload("res://assets/art/actors/enemies/enemy_marksman_chibi_b_v1.png")
-const LOBBER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_lobber_chibi_b_v1.png")
-const OVERSEER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png")
 const ENEMY_HIT_FLASH_SHADER := preload("res://assets/art/shaders/dasher_hit_flash.gdshader")
 const HIT_FLASH_AMOUNT := 0.35 # Preserve faction color and detail during sustained hits.
 
@@ -100,6 +104,7 @@ var ranged_windup_duration := 0.5
 var ranged_windup_remaining := 0.0
 var ranged_target_position := Vector2.ZERO
 var boss_reinforcement_mask := 0
+var overseer_burst_recovery_remaining := 0.0
 var spawn_impulse_velocity := Vector2.ZERO
 var spawn_impulse_remaining := 0.0
 var burn_status: RefCounted = BurnStatusScript.new()
@@ -117,7 +122,9 @@ var static_visual_base_scale := Vector2.ONE
 var static_motion_elapsed := 0.0
 var formation_slot_index := -1
 var ground_warning: Node2D
+var world_status: Node2D
 var basic_attack: RefCounted = ScrapperAttackScript.new()
+var charge_attack: RefCounted = CinderChargeScript.new()
 var hit_feedback: Node2D
 
 func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: Node2D = null) -> void:
@@ -126,6 +133,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 		next_formation_slot_index = posmod(next_formation_slot_index + 1, 64)
 	kind = enemy_kind
 	basic_attack.cooldown = 1.6 + posmod(formation_slot_index, 8) * 0.17
+	charge_attack.cooldown = 1.2 + posmod(formation_slot_index, 8) * 0.12
 	projectile_parent = projectiles
 	target_player = target
 	var scale_factor := 1.0 + float(wave_index) * 0.13
@@ -223,29 +231,38 @@ func _ready() -> void:
 		EnemyKind.SPITTER:
 			_create_native_visual(NATIVE_SPITTER)
 		EnemyKind.BRUISER:
-			_create_static_visual(BRUISER_TEXTURE, BRUISER_RUNTIME_SCALE, "BruiserVisual")
+			_create_native_visual(NATIVE_BRUISER)
 		EnemyKind.MARKSMAN:
-			_create_static_visual(MARKSMAN_TEXTURE, MARKSMAN_RUNTIME_SCALE, "MarksmanVisual")
+			_create_native_visual(NATIVE_MARKSMAN)
 		EnemyKind.LOBBER:
-			_create_static_visual(LOBBER_TEXTURE, LOBBER_RUNTIME_SCALE, "LobberVisual")
+			_create_native_visual(NATIVE_LOBBER)
 		EnemyKind.OVERSEER:
-			_create_static_visual(OVERSEER_TEXTURE, OVERSEER_RUNTIME_SCALE, "OverseerVisual")
+			_create_native_visual(NATIVE_OVERSEER)
 	var shape := CollisionShape2D.new()
 	var circle := CircleShape2D.new()
 	circle.radius = body_radius
 	shape.shape = circle
 	add_child(shape)
+	world_status = WorldStatusScript.new()
+	add_child(world_status)
 
 func _physics_process(delta: float) -> void:
 	_update_burn(delta)
 	if death_resolved:
 		basic_attack.cancel()
+		charge_attack.cancel()
 		return
 	if flash_timer > 0.0:
 		flash_timer = maxf(0.0, flash_timer - delta)
 		_queue_visual_redraw()
 	_update_hit_flash()
 	if spawn_impulse_remaining > 0.0:
+		_cancel_stone_slam()
+		_cancel_root_commander_actions()
+		_cancel_native_ranged_windup()
+		if charge_attack.is_active():
+			charge_attack.cancel()
+			_queue_visual_redraw()
 		if basic_attack.is_active():
 			basic_attack.cancel()
 			_queue_visual_redraw()
@@ -259,6 +276,12 @@ func _physics_process(delta: float) -> void:
 		return
 	var player := get_target_player()
 	if player == null:
+		_cancel_stone_slam()
+		_cancel_root_commander_actions()
+		_cancel_native_ranged_windup()
+		if charge_attack.is_active():
+			charge_attack.cancel()
+			_queue_visual_redraw()
 		if basic_attack.is_active():
 			basic_attack.cancel()
 			_queue_visual_redraw()
@@ -272,16 +295,28 @@ func _physics_process(delta: float) -> void:
 	var to_player: Vector2 = player.global_position - global_position
 	var desired: Vector2 = to_player.normalized()
 	var facing_target := player.global_position
+	if kind in [EnemyKind.BRUISER,EnemyKind.OVERSEER] and is_attacking:
+		facing_target = global_position + attack_visual_direction * 100.0
+	elif kind == EnemyKind.OVERSEER and ranged_is_winding_up:
+		facing_target = ranged_target_position
 	if kind == EnemyKind.SCRAPPER and basic_attack.stage in [basic_attack.Stage.WARNING, basic_attack.Stage.ACTIVE]:
 		facing_target = global_position + basic_attack.direction * 100.0
+	if kind == EnemyKind.DASHER and charge_attack.is_active():
+		facing_target = global_position + charge_attack.direction * 100.0
 	_update_enemy_facing(facing_target)
 	if kind == EnemyKind.OVERSEER:
 		_update_overseer(delta, player, to_player.length())
-		if is_attacking or ranged_is_winding_up:
+		if is_attacking or ranged_is_winding_up or overseer_burst_recovery_remaining>0:
 			desired = Vector2.ZERO
 	elif is_ranged_kind():
 		desired = _get_ranged_desired_velocity(to_player, get_camera_safe_rect())
 	else:
+		if kind == EnemyKind.DASHER and not is_attacking and charge_attack.tick(self, player, delta):
+			attack_cooldown = maxf(attack_cooldown,0.4)
+			_update_enemy_facing(global_position + charge_attack.direction * 100.0)
+			_update_static_motion(delta)
+			_queue_visual_redraw()
+			return
 		if kind == EnemyKind.SCRAPPER and not is_attacking:
 			basic_attack.consider(self, player, delta)
 			if basic_attack.is_active():
@@ -336,6 +371,38 @@ func get_target_player() -> Node2D:
 	if target != null and target.has_method("is_stealthed") and bool(target.call("is_stealthed")):
 		return null
 	return target
+
+func _cancel_native_ranged_windup() -> void:
+	if kind in [EnemyKind.MARKSMAN, EnemyKind.LOBBER] and ranged_is_winding_up:
+		ranged_is_winding_up = false
+		shoot_cooldown = maxf(shoot_cooldown,1.7 if kind==EnemyKind.MARKSMAN else 2.2)
+		_queue_visual_redraw()
+
+func _cancel_stone_slam() -> void:
+	if kind!=EnemyKind.BRUISER or not is_attacking:
+		return
+	is_attacking = false
+	attack_has_hit = false
+	attack_timer = 0
+	attack_cooldown = maxf(attack_cooldown,0.4)
+	_queue_visual_redraw()
+
+func _cancel_root_commander_actions() -> void:
+	if kind!=EnemyKind.OVERSEER:
+		return
+	if ranged_is_winding_up:
+		shoot_cooldown = maxf(shoot_cooldown,1.2)
+	if is_attacking:
+		attack_cooldown = maxf(attack_cooldown,0.4)
+	is_attacking = false
+	attack_has_hit = false
+	attack_timer = 0
+	ranged_is_winding_up = false
+	ranged_windup_remaining = 0
+	overseer_burst_recovery_remaining = 0
+	if native_motion!=null:
+		native_motion.cancel_actions()
+	_queue_visual_redraw()
 
 func is_target_hidden() -> bool:
 	return is_instance_valid(target_player) and target_player.has_method("is_stealthed") and bool(target_player.call("is_stealthed"))
@@ -580,11 +647,7 @@ func _draw() -> void:
 	var size := body_radius * 1.7
 	if static_visual == null and native_visual == null:
 		draw_rect(Rect2(Vector2(-size * 0.5, -size * 0.5), Vector2(size, size)), body_color)
-	if should_show_health_bar():
-		var bar_rect := get_health_bar_rect()
-		draw_rect(bar_rect, Color("061019"))
-		draw_rect(Rect2(bar_rect.position + Vector2.ONE, Vector2((bar_rect.size.x - 2.0) * get_health_ratio(), 4.0)), accent)
-	elif should_show_status_marker():
+	if not should_show_health_bar() and should_show_status_marker():
 		var status_y := -static_visual_half_height - 6.0 if static_visual != null else -body_radius - 3.0
 		draw_rect(Rect2(-body_radius * 0.55, status_y, body_radius * 1.1, 5), accent)
 	if static_visual == null and native_visual == null:
@@ -592,8 +655,6 @@ func _draw() -> void:
 	if static_visual == null and native_visual == null:
 		draw_rect(Rect2(-5, -5, 4, 4), Color.BLACK)
 		draw_rect(Rect2(3, -5, 4, 4), Color.BLACK)
-	if should_show_attack_marker():
-		AttackDrawing.draw_head_warning(self, get_attack_marker_top())
 
 func get_health_bar_rect() -> Rect2:
 	var width := body_radius * 1.6
@@ -605,7 +666,7 @@ func get_visual_node() -> Node2D:
 
 func get_visual_rect() -> Rect2:
 	if native_visual != null:
-		return native_visual.body_rect
+		return native_visual.get_node("Facing").transform * native_visual.body_rect
 	return static_visual.get_rect() if static_visual != null else Rect2()
 
 func get_attack_marker_top() -> float:
@@ -615,42 +676,46 @@ func get_attack_marker_top() -> float:
 	return -static_visual_half_height - 7.0 if static_visual != null or native_visual != null else -body_radius - 7.0
 
 func should_show_attack_marker() -> bool:
-	if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER] or death_resolved or is_target_hidden():
+	if death_resolved or is_target_hidden():
 		return false
-	return (kind == EnemyKind.SCRAPPER and basic_attack.stage == basic_attack.Stage.WARNING) or (is_attacking and attack_timer > 0.0) or ranged_is_winding_up
+	return (kind == EnemyKind.SCRAPPER and basic_attack.stage == basic_attack.Stage.WARNING) or (kind == EnemyKind.DASHER and charge_attack.stage == charge_attack.Stage.WARNING) or (is_attacking and attack_timer > 0.0) or ranged_is_winding_up
 
 func _queue_visual_redraw() -> void:
 	queue_redraw()
+	if is_instance_valid(world_status):
+		world_status.refresh()
 	if is_instance_valid(ground_warning):
 		ground_warning.queue_redraw()
 
 func _draw_ground_warning() -> void:
 	if kind == EnemyKind.SCRAPPER:
 		basic_attack.draw_warning(ground_warning, self)
+	if kind == EnemyKind.DASHER:
+		AttackDrawing.draw_strokes(ground_warning,charge_attack.get_attack_strokes(self))
 	var accent := Color(1.0, 0.72, 0.1)
 	if kind == EnemyKind.SPITTER:
 		accent = Color(0.7, 0.2, 1.0)
 	if is_attacking:
-		var p := 1.0 - clampf(attack_timer / maxf(0.01, attack_windup), 0.0, 1.0)
-		if kind in [EnemyKind.BRUISER, EnemyKind.OVERSEER] and attack_timer > 0.0:
-			ground_warning.draw_arc(Vector2.ZERO, attack_range, -PI * 0.85, PI * 0.85, 24, Color(1.0, 0.55, 0.15, 0.25 + p * 0.45), 3.0)
 		if attack_has_hit and attack_timer >= -0.12:
-			AttackDrawing.draw_strokes(ground_warning, AttackDrawing.claw_strokes(Vector2.ZERO, attack_visual_direction, -attack_timer / 0.12, attack_range, PI / 3.0))
+			if kind in [EnemyKind.BRUISER,EnemyKind.OVERSEER]:
+				# Actual melee is radial (range+8); no filled ground fan or huge flash.
+				var progress := clampf(-attack_timer/0.12,0,1)
+				var radius := lerpf(attack_range*0.6,attack_range+8,progress)
+				ground_warning.draw_arc(Vector2.ZERO,radius,0,TAU,32,Color("171f25"),3.0)
+				var ink := Color("91b47d") if kind==EnemyKind.OVERSEER else Color("e0b074")
+				ground_warning.draw_arc(Vector2.ZERO,radius,0,TAU,32,ink,1.0)
+			else:
+				AttackDrawing.draw_strokes(ground_warning, AttackDrawing.claw_strokes(Vector2.ZERO, attack_visual_direction, -attack_timer / 0.12, attack_range, PI / 3.0))
 	if ranged_is_winding_up:
-		var charge := 1.0 - clampf(ranged_windup_remaining / maxf(0.01, ranged_windup_duration), 0.0, 1.0)
 		var warning_color := HostilePalette.CORAL if kind in [EnemyKind.MARKSMAN, EnemyKind.LOBBER, EnemyKind.OVERSEER] else accent
 		var target_local := to_local(ranged_target_position)
 		if kind == EnemyKind.MARKSMAN:
 			if ranged_windup_remaining <= 0.10:
 				ground_warning.draw_line(Vector2.ZERO, target_local, Color(0.02, 0.04, 0.06, 0.65), 3.0)
 				ground_warning.draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.65), 1.0)
-		elif kind == EnemyKind.OVERSEER:
-			ground_warning.draw_line(Vector2.ZERO, target_local, Color(warning_color, 0.25 + charge * 0.55), 2.0 + charge * 2.0)
 		if kind == EnemyKind.LOBBER:
 			ground_warning.draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(HostilePalette.OUTLINE, 0.8), 3.0, true)
 			ground_warning.draw_arc(target_local, 72.0, 0.0, TAU, 48, Color(warning_color, 0.7), 1.5, true)
-		elif kind == EnemyKind.OVERSEER:
-			ground_warning.draw_arc(Vector2.ZERO, body_radius + 18.0 + charge * 12.0, 0.0, TAU, 40, Color(warning_color, 0.75), 4.0)
 
 func should_show_health_bar() -> bool:
 	if health == null or health.current_health <= 0.0:
@@ -668,10 +733,18 @@ func _create_native_visual(scene: PackedScene = NATIVE_SCRAPPER) -> void:
 	native_visual.show_behind_parent = true
 	add_child(native_visual)
 	match kind:
+		EnemyKind.OVERSEER:
+			static_visual_half_height = 96.0 # Staff/hood action clearance, not hitbox.
+		EnemyKind.BRUISER:
+			static_visual_half_height = 96.0 # Raised fist/warning clearance, not hitbox.
 		EnemyKind.SPITTER:
 			static_visual_half_height = 60.0 # Cap and gait; not collision radius.
 		EnemyKind.DASHER:
 			static_visual_half_height = 44.0 # Low ram mask and spring-shin gait.
+		EnemyKind.MARKSMAN:
+			static_visual_half_height = 54.0 # Hood plus modest gait margin, not hitbox.
+		EnemyKind.LOBBER:
+			static_visual_half_height = 56.0 # Floppy cap and satchel, not hitbox.
 		_:
 			static_visual_half_height = 58.0
 	static_flash_material = ShaderMaterial.new()
@@ -679,10 +752,18 @@ func _create_native_visual(scene: PackedScene = NATIVE_SCRAPPER) -> void:
 	static_flash_material.set_shader_parameter("flash_amount", 0.0)
 	native_visual.get_node("Facing/Skin").material = static_flash_material
 	match kind:
+		EnemyKind.BRUISER:
+			native_motion = NativeStoneMotion.new(native_visual)
+		EnemyKind.OVERSEER:
+			native_motion = NativeRootMotion.new(native_visual)
 		EnemyKind.SPITTER:
 			native_motion = NativeSporeMotion.new(native_visual)
 		EnemyKind.DASHER:
 			native_motion = NativeCinderMotion.new(native_visual)
+		EnemyKind.MARKSMAN:
+			native_motion = NativeNeedlerMotion.new(native_visual)
+		EnemyKind.LOBBER:
+			native_motion = NativeFolioMotion.new(native_visual)
 		_:
 			native_motion = NativeMotion.new(native_visual)
 
@@ -789,6 +870,9 @@ func _die(source: StringName) -> void:
 	if death_resolved:
 		return
 	death_resolved = true
+	_cancel_stone_slam()
+	_cancel_root_commander_actions()
+	charge_attack.cancel()
 	if native_visual != null:
 		static_flash_material.set_shader_parameter("flash_amount", 0.0)
 		native_motion.release_death(get_parent())
@@ -897,25 +981,33 @@ func _fire_marksman(player: Node2D) -> void:
 	# Projectile._ready builds the physics circle from the configured radius.
 	shot.radius = 3.0
 	projectile_parent.add_child(shot)
-	shot.global_position = global_position
-	shot.velocity = (ranged_target_position - global_position).normalized() * ENEMY_PROJECTILE_BASE_SPEED * MARKSMAN_PROJECTILE_SPEED_MULTIPLIER
+	shot.global_position = native_motion.get_safe_muzzle(self) if native_visual != null else global_position
+	shot.velocity = (ranged_target_position - shot.global_position).normalized() * ENEMY_PROJECTILE_BASE_SPEED * MARKSMAN_PROJECTILE_SPEED_MULTIPLIER
 	shot.damage = 36.0
 	shot.lifetime = 2.0
 	shot.target_group = &"player"
 	shot.tint = HostilePalette.CORAL
 	shot.world_bounds = world_bounds
+	if native_visual != null:
+		native_motion.notify_shot()
 
 func _fire_lobber(player: Node2D) -> void:
 	if projectile_parent == null or not is_instance_valid(player):
 		return
 	var shot := LobbedProjectileScript.new()
 	projectile_parent.add_child(shot)
-	shot.configure(global_position, ranged_target_position, player)
+	var origin: Vector2 = native_motion.get_safe_release(self) if native_visual != null else global_position
+	shot.configure(origin, ranged_target_position, player)
 	shot.damage = 48.0
 	shot.splash_radius = 72.0
 	shot.flight_duration = 0.9
+	if native_visual != null:
+		native_motion.notify_shot()
 
 func _update_overseer(delta: float, player: Node2D, distance: float) -> void:
+	if death_resolved or spawn_impulse_remaining>0 or get_target_player()==null:
+		_cancel_root_commander_actions()
+		return
 	_request_boss_reinforcements_at_health_thresholds()
 	if ranged_is_winding_up:
 		ranged_windup_remaining -= delta
@@ -926,6 +1018,14 @@ func _update_overseer(delta: float, player: Node2D, distance: float) -> void:
 			_queue_visual_redraw()
 		return
 	shoot_cooldown -= delta
+	if overseer_burst_recovery_remaining>0:
+		# Recovery owns movement/pose, while the existing shot cooldown still ticks.
+		overseer_burst_recovery_remaining = maxf(0,overseer_burst_recovery_remaining-delta)
+		return
+	if is_attacking:
+		_update_melee_attack(delta,player,distance)
+		_queue_visual_redraw()
+		return
 	if shoot_cooldown <= 0.0 and projectile_parent != null and distance <= 520.0:
 		ranged_is_winding_up = true
 		ranged_windup_remaining = ranged_windup_duration
@@ -934,6 +1034,7 @@ func _update_overseer(delta: float, player: Node2D, distance: float) -> void:
 		_queue_visual_redraw()
 		return
 	_update_melee_attack(delta, player, distance)
+	_queue_visual_redraw()
 
 func _request_boss_reinforcements_at_health_thresholds() -> void:
 	if health == null or health.max_health <= 0.0:
@@ -942,18 +1043,23 @@ func _request_boss_reinforcements_at_health_thresholds() -> void:
 	if ratio <= 0.66 and (boss_reinforcement_mask & 1) == 0:
 		boss_reinforcement_mask |= 1
 		reinforcements_requested.emit(self, 18)
+		if native_motion!=null: native_motion.notify_command()
 	if ratio <= 0.33 and (boss_reinforcement_mask & 2) == 0:
 		boss_reinforcement_mask |= 2
 		reinforcements_requested.emit(self, 24)
+		if native_motion!=null: native_motion.notify_command()
 
 func _fire_overseer_burst() -> void:
-	if projectile_parent == null:
+	if projectile_parent == null or death_resolved or spawn_impulse_remaining>0 or get_target_player()==null:
 		return
+	overseer_burst_recovery_remaining = NativeRootMotion.BURST_RECOVERY
+	_update_static_motion(0)
+	var origin: Vector2 = native_motion.get_safe_core_origin(self) if native_visual!=null else global_position
 	for index in range(12):
 		var shot := ProjectileScript.new()
 		shot.radius = 5.0
 		projectile_parent.add_child(shot)
-		shot.global_position = global_position
+		shot.global_position = origin
 		shot.velocity = Vector2.RIGHT.rotated(TAU * float(index) / 12.0) * 310.0
 		shot.damage = 30.0
 		shot.lifetime = 3.0

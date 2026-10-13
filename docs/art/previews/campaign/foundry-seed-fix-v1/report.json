@@ -1,0 +1,54 @@
+{
+	"actual_adjacent_moves": 60,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_seed_fix_gpu_v1/props.png",
+			"sha256": "5eec828d63e3abd7d40aa2bccd5a4a6b70dc738ef6e73628bb229def18f3734c"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_seed_fix_gpu_v1/overview-0.png",
+			"sha256": "6b1ad7061fb684848da9a8beba185295f1b25ae212ac58ea230e8b4cfb5f54bb"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_seed_fix_gpu_v1/overview-30.png",
+			"sha256": "3ff28dc17efd08d38aeebd100da989f34efd0a77dc86faa2f1cff593d953bb76"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_seed_fix_gpu_v1/overview-521.png",
+			"sha256": "ae038764ef567afd2b8729368f990490f66e8cab4d5b4a1a499052729fbbe755"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_seed_fix_gpu_v1/overview-20261011.png",
+			"sha256": "7e7ed3ec96ad8a5d3b59962bb2fb3e6868b1958bd3428e0da9142ff75f6e2e88"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_seed_fix_gpu_v1/runtime-start.png",
+			"sha256": "0fb6ea823a267844b1a3f0bf36407dca0b4ce356fd5a41d5fdca29d4f3b991fc"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_seed_fix_gpu_v1/runtime-end.png",
+			"sha256": "620d5bcc4fbf4f48ee5249f731f1e415f6d0884b4bf2781f6487fdcc28c4433b"
+		}
+	],
+	"checks": 47,
+	"passed": true,
+	"scope": "Original native style group, 4 seeded map overviews including fixed failed seed30, actual Player/physics input fixture. No heat hazard, encounters, Boss fight, chapter readiness, human playtest or six chapter completion.",
+	"sources": {
+		"assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+		"assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+		"assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db",
+		"assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+		"scenes/actors/native/player_paper_v1.tscn": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+		"scenes/world/ember_foundry.tscn": "2341ef17a693397df183e10e29e1a7f3015f2c2c978b7c12b6eb68b10e31ef41",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderFoundryMapPreview.gd": "3be5c9795ccb59eecc6806131e0165d486e191fa7c1682250a139dae6215a9b8",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/world/ArenaLayout.gd": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+		"scripts/world/FoundryArenaLayout.gd": "05158e738eef25b8c35ce7cd65dac530cb2e1eb2f17439a78d46ecd29648d446",
+		"scripts/world/FoundryFloor.gd": "982a5d5a021ed32c6b553b31ce870a86ce3268d27cbcdce9b8d95dc7ac3982b7",
+		"scripts/world/FoundryMap.gd": "1a8dc3c66105a7dfdf80ad29d21a53f0a379dcb65c156c7aabcc8e45fddfcbad",
+		"scripts/world/FoundryObstacle.gd": "bb6202bb75373b90e7d86b4563866c7bb5595ea23383007580ca9844444cdeea",
+		"scripts/world/FoundryPropArt.gd": "3442b35701883ab301c749eaeb0f3bb76581e436167f81e153e821b4ae42232e"
+	}
+}

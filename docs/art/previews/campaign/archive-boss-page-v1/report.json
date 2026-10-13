@@ -1,0 +1,152 @@
+{
+	"actor_samples": [
+		{
+			"clip": "page_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13757,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "page_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13757,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "page_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13843,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "page_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13843,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "page_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13823,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "page_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13823,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "page_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13757,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "page_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13757,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "page_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13843,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "page_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13843,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "page_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13823,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "page_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13823,
+			"outside": 0,
+			"partial": 0
+		}
+	],
+	"captures": {
+		"page-body": "2af728db3381d2907408cbf28e16f5301395dac07e4d1d41477bcd809d34e492",
+		"runtime-cancelled": "71a01165e1ea09583c65642ef6b378bc98cae0fd1056678e905cbf4928148d1f",
+		"runtime-page": "4e010227a179d51ad59fd0bef032af41d271be825a2a0c751c91e6fdf5b5378e",
+		"runtime-warning": "836f273118bf0d1b7463b47701f1884a167190bb74f02df3126ef4353bf98a41"
+	},
+	"checks": 89,
+	"head_black": 72,
+	"head_cream": 18,
+	"leaf_opaque": 43,
+	"leaf_partial": 0,
+	"page_removed_pixels": 43,
+	"passed": true,
+	"scope": "12 actual Actor page-stage/left/right/flash body samples + isolated opaque leaf + actual Archive map short head warning/release/cancel. Controlled Boss clock/manual leaf step; no normal-run input, victory, chapter unlock, seal/brood, whole roster or performance proof.",
+	"sources": {
+		"assets/art/actors/native/spore_archivist_motion_v2.tres": "d01bdd0fdd739af74fccb1de6700b9c7ef5468ff1fa5581d37bb5cf439363569",
+		"assets/art/shaders/dasher_hit_flash.gdshader": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9",
+		"scenes/actors/native/spore_archivist_paper_v2.tscn": "5876e9f0277930690dd6a17c69a7e5ae34ee59a6ab356bcbe691f6e6410776a5",
+		"scenes/world/luminous_archive.tscn": "3998b97c34fca40915e0ddc3d41bdba1f8fb56e7c527ea8cba4a4c1ab28328b9",
+		"scripts/actors/ArchiveArchivistBoss.gd": "99a129b18318a71d87e0e97d6044dca9ca07b3377ae2764e5177fe50f4cfeaf7",
+		"scripts/actors/OverseerBoss.gd": "a2fc52f59e3215ea6805fa31d020144cb1458f3ed8dbbfbb863dd81484082aa4",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderArchiveBossPage.gd": "494541dc1fac0e6c5c34353cf3f828d1c4dfead79bd1dd53feb62a3ad88a5cb8",
+		"scripts/components/ArchivePageProjectile.gd": "1e6b357afb9d88fb2df3970e4db1ba2a6880daa600a5ce9a8e72d946f6d92675",
+		"scripts/components/NativeActorView.gd": "2f809462e45c77dc05dd028fecafddb8e3e021cb8415cbb3cae2a6864fe160f3",
+		"scripts/components/NativeBossMotion.gd": "f0f223b1e42897fac3584dcd3962518040a479bb8234038ac309074c811f740a",
+		"scripts/components/NativeProjectileOriginSafety.gd": "9be51ed7fb55861a124174653b9570589ed8d7bb65ede5b11195e77df158cc70",
+		"scripts/components/NativeSporeArchivistMotion.gd": "2ead0bb72ab961c37117c478f6f807d136f728825bc7a574beb085c4d76a8a85",
+		"scripts/components/Projectile.gd": "9bd92c2b9a1db6096d7b7a954e7a3ede1da51cae9e90e732bd36ca51b5d718c8",
+		"scripts/components/RiftShardProjectile.gd": "80dbf49076da32eed366c209a9ca3c3413675f707a3075f151ce514981a07f6d",
+		"scripts/components/SporeArchivistAttackDirector.gd": "125c0bf5ddbd5976c5f6f1d53f1a835a92fb18b9061fe396862d91928fc27509",
+		"scripts/components/VineSeedProjectile.gd": "4b231e725b10b2b351e6b599bc297b20f5757e2f31a69bf1c2a36574594cabfb",
+		"scripts/effects/EnemyWorldStatus.gd": "ec7ceb7a9e4171048ffc1f1c0168658266276cb481d3231abc9d67efa9b423f1",
+		"scripts/effects/HostileAttackDrawing.gd": "7888152661e967cd6d0ca79810ce2af0c6ecf24d33e06e2dd6dead53fcf52b89",
+		"scripts/world/ArchiveArenaLayout.gd": "797723586facd953c837b31a153f39b1b3c0fcccd85609a5a17cb0513d7e5601",
+		"scripts/world/ArchiveFloor.gd": "e422d58068821d1e232e557a2277ec43c801e212787248a328599a0f694115b2",
+		"scripts/world/ArchiveMap.gd": "9a82d2ae5409ade9622f64f53ffb5e863459b919d04ca2e7cb7e6d6e561bebf2",
+		"scripts/world/ArchiveObstacle.gd": "3d99c3df6fabb63f80a72d6781a1b694fe49e8b6a72e46e01a67bc8f7f32eaca",
+		"scripts/world/ArchivePropArt.gd": "caf3e6425274457b27ebf13405bb67e0da515edf351829a9c43c02f41139c8d1"
+	}
+}

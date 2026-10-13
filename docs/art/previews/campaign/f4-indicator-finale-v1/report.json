@@ -1,0 +1,31 @@
+{
+	"captures": {
+		"res://build/diagnostics/campaign-goal/f4_indicator_finale_v2/1280x720-pose0.png": "b75259bd2d559907425222824ab137b070fe7c37c37b943610c7f7aabcc3a1a5",
+		"res://build/diagnostics/campaign-goal/f4_indicator_finale_v2/1280x720-pose1.png": "99a1fefc2bee97547069d5994089aac944fa49ff9c300b9c03cc93da5a2bd2f9",
+		"res://build/diagnostics/campaign-goal/f4_indicator_finale_v2/1280x720-pose2.png": "160587568414b7d581590c3c310375d1b08237e265ca7ecd8d732c3346c7aa6c",
+		"res://build/diagnostics/campaign-goal/f4_indicator_finale_v2/1920x1080-pose0.png": "834372870a7fe0514f390d7e949027bb68b2cf381de33d26a319678548e2b73c",
+		"res://build/diagnostics/campaign-goal/f4_indicator_finale_v2/1920x1080-pose1.png": "4c6e50949da40b1b5e905766cf7410660be5eb1f991d98f7539cced6ad1a913f",
+		"res://build/diagnostics/campaign-goal/f4_indicator_finale_v2/1920x1080-pose2.png": "ac0d341efd79833ba80bf7b4b7029cde25b2bd787f18e65a1f7aaf3a781be110",
+		"res://build/diagnostics/campaign-goal/f4_indicator_finale_v2/960x540-pose0.png": "9f39e7fd0f4490d203d691f6dbb0b7b457df2b4e37cc8d82cd3b7d4a08e5b0a1",
+		"res://build/diagnostics/campaign-goal/f4_indicator_finale_v2/960x540-pose1.png": "e63dee57cf86e8f153b6cd1e9e8289b4791d32841077e26179533626bbd8a510",
+		"res://build/diagnostics/campaign-goal/f4_indicator_finale_v2/960x540-pose2.png": "faafd6717709c05418dbc50278d4b722cc44d7c18ccb2ba9a5e8177a8b26c801"
+	},
+	"checks": 2596,
+	"scope": "Actual Echo chapter, native Boss, camera and indicator with controlled real-run/far poses at three resolutions. Original stats and collision unchanged; not normal victory, human playtest or performance.",
+	"sources": {
+		"assets/art/actors/native/bell_priest_motion_v2.tres": "77a2b470a5af2cb2aa157bf30f0e6b7868208d2765535d5ec65a503ab876431a",
+		"scenes/actors/native/bell_priest_paper_v2.tscn": "dcd4905c9609c0a468afab75611568e65fbfb06792132413b464e9210f64cc60",
+		"scripts/actors/EchoBellPriestBoss.gd": "cbec12f9a213f7c03d61a606bccfa8c0ad14b21884f3b44b7599212ce9d4a467",
+		"scripts/campaign/ChapterRun.gd": "f9a977b48aca3f0c92f610b173f3b871d7797c14a7920e1fab085f69369d4de7",
+		"scripts/campaign/ChapterRunDefinitions.gd": "76fb016a6ff824929755eb5657311f4d9b3f9573ee3719fe182c156f7c555f8c",
+		"scripts/campaign/EchoChapter.gd": "b1493e218b17405346dcb745437a36874d0e732a04605cb517ab077c0e0c62e2",
+		"scripts/components/NativeActorView.gd": "2f809462e45c77dc05dd028fecafddb8e3e021cb8415cbb3cae2a6864fe160f3",
+		"scripts/systems/BossCameraFraming.gd": "33fe1031c560a81bb200a6ecae969a4b642be0c59fdb2e15c3e82cfdbdda402a",
+		"scripts/tests/BossIndicatorOcclusionTest.gd": "c9c3a7e81f1760e7c0e32072d76ac4f2e3d0a0e99aaeb9f718f26d5e9f63b698",
+		"scripts/ui/BossDirectionIndicator.gd": "7a7781da74eca0bbeec4b4ca7a43d5787c5de31a25574f3aadb46afa93d1310d",
+		"scripts/ui/ChapterRunUI.gd": "3852750433b257febba714bdcf508dd2132681f9e0b2cdcaa37678499cac1a2a",
+		"scripts/world/EchoArenaLayout.gd": "27399c73777778ac7db1acde672b01b9da2a478378e5f94830e253cee0dac102"
+	},
+	"valid": true,
+	"visible_samples": 850
+}

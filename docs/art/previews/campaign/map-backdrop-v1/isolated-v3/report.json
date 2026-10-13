@@ -1,0 +1,3175 @@
+{
+	"assertions": 323,
+	"cases": [
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				-1400.0,
+				0.0
+			],
+			"chapter": 1,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				1400.0,
+				0.0
+			],
+			"chapter": 1,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				0.0,
+				-900.0
+			],
+			"chapter": 1,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 33,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				0.0,
+				900.0
+			],
+			"chapter": 1,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 44,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				-1400.0,
+				-900.0
+			],
+			"chapter": 1,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				1400.0,
+				900.0
+			],
+			"chapter": 1,
+			"edge": 5,
+			"file": "chapter_1_960x540_edge_5.png",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				-1400.0,
+				900.0
+			],
+			"chapter": 1,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				1400.0,
+				-900.0
+			],
+			"chapter": 1,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				-1400.0,
+				0.0
+			],
+			"chapter": 1,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				1400.0,
+				0.0
+			],
+			"chapter": 1,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				0.0,
+				-900.0
+			],
+			"chapter": 1,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 75,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				0.0,
+				900.0
+			],
+			"chapter": 1,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 60,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				-1400.0,
+				-900.0
+			],
+			"chapter": 1,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				1400.0,
+				900.0
+			],
+			"chapter": 1,
+			"edge": 5,
+			"file": "chapter_1_1280x720_edge_5.png",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				-1400.0,
+				900.0
+			],
+			"chapter": 1,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				1400.0,
+				-900.0
+			],
+			"chapter": 1,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				-1400.0,
+				0.0
+			],
+			"chapter": 1,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				1400.0,
+				0.0
+			],
+			"chapter": 1,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				0.0,
+				-900.0
+			],
+			"chapter": 1,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				0.0,
+				900.0
+			],
+			"chapter": 1,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				-1400.0,
+				-900.0
+			],
+			"chapter": 1,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				1400.0,
+				900.0
+			],
+			"chapter": 1,
+			"edge": 5,
+			"file": "chapter_1_1920x1080_edge_5.png",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				-1400.0,
+				900.0
+			],
+			"chapter": 1,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1400.0,
+				-900.0,
+				2800.0,
+				1800.0
+			],
+			"camera": [
+				1400.0,
+				-900.0
+			],
+			"chapter": 1,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				-1600.0,
+				0.0
+			],
+			"chapter": 2,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				1600.0,
+				0.0
+			],
+			"chapter": 2,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				0.0,
+				-1000.0
+			],
+			"chapter": 2,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 33,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				0.0,
+				1000.0
+			],
+			"chapter": 2,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 44,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				-1600.0,
+				-1000.0
+			],
+			"chapter": 2,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				1600.0,
+				1000.0
+			],
+			"chapter": 2,
+			"edge": 5,
+			"file": "chapter_2_960x540_edge_5.png",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				-1600.0,
+				1000.0
+			],
+			"chapter": 2,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				1600.0,
+				-1000.0
+			],
+			"chapter": 2,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				-1600.0,
+				0.0
+			],
+			"chapter": 2,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				1600.0,
+				0.0
+			],
+			"chapter": 2,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				0.0,
+				-1000.0
+			],
+			"chapter": 2,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 75,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				0.0,
+				1000.0
+			],
+			"chapter": 2,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 60,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				-1600.0,
+				-1000.0
+			],
+			"chapter": 2,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				1600.0,
+				1000.0
+			],
+			"chapter": 2,
+			"edge": 5,
+			"file": "chapter_2_1280x720_edge_5.png",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				-1600.0,
+				1000.0
+			],
+			"chapter": 2,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				1600.0,
+				-1000.0
+			],
+			"chapter": 2,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				-1600.0,
+				0.0
+			],
+			"chapter": 2,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				1600.0,
+				0.0
+			],
+			"chapter": 2,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				0.0,
+				-1000.0
+			],
+			"chapter": 2,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				0.0,
+				1000.0
+			],
+			"chapter": 2,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				-1600.0,
+				-1000.0
+			],
+			"chapter": 2,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				1600.0,
+				1000.0
+			],
+			"chapter": 2,
+			"edge": 5,
+			"file": "chapter_2_1920x1080_edge_5.png",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				-1600.0,
+				1000.0
+			],
+			"chapter": 2,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1600.0,
+				-1000.0,
+				3200.0,
+				2000.0
+			],
+			"camera": [
+				1600.0,
+				-1000.0
+			],
+			"chapter": 2,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 3,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 3,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				-1024.0
+			],
+			"chapter": 3,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 33,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				1024.0
+			],
+			"chapter": 3,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 44,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				-1024.0
+			],
+			"chapter": 3,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				1024.0
+			],
+			"chapter": 3,
+			"edge": 5,
+			"file": "chapter_3_960x540_edge_5.png",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				1024.0
+			],
+			"chapter": 3,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				-1024.0
+			],
+			"chapter": 3,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 3,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 3,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				-1024.0
+			],
+			"chapter": 3,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 75,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				1024.0
+			],
+			"chapter": 3,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 60,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				-1024.0
+			],
+			"chapter": 3,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				1024.0
+			],
+			"chapter": 3,
+			"edge": 5,
+			"file": "chapter_3_1280x720_edge_5.png",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				1024.0
+			],
+			"chapter": 3,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				-1024.0
+			],
+			"chapter": 3,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 3,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 3,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				-1024.0
+			],
+			"chapter": 3,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				1024.0
+			],
+			"chapter": 3,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				-1024.0
+			],
+			"chapter": 3,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				1024.0
+			],
+			"chapter": 3,
+			"edge": 5,
+			"file": "chapter_3_1920x1080_edge_5.png",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				1024.0
+			],
+			"chapter": 3,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				-1024.0
+			],
+			"chapter": 3,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 4,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 4,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				-1024.0
+			],
+			"chapter": 4,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 33,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				1024.0
+			],
+			"chapter": 4,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 44,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				-1024.0
+			],
+			"chapter": 4,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				1024.0
+			],
+			"chapter": 4,
+			"edge": 5,
+			"file": "chapter_4_960x540_edge_5.png",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				1024.0
+			],
+			"chapter": 4,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				-1024.0
+			],
+			"chapter": 4,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 4,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 4,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				-1024.0
+			],
+			"chapter": 4,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 75,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				1024.0
+			],
+			"chapter": 4,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 60,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				-1024.0
+			],
+			"chapter": 4,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				1024.0
+			],
+			"chapter": 4,
+			"edge": 5,
+			"file": "chapter_4_1280x720_edge_5.png",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				1024.0
+			],
+			"chapter": 4,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				-1024.0
+			],
+			"chapter": 4,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 4,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 4,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				-1024.0
+			],
+			"chapter": 4,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				0.0,
+				1024.0
+			],
+			"chapter": 4,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				-1024.0
+			],
+			"chapter": 4,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				1024.0
+			],
+			"chapter": 4,
+			"edge": 5,
+			"file": "chapter_4_1920x1080_edge_5.png",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				-1664.0,
+				1024.0
+			],
+			"chapter": 4,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1024.0,
+				3328.0,
+				2048.0
+			],
+			"camera": [
+				1664.0,
+				-1024.0
+			],
+			"chapter": 4,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 5,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 5,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				0.0,
+				-1280.0
+			],
+			"chapter": 5,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 33,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				0.0,
+				1280.0
+			],
+			"chapter": 5,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 44,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				-1664.0,
+				-1280.0
+			],
+			"chapter": 5,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				1664.0,
+				1280.0
+			],
+			"chapter": 5,
+			"edge": 5,
+			"file": "chapter_5_960x540_edge_5.png",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				-1664.0,
+				1280.0
+			],
+			"chapter": 5,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				1664.0,
+				-1280.0
+			],
+			"chapter": 5,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 5,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 5,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				0.0,
+				-1280.0
+			],
+			"chapter": 5,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 75,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				0.0,
+				1280.0
+			],
+			"chapter": 5,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 60,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				-1664.0,
+				-1280.0
+			],
+			"chapter": 5,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				1664.0,
+				1280.0
+			],
+			"chapter": 5,
+			"edge": 5,
+			"file": "chapter_5_1280x720_edge_5.png",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				-1664.0,
+				1280.0
+			],
+			"chapter": 5,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				1664.0,
+				-1280.0
+			],
+			"chapter": 5,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 5,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 5,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				0.0,
+				-1280.0
+			],
+			"chapter": 5,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				0.0,
+				1280.0
+			],
+			"chapter": 5,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				-1664.0,
+				-1280.0
+			],
+			"chapter": 5,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				1664.0,
+				1280.0
+			],
+			"chapter": 5,
+			"edge": 5,
+			"file": "chapter_5_1920x1080_edge_5.png",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				-1664.0,
+				1280.0
+			],
+			"chapter": 5,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1280.0,
+				3328.0,
+				2560.0
+			],
+			"camera": [
+				1664.0,
+				-1280.0
+			],
+			"chapter": 5,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 6,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 6,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 40,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				0.0,
+				-1152.0
+			],
+			"chapter": 6,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 33,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				0.0,
+				1152.0
+			],
+			"chapter": 6,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 44,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				-1664.0,
+				-1152.0
+			],
+			"chapter": 6,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				1664.0,
+				1152.0
+			],
+			"chapter": 6,
+			"edge": 5,
+			"file": "chapter_6_960x540_edge_5.png",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				-1664.0,
+				1152.0
+			],
+			"chapter": 6,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 64,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				1664.0,
+				-1152.0
+			],
+			"chapter": 6,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 58,
+			"size": [
+				960,
+				540
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 6,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 6,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 70,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				0.0,
+				-1152.0
+			],
+			"chapter": 6,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 75,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				0.0,
+				1152.0
+			],
+			"chapter": 6,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 60,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				-1664.0,
+				-1152.0
+			],
+			"chapter": 6,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				1664.0,
+				1152.0
+			],
+			"chapter": 6,
+			"edge": 5,
+			"file": "chapter_6_1280x720_edge_5.png",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				-1664.0,
+				1152.0
+			],
+			"chapter": 6,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 102,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				1664.0,
+				-1152.0
+			],
+			"chapter": 6,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 110,
+			"size": [
+				1280,
+				720
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				-1664.0,
+				0.0
+			],
+			"chapter": 6,
+			"edge": 0,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				1664.0,
+				0.0
+			],
+			"chapter": 6,
+			"edge": 1,
+			"file": "",
+			"outside_samples": 165,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				0.0,
+				-1152.0
+			],
+			"chapter": 6,
+			"edge": 2,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				0.0,
+				1152.0
+			],
+			"chapter": 6,
+			"edge": 3,
+			"file": "",
+			"outside_samples": 154,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				-1664.0,
+				-1152.0
+			],
+			"chapter": 6,
+			"edge": 4,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				1664.0,
+				1152.0
+			],
+			"chapter": 6,
+			"edge": 5,
+			"file": "chapter_6_1920x1080_edge_5.png",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				-1664.0,
+				1152.0
+			],
+			"chapter": 6,
+			"edge": 6,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		},
+		{
+			"bounds": [
+				-1664.0,
+				-1152.0,
+				3328.0,
+				2304.0
+			],
+			"camera": [
+				1664.0,
+				-1152.0
+			],
+			"chapter": 6,
+			"edge": 7,
+			"file": "",
+			"outside_samples": 242,
+			"size": [
+				1920,
+				1080
+			],
+			"void_samples": 0,
+			"zoom": 0.800000011920929
+		}
+	],
+	"scope": "Six real map scenes, three sizes and eight edge/corner cameras at zoom0.8; isolated empty campaign and wave snapshot. No Boss, actor motion, navigation change, combat, clear/save or human claim.",
+	"valid": true
+}

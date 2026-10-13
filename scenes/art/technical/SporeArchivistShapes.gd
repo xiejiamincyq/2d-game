@@ -1,0 +1,70 @@
+extends "res://scenes/art/technical/SporelingShapes.gd"
+## Original archivist geometry. Inherits patch assembly, not character shapes.
+const ROBE := Color("606980")
+const ROBE_LIGHT := Color("8b8fa1")
+const LEAF := Color("dfd5b7")
+const PAPER_SHADE := Color("b6ad95")
+const FUNGUS := Color("7fa58b")
+const DARK_FUNGUS := Color("4c786b")
+const SEAL := Color("bd8972")
+func make() -> Array[Dictionary]:
+	patches.clear()
+	for side in ["L","R"]:
+		var cloak: String = "Torso/Cloak"+side
+		patch(cloak,[-17,-10,9,-14,20,3,18,30,8,37,-14,33,-23,17],ROBE)
+		patch(cloak,[-11,-7,7,-9,13,5,10,27,-5,28,-15,15],ROBE_LIGHT,false)
+		patch(cloak+"/Hem"+side,[-17,-6,15,-7,19,9,13,15,7,10,-1,16,-10,11,-18,14,-22,5],ROBE)
+		patch(cloak+"/Hem"+side,[-12,-2,11,-3,13,7,6,6,-2,10,-10,6,-16,9],PAPER_SHADE,false)
+		var leg: String = "Torso/Leg"+side
+		patch(leg,[-9,-6,8,-6,10,14,5,19,-8,17,-11,3],DARK_FUNGUS)
+		patch(leg+"/Shin"+side,[-8,-5,7,-5,8,13,4,19,-7,15,-10,3],ROBE)
+		patch(leg+"/Shin"+side+"/Foot"+side,[-10,-5,8,-6,17,2,13,9,-9,10,-15,4],PAPER_SHADE)
+		patch(leg+"/Shin"+side+"/Foot"+side,[-9,0,6,-1,11,3,7,5,-8,6],LEAF,false)
+		var arm: String = "Torso/Arm"+side
+		patch(arm,[-11,-10,9,-11,15,0,13,13,3,20,-12,11,-16,-1],ROBE)
+		patch(arm,[-7,-6,5,-7,9,0,6,11,-4,9],ROBE_LIGHT,false)
+		patch(arm+"/Forearm"+side,[-10,-6,7,-7,12,2,11,15,3,22,-10,16,-14,4],ROBE)
+		patch(arm+"/Forearm"+side,[-6,-2,5,-3,8,4,6,13,-4,12],PAPER_SHADE,false)
+		patch(arm+"/Forearm"+side+"/Hand"+side,[-9,-6,6,-7,11,-1,9,8,1,12,-9,8,-12,1],FUNGUS)
+		patch(arm+"/Forearm"+side+"/Hand"+side,[-6,-3,3,-4,6,0,3,5,-5,4],LEAF,false)
+	patch("Torso/SporeSatchel",[-12,-9,8,-11,15,0,12,24,2,30,-12,23,-16,4],PAPER_SHADE)
+	patch("Torso/SporeSatchel",[-7,-5,5,-6,9,2,6,16,-7,15,-11,2],DARK_FUNGUS)
+	patch("Torso/SporeSatchel",[-4,1,1,-1,5,3,2,7,-3,6],FUNGUS,false)
+	patch("Torso/SporeSatchel",[-4,16,8,14,9,19,0,23,-6,20],SEAL,false)
+	patch("Torso",[-26,-24,-6,-32,19,-28,33,-13,33,19,23,35,-13,39,-34,24,-35,-1],ROBE)
+	patch("Torso",[-18,-20,-4,-26,15,-22,22,-9,21,19,12,29,-11,31,-24,18,-25,-1],ROBE_LIGHT,false)
+	patch("Torso",[-8,-25,8,-25,12,1,8,23,0,28,-9,23,-12,0],LEAF)
+	patch("Torso",[-5,-18,4,-18,6,10,2,17,-4,15,-7,0],ROBE,false)
+	var head := "Torso/Head"
+	patch(head,[-23,-14,-11,-25,12,-24,25,-12,26,9,14,22,-14,20,-27,5],DARK_FUNGUS)
+	patch(head,[-17,-10,-9,-18,10,-18,18,-9,19,7,10,15,-10,14,-20,3],FUNGUS,false)
+	for side in ["L","R"]:
+		var gill: String = head+"/Gill"+side
+		patch(gill,[-14,-4,13,-4,16,6,9,15,-8,17,-16,6],PAPER_SHADE)
+		patch(gill,[-9,0,9,0,11,5,5,9,-6,10,-11,4],ROBE,false)
+	var cap: String = head+"/Cap"
+	patch(cap,[-60,3,-50,-18,-32,-34,-9,-40,13,-36,34,-25,54,-9,63,7,47,16,21,17,-5,11,-31,18,-53,14],LEAF)
+	patch(cap,[-53,1,-44,-16,-29,-27,-8,-33,11,-29,30,-19,45,-7,52,3,39,7,19,7,-7,2,-28,9,-46,8],DARK_FUNGUS,false)
+	patch(cap,[-41,-13,-27,-25,-8,-30,9,-26,18,-21,1,-22,-16,-17,-30,-7],FUNGUS,false)
+	patch(cap,[-23,-17,-19,-22,-11,-24,-8,-20,-14,-16],PAPER_SHADE,false)
+	patch(cap,[19,-13,24,-17,33,-12,34,-7,27,-5,21,-8],PAPER_SHADE,false)
+	patch(cap,[36,-2,40,-4,46,0,44,4,38,3],LEAF,false)
+	patch(cap,[-34,10,-18,6,-9,8,-13,12,-26,15],ROBE_LIGHT,false)
+	patch(head,[4,-7,11,-9,16,-3,13,5,5,7,0,2],INK)
+	patch(head,[5,-4,10,-5,12,-1,10,3,5,4,2,1],LEAF,false)
+	patch(head,[-17,-5,-11,-7,-7,-3,-10,3,-16,4,-20,0],INK)
+	patch(head,[-16,-3,-12,-4,-10,-1,-12,2,-16,2,-18,0],SEAL,false)
+	patch(head+"/Lens",[-10,-8,8,-8,13,-1,9,8,-8,9,-14,1],LEAF)
+	patch(head+"/Lens",[-6,-4,5,-4,8,0,5,5,-5,5,-9,1],ROBE)
+	patch(head+"/Lens",[-5,-3,0,-4,2,-1,-3,3,-6,1],LEAF,false)
+	var book := "Torso/Book"
+	patch(book,[-39,-16,-22,-20,0,-11,21,-19,37,-13,38,14,20,20,0,12,-22,21,-40,16],ROBE)
+	patch(book+"/PageL",[-35,-13,-21,-16,-2,-7,0,13,-21,19,-35,13],LEAF)
+	patch(book+"/PageL",[-30,-9,-23,-11,-9,-6,-8,0,-20,-3,-29,-2],PAPER_SHADE,false)
+	patch(book+"/PageL",[-28,3,-18,1,-7,4,-7,8,-19,6,-28,9],PAPER_SHADE,false)
+	patch(book+"/PageR",[2,-7,21,-15,33,-11,34,12,20,17,1,12],LEAF)
+	patch(book+"/PageR",[8,-4,20,-10,28,-7,28,-2,21,-5,8,0],PAPER_SHADE,false)
+	patch(book+"/PageR",[8,4,21,1,29,3,28,8,20,6,8,9],PAPER_SHADE,false)
+	patch(book+"/Spine",[-4,-9,3,-9,5,16,3,23,-2,20,-5,14],SEAL)
+	patch(book+"/Spine",[-1,-5,1,-5,2,15,0,17,-2,12],PAPER_SHADE,false)
+	return patches

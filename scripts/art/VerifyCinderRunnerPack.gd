@@ -16,7 +16,8 @@ func _run() -> void:
 	root.add_child(main)
 	current_scene = main
 	main.snapshot_store.save_path = "user://cinder_pack_%d/run.json"%OS.get_process_id()
-	main.ui.start_screen.start_button.pressed.emit()
+	main.ui.start_screen.legacy_button.pressed.emit()
+	main.ui.start_screen.legacy_start_button.pressed.emit()
 	var observed := false
 	for frame in 900:
 		for enemy in main.wave_director.active_enemies:

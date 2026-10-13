@@ -9,6 +9,12 @@ func _ready() -> void:
 	mouse_filter = MOUSE_FILTER_IGNORE
 	resized.connect(queue_redraw)
 
+func _lamp_color() -> Color:
+	return Color("bd9560")
+
+func _mist_offset(_index: int) -> Vector2:
+	return Vector2.ZERO
+
 func _shape(points: Array[Vector2], color: Color, outline := 4.0) -> void:
 	var vertices := PackedVector2Array(points)
 	draw_colored_polygon(vertices, color)
@@ -39,7 +45,7 @@ func _draw() -> void:
 	_shape([Vector2(762, 282), Vector2(906, 219), Vector2(1053, 282), Vector2(1053, 475), Vector2(762, 475)], Color("64705a"))
 	_shape([Vector2(739, 287), Vector2(901, 197), Vector2(1077, 287), Vector2(1060, 304), Vector2(902, 222), Vector2(757, 307)], Color("9d906b"), 6)
 	_shape([Vector2(875, 355), Vector2(918, 341), Vector2(961, 361), Vector2(961, 478), Vector2(875, 478)], Color("202f28"), 5)
-	_shape([Vector2(883, 368), Vector2(919, 353), Vector2(949, 369), Vector2(949, 473), Vector2(883, 473)], Color("bd9560"), 3)
+	_shape([Vector2(883, 368), Vector2(919, 353), Vector2(949, 369), Vector2(949, 473), Vector2(883, 473)], _lamp_color(), 3)
 	draw_line(Vector2(904, 360), Vector2(904, 473), INK, 5)
 	for rect in [Rect2(787, 325, 52, 72), Rect2(991, 327, 38, 69)]:
 		draw_rect(rect, Color("34483b"))
@@ -69,7 +75,8 @@ func _draw() -> void:
 		_shape([p + Vector2(-27, -25), p + Vector2(-16, -42), p + Vector2(5, -49), p + Vector2(28, -26)], Color("b9946a"), 4)
 	# Sparse horizontal mist, not glow; stays behind UI and opaque bodies.
 	for i in 6:
-		draw_line(Vector2(577 + i * 69, 398 + i * 18), Vector2(802 + i * 67, 395 + i * 18), Color(0.7, 0.76, 0.66, 0.11), 12, true)
+		var offset := _mist_offset(i)
+		draw_line(Vector2(577 + i * 69, 398 + i * 18) + offset, Vector2(802 + i * 67, 395 + i * 18) + offset, Color(0.7, 0.76, 0.66, 0.11), 12, true)
 	_shape([Vector2(0, 621), Vector2(187, 607), Vector2(348, 652), Vector2(568, 650), Vector2(714, 720), Vector2(0, 720)], INK, 0)
 	_shape([Vector2(1098, 720), Vector2(1184, 659), Vector2(1237, 646), Vector2(1280, 577), Vector2(1280, 720)], INK, 0)
 	# Left reading zone, ink rule and paper registration flecks.

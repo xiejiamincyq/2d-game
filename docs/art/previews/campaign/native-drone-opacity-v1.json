@@ -1,0 +1,259 @@
+{
+	"beam_pixels": 2253,
+	"flight_changes": 59,
+	"flight_frames": 60,
+	"passed": true,
+	"samples": [
+		{
+			"angle": 0.0,
+			"clip": "idle",
+			"edge": 0,
+			"opaque": 432,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"angle": 0.0,
+			"clip": "idle",
+			"edge": 0,
+			"opaque": 444,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"angle": 0.0,
+			"clip": "idle",
+			"edge": 0,
+			"opaque": 434,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"angle": 0.0,
+			"clip": "walk",
+			"edge": 0,
+			"opaque": 432,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"angle": 0.0,
+			"clip": "walk",
+			"edge": 0,
+			"opaque": 437,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"angle": 0.0,
+			"clip": "walk",
+			"edge": 0,
+			"opaque": 438,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"angle": 0.0,
+			"clip": "shoot",
+			"edge": 0,
+			"opaque": 432,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"angle": 0.0,
+			"clip": "shoot",
+			"edge": 0,
+			"opaque": 424,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"angle": 0.0,
+			"clip": "shoot",
+			"edge": 0,
+			"opaque": 433,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"angle": 0.0,
+			"clip": "entrance",
+			"edge": 0,
+			"opaque": 320,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"angle": 0.0,
+			"clip": "entrance",
+			"edge": 0,
+			"opaque": 419,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"angle": 0.0,
+			"clip": "entrance",
+			"edge": 0,
+			"opaque": 441,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"angle": 0.0,
+			"clip": "death",
+			"edge": 0,
+			"opaque": 432,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"angle": 0.0,
+			"clip": "death",
+			"edge": 0,
+			"opaque": 377,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"angle": 0.0,
+			"clip": "death",
+			"edge": 0,
+			"opaque": 330,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "idle",
+			"edge": 0,
+			"opaque": 440,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "idle",
+			"edge": 0,
+			"opaque": 442,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "idle",
+			"edge": 0,
+			"opaque": 433,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "walk",
+			"edge": 0,
+			"opaque": 440,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "walk",
+			"edge": 0,
+			"opaque": 429,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "walk",
+			"edge": 0,
+			"opaque": 448,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "shoot",
+			"edge": 0,
+			"opaque": 440,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "shoot",
+			"edge": 0,
+			"opaque": 430,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "shoot",
+			"edge": 0,
+			"opaque": 438,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "entrance",
+			"edge": 0,
+			"opaque": 319,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "entrance",
+			"edge": 0,
+			"opaque": 420,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "entrance",
+			"edge": 0,
+			"opaque": 436,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "death",
+			"edge": 0,
+			"opaque": 440,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "death",
+			"edge": 0,
+			"opaque": 377,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"angle": 0.785398163397448,
+			"clip": "death",
+			"edge": 0,
+			"opaque": 334,
+			"partial": 0,
+			"phase": 0.85
+		}
+	],
+	"scope": "native companion plus manually advanced real Player/laser fixture; not natural Main or mixed performance proof",
+	"sources": {
+		"assets/art/actors/native/ranger_drone_motion_v1.tres": "d2d390a44e1947293546d5482cafe01e53a622b7e4f0a5fa0a93e9bd460b844a",
+		"scenes/actors/native/ranger_drone_paper_v1.tscn": "386fccfe9e18e5e2a6612db71f7ba73abb964fd9e979e21d7383964b995499bd",
+		"scenes/art/technical/RangerDroneDraft.gd": "7117c4b1762465ff2f9fe9c4d924ceb60ca0f4aac8acd28f945d1eb3c498e85d",
+		"scenes/art/technical/RangerDroneShapes.gd": "7eccf7c6b6ade2cfc488294cab9c8a28d082722a011568b517ffb33812dd313a",
+		"scripts/actors/DroneVisual.gd": "ad2cd2cda3067f8ae8f1d583ef95f6b4c0cdaa51fab36f73c79c950efd4e9deb",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderNativeDronePreview.gd": "43fab440389887a96b1dcb7b1f98f34cc51e9c3259ed121602cb92aad2324742",
+		"scripts/components/NativeActorView.gd": "2485aad6edc3b97270c1a4c13159c6e74a81bf533c9a16d16f66470d18275da5"
+	}
+}

@@ -1,0 +1,587 @@
+{
+	"characters": [
+		{
+			"asset_id": "bell_priest_paper_v1",
+			"bone_count": 26.0,
+			"chapter_combat_ready": false,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/bell_priest_paper_v1.json",
+			"manifest_sha256": "9752deb4a3507cf0aa9254ac806c1b25a6921d5262fb95bd37691db6e82d5125",
+			"motion_sha256": {
+				"res://assets/art/actors/native/bell_priest_motion_v1.tres": "b1a71420f6605d4e2a0028534e2deafad8b42a2427ead0b5e9daca5883730343"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"hit",
+				"entrance",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "boss",
+			"runtime_scene": "res://scenes/actors/native/bell_priest_paper_v1.tscn",
+			"scene_sha256": "3aedb94751c3b2f206266a4407857e184392e4ed52993ef81bf3956d9c1d8cf6"
+		},
+		{
+			"asset_id": "capsule_planter_paper_v1",
+			"bone_count": 20.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/capsule_planter_paper_v1.json",
+			"manifest_sha256": "d6a03169da248b314474c4d27307ba0605ae8e8af08b3e24f611b6ff41ba4a4c",
+			"motion_sha256": {
+				"res://assets/art/actors/native/capsule_planter_motion_v1.tres": "7c1beb3fc977fb71fe6c3795fae9d389fdb00aa1dac70eef9f86b8182edc9a89"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/capsule_planter_paper_v1.tscn",
+			"scene_sha256": "b98af580c193e0ad6d260fd386e63956d51d6da8087d7d9cd5389e6112d0be2f"
+		},
+		{
+			"asset_id": "cinder_runner_paper_v2",
+			"bone_count": 15.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/cinder_runner_paper_v2.json",
+			"manifest_sha256": "ee27a340155efaf62a04a8cf46f9b94bd7fb7d821fbd1ed67f9caf0f50fc10a5",
+			"motion_sha256": {
+				"res://assets/art/actors/native/cinder_runner_motion_v2.tres": "634de278be35ee5a8c482f73c00f4d852202f006048735b0daf38f41ea5d5f94"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death",
+				"charge_warning",
+				"charge",
+				"charge_recovery"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/cinder_runner_paper_v2.tscn",
+			"scene_sha256": "838fe672fdaa922580d22d52e602a8a7d63c601e2ff84cb6a2c86093354ebe80"
+		},
+		{
+			"asset_id": "circling_shade_paper_v1",
+			"bone_count": 18.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/circling_shade_paper_v1.json",
+			"manifest_sha256": "248e010827b9814558ab24c1651d12d3657f008de80b02ea2827815d433e90a1",
+			"motion_sha256": {
+				"res://assets/art/actors/native/circling_shade_motion_v1.tres": "102d2ee79ca564928c85f703d68e80664fb2ff4bafb2a94b1b0708164ec7c58f"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/circling_shade_paper_v1.tscn",
+			"scene_sha256": "c7fbca75dc098a182ba577c6125d7e50d979983395090499922e36f35ad6f0b9"
+		},
+		{
+			"asset_id": "echo_sentinel_paper_v1",
+			"bone_count": 20.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/echo_sentinel_paper_v1.json",
+			"manifest_sha256": "24764f952c30bd098dbd77ab27c380b6b19f61233adf61e006ad06137c4bdda5",
+			"motion_sha256": {
+				"res://assets/art/actors/native/echo_sentinel_motion_v1.tres": "56d670c7474b56bdbc3d62be1d0422f18779184f4fded2cc0bc8422e4da0bf39"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/echo_sentinel_paper_v1.tscn",
+			"scene_sha256": "59316886d911cfe1e9d362737ddfbbc209ec15a1e99dfec085906510f9c20cc7"
+		},
+		{
+			"asset_id": "ember_spark_paper_v1",
+			"bone_count": 16.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/ember_spark_paper_v1.json",
+			"manifest_sha256": "cd0872d9ab6faf7c3b8b6b4cbaa42582efa0539bfbcc3df046b9c8a3f2b59697",
+			"motion_sha256": {
+				"res://assets/art/actors/native/ember_spark_motion_v1.tres": "47abc9f79dc26013bb7731d5ef01ecd2e5ecfeda4b90572df9e32d898c1b7883"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/ember_spark_paper_v1.tscn",
+			"scene_sha256": "4856f9f4c8344187652e6d161f39cef5afaee21d16062e23f2997821f99e8348"
+		},
+		{
+			"asset_id": "flanking_crab_paper_v1",
+			"bone_count": 20.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/flanking_crab_paper_v1.json",
+			"manifest_sha256": "03e4f7dbab22a9709bc70887d6547626242e185685a282a22488d5cc86cd3206",
+			"motion_sha256": {
+				"res://assets/art/actors/native/flanking_crab_motion_v1.tres": "09ae25fca18886327a851df4a19048fa2dcc9566a6fdb8eaf0b09bc18afc1a8c"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/flanking_crab_paper_v1.tscn",
+			"scene_sha256": "41dda3b4f99834f2ca736170a5ca9acd0c4d7731ebdd15469f3d8728809efbf9"
+		},
+		{
+			"asset_id": "folio_lobber_paper_v1",
+			"bone_count": 16.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/folio_lobber_paper_v1.json",
+			"manifest_sha256": "800862c2dbf924ff6af0d6b9e5be3fec14258ced63bcba3633af0effce9e0ea8",
+			"motion_sha256": {
+				"res://assets/art/actors/native/folio_lobber_motion_v1.tres": "6b3c64d4e909abcedad1bbcf346fd9f01560388af77080ac364027a4da480561"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/folio_lobber_paper_v1.tscn",
+			"scene_sha256": "bbb21b8463aa1232196dd901bab914d285b3a2bd9b404d84ef0ec299a4984ec5"
+		},
+		{
+			"asset_id": "furnace_foreman_paper_v1",
+			"bone_count": 23.0,
+			"chapter_combat_ready": false,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/furnace_foreman_paper_v1.json",
+			"manifest_sha256": "e573b3c50ba49aae29e0f5e44f7dac1c9a1b2b4c488faaf602709651e64fff15",
+			"motion_sha256": {
+				"res://assets/art/actors/native/furnace_foreman_motion_v1.tres": "4974be107a9c6f519dbee00d947b4bf9097f9321c90a0bbfb6579f2ac95260be"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"hit",
+				"entrance",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "boss",
+			"runtime_scene": "res://scenes/actors/native/furnace_foreman_paper_v1.tscn",
+			"scene_sha256": "de63678ca335ff6b4f472ff16de6a335e6199125670ec5a80b0e2efb80e92d35"
+		},
+		{
+			"asset_id": "player_paper_v1",
+			"bone_count": 13.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/player_paper_v1.json",
+			"manifest_sha256": "66e3b63094cc8e761a51e559eb9fe863f44ca6450a60039d2a7403063e4260e0",
+			"motion_sha256": {
+				"res://assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+				"res://assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+				"res://assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db",
+				"res://assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"shoot",
+				"dash",
+				"hit",
+				"death",
+				"entrance"
+			],
+			"review_state": "style-approved",
+			"role": "player",
+			"runtime_scene": "res://scenes/actors/native/player_paper_v1.tscn",
+			"scene_sha256": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da"
+		},
+		{
+			"asset_id": "ranger_drone_paper_v1",
+			"bone_count": 10.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/ranger_drone_paper_v1.json",
+			"manifest_sha256": "7c21adac02731d3fb4d67e8d95cdbb6cb9cc43db030983b9a336f6c524925fcd",
+			"motion_sha256": {
+				"res://assets/art/actors/native/ranger_drone_motion_v1.tres": "d2d390a44e1947293546d5482cafe01e53a622b7e4f0a5fa0a93e9bd460b844a"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"shoot",
+				"entrance",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "companion",
+			"runtime_scene": "res://scenes/actors/native/ranger_drone_paper_v1.tscn",
+			"scene_sha256": "386fccfe9e18e5e2a6612db71f7ba73abb964fd9e979e21d7383964b995499bd"
+		},
+		{
+			"asset_id": "rift_elite_paper_v1",
+			"bone_count": 20.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/rift_elite_paper_v1.json",
+			"manifest_sha256": "1f4928c011b7a7e35099a3f6d68036f8342bb51091357b687152b6e040ca7387",
+			"motion_sha256": {
+				"res://assets/art/actors/native/rift_elite_motion_v1.tres": "4efe65c965487c61a5045fc25fe4373e215232ccfa523cd9c97ba232a74c6126"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"shard_attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/rift_elite_paper_v1.tscn",
+			"scene_sha256": "917869963f685d7f81e90e20193aadc280a73f5d63bd5e9a86122a5e439fdce5"
+		},
+		{
+			"asset_id": "rift_observer_paper_v1",
+			"bone_count": 30.0,
+			"chapter_combat_ready": false,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/rift_observer_paper_v1.json",
+			"manifest_sha256": "6ac56237f55722bee1a9aa4e5bd9f57597fd3baff38b825749ad2c6a5ac7e54e",
+			"motion_sha256": {
+				"res://assets/art/actors/native/rift_observer_motion_v1.tres": "0525621d5092253b121f524e74982267c77227af6ef908a3bc2b303e286ac4ba"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"hit",
+				"entrance",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "boss",
+			"runtime_scene": "res://scenes/actors/native/rift_observer_paper_v1.tscn",
+			"scene_sha256": "08fe69c6543d1e691256b800cc3b5a8560e84fa751d02d40852456099be6cbe8"
+		},
+		{
+			"asset_id": "root_commander_paper_v1",
+			"bone_count": 23.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/root_commander_paper_v1.json",
+			"manifest_sha256": "8269f473710a12fda0c54d846455ccbd1d893075566225183dddbac6e9033802",
+			"motion_sha256": {
+				"res://assets/art/actors/native/root_commander_motion_v1.tres": "331c8b3d37f892107550ed032a4af6541d7c973ab72f696a39fae4e084bf2cfd"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"hit",
+				"entrance",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "large",
+			"runtime_scene": "res://scenes/actors/native/root_commander_paper_v1.tscn",
+			"scene_sha256": "6c48a483e32445741aa7916d2159b9ffe64db161730f2c68d724ab5ad15f64ac"
+		},
+		{
+			"asset_id": "root_commander_paper_v2",
+			"bone_count": 23.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/root_commander_paper_v2.json",
+			"manifest_sha256": "3873523096953afafd934db2ba4d9c5fe4f7161816348e4c6c2e253b70c88771",
+			"motion_sha256": {
+				"res://assets/art/actors/native/root_commander_motion_v2.tres": "529cbc08c32c841a023d5eb4374a917b11d300decf2086727045273bb3f9e8f5"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"hit",
+				"entrance",
+				"death",
+				"melee_warning",
+				"melee_attack",
+				"melee_recovery",
+				"burst_warning",
+				"burst_attack",
+				"command"
+			],
+			"review_state": "style-approved",
+			"role": "large",
+			"runtime_scene": "res://scenes/actors/native/root_commander_paper_v2.tscn",
+			"scene_sha256": "8b7d76e83838e5538f5901f5a567c7239515522dbb0de6f4ba18ccf096363910"
+		},
+		{
+			"asset_id": "enemy_root_pursuer_paper_v1",
+			"bone_count": 12.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/rootling_paper_v1.json",
+			"manifest_sha256": "921c5984b92dd6050204b9054547cf84191ac5c1a25c680dbc753da4249a11a1",
+			"motion_sha256": {
+				"res://assets/art/actors/native/rootling_motion_v3.tres": "64bbe5cb38b4f986fb4179e83bef83d0d61448cdb82cd216ec898b16aee789fc"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/rootling_paper_v3.tscn",
+			"scene_sha256": "79367d87f21a5669cc94c1bda3b0641fe8c7e129bb823420249a2f7a93692e4a"
+		},
+		{
+			"asset_id": "salt_needler_paper_v1",
+			"bone_count": 16.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/salt_needler_paper_v1.json",
+			"manifest_sha256": "83f68bae5084a537ac845997ac746af4a16a0bea377fbca1a6840d903d88da88",
+			"motion_sha256": {
+				"res://assets/art/actors/native/salt_needler_motion_v1.tres": "824490c69a5f74661b760ec8c8075959fd70343099081560355bfdc065c70482"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/salt_needler_paper_v1.tscn",
+			"scene_sha256": "772ca402623f41a007c3c4bd97e970a318ec8b19b87d06feb2bc132bd0ca782c"
+		},
+		{
+			"asset_id": "space_cutter_paper_v1",
+			"bone_count": 19.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/space_cutter_paper_v1.json",
+			"manifest_sha256": "13b3326cd8aad1cb2906ba8cf6b5d06671a1b446c20b620fc57d5bc0e9a1c703",
+			"motion_sha256": {
+				"res://assets/art/actors/native/space_cutter_motion_v1.tres": "e29847fa481ffa15278ab5d549af7d8ee5da0f93b84027972e87fa43cb619545"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/space_cutter_paper_v1.tscn",
+			"scene_sha256": "b4a214b31562add870150a3c36dbe28de6807163e46b3c03b7780f716ca8ddd9"
+		},
+		{
+			"asset_id": "splitting_mote_paper_v1",
+			"bone_count": 16.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/splitting_mote_paper_v1.json",
+			"manifest_sha256": "8cd8c7cd1056f83e5ec3ceeb0908e6f2501a4fa8224bb971eb762ca36452f724",
+			"motion_sha256": {
+				"res://assets/art/actors/native/splitting_mote_motion_v1.tres": "44d4f181163f1c58abf60202199d9e9ed190be87b07102d36055a7e135519772"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/splitting_mote_paper_v1.tscn",
+			"scene_sha256": "f7f36681b662b8fe459610402fe42e147e597977df26be417386d7dfe0baae72"
+		},
+		{
+			"asset_id": "spore_archivist_paper_v1",
+			"bone_count": 27.0,
+			"chapter_combat_ready": false,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/spore_archivist_paper_v1.json",
+			"manifest_sha256": "8e95c213855851f53065f2021bc0443e602b2a090542f7d3e8e94d754d5d3fd1",
+			"motion_sha256": {
+				"res://assets/art/actors/native/spore_archivist_motion_v1.tres": "a6a48a7ba3e8a9fc1662cc063ad4b69a121976ba7bc80dde12c0c7e95cb2871f"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"hit",
+				"entrance",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "boss",
+			"runtime_scene": "res://scenes/actors/native/spore_archivist_paper_v1.tscn",
+			"scene_sha256": "9973cc97460ade041c206e384f04ab4481892a184cab7de9822e318f302ec02a"
+		},
+		{
+			"asset_id": "sporeling_paper_v1",
+			"bone_count": 14.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/sporeling_paper_v1.json",
+			"manifest_sha256": "0345ed98f527e6e485816aa5ae80af9fd80fb2b46feb1483d938f51d6346ce23",
+			"motion_sha256": {
+				"res://assets/art/actors/native/sporeling_motion_v1.tres": "d4002943788a3d478d079069c071979e46388a3fc68589c292345f7bba7718c5"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"warning",
+				"attack",
+				"hit",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "ordinary",
+			"runtime_scene": "res://scenes/actors/native/sporeling_paper_v1.tscn",
+			"scene_sha256": "5513ba1c566b8262b23464322031cc128ea8c3b081fbd5e2bc92edd79f2871fa"
+		},
+		{
+			"asset_id": "stone_carrier_paper_v2",
+			"bone_count": 17.0,
+			"chapter_combat_ready": null,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/stone_carrier_paper_v2.json",
+			"manifest_sha256": "bc1b64af3b12277daabbb87957c148071d27a4610770db3abc333662aed09aaa",
+			"motion_sha256": {
+				"res://assets/art/actors/native/stone_carrier_motion_v2.tres": "3e8c65a253d621dd60983bcd4267a65d3df8ee6c72790a4254eba0a9cbcd3234"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"hit",
+				"death",
+				"entrance",
+				"slam_warning",
+				"slam_attack",
+				"slam_recovery"
+			],
+			"review_state": "style-approved",
+			"role": "large",
+			"runtime_scene": "res://scenes/actors/native/stone_carrier_paper_v2.tscn",
+			"scene_sha256": "1219dc7a241857c3adb779f0407f044d3b6494a4f12873fb19a01b28fdfd1567"
+		},
+		{
+			"asset_id": "tide_shell_paper_v1",
+			"bone_count": 25.0,
+			"chapter_combat_ready": false,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/tide_shell_paper_v1.json",
+			"manifest_sha256": "708987a62e9d30a1752cd2744ce89fe3870197478d0f56a276f7b51598a21e9c",
+			"motion_sha256": {
+				"res://assets/art/actors/native/tide_shell_motion_v1.tres": "e119b6606e3a6587f057971e38c30b5be904dec1822ed8f7a0eb11218eb20bdc"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"hit",
+				"entrance",
+				"death"
+			],
+			"review_state": "style-approved",
+			"role": "boss",
+			"runtime_scene": "res://scenes/actors/native/tide_shell_paper_v1.tscn",
+			"scene_sha256": "74523130962c49182aef2dcc6f8babda8753f838aed3111e688a174cc97d01df"
+		},
+		{
+			"asset_id": "vine_guard_paper_v1",
+			"bone_count": 22.0,
+			"chapter_combat_ready": true,
+			"license_origin": "project-original",
+			"manifest": "res://docs/art/native-manifests/vine_guard_paper_v1.json",
+			"manifest_sha256": "75631ab4af3d2c0f4651b6453ee2f05089acd40e99cf3b014c75747c241cc631",
+			"motion_sha256": {
+				"res://assets/art/actors/native/vine_guard_motion_v1.tres": "608817d4f58706a45a207b27fd58021b4670ededfb968705807c48cf1d0bae6a"
+			},
+			"required_clips": [
+				"idle",
+				"walk",
+				"hit",
+				"death",
+				"entrance"
+			],
+			"review_state": "style-approved",
+			"role": "boss",
+			"runtime_scene": "res://scenes/actors/native/vine_guard_paper_v1.tscn",
+			"scene_sha256": "e9752c50ffee411b2ff4a11f98e200485e8dae8e69801d13908aee6e462cc535"
+		}
+	],
+	"current_bodies": 24,
+	"errors": [],
+	"historical_excluded": [
+		"cinder_runner_paper_v1",
+		"stone_carrier_paper_v1"
+	],
+	"passed": true,
+	"production_actor_scripts": 13,
+	"scope": "rig/resource/production-entry coverage only; not final art, all large attacks or six chapter completion",
+	"sources": {
+		"scripts/actors/CapsulePlanterEnemy.gd": "fc04b5af00488ff21ab90ad6688bb423550207c1d17ef7ca7d89883d62466a63",
+		"scripts/actors/CirclingShadeEnemy.gd": "2d030db81995b11a7dda81dcdd5a71908ee921f4461ee5ac42fd124c3f0a787f",
+		"scripts/actors/DroneVisual.gd": "ad2cd2cda3067f8ae8f1d583ef95f6b4c0cdaa51fab36f73c79c950efd4e9deb",
+		"scripts/actors/EchoSentinelEnemy.gd": "718683faee259bcdca430116197682f3e3c5bc8ccb4f8f9dba5c10dbc4188240",
+		"scripts/actors/EmberSparkEnemy.gd": "00dd432e4884bc835033b4a72ee2e2b6822118ed824b6d9659d5c5febe6c2143",
+		"scripts/actors/Enemy.gd": "85f613f842268bef51e40e16e87e7373fc85ac012038b8852266072c605d069c",
+		"scripts/actors/FlankingCrabEnemy.gd": "2a3f1704e73850187b94457d138411169068cd586b87dce2c659a6581a82ecec",
+		"scripts/actors/NurseryVineBoss.gd": "103507aa4e3053ddae3d6100b079635de227006748295c23bb83305b685ff0fb",
+		"scripts/actors/OverseerBoss.gd": "3178184ca7171ba4394bd79a4c3122c19daef4f99b5c8616b15e4f7f113dd957",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/actors/RiftEliteEnemy.gd": "f0dea2dd5b7f42ee81476802b696845390884f7cedfe229921024150ccce066f",
+		"scripts/actors/SpaceCutterEnemy.gd": "12618780427de944ab97dbf81a1e94ef6acadf4c622c1ba1c728cbd767c31d36",
+		"scripts/actors/SplittingMoteEnemy.gd": "e744b537b677b1c6cc66b63e5866624520260c327968af2c8c25567f66f07146"
+	}
+}

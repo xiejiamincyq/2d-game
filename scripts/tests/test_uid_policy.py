@@ -1,4 +1,5 @@
 from pathlib import Path
+import subprocess
 import unittest
 
 
@@ -41,8 +42,25 @@ class UidPolicyTest(unittest.TestCase):
         self.assertEqual([], problems)
 
     def test_uid_line_endings_are_stable_in_git(self) -> None:
-        attributes = (PROJECT_ROOT / ".gitattributes").read_text(encoding="utf-8")
-        self.assertIn("*.uid text eol=lf", attributes.splitlines())
+        # Native approvals sign existing raw bytes, including mixed LF/CRLF.
+        # Stability means Git must not silently normalize those signed UIDs.
+        attributes = subprocess.run(
+            ["git", "check-attr", "text", "--", "scripts/actors/Player.gd.uid"],
+            cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
+        )
+        self.assertEqual("unset", attributes.stdout.strip().split(": ")[-1])
+        for root in SOURCE_ROOTS:
+            for path in root.rglob("*.uid"):
+                relative = path.relative_to(PROJECT_ROOT).as_posix()
+                raw = subprocess.run(
+                    ["git", "hash-object", "--no-filters", relative],
+                    cwd=PROJECT_ROOT, check=True, capture_output=True,
+                ).stdout
+                filtered = subprocess.run(
+                    ["git", "hash-object", "--path=" + relative, relative],
+                    cwd=PROJECT_ROOT, check=True, capture_output=True,
+                ).stdout
+                self.assertEqual(raw, filtered, relative)
 
 
 if __name__ == "__main__":

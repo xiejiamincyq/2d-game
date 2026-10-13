@@ -1,0 +1,91 @@
+{
+  "scope": "Eight exact retired bitmap resources; original files retained. Not all legacy resources removed, not final full/ordinary Main/chain/all licenses/public release.",
+  "copy_count": 17,
+  "files": [
+    {
+      "source": "build/diagnostics/campaign-goal/retired-deps-pack-v1/report.json",
+      "file": "independent-pack/report.json",
+      "sha256": "ccdd8aebc5b9234c3819ce7818269bab008515692fad17d03dd5a951541e07c1"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/retired-deps-pack-v1/export.log",
+      "file": "independent-pack/export.log",
+      "sha256": "37ff5496a1b2e67c9e05c496e3e001fb2d4620543c23b9d0b10507cb66ea4c06"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/retired-deps-pack-v1/EnemyNativeIntegrationTest.log",
+      "file": "independent-pack/EnemyNativeIntegrationTest.log",
+      "sha256": "ed7384b3e713df78deffda39ac38135caaff4ab4a9128f2d125cfb28963ca7b7"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/retired-deps-pack-v1/NativeLegacyBossIntegrationTest.log",
+      "file": "independent-pack/NativeLegacyBossIntegrationTest.log",
+      "sha256": "92a093719960e7ff1f711af832d5b6dc632cbaccb361a01430cf3257ddfb6790"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/retired-deps-pack-v1/NativeCharacterRosterTest.log",
+      "file": "independent-pack/NativeCharacterRosterTest.log",
+      "sha256": "9ff576a1dd86415ea7544df118a58c403b94e7d7341a83d3b117c1f16a276d56"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/retired-deps-pack-v1/ChapterMapBackdropTest.log",
+      "file": "independent-pack/ChapterMapBackdropTest.log",
+      "sha256": "cfcc43e7a35a9d948bb0d0d393c078e550f5e00625480e92583a7c1f2d8aa4e5"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/EnemyNativeIntegrationTest-retired-deps-green-v1.log",
+      "file": "workspace/EnemyNativeIntegrationTest.log",
+      "sha256": "ed7384b3e713df78deffda39ac38135caaff4ab4a9128f2d125cfb28963ca7b7"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/NativeLegacyBossIntegrationTest-retired-deps-green-v1.log",
+      "file": "workspace/NativeLegacyBossIntegrationTest.log",
+      "sha256": "92a093719960e7ff1f711af832d5b6dc632cbaccb361a01430cf3257ddfb6790"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/EnemyStaticArtTest-retired-deps-green-v1.log",
+      "file": "workspace/EnemyStaticArtTest.log",
+      "sha256": "3e5c43bb5df2e2bdc3d2ae7ce3aa613c657e48af7fbad4e094e643d972b3fab2"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/EnemyDasherArtTest-retired-deps-green-v1.log",
+      "file": "workspace/EnemyDasherArtTest.log",
+      "sha256": "44ec0a2cf4e3a4dcde245554dd993eeebe3a55a35a88e10d444d3319922b5c84"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/ChibiRuntimeArtTest-retired-deps-green-v1.log",
+      "file": "workspace/ChibiRuntimeArtTest.log",
+      "sha256": "833705b90181cef1142620d1dd9584e7401d7fb305408ce73d9f4feb3aa078a5"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/EnemyHealthBarTest-retired-deps-green-v1.log",
+      "file": "workspace/EnemyHealthBarTest.log",
+      "sha256": "0b39c962799fb0711638386424ae2a3e1d7ba206bde9c6b39af783f7fa76e248"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/BossCameraFramingTest-retired-deps-green-v1.log",
+      "file": "workspace/BossCameraFramingTest.log",
+      "sha256": "6310ef815b3b8c6d800c46239dab567b1561ae17b9d1e85e48cb29d5050d090f"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/CombatFeedbackTest-retired-deps-green-v1.log",
+      "file": "workspace/CombatFeedbackTest.log",
+      "sha256": "d406a5ae69278bb92f931c402b550899310e38f523c22b55859a4bee1408b29a"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/retired-enemy-import-v1.log",
+      "file": "workspace/retired-enemy-import-v1.log",
+      "sha256": "cd008418bb3fd6696251035c83c7f2aef5fcf3829442150e91bf353ab349c1e0"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/retired-enemy-policy-red-v1.log",
+      "file": "workspace/retired-enemy-policy-red-v1.log",
+      "sha256": "56d753b0b6fd965df281991c232f458e7b3dd18f0cca13906147f0aff7c4a8fc"
+    },
+    {
+      "source": "build/diagnostics/campaign-goal/retired-enemy-policy-green-v1.log",
+      "file": "workspace/retired-enemy-policy-green-v1.log",
+      "sha256": "8b1cf4ff66ea650cfbd19c9cac7c8e5a5a0a52adda0acdf37bd9a6c5628f4df5"
+    }
+  ]
+}

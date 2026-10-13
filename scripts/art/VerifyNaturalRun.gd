@@ -112,7 +112,12 @@ func _initialize() -> void:
 	view.notify_mouse_entered()
 	await process_frame
 	started = Time.get_ticks_usec()
-	_key(KEY_ENTER if config.resume.is_empty() else KEY_C)
+	# This harness measures legacy waves, never the formal campaign primary.
+	await _click_legacy_button(scene.ui.start_screen.legacy_button)
+	if config.resume.is_empty():
+		await _click_legacy_button(scene.ui.start_screen.legacy_start_button)
+	else:
+		_key(KEY_C)
 	if not config.resume.is_empty():
 		var saved: Dictionary = expected_checkpoint.final.snapshot
 		var restored_growth: Dictionary = scene.upgrade_system.get_snapshot_state()
@@ -244,6 +249,24 @@ func _key(code: int) -> void:
 		event.pressed = pressed
 		view.push_input(event, true)
 
+func _click_legacy_button(button: Button) -> void:
+	if not button.is_visible_in_tree() or button.disabled:
+		valid = false
+		push_error("Natural legacy entry target unavailable: " + button.text)
+		return
+	var point := button.get_global_rect().get_center()
+	var motion := InputEventMouseMotion.new()
+	motion.position = point
+	view.push_input(motion, true)
+	for down in [true, false]:
+		var click := InputEventMouseButton.new()
+		click.position = point
+		click.button_index = MOUSE_BUTTON_LEFT
+		click.pressed = down
+		view.push_input(click, true)
+	events.append({"event": "legacy_compat_click", "button": button.text})
+	await process_frame
+
 func _release_input() -> void:
 	for action in ACTIONS:
 		Input.action_release(action)
@@ -327,6 +350,7 @@ func _reload(after_result: bool) -> void:
 		terminal = result.terminal
 	else:
 		valid = valid and scene.ui.continue_button.visible and scene.snapshot_store.load_snapshot() == saved
+		await _click_legacy_button(scene.ui.start_screen.legacy_button)
 		_key(KEY_C)
 		valid = valid and scene.run_state == scene.RunState.SETTLEMENT and scene.map_seed == int(saved.map_seed) and scene.kill_count == int(saved.kills) and scene.upgrade_system.coins == int(saved.coins)
 		events.append({"event": "continue_c", "saved": saved, "verified": valid, "scope": "same-process scene reopen; not yet separate OS process"})
@@ -342,6 +366,8 @@ func _save_hashes() -> Dictionary:
 
 func _source_hashes() -> Dictionary:
 	var hashes := {}
+	for path in ["scripts/ui/GameUI.gd", "scripts/ui/CampaignStartScreen.gd", "scripts/systems/CampaignEntryPolicy.gd", "scripts/systems/CampaignProgress.gd", "scripts/systems/ChapterCatalog.gd", "scripts/ui/CampaignMenuTheme.gd", "scripts/ui/CampaignBackdrop.gd"]:
+		hashes[path] = FileAccess.get_sha256("res://" + path)
 	for path in ["scripts/art/VerifyNaturalRun.gd", "scripts/art/check_natural_run_report.py", "scripts/art/NaturalRunMain.gd", "scripts/art/NaturalRunPolicy.gd", "scripts/art/NaturalRunDiagnostic.tscn", "scripts/Main.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/actors/OverseerBoss.gd", "scripts/systems/WaveDirector.gd", "scripts/systems/UpgradeSystem.gd", "scripts/systems/RunSnapshotStore.gd", "scripts/systems/CombatFeedback.gd", "scripts/world/ArenaLayout.gd"]:
 		hashes[path] = FileAccess.get_sha256("res://" + path)
 	return hashes

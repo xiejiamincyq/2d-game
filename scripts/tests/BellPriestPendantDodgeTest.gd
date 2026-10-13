@@ -1,0 +1,46 @@
+extends SceneTree
+## Actual input/physics; no teleport, dash or changed player stats after casting.
+const Boss = preload("res://scripts/actors/EchoBellPriestBoss.gd")
+const Player = preload("res://scripts/actors/Player.gd")
+var checks := 0
+var failures := 0
+var adjacent_moves := 0
+func check(ok: bool,label: String) -> void:
+	checks += 1
+	if not ok: failures += 1; push_error("TEST FAIL: BellPriestPendantDodgeTest "+label)
+func _initialize() -> void: call_deferred("run")
+func release_inputs() -> void:
+	for action in ["move_up","move_down","move_left","move_right","fire","dash_melee"]: Input.action_release(action)
+func run() -> void:
+	var original_rate := Engine.physics_ticks_per_second
+	for rate in [30,60,120]:
+		Engine.physics_ticks_per_second = rate
+		for route in [[Vector2(120,0),"move_down"],[Vector2(-120,0),"move_down"],[Vector2(0,120),"move_right"],[Vector2(0,-120),"move_right"]]:
+			for dodge in [false,true]:
+				release_inputs()
+				var host := Node2D.new(); root.add_child(host)
+				var shots := Node2D.new(); host.add_child(shots)
+				var player := Player.new(); player.position = route[0]; player.world_bounds = Rect2(-1000,-1000,2000,2000); host.add_child(player)
+				var boss := Boss.new(); boss.world_bounds = player.world_bounds; boss.setup(5,shots,player); host.add_child(boss)
+				var combat = boss.get_attack_director(); combat.advance(1.4); boss._update_entrance_reveal(); combat.attack_gap = 99
+				check(player.health.current_health==100 and player.shield==0 and is_equal_approx(player.player_collision.shape.radius,16.9),"actual player defaults changed")
+				check(combat.start_action(&"pendant") and boss.should_show_attack_marker(),"real pendant warning absent")
+				var origins: Array[Vector2] = combat.pendant_origins.duplicate(); var heading: Vector2 = combat.locked_direction
+				var headings: Array[Vector2] = combat.pendant_headings.duplicate()
+				var previous := player.position; var moves := 0; var input_started := false; var observed_shots := 0
+				var deadline := Time.get_ticks_msec()+2500
+				while combat.action_stage not in [combat.Stage.RECOVERY,combat.Stage.IDLE] and Time.get_ticks_msec()<deadline:
+					await physics_frame
+					if dodge and not input_started and combat.state_elapsed>=0.15: Input.action_press(route[1]); input_started = true
+					moves += 1 if player.position.distance_squared_to(previous)>0.01 else 0; previous = player.position
+					check(combat.pendant_origins==origins and combat.locked_direction==heading and combat.pendant_headings==headings,"cast follows ordinary moving target")
+					observed_shots = maxi(observed_shots,shots.get_child_count())
+				release_inputs(); adjacent_moves += moves
+				check(Time.get_ticks_msec()<deadline and observed_shots==2 and shots.get_child_count()==0,"finite pair does not naturally complete %s/%s"%[rate,route[0]])
+				if dodge: check(player.health.current_health==100 and input_started and moves>=4,"0.15 reaction ordinary dodge fails %s/%s; HP=%s"%[rate,route[0],player.health.current_health])
+				else: check(player.health.current_health==70 and moves==0,"stationary control not actually hit once %s/%s; HP=%s"%[rate,route[0],player.health.current_health])
+				check(player.scale==Vector2.ONE and not player.dash_active and not player.is_stealthed() and not player.player_collision.disabled,"dodge bypasses normal collision")
+				host.free(); await process_frame
+	release_inputs(); Engine.physics_ticks_per_second = original_rate
+	if not failures: print("TEST PASS: BellPriestPendantDodgeTest %d; %d actual adjacent moves, 12 normal-input delayed dodges + 12 stationary hits"%[checks,adjacent_moves])
+	quit(1 if failures else 0)

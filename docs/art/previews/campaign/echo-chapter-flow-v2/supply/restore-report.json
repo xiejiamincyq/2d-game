@@ -1,0 +1,24 @@
+{
+	"checks": 11,
+	"passed": true,
+	"process_id": 7460,
+	"progress_sha256": "dcc136a102ab9aa021fe15d45376dabd16856c57b16d9f003de8df3ad564c5e1",
+	"ready_chapters": [
+		1,
+		2,
+		3,
+		4,
+		5
+	],
+	"scope": "Fresh engine process/actual Main reads isolated real-input fifth clear. Existing evidence progress read-only, fresh diagnostic report only. Not another natural run, OS input or human playtest.",
+	"state": {
+		"cleared_chapters": [
+			1,
+			2,
+			3,
+			4,
+			5
+		],
+		"version": 1
+	}
+}

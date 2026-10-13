@@ -6,6 +6,7 @@ extends Node2D
 @onready var player: AnimationPlayer = $AnimationPlayer
 var _dead := false
 var body_rect := Rect2()
+@export_range(0,64,1) var visual_bounds_padding := 4.0
 
 func _ready() -> void:
 	var points: PackedVector2Array = $Facing/Skin.polygon
@@ -13,7 +14,7 @@ func _ready() -> void:
 		body_rect = Rect2(points[0], Vector2.ZERO)
 		for point in points:
 			body_rect = body_rect.expand(point)
-		body_rect = body_rect.grow(4) # Conservative ordinary gait/action bounds, not collision.
+		body_rect = body_rect.grow(visual_bounds_padding) # Review per rig; never collision.
 	player.animation_finished.connect(_on_animation_finished)
 	play_clip("idle")
 

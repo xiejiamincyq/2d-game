@@ -1,0 +1,400 @@
+RESOURCE IMPORT PASS
+TEST SUITE PASS: CampaignCatalogTest
+TEST SUITE PASS: CampaignEntryPolicyTest
+TEST SUITE PASS: CampaignPrimaryEntryTest
+TEST SUITE PASS: CampaignFlowCompletionTest
+TEST SUITE PASS: CampaignChainEvidenceTest
+TEST SUITE PASS: CampaignChainFileTest
+TEST SUITE PASS: CampaignChainFlowTest
+TEST SUITE PASS: NativeChapterPilotThreatTest
+TEST SUITE PASS: CampaignProgressTest
+TEST SUITE PASS: CampaignProgressStoreTest
+TEST SUITE PASS: CampaignMenuTest
+TEST SUITE PASS: CampaignMenuIntegrationTest
+TEST SUITE PASS: CampaignChapterLaunchTest
+TEST SUITE PASS: NurseryMapTest
+TEST SUITE PASS: ChapterMapBackdropTest
+TEST SUITE PASS: NurseryMovementTest
+TEST SUITE PASS: FoundryMapTest
+TEST SUITE PASS: FoundrySeedGenerationTest
+TEST SUITE PASS: FoundryMovementTest
+TEST SUITE PASS: SaltLayoutTest
+TEST SUITE PASS: SaltMapTest
+TEST SUITE PASS: SaltMovementTest
+TEST SUITE PASS: ArchiveLayoutTest
+TEST SUITE PASS: ArchiveMapTest
+TEST SUITE PASS: ArchiveMovementTest
+TEST SUITE PASS: EchoLayoutTest
+TEST SUITE PASS: RiftLayoutTest
+TEST SUITE PASS: RiftPropArtTest
+TEST SUITE PASS: RiftMapTest
+TEST SUITE PASS: RiftMovementTest
+TEST SUITE PASS: RiftFaultTest
+TEST SUITE PASS: RiftFaultPhysicsTest
+TEST SUITE PASS: RiftFieldTest
+TEST SUITE PASS: RiftFieldPhysicsTest
+TEST SUITE PASS: RiftEncounterPolicyTest
+TEST SUITE PASS: RiftEncounterTest
+TEST SUITE PASS: RiftEncounterRuntimeTest
+TEST SUITE PASS: RiftObserverAttackGateTest
+TEST SUITE PASS: RiftObserverAttackResourceTest
+TEST SUITE PASS: RiftObserverMotionContractTest
+TEST SUITE PASS: RiftObserverBeamTest
+TEST SUITE PASS: RiftObserverBeamClockTest
+TEST SUITE PASS: RiftObserverBeamDodgeTest
+TEST SUITE PASS: RiftObserverOriginSafetyTest
+TEST SUITE PASS: RiftObserverCircleFlightTest
+TEST SUITE PASS: RiftObserverFragmentTest
+TEST SUITE PASS: RiftObserverRefractAttackTest
+TEST SUITE PASS: RiftObserverRefractDodgeTest
+TEST SUITE PASS: RiftObserverProbeTest
+TEST SUITE PASS: RiftObserverProbeBoundaryTest
+TEST SUITE PASS: RiftObserverProbeOriginBoundaryTest
+TEST SUITE PASS: RiftObserverProbeAttackTest
+TEST SUITE PASS: RiftObserverProbeDodgeTest
+TEST SUITE PASS: RiftObserverAutomaticCycleTest
+TEST SUITE PASS: RiftObserverLifecycleTest
+TEST SUITE PASS: RiftObserverIntegrationTest
+TEST SUITE PASS: RiftObserverRuntimeTest
+TEST SUITE PASS: RiftChapterTest
+TEST SUITE PASS: RiftChapterLaunchTest
+TEST SUITE PASS: EchoMapTest
+TEST SUITE PASS: EchoMovementTest
+TEST SUITE PASS: EchoBeatTest
+TEST SUITE PASS: EchoFieldTest
+TEST SUITE PASS: EchoBeatPhysicsTest
+TEST SUITE PASS: EchoBeatEntitySeparationTest
+TEST SUITE PASS: EchoEncounterPolicyTest
+TEST SUITE PASS: EchoEncounterTest
+TEST SUITE PASS: EchoEncounterRuntimeTest
+TEST SUITE PASS: EchoBossEncounterTest
+TEST SUITE PASS: EchoChapterTest
+TEST SUITE PASS: EchoChapterLaunchTest
+TEST SUITE PASS: ArchiveSporeNestTest
+TEST SUITE PASS: ArchiveSporeFieldTest
+TEST SUITE PASS: ArchiveSporePhysicsTest
+TEST SUITE PASS: SaltTidalBandTest
+TEST SUITE PASS: SaltTidalFieldTest
+TEST SUITE PASS: SaltTidalPhysicsTest
+TEST SUITE PASS: FoundryHeatVentTest
+TEST SUITE PASS: FoundryHeatFieldTest
+TEST SUITE PASS: FoundryHeatPhysicsTest
+TEST SUITE PASS: ChapterEncounterCompatibilityTest
+TEST SUITE PASS: ChapterSplitClearanceTest
+TEST SUITE PASS: SplittingMoteOwnerExitTest
+TEST SUITE PASS: CapsuleBirthContextTest
+TEST SUITE PASS: ArchiveEncounterPolicyTest
+TEST SUITE PASS: ArchiveEncounterTest
+TEST SUITE PASS: ArchiveBossBroodTest
+TEST SUITE PASS: ArchiveBossCycleTest
+TEST SUITE PASS: ArchiveBossBroodBirthTest
+TEST SUITE PASS: ArchiveBossBroodLifecycleTest
+TEST SUITE PASS: ArchiveBossVictoryCleanupTest
+TEST SUITE PASS: ArchiveBossFailureCancellationTest
+TEST SUITE PASS: ArchiveChapterTest
+TEST SUITE PASS: ArchiveChapterLaunchTest
+TEST SUITE PASS: ArchiveDamageTargetsTest
+TEST SUITE PASS: SaltEncounterPolicyTest
+TEST SUITE PASS: SaltEncounterTest
+TEST SUITE PASS: SaltEncounterRuntimeTest
+TEST SUITE PASS: SaltBossEncounterTest
+TEST SUITE PASS: FoundryEncounterTest
+TEST SUITE PASS: FoundryEncounterRuntimeTest
+TEST SUITE PASS: FoundryBossEncounterTest
+TEST SUITE PASS: NurseryEncounterTest
+TEST SUITE PASS: NurseryClearanceProofTest
+TEST SUITE PASS: NurseryChapterTest
+TEST SUITE PASS: ChapterDeathTailTest
+TEST SUITE PASS: SharedChapterRunTest
+TEST SUITE PASS: ChapterEvolutionContextTest
+TEST SUITE PASS: ChapterFinaleFlowTest
+TEST SUITE PASS: ChapterFinaleUITest
+TEST SUITE PASS: ChapterBuildChoiceTest
+TEST SUITE PASS: ChapterRewardBudgetTest
+TEST SUITE PASS: ChapterPostClearHookTest
+TEST SUITE PASS: ChapterReplayGuardTest
+TEST SUITE PASS: ChapterFailureCleanupTest
+TEST SUITE PASS: ChapterTerrainWitnessTest
+TEST SUITE PASS: DiagnosticProjectileAimTest
+TEST SUITE PASS: ChapterBuildAimTest
+TEST SUITE PASS: ChapterBuildPointerTest
+TEST SUITE PASS: FoundryChapterTest
+TEST SUITE PASS: FoundryChapterLaunchTest
+TEST SUITE PASS: SaltChapterTest
+TEST SUITE PASS: SaltChapterLaunchTest
+TEST SUITE PASS: ChapterViewportHostingTest
+TEST SUITE PASS: NurseryProjectileDropTest
+TEST SUITE PASS: NativeMonsterSampleTest
+TEST SUITE PASS: NativePaperSkinTest
+TEST SUITE PASS: RootlingDraftTest
+TEST SUITE PASS: NativeActorResourceTest
+TEST SUITE PASS: NativePlayerResourceTest
+TEST SUITE PASS: PlayerNativeIntegrationTest
+TEST SUITE PASS: NativeArtValidatorTest
+TEST SUITE PASS: NativeRigCheckpointTest
+TEST SUITE PASS: NativePlayerCatalogTest
+TEST SUITE PASS: NativeDroneResourceTest
+TEST SUITE PASS: NativeDroneCatalogTest
+TEST SUITE PASS: NativeDroneIntegrationTest
+TEST SUITE PASS: NativeCharacterRosterTest
+TEST SUITE PASS: PaperStyleGroupTest
+TEST SUITE PASS: EnemyNativeIntegrationTest
+TEST SUITE PASS: EnemyWorldStatusTest
+TEST SUITE PASS: SporelingResourceTest
+TEST SUITE PASS: SporelingIntegrationTest
+TEST SUITE PASS: CinderRunnerResourceTest
+TEST SUITE PASS: CinderRunnerIntegrationTest
+TEST SUITE PASS: CinderChargeTest
+TEST SUITE PASS: CinderChargeResourceTest
+TEST SUITE PASS: SaltNeedlerResourceTest
+TEST SUITE PASS: SaltNeedlerIntegrationTest
+TEST SUITE PASS: FolioLobberTest
+TEST SUITE PASS: FolioLobberResourceTest
+TEST SUITE PASS: StoneCarrierResourceTest
+TEST SUITE PASS: StoneCarrierAttackResourceTest
+TEST SUITE PASS: StoneCarrierAttackIntegrationTest
+TEST SUITE PASS: StoneCarrierIntegrationTest
+TEST SUITE PASS: VineGuardResourceTest
+TEST SUITE PASS: VineGuardIntegrationTest
+TEST SUITE PASS: VineGuardAttackResourceTest
+TEST SUITE PASS: VineGuardAttackDirectorTest
+TEST SUITE PASS: VineGuardAttackIntegrationTest
+TEST SUITE PASS: VineSeedPhysicsTest
+TEST SUITE PASS: FurnaceForemanResourceTest
+TEST SUITE PASS: FurnaceForemanPlaybackTest
+TEST SUITE PASS: FurnaceForemanAttackDirectorTest
+TEST SUITE PASS: FurnaceForemanPhysicsTest
+TEST SUITE PASS: FurnaceForemanAttackResourceTest
+TEST SUITE PASS: FurnaceForemanIntegrationTest
+TEST SUITE PASS: FurnaceForemanDodgeTest
+TEST SUITE PASS: TideShellResourceTest
+TEST SUITE PASS: TideShellPlaybackTest
+TEST SUITE PASS: TideShellAttackGateTest
+TEST SUITE PASS: TideShellAttackResourceTest
+TEST SUITE PASS: TideShellWaveGeometryTest
+TEST SUITE PASS: TideShellAttackDirectorTest
+TEST SUITE PASS: TideShellIntegrationTest
+TEST SUITE PASS: TideShellClawSweepTest
+TEST SUITE PASS: TideShellPhysicsTest
+TEST SUITE PASS: TideShellDodgeTest
+TEST SUITE PASS: SporeArchivistResourceTest
+TEST SUITE PASS: SporeArchivistPlaybackTest
+TEST SUITE PASS: SporeArchivistAttackGateTest
+TEST SUITE PASS: SporeArchivistAttackResourceTest
+TEST SUITE PASS: ArchivePageProjectileTest
+TEST SUITE PASS: ArchiveBossPageIntegrationTest
+TEST SUITE PASS: ArchiveBossPageLifecycleTest
+TEST SUITE PASS: ArchiveBossPageDodgeTest
+TEST SUITE PASS: ArchiveBossSealTest
+TEST SUITE PASS: ArchiveBossSealLifecycleTest
+TEST SUITE PASS: ArchiveBossSealDodgeTest
+TEST SUITE PASS: BellPriestResourceTest
+TEST SUITE PASS: BellPriestPlaybackTest
+TEST SUITE PASS: BellPriestAttackGateTest
+TEST SUITE PASS: BellPriestAttackResourceTest
+TEST SUITE PASS: BellPriestMotionContractTest
+TEST SUITE PASS: BellPriestIntegrationTest
+TEST SUITE PASS: BellPriestStrikeTest
+TEST SUITE PASS: BellPriestBellAttackTest
+TEST SUITE PASS: BellPriestBellDodgeTest
+TEST SUITE PASS: BellPriestPendantProjectileTest
+TEST SUITE PASS: BellPriestPendantAttackTest
+TEST SUITE PASS: BellPriestPendantDodgeTest
+TEST SUITE PASS: BellPriestCrownProjectileTest
+TEST SUITE PASS: BellPriestCrownAttackTest
+TEST SUITE PASS: BellPriestCrownDodgeTest
+TEST SUITE PASS: BellPriestCrownPhase3DodgeTest
+TEST SUITE PASS: BellPriestLifecycleTest
+TEST SUITE PASS: BellPriestAutomaticCycleTest
+TEST SUITE PASS: RiftObserverResourceTest
+TEST SUITE PASS: RiftObserverPlaybackTest
+TEST SUITE PASS: RootCommanderResourceTest
+TEST SUITE PASS: RootCommanderIntegrationTest
+TEST SUITE PASS: RootCommanderAttackResourceTest
+TEST SUITE PASS: RootCommanderAttackIntegrationTest
+TEST SUITE PASS: NativeLegacyBossIntegrationTest
+TEST SUITE PASS: EmberSparkResourceTest
+TEST SUITE PASS: EmberSparkIntegrationTest
+TEST SUITE PASS: EmberSparkClockTest
+TEST SUITE PASS: FlankingCrabResourceTest
+TEST SUITE PASS: FlankingCrabIntegrationTest
+TEST SUITE PASS: FlankingCrabMotionTest
+TEST SUITE PASS: SplittingMoteResourceTest
+TEST SUITE PASS: SplittingMoteIntegrationTest
+TEST SUITE PASS: SplittingMoteLifecycleTest
+TEST SUITE PASS: CapsulePlanterResourceTest
+TEST SUITE PASS: CapsulePlantHazardTest
+TEST SUITE PASS: CapsulePlanterIntegrationTest
+TEST SUITE PASS: CapsulePlanterLifecycleTest
+TEST SUITE PASS: EchoRingAttackTest
+TEST SUITE PASS: EchoSentinelResourceTest
+TEST SUITE PASS: EchoSentinelIntegrationTest
+TEST SUITE PASS: EchoSentinelClockTest
+TEST SUITE PASS: ShadeAmbushAttackTest
+TEST SUITE PASS: CirclingShadeGeometryTest
+TEST SUITE PASS: CirclingShadeResourceTest
+TEST SUITE PASS: CirclingShadeIntegrationTest
+TEST SUITE PASS: CirclingShadeClockTest
+TEST SUITE PASS: EliteHybridAttackTest
+TEST SUITE PASS: RiftEliteGeometryTest
+TEST SUITE PASS: RiftEliteResourceTest
+TEST SUITE PASS: RiftEliteIntegrationTest
+TEST SUITE PASS: RiftShardPhysicsTest
+TEST SUITE PASS: RiftEliteClockTest
+TEST SUITE PASS: SpaceCutAttackTest
+TEST SUITE PASS: SpaceCutterGeometryTest
+TEST SUITE PASS: SpaceCutterResourceTest
+TEST SUITE PASS: SpaceCutterIntegrationTest
+TEST SUITE PASS: SpaceCutterClockTest
+TEST SUITE PASS: BalanceTest
+TEST SUITE PASS: EconomyBuildTest
+TEST SUITE PASS: CombatEventTest
+TEST SUITE PASS: CombatFeedbackTest
+TEST SUITE PASS: EnemyHitFeedbackTest
+TEST SUITE PASS: EnemyAttackFeedbackTest
+TEST SUITE PASS: EnemyCompactAttackTest
+TEST SUITE PASS: EnemyHealthBarTest
+TEST SUITE PASS: AudioLifecycleTest
+TEST SUITE PASS: OriginalOverdriveAudioTest
+TEST SUITE PASS: ChapterPerformanceLedgerTest
+TEST SUITE PASS: MainCloseTest
+TEST SUITE PASS: DamageTest
+TEST SUITE PASS: ProjectilePickupTest
+TEST SUITE PASS: GrenadeVelocityTest
+TEST SUITE PASS: EnemyProjectileRadiusTest
+TEST SUITE PASS: EnemyDamageMultiplierTest
+TEST SUITE PASS: ThunderMatrixIntervalTest
+TEST SUITE PASS: ScrapperAttackTest
+TEST SUITE PASS: GameplayDescriptionsTest
+TEST SUITE PASS: RateTest
+TEST SUITE PASS: DashTest
+TEST SUITE PASS: PlayerDashWallContactTest_30Hz
+TEST SUITE PASS: PlayerDashWallContactTest_60Hz
+TEST SUITE PASS: PlayerDashWallContactTest_120Hz
+TEST SUITE PASS: StealthTerrainTest_30Hz
+TEST SUITE PASS: StealthTerrainTest_60Hz
+TEST SUITE PASS: StealthTerrainTest_120Hz
+TEST SUITE PASS: StealthRecoveryTest_30Hz
+TEST SUITE PASS: StealthRecoveryTest_60Hz
+TEST SUITE PASS: StealthRecoveryTest_120Hz
+TEST SUITE PASS: StealthRecoverySideEffectTest_30Hz
+TEST SUITE PASS: StealthRecoverySideEffectTest_60Hz
+TEST SUITE PASS: StealthRecoverySideEffectTest_120Hz
+TEST SUITE PASS: StealthRecoveryQueryTest_30Hz
+TEST SUITE PASS: StealthRecoveryQueryTest_60Hz
+TEST SUITE PASS: StealthRecoveryQueryTest_120Hz
+TEST SUITE PASS: StealthRecoveryAccountingTest_30Hz
+TEST SUITE PASS: StealthRecoveryAccountingTest_60Hz
+TEST SUITE PASS: StealthRecoveryAccountingTest_120Hz
+TEST SUITE PASS: MovementTest
+TEST SUITE PASS: ArenaMapTest
+TEST SUITE PASS: ArenaRuntimeTest
+TEST SUITE PASS: WaveTest
+TEST SUITE PASS: PortalTest
+TEST SUITE PASS: PortalRuntimeClockTest
+TEST SUITE PASS: Phase5CombatTest
+TEST SUITE PASS: BossTest
+TEST SUITE PASS: BossHealthBarTest
+TEST SUITE PASS: CombatStatusLayoutTest
+TEST SUITE PASS: BossCameraFramingTest
+===== BossIndicatorOcclusionTest FAILED =====
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+ERROR: TEST FAIL: BossIndicatorOcclusionTest actual priest not started after entrance
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/tests/BossIndicatorOcclusionTest.gd:15)
+       [1] run (res://scripts/tests/BossIndicatorOcclusionTest.gd:44)
+
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+
+ERROR: TEST FAIL: BossIndicatorOcclusionTest actual priest not started after entrance
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/tests/BossIndicatorOcclusionTest.gd:15)
+       [1] run (res://scripts/tests/BossIndicatorOcclusionTest.gd:44)
+
+TEST SUITE PASS: BossTentacleTest
+TEST SUITE PASS: BossPatternTest
+TEST SUITE PASS: BossDirectorTest
+TEST SUITE PASS: BossRuntimeClockTest
+TEST SUITE PASS: SnapshotTest
+TEST SUITE PASS: ContinueTest
+TEST SUITE PASS: OverdriveTest
+TEST SUITE PASS: Phase19Test
+TEST SUITE PASS: Phase20Test
+TEST SUITE PASS: Phase21Test
+TEST SUITE PASS: DroneVisualLifecycleTest
+TEST SUITE PASS: EnemyBehaviorTest
+TEST SUITE PASS: EnemyFlockTest
+TEST SUITE PASS: EnemyFlockPolicyTest
+TEST SUITE PASS: EnemyNeighborGridTest
+TEST SUITE PASS: UpgradeTest
+TEST SUITE PASS: StateTest
+TEST SUITE PASS: GateFailureTest
+TEST SUITE PASS: UITest
+TEST SUITE PASS: AimReticleOutlineTest
+TEST SUITE PASS: SettlementUITest
+TEST SUITE PASS: PerformanceTest
+TEST SUITE PASS: SmokeTest
+TEST SUITE PASS: FriendlyEffectPaletteTest
+TEST SUITE PASS: HostileEffectPaletteTest
+TEST SUITE PASS: NaturalRunPolicyTest
+TEST SUITE PASS: NaturalRunSnapshotCheckTest
+TEST SUITE PASS: NaturalRunRenderedTest
+TEST SUITE PASS: CollectionCaptureTest
+TEST SUITE PASS: LateCrowdLedgerTest
+TEST SUITE PASS: StressCaptureTest
+TEST SUITE PASS: BossReadabilityTest
+TEST SUITE PASS: EnemyReadabilityTest
+TEST SUITE PASS: EnemyDasherArtTest
+TEST SUITE PASS: EnemyStaticArtTest
+TEST SUITE PASS: ProjectileLandingVisualTest
+TEST SUITE PASS: LobberVisualLifecycleTest
+TEST SUITE PASS: ChibiRuntimeArtTest
+TEST SUITE PASS: PlayerOcclusionOutlineTest
+TEST SUITE PASS: FriendlyEffectLayerTest
+TEST SUITE PASS: GroundWarningLayerTest
+TEST SUITE PASS: test_acquire_hunyuan3d_2mv (python, 3 tests)
+TEST SUITE PASS: test_arena_runtime_report (python, 13 tests)
+TEST SUITE PASS: test_art_stress_performance_report (python, 1 tests)
+TEST SUITE PASS: test_audio_exit_timeout (python, 1 tests)
+TEST SUITE PASS: test_build_dasher_runtime_lod_candidates (python, 1 tests)
+TEST SUITE PASS: test_build_player_action_preview (python, 4 tests)
+TEST SUITE PASS: test_build_player_action_slice (python, 3 tests)
+TEST SUITE PASS: test_build_player_cardinal_previews (python, 1 tests)
+TEST SUITE PASS: test_build_player_grip_pose_preview (python, 4 tests)
+TEST SUITE PASS: test_build_player_sample (python, 2 tests)
+TEST SUITE PASS: test_campaign_chain_report (python, 5 tests)
+TEST SUITE PASS: test_collection_capture (python, 12 tests)
+TEST SUITE PASS: test_dasher_action_assets (python, 1 tests)
+TEST SUITE PASS: test_generate_player_turnaround_model_mv (python, 9 tests)
+TEST SUITE PASS: test_late_crowd_matrix (python, 14 tests)
+TEST SUITE PASS: test_late_crowd_report (python, 11 tests)
+TEST SUITE PASS: test_movement_repeatability_matrix (python, 26 tests)
+TEST SUITE PASS: test_movement_repeatability_report (python, 56 tests)
+TEST SUITE PASS: test_natural_render (python, 8 tests)
+TEST SUITE PASS: test_natural_run_report (python, 16 tests)
+TEST SUITE PASS: test_pack_environment_atlas (python, 2 tests)
+TEST SUITE PASS: test_paired_six_scenes (python, 19 tests)
+TEST SUITE PASS: test_prepare_chibi_assets (python, 6 tests)
+TEST SUITE PASS: test_prepare_static_enemy_sprite (python, 3 tests)
+TEST SUITE PASS: test_project_status_docs (python, 4 tests)
+TEST SUITE PASS: test_release_pack_policy (python, 11 tests)
+TEST SUITE PASS: test_remove_connected_light_background (python, 2 tests)
+TEST SUITE PASS: test_remove_player_modeling_backgrounds (python, 2 tests)
+TEST SUITE PASS: test_repack_animation_sheet (python, 4 tests)
+TEST SUITE PASS: test_runner_audio_exit_gate (python, 3 tests)
+TEST SUITE PASS: test_split_player_modeling_sheet (python, 2 tests)
+TEST SUITE PASS: test_split_player_weapon_sheet (python, 3 tests)
+TEST SUITE PASS: test_sporeling_evidence (python, 2 tests)
+TEST SUITE PASS: test_uid_policy (python, 3 tests)
+TEST SUITE PASS: test_validate_asset_registry (python, 7 tests)
+TEST SUITE PASS: test_validate_manifest (python, 5 tests)
+TEST SUITE PASS: validate_art_pipeline_skill (python, 13 tests)
+
+TEST RUN FAILED (3 violations)
+- BossIndicatorOcclusionTest: exited with 1
+- BossIndicatorOcclusionTest: expected one pass marker, found 0
+- BossIndicatorOcclusionTest: output contained a forbidden error or leak marker

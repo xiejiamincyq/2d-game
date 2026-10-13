@@ -1,0 +1,23 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "rift_encounter_v1",
+  "review_state": "draft",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/rift-encounter-review-v1.md",
+  "environment_preview": "res://docs/art/previews/campaign/rift-encounter-v1/encounter-fault.png",
+  "prop_preview": "res://docs/art/previews/campaign/rift-encounter-v1/locked-line-cut.png",
+  "runtime_evidence": "res://docs/art/previews/campaign/rift-encounter-v1/report.json",
+  "assets": [
+    {"role":"chapter-encounter-owner","id":"rift_mixed_encounter","authoring_source":"res://scripts/systems/RiftEncounterDirector.gd","scope":"Thin seeded two-family policy and combat-only two/four actual map-owned faults; shared reward/debt/cancellation lifecycle; unavailable Boss explicit null"}
+  ],
+  "external_raster_dependencies": [],
+  "reference_policy": "Project-original native ink-paper actors and physical terrain; no paid artwork copied, external download or new installation.",
+  "limitations": [
+    "Policy328 and controlled transactions300 actual pass; not natural encounter clear or balance approval",
+    "Actual GPU2868 and9 images viewed,34 source hashes and10 delivery files verified",
+    "R3 complete: actual full292 Godot301306/36 Python272 plus independent PCK64 suites71605/resource315/Main120/release exit0;124 sources6 frozen items unchanged",
+    "Early family captures contain actual birth portals; later mixed frames prove both native silhouettes, not isolated animation approval",
+    "No Observer Boss, chapter6-ready, whole-goal completion, human/OS playtest or dense performance signoff"
+  ]
+}

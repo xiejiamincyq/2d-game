@@ -1,0 +1,11 @@
+{
+  "asset_id": "furnace_foreman_paper_v2",
+  "runtime_scene": "res://scenes/actors/native/furnace_foreman_paper_v2.tscn",
+  "motion_library": "res://assets/art/actors/native/furnace_foreman_motion_v2.tres",
+  "role": "boss",
+  "review_state": "style-approved",
+  "bone_count": 23,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "hit", "entrance", "death", "jet_warning", "jet_attack", "jet_recovery", "ram_warning", "ram_attack", "ram_recovery", "vents_warning", "vents_attack", "vents_recovery"],
+  "rig_checkpoint": "res://docs/art/native-checkpoints/furnace_foreman_attack_v1.json"
+}

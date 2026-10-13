@@ -1,0 +1,83 @@
+{
+	"actual_adjacent_moves": 758,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/props.png",
+			"sha256": "74833f1dead8da2056413ca83871aefe82c4bcf8607aefd6aef5deb8c22d1e6f"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/overview-0.png",
+			"sha256": "c0ec6b49633ae51c26d2dbfc1040697f394861a095fd4840d01be25389d75d6a"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/overview-521.png",
+			"sha256": "e1d2483aa7feb57c18ed8e7045c420ef031f33bf7ae3187a82ca5c1e9417858b"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/overview-20261011.png",
+			"sha256": "6aa4329a94ac4f6a70bfb10e43b6da53afe451af06825be150a2eb00cfb3bd43"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/runtime-start.png",
+			"sha256": "c6fd929f330cb9890e6ddced396afea62bb9629af2887ae8ab3da3162dbea9e2"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/runtime-path-0.png",
+			"sha256": "6f14bdf8361ebc56117f5e1b49778f0f6a0f58a91b8c22bc0a77912ca9526b31"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/runtime-path-1.png",
+			"sha256": "2c123d5f0ea7523331a17e1b13d75ee7081b6e1b0c45c6c988ec1f397164e92a"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/runtime-path-3.png",
+			"sha256": "35c73407b4eafee5884897965fed9e79629d9d91bfaf8b7b33e7f01dcb810de6"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/runtime-path-4.png",
+			"sha256": "08d56d29b76bc5f02360eb07dff23cbeb672347f94164e42d01010e5a885b358"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/runtime-960.png",
+			"sha256": "2cc8e5186c38bebc8da2da7e3919b2a61446ee4c3b6ce7571e4f86981b375985"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/runtime-1280.png",
+			"sha256": "cf6429852681787195f3b43e64f7bccaf8dd4d57f8acf6a8702c87ec731bb506"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_map_gpu_v1/runtime-1920.png",
+			"sha256": "b8efa22a87fcc85310e071d847cea3b4bfce363e461be014602370f1ff2ecf0b"
+		}
+	],
+	"checks": 859,
+	"faded_upper_alpha": 0.321568638086319,
+	"passed": true,
+	"scope": "Original native crank benches/split-ring relays, transparent GPU opaque bases and separate upper fading, three actual seeded maps, ordinary full-radius Player inputs via upper/lower bypass, real 960/1280/1920 viewports. No in-run transform/stat injection, live faults, enemies, Boss, sixth readiness/unlock/save, OS input, human playtest, dense performance or whole-goal completion.",
+	"sources": {
+		"assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+		"assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+		"assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db",
+		"assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+		"scenes/actors/native/player_paper_v1.tscn": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+		"scenes/world/rift_observatory.tscn": "1a17fad79ca3fffaf12d5f43183cd88a7938e99d5d466d1673d58cb3a6e8b97e",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderEchoMapPreview.gd": "3f98eca0fa056cf6fbb09d557ab3d40125e4ad63fa2c7bb8dbebad7118486764",
+		"scripts/art/RenderRiftMapPreview.gd": "1e929e2fa26d3d5a6d7fd00d49c5cf96518dcadeb1cdf391608596db1960f211",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/tests/EchoMovementTest.gd": "3c83157387f47784f3af430681d339d1d5511bcb78d40b7ba9d4ef749fc3f16f",
+		"scripts/tests/RiftLayoutTest.gd": "ee7a5dcfaccb0e842fd1d2ca0519746f158b615405d0d4f4840cc48874c9ad1b",
+		"scripts/tests/RiftMapTest.gd": "c4c7e9a474ff689c1bc1230eafb1325c6dd578831e7a78e215589d81ac73d537",
+		"scripts/tests/RiftMovementTest.gd": "dcf17f68ba2459735df593bdc454d4d017af6622bdbe1ffac2b04f042d5297b0",
+		"scripts/tests/RiftPropArtTest.gd": "58d0d767b82beadb05dc5d6ebe55f57d4a45974c94228c2f6738f17b29440f08",
+		"scripts/world/ArenaLayout.gd": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+		"scripts/world/RiftArenaLayout.gd": "aa2c2bceaaa5493ec5b33ce39ee87db9778350e4e8f5280a5f4041b8d0ab5f68",
+		"scripts/world/RiftFloor.gd": "b0b6db5a5b67e19d5259230e7217a085e4964d20fa3bcdf009b8ef371e61de03",
+		"scripts/world/RiftMap.gd": "baad8c7c19f047460495d9ff0242ade4b05f7d384f9c610b04aec3a37397060e",
+		"scripts/world/RiftObstacle.gd": "f12edb262e80b9d7b1ec74a2e4e89a0ea970e47ece86f3d50dfbe2b12fc67bec",
+		"scripts/world/RiftPropArt.gd": "3ea138ddf87600a4c468e4daf91b1aa1fd88f128d0612ba5dfaecb03de2d9301",
+		"scripts/world/TerrainSweep.gd": "08e472ff12bb0ab46ca2e86a88061e54be7f3f2cc3780f50d15eec12dff13255",
+		"themes/MintFarmTheme.tres": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63"
+	}
+}

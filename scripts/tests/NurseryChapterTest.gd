@@ -1,6 +1,6 @@
 extends SceneTree
 
-const Support = preload("res://scripts/tests/TestSupport.gd")
+const Support = preload("TestSupport.gd")
 const Store = preload("res://scripts/systems/CampaignProgressStore.gd")
 const Progress = preload("res://scripts/systems/CampaignProgress.gd")
 var assertions := 0
@@ -58,7 +58,7 @@ func _dispose(chapter: Node) -> void:
 
 func _run() -> void:
 	var scene_path := "res://scenes/campaign/nursery_chapter.tscn"
-	check(FileAccess.file_exists(scene_path), "actual chapter scene absent")
+	check(ResourceLoader.exists(scene_path), "actual chapter scene absent")
 	if failures > 0:
 		quit(1)
 		return
@@ -79,12 +79,15 @@ func _run() -> void:
 	await _battle(chapter)
 	check(chapter.ui.supply_button.visible and chapter.ui.risk_button.visible, "actual route choices absent")
 	chapter.ui.supply_button.pressed.emit()
+	check(Support.claim_chapter_finale(chapter), "supply must pass real finale UI before Boss")
 	check(chapter.director.route == &"supply" and chapter.ui.proceed_button.visible, "UI route did not reach Boss prep")
-	check(chapter.ui.flow_description.text.contains("旧资源"), "transitional Boss masquerades as new art")
+	check(chapter.ui.flow_description.text.contains("藤鞭") and chapter.ui.flow_description.text.contains("根刺") and chapter.ui.flow_description.text.contains("种雨") and not chapter.ui.flow_description.text.contains("旧机制"), "Boss preparation does not explain actual new attacks")
 	chapter.ui.proceed_button.pressed.emit()
 	var boss = chapter.director.get_active_boss()
 	check(boss != null and chapter.ui.boss_health_bar.visible, "UI did not spawn/show actual Boss")
-	check(chapter.ui.wave_label.text.contains("首领"), "Boss HUD still reports the completed spore encounter")
+	check(boss.get("native_visual")!=null and boss.boss_visual==null and boss.get_visual_node().skeleton.get_bone_count()==22,"chapter UI bypasses actual native VineGuard")
+	check(chapter.ui.wave_label.text.contains("藤冠守卫") and not chapter.ui.wave_label.text.contains("孢子植床"), "Boss HUD still reports the completed spore encounter")
+	check(not chapter.ui.wave_label.text.contains("过渡"), "Boss HUD still labels replaced attacks transitional")
 	chapter._toggle_pause()
 	check(paused and chapter.ui.resume_button.visible, "combat pause UI broken")
 	chapter.ui.resume_button.pressed.emit()

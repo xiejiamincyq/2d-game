@@ -1,5 +1,46 @@
 # 五分钟暴兵：执行清单
 
+> 最新执行状态见[短状态](campaign-final-live-state-v1.md)、[F9终态](../docs/campaign-final-f9-terminal-review-v1.md)与[提交范围/验证依赖修复](../docs/campaign-final-git-scope-review-v1.md)。以下“当前”均为当时历史节点，旧计数/句柄/checkbox不覆盖最新证据。OS输入待解锁，Goal未完成；不提交部分工作。
+
+当前[F3成长实现进展](../docs/campaign-chapter-growth-progress-v1.md)：正式上下文/家族3级/首领前整备16项2128与GPU107/12图已验证。诊断预算/指针/发射/两类主武器提前量RED→5项206+GPU146通过。正常火力、机动各取进化但实际死亡，失败完整保留；工程冒险正常取雷网后真正击败Boss/独立存档解锁2，严格actualexit0/PASS10044/1660源保持。三不同地图正常进化可达，不把不同报价/驾驶版本胜负当严格平衡比较。[诊断详情](../docs/campaign-grenade-orbit-diagnosis-v1.md)。下一统一策略复查多种子/供给风险与已通关真正重玩；F3不整阶段勾，F4/最终当前源full/候选/新链保留，goal active，不提交/推送中间工作。
+
+R4/R5、F1与[F2真实空档连续六关](../docs/campaign-fresh-chain-acceptance-v1.md)均阶段闭合并Gmail通知。F2不是预设解锁夹具，六次实际0和同源父存档链已通过；不是整项目完成。下一[F3正式进化不可达修复/多种子构筑](campaign-build-balance-plan-v1.md)，之后[F4黑边/死亡暂停/文字/性能/许可/当前源full及本地候选](campaign-final-visual-plan-v1.md)。旧运行状态是历史，整goal active，不提交/推送中间工作。
+
+当前长期六关goal：[R5接入实际进展](../docs/rift-chapter-progress-review-v1.md)。工厂/薄协调/Ready6受控验证通过；普通两路线/新进程恢复和联合full/PCK/release待闭合，R4/R5整阶段不勾。F1–F4保持，未提前邮件/提交推送/发布，下方旧Ready1–5/自动beam等为历史。
+
+最新R4d已完成：[三批折射/真实GPU/当前包审查](../docs/rift-observer-refract-complete-review-v1.md)。20/113/660专项、普通18躲避+18站立、GPU5199/十图实看/49源/11交付；独立PCK21夹具21415项/Main120/88证据源actualexit0。三招可手动启动，自动仍beam，下一R4e；整R4/R5/F1–F4未完成，无中间提交/推送/切片邮件。下方R4c银行已历史。
+
+当前R4c已验收：[双探针/真实边界/当前GPU与包](../docs/rift-observer-probes-complete-review-v1.md)。101/37/64/766专项、自然18+18双探针与6+6超距控制、GPU153/十图实看/46源/11交付；最新PCK17夹具13453项/Main120/81证据源actualexit0。下一R4d分批折射；refract、整R4/R5/F1–F4仍未完成，无中间提交/推送或切片邮件。
+
+R4c按[实施前契约](../docs/rift-observer-probes-contract-v1.md)完成以下门：
+
+- [x] c1 实际Actor/Player、Probe锁点圆扫掠/薄墙/一次尝试与寿命；缺资源/零elapsed/独立分段RED后101+37GREEN。
+- [x] c2 实际唯一Director和左右峰值出生，不追踪/不超两枚/无取消残留；拒绝RED后766GREEN。另补严格SensorOrigin薄墙/边界RED→64GREEN，既有beam回归通过。
+- [x] c3 正常0.15秒反应/三physics率/六近方向18+18及原超距6+6、十图实际查看、七UID与同源独立PCK17/13453，实际退出/PASS/无错误泄漏；不把受控clock当通关。
+
+这不是整个R4、真实第六Boss胜利/Ready或全目标完成；后续R4d/e、R5/F1–F4保留，未中间提交推送。
+
+下一[R4d实施前契约](../docs/rift-observer-refract-contract-v1.md)：
+
+- [x] d0 独立保持Probe行为的有限圆飞行内核提取，[真实审查](../docs/rift-observer-circle-flight-review-v1.md)：语义缺资源RED→20新配置/其余7受控GREEN，两招普通physics2836/6480回归；不放开refract，旧R4c包已历史。
+- [x] d1 Fragment固定4/360/0.09无驻留/24；缺资源RED→113GREEN，复用内核/九共享尝试/取消。
+- [x] d2 唯一Director三批/九槽/真实间隙/严格Beacon，拒绝RED→660GREEN；两个旧白名单单独更新，unknown仍拒绝，既有回归通过。
+- [x] d3 普通0.15反应/三physics率/六方向18+18；GPU视觉细线问题另RED→5199/十图实看，当前同源独立包21/21415通过。不是整R4或目标完成。
+
+当前R3已验收：实际最终292 Godot301306/36 Python272，独立包64/71605和315资源/Main120/release通过，124源/六冻结项保持。[遭遇审查](../docs/art/rift-encounter-review-v1.md)。进入[R4观测者原创动作与实际Boss](../docs/rift-observer-actions-contract-v1.md)，第六未Ready，完整六关/F1–F4仍未完成；整体goal active，不提交/推送中间工作，下方旧待终态为历史。
+
+当前R3混合遭遇专项通过，[审查](../docs/art/rift-encounter-review-v1.md)：薄策略328/受控事务300、实际GPU2868/九图270移动52发，34源/10交付相同；124当前源冻结，独立PCK/资源/release/full正在串行验证，R3未验收。观测者Boss尚未完成，第六仍未Ready，整体goal active；下方R2及更早是各自阶段历史。
+
+当前第六R2机关阶段已验收，[审查](../docs/art/rift-fault-review-v1.md)：882+2653真实位移、十三图已看；实际最终289 Godot/297895断言和36 Python/272测试、独立PCK61专项68198断言/315资源/Main120/release exit0，104源/六冻结项保持。进入[R3混合遭遇](../docs/rift-encounter-contract-v1.md)，第六仍未Ready；整体goal active、不提交/推送中间里程碑。下方R1及更早为历史阶段。
+
+第六关R1地图/原创设备/真实绕路已验收，[当前地图审查](../docs/art/rift-map-review-v1.md)；最终285 Godot/290168断言、36 Python/272测试及独立包/release实际退出0，84源不变。第五E5已闭合；R2机关、R3遭遇、R4Boss、R5正式流程均未做，Ready仍1–5。按[规格](../docs/rift-sixth-chapter-spec-v1.md)/[R1–R5切片](rift-sixth-chapter-plan-v1.md)推进；第六阶段不代替六关连续链/长期构筑/密集性能/许可总门。
+
+2026-10-11 E5第五关阶段已完成，详见[真实通关及当前验收](../docs/art/echo-chapter-review-v1.md)：两条普通输入路线/新进程恢复、方向牌避开身体、281 Godot261848断言/36 Python272、独立PCK53专项32168+315资源检查/Main120/release通过，59源不变；新E5本地EXE用已验证同SHA PCK启动120帧退出0。Ready1–5，第六禁入；资源draft/整体goal active，未中间提交/推送/发布。下一第六关阶梯设备岛与独立机关/Boss。下方E4b及更早为历史快照。
+
+2026-10-11 E4b战斗阶段完成：[最新实际骨骼战斗审查](../docs/art/bell-priest-combat-review-v1.md)。取消重入233、Actor GPU518（36关键/180连续/六小尺度）、地图HUD127及20/42源SHA/23交付文件通过；最终全量v2退出0、277 Godot259296断言/36 Python272测试。独立同PCK49专项29615+315资源检查/Main120/release通过，6814400字节，51规范夹具与52日志核对。最终全量v1缺UID失败保留，正常导入修复，不删原规则。Main[1,2,3,4]；E5真实首领接线已语义RED但未实现/绿色，正式入口/正常通关/解锁6仍待做。draft/整体active，无中间提交/推送/发布，旧名册/v1/候选保留；阶段邮件记录见审查。以下旧全量数字及E4a“无Actor”为历史版本。
+
+2026-10-11[E4a钟祭原生动作资源已完成](../docs/art/bell-priest-actions-review-v1.md)，只勾资源门；下一[E4b实际Actor/三招与普通物理](../docs/bell-priest-actions-spec-v1.md)。Main仍[1,2,3,4]，E5第五入口/解锁6未做；以campaign-skeleton-todo-v1.md及第五关依赖清单为准，不以资源或首场实战代替整关完成，不提交/推送中间节点。
+
 2026-10-09 当前执行清单为 [骨骼与六关长期目标](campaign-skeleton-todo-v1.md)。以下历史勾选不代表新关卡、骨骼或新美术已经完成。
 
 2026-10-02 起执行 [6 Pro 监督收尾清单](supervised-completion-todo.md)。本文历史勾选保留，人工验收待办继续有效；旧测试数量与 3D 方案不能作为当前事实。
@@ -252,3 +293,21 @@
 
 - [ ] 人工试玩近战/远程敌人的追击层次、无人机转向手感和三地刺伤害上限
 - [ ] 人工确认隐身期间可穿过敌人，破隐后护盾拾取、敌弹命中与身体阻挡均正常恢复
+2026-10-12原生六关goal继续：旧R4e full v2中断（165套、无终态汇总），不算通过。当前同源独立包会话25936运行，终态后release；专项/GPU/包/启动门通过后依次R5a真实Boss归属、薄Chapter/真实保存重试、Ready菜单。R4与R5等共享最终完整full/当前PCK/GPU/新进程门后一起签收，当前不勾阶段、不发完成邮件，不中间提交/推送或发布；F1–F4原范围保留。详见[r5契约](../docs/rift-chapter-integration-contract-v1.md)。
+# 当前F3重玩验证
+
+见[真实重玩验证](../docs/campaign-replay-ordinary-proof-v1.md)：首次失败保留，出生中立输入握手/Main失败清理RED→GREEN，8项233检查；v2实际空档Boss胜利→真实Replay→新地图/成长归零/永久SHA不变→682步普通移动/145发/16击杀，11047检查/实际0/无错误泄漏、1668源一致。重玩门闭合，F3整体/统一输入火力机动比较、F4及最终当前源验收仍未完成，不中间Git或邮件。
+
+同版火力供给/机动风险现均真正通关保存，三系/三不同地图+重玩通过；详见[统一矩阵](../docs/campaign-build-uniform-matrix-v1.md)。15项963相关回归通过；当前火力风险配对`f3_fire_risk_pair_20261012_v1`真实运行，源码冻结。F3平衡差距/报价经济待配对，不勾整个阶段，F4和最终当前源验收保留。
+
+配对已actualexit1：Boss真通关/保存HP40，但第2遭遇两帧clearance失败，禁止算GREEN，1668源终态匹配后解冻。工程配对暂停，先排碰撞；只读失败witness RED→21+Hook6+Budget15实际通过，阈值0.05不改。普通dash后敌体重叠恢复是候选，真实physics复现/生产修复/原普通案例复测未完成。整体goal active，不Git/邮件/发布。
+
+最新：普通dash真实物理RED复现实体恢复推入墙，暂停恢复再RED；保护pending生命周期修复后三Hz六案例355/625/1165 GREEN、10项11224相关回归/导入通过。原失败地图481615574风险实跑`f3_fire_risk_recovery_20261012_v1`严格actual0/14265、0地形witness、Boss真保存HP96，1672源逐SHA一致，24份canonical保留旧失败不覆盖。工程供给`f3_engineering_supply_recovery_20261012_v1`当前真空档进行，代码冻结；F3/F4/最终full/PCK/新链未完成，不中间Git或完成邮件。
+
+最新工程供给已actual0/8547/雷网真实Boss保存/0穿墙，1672源和火力复测一致，20canonical份保留。测后保留既有倍率、不把自动驾驶当真人平衡。F4死亡尾段真实Chapter RED→仅通关放行当前owner无碰撞ghost→GPU44及相关回归GREEN；手动暂停、实际启用且先动过玩家、通关活敌、外owner、保存SHA通过，独立复核Required消除。下一地图边缘衬底，整个F4/full/PCK/新链未验收，不Git/邮件/发布。
+
+最新六区地图边缘：[衬底切片](../docs/chapter-map-backdrop-v1.md)实际Main清屏上下文144例GPU RED→GREEN321、七项地形回归9196通过；修复不改变地面/碰撞/导航/镜头。首轮裸地图默认灰色假通过保留并明确不合格。真实第1/6Boss关卡取景GPU仍待验证，F4/full/PCK/新链及整体goal active，不中间Git/完成邮件/公开发布。
+
+最新F4：真实首/六Chapter背景与生命周期GPU1036、6fixture/162图/144边角零clear-color、1678源末一致通过；非普通胜利/动画攻击/全部演员取景。Map观察器补wave snapshot ready前隔离后323通过。旧敌七条未消费preload/八PNG精确退役，策略RED8→GREEN10、工作区2240、独立PCK809/604目录零retired匹配通过，原件保留、其余旧资源/音效来源未宣称已清理。下一文字音频及余下精确闭包/密集性能，然后最终full/PCK/新同源六关链。goal active，无中间Git/完成邮件/公开发布。
+
+最新增量：另外五PNG及旧MP3精确退出导出；项目原创0.18秒超载PCM真实接入原声部/冷却/退出路径。语义RED保留，工作区7项5558、策略11、当前独立PCK六项5507/594目录/1680源SHA通过，13旧PNG+MP3匹配0，原件不变。独立只读审查无Critical/Required；killed=true受控反馈路由不是真实敌人致死/Main证明，程序音频指标不是听感。27份canonical及试听见[记录](../docs/audio/original-overdrive-cue-v1.md)。下一文字一致性/密集性能/剩余许可与最终full/候选/新同源六关链；goal active，不中间Git/邮件/公开发布。

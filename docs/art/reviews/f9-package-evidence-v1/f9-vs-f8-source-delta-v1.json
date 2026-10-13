@@ -1,0 +1,43 @@
+{
+  "changed": [
+    "scripts/tests/run_tests.ps1",
+    "scripts/ui/CampaignBackdrop.gd",
+    "scripts/ui/CampaignStartScreen.gd"
+  ],
+  "added": [
+    "scripts/art/RenderCampaignMenuMotion.gd",
+    "scripts/art/RenderCampaignMenuMotion.gd.uid",
+    "scripts/tests/CampaignMenuMotionTest.gd",
+    "scripts/tests/CampaignMenuMotionTest.gd.uid",
+    "scripts/ui/CampaignAnimatedBackdrop.gd",
+    "scripts/ui/CampaignAnimatedBackdrop.gd.uid"
+  ],
+  "removed": [],
+  "unchanged_canonical": 1723,
+  "performance_explicit_dependencies": [
+    {
+      "current_hash_mismatches": [],
+      "explicit_dependencies": 22,
+      "width": 1280
+    },
+    {
+      "current_hash_mismatches": [],
+      "explicit_dependencies": 22,
+      "width": 960
+    },
+    {
+      "current_hash_mismatches": [],
+      "explicit_dependencies": 22,
+      "width": 1920
+    }
+  ],
+  "scope": "Actual source hash comparison, not a new performance measurement. Menu/test-only change; F8 performance remains a historical scoped first-chapter baseline.",
+  "audit_command_incident": {
+    "cause": "Unparenthesized PowerShell join/comparison precedence",
+    "fixed_same_list_match": true,
+    "preliminary_exit": 1,
+    "game_code_changed": false,
+    "same_list_false_alarm_reproduced": true,
+    "fixed_missing_item_rejected": true
+  }
+}

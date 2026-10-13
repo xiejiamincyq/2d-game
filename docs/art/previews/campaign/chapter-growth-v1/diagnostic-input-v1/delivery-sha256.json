@@ -1,0 +1,61 @@
+{
+  "scope": "Current five relevant GREEN suites 206 checks; previous GPU pointer 146 before all-primary policy change; five semantic RED histories, not whole project validation",
+  "copies": [
+    {
+      "sha256": "2133af24b968e7bbb1511f94e23f72a4509f30007a534a0689c717a7c0c061d6",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/diagnostic-input-v1/ChapterBuildAimTest-all-primary-aim-green-v1.log",
+      "source": "build/diagnostics/campaign-goal/ChapterBuildAimTest-all-primary-aim-green-v1.log"
+    },
+    {
+      "sha256": "f2b80bc5abc538b617ff55526962391649bdd6054ddcd86c0ac3fa89158802f0",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/diagnostic-input-v1/DiagnosticProjectileAimTest-all-primary-aim-green-v1.log",
+      "source": "build/diagnostics/campaign-goal/DiagnosticProjectileAimTest-all-primary-aim-green-v1.log"
+    },
+    {
+      "sha256": "11dde81c8d9a7fb5e5f1356412b1ddbea257c3adf109e0bd0f41778f20a41845",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/diagnostic-input-v1/ChapterBuildChoiceTest-all-primary-aim-green-v1.log",
+      "source": "build/diagnostics/campaign-goal/ChapterBuildChoiceTest-all-primary-aim-green-v1.log"
+    },
+    {
+      "sha256": "6023b07303ce702fa767e824c41524d11e01bb6d7d70839cbe3239c8f58165b9",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/diagnostic-input-v1/ChapterRewardBudgetTest-all-primary-aim-green-v1.log",
+      "source": "build/diagnostics/campaign-goal/ChapterRewardBudgetTest-all-primary-aim-green-v1.log"
+    },
+    {
+      "sha256": "d5838449a9d24a6d524f3fe36cb8defa7bfcd624a26ea8103c0570b87b39f027",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/diagnostic-input-v1/ChapterBuildPointerTest-all-primary-aim-green-v1.log",
+      "source": "build/diagnostics/campaign-goal/ChapterBuildPointerTest-all-primary-aim-green-v1.log"
+    },
+    {
+      "sha256": "b685aac85184f18f79968a26fe3c5c7e0bd56782c5118fec8b73b1842ccf1322",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/diagnostic-input-v1/chapter-build-pointer-gpu-v1.log",
+      "source": "build/diagnostics/campaign-goal/chapter-build-pointer-gpu-v1.log"
+    },
+    {
+      "sha256": "04191cf820a8f446846e8067e762680018884a5974e2142d73f4b1ec1b2e23b7",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/diagnostic-input-v1/chapter-reward-budget-red-v2.log",
+      "source": "build/diagnostics/campaign-goal/chapter-reward-budget-red-v2.log"
+    },
+    {
+      "sha256": "329d02208372803d8b530283613083fd5dc729078184ceee8a7c842abaec9cec",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/diagnostic-input-v1/projectile-aim-red-v2.log",
+      "source": "build/diagnostics/campaign-goal/projectile-aim-red-v2.log"
+    },
+    {
+      "sha256": "90ad117f7a5321515c50b3d5307babf25a0ed5116af433ba25bc546141908ff3",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/diagnostic-input-v1/chapter-build-pointer-red-v1.log",
+      "source": "build/diagnostics/campaign-goal/chapter-build-pointer-red-v1.log"
+    },
+    {
+      "sha256": "f650ed210814265f3780b6326dc4c134ca6650b9ef006c35a196f02d219d02b5",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/diagnostic-input-v1/chapter-build-shot-observer-red-v1.log",
+      "source": "build/diagnostics/campaign-goal/chapter-build-shot-observer-red-v1.log"
+    },
+    {
+      "sha256": "9a5b33c333ce65cd1b0bf16ceaa46b16a6af9c612ab720557ccfe35a6c750479",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/diagnostic-input-v1/chapter-build-normal-aim-red-v1.log",
+      "source": "build/diagnostics/campaign-goal/chapter-build-normal-aim-red-v1.log"
+    }
+  ],
+  "schema": 1
+}

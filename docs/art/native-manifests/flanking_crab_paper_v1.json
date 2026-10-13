@@ -1,0 +1,10 @@
+{
+  "asset_id": "flanking_crab_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/flanking_crab_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/flanking_crab_motion_v1.tres",
+  "role": "ordinary",
+  "review_state": "style-approved",
+  "bone_count": 20,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "warning", "attack", "hit", "death"]
+}

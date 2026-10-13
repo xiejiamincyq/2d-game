@@ -3,7 +3,7 @@ class_name AudioManager
 
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
-const OverdriveKillStream = preload("res://assets/audio/overdrive_bone_breaking.mp3")
+const OriginalOverdriveCue = preload("res://scripts/systems/OriginalOverdriveCue.gd")
 const HIT_COOLDOWN := 0.055
 const KILL_CONFIRM_COOLDOWN := 0.045
 const SHOOT_COOLDOWN := 0.02
@@ -59,7 +59,7 @@ func _ready() -> void:
 	streams["hit_dash"] = _make_impact(0.09, 0.62, 310.0, 95.0)
 	streams["hit_spike"] = _make_impact(0.045, 0.24, 2050.0, 620.0)
 	streams["kill_confirm"] = _make_kill_confirm()
-	streams["overdrive_kill"] = OverdriveKillStream
+	streams["overdrive_kill"] = OriginalOverdriveCue.build()
 	streams["laser_loop"] = _make_laser_loop()
 	streams["start"] = _make_tone(360.0, 0.22, 0.18, 0.55, 2.2)
 	streams["victory"] = _make_tone(740.0, 0.35, 0.16, 0.55, 1.6)

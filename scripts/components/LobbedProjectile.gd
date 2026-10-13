@@ -40,6 +40,7 @@ var elapsed := 0.0
 var start_position := Vector2.ZERO
 var tint := WARNING_COLOR
 var landing_fill: Node2D
+var impact_resolved := false
 
 func configure(origin: Vector2, destination: Vector2, target: Node2D) -> void:
 	global_position = origin
@@ -70,6 +71,9 @@ func _physics_process(delta: float) -> void:
 		_explode()
 
 func _explode() -> void:
+	if impact_resolved:
+		return
+	impact_resolved = true
 	if get_parent() != null:
 		var impact := ImpactVisual.new()
 		impact.name = "LobImpact"

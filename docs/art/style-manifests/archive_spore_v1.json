@@ -1,0 +1,15 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "archive_spore_v1",
+  "review_state": "draft",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/archive-spore-review-v1.md",
+  "environment_preview": "res://docs/art/previews/campaign/archive-spore-v2/runtime-active.png",
+  "prop_preview": "res://docs/art/previews/campaign/archive-spore-v2/native-sheet.png",
+  "runtime_evidence": "res://docs/art/previews/campaign/archive-spore-v2/report.json",
+  "assets": [
+    {"role": "destructible-environment", "id": "archive_spore_nest", "authoring_source": "res://scripts/world/ArchiveSporeNest.gd", "scope": "Original native opaque tray, angular mushroom caps, short thin warning rim and six small spore particles, broken stems; not an enemy character or baked raster"},
+    {"role": "chapter-environment-owner", "id": "archive_spore_field", "authoring_source": "res://scripts/world/ArchiveSporeField.gd", "scope": "Four preplaced side-room nests; actual chapter combat binding awaits A3"}
+  ]
+}

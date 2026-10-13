@@ -1,0 +1,20 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "boss_warning_readability_v2",
+  "review_state": "accepted-scoped-native-component",
+  "approval_authority": "user-delegated-art-review-and-requested-boss-fairness-2026-10-12",
+  "license_origin": "project-original",
+  "runtime_source": "res://scripts/components/BossEscapeGate.gd",
+  "runtime_source_sha256": "7c54141e8536b72038992a3f2970d6fb8b5ad6804880b735c9222a1ddac77bee",
+  "palette": ["#172026", "#f27a4b", "#f3eddc", "#ed8877"],
+  "design": "Original restrained locked danger boundaries, ground countdowns, projectile and capsule previews, and two outer claw sweep hulls. Retains previously reviewed native paper actors and libraries.",
+  "runtime_extents": [[1280, 720]],
+  "runtime_evidence": "docs/art/previews/campaign/boss-fairness-v2/report.json",
+  "review": "docs/campaign-boss-fairness-v1.md",
+  "limitations": [
+    "GPU v5 actual exit0, 1822 checks, source bank1764 rehashed without drift; all22 capture SHA exactly match already reviewed v4 pictures",
+    "Source bank now includes root and phase callback isolation and its regression test; v1 evidence is retained unchanged as history",
+    "Controlled combat clocks and a single map seed, not human reaction, natural victory or performance proof",
+    "Native code drawing only; not raster promotion, public release or whole-goal acceptance"
+  ]
+}

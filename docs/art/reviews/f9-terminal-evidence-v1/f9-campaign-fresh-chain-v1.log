@@ -1,0 +1,19 @@
+CHAIN LEG RUN: chapter=1 id=campaign_f9_fresh_v1_s1
+CHAIN LEG PASS: chapter=1 assertions=11859
+CHAIN LEG ACCEPTED: chapter=1 actual_exit=0
+CHAIN LEG RUN: chapter=2 id=campaign_f9_fresh_v1_s2
+CHAIN LEG PASS: chapter=2 assertions=11951
+CHAIN LEG ACCEPTED: chapter=2 actual_exit=0
+CHAIN LEG RUN: chapter=3 id=campaign_f9_fresh_v1_s3
+CHAIN LEG PASS: chapter=3 assertions=20267
+CHAIN LEG ACCEPTED: chapter=3 actual_exit=0
+CHAIN LEG RUN: chapter=4 id=campaign_f9_fresh_v1_s4
+CHAIN LEG PASS: chapter=4 assertions=16715
+CHAIN LEG ACCEPTED: chapter=4 actual_exit=0
+CHAIN LEG RUN: chapter=5 id=campaign_f9_fresh_v1_s5
+CHAIN LEG PASS: chapter=5 assertions=14307
+CHAIN LEG ACCEPTED: chapter=5 actual_exit=0
+CHAIN LEG RUN: chapter=6 id=campaign_f9_fresh_v1_s6
+CHAIN LEG PASS: chapter=6 assertions=13540
+CHAIN LEG ACCEPTED: chapter=6 actual_exit=0
+TEST PASS: CampaignFreshChain 6

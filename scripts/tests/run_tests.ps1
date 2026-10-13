@@ -38,17 +38,143 @@ if ($importExitCode -ne 0 -or $importOutput -match $forbidden) {
 Write-Host "RESOURCE IMPORT PASS" -ForegroundColor Green
 
 $gameplayTests = @(
+    "BossPhaseShutdownTest",
+    "BossFairnessFirstSecondTest",
+    "BossFairnessThirdFifthTest",
+    "BossFairnessFourthSixthTest",
+    "SporeArchivistMotionContractTest",
+    "BossWarningHitchTest",
+    "BossEscapeGateTest",
+    "VineSeedCancellationTest",
+    "VineRootReentryTest",
+    "BossReleasePreviewTest",
     "CampaignCatalogTest",
+    "CampaignEntryPolicyTest",
+    "CampaignPrimaryEntryTest",
+    "CampaignFlowCompletionTest",
+    "CampaignChainEvidenceTest",
+    "CampaignChainFileTest",
+    "CampaignChainFlowTest",
+    "NativeChapterPilotThreatTest",
     "CampaignProgressTest",
     "CampaignProgressStoreTest",
     "CampaignMenuTest",
+    "CampaignMenuMotionTest",
     "CampaignMenuIntegrationTest",
     "CampaignChapterLaunchTest",
     "NurseryMapTest",
+    "ChapterMapBackdropTest",
     "NurseryMovementTest",
+    "FoundryMapTest",
+    "FoundrySeedGenerationTest",
+    "FoundryMovementTest",
+    "SaltLayoutTest",
+    "SaltMapTest",
+    "SaltMovementTest",
+    "ArchiveLayoutTest",
+    "ArchiveMapTest",
+    "ArchiveMovementTest",
+    "EchoLayoutTest",
+    "RiftLayoutTest",
+    "RiftPropArtTest",
+    "RiftMapTest",
+    "RiftMovementTest",
+    "RiftFaultTest",
+    "RiftFaultPhysicsTest",
+    "RiftFieldTest",
+    "RiftFieldPhysicsTest",
+    "RiftEncounterPolicyTest",
+    "RiftEncounterTest",
+    "RiftEncounterRuntimeTest",
+    "RiftObserverAttackGateTest",
+    "RiftObserverAttackResourceTest",
+    "RiftObserverMotionContractTest",
+    "RiftObserverBeamTest",
+    "RiftObserverBeamClockTest",
+    "RiftObserverBeamDodgeTest",
+    "RiftObserverOriginSafetyTest",
+    "RiftObserverCircleFlightTest",
+    "RiftObserverFragmentTest",
+    "RiftObserverRefractAttackTest",
+    "RiftObserverRefractDodgeTest",
+    "RiftObserverProbeTest",
+    "RiftObserverProbeBoundaryTest",
+    "RiftObserverProbeOriginBoundaryTest",
+    "RiftObserverProbeAttackTest",
+    "RiftObserverProbeDodgeTest",
+    "RiftObserverAutomaticCycleTest",
+    "RiftObserverLifecycleTest",
+    "RiftObserverIntegrationTest",
+    "RiftObserverRuntimeTest",
+    "RiftChapterTest",
+    "RiftChapterLaunchTest",
+    "EchoMapTest",
+    "EchoMovementTest",
+    "EchoBeatTest",
+    "EchoFieldTest",
+    "EchoBeatPhysicsTest",
+    "EchoBeatEntitySeparationTest",
+    "EchoEncounterPolicyTest",
+    "EchoEncounterTest",
+    "EchoEncounterRuntimeTest",
+    "EchoBossEncounterTest",
+    "EchoChapterTest",
+    "EchoChapterLaunchTest",
+    "ArchiveSporeNestTest",
+    "ArchiveSporeFieldTest",
+    "ArchiveSporePhysicsTest",
+    "SaltTidalBandTest",
+    "SaltTidalFieldTest",
+    "SaltTidalPhysicsTest",
+    "FoundryHeatVentTest",
+    "FoundryHeatFieldTest",
+    "FoundryHeatPhysicsTest",
+    "ChapterEncounterCompatibilityTest",
+    "ChapterSplitClearanceTest",
+    "SplittingMoteOwnerExitTest",
+    "CapsuleBirthContextTest",
+    "ArchiveEncounterPolicyTest",
+    "ArchiveEncounterTest",
+    "ArchiveBossBroodTest",
+    "ArchiveBossCycleTest",
+    "ArchiveBossBroodBirthTest",
+    "ArchiveBossBroodLifecycleTest",
+    "ArchiveBossVictoryCleanupTest",
+    "ArchiveBossFailureCancellationTest",
+    "ArchiveChapterTest",
+    "ArchiveChapterLaunchTest",
+    "ArchiveDamageTargetsTest",
+    "SaltEncounterPolicyTest",
+    "SaltEncounterTest",
+    "SaltEncounterRuntimeTest",
+    "SaltBossEncounterTest",
+    "FoundryEncounterTest",
+    "FoundryEncounterRuntimeTest",
+    "FoundryBossEncounterTest",
     "NurseryEncounterTest",
+    "NurserySupplyPolicyTest",
+    "NurserySupplyRuntimeTest",
     "NurseryClearanceProofTest",
     "NurseryChapterTest",
+    "ChapterDeathTailTest",
+    "SharedChapterRunTest",
+    "ChapterEvolutionContextTest",
+    "ChapterFinaleFlowTest",
+    "ChapterFinaleUITest",
+    "ChapterBuildChoiceTest",
+    "ChapterRewardBudgetTest",
+    "ChapterPostClearHookTest",
+    "ChapterReplayGuardTest",
+    "ChapterFailureCleanupTest",
+    "ChapterTerrainWitnessTest",
+    "DiagnosticProjectileAimTest",
+    "ChapterBuildAimTest",
+    "ChapterBuildPointerTest",
+    "FoundryChapterTest",
+    "FoundryChapterLaunchTest",
+    "SaltChapterTest",
+    "SaltChapterLaunchTest",
+    "ChapterViewportHostingTest",
     "NurseryProjectileDropTest",
     "NativeMonsterSampleTest",
     "NativePaperSkinTest",
@@ -57,12 +183,129 @@ $gameplayTests = @(
     "NativePlayerResourceTest",
     "PlayerNativeIntegrationTest",
     "NativeArtValidatorTest",
+    "NativeRigCheckpointTest",
+    "NativePlayerCatalogTest",
+    "NativeDroneResourceTest",
+    "NativeDroneCatalogTest",
+    "NativeDroneIntegrationTest",
+    "NativeCharacterRosterTest",
     "PaperStyleGroupTest",
     "EnemyNativeIntegrationTest",
+    "EnemyWorldStatusTest",
     "SporelingResourceTest",
     "SporelingIntegrationTest",
     "CinderRunnerResourceTest",
     "CinderRunnerIntegrationTest",
+    "CinderChargeTest",
+    "CinderChargeResourceTest",
+    "SaltNeedlerResourceTest",
+    "SaltNeedlerIntegrationTest",
+    "FolioLobberTest",
+    "FolioLobberResourceTest",
+    "StoneCarrierResourceTest",
+    "StoneCarrierAttackResourceTest",
+    "StoneCarrierAttackIntegrationTest",
+    "StoneCarrierIntegrationTest",
+    "VineGuardResourceTest",
+    "VineGuardIntegrationTest",
+    "VineGuardAttackResourceTest",
+    "VineGuardAttackDirectorTest",
+    "VineRootFairnessTest",
+    "VineGuardAttackIntegrationTest",
+    "VineSeedPhysicsTest",
+    "FurnaceForemanResourceTest",
+    "FurnaceForemanPlaybackTest",
+    "FurnaceForemanAttackDirectorTest",
+    "FurnaceForemanPhysicsTest",
+    "FurnaceForemanAttackResourceTest",
+    "FurnaceForemanIntegrationTest",
+    "FurnaceForemanDodgeTest",
+    "TideShellResourceTest",
+    "TideShellPlaybackTest",
+    "TideShellAttackGateTest",
+    "TideShellAttackResourceTest",
+    "TideShellWaveGeometryTest",
+    "TideShellAttackDirectorTest",
+    "TideShellIntegrationTest",
+    "TideShellClawSweepTest",
+    "TideShellPhysicsTest",
+    "TideShellDodgeTest",
+    "SporeArchivistResourceTest",
+    "SporeArchivistPlaybackTest",
+    "SporeArchivistAttackGateTest",
+    "SporeArchivistAttackResourceTest",
+    "ArchivePageProjectileTest",
+    "ArchiveBossPageIntegrationTest",
+    "ArchiveBossPageLifecycleTest",
+    "ArchiveBossPageDodgeTest",
+    "ArchiveBossSealTest",
+    "ArchiveBossSealLifecycleTest",
+    "ArchiveBossSealDodgeTest",
+    "BellPriestResourceTest",
+    "BellPriestPlaybackTest",
+    "BellPriestAttackGateTest",
+    "BellPriestAttackResourceTest",
+    "BellPriestMotionContractTest",
+    "BellPriestIntegrationTest",
+    "BellPriestStrikeTest",
+    "BellPriestBellAttackTest",
+    "BellPriestBellDodgeTest",
+    "BellPriestPendantProjectileTest",
+    "BellPriestPendantAttackTest",
+    "BellPriestPendantDodgeTest",
+    "BellPriestCrownProjectileTest",
+    "BellPriestCrownAttackTest",
+    "BellPriestCrownDodgeTest",
+    "BellPriestCrownPhase3DodgeTest",
+    "BellPriestLifecycleTest",
+    "BellPriestAutomaticCycleTest",
+    "RiftObserverResourceTest",
+    "RiftObserverPlaybackTest",
+    "RootCommanderResourceTest",
+    "RootCommanderIntegrationTest",
+    "RootCommanderAttackResourceTest",
+    "RootCommanderAttackIntegrationTest",
+    "NativeLegacyBossIntegrationTest",
+    "LegacyOverseerActionsResourceTest",
+    "LegacyOverseerMotionIntegrationTest",
+    "NativeImpactArtTest",
+    "NativeImpactRuntimeTest",
+    "NativeArenaArtTest",
+    "NativeArenaRuntimeTest",
+    "NativeArenaPropGeometryTest",
+    "EmberSparkResourceTest",
+    "EmberSparkIntegrationTest",
+    "EmberSparkClockTest",
+    "FlankingCrabResourceTest",
+    "FlankingCrabIntegrationTest",
+    "FlankingCrabMotionTest",
+    "SplittingMoteResourceTest",
+    "SplittingMoteIntegrationTest",
+    "SplittingMoteLifecycleTest",
+    "CapsulePlanterResourceTest",
+    "CapsulePlantHazardTest",
+    "CapsulePlanterIntegrationTest",
+    "CapsulePlanterLifecycleTest",
+    "EchoRingAttackTest",
+    "EchoSentinelResourceTest",
+    "EchoSentinelIntegrationTest",
+    "EchoSentinelClockTest",
+    "ShadeAmbushAttackTest",
+    "CirclingShadeGeometryTest",
+    "CirclingShadeResourceTest",
+    "CirclingShadeIntegrationTest",
+    "CirclingShadeClockTest",
+    "EliteHybridAttackTest",
+    "RiftEliteGeometryTest",
+    "RiftEliteResourceTest",
+    "RiftEliteIntegrationTest",
+    "RiftShardPhysicsTest",
+    "RiftEliteClockTest",
+    "SpaceCutAttackTest",
+    "SpaceCutterGeometryTest",
+    "SpaceCutterResourceTest",
+    "SpaceCutterIntegrationTest",
+    "SpaceCutterClockTest",
     "BalanceTest",
     "EconomyBuildTest",
     "CombatEventTest",
@@ -72,6 +315,8 @@ $gameplayTests = @(
     "EnemyCompactAttackTest",
     "EnemyHealthBarTest",
     "AudioLifecycleTest",
+    "OriginalOverdriveAudioTest",
+    "ChapterPerformanceLedgerTest",
     "MainCloseTest",
     "DamageTest",
     "ProjectilePickupTest",
@@ -83,6 +328,9 @@ $gameplayTests = @(
     "GameplayDescriptionsTest",
     "RateTest",
     "DashTest",
+    "PlayerDashWallContactTest_30Hz",
+    "PlayerDashWallContactTest_60Hz",
+    "PlayerDashWallContactTest_120Hz",
     "StealthTerrainTest_30Hz",
     "StealthTerrainTest_60Hz",
     "StealthTerrainTest_120Hz",
@@ -109,6 +357,7 @@ $gameplayTests = @(
     "BossHealthBarTest",
     "CombatStatusLayoutTest",
     "BossCameraFramingTest",
+    "BossIndicatorOcclusionTest",
     "BossTentacleTest",
     "BossPatternTest",
     "BossDirectorTest",
@@ -171,24 +420,61 @@ foreach ($test in $tests) {
     $fixedStepArguments = ""
     $userArguments = ""
     $frameBudget = if ($test -in @("AudioLifecycleTest", "MainCloseTest")) { 12000 }
-        elseif ($test -eq "NurseryMovementTest") { 6000 }
-        elseif ($test -in @("NurseryEncounterTest", "NurseryChapterTest", "NurseryProjectileDropTest", "CampaignChapterLaunchTest")) { 1800 }
-        elseif ($test -in @("DashTest", "ScrapperAttackTest", "EnemyFlockTest", "EnemyFlockPolicyTest", "EnemyNeighborGridTest")) { 1800 }
-        elseif ($test -in @("PortalRuntimeClockTest", "BossRuntimeClockTest", "CombatStatusLayoutTest")) { 600 }
+        elseif ($test -in @("NurseryMovementTest", "FoundryMovementTest", "SaltMovementTest", "ArchiveMovementTest", "ArchiveSporePhysicsTest", "SaltTidalPhysicsTest", "FoundryHeatPhysicsTest", "SaltEncounterRuntimeTest", "FoundryEncounterRuntimeTest", "FurnaceForemanPhysicsTest", "FurnaceForemanDodgeTest", "TideShellPhysicsTest", "TideShellDodgeTest")) { 6000 }
+        elseif ($test -in @("ChapterSplitClearanceTest", "SplittingMoteOwnerExitTest", "CapsuleBirthContextTest", "ArchiveEncounterTest", "NurseryEncounterTest", "NurseryChapterTest", "NurseryProjectileDropTest", "CampaignChapterLaunchTest", "SaltEncounterTest", "FoundryChapterTest", "FoundryChapterLaunchTest", "SaltChapterTest", "SaltChapterLaunchTest")) { 1800 }
+        elseif ($test -in @("DashTest", "ScrapperAttackTest", "EnemyFlockTest", "EnemyFlockPolicyTest", "EnemyNeighborGridTest", "FlankingCrabMotionTest", "SplittingMoteLifecycleTest", "CapsulePlantHazardTest", "CapsulePlanterLifecycleTest", "EchoRingAttackTest", "EchoSentinelClockTest", "ShadeAmbushAttackTest", "CirclingShadeClockTest", "EliteHybridAttackTest", "RiftEliteIntegrationTest", "RiftShardPhysicsTest", "RiftEliteClockTest", "SpaceCutAttackTest", "SpaceCutterClockTest")) { 1800 }
+        elseif ($test -in @("PortalRuntimeClockTest", "BossRuntimeClockTest", "CombatStatusLayoutTest", "EnemyWorldStatusTest")) { 600 }
         else { 120 }
     # Clock tests observe real portal/Boss warnings at 60 FPS.
+    if ($test -eq "NurserySupplyRuntimeTest") { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -like "BossFairness*Test") { $frameBudget = 18000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("BossEscapeGateTest", "BossWarningHitchTest", "BossReleasePreviewTest", "SporeArchivistMotionContractTest")) { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("VineSeedCancellationTest", "VineRootReentryTest")) { $frameBudget = 3000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "ChapterDeathTailTest") { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("ChapterEvolutionContextTest", "ChapterFinaleFlowTest", "ChapterFinaleUITest", "ChapterBuildPointerTest", "ChapterReplayGuardTest")) { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "CampaignPrimaryEntryTest") { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("ArchivePageProjectileTest", "ArchiveBossPageDodgeTest", "ArchiveBossSealDodgeTest")) { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("ArchiveBossPageIntegrationTest", "ArchiveBossPageLifecycleTest", "ArchiveBossSealTest", "ArchiveBossSealLifecycleTest")) { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("ArchiveBossBroodTest", "ArchiveBossCycleTest", "ArchiveBossBroodBirthTest", "ArchiveBossBroodLifecycleTest", "ArchiveBossVictoryCleanupTest", "ArchiveBossFailureCancellationTest")) { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("ArchiveChapterTest", "ArchiveChapterLaunchTest")) { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "ArchiveDamageTargetsTest") { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+        if ($test -eq "EchoMovementTest") { $frameBudget = 12000; $fixedStepArguments = "--max-fps 120" }
+        if ($test -eq "RiftMovementTest") { $frameBudget = 12000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("RiftFaultTest", "RiftFieldTest")) { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "RiftFaultPhysicsTest") { $frameBudget = 30000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "RiftFieldPhysicsTest") { $frameBudget = 18000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "RiftEncounterPolicyTest") { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "RiftEncounterTest") { $frameBudget = 5000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "RiftEncounterRuntimeTest") { $frameBudget = 8000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "RiftObserverBeamClockTest") { $frameBudget = 3000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "RiftObserverBeamDodgeTest") { $frameBudget = 12000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("RiftObserverOriginSafetyTest", "RiftObserverCircleFlightTest", "RiftObserverFragmentTest", "RiftObserverRefractAttackTest", "RiftObserverProbeTest", "RiftObserverProbeBoundaryTest", "RiftObserverProbeOriginBoundaryTest", "RiftObserverProbeAttackTest")) { $frameBudget = 3000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "RiftObserverProbeDodgeTest") { $frameBudget = 12000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "RiftObserverRefractDodgeTest") { $frameBudget = 12000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("RiftObserverAutomaticCycleTest", "RiftObserverLifecycleTest", "RiftObserverIntegrationTest")) { $frameBudget = 3000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "RiftObserverRuntimeTest") { $frameBudget = 12000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("RiftChapterTest", "RiftChapterLaunchTest")) { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("EchoBeatTest", "EchoFieldTest")) { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "EchoBeatPhysicsTest") { $frameBudget = 16000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("EchoBeatEntitySeparationTest", "EchoEncounterPolicyTest", "EchoEncounterTest", "EchoEncounterRuntimeTest", "EchoBossEncounterTest", "EchoChapterTest", "EchoChapterLaunchTest")) { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "BossIndicatorOcclusionTest") { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("BellPriestIntegrationTest", "BellPriestStrikeTest", "BellPriestBellAttackTest", "BellPriestPendantProjectileTest", "BellPriestPendantAttackTest", "BellPriestCrownProjectileTest", "BellPriestCrownAttackTest", "BellPriestLifecycleTest", "BellPriestAutomaticCycleTest")) { $frameBudget = 3000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("BellPriestBellDodgeTest", "BellPriestPendantDodgeTest", "BellPriestCrownDodgeTest", "BellPriestCrownPhase3DodgeTest")) { $frameBudget = 12000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("ChapterSplitClearanceTest", "SplittingMoteOwnerExitTest", "CapsuleBirthContextTest", "ArchiveEncounterTest")) {
+        $fixedStepArguments = "--max-fps 120"
+    }
     # Their own five-second watchdogs remain the lifecycle failure bounds.
-    if ($test -eq "NurseryMovementTest") {
+    if ($test -in @("NurseryMovementTest", "FoundryMovementTest", "SaltMovementTest", "ArchiveMovementTest", "ArchiveSporePhysicsTest", "SaltTidalPhysicsTest", "FoundryHeatPhysicsTest", "SaltEncounterRuntimeTest", "SaltEncounterTest", "FoundryEncounterRuntimeTest", "FoundryEncounterTest", "FurnaceForemanPhysicsTest", "FurnaceForemanDodgeTest", "TideShellPhysicsTest", "TideShellDodgeTest")) {
         # Three real-time 30/60/120Hz routes await physics, not idle frames.
         # Cap idle throughput so quit-after cannot exhaust before physics runs;
         # keep the positive pass marker, frame bound and wall-clock watchdog.
         $fixedStepArguments = "--max-fps 120"
     }
-    if ($test -in @("NurseryEncounterTest", "NurseryChapterTest", "NurseryProjectileDropTest", "CampaignChapterLaunchTest")) {
+    if ($test -in @("NurseryEncounterTest", "NurseryChapterTest", "NurseryProjectileDropTest", "CampaignChapterLaunchTest", "FoundryChapterTest", "FoundryChapterLaunchTest", "SaltChapterTest", "SaltChapterLaunchTest")) {
         # This fixture waits the real Boss entrance, preserving its hit gate.
         $fixedStepArguments = "--max-fps 120"
     }
-    if ($test -match '^(StealthTerrainTest|StealthRecoveryTest|StealthRecoverySideEffectTest|StealthRecoveryQueryTest|StealthRecoveryAccountingTest)_(30|60|120)Hz$') {
+    if ($test -match '^(PlayerDashWallContactTest|StealthTerrainTest|StealthRecoveryTest|StealthRecoverySideEffectTest|StealthRecoveryQueryTest|StealthRecoveryAccountingTest)_(30|60|120)Hz$') {
         $scriptTest = $Matches[1]
         $physicsHz = $Matches[2]
         $fixedStepArguments = "--fixed-fps $physicsHz"

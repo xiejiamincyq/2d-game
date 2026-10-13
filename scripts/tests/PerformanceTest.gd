@@ -67,8 +67,8 @@ func _initialize() -> void:
 	var conditional_redraw := "\tif flash_timer > 0.0:\n\t\tflash_timer = maxf(0.0, flash_timer - delta)\n\t\t_queue_visual_redraw()"
 	if not _assert_true(enemy_source.find(conditional_redraw) != -1, "Enemy redraw is not gated by its flash state"):
 		return
-	var visual_redraw := "func _queue_visual_redraw() -> void:\n\tqueue_redraw()\n\tif is_instance_valid(ground_warning):\n\t\tground_warning.queue_redraw()"
-	if not _assert_true(enemy_source.find(visual_redraw) != -1 and enemy_source.count("queue_redraw()") == 2, "Enemy redraw must update both retained layers only through the gated helper"):
+	var visual_redraw := "func _queue_visual_redraw() -> void:\n\tqueue_redraw()\n\tif is_instance_valid(world_status):\n\t\tworld_status.refresh()\n\tif is_instance_valid(ground_warning):\n\t\tground_warning.queue_redraw()"
+	if not _assert_true(enemy_source.find(visual_redraw) != -1 and enemy_source.count("queue_redraw()") == 2, "Enemy must retain its two body/ground redraw calls and invalidate world hints through the gated helper"):
 		return
 
 	var audio: Node = AudioManagerScript.new()

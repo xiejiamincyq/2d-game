@@ -275,7 +275,7 @@ func _scene(scene: String, count: int) -> Array[Dictionary]:
 			"player_modulate": [player.modulate.r, player.modulate.g, player.modulate.b, player.modulate.a],
 			"outline_visible": player.get_node("PlayerOcclusionOutline").visible, "ui_labels": texts,
 			"terrain_alpha": terrain.modulate.a if terrain != null else 1.0, "enemy_flash_timers": flash_timers,
-			"boss_texture": boss.boss_visual.texture.resource_path if boss != null and "boss_visual" in boss else "original-procedural"}}
+			"boss_texture": (boss.get_visual_node().scene_file_path if boss.has_method("get_visual_node") else boss.boss_visual.texture.resource_path) if boss != null and "boss_visual" in boss else "original-procedural"}}
 		var hidden: Array[CanvasItem] = []
 		for node in main.world.get_children():
 			if node != player and node is CanvasItem and node.visible:

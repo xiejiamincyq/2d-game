@@ -1,0 +1,61 @@
+{
+	"active_positive_pixels": 12328,
+	"actual_adjacent_moves": 24,
+	"actual_damage": 18.0,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_tidal_gpu_v2/inactive.png",
+			"sha256": "9abb700706e18ba733a1a622ac54cc147801718f95e9a2551ec8ca1d3178a5df"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_tidal_gpu_v2/warning.png",
+			"sha256": "26e18b606096812872284768ef34dcb1ff539f0404a08f83281b01f7cf7fffbb"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_tidal_gpu_v2/active.png",
+			"sha256": "cb89a124fc570433e2db178457966a3e58b17fe99451ddd47bc53aaebfafcdfa"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_tidal_gpu_v2/paused.png",
+			"sha256": "85387e83cfb67082d93f996b34b1da17e542c266bfdd52cdc7bf64bfa9fcf6ab"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_tidal_gpu_v2/resume.png",
+			"sha256": "e0afc693128afeb561a50d7a2eee3986403bbffbe0a8428f07455a770ce83840"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_tidal_gpu_v2/ordinary-exit.png",
+			"sha256": "022055b6693361c2576f9b09cd261bd43f56375e4362f7e11b021aab753eee86"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_tidal_gpu_v2/death-cleared.png",
+			"sha256": "9edfdb00f12c0cb448a1ed0ff345430dfcf8f2115bb60a5f46be167419f8e055"
+		}
+	],
+	"checks": 82,
+	"passed": true,
+	"paused_residual_pixels": 0,
+	"scope": "Actual native map, live tidal clock, real Player take_damage, pause/resume/ordinary directional input and direct health-death lifecycle fixture. Not chapter encounter, natural victory, OS mouse, human playtest, performance or six-chapter completion.",
+	"sources": {
+		"assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+		"assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+		"assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db",
+		"assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+		"scenes/actors/native/player_paper_v1.tscn": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+		"scenes/world/salt_waterway.tscn": "4677ee17518c4b0eb37e9e60ca1a9daef2149663cbdef4e5de89a6485e3175c0",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderSaltTidalPreview.gd": "c57cb6da5e74069c712f9ef900650dc2343a8bc710825bfb70635a55bc04694a",
+		"scripts/components/HealthComponent.gd": "1b31ea06d89f3850ac240ba307199eaa5ccb87b20ccaff125f14d3f56068975d",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/world/ArenaLayout.gd": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+		"scripts/world/SaltArenaLayout.gd": "f4b0b71f9012b0292990ea8e05581a6dc358ec1959b1eb745ae90534f11424f4",
+		"scripts/world/SaltFloor.gd": "5b97ab2482e6f972b50276b96731798277b501b2ee14f12c1e605003dc882ea4",
+		"scripts/world/SaltMap.gd": "47b4ae475080957e5c92d8d2f4aeefe5497f5d3bdb897b6fa9f60be69d87df4f",
+		"scripts/world/SaltObstacle.gd": "670e029822fd36e6b80f32cf4713f6a993a86ae173660b1cd3bc5cb85ad07c0b",
+		"scripts/world/SaltPropArt.gd": "9fa58cc4e44fa37b01234915892fb365453248736e78c444b7e29deacbf34fec",
+		"scripts/world/SaltTidalBand.gd": "47bcdcce1cf7b36a6b49e26e7ad502930e84f2a507f8b05b3fef4ebbbc7dad36",
+		"scripts/world/SaltTidalField.gd": "02c2788a2dec7f24d27bc8a46fd0869fc35cefdf816cd4d5c7a5d934ff2b4b78"
+	},
+	"warning_positive_pixels": 12328
+}

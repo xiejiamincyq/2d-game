@@ -1,0 +1,61 @@
+{
+	"actual_adjacent_moves": 35,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_heat_gpu_v2/runtime-warning.png",
+			"sha256": "53512a8d4c50ba998f230cb33ac2eff4d813628b58fee3675001211637e7df5a"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_heat_gpu_v2/runtime-active.png",
+			"sha256": "7d8eaa868f5a3265eb31eee4ac4d82aa24453236657dfb3f32ac1881a71340b9"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_heat_gpu_v2/runtime-cooling.png",
+			"sha256": "742b5cd1e77239b219830c08b08f524a7caf17427b02b56a4d3205237b71155a"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_heat_gpu_v2/runtime-disabled.png",
+			"sha256": "064f33c95655789223362fc148c8cf84e446398fa33349d06aa98cbb329b1cb4"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_heat_gpu_v2/vent-cooling-1x.png",
+			"sha256": "9ea01c6fac7a026e1516747978461d4e70771f59ff8ceed81d961eb1b7035a81"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_heat_gpu_v2/vent-2-1x.png",
+			"sha256": "8cc7cf14a83477e7e2da4b90d5490c09d85647dd3b068688ef2c8e7bcd599ae7"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_heat_gpu_v2/vent-3-1x.png",
+			"sha256": "576c3d02935b679601117c1173ca3b185fd94c99319b1edcfdb347ea2d41a223"
+		}
+	],
+	"checks": 13219,
+	"isolated_positive_pixels": {
+		"2": 6292,
+		"3": 6876
+	},
+	"passed": true,
+	"real_crossing_damage": 18.0,
+	"scope": "Original native heat vent phases + actual map/Player ordinary-input crossing fixture. No second-chapter encounters, Boss victory, readiness, human playtest or performance claim.",
+	"sources": {
+		"assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+		"assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+		"assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db",
+		"assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+		"scenes/actors/native/player_paper_v1.tscn": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+		"scenes/world/ember_foundry.tscn": "2341ef17a693397df183e10e29e1a7f3015f2c2c978b7c12b6eb68b10e31ef41",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderFoundryHeatPreview.gd": "1c1acebcfb286a54745b54b6efed1a9db734e30727b7e283fcb245f0178bf214",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/world/ArenaLayout.gd": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+		"scripts/world/FoundryArenaLayout.gd": "66efeb155cd62585b1f4ee7eed00fc227eaa84e5b818386af8e2cb6cea7f5297",
+		"scripts/world/FoundryFloor.gd": "982a5d5a021ed32c6b553b31ce870a86ce3268d27cbcdce9b8d95dc7ac3982b7",
+		"scripts/world/FoundryHeatField.gd": "508f95e782613702f33a38a6c9add76fe39d2264558137a8399896bbb30c728a",
+		"scripts/world/FoundryHeatVent.gd": "343d6dad788363feffff7d7fd131826b9e81b2511f07238882ec835cf336c59d",
+		"scripts/world/FoundryMap.gd": "1a8dc3c66105a7dfdf80ad29d21a53f0a379dcb65c156c7aabcc8e45fddfcbad",
+		"scripts/world/FoundryObstacle.gd": "bb6202bb75373b90e7d86b4563866c7bb5595ea23383007580ca9844444cdeea",
+		"scripts/world/FoundryPropArt.gd": "3442b35701883ab301c749eaeb0f3bb76581e436167f81e153e821b4ae42232e"
+	}
+}

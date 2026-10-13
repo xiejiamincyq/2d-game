@@ -1,0 +1,98 @@
+{
+	"actual_adjacent_moves": 601,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_encounter_gpu_v8/intro.png",
+			"sha256": "e85237f9cbab5f9e07d09bd19362a5c2aaa6762bdb876f5d2f35b6f8f5fca7dc"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_encounter_gpu_v8/needle-warning.png",
+			"sha256": "e72c75fe48b5f67e67da4f441b67675e2e56f1210e7526b89949c06503989c1e"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_encounter_gpu_v8/needle-flight.png",
+			"sha256": "19fc8d86897493a6057b5631fedacff139da5bdd4bec5fb39a82fb6bc48a04bc"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_encounter_gpu_v8/pincer-warning.png",
+			"sha256": "fbeaa79c840e78ffa32faf923fd2215e712cc69a1d9b741db06c4236aad717f5"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_encounter_gpu_v8/pincer-active.png",
+			"sha256": "cbfbc2524005a97a04993c4b4449da11f74aa701ff8d8239b63061fd5e326d1f"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_encounter_gpu_v8/tidal-active.png",
+			"sha256": "94977c8dd54cc1cf3f8bd52f8410c573f82174d836c0737a2585207a26e663f2"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/salt_encounter_gpu_v8/paused.png",
+			"sha256": "7b7d98f7bb4ac82d7b4be7d35b8252a3abac5cff983de9e437e5e3288c1ccd55"
+		}
+	],
+	"causeway_adjacent_moves": 428,
+	"checks": 534,
+	"conservative_walkability_rejections": 0,
+	"independent_needle_pixels": 23,
+	"independent_tide_pixels": 20589,
+	"needle_shots_observed": 5,
+	"needler_status_pixels": {
+		"bar": 80,
+		"bar_footprint": "[P: (377.206, 219.3747), S: (22.4, 6.0)]",
+		"head": 18,
+		"head_footprint": "[P: (384.906, 199.3747), S: (7.0, 17.0)]"
+	},
+	"owned_player_shots": 100,
+	"passed": true,
+	"pincer_status_pixels": {
+		"bar": 69,
+		"bar_footprint": "[P: (675.0992, 261.8287), S: (25.6, 6.0)]",
+		"head": 18,
+		"head_footprint": "[P: (684.3992, 241.8287), S: (7.0, 17.0)]"
+	},
+	"scope": "Actual first Salt encounter automatic portals, native pincer/needle AI, encounter-owned tide and ordinary moving/firing Player walking from origin to a causeway. No health/pose/velocity/collision mutation after spawn. Not chapter entry/reward UI/Boss victory/OS mouse/human playtest/performance/final art or six-chapter completion.",
+	"sources": {
+		"assets/art/actors/native/flanking_crab_motion_v1.tres": "09ae25fca18886327a851df4a19048fa2dcc9566a6fdb8eaf0b09bc18afc1a8c",
+		"assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+		"assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+		"assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db",
+		"assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+		"assets/art/actors/native/salt_needler_motion_v1.tres": "824490c69a5f74661b760ec8c8075959fd70343099081560355bfdc065c70482",
+		"assets/art/shaders/player_native_outline.gdshader": "bd12e11f77d4601f940fef070fd828c29e29b1084fa6145110697d8a8f613c4b",
+		"scenes/actors/native/flanking_crab_paper_v1.tscn": "41dda3b4f99834f2ca736170a5ca9acd0c4d7731ebdd15469f3d8728809efbf9",
+		"scenes/actors/native/player_paper_v1.tscn": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+		"scenes/actors/native/salt_needler_paper_v1.tscn": "772ca402623f41a007c3c4bd97e970a318ec8b19b87d06feb2bc132bd0ca782c",
+		"scenes/world/salt_waterway.tscn": "4677ee17518c4b0eb37e9e60ca1a9daef2149663cbdef4e5de89a6485e3175c0",
+		"scripts/actors/Enemy.gd": "4a38c0ebe3320fe89470b8c9954afd42dea57cee6f788474dcea8fb73c8321de",
+		"scripts/actors/FlankingCrabEnemy.gd": "a3bcf058fdadf6031072778434e4371f6c7d3f0b63602fc7a866a3c395e22e8f",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderSaltEncounterPreview.gd": "d3d2e071e2e84dad9ccbfe5abd93fef9bf6740669b686c15cbeac2c71ddfd64b",
+		"scripts/campaign/RegionalEnemyFactory.gd": "921caa3665e68e3d7ab6a04b77d85a2116d2b73abf4f17af58338848a03f42d8",
+		"scripts/components/CrabPincerAttack.gd": "7d9f837ddfe37270f282016756fbdada876b24a16a662c9f6d57bd3bf6bc75c3",
+		"scripts/components/NativeActorView.gd": "2f809462e45c77dc05dd028fecafddb8e3e021cb8415cbb3cae2a6864fe160f3",
+		"scripts/components/NativeFolioMotion.gd": "40335d3e6aa24a9fd5e02ec385af2a4d670ce048fe322eb0b34c6aec726f98c5",
+		"scripts/components/NativeNeedlerMotion.gd": "49e4123a258042a11a8ddb0692412b1cc81b799506b52191ff6709284a5b3c52",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/components/Projectile.gd": "9bd92c2b9a1db6096d7b7a954e7a3ede1da51cae9e90e732bd36ca51b5d718c8",
+		"scripts/components/ScrapperAttack.gd": "d5d7f77a9e82395372f9ea9c8d22d9a059a1e5b38564681d04cf39f3504b6fe7",
+		"scripts/effects/EnemyWorldStatus.gd": "ec7ceb7a9e4171048ffc1f1c0168658266276cb481d3231abc9d67efa9b423f1",
+		"scripts/effects/HostileAttackDrawing.gd": "7888152661e967cd6d0ca79810ce2af0c6ecf24d33e06e2dd6dead53fcf52b89",
+		"scripts/effects/HostileEffectPalette.gd": "cbfd365efb31df010efd4f1a285e628796b06f97ee19ca98160bf66dbe1deeb1",
+		"scripts/effects/PlayerOcclusionOutline.gd": "bff9f0ca69ee90133a8e86f321d42b44237ca4cc7ee160bed721b6db85ccb273",
+		"scripts/systems/ChapterEncounterDirector.gd": "9e30830dcf309d0a541bd799964f4c32330dfc1a6493e41793f04ade9f44d8d5",
+		"scripts/systems/FoundryEncounterDirector.gd": "2aecc8d80c6f4d45b3fe3a7bc642bb4fda1de304007af427a3189a9a43070784",
+		"scripts/systems/NurseryEncounterDirector.gd": "57805781a4eddb9c75a18827c30831b4be392e1c507f15c4f8c615cee11435aa",
+		"scripts/systems/SaltEncounterDirector.gd": "328873f3511a75edbbd92d4b0dbe63611f56a17a472503b00a7021624786e685",
+		"scripts/systems/UpgradeSystem.gd": "b06312a74909c05e2f7cc77edec0ae4ec9576e518bd6848b169c8b1ec2ab0317",
+		"scripts/systems/WaveDirector.gd": "5b31a524994ba2e3bf5d1ca671ec21684df206a9f188962652804476d117ab87",
+		"scripts/world/ArenaLayout.gd": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+		"scripts/world/SaltArenaLayout.gd": "f4b0b71f9012b0292990ea8e05581a6dc358ec1959b1eb745ae90534f11424f4",
+		"scripts/world/SaltFloor.gd": "5b97ab2482e6f972b50276b96731798277b501b2ee14f12c1e605003dc882ea4",
+		"scripts/world/SaltMap.gd": "47b4ae475080957e5c92d8d2f4aeefe5497f5d3bdb897b6fa9f60be69d87df4f",
+		"scripts/world/SaltObstacle.gd": "670e029822fd36e6b80f32cf4713f6a993a86ae173660b1cd3bc5cb85ad07c0b",
+		"scripts/world/SaltPropArt.gd": "9fa58cc4e44fa37b01234915892fb365453248736e78c444b7e29deacbf34fec",
+		"scripts/world/SaltTidalBand.gd": "47bcdcce1cf7b36a6b49e26e7ad502930e84f2a507f8b05b3fef4ebbbc7dad36",
+		"scripts/world/SaltTidalField.gd": "02c2788a2dec7f24d27bc8a46fd0869fc35cefdf816cd4d5c7a5d934ff2b4b78"
+	}
+}

@@ -1,0 +1,18 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.91 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060 Laptop GPU
+
+FLOW STATE: INTRO step=0 HP=100.0 kills=0
+FLOW STATE: COMBAT step=39 HP=100.0 kills=0
+FLOW STATE: COLLECT step=3973 HP=100.0 kills=16
+FLOW STATE: REWARD step=4154 HP=100.0 kills=16
+FLOW STATE: INTRO step=4157 HP=100.0 kills=16
+FLOW STATE: COMBAT step=4158 HP=100.0 kills=16
+FLOW STATE: COLLECT step=5195 HP=100.0 kills=38
+FLOW STATE: REWARD step=5376 HP=100.0 kills=38
+FLOW STATE: ROUTE step=5379 HP=100.0 kills=38
+VerifySaltChapterFlow NORMAL HP: 100.0
+FLOW STATE: BOSS_READY step=5380 HP=100.0 kills=38
+FLOW STATE: BOSS step=5381 HP=100.0 kills=38
+FLOW STATE: CLEARED step=9588 HP=100.0 kills=44
+TEST PASS: VerifySaltChapterFlow 19255
+

@@ -1,0 +1,61 @@
+{
+  "copies": [
+    {
+      "sha256": "2ca243268c48e94b382e4554a586a7575ceabd35c8b78e1386543c7e12b68eae",
+      "source": "build/diagnostics/campaign-goal/f8-performance-independent-recompute-v1.json",
+      "destination": "docs/performance/campaign-final-f8-v1/independent-recompute.json"
+    },
+    {
+      "sha256": "c93306b511774b2ed7ba964ab5f81c93ccce3a3b75082e58955d2c143f70ac55",
+      "source": "build/diagnostics/campaign-goal/f8-performance-hardware-v1.json",
+      "destination": "docs/performance/campaign-final-f8-v1/hardware.json"
+    },
+    {
+      "sha256": "5952f6d757080522c946dd4198b017eb22dfa6ad3b3796bff8d0500af2e79be2",
+      "archive_entry": "960/report.json",
+      "source": "build/diagnostics/campaign-goal/f8_performance_risk_960_v1/report.json"
+    },
+    {
+      "sha256": "1498224d058bd886135a50339dbdf98e5a05388bfd9d90a211b6d6c1ba3e864b",
+      "archive_entry": "960/receipt.json",
+      "source": "build/diagnostics/campaign-goal/f8_performance_risk_960_v1/actual-exit.json"
+    },
+    {
+      "sha256": "3e28f33ea67c972d7f32719cc38a179327ba02321daac7371a56e82dd1f7daed",
+      "archive_entry": "960/log.log",
+      "source": "build/diagnostics/campaign-goal/f8_performance_risk_960_v1.log"
+    },
+    {
+      "sha256": "3d0c290b3b124d151408a4d31486cbe667cb771903ffad206c8c20d0e2ec74c0",
+      "archive_entry": "1280/report.json",
+      "source": "build/diagnostics/campaign-goal/f8_performance_risk_1280_v1/report.json"
+    },
+    {
+      "sha256": "83d599961fdeaa3556e1ea7d1e4cbe7059f509c2385645353fa9b6887f8a577c",
+      "archive_entry": "1280/receipt.json",
+      "source": "build/diagnostics/campaign-goal/f8_performance_risk_1280_v1/actual-exit.json"
+    },
+    {
+      "sha256": "aea0532742efede7cce472b575ac2d7232e7f810c827ea2c947622a8d17b372a",
+      "archive_entry": "1280/log.log",
+      "source": "build/diagnostics/campaign-goal/f8_performance_risk_1280_v1.log"
+    },
+    {
+      "sha256": "c7dd255be40e3a43dec3e6885ed6be1cb9e32991564c201fba70f576b6f5d441",
+      "archive_entry": "1920/report.json",
+      "source": "build/diagnostics/campaign-goal/f8_performance_risk_1920_v1/report.json"
+    },
+    {
+      "sha256": "9aca9d154d5ed9ddc5eb8e38425416a538a3d832df41bb4b9f3d333ccf1e4508",
+      "archive_entry": "1920/receipt.json",
+      "source": "build/diagnostics/campaign-goal/f8_performance_risk_1920_v1/actual-exit.json"
+    },
+    {
+      "sha256": "156d881de6dc3f3f18c6c69b14d0128f32589b857b3c43244e4547e44441b5ad",
+      "archive_entry": "1920/log.log",
+      "source": "build/diagnostics/campaign-goal/f8_performance_risk_1920_v1.log"
+    }
+  ],
+  "archive_bytes": 629732,
+  "archive_sha256": "4d68a5959d2ce3208a658fcd2d2523174416b86a5aa610f76b7df189bfb6ee5c"
+}

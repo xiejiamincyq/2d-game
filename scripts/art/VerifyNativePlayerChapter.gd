@@ -1,11 +1,16 @@
 extends "res://scripts/art/VerifyNurseryChapterFlow.gd"
 ## Observe ordinary production input and native views; never pose the real player.
+const SeedFlight = preload("res://scripts/components/VineSeedProjectile.gd")
 var native_observations: Array[Dictionary] = []
 var health_events: Array[Dictionary] = []
 var health_connected := false
 
 func _initialize() -> void:
+	var args := configure_chain_arguments(OS.get_cmdline_user_args())
+	if not chain_context.valid or args.size() > 1 or (args.size() == 1 and not ChainEvidence.safe_id(args[0])):
+		quit(1); return
 	output = "res://build/diagnostics/campaign-goal/native-player-chapter-v4/"
+	if args.size() == 1: output = ChainEvidence.EVIDENCE_ROOT + args[0] + "/"
 	additional_sources = ["scripts/art/VerifyNativePlayerChapter.gd", "scripts/components/NativePlayerMotion.gd", "scripts/components/NativePlayerView.gd", "scripts/effects/PlayerOcclusionOutline.gd", "assets/art/shaders/player_native_outline.gdshader", "scenes/actors/native/player_paper_v1.tscn"]
 	for facing in ["front", "back", "left", "right"]:
 		additional_sources.append("assets/art/actors/native/player_%s_motion_v1.tres" % facing)
@@ -33,9 +38,10 @@ func _capture(chapter: Node, step: int, label: String) -> void:
 		"leg_rotation": body.get_node(body.facing + "/Skeleton2D/Torso/LegL").rotation})
 
 func additional_report() -> Dictionary:
-	return {"native_player": native_observations, "health_events": health_events, "native_scope": "Actual four-view player observed in independently seeded first chapter; source-bound GPU screenshots, not isolated body alpha or human acceptance; Boss remains transitional"}
+	return {"native_player": native_observations, "health_events": health_events, "native_scope": "Actual production four-view player observed in first chapter; source-bound GPU screenshots, not isolated body alpha or human acceptance. Chain provenance, if enabled, is reported separately."}
 
 func pilot_motion(chapter: Node, policy: RefCounted, step: int, threats: Array[Vector2], telegraph: Node, danger_distance: float) -> Dictionary:
+	danger_distance = native_visible_threats(chapter, threats, danger_distance)
 	var position: Vector2 = chapter.player.position
 	var goal := Vector2.RIGHT.rotated(step / 180.0)
 	var boss = chapter.director.get_active_boss()
@@ -72,3 +78,26 @@ func pilot_motion(chapter: Node, policy: RefCounted, step: int, threats: Array[V
 		return chapter.map.layout.is_position_walkable(point, chapter.player.get_body_radius())
 	)
 	return {"direction": direction, "dash": danger_distance < 100}
+
+func native_visible_threats(chapter: Variant, threats: Array[Vector2], distance: float) -> float:
+	var position: Vector2 = chapter.player.global_position
+	var boss = chapter.director.get_active_boss()
+	if boss != null and boss.attack_director != null:
+		var attack = boss.attack_director
+		var visible: bool = attack.action_stage == attack.Stage.ACTIVE or (attack.action_stage == attack.Stage.WARNING and attack.action_elapsed >= 0.15)
+		if visible:
+			if attack.action == &"roots":
+				for center: Vector2 in attack.root_centers:
+					threats.append(center)
+					distance = minf(distance, center.distance_to(position))
+			elif attack.action == &"lash":
+				for point: Vector2 in attack.lash_points:
+					threats.append(point)
+					distance = minf(distance, point.distance_to(position))
+	for shot in chapter.projectiles.get_children():
+		if shot is SeedFlight and not shot.is_queued_for_deletion() and shot.global_position.distance_to(position) < 400:
+			var future: Vector2 = shot.global_position + shot.velocity * 0.18
+			threats.append(shot.global_position)
+			threats.append(future)
+			distance = minf(distance, future.distance_to(position))
+	return distance

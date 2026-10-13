@@ -179,7 +179,7 @@ func _record_boss_view() -> void:
 		boss_view_truncated = true
 		valid = false
 		return
-	var sprite_rect: Rect2 = boss.boss_visual.get_global_transform_with_canvas() * boss.boss_visual.get_rect()
+	var sprite_rect: Rect2 = boss.get_visual_node().get_global_transform_with_canvas() * boss.get_visual_rect()
 	var ui_names: Array[String] = []
 	var ui_rects: Array[Rect2] = []
 	for control: Control in scene.ui.get_combat_occluders():

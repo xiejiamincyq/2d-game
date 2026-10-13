@@ -1,0 +1,139 @@
+{
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_probes_gpu_v3/warning-1.png",
+			"sha256": "593c8b5b9cac759c9298a49fe1abe3121d01a0813f6371d1b6f40b04221a141a"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_probes_gpu_v3/left-outbound-1.png",
+			"sha256": "989286bb7c8c8d10d8f3fb91db1194b4c9f84c352d803bdccc0c3ebe63251255"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_probes_gpu_v3/right-outbound-1.png",
+			"sha256": "fe433b0343de3494e313e8ed095e96acdfb55b5b9dad5e72104de3e1b81864ca"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_probes_gpu_v3/right-last-1.png",
+			"sha256": "705a2df830b370d28d36fc6b469a4113f8ac683413c88753aef723bd8e81d104"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_probes_gpu_v3/cancelled-1.png",
+			"sha256": "b152b221b471740def9d16e880153160905509d50f7230cd01d049fadb85c85e"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_probes_gpu_v3/warning--1.png",
+			"sha256": "12f3411e78aec85a5d64c3f4c4adc6026cbfd541d9b68a981b0ed941c594642c"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_probes_gpu_v3/left-outbound--1.png",
+			"sha256": "e2b745285e59782848588545b378ec200b78965469065449cf8724f9761b3e93"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_probes_gpu_v3/right-outbound--1.png",
+			"sha256": "6cf8b3a3d2338ebbc52254c0ceac4c8e8b035ba22c30bb601051ff096ee86e66"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_probes_gpu_v3/right-last--1.png",
+			"sha256": "45a89f62c32dae0821557f55de00c8604d75f8d6b58a548a37ccb8ac7fedfa45"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_probes_gpu_v3/cancelled--1.png",
+			"sha256": "42e84ea531c1749235e94c86d11ca585c467273d62a409e5352e362deb3ccd10"
+		}
+	],
+	"checks": 153,
+	"observations": [
+		{
+			"facing_left": false,
+			"health": 73.0,
+			"left_landing": [
+				237.329864501953,
+				-750.199157714844
+			],
+			"left_origin": [
+				-98.0715789794922,
+				-791.808471679688
+			],
+			"right_landing": [
+				242.670135498047,
+				-785.800842285156
+			],
+			"right_origin": [
+				98.5217590332031,
+				-788.375732421875
+			],
+			"root_unchanged": true
+		},
+		{
+			"facing_left": true,
+			"health": 73.0,
+			"left_landing": [
+				-242.670135498047,
+				-785.800842285156
+			],
+			"left_origin": [
+				98.0715789794922,
+				-791.808471679688
+			],
+			"right_landing": [
+				-237.329864501953,
+				-750.199157714844
+			],
+			"right_origin": [
+				-98.5217590332031,
+				-788.375732421875
+			],
+			"root_unchanged": true
+		}
+	],
+	"passed": true,
+	"scope": "Actual seed521 sixth map, 30-bone Actor/Health/current left-right sensors/normal-stat Player/BossHealthBar at1280. Controlled sole-clock head warning, both current births and visible outbound small footprints, last legal landing, actual pause removal and additional real stationary HP73/no-repeat witness. Controlled Player reposition only exposes pixels; not natural dodge, full Boss, refract, sixth readiness/save, OS/human playtest, dense performance or whole goal.",
+	"sources": {
+		"assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+		"assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+		"assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db",
+		"assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+		"assets/art/actors/native/rift_observer_motion_v2.tres": "5afdfc43cc72792c1a1b24682262d7dc499397c40c8a755b88e4a22c59da55d5",
+		"assets/art/shaders/dasher_hit_flash.gdshader": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9",
+		"scenes/actors/native/player_paper_v1.tscn": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+		"scenes/actors/native/rift_observer_paper_v2.tscn": "83991983baef45619ae56b6f736d0e5283e6b11911977c7b64285de22f835790",
+		"scenes/world/rift_observatory.tscn": "945389fa40b9641c3b2ac11e2d06d2121bfd72bf1abcceea60c453445bd030b8",
+		"scripts/actors/OverseerBoss.gd": "a2fc52f59e3215ea6805fa31d020144cb1458f3ed8dbbfbb863dd81484082aa4",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/actors/RiftObserverBoss.gd": "91d6ce9fc2e418e03425128abdf927a479255f082be373a0a809af9d9bdcee16",
+		"scripts/art/RenderEchoMapPreview.gd": "3f98eca0fa056cf6fbb09d557ab3d40125e4ad63fa2c7bb8dbebad7118486764",
+		"scripts/art/RenderRiftObserverProbes.gd": "3e643af9b7a548ec296bc1c1b27d459e309af90c1b19f25bad1a438d8e5e54ef",
+		"scripts/components/HealthComponent.gd": "1b31ea06d89f3850ac240ba307199eaa5ccb87b20ccaff125f14d3f56068975d",
+		"scripts/components/NativeActorView.gd": "2f809462e45c77dc05dd028fecafddb8e3e021cb8415cbb3cae2a6864fe160f3",
+		"scripts/components/NativeBossMotion.gd": "f0f223b1e42897fac3584dcd3962518040a479bb8234038ac309074c811f740a",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/components/NativeProjectileOriginSafety.gd": "e1d158d2e93f1192723e363cc656489d5408198efb1d163b3495044d1740acdb",
+		"scripts/components/NativeRiftObserverMotion.gd": "e66cb7c734669df4e432d523835b543973085788a1bf6ab6d114aa9af85d21e8",
+		"scripts/components/RiftObserverAttackDirector.gd": "c7b9062fe47f555ab1e9a87a93ceee14fd996ac7843afadca3101f08f1d3665f",
+		"scripts/components/RiftObserverBeam.gd": "02f4ddd29dfd401fdb4f8ed28607fede9cc0e7e22fa84e0604f8ba7d3888afb4",
+		"scripts/components/RiftObserverProbe.gd": "76f464235f04077d8258d1630ec5359251509e106396918f651ff316d9928574",
+		"scripts/effects/EnemyHitFeedback.gd": "fa4cf7fb8357a6d740021f0c99f9f87fc051683a3db242f0dd373c26742a287a",
+		"scripts/effects/EnemyWorldStatus.gd": "ec7ceb7a9e4171048ffc1f1c0168658266276cb481d3231abc9d67efa9b423f1",
+		"scripts/effects/HostileAttackDrawing.gd": "7888152661e967cd6d0ca79810ce2af0c6ecf24d33e06e2dd6dead53fcf52b89",
+		"scripts/effects/HostileEffectPalette.gd": "cbfd365efb31df010efd4f1a285e628796b06f97ee19ca98160bf66dbe1deeb1",
+		"scripts/systems/CombatView.gd": "9b0eb9cef8243ff6a433e1daf9b6db74ebd27d4820788b66d5d9b92f03d4f4a0",
+		"scripts/tests/EchoMovementTest.gd": "3c83157387f47784f3af430681d339d1d5511bcb78d40b7ba9d4ef749fc3f16f",
+		"scripts/tests/RiftObserverOriginSafetyTest.gd": "432a621f15446a72a0bc628776f4e523902374b7ab3de1ecc4252ec809197e0a",
+		"scripts/tests/RiftObserverProbeAttackTest.gd": "e3637b2058ec8f4101ce325fcc8cac94f117ac04f9f4e9871fef817cb6129254",
+		"scripts/tests/RiftObserverProbeBoundaryTest.gd": "43bf1daf2b27c89839f780453cb604cbd720ec1232dc19c07921700e8d76f4dc",
+		"scripts/tests/RiftObserverProbeDodgeTest.gd": "df56958ae122fd82525e9f13758688603bf8fd20d419b3571fb8d48cfde298e0",
+		"scripts/tests/RiftObserverProbeOriginBoundaryTest.gd": "277e2e0574b6eba4d50e1fb03622b5369e0cf18990908d6c07e5e53c2edf4fe3",
+		"scripts/tests/RiftObserverProbeTest.gd": "a57c4ea002d00d416669fd1bd26e8a62b671fb663d094e930c30bbba7b6c5b0f",
+		"scripts/ui/BossHealthBar.gd": "0b4b0baa58d17680c872dd357bf5246c9fb1df609f80a24da6116d8188811893",
+		"scripts/world/ArenaLayout.gd": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+		"scripts/world/RiftArenaLayout.gd": "aa2c2bceaaa5493ec5b33ce39ee87db9778350e4e8f5280a5f4041b8d0ab5f68",
+		"scripts/world/RiftField.gd": "200a38d06124bae032c6a87346239afe7a13de0dd090b0c25f440099d3ea7023",
+		"scripts/world/RiftFloor.gd": "b0b6db5a5b67e19d5259230e7217a085e4964d20fa3bcdf009b8ef371e61de03",
+		"scripts/world/RiftMap.gd": "e2060cc941061f76f83ab658f0544dff34edce0b76f417a8048e1dd8ae5cc10d",
+		"scripts/world/RiftObstacle.gd": "f12edb262e80b9d7b1ec74a2e4e89a0ea970e47ece86f3d50dfbe2b12fc67bec",
+		"scripts/world/RiftPropArt.gd": "3ea138ddf87600a4c468e4daf91b1aa1fd88f128d0612ba5dfaecb03de2d9301",
+		"scripts/world/TerrainSweep.gd": "08e472ff12bb0ab46ca2e86a88061e54be7f3f2cc3780f50d15eec12dff13255",
+		"themes/MintFarmTheme.tres": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63"
+	}
+}

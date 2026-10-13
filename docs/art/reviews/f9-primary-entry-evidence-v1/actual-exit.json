@@ -1,0 +1,7 @@
+{
+  "actual_exit": 0,
+  "log_sha256": "a15a72de0edeb8906c9bfb718b9f1e5cfac44271b5d9a42495d3e0ad6c5fb4d7",
+  "report_sha256": "b1d670a8c6706cb84e2a8ee311297db1dc6f4fed15faad309d4445a20a077ccd",
+  "whole_source_freeze": "build/diagnostics/campaign-goal/f9-final-source-freeze-v1.json",
+  "whole_source_freeze_sha256": "4f71da661fad33613c04127a441f154cd4d7c2be649069ad48eccad71aea424e"
+}

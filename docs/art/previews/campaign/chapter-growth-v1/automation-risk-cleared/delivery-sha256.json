@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "exit_observation": "Main serial session 69855 actual engine/outer strict exit 0 with unique PASS 10044 and no errors/leaks",
+  "source_observation": "All 1660 source hashes matched actual report after terminal",
+  "copies": [
+    {
+      "sha256": "17ba485d28713bb545b18dc7eac46cc31565339f78eae139f81848cc7585d81b",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/campaign.json",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/campaign.json"
+    },
+    {
+      "sha256": "e34ec65b05c34d21fa837dcd7d43e0b014c5b5b60a820e22fdc9e2440b48bb9f",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_000.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_000.png"
+    },
+    {
+      "sha256": "e34ec65b05c34d21fa837dcd7d43e0b014c5b5b60a820e22fdc9e2440b48bb9f",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_001.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_001.png"
+    },
+    {
+      "sha256": "dd14f74061f1a2f3e5297e47b8539745d6d788782dfb0f0f2f1a99669a264710",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_002.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_002.png"
+    },
+    {
+      "sha256": "4fb41ac846c405d24c1e34085ea56eeb2a9a863563e208e16429079991da5bc8",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_003.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_003.png"
+    },
+    {
+      "sha256": "c40548273171871ced25b17110c15e5ed0baa4624ca476454c8b3bd54393acb8",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_004.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_004.png"
+    },
+    {
+      "sha256": "e2a84043fb0f4a089e4b48f978edafc30db1f2bcafed6cd412b132ea353d36e1",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_005.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_005.png"
+    },
+    {
+      "sha256": "1279d05bfe6aad39b51a0652f8fb9050dfbaf5977a405021f267c3fefe140a4c",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_006.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_006.png"
+    },
+    {
+      "sha256": "6697cb47945fb702fae603c804dc3211859b37de4c34da631d99c94503232e9b",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_007.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_007.png"
+    },
+    {
+      "sha256": "5829e6ff37eaaafce89c82416a94f28d65dc2176f334f961e54cdce3e037234c",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_008.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_008.png"
+    },
+    {
+      "sha256": "d2d4e033c7e66a3dd4c68a756b922bbc66502b134f23340d476d963c0dfc763f",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_009.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_009.png"
+    },
+    {
+      "sha256": "daefcd4381abddc9e7123cf24ed5526b7431236093dffe3eec3c5e9fe1b147a4",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_010.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_010.png"
+    },
+    {
+      "sha256": "2441dfd7d9b97650f7e95bf2a5469145db1560c496689a97aa4db344aaf44863",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_011.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_011.png"
+    },
+    {
+      "sha256": "fdbfed4b634d6330999e3ea29de0ad1e0d131c7f8f68ba827681e7a6f878ac51",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_012.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_012.png"
+    },
+    {
+      "sha256": "499551c501856ae2ea28a9430b9ea310c7f202c47f47293add1b822c01494877",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_013.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_013.png"
+    },
+    {
+      "sha256": "bf5dae0722d416cc13a05f187308de2fe4e49452050330b641a5b72edab1828d",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_014.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_014.png"
+    },
+    {
+      "sha256": "7d192ea47cb024e8ab3d076ba625fa04e9cc2c7b75cf9062b2a5081a463f8147",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_015.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_015.png"
+    },
+    {
+      "sha256": "a370d571c9ebec0ab762cb2e58ec54de0aa1cc5121fb1ccbfe7ee1530c0837e9",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_016.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_016.png"
+    },
+    {
+      "sha256": "0ef3fc4dde4380ee9776a636731e0d4266742018517feee9e3ca986784f21929",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_017.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_017.png"
+    },
+    {
+      "sha256": "647d957b476f1a21a168bb88ff6f2c20fb8c771307458e3f46b7edb9eee04024",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_018.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_018.png"
+    },
+    {
+      "sha256": "af616963f9ee5983edb235a31e3e748341cbd9b779c813cf36d5605d4693f20f",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/frame_019.png",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/frame_019.png"
+    },
+    {
+      "sha256": "e4a1c11e0fa7de8118fcb7006bb76faac335eaa84b4d68eeb1656641d9e57b00",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/report.json",
+      "source": "build/diagnostics/campaign-goal/f3_automation_risk_20261012_v1/report.json"
+    },
+    {
+      "sha256": "9ef5211b8518df27f043a43958b94f6ce2934d7ec9111f101736d3f63396629a",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/automation-risk-cleared/driver.log",
+      "source": "build/diagnostics/campaign-goal/f3-automation-risk-ordinary-v1.log"
+    }
+  ],
+  "scope": "Actual ordinary engineering risk chapter1 fresh-save clear, evolution via real UI, not human or whole F3/project balance",
+  "actual_exit": 0,
+  "valid": true
+}

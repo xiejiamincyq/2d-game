@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/RiftMap.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/world/RiftFloor.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/world/RiftArenaLayout.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/world/RiftField.gd" id="4"]
+
+[node name="RiftObservatory" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1")
+
+[node name="Floor" type="Node2D" parent="."]
+z_index = -100
+script = ExtResource("2")
+
+[node name="Layout" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("3")
+
+[node name="RiftField" type="Node2D" parent="."]
+z_index = -80
+script = ExtResource("4")

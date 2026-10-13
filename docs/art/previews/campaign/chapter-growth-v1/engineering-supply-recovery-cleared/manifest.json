@@ -1,0 +1,86 @@
+{
+  "run_id": "f3_engineering_supply_recovery_20261012_v1",
+  "scope": "Actual engineering supply ordinary production GPU run; not human playtest or whole project acceptance",
+  "copies": [
+    {
+      "file": "campaign.json",
+      "sha256": "17ba485d28713bb545b18dc7eac46cc31565339f78eae139f81848cc7585d81b"
+    },
+    {
+      "file": "frame_000.png",
+      "sha256": "e34ec65b05c34d21fa837dcd7d43e0b014c5b5b60a820e22fdc9e2440b48bb9f"
+    },
+    {
+      "file": "frame_001.png",
+      "sha256": "e34ec65b05c34d21fa837dcd7d43e0b014c5b5b60a820e22fdc9e2440b48bb9f"
+    },
+    {
+      "file": "frame_002.png",
+      "sha256": "18157604b4592022959b8fbd9545a42a7b404d8e74815f391af98bf80e924f6f"
+    },
+    {
+      "file": "frame_003.png",
+      "sha256": "7351de540cc52c90482bb3cbd06163d6e9c44585c053da5645034ea504357b3d"
+    },
+    {
+      "file": "frame_004.png",
+      "sha256": "72a1096ae5650ec4be0a6093becbe9c613cf4f0b4b956820514f142acf041e14"
+    },
+    {
+      "file": "frame_005.png",
+      "sha256": "2d208d14aa92771b2d336b061002b406f519efa9a94264df69bbf7e5670f5f83"
+    },
+    {
+      "file": "frame_006.png",
+      "sha256": "d0090c0c28648366f6cfe9b16d3c831e3e625e4db3df3f5ed48c215a48fb3926"
+    },
+    {
+      "file": "frame_007.png",
+      "sha256": "703a7cac21f2923241ebd66cdcb9fe01929753ee103460bbed5198a689e4383e"
+    },
+    {
+      "file": "frame_008.png",
+      "sha256": "1d378846926276043d975ac2d89ffac616b5388153a40c45ed9a6fe9faa20a09"
+    },
+    {
+      "file": "frame_009.png",
+      "sha256": "1ecd8ce7cf31ea5cd87b6cc4a505bebef2efac41672c02f73fdd41570a5a1a78"
+    },
+    {
+      "file": "frame_010.png",
+      "sha256": "9d193d77a8d2ff5880a73af0a306862801af693fcd9e4fbb14ed5950c73ae4c4"
+    },
+    {
+      "file": "frame_011.png",
+      "sha256": "58b83a153c270bf9b5757f198335c5d024282520ca8c5dabb6bbbc7319d3027f"
+    },
+    {
+      "file": "frame_012.png",
+      "sha256": "58b83a153c270bf9b5757f198335c5d024282520ca8c5dabb6bbbc7319d3027f"
+    },
+    {
+      "file": "frame_013.png",
+      "sha256": "8e1f1137342551381a068875be86833b4874221cfbbd618d7c528fb534a6393c"
+    },
+    {
+      "file": "frame_014.png",
+      "sha256": "a2e1475949d2b047710c551caead4a9669a2d3d211adcaf95cab2dd5ede9ae30"
+    },
+    {
+      "file": "frame_015.png",
+      "sha256": "e9c00ab6e5a9b1d3be983ee477bdee06ae723201b6ca0b2ccbf1c17190a94d1d"
+    },
+    {
+      "file": "frame_016.png",
+      "sha256": "02b1d991efd9667a0c47e760548ebed4f0c6920fc3c4bff35188c1ff2283ed72"
+    },
+    {
+      "file": "report.json",
+      "sha256": "19f07c47525fc441e0cdff67f787c00d6e15f269cf391da1a2c25518e0c77bba"
+    },
+    {
+      "file": "f3_engineering_supply_recovery_20261012_v1.log",
+      "sha256": "5599cffc3404f5ff4569ed72d820b41837ca53c6fbde728feb89aba9775c0062"
+    }
+  ]
+}

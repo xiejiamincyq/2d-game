@@ -1,0 +1,24 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "archive_complete_v1",
+  "review_state": "draft",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/archive-boss-complete-review-v1.md",
+  "preview": "res://docs/art/previews/campaign/archive-boss-complete-v2/brood-phase3.png",
+  "warning_preview": "res://docs/art/previews/campaign/archive-boss-complete-v2/brood-warning.png",
+  "opacity_report": "res://docs/art/previews/campaign/archive-boss-complete-v2/report.json",
+  "roster_report": "res://docs/art/previews/campaign/archive-complete-roster-v1/report.json",
+  "external_raster_dependencies": [],
+  "assets": [
+    {"role": "native-boss-adapter", "id": "archive_archivist_complete_actor", "authoring_source": "res://scripts/actors/ArchiveArchivistBoss.gd", "scope": "Actual original 27-bone v2 Actor with three clock-owned actions"},
+    {"role": "chapter-combat-authority", "id": "archive_finite_brood", "authoring_source": "res://scripts/systems/ArchiveEncounterDirector.gd", "scope": "Only 2+3 genuine native mothers, ownership-local cancellation before true victory"}
+  ],
+  "limitations": [
+    "Controlled GPU clock/health and direct death are not ordinary-input chapter play",
+    "Main readiness remains [1,2,3]; formal chapter4/save-unlock5 not yet implemented",
+    "Roster distinguishes actual Actors from nonproduction chapter5/6 Boss resources",
+    "No dense-crowd performance or final project license proof",
+    "No final art promotion, release EXE replacement or public release"
+  ]
+}

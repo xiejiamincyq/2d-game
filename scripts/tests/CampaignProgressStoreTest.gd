@@ -2,6 +2,7 @@ extends SceneTree
 
 const Progress = preload("res://scripts/systems/CampaignProgress.gd")
 const LegacyStore = preload("res://scripts/systems/RunSnapshotStore.gd")
+const FailedCommit = preload("fixtures/CampaignFailedCommitStore.gd")
 var assertions := 0
 var failures := 0
 var test_root := ""
@@ -40,7 +41,7 @@ func make_directory(path: String) -> void:
 
 func _initialize() -> void:
 	var source := "res://scripts/systems/CampaignProgressStore.gd"
-	check(FileAccess.file_exists(source), "permanent progress disk store is not implemented")
+	check(ResourceLoader.exists(source, "GDScript"), "permanent progress disk store is not implemented")
 	if failures > 0:
 		quit(1)
 		return
@@ -124,7 +125,6 @@ func _initialize() -> void:
 	check(not Store.new(blocked_backup).save_progress(progress), "blocked backup path allowed unsafe replacement")
 	check(read_text(blocked_backup) == JSON.stringify(stale.to_state()), "backup failure destroyed primary")
 
-	var FailedCommit = load("res://scripts/tests/fixtures/CampaignFailedCommitStore.gd")
 	check(not FailedCommit.new(path).save_progress(progress), "injected commit failure ignored")
 	check(read_text(path) == committed, "failed final rename did not restore committed primary")
 	check(Store.new(path).load_progress(restored) == Store.LoadResult.LOADED and restored.has_cleared(2) and not restored.has_cleared(3), "rollback exposed uncommitted unlocks")

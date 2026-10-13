@@ -1,0 +1,17 @@
+{
+  "asset_id": "player_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/player_paper_v1.tscn",
+  "layout": "cardinal_4",
+  "role": "player",
+  "review_state": "style-approved",
+  "bone_count": 13,
+  "skin_bone_count": 12,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "shoot", "dash", "hit", "death", "entrance"],
+  "motion_libraries": {
+    "Front": "res://assets/art/actors/native/player_front_motion_v1.tres",
+    "Back": "res://assets/art/actors/native/player_back_motion_v1.tres",
+    "Left": "res://assets/art/actors/native/player_left_motion_v1.tres",
+    "Right": "res://assets/art/actors/native/player_right_motion_v1.tres"
+  }
+}

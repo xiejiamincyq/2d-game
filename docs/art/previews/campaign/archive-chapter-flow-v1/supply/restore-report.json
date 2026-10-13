@@ -1,0 +1,22 @@
+{
+	"checks": 7,
+	"passed": true,
+	"process_id": 39344,
+	"progress_sha256": "ba4edaa6ae88ca6a57e35e267a99a1d745a14338ae4c643ddd6f69973eff8cee",
+	"ready_chapters": [
+		1,
+		2,
+		3,
+		4
+	],
+	"scope": "Fresh engine process/actual Main reads prior isolated real-input chapter-four clear. Evidence progress read-only, fresh diagnostic report only. Not another natural run, OS input or human playtest.",
+	"state": {
+		"cleared_chapters": [
+			1,
+			2,
+			3,
+			4
+		],
+		"version": 1
+	}
+}

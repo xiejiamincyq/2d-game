@@ -1,0 +1,7 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.91 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060 Laptop GPU
+
+SCRIPT ERROR: Invalid access to property or key 'player' on a base object of type 'Node2D (NativePlayerView.gd)'.
+   at: _run (res://scripts/art/VerifyNativeImpactArt.gd:96)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/art/VerifyNativeImpactArt.gd:96)

@@ -1,0 +1,138 @@
+{
+  "schema": 1,
+  "actual_exit": 1,
+  "exit_observation": "Main serial exec session 50525 completed; actual engine exit=1 and outer strict command exit=1",
+  "valid": false,
+  "scope": "Historical actual failed direct-aim ordinary run, never accepted as victory",
+  "source_count": 1650,
+  "copies": [
+    {
+      "file": "frame_000.png",
+      "sha256": "565b1aa132fafd84ee862c9c748c762a032a53af63cdc4047de22e44e3d021ae"
+    },
+    {
+      "file": "frame_001.png",
+      "sha256": "565b1aa132fafd84ee862c9c748c762a032a53af63cdc4047de22e44e3d021ae"
+    },
+    {
+      "file": "frame_002.png",
+      "sha256": "4e1fd6105315391863a509c36b43be42334ffd1160513977f6792024cb313ca8"
+    },
+    {
+      "file": "frame_003.png",
+      "sha256": "80d3853caff8b006f8324425865e92048c55f0c2c15337d27b3ca997db0609a7"
+    },
+    {
+      "file": "frame_004.png",
+      "sha256": "251510e86faf22658ecfbef8b9c0f61b61fea72c244c9a74053487baa19a3ab8"
+    },
+    {
+      "file": "frame_005.png",
+      "sha256": "8292cae3d03e56cf9be52f6d45350b33834ffe42a4156302ddd137f24d566399"
+    },
+    {
+      "file": "frame_006.png",
+      "sha256": "33149fe8eb019e3e1ee2e82ba334f7e361a6d00ae9ac42eaefb6ef45497183ee"
+    },
+    {
+      "file": "frame_007.png",
+      "sha256": "5e18df09732909f0f8ac403fb10a4891534f2edc94f3e1028b9284afb3ab8556"
+    },
+    {
+      "file": "frame_008.png",
+      "sha256": "85a2b8faa19759c30be74d3fab781189e84491f2e503fd028fee10f0210268f4"
+    },
+    {
+      "file": "frame_009.png",
+      "sha256": "f3a834bc82e6e202e1dc2d2563c0088e146a8ba36bba1716157babe79263d6e8"
+    },
+    {
+      "file": "frame_010.png",
+      "sha256": "208d075f211440b9cac65a9dae86a094cef384ff852a062d46b6d466b1322bfa"
+    },
+    {
+      "file": "frame_011.png",
+      "sha256": "93a5b58ac60d85aae67dff4c1e9818b99ce0039282a8ca4c9daf8488b24d424b"
+    },
+    {
+      "file": "frame_012.png",
+      "sha256": "c60c0efe7489a58c2c3f435a544f4ed4eb58ea6611fa41cb194482b041d0994b"
+    },
+    {
+      "file": "frame_013.png",
+      "sha256": "4b96897de96579ef29f6082358c67a2143eaef476e96356a77a5babac9eba078"
+    },
+    {
+      "file": "frame_014.png",
+      "sha256": "b9aad724a8088d496d6dcfb7ca979fa501e37d5e93f91d3196d0964db1e54913"
+    },
+    {
+      "file": "frame_015.png",
+      "sha256": "4687a3f88f711668bf01424fdef6a7ea92cc1c925d62262dac646ccd7e46d3e8"
+    },
+    {
+      "file": "frame_016.png",
+      "sha256": "4687a3f88f711668bf01424fdef6a7ea92cc1c925d62262dac646ccd7e46d3e8"
+    },
+    {
+      "file": "frame_017.png",
+      "sha256": "706fe202bb76deee762880d123b9d08cfc4b02e8f49792d692c04f31f5be254b"
+    },
+    {
+      "file": "frame_018.png",
+      "sha256": "b9adae29cc68e44b84daec9bb7c88fdd5fc59be29ceb233922c5b273ecbd1de4"
+    },
+    {
+      "file": "frame_019.png",
+      "sha256": "23045aa2ec0a9c2bb0e3490c8fa2d018bb89642ed1bb8079998d006170a2d1fc"
+    },
+    {
+      "file": "frame_020.png",
+      "sha256": "8ec2ca1abd2e647a6e7cb13baace6f21219521864b336f7cb49cb68bff82bcb3"
+    },
+    {
+      "file": "frame_021.png",
+      "sha256": "d6d097c7c220ab29f0d0517d3d448047f0df834bccdf8486f8fb3eaae8aa26bc"
+    },
+    {
+      "file": "frame_022.png",
+      "sha256": "7ab2fbe5cb4d30f5abc1baa0af911932ec3d3506ad16a1102104795bee6ff7af"
+    },
+    {
+      "file": "frame_023.png",
+      "sha256": "a0964d1b5d047b1731e4964cb35231252b10c8efb2014e3309f580bd42b4ac16"
+    },
+    {
+      "file": "frame_024.png",
+      "sha256": "210433f5638b0cb36e9a6c78a8f98831e718ed9661d041827547707429b0e8df"
+    },
+    {
+      "file": "frame_025.png",
+      "sha256": "c3c3209c7312a70fd00a67310e275b0996ef72af74f276e2fdf8362dbd33c8b8"
+    },
+    {
+      "file": "frame_026.png",
+      "sha256": "4bf09e73e14bf1f128ecafff4cb9abbc9e14c598cce338f1543f7d5c7f37cb68"
+    },
+    {
+      "file": "frame_027.png",
+      "sha256": "39d2cd6ed10fa347f22704804166f69456066fb67648fe9da5d285c9ddb961f8"
+    },
+    {
+      "file": "frame_028.png",
+      "sha256": "8d2a99c2a99cbe7824cfab29d97a571f5fe2a8d9ea2d245c7d5bf6c0860ebed5"
+    },
+    {
+      "file": "frame_029.png",
+      "sha256": "0f2e0a441b31cb7cb16a259dca191585480fd8c4805ec1846cbd7db384de43e2"
+    },
+    {
+      "file": "report.json",
+      "sha256": "c535ba436247f4297a166b40a69fdb5d1a4751f560c38e82031b424454e95388"
+    },
+    {
+      "file": "driver.log",
+      "sha256": "6feb89dda496c6398c57a6cd111e0a443b0160d69c89e2832c58fc59eb78c6cd"
+    }
+  ]
+}

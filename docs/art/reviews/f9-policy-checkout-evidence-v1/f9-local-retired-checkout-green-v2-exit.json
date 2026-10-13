@@ -1,0 +1,9 @@
+{
+  "actual_exit": 0,
+  "discovered_methods": 15,
+  "test_run_summaries": 1,
+  "tests": 15,
+  "log_sha256": "448e4b5ccfabfc9b2c3062ec21ca88bbcadceb2e7e8d290b1895c027c0408704",
+  "policy_source_sha256": "b46082f96d703d9ddf2a10b4abe7631c8419cfd4448525c75543272ce7b6d41e",
+  "prior_wrapper_failed_after_OK_due_incorrect_expected_count": true
+}

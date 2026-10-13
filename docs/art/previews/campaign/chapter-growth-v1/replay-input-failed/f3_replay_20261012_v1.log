@@ -1,0 +1,36 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.91 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060 Laptop GPU
+
+FLOW STATE: INTRO step=0 HP=100.0 kills=0
+FLOW STATE: COMBAT step=52 HP=100.0 kills=0
+FLOW STATE: COLLECT step=665 HP=100.0 kills=16
+FLOW STATE: REWARD step=846 HP=100.0 kills=16
+FLOW STATE: INTRO step=848 HP=100.0 kills=16
+FLOW STATE: COMBAT step=849 HP=100.0 kills=16
+FLOW STATE: COLLECT step=1761 HP=100.0 kills=45
+FLOW STATE: REWARD step=1942 HP=100.0 kills=45
+FLOW STATE: ROUTE step=1945 HP=100.0 kills=45
+FLOW STATE: INTRO step=1946 HP=100.0 kills=45
+FLOW STATE: COMBAT step=1947 HP=100.0 kills=45
+FLOW STATE: COLLECT step=2844 HP=100.0 kills=86
+FLOW STATE: REWARD step=3025 HP=100.0 kills=86
+FLOW STATE: BOSS_READY step=3030 HP=100.0 kills=86
+FLOW STATE: BOSS step=3031 HP=100.0 kills=86
+FLOW STATE: CLEARED step=4728 HP=100.0 kills=101
+ERROR: TEST FAIL: VerifyNurseryChapterFlow Replay lacks ordinary movement/fire/real enemy kills
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyNurseryChapterFlow.gd:106)
+       [1] after_ordinary_clear (res://scripts/art/VerifyChapterReplayRun.gd:70)
+ERROR: TEST FAIL: VerifyNurseryChapterFlow Replay unexpectedly failed or skipped combat
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyNurseryChapterFlow.gd:106)
+       [1] after_ordinary_clear (res://scripts/art/VerifyChapterReplayRun.gd:71)
+ERROR: TEST FAIL: VerifyNurseryChapterFlow post-clear ordinary input verification failed
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyNurseryChapterFlow.gd:106)
+       [1] _run (res://scripts/art/VerifyNurseryChapterFlow.gd:283)
+       [2] after_ordinary_clear (res://scripts/art/VerifyChapterReplayRun.gd:75)
+       [3] replay_frame (res://scripts/art/VerifyChapterReplayRun.gd:81)

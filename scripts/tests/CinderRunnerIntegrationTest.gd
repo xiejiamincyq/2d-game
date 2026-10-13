@@ -33,7 +33,7 @@ func _initialize() -> void:
 		arena.free()
 		quit(1)
 		return
-	check(view.scene_file_path.ends_with("cinder_runner_paper_v1.tscn") and view.skeleton.get_bone_count() == 15, "incorrect resource")
+	check(view.scene_file_path.ends_with("cinder_runner_paper_v2.tscn") and view.skeleton.get_bone_count() == 15, "incorrect resource")
 	check(enemy.health.max_health == 22 and enemy.contact_damage == 18 and enemy.body_radius == 14 and enemy.speed == enemy.DASHER_ENEMY_SPEED, "art alters gameplay stats")
 	check(enemy.should_show_health_bar() and not enemy.should_show_status_marker(), "missing bar / placeholder")
 	check(enemy.get_health_bar_rect().end.y < -43 and enemy.get_attack_marker_top()+2 < enemy.get_health_bar_rect().position.y, "bar/marker overlaps mask")

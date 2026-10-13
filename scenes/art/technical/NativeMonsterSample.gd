@@ -7,6 +7,7 @@ const CLIPS := ["idle", "walk", "warning", "attack", "hit", "death"]
 @onready var skeleton: Skeleton2D = $Facing/Skeleton2D
 @onready var player: AnimationPlayer = $AnimationPlayer
 var _dead := false
+@export_range(0,32,1) var visual_bounds_padding := 4.0
 
 func _ready() -> void:
 	_build_clips()

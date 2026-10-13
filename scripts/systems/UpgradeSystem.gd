@@ -19,6 +19,7 @@ const FAMILY_STARTER_CARD_IDS: Dictionary = {
 const SETTLEMENT_PRICE_STEP := 0.55
 const EVOLUTION_MIN_WAVE := 4
 const EVOLUTION_MIN_FAMILY_LEVEL := 5
+const CHAPTER_EVOLUTION_MIN_FAMILY_LEVEL := 3
 const LEGACY_CARD_ID_MAP: Dictionary = {
 	"recovery_route": "spike_resonance",
 	"pickup": "arc_relay",
@@ -40,6 +41,9 @@ var settlement_generation: int = 0
 var settlement_offers: Array[Dictionary] = []
 var settlement_reward_claimed: bool = false
 var settlement_closed: bool = true
+var _chapter_number: int = 0
+var _chapter_finale_prepared: bool = false
+var _settlement_stage_kind: String = "wave"
 
 var upgrade_pool: Array[Dictionary] = [
 	# Ballistics: six normal cards.
@@ -75,9 +79,29 @@ var upgrade_pool: Array[Dictionary] = [
 ]
 
 func setup(target_player: Node) -> void:
+	if is_chapter_run():
+		return
 	player = target_player
 	_sync_build_family_levels()
 	_emit_progression_changed()
+
+func setup_chapter(target_player: Node, chapter: int) -> bool:
+	if target_player == null or chapter < 1 or chapter > 6 or player != null or coins != 0:
+		return false
+	if settlement_generation != 0 or settlement_wave != 0 or not upgrade_counts.is_empty() or not acquired_evolution_id.is_empty():
+		return false
+	for family in FAMILY_IDS:
+		if int(family_levels.get(family, 0)) != 1:
+			return false
+	_chapter_number = chapter
+	_settlement_stage_kind = "encounter"
+	player = target_player
+	_sync_build_family_levels()
+	_emit_progression_changed()
+	return true
+
+func is_chapter_run() -> bool:
+	return _chapter_number > 0
 
 func get_progression_state() -> Dictionary:
 	return {
@@ -101,7 +125,8 @@ func get_snapshot_state() -> Dictionary:
 	}
 
 func restore_snapshot_state(state: Dictionary) -> bool:
-	if player == null or not _validate_snapshot_state(state):
+	# Wave snapshots cannot change an already-bound formal chapter's context.
+	if is_chapter_run() or player == null or not _validate_snapshot_state(state):
 		return false
 	coins = int(state["coins"])
 	family_levels = (state["family_levels"] as Dictionary).duplicate(true)
@@ -206,7 +231,19 @@ func prepare_settlement(completed_wave: int) -> bool:
 		return false
 	if settlement_wave > 0 and not settlement_closed:
 		return false
-	var selected_evolution := _select_evolution_candidate(completed_wave)
+	if is_chapter_run() and (_chapter_finale_prepared or completed_wave > 3 or completed_wave != settlement_wave + 1):
+		return false
+	var selected_evolution: Dictionary = {} if is_chapter_run() else _select_evolution_candidate(completed_wave)
+	return _publish_settlement(completed_wave, selected_evolution, false)
+
+func prepare_chapter_finale(completed_encounters: int) -> bool:
+	if not is_chapter_run() or _chapter_finale_prepared or not settlement_closed or not settlement_reward_claimed:
+		return false
+	if completed_encounters not in [2, 3] or completed_encounters != settlement_wave:
+		return false
+	return _publish_settlement(completed_encounters, _select_chapter_evolution_candidate(), true)
+
+func _publish_settlement(completed_wave: int, selected_evolution: Dictionary, chapter_finale: bool) -> bool:
 	var price_multiplier := 1.0 + SETTLEMENT_PRICE_STEP * float(completed_wave - 1)
 	var staged_offers: Array[Dictionary] = []
 	for family_id in FAMILY_IDS:
@@ -248,6 +285,9 @@ func prepare_settlement(completed_wave: int) -> bool:
 	settlement_generation += 1
 	settlement_reward_claimed = false
 	settlement_closed = false
+	_settlement_stage_kind = "boss_prep" if chapter_finale else ("encounter" if is_chapter_run() else "wave")
+	if chapter_finale:
+		_chapter_finale_prepared = true
 	settlement_offers.clear()
 	for staged_offer in staged_offers:
 		staged_offer["transaction"] = settlement_generation
@@ -279,6 +319,7 @@ func get_settlement_state() -> Dictionary:
 		})
 	return {
 		"wave": settlement_wave,
+		"stage_kind": _settlement_stage_kind,
 		"coins": coins,
 		"transaction": settlement_generation,
 		"reward_claimed": settlement_reward_claimed,
@@ -373,6 +414,23 @@ func _select_evolution_candidate(completed_wave: int) -> Dictionary:
 		if String(card.get("kind", "")) == "evolution" and String(card.get("family", "")) == selected_family and _is_card_unlocked(card) and not _is_upgrade_capped(String(card.get("id", ""))):
 			return card
 	return {}
+
+func _select_chapter_evolution_candidate() -> Dictionary:
+	if not acquired_evolution_id.is_empty():
+		return {}
+	var selected: Dictionary = {}
+	var selected_level := CHAPTER_EVOLUTION_MIN_FAMILY_LEVEL - 1
+	for family in FAMILY_IDS:
+		var level := int(family_levels.get(family, 1))
+		if level <= selected_level:
+			continue
+		for card: Dictionary in upgrade_pool:
+			if String(card.get("kind", "")) != "evolution" or String(card.get("family", "")) != family:
+				continue
+			if _is_card_unlocked(card) and not _is_upgrade_capped(String(card.get("id", ""))):
+				selected = card
+				selected_level = level
+	return selected
 
 func _record_evolution_if_needed(offer: Dictionary) -> void:
 	if String(offer.get("kind", "")) == "evolution" and acquired_evolution_id.is_empty():

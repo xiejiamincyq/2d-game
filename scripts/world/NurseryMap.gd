@@ -1,4 +1,5 @@
 extends Node2D
+const Backdrop = preload("res://scripts/world/ChapterMapBackdrop.gd")
 ## Editable chapter map assembly. Caller assigns a fresh run seed before adding.
 
 @export var map_seed: int = 0
@@ -12,3 +13,4 @@ func generate_map(seed_value: int) -> void:
 	map_seed = seed_value
 	layout.generate_map(seed_value)
 	floor_view.configure(layout.world_bounds, seed_value, layout.get_obstacle_descriptors())
+	Backdrop.install(self,layout.world_bounds,1)

@@ -84,7 +84,7 @@ func step_framing(delta: float) -> void:
 	var player_rect := Rect2(player.global_position - Vector2.ONE * PLAYER_VISUAL_RADIUS, Vector2.ONE * PLAYER_VISUAL_RADIUS * 2.0)
 	var union := player_rect
 	if boss_active:
-		var boss_rect: Rect2 = boss.boss_visual.global_transform * boss.boss_visual.get_rect()
+		var boss_rect: Rect2 = boss.get_visual_node().global_transform * boss.get_visual_rect()
 		union = player_rect.merge(boss_rect)
 	var required_zoom := minf(1.0, minf(solve_rect.size.x / union.size.x, solve_rect.size.y / union.size.y))
 	var feasible := required_zoom >= MIN_ZOOM
@@ -120,12 +120,12 @@ func step_framing(delta: float) -> void:
 	if not boss_active:
 		ui.boss_direction_indicator.hide()
 	else:
-		var projected_boss: Rect2 = boss.boss_visual.get_global_transform_with_canvas() * boss.boss_visual.get_rect()
+		var projected_boss: Rect2 = boss.get_visual_node().get_global_transform_with_canvas() * boss.get_visual_rect()
 		both_fit = both_fit and safe_screen_rect.encloses(projected_boss)
 		if both_fit:
 			ui.boss_direction_indicator.hide()
 		else:
-			ui.boss_direction_indicator.show_direction(safe_screen_rect, projected_boss.get_center())
+			ui.boss_direction_indicator.show_direction(safe_screen_rect, projected_boss.get_center(), projected_boss)
 
 func _has_active_boss() -> bool:
 	return is_instance_valid(boss) and not boss.is_queued_for_deletion() and boss.visible and boss.entrance_resolved and boss.health.current_health > 0.0

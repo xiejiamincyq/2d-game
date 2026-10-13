@@ -65,7 +65,7 @@ func _initialize() -> void:
 		check(collisions.size() == 1 and collisions[0].shape is CircleShape2D and collisions[0].shape.radius == 52 and spike.damage == 24, "spike damage or collision radius changed")
 		var flame_shapes := flame.get_children().filter(func(child: Node) -> bool: return child is CollisionShape2D)
 		check(flame_shapes.size() == 1 and flame_shapes[0].shape.radius == 22 and flame.STACK_INTERVAL == 0.20 and flame.lifetime == 4, "flame collision or burn timing changed")
-		check(vfx.get_effect_count(Vfx.SPARK) == 1 and vfx._sparks[0].textured, "ground layering suppressed hit feedback records")
+		check(vfx.get_effect_count(Vfx.SPARK) == 1 and vfx._sparks[0].burst, "ground layering suppressed hit feedback records")
 		ancestor.free()
 		await process_frame
 	print("TEST %s: FriendlyEffectLayerTest %d" % ["PASS" if failures == 0 else "FAIL", assertions])

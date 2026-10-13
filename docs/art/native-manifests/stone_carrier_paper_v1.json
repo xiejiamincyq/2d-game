@@ -1,0 +1,10 @@
+{
+  "asset_id": "stone_carrier_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/stone_carrier_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/stone_carrier_motion_v1.tres",
+  "role": "large",
+  "review_state": "style-approved",
+  "bone_count": 17,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "hit", "death", "entrance"]
+}

@@ -1,0 +1,30 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.91 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060 Laptop GPU
+
+FLOW STATE: INTRO step=0 HP=100.0 kills=0
+FLOW STATE: COMBAT step=52 HP=100.0 kills=0
+FLOW STATE: COLLECT step=773 HP=100.0 kills=18
+FLOW STATE: REWARD step=954 HP=100.0 kills=18
+FLOW STATE: INTRO step=956 HP=100.0 kills=18
+FLOW STATE: COMBAT step=957 HP=100.0 kills=18
+ERROR: TEST FAIL: VerifyNurseryChapterFlow actual player penetrated terrain
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyNurseryChapterFlow.gd:106)
+       [1] _run (res://scripts/art/VerifyNurseryChapterFlow.gd:267)
+ERROR: TEST FAIL: VerifyNurseryChapterFlow actual player penetrated terrain
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyNurseryChapterFlow.gd:106)
+       [1] _run (res://scripts/art/VerifyNurseryChapterFlow.gd:267)
+FLOW STATE: COLLECT step=1570 HP=100.0 kills=44
+FLOW STATE: REWARD step=1751 HP=100.0 kills=44
+FLOW STATE: ROUTE step=1754 HP=100.0 kills=44
+FLOW STATE: INTRO step=1755 HP=100.0 kills=44
+FLOW STATE: COMBAT step=1756 HP=100.0 kills=44
+FLOW STATE: COLLECT step=2360 HP=100.0 kills=84
+FLOW STATE: REWARD step=2541 HP=100.0 kills=84
+FLOW STATE: BOSS_READY step=2546 HP=100.0 kills=84
+FLOW STATE: BOSS step=2547 HP=100.0 kills=84
+NATIVE PLAYER HEALTH frame=5741 HP=40.0
+FLOW STATE: CLEARED step=5951 HP=40.0 kills=99

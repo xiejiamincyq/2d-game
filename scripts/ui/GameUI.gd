@@ -5,6 +5,7 @@ signal settlement_offer_selected(offer: Dictionary)
 signal settlement_close_requested
 signal wave_banner_finished(context: StringName)
 signal start_requested
+signal legacy_start_requested
 signal continue_requested
 signal chapter_requested(chapter: int)
 signal quit_requested
@@ -160,6 +161,7 @@ func _build_start_screen() -> void:
 	start_button = start_screen.start_button
 	continue_button = start_screen.continue_button
 	start_screen.start_requested.connect(func() -> void: start_requested.emit())
+	start_screen.legacy_start_requested.connect(func() -> void: legacy_start_requested.emit())
 	start_screen.continue_requested.connect(func() -> void: continue_requested.emit())
 	start_screen.chapter_requested.connect(func(chapter: int) -> void: chapter_requested.emit(chapter))
 	start_screen.quit_requested.connect(func() -> void: quit_requested.emit())
@@ -200,12 +202,12 @@ func _bind_compatibility_references() -> void:
 	bgm_volume_slider = hud.bgm_volume_slider
 
 func _unhandled_input(event: InputEvent) -> void:
-	if start_screen.visible and start_screen.page == CampaignStartScreen.Page.COVER and event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_C and continue_button.visible and not continue_button.disabled:
-			continue_requested.emit()
+	if start_screen.visible and event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_C and start_screen.page == CampaignStartScreen.Page.LEGACY:
+			start_screen._continue()
 			return
-		if event.keycode in [KEY_ENTER, KEY_SPACE]:
-			start_requested.emit()
+		if event.keycode in [KEY_ENTER, KEY_SPACE] and start_screen.page == CampaignStartScreen.Page.COVER:
+			start_screen.request_primary()
 			return
 	if result_screen.visible and event is InputEventKey and event.pressed and event.keycode == KEY_R:
 		restart_requested.emit()

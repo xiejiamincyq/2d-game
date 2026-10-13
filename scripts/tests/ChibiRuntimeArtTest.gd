@@ -42,14 +42,15 @@ func _initialize() -> void:
 		return
 	if not _assert_true(player.get_visual_node().scale == Vector2.ONE * player.PLAYER_SIZE_SCALE, "native player scale drifted"):
 		return
-	if not _assert_true(CombatVfxScript.HIT_TEXTURE.resource_path == HIT_EFFECT_PATH, "combat spark did not load the B-style hit effect"):
+	var hit_art: Script = CombatVfxScript.HIT_ART
+	if not _assert_true(hit_art.resource_path == "res://scripts/effects/PaperImpactArt.gd", "combat spark did not load original native paper art"):
 		return
 	var boss: Node2D = BossScript.new()
 	boss.setup(6, root, player)
 	boss.process_mode = Node.PROCESS_MODE_DISABLED
 	root.add_child(boss)
 	await process_frame
-	if not _assert_true(boss.boss_visual.texture.resource_path == OVERSEER_PATH, "final Boss still uses legacy mechanical art instead of the B-style warden"):
+	if not _assert_true(boss.boss_visual.scene_file_path == "res://scenes/actors/native/root_overseer_paper_v1.tscn", "legacy wave Boss lacks independent native attack rig"):
 		return
 	var boss_transform: Transform2D = boss.global_transform
 	var boss_health: float = boss.health.current_health
@@ -58,21 +59,23 @@ func _initialize() -> void:
 		if child is CollisionShape2D:
 			boss_collision = child.shape as CircleShape2D
 	boss.entrance_resolved = true
+	var boss_shin: Bone2D = boss.boss_visual.skeleton.get_node("Torso/LegR/ShinR")
+	var shin_before: Transform2D = boss_shin.transform
 	boss.velocity = Vector2.RIGHT * 63.8
 	boss._update_boss_motion(0.12)
-	if not _assert_true(boss.boss_visual.position.y < 0.0 and absf(boss.boss_visual.position.y) <= 2.0, "moving Boss has no bounded visual walk pose"):
+	if not _assert_true(boss.boss_visual.player.current_animation=="walk" and not boss_shin.transform.is_equal_approx(shin_before), "moving Boss lacks articulated native gait"):
 		return
 	if not _assert_true(boss.global_transform == boss_transform and boss_collision != null and is_equal_approx(boss_collision.radius, 56.0) and is_equal_approx(boss.health.current_health, boss_health), "Boss animation changed body transform, collision or health"):
 		return
 	boss._update_visual_facing(boss.global_position + Vector2.LEFT * 100)
-	if not _assert_true(boss.boss_visual.flip_h, "Boss art did not face a left-side player"):
+	if not _assert_true(boss.boss_visual.get_node("Facing").scale.x==-1, "Boss art did not face a left-side player"):
 		return
 	boss._update_visual_facing(boss.global_position + Vector2.RIGHT * 100)
-	if not _assert_true(not boss.boss_visual.flip_h, "Boss art did not face a right-side player"):
+	if not _assert_true(boss.boss_visual.get_node("Facing").scale.x==1, "Boss art did not face a right-side player"):
 		return
 	boss.velocity = Vector2.ZERO
 	boss._update_boss_motion(1.0)
-	if not _assert_true(boss.boss_visual.position == Vector2.ZERO and is_zero_approx(boss.boss_visual.rotation) and boss.boss_visual.scale.is_equal_approx(Vector2(1.25, 1.25)), "idle Boss retained a stale walk pose"):
+	if not _assert_true(boss.boss_visual.player.current_animation=="idle" and boss.boss_visual.position.is_equal_approx(Vector2(0,-boss.boss_visual.body_rect.get_center().y)) and is_zero_approx(boss.boss_visual.rotation) and boss.boss_visual.scale.is_equal_approx(Vector2.ONE), "idle Boss retained a stale walk pose or visual anchor"):
 		return
 
 	for fixture in [
@@ -106,16 +109,20 @@ func _initialize() -> void:
 	]:
 		var enemy := await _spawn_enemy(int(fixture.kind))
 		enemies.append(enemy)
-		var accepted: bool = enemy.native_visual != null and enemy.static_visual == null if fixture.kind in [EnemyScript.EnemyKind.SCRAPPER, EnemyScript.EnemyKind.SPITTER, EnemyScript.EnemyKind.DASHER] else enemy.static_visual.texture.resource_path == fixture.path
+		var accepted: bool = enemy.native_visual != null and enemy.static_visual == null
 		if not _assert_true(accepted, "enemy did not use its current approved actor resource: " + fixture.path):
 			return
 	var bruiser: CharacterBody2D = enemies[3]
-	var collision_shape := bruiser.get_child(bruiser.get_child_count() - 1) as CollisionShape2D
+	var collision_shapes := bruiser.find_children("*","CollisionShape2D",false,false)
+	if not _assert_true(collision_shapes.size()==1 and collision_shapes[0].shape is CircleShape2D,"Bruiser must retain one physical circle, regardless of status-child order"):
+		return
+	var collision_shape := collision_shapes[0] as CollisionShape2D
 	var radius_before: float = (collision_shape.shape as CircleShape2D).radius
-	var visual_position_before: Vector2 = bruiser.static_visual.position
+	var shin: Bone2D = bruiser.native_visual.skeleton.get_node("Torso/LegL/ShinL")
+	var visual_transform_before: Transform2D = shin.transform
 	bruiser.velocity = Vector2.RIGHT * 100.0
 	bruiser._update_static_motion(0.12)
-	if not _assert_true(bruiser.static_visual.position != visual_position_before, "moving static enemy received no lightweight walk animation"):
+	if not _assert_true(not shin.transform.is_equal_approx(visual_transform_before) and bruiser.native_visual.player.current_animation=="walk", "large native enemy has no articulated walking"):
 		return
 	if not _assert_true(is_equal_approx((collision_shape.shape as CircleShape2D).radius, radius_before), "visual animation changed enemy collision"):
 		return
@@ -132,6 +139,6 @@ func _spawn_enemy(kind: int) -> CharacterBody2D:
 	var enemy: CharacterBody2D = EnemyScript.new()
 	enemy.setup(kind, 1, root)
 	root.add_child(enemy)
-	await process_frame
 	enemy.set_physics_process(false)
+	await process_frame
 	return enemy

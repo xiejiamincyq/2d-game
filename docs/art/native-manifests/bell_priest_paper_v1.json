@@ -1,0 +1,10 @@
+{
+  "asset_id": "bell_priest_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/bell_priest_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/bell_priest_motion_v1.tres",
+  "role": "boss",
+  "review_state": "style-approved",
+  "bone_count": 26,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "hit", "entrance", "death"]
+}

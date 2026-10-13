@@ -1,0 +1,21 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "boss_warning_readability_v1",
+  "review_state": "accepted-scoped-native-component",
+  "approval_authority": "user-delegated-art-review-and-requested-boss-fairness-2026-10-12",
+  "license_origin": "project-original",
+  "runtime_source": "res://scripts/components/BossEscapeGate.gd",
+  "runtime_source_sha256": "7c54141e8536b72038992a3f2970d6fb8b5ad6804880b735c9222a1ddac77bee",
+  "palette": ["#172026", "#f27a4b", "#f3eddc", "#ed8877"],
+  "design": "Keep accepted native paper actors and libraries. Coral/black locked danger boundaries and cream shrink countdown for ground marks, restrained flight/capsule previews and two outer claw sweep hulls. No bitmap generation, bloom, new silhouettes or copied external art.",
+  "runtime_extents": [[1280, 720]],
+  "runtime_evidence": "docs/art/previews/campaign/boss-fairness-v1/report.json",
+  "review": "docs/campaign-boss-fairness-v1.md",
+  "limitations": [
+    "22 actual-map/native-actor GPU captures reviewed; v4 pixels exactly match reviewed v3 captures, source bank1762 checked by the renderer",
+    "Controlled combat clocks, not human reaction, ordinary victory, isolated actor alpha or full performance proof",
+    "This supplements prior resource-only and first-root signed snapshots; it does not rewrite their historical source banks",
+    "Native code drawing, not raster PNG manifest promotion or whole-goal approval",
+    "Gameplay clock/admission changes are user-authorized separately from the visual component review"
+  ]
+}

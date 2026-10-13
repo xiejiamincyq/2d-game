@@ -1,0 +1,10 @@
+{
+  "asset_id": "root_commander_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/root_commander_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/root_commander_motion_v1.tres",
+  "role": "large",
+  "review_state": "style-approved",
+  "bone_count": 23,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "hit", "entrance", "death"]
+}

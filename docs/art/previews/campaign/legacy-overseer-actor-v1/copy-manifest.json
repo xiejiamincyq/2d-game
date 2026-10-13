@@ -1,0 +1,192 @@
+[
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f5_legacy_overseer_actor_v1\\aimed_fan.png",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\aimed_fan.png",
+    "sha256": "c6d1f5a3d7522ee3818fb1c7f1694e8046697aed1929f91577200b2fd6fc11cf"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f5_legacy_overseer_actor_v1\\broken_ring.png",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\broken_ring.png",
+    "sha256": "c1a003206a6e9969b5c3112d779c7f216b97a1cee022668fc3e325167a85edc5"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f5_legacy_overseer_actor_v1\\phase_transition.png",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\phase_transition.png",
+    "sha256": "a2d7dc16d8dc6ac60ad52a56ba88358a93a8a648780354284adc0d2927b04b92"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f5_legacy_overseer_actor_v1\\poses.png",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\poses.png",
+    "sha256": "d6a0dc2c383c52f4ed0e9d4f14b88c04a2b813bac12a8e533afc0b879ed51409"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f5_legacy_overseer_actor_v1\\report.json",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\report.json",
+    "sha256": "5791096f772a65fa1fa264a3f52420ff193b1b2a46797a7a797a1fd3c5c21396"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f5_legacy_overseer_actor_v1\\slam.png",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\slam.png",
+    "sha256": "ffcbb8bb8458d164fdc01e22b7f9c11e262cd9ea5e0ce8c04e538e7065b0ee09"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f5_legacy_overseer_actor_v1\\sweep.png",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\sweep.png",
+    "sha256": "4574d302a7068f49f1bcd5df4c82ca276a6795263dba1267380f80b5fb44f09d"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f5_legacy_overseer_actor_v1\\twin_spiral.png",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\twin_spiral.png",
+    "sha256": "e31cb62383999193fde8e0bd03eec1b71f08d3e18a13c1e0bea2cac57287e489"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-legacy-overseer-motion-red-v1.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-legacy-overseer-motion-red-v1.log",
+    "sha256": "8b7f48a44353487673f8605eb177931a342fe341b63700a3aeec4275b9f4a97d"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-legacy-overseer-motion-green-v1.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-legacy-overseer-motion-green-v1.log",
+    "sha256": "aa691bfbe54b2044b189523f609744253b52a89be125be56fc01fa7767c57528"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-overseer-import-v1.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-overseer-import-v1.log",
+    "sha256": "38e1ef13e437b05c6acbadbd6cf76091ac8abbb55277fb87d2afd27d9019423b"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-overseer-gpu-import-v1.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-overseer-gpu-import-v1.log",
+    "sha256": "9dfe5f06a2c715717a3751a45db2c3d7a53d24eb9c515b977d42d8d5f77ef0e4"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-legacy-overseer-actor-gpu-v1.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-legacy-overseer-actor-gpu-v1.log",
+    "sha256": "4cd5f5b0ea7e6a79825a712e99f8507d3ea349784326d27d83e7441a3915e7fb"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-LegacyOverseerMotionIntegrationTest-v2.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-LegacyOverseerMotionIntegrationTest-v2.log",
+    "sha256": "aa691bfbe54b2044b189523f609744253b52a89be125be56fc01fa7767c57528"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-NativeLegacyBossIntegrationTest-v2.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-NativeLegacyBossIntegrationTest-v2.log",
+    "sha256": "8c84f3ec09fd00a17e2594169a376cf38fc7a0074fe36f1ebd05a4f7b70ec4f1"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-BossTentacleTest-v2.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-BossTentacleTest-v2.log",
+    "sha256": "53185ad0a148b983d9ae94cc0ec177cc841e4b150fff3f7f977e675dbeffdfbf"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-BossPatternTest-v2.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-BossPatternTest-v2.log",
+    "sha256": "0ae5d579cf6f17644bf93abf30f19eedec2f64a25816a627436af7d3f162ae9e"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-ChibiRuntimeArtTest-v2.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-ChibiRuntimeArtTest-v2.log",
+    "sha256": "833705b90181cef1142620d1dd9584e7401d7fb305408ce73d9f4feb3aa078a5"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-NativeCharacterRosterTest-v2.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-NativeCharacterRosterTest-v2.log",
+    "sha256": "c13e48dad6f539f5aa5fb6fefa5fef7648dee62fa84edfe5fb8186cd3dc8bc24"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-VineGuardIntegrationTest-v2.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-VineGuardIntegrationTest-v2.log",
+    "sha256": "3237e8d207af94b7a5cc5175a2d0a7a1a729efb1169b6d6f77e502e9def74bde"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-LegacyOverseerMotionIntegrationTest-v3.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-LegacyOverseerMotionIntegrationTest-v3.log",
+    "sha256": "58f8fa9cb7a2c0c89587a7e5d325af8daa3192c29350d4134ed0aaf1485fcfb0"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-BossDirectorTest-v3.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-BossDirectorTest-v3.log",
+    "sha256": "417cdb6570acd24884a05ceee494806c187a6c680672f4a366205dedaa709b12"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-BossRuntimeClockTest-v3.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-BossRuntimeClockTest-v3.log",
+    "sha256": "930661b2dacbb960022eeb3bc4da1cdb35f26b7b0941837e3137f2ec648a109a"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-BossTest-v3.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-BossTest-v3.log",
+    "sha256": "a06ed0b48e98bd9b1cc8258524e50a7cc5303532a55b68ca347403314eb890fe"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-NativeRigCheckpointTest-v3.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-NativeRigCheckpointTest-v3.log",
+    "sha256": "e445b1b3f6a9e552686daed2d6f48387f11be25db3bba602a235a4cd37a471c4"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-NativeArtValidatorTest-v3.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-NativeArtValidatorTest-v3.log",
+    "sha256": "169875c1d651ddde1bf8aaf6c663ca0f6906a202176c241c468efdaca1299f4c"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-BossTest-v4.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-BossTest-v4.log",
+    "sha256": "134ba6c7ab5cca22289ee8d38bbbd8777be6b2f1bb6e1a38ca4e2e78b300f0d0"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-BossReadabilityTest-v4.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-BossReadabilityTest-v4.log",
+    "sha256": "a078a4de990b2cf7e20df671c8cf3b6b5198df64d7544b60be8f5078d52dad5b"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-BossCameraFramingTest-v4.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-BossCameraFramingTest-v4.log",
+    "sha256": "6310ef815b3b8c6d800c46239dab567b1561ae17b9d1e85e48cb29d5050d090f"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-RootCommanderResourceTest-v4.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-RootCommanderResourceTest-v4.log",
+    "sha256": "55c0deda12bd974b8d83a24c9ab0bfb9ba52ef3c649d0d4070e4cb774a3db94f"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-VineGuardAttackIntegrationTest-v4.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-VineGuardAttackIntegrationTest-v4.log",
+    "sha256": "b40c3aa216c9447fc9ccfce120a27af555330027e2d51ceec52102114344296e"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-FurnaceForemanIntegrationTest-v4.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-FurnaceForemanIntegrationTest-v4.log",
+    "sha256": "4bbcd897c76cc5cc594cab626010028a309b9811f91426da17a0d0eab7e39f22"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-TideShellIntegrationTest-v4.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-TideShellIntegrationTest-v4.log",
+    "sha256": "db9714b236355aee14499af235308e7ca6b6e14a96a8d04f42b9c8717d2c8533"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-SporeArchivistPlaybackTest-v4.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-SporeArchivistPlaybackTest-v4.log",
+    "sha256": "09941f899e64ba09cae34a493f3b9c9e8881f47e33cf2e08673dec6141208ee4"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-BellPriestIntegrationTest-v4.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-BellPriestIntegrationTest-v4.log",
+    "sha256": "5e848f0b4eeacf3c92d5bb19fa9eac40d4c649fdae014aa1cdbf6c6c9230bd80"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-RiftObserverIntegrationTest-v4.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-RiftObserverIntegrationTest-v4.log",
+    "sha256": "452e93e4250bb0d7fec5a81e693e8f5b010ef7dc7d3ab7346d309eaafcb0e7ff"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-six-base-png-policy-red-v1.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-six-base-png-policy-red-v1.log",
+    "sha256": "2194d13be21c1d85de69aa144b0654db991a0e0de1d0190082a382d17871e323"
+  },
+  {
+    "source": "build\\diagnostics\\campaign-goal\\f5-six-base-png-policy-green-v1.log",
+    "target": "docs\\art\\previews\\campaign\\legacy-overseer-actor-v1\\f5-six-base-png-policy-green-v1.log",
+    "sha256": "8f6f5f1d0c197bd9110399d955de851e92c1dfeac0fb48a12c38f6277437814d"
+  }
+]

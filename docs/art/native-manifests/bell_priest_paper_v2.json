@@ -1,0 +1,11 @@
+{
+  "asset_id": "bell_priest_paper_v2",
+  "runtime_scene": "res://scenes/actors/native/bell_priest_paper_v2.tscn",
+  "motion_library": "res://assets/art/actors/native/bell_priest_motion_v2.tres",
+  "role": "boss",
+  "review_state": "draft",
+  "bone_count": 26,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "hit", "entrance", "death", "bell_warning", "bell_attack", "bell_recovery", "pendant_warning", "pendant_attack", "pendant_recovery", "crown_warning", "crown_attack", "crown_recovery"],
+  "rig_checkpoint": "res://docs/art/native-checkpoints/bell_priest_attack_v1.json"
+}

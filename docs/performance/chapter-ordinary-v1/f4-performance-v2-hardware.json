@@ -1,0 +1,33 @@
+{
+  "captured_utc": "2026-10-11T21:26:48.2726788Z",
+  "cpu": [
+    {
+      "Name": "Intel(R) Core(TM) Ultra 7 255HX",
+      "NumberOfCores": 20,
+      "NumberOfLogicalProcessors": 20
+    }
+  ],
+  "os": {
+    "Caption": "Microsoft Windows 11 家庭版 中文版",
+    "Version": "10.0.26200",
+    "TotalVisibleMemorySize": 16110092
+  },
+  "power_scheme": "电源方案 GUID: 27fa6203-3987-4dcc-918d-748559d549ec  (Performance)",
+  "godot": [
+    {
+      "ProcessId": 41396,
+      "Name": "Godot_v4.7-stable_win64.exe",
+      "CommandLine": null
+    },
+    {
+      "ProcessId": 57336,
+      "Name": "Godot_v4.7-stable_win64_console.exe",
+      "CommandLine": "\"C:\\Users\\21604\\AppData\\Local\\Microsoft\\WinGet\\Packages\\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\\Godot_v4.7-stable_win64_console.exe\" --path . --rendering-method gl_compatibility --rendering-driver opengl3 --max-fps 120 --script res://scripts/art/VerifyChapterPerformance.gd --quit-after 30000 -- f4_performance_risk_1280_v2 automation risk 20261013 1280"
+    },
+    {
+      "ProcessId": 42528,
+      "Name": "Godot_v4.7-stable_win64.exe",
+      "CommandLine": "C:\\Users\\21604\\AppData\\Local\\Microsoft\\WinGet\\Packages\\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\\Godot_v4.7-stable_win64.exe --path . --rendering-method gl_compatibility --rendering-driver opengl3 --max-fps 120 --script res://scripts/art/VerifyChapterPerformance.gd --quit-after 30000 -- f4_performance_risk_1280_v2 automation risk 20261013 1280"
+    }
+  ]
+}

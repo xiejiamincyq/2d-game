@@ -1,0 +1,10 @@
+{
+  "asset_id": "spore_archivist_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/spore_archivist_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/spore_archivist_motion_v1.tres",
+  "role": "boss",
+  "review_state": "style-approved",
+  "bone_count": 27,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "hit", "entrance", "death"]
+}

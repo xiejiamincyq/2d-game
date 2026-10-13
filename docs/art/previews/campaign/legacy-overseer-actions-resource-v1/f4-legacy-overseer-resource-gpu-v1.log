@@ -1,0 +1,64 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.91 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060 Laptop GPU
+
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds sweep_attack 0.0 5
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds sweep_attack 0.0 5
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds slam_warning 0.85 2
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds slam_warning 0.85 2
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds slam_attack 0.0 37
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds slam_attack 0.0 37
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds sweep_attack 0.0 5
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds sweep_attack 0.0 5
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds slam_warning 0.85 2
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds slam_warning 0.85 2
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds slam_attack 0.0 37
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+ERROR: BOSS RESOURCE GPU FAIL: live motion escapes mirrored visual bounds slam_attack 0.0 37
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/RenderNativeBossResourcePreview.gd:13)
+       [1] _run (res://scripts/art/RenderNativeBossResourcePreview.gd:81)
+BOSS RESOURCE GPU FAIL: 252 poses, 480 action samples, 60 walk adapter frames/59 changes

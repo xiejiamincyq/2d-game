@@ -1,0 +1,41 @@
+{
+  "actual_exit": 0,
+  "checks": 12,
+  "frames": 126,
+  "driver_sha256": "3f03553bc91ac723717ae90d377eb48a46d9749b2cada9d02ef74c73c9420078",
+  "pack_sha256": "fadb72a55170976544c1ed3b2887eb3be6c266043cc59e04ac8e7453375838c7",
+  "log_sha256": "f2d2bdbfbe25d8ad453c16876bb640b986e623e029aa5fcb94eff9830e12c656",
+  "samples": [
+    {
+      "frame": 0,
+      "path": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000000.png",
+      "sha256": "80bcdb96d4a43ec36acf63b207230a248c31c41cbd178f0c2ca53c6dfb755670"
+    },
+    {
+      "frame": 20,
+      "path": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000020.png",
+      "sha256": "08b01ee62162b96cf358ed76067ad7c96de0ce118fc58698c32583d7e8182b04"
+    },
+    {
+      "frame": 60,
+      "path": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000060.png",
+      "sha256": "08b01ee62162b96cf358ed76067ad7c96de0ce118fc58698c32583d7e8182b04"
+    },
+    {
+      "frame": 90,
+      "path": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000090.png",
+      "sha256": "f01edf6bbea62db0d8bdb406bea92e0458b1f5cdf146fae51bf504e29bb15d03"
+    },
+    {
+      "frame": 124,
+      "path": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000124.png",
+      "sha256": "55832701cc7655f60cae3331fdf4ceb3b2ff6100da959bb18e599081d03e9f29"
+    },
+    {
+      "frame": 125,
+      "path": "build/diagnostics/campaign-goal/f9-final-native-pack-v1/runtime-gpu-v1/frame00000125.png",
+      "sha256": "4f3de6df3d97048be55ff6a818d0887fe0520621b9b84d6eefea5e5ffb10fbf4"
+    }
+  ],
+  "scope": "Actual canonical fixture against same isolated PCK, native GPU Main/first chapter/move/fire/Back. Movie fixed60 is recording, not performance. Controlled UI signals not OS mouse or human playtest."
+}

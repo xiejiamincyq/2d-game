@@ -1,5 +1,7 @@
 # Bone Breaking 音效来源记录
 
+当前状态更新：本文件以下是替换前快照。运行已改用[项目原创合成声](original-overdrive-cue-v1.md)，旧MP3原件与未知来源状态保留，但不再运行加载或导出；没有批准这个旧文件的许可。
+
 状态：`needs_review`。只补来源事实，不批准许可或公开发布，不替换音频。
 
 - 当前运行文件：`assets/audio/overdrive_bone_breaking.mp3`，44347字节，SHA256 `cdeae6778c84761b7a0d634c5036c3366b997f5351ef055f007e45b80592e5ef`。

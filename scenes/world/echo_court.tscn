@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/EchoMap.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/world/EchoFloor.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/world/EchoArenaLayout.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/world/EchoField.gd" id="4"]
+
+[node name="EchoCourt" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1")
+
+[node name="Floor" type="Node2D" parent="."]
+z_index = -100
+script = ExtResource("2")
+
+[node name="Layout" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("3")
+
+[node name="EchoField" type="Node2D" parent="."]
+z_index = -80
+script = ExtResource("4")

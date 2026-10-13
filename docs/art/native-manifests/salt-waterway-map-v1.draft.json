@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "asset_id": "salt_waterway_map_v1",
+  "asset_class": "native-environment",
+  "batch": "environment",
+  "purpose": "Original chapter-three reservoirs, dry causeways and lock walls with truthful permanent solids.",
+  "runtime_path": "res://scenes/world/salt_waterway.tscn",
+  "source_format": "Godot Node2D drawing and StaticBody2D assembly, not raster PNG",
+  "source_dimensions": {"width": 3328, "height": 2048},
+  "runtime_target": {"width": 1280, "height": 720},
+  "background": "opaque-ground; fully opaque blocked-water footprints; upper lock-only occlusion",
+  "camera": "fixed elevated 2D oblique, gameplay camera at native scale",
+  "palette": ["#171f25", "#596665", "#394f56", "#7c8273", "#abb39b"],
+  "lighting": "matte cut-paper; quiet salt-green ground and dark blue basin; no bloom",
+  "prompt": "Original ink-outline paper reservoirs; visibly impassable low water and weathered sluice walls; wide dry causeways and multiple escape loops; distinct from furnace pipes and nursery planters.",
+  "negative_constraints": ["no downloaded or copied silhouettes", "no silent walkable water", "no actor-wide transparency", "no changing bridge collision during play", "no damaging-looking static red decorations"],
+  "generation_model": "hand-authored Godot native geometry",
+  "references": [
+    {"url": "https://kenney.nl/assets/top-down-shooter", "license": "CC0 stated on official pack page", "use": "free source availability reviewed; no files downloaded, traced or imported"},
+    {"url": "https://kenney.nl/assets/tower-defense-top-down", "license": "CC0 stated on official pack page", "use": "free source availability reviewed; no files downloaded, traced or imported"}
+  ],
+  "style_authority": "User permits autonomous original style under the campaign native-paper specification; historical raster toy guide is superseded for this batch.",
+  "license_review_state": "pending",
+  "review_state": "draft",
+  "runtime_evidence": {"gameplay_capture": "", "alpha_report": "", "review_document": ""},
+  "validator_scope": "Raster validate_manifest.py intentionally only accepts PNG art roots and is not a native-scene schema; do not claim its validation or provide a fake PNG path. Native geometry/scene/input/GPU/export checks apply."
+}

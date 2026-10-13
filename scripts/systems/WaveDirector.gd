@@ -384,10 +384,13 @@ func _on_boss_portal_burst(portal: Node) -> void:
 		return
 	_spawn_boss_at(portal.global_position)
 
+func _create_boss_actor() -> Node:
+	return OverseerBossScript.new()
+
 func _spawn_boss_at(position: Vector2) -> Node:
 	if is_instance_valid(active_boss) or boss_defeated_for_wave or enemy_parent == null:
 		return null
-	var boss: Node = OverseerBossScript.new()
+	var boss: Node = _create_boss_actor()
 	boss.world_bounds = world_bounds
 	boss.setup(wave_index + 1, projectile_parent, player as Node2D)
 	if boss.has_method("set_arena_navigation"):
@@ -408,7 +411,7 @@ func _spawn_boss_at(position: Vector2) -> Node:
 	active_enemies.append(boss)
 	neighbor_grid.invalidate()
 	boss.health_changed.connect(_on_boss_health_changed)
-	boss_spawned.emit(boss, OverseerBossScript.DISPLAY_NAME, float(boss.health.max_health))
+	boss_spawned.emit(boss, boss.get_display_name(), float(boss.health.max_health))
 	boss_health_changed.emit(float(boss.health.current_health), float(boss.health.max_health), int(boss.get_phase()))
 	_emit_wave_status()
 	return boss
@@ -519,11 +522,15 @@ func _spawn_enemy(kind: int) -> void:
 	var position := sample_spitter_spawn_position(player.global_position, get_camera_safe_rect(), spawn_rng) if ranged_kind else sample_spawn_position(player.global_position, 24.0, 430.0, spawn_rng)
 	_spawn_enemy_at(kind, position)
 
-func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = false, spawn_age: float = 0.0) -> void:
+func _create_enemy_actor(kind: int) -> Node:
 	var enemy := EnemyScript.new()
 	if world_bounds.size != Vector2.ZERO:
 		enemy.world_bounds = world_bounds
 	enemy.setup(kind, wave_index + 1, projectile_parent, player as Node2D)
+	return enemy
+
+func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = false, spawn_age: float = 0.0) -> void:
+	var enemy = _create_enemy_actor(kind)
 	enemy.set_arena_navigation(arena_navigation)
 	var spawn_bounds := world_bounds.grow(-enemy.body_radius) if world_bounds.size != Vector2.ZERO else Rect2()
 	var spawn_position := position
@@ -543,6 +550,11 @@ func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = 
 		enemy._clamp_to_world_bounds()
 	else:
 		enemy.velocity = Vector2.ZERO
+	_register_enemy(enemy)
+
+func _register_enemy(enemy: Node) -> bool:
+	# Only live bodies enter the neighbor grid; pending births are chapter debt.
+	if not is_instance_valid(enemy) or not enemy.is_inside_tree() or enemy.is_queued_for_deletion() or enemy.death_resolved or active_enemies.has(enemy): return false
 	active_enemies.append(enemy)
 	neighbor_grid.invalidate()
 	enemy.set_neighbor_provider(_get_enemy_neighbors.bind(enemy))
@@ -568,6 +580,7 @@ func _spawn_enemy_at(kind: int, position: Vector2, disperse_from_portal: bool = 
 				killed
 			)
 		)
+	return true
 
 func _get_portal_burst_overlap(portal: Node, delta: float) -> float:
 	var safe_delta := maxf(0.0, delta)
@@ -781,12 +794,17 @@ func _on_enemy_died(enemy: Node, coin_value: int, source: StringName) -> void:
 		return
 	enemy.set_meta(&"kill_resolved", true)
 	var death_position: Vector2 = enemy.global_position
-	var shield_value: float = enemy.shield_drop_value
-	var drops_heart := should_drop_heart(spawn_rng.randf())
-	var drops_shield := shield_value > 0.0 and should_drop_shield(spawn_rng.randf())
+	var drops := _roll_enemy_drops(enemy)
 	enemy_killed.emit(enemy, source, coin_value)
-	call_deferred("_deferred_spawn_drops", death_position, coin_value, shield_value, drops_heart, drops_shield)
+	call_deferred("_deferred_spawn_drops", death_position, coin_value, drops.shield_value, drops.heart, drops.shield)
 	_emit_wave_status()
+
+func _roll_enemy_drops(enemy: Node) -> Dictionary:
+	# Default policy keeps the old probabilities AND short-circuit RNG consumption.
+	var shield_value: float = enemy.shield_drop_value
+	var heart := should_drop_heart(spawn_rng.randf())
+	var shield := shield_value > 0.0 and should_drop_shield(spawn_rng.randf())
+	return {"heart": heart, "shield": shield, "shield_value": shield_value}
 
 static func should_drop_heart(roll: float) -> bool:
 	return roll >= 0.0 and roll < HEART_DROP_CHANCE

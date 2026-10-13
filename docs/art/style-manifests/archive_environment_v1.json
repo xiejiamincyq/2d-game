@@ -1,0 +1,19 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "archive_environment_v1",
+  "review_state": "draft",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/archive-map-review-v1.md",
+  "environment_preview": "res://docs/art/previews/campaign/archive-map-v1/overview-521.png",
+  "prop_preview": "res://docs/art/previews/campaign/archive-map-v1/props.png",
+  "runtime_evidence": "res://docs/art/previews/campaign/archive-map-v1/report.json",
+  "assets": [
+    {"role": "environment-props", "id": "archive_bookcase", "authoring_source": "res://scripts/world/ArchivePropArt.gd", "scope": "Original native ink-lined muted book spines; permanent opaque plinth and independently fading upper decoration"},
+    {"role": "environment-ground", "id": "archive_reading_room", "authoring_source": "res://scripts/world/ArchiveFloor.gd", "scope": "Quiet slate tile marks and inset side rooms; exact real doors, empty static Boss platform"},
+    {"role": "chapter-map", "id": "luminous_archive", "authoring_source": "res://scenes/world/luminous_archive.tscn", "scope": "Four seeded shelf chambers, two opposing exits each and outside detours; no chapter readiness or victory"}
+  ],
+  "external_raster_dependencies": [],
+  "reference_policy": "Adopted original native paper style; existing campaign-free-reference-sources-v1.md retains the free-reference policy. No new external artwork, paid asset extraction, downloads or installations. Not a raster generation manifest.",
+  "limitations": ["Map-only draft, not fourth chapter combat", "No spore field, encounters or actual Archivist Boss yet", "No human or OS desktop input, dense performance, six-chapter or final license approval", "GPU v1 had incorrect single-layer alpha expectation; v2 fixed camera crop was rejected, current v3 tracks Player", "Full regression completion is recorded separately in review document"]
+}

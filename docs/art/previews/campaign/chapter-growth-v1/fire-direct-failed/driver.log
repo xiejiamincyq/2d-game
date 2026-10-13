@@ -1,0 +1,26 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.91 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060 Laptop GPU
+
+FLOW STATE: INTRO step=0 HP=100.0 kills=0
+FLOW STATE: COMBAT step=51 HP=100.0 kills=0
+FLOW STATE: COLLECT step=3997 HP=100.0 kills=18
+FLOW STATE: REWARD step=4178 HP=100.0 kills=18
+FLOW STATE: INTRO step=4180 HP=100.0 kills=18
+FLOW STATE: COMBAT step=4181 HP=100.0 kills=18
+FLOW STATE: COLLECT step=9607 HP=100.0 kills=44
+FLOW STATE: REWARD step=9789 HP=100.0 kills=44
+FLOW STATE: ROUTE step=9791 HP=100.0 kills=44
+NATIVE PLAYER HEALTH frame=9817 HP=100.0
+FLOW STATE: REWARD step=9792 HP=100.0 kills=44
+FLOW STATE: BOSS_READY step=9794 HP=100.0 kills=44
+FLOW STATE: BOSS step=9795 HP=100.0 kills=44
+ERROR: TEST FAIL: VerifyNurseryChapterFlow ordinary run did not reach saved Boss clear
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyNurseryChapterFlow.gd:106)
+       [1] _run (res://scripts/art/VerifyNurseryChapterFlow.gd:260)
+ERROR: TEST FAIL: VerifyNurseryChapterFlow ordinary Boss clear not persisted at its actual chapter boundary
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyNurseryChapterFlow.gd:106)
+       [1] _run (res://scripts/art/VerifyNurseryChapterFlow.gd:261)

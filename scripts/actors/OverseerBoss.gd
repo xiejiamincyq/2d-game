@@ -22,9 +22,11 @@ const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
 const HealthComponentScript = preload("res://scripts/components/HealthComponent.gd")
 const TentacleAttackScript = preload("res://scripts/components/TentacleAttack.gd")
 const BossAttackDirectorScript = preload("res://scripts/components/BossAttackDirector.gd")
-const OVERSEER_TEXTURE := preload("res://assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png")
+const NATIVE_BOSS_SCENE := preload("res://scenes/actors/native/root_overseer_paper_v1.tscn")
+const NativeBossMotionScript := preload("res://scripts/components/NativeOverseerMotion.gd")
 const HIT_FLASH_SHADER := preload("res://assets/art/shaders/dasher_hit_flash.gdshader")
 const HitFeedbackScript = preload("res://scripts/effects/EnemyHitFeedback.gd")
+const WorldStatusScript = preload("res://scripts/effects/EnemyWorldStatus.gd")
 
 const DISPLAY_NAME := "深渊监工 / OVERSEER"
 const BODY_RADIUS := 56.0
@@ -36,7 +38,7 @@ const KEEP_DISTANCE_MAX := 390.0
 const MOVE_SPEED := 63.8
 const CAMERA_SAFE_MARGIN := 112.0
 const HIDDEN_DISPERSAL_SPEED_SCALE := 0.72
-const OVERSEER_RUNTIME_SCALE := Vector2(1.25, 1.25)
+const OVERSEER_RUNTIME_SCALE := Vector2.ONE # New skin has its own native size.
 const HIT_FLASH_AMOUNT := 0.35 # Continuous laser damage must not erase the Boss palette.
 
 var body_radius := BODY_RADIUS
@@ -57,16 +59,18 @@ var entrance_resolved := false
 var burn_status: RefCounted = BurnStatusScript.new()
 var hidden_dispersion_direction := Vector2.ZERO
 var hidden_dispersion_timer := 0.0
-var boss_visual: Sprite2D
+var boss_visual: Node2D
+var boss_motion: RefCounted
 var boss_flash_material: ShaderMaterial
-var visual_motion_elapsed := 0.0
 var hit_feedback: Node2D
+var world_status: Node2D
 
 func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	scale = Vector2.ONE * 0.12
-	rotation = -0.28
-	modulate.a = 0.0
+	# Entrance belongs to the bones, never the physical root or whole-body alpha.
+	scale = Vector2.ONE
+	rotation = 0.0
+	modulate.a = 1.0
 	projectile_parent = projectiles
 	target_player = target
 	tentacle_attack = TentacleAttackScript.new()
@@ -86,6 +90,15 @@ func setup(_wave_index: int, projectiles: Node, target: Node2D = null) -> void:
 
 func get_tentacle_attack() -> Node:
 	return tentacle_attack
+
+func get_display_name() -> String:
+	return DISPLAY_NAME
+
+func get_visual_node() -> Node2D:
+	return boss_visual
+
+func get_visual_rect() -> Rect2:
+	return boss_visual.get_node("Facing").transform * boss_visual.body_rect if boss_visual != null else Rect2()
 
 func get_attack_director() -> Node:
 	return attack_director
@@ -120,7 +133,15 @@ func _ready() -> void:
 	collision.shape = circle
 	add_child(collision)
 	_create_boss_visual()
+	world_status = WorldStatusScript.new()
+	add_child(world_status)
 	queue_redraw()
+
+func should_show_attack_marker() -> bool:
+	return false # Legacy Boss retains its old cue contract; native subclasses opt in.
+
+func get_attack_marker_top() -> float:
+	return -126.0
 
 func _physics_process(delta: float) -> void:
 	_update_burn(delta)
@@ -200,21 +221,12 @@ func get_combat_safe_rect() -> Rect2:
 func _update_entrance_reveal() -> void:
 	if entrance_resolved or attack_director == null:
 		return
-	var duration: float = maxf(attack_director.ENTRANCE_SECONDS, 0.01)
-	entrance_progress = clampf(float(attack_director.state_elapsed) / duration, 0.0, 1.0)
-	var eased := smoothstep(0.0, 1.0, entrance_progress)
-	var overshoot := sin(entrance_progress * PI) * 0.12
-	var visual_scale := lerpf(0.12, 1.0, eased) + overshoot
-	scale = Vector2.ONE * visual_scale
-	rotation = lerpf(-0.28, 0.0, eased)
-	modulate.a = clampf(entrance_progress * 2.6, 0.0, 1.0)
-	queue_redraw()
-	if attack_director.get_state_name() != "ENTRANCE":
+	if attack_director.get_state_name() == "ENTRANCE":
+		var duration: float = maxf(attack_director.ENTRANCE_SECONDS, 0.01)
+		entrance_progress = clampf(float(attack_director.state_elapsed) / duration, 0.0, 1.0)
+	else:
 		entrance_resolved = true
 		entrance_progress = 1.0
-		scale = Vector2.ONE
-		rotation = 0.0
-		modulate.a = 1.0
 		process_mode = Node.PROCESS_MODE_PAUSABLE
 		entrance_finished.emit()
 
@@ -275,6 +287,9 @@ func take_damage(
 	flash_timer = 0.08
 	if boss_flash_material != null:
 		boss_flash_material.set_shader_parameter("flash_amount", HIT_FLASH_AMOUNT)
+	if not killed and boss_visual != null:
+		boss_motion.notify_hit()
+		boss_motion.update(self, 0.0)
 	queue_redraw()
 	damage_resolved.emit(self, resolved_source, actual_damage, global_position, hit_direction, killed)
 	hit.emit(resolved_source)
@@ -308,10 +323,17 @@ func _die(source: StringName) -> void:
 		return
 	death_resolved = true
 	cancel_boss_attacks()
+	_release_death_visual()
 	velocity = Vector2.ZERO
 	set_physics_process(false)
 	died.emit(self, coin_value, source)
 	queue_free()
+
+func _release_death_visual() -> void:
+	if boss_visual != null:
+		boss_flash_material.set_shader_parameter("flash_amount", 0.0)
+		boss_motion.release_death(get_parent())
+		boss_visual = null
 
 func _clamp_to_world_bounds() -> void:
 	if world_bounds.size == Vector2.ZERO:
@@ -320,43 +342,28 @@ func _clamp_to_world_bounds() -> void:
 	global_position = global_position.clamp(playable.position, playable.end - Vector2(0.001, 0.001))
 
 func _draw() -> void:
-	var cyan := Color("35b8ac")
-	var magenta := Color("f27a4b")
-	if not entrance_resolved:
-		var reveal_radius := lerpf(150.0, 88.0, entrance_progress)
-		draw_arc(Vector2.ZERO, reveal_radius, -PI * 0.5, PI * 1.5, 64, Color(cyan, 0.9 - entrance_progress * 0.35), 5.0)
-		draw_arc(Vector2.ZERO, reveal_radius + 18.0, PI * 0.5, PI * 2.5, 64, Color(magenta, 0.75 - entrance_progress * 0.25), 3.0)
+	pass # No oversized reveal rings; old attack controllers remain transitional.
 
 func _create_boss_visual() -> void:
-	boss_visual = Sprite2D.new()
-	boss_visual.name = "OverseerVisual"
-	boss_visual.texture = OVERSEER_TEXTURE
+	boss_visual = NATIVE_BOSS_SCENE.instantiate()
+	boss_visual.name = "NativeOverseerBoss"
 	boss_visual.scale = OVERSEER_RUNTIME_SCALE
-	boss_visual.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	boss_visual.show_behind_parent = true
+	add_child(boss_visual)
+	# Center the reviewed vertical silhouette on the hitbox without moving bones
+	# or applying a Sprite-era enlargement. X stays zero for natural mirroring.
+	boss_visual.position.y = -boss_visual.body_rect.get_center().y * OVERSEER_RUNTIME_SCALE.y
 	boss_flash_material = ShaderMaterial.new()
 	boss_flash_material.shader = HIT_FLASH_SHADER
 	boss_flash_material.set_shader_parameter("flash_amount", 0.0)
-	boss_visual.material = boss_flash_material
-	add_child(boss_visual)
+	boss_visual.get_node("Facing/Skin").material = boss_flash_material
+	boss_motion = NativeBossMotionScript.new(boss_visual)
+	boss_motion.update(self, 0.0)
 
 func _update_visual_facing(player_position: Vector2) -> void:
 	if boss_visual != null:
-		boss_visual.flip_h = player_position.x < global_position.x
+		boss_visual.set_facing_left(player_position.x < global_position.x)
 
 func _update_boss_motion(delta: float) -> void:
-	if boss_visual == null or not entrance_resolved:
-		return
-	if velocity.length_squared() > 1.0:
-		visual_motion_elapsed += delta
-		var step := sin(visual_motion_elapsed * 7.0)
-		var compression := absf(step) * 0.02
-		boss_visual.position.y = -absf(step) * 2.0
-		boss_visual.rotation = step * 0.02
-		boss_visual.scale = OVERSEER_RUNTIME_SCALE * Vector2(1.0 + compression, 1.0 - compression)
-	else:
-		visual_motion_elapsed = 0.0
-		var settle := minf(1.0, delta * 12.0)
-		boss_visual.position = boss_visual.position.lerp(Vector2.ZERO, settle)
-		boss_visual.rotation = lerpf(boss_visual.rotation, 0.0, settle)
-		boss_visual.scale = boss_visual.scale.lerp(OVERSEER_RUNTIME_SCALE, settle)
+	if boss_visual != null:
+		boss_motion.update(self, delta)

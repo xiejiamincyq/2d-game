@@ -2,7 +2,7 @@ extends SceneTree
 
 const MainScript = preload("res://scripts/Main.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
-const TestSupport = preload("res://scripts/tests/TestSupport.gd")
+const TestSupport = preload("TestSupport.gd")
 
 var assertions := 0
 
@@ -17,9 +17,17 @@ func _assert_true(condition: bool, message: String) -> bool:
 
 func _initialize() -> void:
 	var scene: Node = MainScript.new()
+	var fixture_snapshot := "user://arena_native_runtime_%d_snapshot.json" % OS.get_process_id()
+	var fixture_campaign := "user://arena_native_runtime_%d_campaign.json" % OS.get_process_id()
+	if not _assert_true(not FileAccess.file_exists(fixture_snapshot) and not FileAccess.file_exists(fixture_campaign), "fixture paths already exist"):
+		return
+	scene.campaign_store_path = fixture_campaign
 	scene.audio_enabled = false
 	root.add_child(scene)
 	await process_frame
+	# Main ready may read its existing menu state; all mutations target this
+	# process's fresh owned fixture rather than a user or shared headless save.
+	scene.snapshot_store.save_path = fixture_snapshot
 	scene._start_run()
 	await physics_frame
 	if not _assert_true(scene.arena_layout.get("occlusion_target") == scene.player, "arena did not bind player-only occlusion"):
@@ -29,7 +37,7 @@ func _initialize() -> void:
 	root.add_child(occluder)
 	var player_color: Color = scene.player.modulate
 	occluder.update_player_occlusion(Vector2(205, 70), true, 0.02)
-	if not _assert_true(occluder.modulate.a < 1.0 and occluder.modulate.a > 0.32, "occlusion fade did not transition smoothly"):
+	if not _assert_true(occluder.art.modulate.a < 1.0 and occluder.art.modulate.a > 0.32 and occluder.modulate.a == 1, "decor fade did not transition smoothly or solid footprint faded"):
 		return
 	for fixture in [
 		[Vector2(205, 70), true, 0.32],
@@ -39,7 +47,7 @@ func _initialize() -> void:
 		[Vector2(205, 70), false, 1.0],
 	]:
 		occluder.update_player_occlusion(fixture[0], fixture[1], 1.0)
-		if not _assert_true(is_equal_approx(occluder.modulate.a, fixture[2]), "obstacle fade triggered outside player occlusion or failed to restore"):
+		if not _assert_true(is_equal_approx(occluder.art.modulate.a, fixture[2]) and occluder.modulate.a == 1, "obstacle decor fade triggered outside player occlusion or failed to restore"):
 			return
 	if not _assert_true(scene.player.modulate == player_color, "obstacle occlusion changed player opacity"):
 		return
@@ -55,15 +63,15 @@ func _initialize() -> void:
 
 	var obstacle_rect: Rect2 = descriptors[0]["rect"]
 	for obstacle in scene.arena_layout.get_children():
-		if not _assert_true(obstacle.get_node_or_null("Art") is Sprite2D, "farm obstacle did not load its independent art"):
+		if not _assert_true(obstacle.get_node_or_null("Art") is Node2D and not obstacle.get_node("Art") is Sprite2D, "farm obstacle did not load original native paper art"):
 			return
 		var collision_shape: CollisionShape2D = obstacle.get_node("CollisionShape2D")
 		var actual_rect := Rect2(collision_shape.global_position - collision_shape.shape.size * 0.5, collision_shape.shape.size)
 		var expected_rect: Rect2 = descriptors[obstacle.get_index()]["rect"]
 		if not _assert_true(actual_rect.is_equal_approx(expected_rect), "art contact-edge sorting moved the collision footprint"):
 			return
-		var art: Sprite2D = obstacle.get_node("Art")
-		if not _assert_true(is_equal_approx(art.scale.x, art.scale.y), "obstacle sprite was stretched out of proportion"):
+		var art: Node2D = obstacle.get_node("Art")
+		if not _assert_true(art.scale == Vector2.ONE, "native prop was stretched out of proportion"):
 			return
 	if not _assert_true(scene.world.y_sort_enabled and scene.enemies.y_sort_enabled and scene.arena_layout.y_sort_enabled, "actor/obstacle depth sorting is disabled"):
 		return

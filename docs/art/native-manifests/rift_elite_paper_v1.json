@@ -1,0 +1,10 @@
+{
+  "asset_id": "rift_elite_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/rift_elite_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/rift_elite_motion_v1.tres",
+  "role": "ordinary",
+  "review_state": "style-approved",
+  "bone_count": 20,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "warning", "attack", "shard_attack", "hit", "death"]
+}

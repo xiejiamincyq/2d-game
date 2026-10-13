@@ -1,0 +1,18 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "echo_chapter_flow_v1",
+  "review_state": "draft",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/echo-chapter-review-v1.md",
+  "environment_preview": "res://docs/art/previews/campaign/echo-chapter-flow-v2/risk/frame_013.png",
+  "prop_preview": "res://docs/art/previews/campaign/echo-chapter-flow-v2/risk/frame_018.png",
+  "runtime_evidence": "res://docs/art/previews/campaign/echo-chapter-flow-v2/risk/report.json",
+  "assets": [
+    {"role": "native-chapter-integration", "id": "echo_actual_chapter_v1", "authoring_source": "res://scripts/campaign/EchoChapter.gd", "runtime_scene": "res://scenes/campaign/echo_chapter.tscn", "scope": "Actual Main, native mixed encounters, original 26-bone priest, ordinary route input, real fifth victory and adjacent unlock6"},
+    {"role": "body-safe-navigation-ui", "id": "boss_direction_reserve_v1", "authoring_source": "res://scripts/ui/BossDirectionIndicator.gd", "scope": "Fixed 21 safe-edge candidates avoid projected native body; relocated arrow points at actual Boss, no physics/stat/zoom change"}
+  ],
+  "external_raster_dependencies": [],
+  "limitations": ["E5 phase accepted only; developer readiness1..5, sixth remains disabled", "Actual final exit0: full281 Godot261848/36 Python272, independent PCK53/32168 plus315/Main120/release and same-pack EXE startup passed; source59 unchanged", "Both ordinary routes saw Health phasesI..III and pendant/crown, not bell action", "29 actual PNGs reviewed; not every captured frame or human playtest", "No dense-performance, long-term balance, licensing or whole-goal completion claim"],
+  "reference_policy": "Project-original native ink-paper resources and actual engine captures. No external artwork, paid extraction, imagegen bitmap, new library or public release."
+}

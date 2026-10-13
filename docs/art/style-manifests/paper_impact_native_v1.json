@@ -1,0 +1,21 @@
+{
+  "contract": "native-effect-source-v1",
+  "asset_id": "paper_impact_native_v1",
+  "review_state": "style-approved",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "runtime_source": "res://scripts/effects/PaperImpactArt.gd",
+  "consumer": "res://scripts/effects/CombatVfx.gd",
+  "runtime_target": "Four-point paper spark, vertex diameter2.6 times spark-record size; max vertex radius16.9px at intensity2, excluding1.5px outline/antialias fringe; ground -1, life0.106 to0.22s",
+  "background": "transparent procedural overlay; fading belongs to the effect, not actor bodies",
+  "palette": ["#f3eddc", "#35b8ac"],
+  "design": "Project-original four slender paper points, teal narrow border and cream center; seeded golden-angle visual orientation. Continue the approved native paper language; no smoke, haze, copied commercial sprites or raster inputs.",
+  "external_raster_dependencies": [],
+  "references": ["res://docs/art/legacy-overseer-actions-contract-v1.md"],
+  "runtime_evidence": {
+    "gameplay_capture": "res://docs/art/previews/campaign/native-impact-v1/actors-impact.png",
+    "alpha_report": "res://docs/art/previews/campaign/native-impact-v1/report.json",
+    "review_document": "res://docs/art/native-impact-original-review-v1.md"
+  },
+  "limitations": ["Native code asset; old raster-only PNG manifest validator does not apply", "Structure and caps are not GPU or ordinary gameplay approval", "Old combat_hit bitmap and its pending licensing record remain unchanged until final export inventory verifies retirement"]
+}

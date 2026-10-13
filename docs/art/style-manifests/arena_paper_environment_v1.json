@@ -1,0 +1,18 @@
+{
+  "contract": "native-environment-source-v1",
+  "asset_id": "arena_paper_environment_v1",
+  "review_state": "style-approved",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "runtime_sources": ["res://scripts/world/FloorGrid.gd", "res://assets/art/shaders/paper_arena_floor_v1.gdshader", "res://scripts/world/ArenaObstacle.gd", "res://scripts/world/ArenaPaperPropArt.gd"],
+  "roles": ["planter", "greenhouse", "tank", "pipe"],
+  "palette": ["#738570", "#142520", "#907c57", "#789180", "#749184", "#a89971"],
+  "design": "Project-original quiet opaque matte-paper slabs, readable contact-edge plinths, chunky planter leaves, closed greenhouse, dial tank and clamped pipe. Upper decoration may yield at0.32; solid footprints remain opaque. Continue approved paper visual language, no new bitmap or commercial asset input.",
+  "external_raster_dependencies": [],
+  "runtime_evidence": {
+    "gameplay_capture": "res://docs/art/previews/campaign/native-arena-original-v1/main_1280.png",
+    "alpha_report": "res://docs/art/previews/campaign/native-arena-original-v1/report.json",
+    "review_document": "res://docs/art/native-arena-original-review-v1.md"
+  },
+  "limitations": ["Legacy-wave compatibility arena only; six regional maps retain their own originals", "Source/physics tests do not prove final gameplay appearance", "Old PNG files, author previews and pending origin records preserved", "Original image-specific manifest validator does not apply to code/shader sources"]
+}

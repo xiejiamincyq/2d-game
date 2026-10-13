@@ -1,0 +1,127 @@
+[
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7_native_arena_v2\\behind_opaque.png",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\behind_opaque.png",
+    "sha256": "42ee6e8a42e3204181e0050b62d4b8d71449e72eea2383828d37699e90aa4a79"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7_native_arena_v2\\behind_yield.png",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\behind_yield.png",
+    "sha256": "d61f12b3a766693a4187bfb93299e6ad7154f0329dff2a9ee1822a433b15978b"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7_native_arena_v2\\floor.png",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\floor.png",
+    "sha256": "61dabdf0549e46898b483257e683f64bcc5df35bec4d47b7ba3c3a432da72e08"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7_native_arena_v2\\main_1280.png",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\main_1280.png",
+    "sha256": "1794491b92eff864005555580c6772432f1653c84b122f6ffd9b19ea400fd07a"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7_native_arena_v2\\main_960.png",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\main_960.png",
+    "sha256": "715ffc8ab57626555ffa770bb8b839ef609b6e81f4d6fc5750118c7ec4c25dc3"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7_native_arena_v2\\props.png",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\props.png",
+    "sha256": "23c657edd8dc5f5920f180330c77f66306a0584726d6bb5d2b7a25acf3c6d8b2"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7_native_arena_v2\\report.json",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\report.json",
+    "sha256": "2d36c3978ff4943699860c84d87f4e1384e8079a0bde4f4854b8485480db7df2"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7_native_arena_v2\\snapshot_1280.json",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\snapshot_1280.json",
+    "sha256": "80d47cdd1ebab3ab0cad58504adec390b0e60e9719e738999543ccd58383168c"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7_native_arena_v2\\snapshot_960.json",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\snapshot_960.json",
+    "sha256": "dbdf5fd96cf013b37472e1da291dc7dbcd327b36f6534d146445331d1363597d"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-native-arena-red-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-native-arena-red-v1.log",
+    "sha256": "1ff690494413038675fe17cae3e25a45bff16ed570bad25092b29ae3ea634f1c"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-native-arena-import-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-native-arena-import-v1.log",
+    "sha256": "be7140c9035e409fa3e255fcfc2c6f7fa6b4621ea73c23aa681005534372835f"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-native-arena-import-v2.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-native-arena-import-v2.log",
+    "sha256": "51064c44b73c1cb7bcc66180ab00eaf71ec91696f6aa27e1305d6defa264ddad"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-native-arena-green-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-native-arena-green-v1.log",
+    "sha256": "ba0fdd23697d3ffffd6d759e5bcb41048cfa6b53209c535d139332941017b436"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-native-arena-green-v2.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-native-arena-green-v2.log",
+    "sha256": "e87290e5de38ce2f69877ebb2613a82d1c74bb6f2e950239fb677cf00afe3117"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-native-arena-green-v3.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-native-arena-green-v3.log",
+    "sha256": "220451390c77a600eef1999e9b4aab2e9ef85f4532033e5f94ac6b393ceb2642"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-native-arena-gpu-import-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-native-arena-gpu-import-v1.log",
+    "sha256": "51064c44b73c1cb7bcc66180ab00eaf71ec91696f6aa27e1305d6defa264ddad"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-native-arena-gpu-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-native-arena-gpu-v1.log",
+    "sha256": "8cff7edc756d68f8a17c8415a1598350014b6db19f7ee418cb5e55a3186028e9"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-native-arena-gpu-v2.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-native-arena-gpu-v2.log",
+    "sha256": "0cbb33b3e077be308092b40e7c47efdb3ea814133d80ad15a5eaad6ac9ad3707"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-ArenaRuntimeTest-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-ArenaRuntimeTest-v1.log",
+    "sha256": "425db1efc5904bb898b6cb1e569a61e29c3abd20c34142f73e19db85cba3613f"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-ArenaMapTest-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-ArenaMapTest-v1.log",
+    "sha256": "b544b7dabc7d288cbd465c98c48ec9596891033792de8bcd70ddc36bef136fe2"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-PerformanceTest-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-PerformanceTest-v1.log",
+    "sha256": "6139a30f4e9ed5142d2572123613a5296f7c3bd9f2a5f6c2dba2bcc87c9f85ea"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-EnemyFlockTest-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-EnemyFlockTest-v1.log",
+    "sha256": "f225d99cd9af71e196e3906b5ba746ee7ce3c6d603ad79e21b0dc3829be33268"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-PlayerDashWallContactTest-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-PlayerDashWallContactTest-v1.log",
+    "sha256": "1a1b43a040c137642beab348d59a7b2dcc3a0289d8229c24fd8e201118e2c307"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-native-arena-policy-red-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-native-arena-policy-red-v1.log",
+    "sha256": "a32074ef91073aeff666f9a8a93e5d99d88419b41b2c4433ca6aa73c54319c41"
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f7-native-arena-policy-green-v1.log",
+    "target": "docs\\art\\previews\\campaign\\native-arena-original-v1\\f7-native-arena-policy-green-v1.log",
+    "sha256": "76f20a76a919c6337067030d523388490faf92dba2aa813eb92d8948e260babf"
+  }
+]

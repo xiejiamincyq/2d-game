@@ -1,0 +1,1729 @@
+{
+	"actor": "NurseryVineBoss",
+	"adjacent_changes": 59,
+	"clips": [
+		"idle",
+		"walk",
+		"hit",
+		"entrance",
+		"lash_warning",
+		"lash_attack",
+		"lash_recovery",
+		"roots_warning",
+		"roots_attack",
+		"roots_recovery",
+		"seeds_warning",
+		"seeds_attack",
+		"seeds_recovery",
+		"death"
+	],
+	"gait_frames": 60,
+	"passed": true,
+	"samples": [
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13729,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13729,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13709,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13709,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13752,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13752,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13503,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13503,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13719,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13719,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13711,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13711,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13692,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13692,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13688,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13688,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13659,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13659,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 14417,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 14417,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 14529,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 14529,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 14527,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 14527,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 14530,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 14530,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 14534,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 14534,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 14527,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 14527,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13944,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13944,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13771,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13771,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 14967,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 14967,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13995,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13995,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 12428,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 12428,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 12324,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 12324,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 12401,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 12401,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 12428,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 12428,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 14074,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 14074,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13822,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13822,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 14524,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 14524,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 15101,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 15101,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 15207,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 15207,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 15252,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 15252,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 15231,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 15231,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 15207,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 15207,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13876,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13876,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13754,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13754,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13185,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13185,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 12792,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 12792,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13730,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13730,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13709,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13709,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13752,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13752,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13503,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13503,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13719,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13719,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13711,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13711,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13692,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13692,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13689,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13689,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13661,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13661,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 14417,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 14417,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 14529,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 14529,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 14527,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 14527,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 14530,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 14530,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 14534,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 14534,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 14527,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 14527,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13944,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13944,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13768,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "lash_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13768,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 14967,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 14967,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13995,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13995,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 12428,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 12428,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 12324,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 12324,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 12401,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 12401,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 12428,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 12428,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 14074,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 14074,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13820,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "roots_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13820,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 14523,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 14523,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 15101,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 15101,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 15207,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 15207,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 15252,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 15252,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 15231,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 15231,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 15207,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 15207,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13876,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13876,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13754,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "seeds_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13754,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13684,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13185,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13185,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 12792,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 12792,
+			"outside_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		}
+	],
+	"scope": "Actual NurseryVineBoss body/shader poses for all listed clips (death last), actual native adapter gait and real Nursery chapter UI Boss-preview with natural entrance. Encounters deliberately skipped in UI fixture; not natural-input victory, attack effect proof or six-Boss completion.",
+	"sources": {
+		"res://assets/art/actors/native/root_commander_motion_v1.tres": "331c8b3d37f892107550ed032a4af6541d7c973ab72f696a39fae4e084bf2cfd",
+		"res://assets/art/actors/native/vine_guard_motion_v1.tres": "608817d4f58706a45a207b27fd58021b4670ededfb968705807c48cf1d0bae6a",
+		"res://assets/art/actors/native/vine_guard_motion_v2.tres": "10cd8c3a25552da266b86ec8a445cf60275a7360ba08f71daa27fde1f597c679",
+		"res://assets/art/shaders/dasher_hit_flash.gdshader": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9",
+		"res://scenes/actors/native/root_commander_paper_v1.tscn": "6c48a483e32445741aa7916d2159b9ffe64db161730f2c68d724ab5ad15f64ac",
+		"res://scenes/actors/native/vine_guard_paper_v1.tscn": "e9752c50ffee411b2ff4a11f98e200485e8dae8e69801d13908aee6e462cc535",
+		"res://scenes/actors/native/vine_guard_paper_v2.tscn": "070d7f65820e75131e192360b3c65de305e5ad24ea9724f28dc91297c073a2e5",
+		"res://scripts/actors/NurseryVineBoss.gd": "328feeee2c828e5d31c7d1f15fec4a3b3fa62fe6f4408cdd621e42a69da8f62c",
+		"res://scripts/actors/OverseerBoss.gd": "1e038b2bde73b592eb4fbd948108885358d56b4f875885bd6a1e42e02fbc2c26",
+		"res://scripts/art/RenderNativeBossPreview.gd": "243eab283698254b1d1431b7bf20746f0ff8a56535b08646f55ac7f833a5beac",
+		"res://scripts/campaign/NurseryChapter.gd": "e7585af51f0c103dfb30ccec6d7709090c4fde64f2bb2da46272dd017fb6de70",
+		"res://scripts/components/NativeActorView.gd": "2f809462e45c77dc05dd028fecafddb8e3e021cb8415cbb3cae2a6864fe160f3",
+		"res://scripts/components/NativeBossMotion.gd": "f0f223b1e42897fac3584dcd3962518040a479bb8234038ac309074c811f740a",
+		"res://scripts/components/NativeProjectileOriginSafety.gd": "9be51ed7fb55861a124174653b9570589ed8d7bb65ede5b11195e77df158cc70",
+		"res://scripts/components/NativeScrapperMotion.gd": "7b840b4f9a98540ee8d4cb62e75a53950e218c9ab87852c2a92bfc0979d003ec",
+		"res://scripts/components/NativeVineGuardMotion.gd": "1cc1ab6b4f73b2c0160ed0177bcb6f06c92b79045284b0e4698c48565b48039d",
+		"res://scripts/components/RiftShardProjectile.gd": "80dbf49076da32eed366c209a9ca3c3413675f707a3075f151ce514981a07f6d",
+		"res://scripts/components/VineGuardAttackDirector.gd": "648e3b70ff6ab2b2bcceaa70f813dbd897f56debda83b61e3d4c00c7267c9f88",
+		"res://scripts/components/VineSeedProjectile.gd": "4b231e725b10b2b351e6b599bc297b20f5757e2f31a69bf1c2a36574594cabfb",
+		"res://scripts/systems/BossCameraFraming.gd": "b6de12faf4002737120f42200bca27812ec859fab7b3e999fe686270f16f0368",
+		"res://scripts/systems/NurseryEncounterDirector.gd": "cc43b4df343b09ed737eafb3e314096ddbd2ac594ccfd767439bf77a83f7c373",
+		"res://scripts/systems/WaveDirector.gd": "d1bf2653511bf581558454e34bc3ffa4edeaf28f6e9450e04b036d5464267777"
+	}
+}

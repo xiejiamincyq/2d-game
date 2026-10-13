@@ -1,0 +1,19 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "rift_environment_v1",
+  "review_state": "draft",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/rift-map-review-v1.md",
+  "environment_preview": "res://docs/art/previews/campaign/rift-map-v1/overview-521.png",
+  "prop_preview": "res://docs/art/previews/campaign/rift-map-v1/props.png",
+  "runtime_evidence": "res://docs/art/previews/campaign/rift-map-v1/report.json",
+  "assets": [
+    {"role":"environment-props","id":"rift_crank_relay","authoring_source":"res://scripts/world/RiftPropArt.gd","scope":"Original crank scope benches and split-ring relays; opaque physical base and independently fading elevated art"},
+    {"role":"environment-ground","id":"rift_continuous_ground","authoring_source":"res://scripts/world/RiftFloor.gd","scope":"Continuous low-contrast slate floor, broad quiet seams, seeded two-sided equipment bypasses; no holes"},
+    {"role":"chapter-map","id":"rift_observatory","authoring_source":"res://scenes/world/rift_observatory.tscn","scope":"Four seeded solid stepped equipment islands, sixteen actual rectangle modules and eight clear bypasses, no chapter readiness or victory"}
+  ],
+  "external_raster_dependencies": [],
+  "reference_policy":"Project-original native ink-paper design, no copied external artwork, paid extraction, bitmap generation, new dependency or public release.",
+  "limitations":["R1 map phase accepted only: actual full285 Godot290168/36 Python272 exit0, independent PCK57/60475 plus315/Main120/release exit0, source84 stable", "No live faults, encounters, observer Boss or sixth readiness/save victory", "All12 actual PNGs reviewed; three author overviews not actual play camera", "No human/OS input, dense combat/performance, final license or whole-goal completion"]
+}

@@ -1,0 +1,60 @@
+{
+	"actual_player_primary_shots": 5,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_spore_gpu_v2/native-sheet.png",
+			"sha256": "a47cd2d6cfabb9288cfa33e969148851207de728032ae05015ecedd3afb48d9d"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_spore_gpu_v2/runtime-cooldown.png",
+			"sha256": "34148b994becb1f72e2bf91addba14d72986056625d9ac4698f4be5e5b3fc4ce"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_spore_gpu_v2/runtime-warning.png",
+			"sha256": "03b9a3b664a35e7e110b3ea9f50e4abcbbd53cbb9d8e01a04e59f47562df09cb"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_spore_gpu_v2/runtime-active.png",
+			"sha256": "94c6d920f2c06575e289b435889c7830043bafa2ab660694c2f50158885251f9"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_spore_gpu_v2/runtime-paused.png",
+			"sha256": "071ebd9d206f5850a526e568d1b9c2ac81199268f66a57012bbf4c8ebdc643da"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/archive_spore_gpu_v2/runtime-broken.png",
+			"sha256": "b45a649ecc9c6c954a93a85011964740a8abec71a404049cdfac195fd5172828"
+		}
+	],
+	"checks": 83,
+	"engine_pointer_checks": 15,
+	"opaque_base_samples": 8,
+	"passed": true,
+	"positive_active_pixels": 324,
+	"positive_warning_pixels": 324,
+	"scope": "Transparent GPU original native environmental art; sheet poses only. Real map natural cooldown/warning/emission/pause/ruins; normal Player engine pointer/primary fire and default stats break nest. No actor position writes after spawn, direct damage, enemy rewards, chapter victory, OS input, human playtest, dense performance or six-chapter completion.",
+	"sources": {
+		"assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+		"assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+		"assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db",
+		"assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+		"scenes/actors/native/player_paper_v1.tscn": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+		"scenes/world/luminous_archive.tscn": "3998b97c34fca40915e0ddc3d41bdba1f8fb56e7c527ea8cba4a4c1ab28328b9",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderArchiveSporePreview.gd": "555e9a95beacab40e0aa199b5736a4bdf4fc092a120f90aaf3234e862e50af6f",
+		"scripts/components/HealthComponent.gd": "1b31ea06d89f3850ac240ba307199eaa5ccb87b20ccaff125f14d3f56068975d",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/components/Projectile.gd": "9bd92c2b9a1db6096d7b7a954e7a3ede1da51cae9e90e732bd36ca51b5d718c8",
+		"scripts/world/ArchiveArenaLayout.gd": "797723586facd953c837b31a153f39b1b3c0fcccd85609a5a17cb0513d7e5601",
+		"scripts/world/ArchiveFloor.gd": "e422d58068821d1e232e557a2277ec43c801e212787248a328599a0f694115b2",
+		"scripts/world/ArchiveMap.gd": "9a82d2ae5409ade9622f64f53ffb5e863459b919d04ca2e7cb7e6d6e561bebf2",
+		"scripts/world/ArchiveObstacle.gd": "3d99c3df6fabb63f80a72d6781a1b694fe49e8b6a72e46e01a67bc8f7f32eaca",
+		"scripts/world/ArchivePropArt.gd": "caf3e6425274457b27ebf13405bb67e0da515edf351829a9c43c02f41139c8d1",
+		"scripts/world/ArchiveSporeField.gd": "6628b7872d444a519f2b140febd47b6b63dc4ba2a1c0caac88e8f489a83b298d",
+		"scripts/world/ArchiveSporeNest.gd": "508e11f46d50684d72bf750697a766382163c1c55858a055daf4b52c34b8af59",
+		"scripts/world/ArenaLayout.gd": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+		"scripts/world/TerrainSweep.gd": "08e472ff12bb0ab46ca2e86a88061e54be7f3f2cc3780f50d15eec12dff13255",
+		"themes/MintFarmTheme.tres": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63"
+	}
+}

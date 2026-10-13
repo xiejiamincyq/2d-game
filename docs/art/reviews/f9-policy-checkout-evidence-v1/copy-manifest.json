@@ -1,0 +1,47 @@
+[
+  {
+    "copy": "docs\\art\\reviews\\f9-policy-checkout-evidence-v1\\f9-local-retired-checkout-red-v1.log",
+    "sha256": "737b424ceb91fb70d78d355831cc7c0fa05d0c3217a269c63ae71c23dc5656f0",
+    "original": "build/diagnostics/campaign-goal/f9-local-retired-checkout-red-v1.log"
+  },
+  {
+    "copy": "docs\\art\\reviews\\f9-policy-checkout-evidence-v1\\f9-local-retired-checkout-green-v1.log",
+    "sha256": "603a6d2ffe4c7933b8a4f53ffad118610bb1924ea2d94d07b7cb16022a4369c8",
+    "original": "build/diagnostics/campaign-goal/f9-local-retired-checkout-green-v1.log"
+  },
+  {
+    "copy": "docs\\art\\reviews\\f9-policy-checkout-evidence-v1\\f9-local-retired-checkout-green-v2.log",
+    "sha256": "448e4b5ccfabfc9b2c3062ec21ca88bbcadceb2e7e8d290b1895c027c0408704",
+    "original": "build/diagnostics/campaign-goal/f9-local-retired-checkout-green-v2.log"
+  },
+  {
+    "copy": "docs\\art\\reviews\\f9-policy-checkout-evidence-v1\\f9-local-retired-checkout-green-v2-exit.json",
+    "sha256": "ea8c7bb13a104ab36e611a21da268395f18ff69db1270937dbb6a11c01587723",
+    "original": "build/diagnostics/campaign-goal/f9-local-retired-checkout-green-v2-exit.json"
+  },
+  {
+    "copy": "docs\\art\\reviews\\f9-policy-checkout-evidence-v1\\f9-clean-candidate-python-v1.log",
+    "sha256": "cde1c9a30d60ef51df9da0de0c096c680bd03ddee7923cedd6c8615b16fdf22d",
+    "original": "build/diagnostics/campaign-goal/f9-clean-candidate-python-v1.log"
+  },
+  {
+    "copy": "docs\\art\\reviews\\f9-policy-checkout-evidence-v1\\python-exit.json",
+    "sha256": "491b310bb22d9709e4b2fbccd95a1ecca21cfe26358000e388309ead097b3e16",
+    "original": "build/diagnostics/campaign-goal/f9-clean-candidate-v1/python-exit.json"
+  },
+  {
+    "copy": "docs\\art\\reviews\\f9-policy-checkout-evidence-v1\\candidate-manifest.json",
+    "sha256": "4b94ea59829f4c4e92016d87a75ee1ce9221ede1cba7967c825cb0aab0f0f31b",
+    "original": "build/diagnostics/campaign-goal/f9-clean-candidate-v1/candidate-manifest.json"
+  },
+  {
+    "copy": "docs\\art\\reviews\\f9-policy-checkout-evidence-v1\\f9-policy-source-delta-v1.json",
+    "sha256": "841d8bb547c648a8efb997f69e08f3a8d6bd1fb28f0bb412a20e376e27101d69",
+    "original": "build/diagnostics/campaign-goal/f9-policy-source-delta-v1.json"
+  },
+  {
+    "copy": "docs\\art\\reviews\\f9-policy-checkout-evidence-v1\\f9-final-source-freeze-v2.json",
+    "sha256": "1b6b8ea59e492ce550468cff4b4bbd1f9280d6c6fda7072e92ea4bb5df29cbbf",
+    "original": "build/diagnostics/campaign-goal/f9-final-source-freeze-v2.json"
+  }
+]

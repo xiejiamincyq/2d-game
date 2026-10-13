@@ -1,0 +1,171 @@
+{
+  "scope": "Controlled actual Main/Chapter 1 and 6, three GPU viewport sizes, eight edge/corner poses at actual health phases 1/2/3, natural Boss entrance, accepted fixture damage clear/save and actual Return button. Actors are frozen and repositioned; camera uses production BossCameraFraming with controlled solver steps. Chapter 6 prerequisites 1-5 are Progress API fixtures. Backdrop/lifecycle acceptance only: actor screen rects and both_fit are observations, not complete actor-framing acceptance. Health phases do not verify attack animation phases. Not ordinary combat/victory, six-leg campaign, human visual approval or dynamic performance proof. Modal clear and returned Main captures are lifecycle records, not off-map pixel acceptance. Entrance off-map pixel checks are conditional on actual exposure; phase-edge cases require exposure.",
+  "copy_count": 33,
+  "files": [
+    {
+      "sha256": "17ba485d28713bb545b18dc7eac46cc31565339f78eae139f81848cc7585d81b",
+      "file": "chapter1_1280x720_campaign.json",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_1280x720_campaign.json"
+    },
+    {
+      "sha256": "39bd571810f138f920f58ac17eed3869cf75873184a072b9bb797c54eefae1a5",
+      "file": "chapter1_1280x720_cleared.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_1280x720_cleared.png"
+    },
+    {
+      "sha256": "f7083e7f4f3900172ecc0eea661dbf6153b2db82c26f855dc98f76a264f1a3f5",
+      "file": "chapter1_1280x720_entrance.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_1280x720_entrance.png"
+    },
+    {
+      "sha256": "ea3cec929cd4a729e10e30364430b5a54af2059ea654b9c245b44fecf39a9deb",
+      "file": "chapter1_1280x720_phase3_edge7.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_1280x720_phase3_edge7.png"
+    },
+    {
+      "sha256": "024c06246b1deb58c13e225ce598bfedc05e0eddd8c174e938d403e7bc170664",
+      "file": "chapter1_1280x720_returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_1280x720_returned_main.png"
+    },
+    {
+      "sha256": "17ba485d28713bb545b18dc7eac46cc31565339f78eae139f81848cc7585d81b",
+      "file": "chapter1_1920x1080_campaign.json",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_1920x1080_campaign.json"
+    },
+    {
+      "sha256": "f829753446b48981f4a26219cb1fdd3a06aaf1d7714f1392e4e7bdcfd401295a",
+      "file": "chapter1_1920x1080_cleared.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_1920x1080_cleared.png"
+    },
+    {
+      "sha256": "ed36b7c83f7577a223bba14b243273f97a445c517f238588adc8a7238b0fe54d",
+      "file": "chapter1_1920x1080_entrance.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_1920x1080_entrance.png"
+    },
+    {
+      "sha256": "a00e083e1a0b965c9d1206db6306b8d4084a5c592ee39880af8e0538959f8a75",
+      "file": "chapter1_1920x1080_phase3_edge7.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_1920x1080_phase3_edge7.png"
+    },
+    {
+      "sha256": "23516128c8da1c44a15d9b26afcf2e9016e10091e54e0d00b7d6fc7aebca4c53",
+      "file": "chapter1_1920x1080_returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_1920x1080_returned_main.png"
+    },
+    {
+      "sha256": "17ba485d28713bb545b18dc7eac46cc31565339f78eae139f81848cc7585d81b",
+      "file": "chapter1_960x540_campaign.json",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_960x540_campaign.json"
+    },
+    {
+      "sha256": "edc1debfd93a78618259f15d270772b4c13cee6ab7b03423316cb5397e98593d",
+      "file": "chapter1_960x540_cleared.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_960x540_cleared.png"
+    },
+    {
+      "sha256": "b3a995c46add34ece62589c1a38afb3d3c73952f739a2ee0a37fb09877f8b943",
+      "file": "chapter1_960x540_entrance.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_960x540_entrance.png"
+    },
+    {
+      "sha256": "a4cc2e2ada60bfd2847dfc77dc265ce4514e90e7bfd41a76f3163ffca2a19062",
+      "file": "chapter1_960x540_phase3_edge7.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_960x540_phase3_edge7.png"
+    },
+    {
+      "sha256": "e832c38c59c1e38557a6bd3d165ec96e261574d0be639e1b0d956f433a6fa5b8",
+      "file": "chapter1_960x540_returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter1_960x540_returned_main.png"
+    },
+    {
+      "sha256": "729510abc934fc3e7ea491bb4d0a321ff66ae63ca6207033247b67af8139f739",
+      "file": "chapter6_1280x720_campaign.json",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_1280x720_campaign.json"
+    },
+    {
+      "sha256": "e3eb578e3163862a1d752f0b31e69c78cb34739cc73b358c24faf9341dbe7940",
+      "file": "chapter6_1280x720_cleared.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_1280x720_cleared.png"
+    },
+    {
+      "sha256": "4c083c7e7dbc2ff921c5436d72acda1cdfefa41fe4f03f1bb9703f6512a3dc22",
+      "file": "chapter6_1280x720_entrance.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_1280x720_entrance.png"
+    },
+    {
+      "sha256": "e35929155f5e40daa326aa9d3c77071343b123dcad8fc822d5a8c59ee87f8415",
+      "file": "chapter6_1280x720_phase3_edge7.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_1280x720_phase3_edge7.png"
+    },
+    {
+      "sha256": "6c90e1d3622e6739cb5146ffec1433c21d4ab4e402d6ab7d6757cdb7e539cf96",
+      "file": "chapter6_1280x720_returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_1280x720_returned_main.png"
+    },
+    {
+      "sha256": "729510abc934fc3e7ea491bb4d0a321ff66ae63ca6207033247b67af8139f739",
+      "file": "chapter6_1920x1080_campaign.json",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_1920x1080_campaign.json"
+    },
+    {
+      "sha256": "f5a8838ff62c802db9d9955a2aba0ab3d133a953c97598a46fbb3e897d55ad5d",
+      "file": "chapter6_1920x1080_cleared.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_1920x1080_cleared.png"
+    },
+    {
+      "sha256": "49e8b9ad5cae0f02b164988cce04d50980e3b087521dec0115d53f913cb43127",
+      "file": "chapter6_1920x1080_entrance.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_1920x1080_entrance.png"
+    },
+    {
+      "sha256": "585bd8b5878f8af419746abaf0c16f0ecbcbc99b8236bd353326b3ba38fbf1d1",
+      "file": "chapter6_1920x1080_phase3_edge7.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_1920x1080_phase3_edge7.png"
+    },
+    {
+      "sha256": "552a3da9de441b3e46b5d2a40fa196ba2c3468e18515547e12756990536d7463",
+      "file": "chapter6_1920x1080_returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_1920x1080_returned_main.png"
+    },
+    {
+      "sha256": "729510abc934fc3e7ea491bb4d0a321ff66ae63ca6207033247b67af8139f739",
+      "file": "chapter6_960x540_campaign.json",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_960x540_campaign.json"
+    },
+    {
+      "sha256": "b5057f57e77cba5c0dc4213ecfc15bd4e994403bddec1c5c48eb4a5cc926f0a9",
+      "file": "chapter6_960x540_cleared.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_960x540_cleared.png"
+    },
+    {
+      "sha256": "488a4a4bfde990e5ab3d6ba1196928de0a34c29c19b677af37a78c7ebb889676",
+      "file": "chapter6_960x540_entrance.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_960x540_entrance.png"
+    },
+    {
+      "sha256": "ed9c8c0e3192729fe1670bf5626d63ea97ec349e4b39796f1e38d60de59817e7",
+      "file": "chapter6_960x540_phase3_edge7.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_960x540_phase3_edge7.png"
+    },
+    {
+      "sha256": "a58d923c9ed4565682d53967548adbc5c902da7d1bbc03f07c0514aa27a1dcb4",
+      "file": "chapter6_960x540_returned_main.png",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/chapter6_960x540_returned_main.png"
+    },
+    {
+      "sha256": "c1eae366cd6796ad2d498dd347f2d9fbc4c437b0ebf40506359451a0192583dd",
+      "file": "report.json",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2/report.json"
+    },
+    {
+      "sha256": "e2829478f9ddf7c8c03e168735ff8f4eb5f1a9658e9f471e8e13c0ce338a9e12",
+      "file": "parse-failure-not-semantic-red.log",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v1.log"
+    },
+    {
+      "sha256": "a9ca0e5c53e70b5d1d11ca98238d15f1d33199f67a7822e4b553f1065e9d3d5e",
+      "file": "run.log",
+      "source": "build/diagnostics/campaign-goal/f4_chapter_boss_edges_v2.log"
+    }
+  ]
+}

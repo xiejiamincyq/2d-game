@@ -1,0 +1,162 @@
+{
+  "schema": 1,
+  "date": "2026-10-12",
+  "branch": "5分钟超载",
+  "head": "713dde5f75dd0827b7c56ab195d55eed5826c5a4",
+  "scope": "Read-only literal-reference/PNG-header audit plus SHA recheck of retained prior pack; not a current export, license approval, dynamic closure or full-goal proof",
+  "old_pack_sha256": "07964613f2db5463f23c57c9d70cc3e4e31d5adb636f2d836257201d9a52cbec",
+  "old_pack_entries": 594,
+  "scan_files": 885,
+  "assets": [
+    {
+      "path": "assets/art/effects/combat_hit_chibi_b_v1.png",
+      "bytes": 22403,
+      "dimensions": [
+        128,
+        128
+      ],
+      "sha256": "026e13c4665d58ea0298eb822525410ef51b7680038e317b7cf647dd2b7299ac",
+      "literal_runtime_references": [
+        "scripts/effects/CombatVfx.gd"
+      ],
+      "old_pack_entries": [
+        ".godot/imported/combat_hit_chibi_b_v1.png-a97b53a96ba3272568208056ae8a88c2.ctex",
+        "assets/art/effects/combat_hit_chibi_b_v1.png.import"
+      ],
+      "decision": "Live dependency; do not exclude blindly; license/state unchanged"
+    },
+    {
+      "path": "assets/art/environment/mint_farm_floor_b_v1.png",
+      "bytes": 980749,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "3124d80676757709edc28182d3f6ac950f716d8d1586794edc8bed1b3041f257",
+      "literal_runtime_references": [
+        "scripts/world/FloorGrid.gd"
+      ],
+      "old_pack_entries": [
+        ".godot/imported/mint_farm_floor_b_v1.png-c5935c3120d0e258e4c9c454b4a80b8b.ctex",
+        "assets/art/environment/mint_farm_floor_b_v1.png.import"
+      ],
+      "decision": "Live dependency; do not exclude blindly; license/state unchanged"
+    },
+    {
+      "path": "assets/art/environment/mint_farm_props_b_packed_v1.png",
+      "bytes": 787884,
+      "dimensions": [
+        1088,
+        1088
+      ],
+      "sha256": "672c0cae193f66d1e8168443831f78c2622a757cfe1b6e24508322b041dddfc3",
+      "literal_runtime_references": [
+        "scripts/world/ArenaObstacle.gd"
+      ],
+      "old_pack_entries": [
+        ".godot/imported/mint_farm_props_b_packed_v1.png-ecf83e7b2175d66dc75664db27b8745a.ctex",
+        "assets/art/environment/mint_farm_props_b_packed_v1.png.import"
+      ],
+      "decision": "Live dependency; do not exclude blindly; license/state unchanged"
+    },
+    {
+      "path": "assets/art/actors/enemies/enemy_bruiser.png",
+      "bytes": 22234,
+      "dimensions": [
+        128,
+        128
+      ],
+      "sha256": "4f8a25ef767be72fb9ca575da8f79438a6380ba138310d3a26c9132553b4aea8",
+      "literal_runtime_references": [],
+      "old_pack_entries": [
+        ".godot/imported/enemy_bruiser.png-1bfbd46258ab3a5a43baac3633b11c8a.ctex",
+        "assets/art/actors/enemies/enemy_bruiser.png.import"
+      ],
+      "decision": "Candidate for exact export retirement only; preserve file; dynamic/pack runtime gate still required"
+    },
+    {
+      "path": "assets/art/actors/enemies/enemy_lobber.png",
+      "bytes": 22777,
+      "dimensions": [
+        128,
+        128
+      ],
+      "sha256": "57cbea936ec11c88fe3ac8d58f9da7931623de1a04a1eb742db1ee914bdabf09",
+      "literal_runtime_references": [],
+      "old_pack_entries": [
+        ".godot/imported/enemy_lobber.png-722d2e2e8c5e007cec86030352d73843.ctex",
+        "assets/art/actors/enemies/enemy_lobber.png.import"
+      ],
+      "decision": "Candidate for exact export retirement only; preserve file; dynamic/pack runtime gate still required"
+    },
+    {
+      "path": "assets/art/actors/enemies/enemy_marksman.png",
+      "bytes": 14523,
+      "dimensions": [
+        128,
+        128
+      ],
+      "sha256": "ba9203bd105d22323eebd623de5dcc47b4019bb03b94b1b2aa12f45685fec5a1",
+      "literal_runtime_references": [],
+      "old_pack_entries": [
+        ".godot/imported/enemy_marksman.png-084632e3507c1fc0b7cbc208dbdf67aa.ctex",
+        "assets/art/actors/enemies/enemy_marksman.png.import"
+      ],
+      "decision": "Candidate for exact export retirement only; preserve file; dynamic/pack runtime gate still required"
+    },
+    {
+      "path": "assets/art/actors/enemies/enemy_overseer.png",
+      "bytes": 24102,
+      "dimensions": [
+        128,
+        128
+      ],
+      "sha256": "dda89da6c10042e3d92b3df26a63d8cf22ae77507bc54b9492515b16f9df1d5a",
+      "literal_runtime_references": [],
+      "old_pack_entries": [
+        ".godot/imported/enemy_overseer.png-8d13d61ea7e306ac878609ba603b70f0.ctex",
+        "assets/art/actors/enemies/enemy_overseer.png.import"
+      ],
+      "decision": "Candidate for exact export retirement only; preserve file; dynamic/pack runtime gate still required"
+    },
+    {
+      "path": "assets/art/actors/enemies/enemy_scrapper.png",
+      "bytes": 20164,
+      "dimensions": [
+        128,
+        128
+      ],
+      "sha256": "0e2828ee77cf269c3e137a68271459ff3c906660cd7ec5a3168dbdfa4a8b33e9",
+      "literal_runtime_references": [],
+      "old_pack_entries": [
+        ".godot/imported/enemy_scrapper.png-53f8eea2fac833ffd00027e84185d3ca.ctex",
+        "assets/art/actors/enemies/enemy_scrapper.png.import"
+      ],
+      "decision": "Candidate for exact export retirement only; preserve file; dynamic/pack runtime gate still required"
+    },
+    {
+      "path": "assets/art/actors/enemies/enemy_spitter.png",
+      "bytes": 24480,
+      "dimensions": [
+        128,
+        128
+      ],
+      "sha256": "6f23e2cafc4936e61abf5e2715f61e0a29f7e18b49773d8f502c0f1fa075de80",
+      "literal_runtime_references": [],
+      "old_pack_entries": [
+        ".godot/imported/enemy_spitter.png-068ff8d85b70506f5c82da4280313cd2.ctex",
+        "assets/art/actors/enemies/enemy_spitter.png.import"
+      ],
+      "decision": "Candidate for exact export retirement only; preserve file; dynamic/pack runtime gate still required"
+    }
+  ],
+  "legacy_boss": {
+    "actor": "scripts/actors/OverseerBoss.gd",
+    "actor_sha256": "7c6633abbc43256f7cc331c48dbfbda7ef5ceb0ad6cfca067a3d8ebe97e0c471",
+    "motion": "scripts/components/NativeBossMotion.gd",
+    "motion_sha256": "f0f223b1e42897fac3584dcd3962518040a479bb8234038ac309074c811f740a",
+    "scene": "scenes/actors/native/root_commander_paper_v1.tscn",
+    "scene_sha256": "6c48a483e32445741aa7916d2159b9ffe64db161730f2c68d724ab5ad15f64ac",
+    "finding": "Five non-attack clips only; formal legacy mode remains reachable; attack body animation not yet upgraded"
+  }
+}

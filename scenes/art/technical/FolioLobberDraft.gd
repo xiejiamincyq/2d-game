@@ -1,0 +1,63 @@
+extends "res://scenes/art/technical/SaltNeedlerDraft.gd"
+const FolioShapes = preload("res://scenes/art/technical/FolioLobberShapes.gd")
+## Reuses anatomical joint construction, all skin and animation keys original.
+func _init() -> void:
+	super._init()
+	get_node("Facing/Skeleton2D/Torso/Scarf").name = "Satchel"
+	var payload: Bone2D = get_node("Facing/Skeleton2D/Torso/ArmR/ForearmR/HandR/NeedleGun")
+	payload.name = "Payload"
+	payload.position = Vector2(2,-2)
+	payload.rest = payload.transform
+	payload.set_length(10)
+	var release: Marker2D = payload.get_node("Muzzle")
+	release.name = "Release"
+	release.position = Vector2(4,0)
+func _skin_patches() -> Array[Dictionary]:
+	return FolioShapes.new().make()
+func _build_clips() -> void:
+	var library := AnimationLibrary.new()
+	var idle := _new_clip(1.2,true)
+	_rotation_keys(idle,"/Head",[0,0.6,1.2],[0,2,0])
+	_rotation_keys(idle,"/Satchel",[0,0.6,1.2],[0,-3,0])
+	_keys(idle,TORSO+":position",[0,0.6,1.2],[Vector2(0,-8),Vector2(0,-9),Vector2(0,-8)])
+	library.add_animation("idle",idle)
+	var walk := _new_clip(0.68,true)
+	var stride := [0,0.17,0.34,0.51,0.68]
+	_keys(walk,TORSO+":position",stride,[Vector2(0,-8),Vector2(0,-10),Vector2(0,-8),Vector2(0,-10),Vector2(0,-8)])
+	_rotation_keys(walk,"/LegL",stride,[0,24,0,-24,0])
+	_rotation_keys(walk,"/LegR",stride,[0,-24,0,24,0])
+	_rotation_keys(walk,"/LegL/ShinL",stride,[0,-15,0,18,0])
+	_rotation_keys(walk,"/LegR/ShinR",stride,[0,18,0,-15,0])
+	_rotation_keys(walk,"/ArmL",stride,[0,-17,0,17,0])
+	_rotation_keys(walk,"/ArmR",stride,[0,5,0,-5,0])
+	_rotation_keys(walk,"/Satchel",stride,[0,8,0,-8,0])
+	library.add_animation("walk",walk)
+	var warning := _new_clip(0.35)
+	_rotation_keys(warning,"",[0,0.35],[0,-7])
+	_rotation_keys(warning,"/Head",[0,0.35],[0,6])
+	_rotation_keys(warning,"/ArmR",[0,0.35],[0,-115])
+	_rotation_keys(warning,"/ArmR/ForearmR",[0,0.35],[0,-25])
+	_rotation_keys(warning,"/Satchel",[0,0.35],[0,10])
+	library.add_animation("warning",warning)
+	var attack := _new_clip(0.24)
+	var throw_times := [0,0.04,0.12,0.24]
+	_rotation_keys(attack,"",throw_times,[-7,10,4,0])
+	_rotation_keys(attack,"/ArmR",throw_times,[-115,-72,-35,0])
+	_rotation_keys(attack,"/ArmR/ForearmR",throw_times,[-25,5,10,0])
+	_rotation_keys(attack,"/Head",throw_times,[6,-5,-2,0])
+	_rotation_keys(attack,"/Satchel",throw_times,[10,-13,-5,0])
+	_keys(attack,TORSO+"/ArmR/ForearmR/HandR/Payload:scale",[0,0.24],[Vector2.ZERO,Vector2.ZERO])
+	library.add_animation("attack",attack)
+	var hit := _new_clip(0.16)
+	_rotation_keys(hit,"",[0,0.045,0.16],[0,-14,0])
+	_rotation_keys(hit,"/Head",[0,0.045,0.16],[0,12,0])
+	_rotation_keys(hit,"/Satchel",[0,0.045,0.16],[0,-16,0])
+	library.add_animation("hit",hit)
+	var death := _new_clip(0.52)
+	_keys(death,TORSO+":position",[0,0.20,0.52],[Vector2(0,-8),Vector2(0,4),Vector2(0,9)])
+	_rotation_keys(death,"",[0,0.20,0.52],[0,38,80])
+	_rotation_keys(death,"/ArmR",[0,0.52],[0,-30])
+	_rotation_keys(death,"/LegR/ShinR",[0,0.52],[0,30])
+	_rotation_keys(death,"/Satchel",[0,0.52],[0,24])
+	library.add_animation("death",death)
+	player.add_animation_library("",library)

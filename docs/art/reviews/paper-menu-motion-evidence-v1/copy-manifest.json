@@ -1,0 +1,132 @@
+[
+  {
+    "sha256": "346c0eb2aa561223fe1b179e708e8a0e2a10a909f215e28f295e0c129eee1fa5",
+    "original": "build/diagnostics/campaign-goal/f9-menu-motion-red-v1.log",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\f9-menu-motion-red-v1.log"
+  },
+  {
+    "sha256": "f0affb673b6a3b3a88d514fc0815b3da63d51c6023541873e4bdcbbfda12c1ba",
+    "original": "build/diagnostics/campaign-goal/f9-menu-motion-green-v2.log",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\f9-menu-motion-green-v2.log"
+  },
+  {
+    "sha256": "8512f045761baa0abdc72b8d7d0ed233a654ae62f54fc0781f786c548f4d07e4",
+    "original": "build/diagnostics/campaign-goal/f9-menu-motion-gpu-v3.log",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\f9-menu-motion-gpu-v3.log"
+  },
+  {
+    "sha256": "ee82c93d93c854c24102acc9332d1ea9d2124ee917bcd7a67eba4b421836571e",
+    "original": "build/diagnostics/campaign-goal/f9-normal-import-v1.log",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\f9-normal-import-v1.log"
+  },
+  {
+    "sha256": "e6727ffef4e848e2a4f4c77159cafab0d63463cb6b6b80c26bdb972003307251",
+    "original": "build/diagnostics/campaign-goal/f9-menu-motion-static-original-v1/StaticBackdrop.gd",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\StaticBackdrop.gd"
+  },
+  {
+    "sha256": "6eee12c87454887060f0a42ac6ec1174eed37695738cb29fdb45cbb6e74d8047",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1280-automatic.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1280-automatic.png"
+  },
+  {
+    "sha256": "26abda452d5b9ac5feec5a3fd0e157973c902b47999759c24b0fa69ef434494a",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1280-cover-0.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1280-cover-0.png"
+  },
+  {
+    "sha256": "7c8de572caea7b3a12941fb64da9963a9c26296795fae40575c7688184699987",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1280-cover-3.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1280-cover-3.png"
+  },
+  {
+    "sha256": "fc03c0e631cd91c49d03967b1a58744c0fafea3a24346c63b27532508dccae7f",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1280-cover-9.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1280-cover-9.png"
+  },
+  {
+    "sha256": "21d592aafde600c7353fd5adf06b448236d6a1cdda26b3540da685feccd15406",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1280-page-1.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1280-page-1.png"
+  },
+  {
+    "sha256": "04a5f804e64f5bc4430fc6d4ea783e475f53c60b398fc1e8c2edf60e43bceab3",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1280-page-2.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1280-page-2.png"
+  },
+  {
+    "sha256": "7c0a88b16c3e7aa6ed61c456ff869fd4e8fa9f197446fd2671f913dda9db2815",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1280-page-3.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1280-page-3.png"
+  },
+  {
+    "sha256": "f9d64eac256d54c19e16912306dd04b0227458b6dc19aaabf334cab0eb617315",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1920-cover-0.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1920-cover-0.png"
+  },
+  {
+    "sha256": "de0bf5d1a7f7f76aa6c5b7579b1166242f57edc8e6808b67631ea9c629862710",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1920-cover-3.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1920-cover-3.png"
+  },
+  {
+    "sha256": "7ed37385aa089a05a80ad8e8269d3e054bbf76ae81c53cb2f97a63fe3b262a60",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1920-cover-9.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1920-cover-9.png"
+  },
+  {
+    "sha256": "94859add76cdc831794b4a49730e80b6de691ab67c2ed28dd46743f9db062ad3",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1920-page-1.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1920-page-1.png"
+  },
+  {
+    "sha256": "3698f5459240c9f6e9cdb2f8633ff281287566185b6e29d0b92f7016aec61425",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1920-page-2.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1920-page-2.png"
+  },
+  {
+    "sha256": "fcc8c63a8c34c4e3dfdaa8526bd4c4913c0705c2e513e97c623fe8a7653432d0",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\1920-page-3.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\1920-page-3.png"
+  },
+  {
+    "sha256": "b29ee8ce0d013f0baa35fd6757f273ca0fad6e064ed559c7f540bdc45b847129",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\960-cover-0.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\960-cover-0.png"
+  },
+  {
+    "sha256": "c1e0610d7b86ed225193d9a9d607b30c3c0cef9126a7fb2cab3c511663e0a6eb",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\960-cover-3.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\960-cover-3.png"
+  },
+  {
+    "sha256": "c50b59dc36ca1b4dfc5989bb5217e57134a077c4e1c04d67b27bdea2ec6b8307",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\960-cover-9.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\960-cover-9.png"
+  },
+  {
+    "sha256": "d355aa41ff0453e5133f93ff032d85e3457bc9cb048703f26eb333d890025af0",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\960-page-1.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\960-page-1.png"
+  },
+  {
+    "sha256": "b4e046d34ac3d856552423f71b694e64840a1edb7b205a0de35ac206c441a51b",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\960-page-2.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\960-page-2.png"
+  },
+  {
+    "sha256": "97f951168d0a7b9c5795071ac19be0b01f36f49963d9c1e7436e1a1ebdd8a942",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\960-page-3.png",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\960-page-3.png"
+  },
+  {
+    "sha256": "061f8c6b10257ab5eacaf0fa6f109dce31537a88ecdec7d3b8d0078662b2ce19",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\actual-exit.json",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\actual-exit.json"
+  },
+  {
+    "sha256": "8cd09aa624eff413e255be25db8c8d2ca83da81000bbc68c6e1fcf884d166b8e",
+    "original": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f9_menu_motion_gpu_v3\\report.json",
+    "copy": "docs\\art\\reviews\\paper-menu-motion-evidence-v1\\report.json"
+  }
+]

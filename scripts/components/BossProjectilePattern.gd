@@ -3,6 +3,7 @@ class_name BossProjectilePattern
 
 signal warning_started(pattern_id: StringName, duration: float, locked_directions: Array[Vector2])
 signal pattern_finished(pattern_id: StringName)
+signal pattern_cancelled
 
 const BossProjectileScript = preload("res://scripts/components/BossProjectile.gd")
 
@@ -119,6 +120,21 @@ func advance(delta: float) -> void:
 func get_active_plan() -> Array[Dictionary]:
 	return _active_plan.duplicate(true)
 
+func get_visual_state() -> Dictionary:
+	# Read only the authoritative seeded plan. No duplicate attack clock, timer
+	# advancement, spawning or retention of flying projectile lifetimes here.
+	if _active_pattern == &"" or _active_plan.is_empty():
+		return {}
+	var first_shot: float = _active_plan[0].time
+	var last_shot: float = _active_plan[-1].time
+	return {
+		"pattern": _active_pattern,
+		"elapsed": _elapsed,
+		"first_shot_seconds": first_shot,
+		"last_shot_seconds": last_shot,
+		"stage": "warning" if _elapsed < first_shot else "attack",
+	}
+
 func is_pattern_active() -> bool:
 	return _active_pattern != &""
 
@@ -134,6 +150,7 @@ func cancel(clear_spawned: bool = true) -> void:
 	if clear_spawned:
 		clear_projectiles()
 	queue_redraw()
+	pattern_cancelled.emit()
 
 func clear() -> void:
 	cancel(true)

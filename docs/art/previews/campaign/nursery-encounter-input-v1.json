@@ -1,0 +1,340 @@
+{
+	"adjacent_moves": 547,
+	"assertions": 634,
+	"kills": 9,
+	"policy_random_heading_changes": 7,
+	"samples": [
+		{
+			"alive_enemies": 0,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_000.png",
+			"health": 100.0,
+			"kills": 0,
+			"physics_frame": 8,
+			"position": [
+				0.0,
+				0.0
+			],
+			"sha256": "8304b4fd1fb65ab107ca4e294c302f51bf21e8029da9b226da5bea0fef1e9c93",
+			"shots": 0,
+			"state": "INTRO",
+			"step": 0,
+			"wall_usec": 1270231
+		},
+		{
+			"alive_enemies": 0,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_001.png",
+			"health": 100.0,
+			"kills": 0,
+			"physics_frame": 45,
+			"position": [
+				0.0,
+				0.0
+			],
+			"sha256": "be929b701779150135de56aaec705b97a5bcb00a0312bcdb11a195753a717e27",
+			"shots": 0,
+			"state": "INTRO",
+			"step": 30,
+			"wall_usec": 1792546
+		},
+		{
+			"alive_enemies": 0,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_002.png",
+			"health": 100.0,
+			"kills": 0,
+			"physics_frame": 75,
+			"position": [
+				22.1560173034668,
+				22.1560173034668
+			],
+			"sha256": "4d8eafcdb78bdd18ef2d6972bdf7d30c6cc2f36051d705d5ec70324dee1f0877",
+			"shots": 2,
+			"state": "COMBAT",
+			"step": 60,
+			"wall_usec": 2292036
+		},
+		{
+			"alive_enemies": 0,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_003.png",
+			"health": 100.0,
+			"kills": 0,
+			"physics_frame": 105,
+			"position": [
+				105.241050720215,
+				105.241050720215
+			],
+			"sha256": "bae94c0839f75d24ea7e2fff17e213e294e9f6765967f612504d1b489146e013",
+			"shots": 9,
+			"state": "COMBAT",
+			"step": 90,
+			"wall_usec": 2791105
+		},
+		{
+			"alive_enemies": 9,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_004.png",
+			"health": 100.0,
+			"kills": 0,
+			"physics_frame": 135,
+			"position": [
+				149.553070068359,
+				204.386474609375
+			],
+			"sha256": "0eda57a15fde4ff0f73347ebf7f2f6c01be81b900019d77171278625ba6f423c",
+			"shots": 15,
+			"state": "COMBAT",
+			"step": 120,
+			"wall_usec": 3291884
+		},
+		{
+			"alive_enemies": 15,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_005.png",
+			"health": 100.0,
+			"kills": 0,
+			"physics_frame": 165,
+			"position": [
+				132.936065673828,
+				315.003448486328
+			],
+			"sha256": "75cccbd8d505d5f9040c94f4ca219cf7fd784f08b53eb865e957d676ed7f48bf",
+			"shots": 22,
+			"state": "COMBAT",
+			"step": 150,
+			"wall_usec": 3794636
+		},
+		{
+			"alive_enemies": 18,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_006.png",
+			"health": 100.0,
+			"kills": 0,
+			"physics_frame": 195,
+			"position": [
+				49.8510437011719,
+				398.088470458984
+			],
+			"sha256": "834b4044062d751469830757fb4d05e275f68cb53d1e732aa551b175dab94125",
+			"shots": 28,
+			"state": "COMBAT",
+			"step": 180,
+			"wall_usec": 4297867
+		},
+		{
+			"alive_enemies": 18,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_007.png",
+			"health": 100.0,
+			"kills": 0,
+			"physics_frame": 225,
+			"position": [
+				-34.3811798095703,
+				478.403991699219
+			],
+			"sha256": "47b1f1d977903f554c06b8cb33b476ce29ced84289ffe8cb4e69525ab8f71550",
+			"shots": 35,
+			"state": "COMBAT",
+			"step": 210,
+			"wall_usec": 4795471
+		},
+		{
+			"alive_enemies": 17,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_008.png",
+			"health": 100.0,
+			"kills": 1,
+			"physics_frame": 255,
+			"position": [
+				-141.556671142578,
+				503.329498291016
+			],
+			"sha256": "bdbf524a3eb9ed9914c2d6c47ae93e90c9dfc9015cad90926dc5485bf89c6b62",
+			"shots": 41,
+			"state": "COMBAT",
+			"step": 240,
+			"wall_usec": 5294670
+		},
+		{
+			"alive_enemies": 15,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_009.png",
+			"health": 100.0,
+			"kills": 3,
+			"physics_frame": 285,
+			"position": [
+				-242.996429443359,
+				542.102844238281
+			],
+			"sha256": "c340d99752bd54eb440aa89f6c6a5aae1655af4f2936bf39fd9124d828715efc",
+			"shots": 48,
+			"state": "COMBAT",
+			"step": 270,
+			"wall_usec": 5792082
+		},
+		{
+			"alive_enemies": 15,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_010.png",
+			"health": 100.0,
+			"kills": 3,
+			"physics_frame": 316,
+			"position": [
+				-313.381103515625,
+				632.071716308594
+			],
+			"sha256": "ad1cbb95be37c7bc9dd001ca3235b879809f0fd67e75f02db353062183141c5c",
+			"shots": 55,
+			"state": "COMBAT",
+			"step": 300,
+			"wall_usec": 6313292
+		},
+		{
+			"alive_enemies": 14,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_011.png",
+			"health": 100.0,
+			"kills": 4,
+			"physics_frame": 346,
+			"position": [
+				-430.880798339844,
+				632.071716308594
+			],
+			"sha256": "6c37761c970d28267b3f578b5958603a6e203f370f26fe071d19516103c18068",
+			"shots": 61,
+			"state": "COMBAT",
+			"step": 330,
+			"wall_usec": 6810742
+		},
+		{
+			"alive_enemies": 13,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_012.png",
+			"health": 100.0,
+			"kills": 5,
+			"physics_frame": 378,
+			"position": [
+				-544.337951660156,
+				603.514831542969
+			],
+			"sha256": "f8477b629e67218fb5287678598a7a564841473ac58a358f2874ef5fc947d1d2",
+			"shots": 68,
+			"state": "COMBAT",
+			"step": 360,
+			"wall_usec": 7333400
+		},
+		{
+			"alive_enemies": 13,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_013.png",
+			"health": 100.0,
+			"kills": 5,
+			"physics_frame": 408,
+			"position": [
+				-627.423889160156,
+				520.428894042969
+			],
+			"sha256": "ec85eddc7b8df4d4afa1fad7e2226a698e64ed1c6a7d881b2b3abc12f5060a72",
+			"shots": 75,
+			"state": "COMBAT",
+			"step": 390,
+			"wall_usec": 7840092
+		},
+		{
+			"alive_enemies": 13,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_014.png",
+			"health": 100.0,
+			"kills": 5,
+			"physics_frame": 438,
+			"position": [
+				-702.201232910156,
+				433.902313232422
+			],
+			"sha256": "be183d296fc7c086c0fd1d12add2edf9547a7a138658045960ce2398ad752275",
+			"shots": 81,
+			"state": "COMBAT",
+			"step": 420,
+			"wall_usec": 8349875
+		},
+		{
+			"alive_enemies": 13,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_015.png",
+			"health": 100.0,
+			"kills": 5,
+			"physics_frame": 468,
+			"position": [
+				-776.978576660156,
+				347.375823974609
+			],
+			"sha256": "6498aecb4be9c24e0b9c0e778ecb60a2d26e68152e9c99b07bd4a6e82e0e9043",
+			"shots": 88,
+			"state": "COMBAT",
+			"step": 450,
+			"wall_usec": 8853226
+		},
+		{
+			"alive_enemies": 13,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_016.png",
+			"health": 100.0,
+			"kills": 5,
+			"physics_frame": 499,
+			"position": [
+				-854.525451660156,
+				258.079833984375
+			],
+			"sha256": "a36c5a79338cd91334320d61aadabbbb17076a1dc643990b8b056f8f8dda3787",
+			"shots": 94,
+			"state": "COMBAT",
+			"step": 480,
+			"wall_usec": 9360093
+		},
+		{
+			"alive_enemies": 11,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_017.png",
+			"health": 100.0,
+			"kills": 7,
+			"physics_frame": 529,
+			"position": [
+				-862.834045410156,
+				144.021194458008
+			],
+			"sha256": "4e8fa9081c2e40b62ba9c9c3e80ab538f46a6c75580d8e32b0fa9dddf74d146f",
+			"shots": 101,
+			"state": "COMBAT",
+			"step": 510,
+			"wall_usec": 9865307
+		},
+		{
+			"alive_enemies": 11,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_018.png",
+			"health": 100.0,
+			"kills": 7,
+			"physics_frame": 559,
+			"position": [
+				-793.595764160156,
+				55.200325012207
+			],
+			"sha256": "c967def694c80c6ff252fafa3589df2c900a4a757ac4488a8c2fdadbddaf164f",
+			"shots": 107,
+			"state": "COMBAT",
+			"step": 540,
+			"wall_usec": 10339922
+		},
+		{
+			"alive_enemies": 10,
+			"file": "build/diagnostics/campaign-goal/nursery-encounter-input-frames-v1/frame_019.png",
+			"health": 100.0,
+			"kills": 8,
+			"physics_frame": 589,
+			"position": [
+				-740.581237792969,
+				-17.3971939086914
+			],
+			"sha256": "29d1ba91f76df2a7b806fdfe233553671a84b5cb8b9e9e7bc0a87674f0ad35d7",
+			"shots": 114,
+			"state": "COMBAT",
+			"step": 570,
+			"wall_usec": 10836683
+		}
+	],
+	"scope": "Isolated real nursery map/director/player/enemies and ordinary input; not Main, Boss clear, saved unlock, human playtest or final all-new art",
+	"shots": 120,
+	"sources": {
+		"scenes/world/mist_nursery.tscn": "47d161d00a7927488dc887fde4ccec7872d0c5eea0ed7ce1fe038b9b44f7a12d",
+		"scripts/actors/Enemy.gd": "9c7f67b12dad2464fd4bfd5fd64a3facb4ec3488f0f35ec3ea8eaca34e793d79",
+		"scripts/actors/Player.gd": "e00266ab0e26ff656a01f285910823e1f2a3f9ff3c339b773fc4b56189731087",
+		"scripts/art/NaturalRunPolicy.gd": "75d7ccf15e5b35355324945301afb4b8a5a57f5805a10e5d3cb14d07889b2259",
+		"scripts/art/VerifyNurseryEncounterRun.gd": "e2a6cc02bf1fa01bae1b7e4f6cd1f37ec06711c3b47da43909c18d12012b2e12",
+		"scripts/systems/NurseryEncounterDirector.gd": "0cb69a41c3906f3aafa4d4a245a39cade03da8e0eb5da4d85767463bd3aa697a",
+		"scripts/systems/UpgradeSystem.gd": "b06312a74909c05e2f7cc77edec0ae4ec9576e518bd6848b169c8b1ec2ab0317"
+	},
+	"valid": false
+}

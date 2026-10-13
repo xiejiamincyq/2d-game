@@ -1,0 +1,76 @@
+{
+  "format": 4,
+  "engine": [
+    4,
+    7,
+    0
+  ],
+  "bytes": 6074540,
+  "sha256": "07964613f2db5463f23c57c9d70cc3e4e31d5adb636f2d836257201d9a52cbec",
+  "retired_stems": [
+    "enemy_dasher_chibi_b_v1",
+    "enemy_bruiser_chibi_b_v1",
+    "enemy_spitter_chibi_b_v1",
+    "enemy_marksman_chibi_b_v1",
+    "enemy_lobber_chibi_b_v1",
+    "enemy_overseer_chibi_b_v1",
+    "enemy_dasher_a_actions_runtime_v1",
+    "enemy_dasher_b_actions_runtime_v1",
+    "enemy_scrapper_chibi_b_v1",
+    "player_chibi_b_cardinal_atlas_v1",
+    "player_chibi_b_weapon_cardinal_atlas_v1",
+    "player_chibi_b_weapon_v1",
+    "mint_farm_props_b_v1",
+    "overdrive_bone_breaking"
+  ],
+  "retired_matches": [],
+  "authoring_matches": [],
+  "scope": "retired PNG/audio closure only; no Main startup or ordinary six-chain claim",
+  "entry_count": 594,
+  "suites": [
+    {
+      "suite": "OriginalOverdriveAudioTest",
+      "actual_exit": 0,
+      "checks": 34
+    },
+    {
+      "suite": "AudioLifecycleTest",
+      "actual_exit": 0,
+      "checks": 651
+    },
+    {
+      "suite": "CombatFeedbackTest",
+      "actual_exit": 0,
+      "checks": 49
+    },
+    {
+      "suite": "NativePlayerResourceTest",
+      "actual_exit": 0,
+      "checks": 3430
+    },
+    {
+      "suite": "PlayerNativeIntegrationTest",
+      "actual_exit": 0,
+      "checks": 699
+    },
+    {
+      "suite": "NativeCharacterRosterTest",
+      "actual_exit": 0,
+      "checks": 644
+    }
+  ],
+  "source_count": 1680,
+  "source_bank": "source-bank.json",
+  "fixtures": {
+    "scripts/tests/OriginalOverdriveAudioTest.gd": "a1a340af956fe95bb59753a07bc40040c58b5c51a93a368b5cc4b5314acbc1ae",
+    "scripts/tests/AudioLifecycleTest.gd": "efce8641e7209cbe94a5a809ec9f0e25aad161e0c94e053e8c46a1b78506defe",
+    "scripts/tests/CombatFeedbackTest.gd": "708e27f9b8c15040ca25237a024951ec70cb5b36baea11dfc7026027577d6f72",
+    "scripts/tests/NativePlayerResourceTest.gd": "4b24ba5db17dc9c05256d12a7908cef521d510cad127cac413e99495ac34ce4e",
+    "scripts/tests/PlayerNativeIntegrationTest.gd": "090d53e413818e1f08e249a9b6f0375f3b1ce3e29e05917dd44d23d226aeed96",
+    "scripts/tests/NativeCharacterRosterTest.gd": "0fb6b7487dd801b90795ab56a6be32bccf342eafda9f5184583160ec6fc58253",
+    "scripts/tests/TestSupport.gd": "1d479680b5f95e50b08a017003dab2e329cd100e6f324883078e8199227250b1"
+  },
+  "terminal_source_hashes_match": true,
+  "independent_cwd": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\native-retired-audio-pack-v1\\independent",
+  "total_checks": 5507
+}

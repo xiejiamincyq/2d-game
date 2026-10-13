@@ -1,0 +1,1355 @@
+{
+	"actual_effect_pixels": 378,
+	"adjacent_changes": 59,
+	"clips": [
+		"idle",
+		"walk",
+		"hit",
+		"entrance",
+		"melee_warning",
+		"melee_attack",
+		"melee_recovery",
+		"burst_warning",
+		"burst_attack",
+		"command",
+		"death"
+	],
+	"gait_frames": 60,
+	"passed": true,
+	"samples": [
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11372,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11372,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11360,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11360,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11406,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11406,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11191,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11191,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11335,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11335,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11354,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11354,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11276,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11276,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11339,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11339,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11366,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11366,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11143,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11143,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11379,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11379,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 10983,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 10983,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 10944,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 10944,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 10982,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 10982,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 10983,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 10983,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11380,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11380,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11363,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11363,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11745,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11745,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11923,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11923,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11957,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11957,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 12002,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 12002,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11543,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11543,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11640,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11640,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11422,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11422,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11303,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11303,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 11184,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 11184,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11372,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11372,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11360,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11360,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11406,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11406,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11191,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11191,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11335,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11335,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11354,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11354,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11276,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11276,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11339,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11339,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11366,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11366,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11143,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11143,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11379,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11379,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 10983,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 10983,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 10944,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 10944,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 10982,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 10982,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 10983,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 10983,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11380,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11380,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11363,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "melee_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11363,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11745,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11745,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11923,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "burst_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11923,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11957,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11957,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 12002,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 12002,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11543,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "burst_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11543,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11640,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11640,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11422,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "command",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11422,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11341,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11303,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11303,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 11184,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 11184,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		}
+	],
+	"scope": "Actual Enemy body/shader poses (HUD excluded), all listed clips/mirrors/hit flash; actual gait and hit/bar. Optional post-checkpoint actions add actual warning/impact and one real hit; commander also emits 12 actual projectiles (transitional projectile art). Not natural Main input or all Boss attacks.",
+	"sources": {
+		"res://assets/art/actors/native/root_commander_motion_v2.tres": "529cbc08c32c841a023d5eb4374a917b11d300decf2086727045273bb3f9e8f5",
+		"res://assets/art/shaders/dasher_hit_flash.gdshader": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9",
+		"res://scenes/actors/native/root_commander_paper_v2.tscn": "8b7d76e83838e5538f5901f5a567c7239515522dbb0de6f4ba18ccf096363910",
+		"res://scripts/actors/Enemy.gd": "85f613f842268bef51e40e16e87e7373fc85ac012038b8852266072c605d069c",
+		"res://scripts/art/RenderNativeLargePreview.gd": "7d21f4d128bc023d5e42b335f9ae32649a8e2a6fb08b6012a8a4a3df637d7044",
+		"res://scripts/components/NativeActorView.gd": "2485aad6edc3b97270c1a4c13159c6e74a81bf533c9a16d16f66470d18275da5",
+		"res://scripts/components/NativeLargeMotion.gd": "9bf3932fa9daccbdac7fc488f981e8e1e5f0dac1a7b6cadc934a84eec351a6c3",
+		"res://scripts/components/NativeProjectileOriginSafety.gd": "9be51ed7fb55861a124174653b9570589ed8d7bb65ede5b11195e77df158cc70",
+		"res://scripts/components/NativeRootCommanderMotion.gd": "45b3a1c1a90296175eeff9c35c481d106cb719c3fd52f4363db5ba671fcf9c88",
+		"res://scripts/components/NativeScrapperMotion.gd": "7b840b4f9a98540ee8d4cb62e75a53950e218c9ab87852c2a92bfc0979d003ec",
+		"res://scripts/components/NativeStoneCarrierMotion.gd": "ca7cbc9d3cc61d565f0d12795c4b4dc362eca4fbbc23f3f05a9e8a39fe5186bf"
+	}
+}

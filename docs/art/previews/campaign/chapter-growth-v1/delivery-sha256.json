@@ -1,0 +1,152 @@
+[
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/960x540-unclaimed.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/960x540-unclaimed.png",
+    "sha256": "642094265ec8308d72a1f1ac87865b80093dbc098b0d7e388ffc744e044f99e5"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/960x540-scroll-bottom.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/960x540-scroll-bottom.png",
+    "sha256": "7cb4ad43d05b8322f9f187847765cb43d52cb6a57b7ecef6ccac4ed6067d4331"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/960x540-claimed.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/960x540-claimed.png",
+    "sha256": "61ee2789ca8aff8c0ce1b95adc6b8a83d0296fc67ac8cb0d396ddb268f5a4141"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/960x540-boss-ready.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/960x540-boss-ready.png",
+    "sha256": "622a3b520797109bc632bd8388c94d107e33a19c2518650f3a8d207f9b1473fd"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1280x720-unclaimed.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/1280x720-unclaimed.png",
+    "sha256": "2d76aef3c30b09d91d87e342b480c580e3ab3b2c7bc1aa461860c43c271630ab"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1280x720-scroll-bottom.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/1280x720-scroll-bottom.png",
+    "sha256": "9890c62ba7dcfaf0eda9a4efbf91024bb4853cfb0951d7c19d36895ff03c3bce"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1280x720-claimed.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/1280x720-claimed.png",
+    "sha256": "9eb706c56f0841d2536608a75e6ae2dff15943bac3cae322a284313ce2a8192d"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1280x720-boss-ready.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/1280x720-boss-ready.png",
+    "sha256": "a130c74aef307b4ba2400a232678a13906b5084b06e480ddf6f04dbf068c2bb8"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1920x1080-unclaimed.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/1920x1080-unclaimed.png",
+    "sha256": "8e1d11c219c14caf4661386262d6a206d8ca4e6364ca1a5fc657a403838db228"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1920x1080-scroll-bottom.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/1920x1080-scroll-bottom.png",
+    "sha256": "a2c6a9538490c394692d656d0dc37fe845ab6cd374b11889370e30c6bbc251c4"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1920x1080-claimed.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/1920x1080-claimed.png",
+    "sha256": "731551cff6493429b0d51cf3bd6441833093e895fae7fd6fdd64fb92310cb3c2"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/1920x1080-boss-ready.png",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/1920x1080-boss-ready.png",
+    "sha256": "316d89bb8ce62e830189f22224e6c057407bb9538a4520a82f0f58c4de54717a"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-final-reward-ui-gpu-v1/report.json",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/report.json",
+    "sha256": "50f8957d7c077ee7184d3ea25decbe75fbce5196e9f67e3a7435c698cc1420c8"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-finale-ui-gpu-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/ui/driver.log",
+    "sha256": "6bfe0bca10008fffe04b33d7e5a3ecbff979a9a7f17c29008ece043ae86a2034"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/ChapterEvolutionContextTest-chapter-final-reward-v3.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/ChapterEvolutionContextTest-chapter-final-reward-v3.log",
+    "sha256": "93a7252a0b65941ad0b1987060f21083b3965d9b21a75d18425fa14013ca9206"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/ChapterFinaleFlowTest-chapter-ui-v2.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/ChapterFinaleFlowTest-chapter-ui-v2.log",
+    "sha256": "516e99a9c4d6da4e10d907a015765fbc362c4f747efe4527f414bce515ccd61e"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/ChapterFinaleUITest-chapter-final-reward-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/ChapterFinaleUITest-chapter-final-reward-v1.log",
+    "sha256": "c29827929f80395d156644b3849fd02087886765a2fa621a358f1207f9a02419"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/chapter-build-choice-green-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/chapter-build-choice-green-v1.log",
+    "sha256": "11dde81c8d9a7fb5e5f1356412b1ddbea257c3adf109e0bd0f41778f20a41845"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/UpgradeTest-chapter-finale-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/UpgradeTest-chapter-finale-v1.log",
+    "sha256": "7f6fb3bb92e91d272ad1e0b43fb64552987f5218ed95a9818bf1895bb7633b70"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/SnapshotTest-chapter-finale-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/SnapshotTest-chapter-finale-v1.log",
+    "sha256": "218c440d08ea7e793b4d3eb015b81b53c8e2d381ce89ec640d81ab89853fdeeb"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/SharedChapterRunTest-chapter-finale-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/SharedChapterRunTest-chapter-finale-v1.log",
+    "sha256": "7252ac7263c0f8d7a7d890d593bbc48205dac56e362d8cd72a7379b432bf2d96"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/NurseryEncounterTest-chapter-finale-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/NurseryEncounterTest-chapter-finale-v1.log",
+    "sha256": "56c09f5b6b064313b4023c50c369ec5664486554850153db2f819e44af268a94"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/NurseryChapterTest-chapter-final-reward-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/NurseryChapterTest-chapter-final-reward-v1.log",
+    "sha256": "acea9e521041f1ea7fe8245f35fdaad08f01bddc76c082aae949201dd39b26f8"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/FoundryChapterTest-chapter-final-reward-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/FoundryChapterTest-chapter-final-reward-v1.log",
+    "sha256": "47ecb87d380937fad8fb36ff4405dd1289dbc6753447d434dbc42884152b6f8d"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/SaltChapterTest-chapter-final-reward-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/SaltChapterTest-chapter-final-reward-v1.log",
+    "sha256": "ed2307107fd00b0d93b7102a28342387f7bd9ce8ccebdb1ab45a223c96dcf817"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/ArchiveChapterTest-chapter-final-reward-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/ArchiveChapterTest-chapter-final-reward-v1.log",
+    "sha256": "6ca907cee3b5e842463a466ba58d787a5edc862f421da192b6366534c6e805b1"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/EchoChapterTest-chapter-final-reward-v1.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/EchoChapterTest-chapter-final-reward-v1.log",
+    "sha256": "45137de0c4c4f4d357fd5bb3345e56448812fdcc5f6f3e27d11ebfb6a0fa994c"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/RiftChapterTest-chapter-final-reward-v3.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/RiftChapterTest-chapter-final-reward-v3.log",
+    "sha256": "97d63d6ad68b127713337b8ffd97e6a3ba087a42774cba5af918daecf2a25e52"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/UITest-chapter-ui-v2.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/UITest-chapter-ui-v2.log",
+    "sha256": "2c5e7d2171b4f9552efff55235107cfe82f9100bee2faac09f9e410744a28819"
+  },
+  {
+    "source": "build/diagnostics/campaign-goal/SettlementUITest-chapter-ui-v2.log",
+    "copy": "docs/art/previews/campaign/chapter-growth-v1/tests/SettlementUITest-chapter-ui-v2.log",
+    "sha256": "306b6110dab85cf51fef01e4bc0ea895fd669a529cb9ac16747cb6f259fe348a"
+  }
+]

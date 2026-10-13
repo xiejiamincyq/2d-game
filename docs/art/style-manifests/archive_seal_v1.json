@@ -1,0 +1,24 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "archive_seal_v1",
+  "review_state": "draft",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/archive-boss-seal-review-v1.md",
+  "preview": "res://docs/art/previews/campaign/archive-boss-seal-v1/runtime-active.png",
+  "warning_preview": "res://docs/art/previews/campaign/archive-boss-seal-v1/runtime-warning.png",
+  "opacity_report": "res://docs/art/previews/campaign/archive-boss-seal-v1/report.json",
+  "external_raster_dependencies": [],
+  "assets": [
+    {"role": "hostile-ground-mark", "id": "archive_seal", "authoring_source": "res://scripts/components/ArchiveSealAttack.gd", "scope": "Original finite ink/paper/coral segmented outlines, no fill or bloom; geometry is clock-owned"},
+    {"role": "native-boss-adapter", "id": "archive_archivist_seal_actor", "authoring_source": "res://scripts/actors/ArchiveArchivistBoss.gd", "scope": "Actual original 27-bone v2; page and seal isolated integration, not a complete Boss/chapter"}
+  ],
+  "limitations": [
+    "Historical B2 capture: brood was unavailable and automatic attack sequence was page-only then; current integration is documented separately in archive-boss-complete-review-v1.md",
+    "Controlled GPU clock is not ordinary-input chapter play",
+    "No victory or chapter unlock proof",
+    "No whole-roster or dense-crowd performance proof",
+    "Not a final art promotion or complete license audit",
+    "No release EXE replacement or public release"
+  ]
+}

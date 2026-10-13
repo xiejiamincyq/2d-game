@@ -1,0 +1,18 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "foundry_heat_v1",
+  "review_state": "style-approved",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "review_document": "res://docs/art/foundry-heat-review-v1.md",
+  "environment_preview": "res://docs/art/previews/campaign/foundry-heat-active-v1.png",
+  "prop_preview": "res://docs/art/previews/campaign/foundry-heat-active-1x-v1.png",
+  "runtime_evidence": "res://docs/art/previews/campaign/foundry-heat-runtime-v1.json",
+  "assets": [
+    {"role": "environment-hazard", "id": "foundry_heat_vent", "authoring_source": "res://scripts/world/FoundryHeatVent.gd", "scope": "original native vent, short warning and bounded heat tongues; sole physics clock"},
+    {"role": "chapter-hazard-placement", "id": "foundry_heat_field", "authoring_source": "res://scripts/world/FoundryHeatField.gd", "scope": "seeded fixed safe sites, encounter-owned activation disabled by default"}
+  ],
+  "external_raster_dependencies": [],
+  "reference_policy": "Project-original native geometry under adopted paper style. No new external images, downloads, paid copying or installations.",
+  "limitations": ["Not a raster production manifest", "GPU fixtures are not complete chapter combat or victory", "No FoundryEncounterDirector or actual FurnaceForeman attack controller yet", "Main readiness remains [1]", "No final balance, human playtest, performance or six-chapter completion claim"]
+}

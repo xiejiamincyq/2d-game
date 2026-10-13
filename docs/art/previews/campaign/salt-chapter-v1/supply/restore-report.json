@@ -1,0 +1,20 @@
+{
+	"checks": 7,
+	"passed": true,
+	"process_id": 26816,
+	"progress_sha256": "41e434981104e8137e195bdbd9296a763dd9458b23dfae88e550d92624c0785f",
+	"ready_chapters": [
+		1,
+		2,
+		3
+	],
+	"scope": "Fresh engine process/actual Main reads prior isolated real-input chapter-three clear. Original evidence progress read-only, fresh diagnostic report only. Not another natural run, OS input or human playtest.",
+	"state": {
+		"cleared_chapters": [
+			1,
+			2,
+			3
+		],
+		"version": 1
+	}
+}

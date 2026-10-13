@@ -1,0 +1,11 @@
+{
+  "asset_id": "root_overseer_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/root_overseer_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/root_overseer_motion_v1.tres",
+  "role": "large",
+  "review_state": "draft",
+  "bone_count": 23,
+  "license_origin": "project-original",
+  "rig_checkpoint": "res://docs/art/native-checkpoints/legacy_overseer_attack_v1.json",
+  "required_clips": ["idle", "walk", "hit", "entrance", "death", "sweep_warning", "sweep_attack", "sweep_recovery", "slam_warning", "slam_attack", "slam_recovery", "aimed_fan_warning", "aimed_fan_attack", "aimed_fan_recovery", "twin_spiral_warning", "twin_spiral_attack", "twin_spiral_recovery", "broken_ring_warning", "broken_ring_attack", "broken_ring_recovery", "phase_transition"]
+}

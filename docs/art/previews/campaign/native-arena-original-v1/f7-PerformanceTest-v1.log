@@ -1,0 +1,4 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+PERFORMANCE: registry_1000_lookups_ms=0.104 drone_targeting_300_frames_ms=468.703 portal_250_ms=[58.143,58.175,64.629] nodes=3569 audio_players=17
+TEST PASS: PerformanceTest 30

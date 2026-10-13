@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "review_state": "author-approved",
+  "scope": "character-rig-resources-only",
+  "coverage_report": "res://docs/art/previews/campaign/native-character-coverage-v1.json",
+  "coverage_sha256": "9e0fe8d5d59b69d860b164f96749fcee9095ae5e614c9e2b8924081cfda85675",
+  "review_document": "res://docs/art/native-character-roster-review-v1.md",
+  "review_sha256": "033c72a1af216517ae2b5243cf204fd8cba4aee22496480188234f521cf58010",
+  "authorized_assets": {"root_commander_paper_v2": "root_commander_paper_v1"}
+}

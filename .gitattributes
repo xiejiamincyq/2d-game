@@ -1,1 +1,14 @@
-*.uid text eol=lf
+# Runtime source banks and native approvals sign exact raw bytes. Existing
+# resources mix CRLF and LF; do not normalize either at the Git boundary.
+*.uid -text
+*.gd -text
+*.gdshader -text
+*.tscn -text
+*.tres -text
+*.py -text
+*.ps1 -text
+project.godot -text
+export_presets.cfg -text
+# Evidence JSON/SVG keeps its original bytes, including any historical CRLF.
+*.json -text
+*.svg -text

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "f4-performance-v2-summary.json",
+    "source": "build\\diagnostics\\campaign-goal\\f4-performance-v2-summary.json",
+    "sha256": "b5777e6df5f80f3c98f8e3bf2c87843853c4719eb8a63b297863e5abfb1bc028"
+  },
+  {
+    "name": "f4-performance-v2-hardware.json",
+    "source": "build\\diagnostics\\campaign-goal\\f4-performance-v2-hardware.json",
+    "sha256": "e0a92a62a3a7983c50bed5af7ec1fa2b076ac758f10b751fd4cd7e8e0b247e0f"
+  },
+  {
+    "name": "chapter-performance-scope-red-v1.log",
+    "source": "build\\diagnostics\\campaign-goal\\chapter-performance-scope-red-v1.log",
+    "sha256": "942e8aabc838e171ad6111b510d80b5a11669f699aadbf770c8e2d4c85b4b577"
+  },
+  {
+    "name": "chapter-performance-scope-green-v1.log",
+    "source": "build\\diagnostics\\campaign-goal\\chapter-performance-scope-green-v1.log",
+    "sha256": "a0a844a11d5f88c8c13d680ff2e67aa9bda82146684cbf518a4c66a48435695d"
+  },
+  {
+    "name": "f4_performance_risk_1280_v2.log",
+    "source": "build\\diagnostics\\campaign-goal\\f4_performance_risk_1280_v2.log",
+    "sha256": "ed47f1fa0283ee07c4e19ad0bc3fe0db8f547e879f3ecc0bf62697415245b779"
+  },
+  {
+    "name": "f4_performance_risk_960_v2.log",
+    "source": "build\\diagnostics\\campaign-goal\\f4_performance_risk_960_v2.log",
+    "sha256": "ba53b2da196ce0f1d3b26b608979f87de40d40db3674efefe569ab5b7b67b9be"
+  },
+  {
+    "name": "f4_performance_risk_1920_v2.log",
+    "source": "build\\diagnostics\\campaign-goal\\f4_performance_risk_1920_v2.log",
+    "sha256": "a1a5f81803748363abd68bb1e8c1126d17a40e7f0e63c520d14f1c2bbd2129de"
+  }
+]

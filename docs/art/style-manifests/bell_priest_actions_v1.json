@@ -1,0 +1,18 @@
+{
+  "contract":"native-style-group-preview-v1",
+  "asset_id":"bell_priest_actions_v1",
+  "review_state":"draft",
+  "approval_authority":"user-delegated-autonomous-art-review",
+  "license_origin":"project-original",
+  "review_document":"res://docs/art/bell-priest-actions-review-v1.md",
+  "environment_preview":"res://docs/art/previews/campaign/bell-priest-actions-v2/action-keyframes.png",
+  "prop_preview":"res://docs/art/previews/campaign/bell-priest-actions-v2/action-poses.png",
+  "runtime_evidence":"res://docs/art/previews/campaign/bell-priest-actions-v2/report.json",
+  "assets":[
+    {"role":"native-boss-action-resources","id":"bell_priest_paper_v2","authoring_source":"res://scripts/art/BakeBellPriestActions.gd","runtime_scene":"res://scenes/actors/native/bell_priest_paper_v2.tscn","scope":"Original 26-bone weighted paper rig, five new-native base clips plus nine bell/pendant/crown action clips; independent external library and explicit frozen-baseline resource request"},
+    {"role":"native-motion-clock-adapter","id":"bell_priest_motion_reader","authoring_source":"res://scripts/components/NativeBellPriestMotion.gd","scope":"Visual-only shared NativeBossMotion extension reading action/stage/elapsed; controlled clock contract, not actual Boss combat"}
+  ],
+  "external_raster_dependencies":[],
+  "limitations":["Controlled GPU resource matrix and continuous samples, not ordinary-input gameplay","Actual Actor/director/damage/dodge/victory wait E4b","Official fifth entry and permanent unlock6 wait E5; readiness remains 1 to 4","Visual clip durations are not validated attack timing","Full/independent-PCK/release terminal results recorded separately in review","No OS/human playtest, dense performance or final licensing approval"],
+  "reference_policy":"Project-original native ink-paper style; no external artwork/downloads/paid extraction/installations. Not a raster/imagegen manifest."
+}

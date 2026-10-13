@@ -1,5 +1,31 @@
 # 统一实施计划：五分钟暴兵、波次构筑与金币商店
 
+> 最新执行状态见[短状态](campaign-final-live-state-v1.md)、[F9终态](../docs/campaign-final-f9-terminal-review-v1.md)与[提交范围/验证依赖修复](../docs/campaign-final-git-scope-review-v1.md)。以下“当前”均为当时历史节点，不据旧句柄重复启动验证或判断今天的完成范围。OS输入待解锁，Goal未完成；不提交部分工作。
+
+当前[F3章节成长规则已实现并受控验证](../docs/campaign-chapter-growth-progress-v1.md)：真实Chapter fresh上下文、两次同系达到3级且必需模块齐备，在供给/风险后真实首领前奖励可选一项进化；旧波次/快照保留。16项2128与GPU107/12图通过，三系普通构筑、多种子、风险/重玩与平衡未完成，F4/最终当前源full与本地交付继续。整体goal active，无中间提交推送/阶段邮件。
+
+后续F3诊断层已修transaction预算与真实GPU指针，普通弹/榴弹分用正式继承参数提前量，当前5项206+GPU146通过。普通火力、机动冒险正常取得各自进化，但实际Boss战死亡，败局完整保留、不可记为胜利。工程冒险23019当前运行；原Window掉血慢不能直接作为调整正式伤害依据。生产数值仍不改，需多种子/风险差异/重玩再形成最小平衡决定，见[真实诊断与终态](../docs/campaign-grenade-orbit-diagnosis-v1.md)。
+
+工程23019现已actualexit0/PASS10044、1660源保持，正常取雷网并真正Boss保存/独立档解锁2。三系普通取得进化均有实际案例，仍需统一驾驶策略下更多种子/相近路线与真正已通关重玩，当前不同报价/历史驾驶差异不能直接判工程必选。F3尚未整体验收，F4与最终同版联合门保持。
+
+当前F2已实际完成：[真实空档连续1→6](../docs/campaign-fresh-chain-acceptance-v1.md)，六次实际exit0、1638源同版、真实Boss保存/返回/新进程继承，最终全通且无7；Gmail阶段通知已发送。下一执行[F3正式构筑修复](campaign-build-balance-plan-v1.md)：三次遭遇与旧第4波进化门冲突，先真实奖励流程RED再改明确章节资格，保持旧模式。之后[F4视觉/许可/本地交付](campaign-final-visual-plan-v1.md)。整体goal active，不提交/推送未完成目标。
+
+[F1正式入口专项/普通GPU/独立包已闭合](../docs/campaign-primary-entry-review-v1.md)：新档/永久进度/全通选择，旧版与存档兼容保留，15图已查看，当前PCK11规范1776断言/82源/Main120实际0。此前[R4/R5联合阶段](../docs/rift-chapter-joint-acceptance-v1.md)已收取315 Godot/36 Python实际full终态；不能把旧full当F1新增代码的全量证明。下一F2新档普通1→6，F3平衡和F4视觉许可/最终当前源full交付全部保留，goal active。下文旧执行状态为历史。
+
+当前执行：[第六正式章流开发候选](../docs/rift-chapter-progress-review-v1.md)。R5工厂/保存/菜单已实现且受控验证通过，普通GPU两路线与新进程恢复继续；R4e包/release已实际退出0，不重复计旧中断full。R4/R5联合最终当前源门、F1–F4、最终提交推送未完成。下文旧执行节点为历史。
+
+2026-10-12实际执行仍是原生六关goal，不是标题中的历史波次目标。R4e专项/GPU2964/26图已经通过；full v2确证中断无汇总，不算验收。按[第六切片最新顺序](rift-sixth-chapter-plan-v1.md)，先独立PCK/release，再R5真实Boss工厂→薄正式协调保存→菜单/普通两路线/新进程；R4/R5共享一次最终完整回归与当前源包门，不签中间阶段。用户已委托自主常规决策，无购买/安装/发布/真实存档迁移，无需增加审批。F1–F4和完整六关目标保持。
+
+最新R4d三批错位折射已按[实际审查](../docs/rift-observer-refract-complete-review-v1.md)闭合：普通18+18、GPU5199/十图、当前PCK21/21415/Main120/88证据源exit0。下一R4e自动三招/完整Actor阶段与连续GPU/full；R5/F1–F4仍必做。旧R4c/d0待做状态与包是历史，无中间提交推送/切片邮件，Goal active。
+
+当前R4c已按[真实验证审查](../docs/rift-observer-probes-complete-review-v1.md)闭合；下一[R4d实施前契约](../docs/rift-observer-refract-contract-v1.md)，先单独提取已验证有限圆飞行内核且保持Probe，再做三批错位/负形间隙碎片。契约只是下一计划，没有新增d0/d1运行代码或RED，不计产出。整R4/R5/F1–F4保持待做、Goal active，无中间提交推送；下方c1–3执行态为历史。
+
+当前长期目标执行[R4c双探针契约](../docs/rift-observer-probes-contract-v1.md)：R4b真实窄束/GPU/当前包已验明，依序c1有限真实圆扫掠→c2唯一Director/原生出生→c3普通迟反应躲避/真实GPU/当前独立包。生产与规范测试分别≤2/3/2 GD一切片；不签整R4、不开放第六，不重启下方旧波次方向。全目标仍依[campaign骨骼计划](campaign-skeleton-plan-v1.md)保留R4d/e、R5及F1–F4。
+
+第五关E5阶段已完成：[实际通关/存档/方向牌/最终验收](../docs/art/echo-chapter-review-v1.md)。281 Godot261848/36 Python272、独立PCK53专项32168+315/Main120/release与同包EXE启动通过；Ready1–5，第六禁入，整体goal active/资源draft。继续[第六关规格](../docs/rift-sixth-chapter-spec-v1.md)及[顺序切片计划](rift-sixth-chapter-plan-v1.md)，不会仅凭目录开放全部关卡；六关连续链等最终门单列。下方E4a及旧波次目标均为历史。
+
+2026-10-11长期目标当前[E4a原生动作资源门已完成](../docs/art/bell-priest-actions-review-v1.md)：钟祭26骨/14动作、Motion契约/GPU和最终全量/独立包均通过，仍非实际Boss战。下一[E4b真实Actor/唯一三招](../docs/bell-priest-actions-spec-v1.md)→普通物理/自动阶段与死亡归属→E5正式入口/保存解锁6。Main仍[1,2,3,4]，v1/冻结名册/旧候选保留，整体active、不提交/推送中间节点；当前入口campaign-skeleton-plan-v1.md，不复活历史五分钟波次目标。
+
 2026-10-09 当前目标改为 [原生骨骼与六关类肉鸽重构](campaign-skeleton-plan-v1.md)，依据 [长期目标规格](../docs/campaign-skeleton-spec-v1.md)。以下五分钟/监督收尾计划保留为历史，网页监督已取消；当前不继续旧监督流程。
 
 2026-10-02 起的非发布收尾以 [6 Pro 监督收尾计划](supervised-completion-plan.md) 为当前执行入口。本文保留历史实施记录；未完成的人工验收不因自动测试或网页监督而转为通过。

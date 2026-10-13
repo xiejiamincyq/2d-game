@@ -1,0 +1,146 @@
+[
+  {
+    "file": "stage_1/report.json",
+    "sha256": "9d6c7b0af570fb87c0e48758e8ca192485097a9b5e2f3b67c326c0012d002801"
+  },
+  {
+    "file": "stage_1/exit-report.json",
+    "sha256": "a361a0ea635150aecbd7acd2ce0686936e7e63540701db15e5e3b668cfbe59a6"
+  },
+  {
+    "file": "stage_1/driver.log",
+    "sha256": "ce7bc9b3d134eb5fe520fa8c131a094d92d1bc70b91b49d2701419a9316c2143"
+  },
+  {
+    "file": "stage_1/campaign.json",
+    "sha256": "17ba485d28713bb545b18dc7eac46cc31565339f78eae139f81848cc7585d81b"
+  },
+  {
+    "file": "stage_1/returned_main.png",
+    "sha256": "024c06246b1deb58c13e225ce598bfedc05e0eddd8c174e938d403e7bc170664"
+  },
+  {
+    "file": "stage_2/report.json",
+    "sha256": "1b25b6c9bf85a9b8a1c691c8ccd57f82e2260898716f31e20ee05e9a912876a4"
+  },
+  {
+    "file": "stage_2/exit-report.json",
+    "sha256": "4112f03876602b771a7cb1c6024ac537d5bbab4dd9365a6b880905c86a0e1d59"
+  },
+  {
+    "file": "stage_2/driver.log",
+    "sha256": "a55a093217b880c6bc9f684f48707227725fbbffeb29abdd9f438003843b590d"
+  },
+  {
+    "file": "stage_2/campaign.json",
+    "sha256": "1047031f2a04fd419fcbb400b8339ca24b46b884b8e72a1c0e029f3ec865e664"
+  },
+  {
+    "file": "stage_2/returned_main.png",
+    "sha256": "310dab5edf9e5462a0c4a99e96f61ba8e2168efaef68728cdb024441df5961b6"
+  },
+  {
+    "file": "stage_2/campaign.json.bak",
+    "sha256": "17ba485d28713bb545b18dc7eac46cc31565339f78eae139f81848cc7585d81b"
+  },
+  {
+    "file": "stage_3/report.json",
+    "sha256": "6fac39588714bf464180e3670eee52423bcd427fe610ee759dd8572dc857aa77"
+  },
+  {
+    "file": "stage_3/exit-report.json",
+    "sha256": "b8005dee809ae179cedb232c91291b8a727d30927a18d244f854d4837862355f"
+  },
+  {
+    "file": "stage_3/driver.log",
+    "sha256": "5afcafea0f352b57503991c690b552a1a904f80be50711139f30855e5b566a51"
+  },
+  {
+    "file": "stage_3/campaign.json",
+    "sha256": "41e434981104e8137e195bdbd9296a763dd9458b23dfae88e550d92624c0785f"
+  },
+  {
+    "file": "stage_3/returned_main.png",
+    "sha256": "45588772902408afa5f7ca4ee8549a03837668aad187c244ba68ac0ce5885253"
+  },
+  {
+    "file": "stage_3/campaign.json.bak",
+    "sha256": "1047031f2a04fd419fcbb400b8339ca24b46b884b8e72a1c0e029f3ec865e664"
+  },
+  {
+    "file": "stage_4/report.json",
+    "sha256": "03800a67fcafcd2f684957e555ed544896641aeb9d06fd8f16c029d5bc942913"
+  },
+  {
+    "file": "stage_4/exit-report.json",
+    "sha256": "6b23323545e39e0570fff56ab8e8a8aad944792d9e702189764cc41171c1ae71"
+  },
+  {
+    "file": "stage_4/driver.log",
+    "sha256": "57e172637930f191992ad85b49d3d18fa69ae2ed93a7dbe33bed3418e7ac726f"
+  },
+  {
+    "file": "stage_4/campaign.json",
+    "sha256": "ba4edaa6ae88ca6a57e35e267a99a1d745a14338ae4c643ddd6f69973eff8cee"
+  },
+  {
+    "file": "stage_4/returned_main.png",
+    "sha256": "a79c5cc1543037b6bf88bf59207413233a5f6ea869425829354eb4161e59e36a"
+  },
+  {
+    "file": "stage_4/campaign.json.bak",
+    "sha256": "41e434981104e8137e195bdbd9296a763dd9458b23dfae88e550d92624c0785f"
+  },
+  {
+    "file": "stage_5/report.json",
+    "sha256": "9627d3347b64c565bb418e8f467693f08ec1a5f3a799a7fe18a2527a6c6c75b2"
+  },
+  {
+    "file": "stage_5/exit-report.json",
+    "sha256": "1fc2242670971fa038b0e522ece48d105448c0125ce3609fa5d5b436bbca2ef1"
+  },
+  {
+    "file": "stage_5/driver.log",
+    "sha256": "7c0b416e745b1945bf958925c2077d2086bb68f74f68be9389ce6dcb1f8a5452"
+  },
+  {
+    "file": "stage_5/campaign.json",
+    "sha256": "dcc136a102ab9aa021fe15d45376dabd16856c57b16d9f003de8df3ad564c5e1"
+  },
+  {
+    "file": "stage_5/returned_main.png",
+    "sha256": "144e8e11adda84fcad9067d67035238fb5ebf898c2fbc592e133b74c5f9f3d27"
+  },
+  {
+    "file": "stage_5/campaign.json.bak",
+    "sha256": "ba4edaa6ae88ca6a57e35e267a99a1d745a14338ae4c643ddd6f69973eff8cee"
+  },
+  {
+    "file": "stage_6/report.json",
+    "sha256": "40f4e6cf8a0ca6285d1452faaa39dee6a7b87c91baca0307a4080b9073e3ba04"
+  },
+  {
+    "file": "stage_6/exit-report.json",
+    "sha256": "0f1a1b264dc64962e5194595ceb8ce757f1866e1da408c446783eee6cfa2d3ad"
+  },
+  {
+    "file": "stage_6/driver.log",
+    "sha256": "acdb409bbd103d6cbb65b4014fcc4d42fa462bacda440a20769f166d43d51fec"
+  },
+  {
+    "file": "stage_6/campaign.json",
+    "sha256": "729510abc934fc3e7ea491bb4d0a321ff66ae63ca6207033247b67af8139f739"
+  },
+  {
+    "file": "stage_6/returned_main.png",
+    "sha256": "6c90e1d3622e6739cb5146ffec1433c21d4ab4e402d6ab7d6757cdb7e539cf96"
+  },
+  {
+    "file": "stage_6/campaign.json.bak",
+    "sha256": "dcc136a102ab9aa021fe15d45376dabd16856c57b16d9f003de8df3ad564c5e1"
+  },
+  {
+    "file": "chain-summary.json",
+    "sha256": "773f61c35f810fb0bc213dd392e2648a875125ff2ee763e4aa76d471ea5d1c37"
+  }
+]

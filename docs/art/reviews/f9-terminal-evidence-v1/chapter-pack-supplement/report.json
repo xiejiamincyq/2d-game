@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "pack_sha256": "fadb72a55170976544c1ed3b2887eb3be6c266043cc59e04ac8e7453375838c7",
+  "canonical_copies": {
+    "RiftChapterTest.gd": "e195f29d70dcfefaddeba0392c35e39349eb73b9cf5944c10f74da1ce3dde446",
+    "SaltChapterTest.gd": "367d4dcf7b6cd93d539cbcfff73ba81ddb9928ee57c9eacc3e2d55608cb7448c",
+    "EchoChapterLaunchTest.gd": "5dce7acd03606c68ed6d435724f581a1bb4ec5043541e9b01cf723744fb7b5dc",
+    "RiftChapterLaunchTest.gd": "7b4babce3cb624fdffd76356c27a4c234aa376e78708bc9e4f8577c54faf9885",
+    "TestSupport.gd": "1d479680b5f95e50b08a017003dab2e329cd100e6f324883078e8199227250b1"
+  },
+  "suites": [
+    {
+      "actual_exit": 0,
+      "log_sha256": "97d63d6ad68b127713337b8ffd97e6a3ba087a42774cba5af918daecf2a25e52",
+      "suite": "RiftChapterTest",
+      "checks": 145
+    },
+    {
+      "actual_exit": 0,
+      "log_sha256": "8d66d25457410fe2154697725993c9e0167d8bac25d06e05ba46e703bc951089",
+      "suite": "RiftChapterLaunchTest",
+      "checks": 23
+    }
+  ],
+  "scope": "Same verified independent F9 PCK, no re-export. Exact original preflight passed for actual supply/risk sixth chains and fresh-process restores/current frozen sources. Controlled locked/start/back/failure/save-retry/final-replay/no7 semantics; fixture lethal damage is not ordinary combat victory."
+}

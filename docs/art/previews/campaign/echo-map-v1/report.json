@@ -1,0 +1,58 @@
+{
+	"actual_adjacent_moves": 190,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_map_gpu_v3/props.png",
+			"sha256": "490998d121690f01992ab49a5af83c41b54e4b976849f5f203539cecd10547e1"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_map_gpu_v3/overview-0.png",
+			"sha256": "1c483286b54b984e3338a4907bd0059045725686499e1dcb9a5d41489e9ee17a"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_map_gpu_v3/overview-521.png",
+			"sha256": "152729a8de92a6d3841fe0a9efc29aa5f86a5f8db8e751514603896cbff4964b"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_map_gpu_v3/overview-20261011.png",
+			"sha256": "275f5e91773b65f0a3102bf80c581f92f9fdd7f7b5cf7f984e9d178e21700f85"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_map_gpu_v3/runtime-start.png",
+			"sha256": "200eb139872b622c5e9ae9e40c58e03467e11558f5c4a95edd88c09560595055"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_map_gpu_v3/runtime-end.png",
+			"sha256": "4d33606a8015e3faa8a9fd6657c9b3929fef556db3c00f1537c874c2178a64df"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/echo_map_gpu_v3/runtime-960.png",
+			"sha256": "fc6562d688fccdb132321b8dc6f0d1665aff37b0ebb76462d0240f88d24ca07a"
+		}
+	],
+	"checks": 264,
+	"faded_upper_alpha": 0.321568638086319,
+	"passed": true,
+	"scope": "Original native stone/bell props, transparent GPU opaque base and separate upper fading; three seeded pillar-ring overviews; actual Player full-radius ordinary inputs through a gateway, current1280/960 viewport. No live echo hazard, enemy, Boss, readiness, save-unlock6, OS mouse, human playtest, dense performance or six-chapter completion.",
+	"sources": {
+		"assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+		"assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+		"assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db",
+		"assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+		"scenes/actors/native/player_paper_v1.tscn": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+		"scenes/world/echo_court.tscn": "a07729e96c908c63935670fd7c9ab96a61c2553f1e8a52a100018630f688fcfc",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderEchoMapPreview.gd": "3f98eca0fa056cf6fbb09d557ab3d40125e4ad63fa2c7bb8dbebad7118486764",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/tests/EchoMovementTest.gd": "3c83157387f47784f3af430681d339d1d5511bcb78d40b7ba9d4ef749fc3f16f",
+		"scripts/world/ArenaLayout.gd": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+		"scripts/world/EchoArenaLayout.gd": "27399c73777778ac7db1acde672b01b9da2a478378e5f94830e253cee0dac102",
+		"scripts/world/EchoFloor.gd": "6f4c081e0258ea7f8e53e1bc4f03e5e09b91a355702497ac0e2ed05ea74e6704",
+		"scripts/world/EchoMap.gd": "d3d66e2b2103a6ffe8090d83531da2efebadc626b6210e6e9178695be077c89b",
+		"scripts/world/EchoObstacle.gd": "0e86e962b7dd74eca3cd00e1e8ef4df3306b1b3434e5909f1598e495c8054d5e",
+		"scripts/world/EchoPropArt.gd": "af220b234dcff33903ee071bdbe8ce47b85e187ed301686ec7f39a9423ad8f10",
+		"scripts/world/TerrainSweep.gd": "08e472ff12bb0ab46ca2e86a88061e54be7f3f2cc3780f50d15eec12dff13255",
+		"themes/MintFarmTheme.tres": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63"
+	}
+}

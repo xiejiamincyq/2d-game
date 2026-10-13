@@ -55,10 +55,11 @@ func _initialize() -> void:
 	boss.entrance_finished.connect(func() -> void: entrance_finished_count[0] += 1)
 	if not _assert_true(attack_director.get_state_name() == "ENTRANCE", "Boss did not begin in ENTRANCE"):
 		return
-	if not _assert_true(boss.process_mode == Node.PROCESS_MODE_ALWAYS and boss.scale.x < 0.25 and boss.modulate.a < 0.2, "Boss entrance did not begin as an unpaused reveal animation (mode=%s scale=%s alpha=%s)" % [boss.process_mode, boss.scale.x, boss.modulate.a]):
+	if not _assert_true(boss.process_mode == Node.PROCESS_MODE_ALWAYS and boss.scale == Vector2.ONE and boss.rotation == 0 and boss.modulate.a == 1, "native entrance changed the physical root or opacity"):
 		return
+	var entrance_torso: Transform2D = boss.boss_visual.skeleton.get_bone(0).transform
 	boss._physics_process(attack_director.ENTRANCE_SECONDS * 0.5)
-	if not _assert_true(entrance_finished_count[0] == 0 and projectiles.get_child_count() == 0 and boss.scale.x > 0.25 and boss.scale.x < 1.0, "Boss entrance animation did not hold combat during its reveal"):
+	if not _assert_true(entrance_finished_count[0] == 0 and projectiles.get_child_count() == 0 and boss.scale == Vector2.ONE and boss.modulate.a == 1 and boss.boss_visual.player.current_animation == "entrance" and not boss.boss_visual.skeleton.get_bone(0).transform.is_equal_approx(entrance_torso), "native entrance did not articulate while holding combat"):
 		return
 	boss._physics_process(attack_director.ENTRANCE_SECONDS * 0.5 + 0.01)
 	if not _assert_true(attack_director.get_state_name() == "PHASE_1" and phases == [1], "entrance did not resolve into phase one"):

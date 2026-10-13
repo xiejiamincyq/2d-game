@@ -1,0 +1,105 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "x" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://scripts/world/ArenaPaperPropArt.gd:59)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://scripts/world/ArenaObstacle.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://scripts/tests/NativeArenaArtTest.gd:0)
+ERROR: Failed to load script "res://scripts/tests/NativeArenaArtTest.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _spawn_obstacles (res://scripts/world/ArenaLayout.gd:220)
+       [2] generate (res://scripts/world/ArenaLayout.gd:55)
+       [3] _initialize (res://scripts/tests/NativeArenaArtTest.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _spawn_obstacles (res://scripts/world/ArenaLayout.gd:220)
+       [2] generate (res://scripts/world/ArenaLayout.gd:55)
+       [3] _initialize (res://scripts/tests/NativeArenaArtTest.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _spawn_obstacles (res://scripts/world/ArenaLayout.gd:220)
+       [2] generate (res://scripts/world/ArenaLayout.gd:55)
+       [3] _initialize (res://scripts/tests/NativeArenaArtTest.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _spawn_obstacles (res://scripts/world/ArenaLayout.gd:220)
+       [2] generate (res://scripts/world/ArenaLayout.gd:55)
+       [3] _initialize (res://scripts/tests/NativeArenaArtTest.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _spawn_obstacles (res://scripts/world/ArenaLayout.gd:220)
+       [2] generate (res://scripts/world/ArenaLayout.gd:55)
+       [3] _initialize (res://scripts/tests/NativeArenaArtTest.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _spawn_obstacles (res://scripts/world/ArenaLayout.gd:220)
+       [2] generate (res://scripts/world/ArenaLayout.gd:55)
+       [3] _initialize (res://scripts/tests/NativeArenaArtTest.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _spawn_obstacles (res://scripts/world/ArenaLayout.gd:220)
+       [2] generate (res://scripts/world/ArenaLayout.gd:55)
+       [3] _initialize (res://scripts/tests/NativeArenaArtTest.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _spawn_obstacles (res://scripts/world/ArenaLayout.gd:220)
+       [2] generate (res://scripts/world/ArenaLayout.gd:55)
+       [3] _initialize (res://scripts/tests/NativeArenaArtTest.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _spawn_obstacles (res://scripts/world/ArenaLayout.gd:220)
+       [2] generate (res://scripts/world/ArenaLayout.gd:55)
+       [3] _initialize (res://scripts/tests/NativeArenaArtTest.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _spawn_obstacles (res://scripts/world/ArenaLayout.gd:220)
+       [2] generate (res://scripts/world/ArenaLayout.gd:55)
+       [3] _initialize (res://scripts/tests/NativeArenaArtTest.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _spawn_obstacles (res://scripts/world/ArenaLayout.gd:220)
+       [2] generate (res://scripts/world/ArenaLayout.gd:55)
+       [3] _initialize (res://scripts/tests/NativeArenaArtTest.gd:28)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+   at: ArenaObstacle.setup (res://scripts/world/ArenaObstacle.gd:39)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/world/ArenaObstacle.gd:39)
+       [1] _initialize (res://scripts/tests/NativeArenaArtTest.gd:37)
+ERROR: Node not found: "Art" (relative to "/root/@Node2D@2/ArenaObstacle_planter").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://scripts/tests/NativeArenaArtTest.gd:39)
+ERROR: TEST FAIL: NativeArenaArtTest actual prop is raster planter
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/tests/NativeArenaArtTest.gd:12)
+       [1] _initialize (res://scripts/tests/NativeArenaArtTest.gd:41)
+SCRIPT ERROR: Invalid access to property or key 'scale' on a base object of type 'null instance'.
+   at: _initialize (res://scripts/tests/NativeArenaArtTest.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://scripts/tests/NativeArenaArtTest.gd:42)

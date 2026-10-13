@@ -1,0 +1,65 @@
+{
+	"actual_adjacent_moves": 171,
+	"captures": [
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_encounter_gpu_v2/intro.png",
+			"sha256": "73b20076c2117c4ef78f7fa3e9faccd998038532d31a7f2d81d715b287f070d1"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_encounter_gpu_v2/charge-warning.png",
+			"sha256": "73c5bd9973534fa1d021935ec753b6d704ff1be63d9aa18b47a84fd16d2e64b1"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_encounter_gpu_v2/charge-active.png",
+			"sha256": "0f643ac0d900db6f887f889fe69714ed8d9120a909c4a7f11e122bb61998edde"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_encounter_gpu_v2/spark-fan.png",
+			"sha256": "bf285dfe20b9b0811312b8e8bfaa5f6e6be89565ecbcd60b38690feac4592abb"
+		},
+		{
+			"path": "res://build/diagnostics/campaign-goal/foundry_encounter_gpu_v2/paused.png",
+			"sha256": "bf285dfe20b9b0811312b8e8bfaa5f6e6be89565ecbcd60b38690feac4592abb"
+		}
+	],
+	"checks": 80,
+	"fan_shots_observed": 6,
+	"passed": true,
+	"scope": "Actual first Foundry encounter automatic portals, two native families and heat, ordinary moving Player. No health/pose/velocity/collision mutation after spawn; not full chapter, rewards UI, Boss victory, performance, human playtest or final art.",
+	"sources": {
+		"assets/art/actors/native/cinder_runner_motion_v2.tres": "634de278be35ee5a8c482f73c00f4d852202f006048735b0daf38f41ea5d5f94",
+		"assets/art/actors/native/ember_spark_motion_v1.tres": "47abc9f79dc26013bb7731d5ef01ecd2e5ecfeda4b90572df9e32d898c1b7883",
+		"assets/art/actors/native/player_back_motion_v1.tres": "c60ed993de13b5770d6677c09b0e71d4f80636f333d9fd98372c80be3a21ca76",
+		"assets/art/actors/native/player_front_motion_v1.tres": "44ee2f0ad2583ce23b6a5016f9db70cc919d380692d0889ae726c09ad331f9a3",
+		"assets/art/actors/native/player_left_motion_v1.tres": "96e51c2d298ca230aa250d9a930a1580d102e56531db762fc9cfd40cb4c724db",
+		"assets/art/actors/native/player_right_motion_v1.tres": "e630fe85010e911ff616b9aa576b67dc2e05662cf24e564a927c8dad99eebcca",
+		"scenes/actors/native/cinder_runner_paper_v2.tscn": "838fe672fdaa922580d22d52e602a8a7d63c601e2ff84cb6a2c86093354ebe80",
+		"scenes/actors/native/ember_spark_paper_v1.tscn": "4856f9f4c8344187652e6d161f39cef5afaee21d16062e23f2997821f99e8348",
+		"scenes/actors/native/player_paper_v1.tscn": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+		"scenes/world/ember_foundry.tscn": "2341ef17a693397df183e10e29e1a7f3015f2c2c978b7c12b6eb68b10e31ef41",
+		"scripts/actors/EmberSparkEnemy.gd": "00dd432e4884bc835033b4a72ee2e2b6822118ed824b6d9659d5c5febe6c2143",
+		"scripts/actors/Enemy.gd": "85f613f842268bef51e40e16e87e7373fc85ac012038b8852266072c605d069c",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderFoundryEncounterPreview.gd": "606be51330806c31f3358133369f5154f95f4295a7058b06ad630963b4df0090",
+		"scripts/campaign/RegionalEnemyFactory.gd": "921caa3665e68e3d7ab6a04b77d85a2116d2b73abf4f17af58338848a03f42d8",
+		"scripts/components/CinderChargeAttack.gd": "bac00dd01a777e6470516909462da052fe34660e0d6d1b8e3b47f5fece8b9b94",
+		"scripts/components/NativeActorView.gd": "2f809462e45c77dc05dd028fecafddb8e3e021cb8415cbb3cae2a6864fe160f3",
+		"scripts/components/NativeCinderRunnerMotion.gd": "842717549f95a1194c131ff7aa40fa9151f8a14e13c89baaf4d39cc1c39a587f",
+		"scripts/components/NativeEmberSparkMotion.gd": "faffa5cc2a04521289b53025577938289b5bfa265530e6980ea9b4924b50ec5f",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/systems/ChapterEncounterDirector.gd": "9e30830dcf309d0a541bd799964f4c32330dfc1a6493e41793f04ade9f44d8d5",
+		"scripts/systems/FoundryEncounterDirector.gd": "1cabf2586a04238bd49449a5bfcc3651079e44f786eceb4e6143f54ff31a3218",
+		"scripts/systems/NurseryEncounterDirector.gd": "57805781a4eddb9c75a18827c30831b4be392e1c507f15c4f8c615cee11435aa",
+		"scripts/systems/UpgradeSystem.gd": "b06312a74909c05e2f7cc77edec0ae4ec9576e518bd6848b169c8b1ec2ab0317",
+		"scripts/systems/WaveDirector.gd": "5b31a524994ba2e3bf5d1ca671ec21684df206a9f188962652804476d117ab87",
+		"scripts/world/ArenaLayout.gd": "e1ce1113796225d6600f58111dd95dca3f986ccd9ccad193df3e0dfc0d71c76c",
+		"scripts/world/FoundryArenaLayout.gd": "66efeb155cd62585b1f4ee7eed00fc227eaa84e5b818386af8e2cb6cea7f5297",
+		"scripts/world/FoundryFloor.gd": "982a5d5a021ed32c6b553b31ce870a86ce3268d27cbcdce9b8d95dc7ac3982b7",
+		"scripts/world/FoundryHeatField.gd": "67bd3ba0ceb38938f8dc377989666254eefb9186cbcdcdf8b1db387e39eb87cd",
+		"scripts/world/FoundryHeatVent.gd": "343d6dad788363feffff7d7fd131826b9e81b2511f07238882ec835cf336c59d",
+		"scripts/world/FoundryMap.gd": "1a8dc3c66105a7dfdf80ad29d21a53f0a379dcb65c156c7aabcc8e45fddfcbad",
+		"scripts/world/FoundryObstacle.gd": "bb6202bb75373b90e7d86b4563866c7bb5595ea23383007580ca9844444cdeea",
+		"scripts/world/FoundryPropArt.gd": "3442b35701883ab301c749eaeb0f3bb76581e436167f81e153e821b4ae42232e"
+	}
+}

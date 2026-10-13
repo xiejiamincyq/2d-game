@@ -1,0 +1,465 @@
+{
+  "state": "independently-recomputed",
+  "scope": "Native frame callback wall intervals on this machine, first chapter risk route automation build at one seed. Report binds 22 specific dependencies; separate current rehash validates complete frozen bank. Not OS presentation, all-chapter performance, minimum hardware or human playtest.",
+  "runs": [
+    {
+      "actual_exit": 0,
+      "metrics": {
+        "combat": {
+          "intervals_over_16_667_ms": 3,
+          "effective_callback_fps": 120.01126473318438,
+          "wall_seconds": 34.54675700000008,
+          "enemy_peak": 34.0,
+          "projectile_peak": 125.0,
+          "interval_ms": {
+            "maximum": 17.104,
+            "p99": 14.892,
+            "p95": 13.285,
+            "count": 4146,
+            "mean": 8.332551133622774,
+            "p50": 8.348
+          },
+          "physics_ms": {
+            "maximum": 7.603,
+            "p99": 7.603,
+            "p95": 7.179,
+            "count": 4146,
+            "mean": 5.159961408586504,
+            "p50": 5.184
+          },
+          "draw_call_peak": 786.0,
+          "process_ms": {
+            "maximum": 5.676,
+            "p99": 5.676,
+            "p95": 5.278,
+            "count": 4146,
+            "mean": 4.253764592378071,
+            "p50": 4.202
+          },
+          "frames": 4146,
+          "intervals_over_33_333_ms": 0
+        },
+        "boss": {
+          "intervals_over_16_667_ms": 0,
+          "effective_callback_fps": 120.01480167808374,
+          "wall_seconds": 22.60554500000002,
+          "enemy_peak": 8.0,
+          "projectile_peak": 32.0,
+          "interval_ms": {
+            "maximum": 15.229,
+            "p99": 12.33,
+            "p95": 11.077,
+            "count": 2713,
+            "mean": 8.33230556579433,
+            "p50": 8.424
+          },
+          "physics_ms": {
+            "maximum": 5.875,
+            "p99": 5.875,
+            "p95": 5.637,
+            "count": 2713,
+            "mean": 3.1505702174713934,
+            "p50": 2.831
+          },
+          "draw_call_peak": 641.0,
+          "process_ms": {
+            "maximum": 5.158,
+            "p99": 5.158,
+            "p95": 4.971,
+            "count": 2713,
+            "mean": 3.5697924806487435,
+            "p50": 3.395
+          },
+          "frames": 2713,
+          "intervals_over_33_333_ms": 0
+        },
+        "all": {
+          "intervals_over_16_667_ms": 3,
+          "effective_callback_fps": 120.01266370687895,
+          "wall_seconds": 57.15230200000012,
+          "enemy_peak": 34.0,
+          "projectile_peak": 125.0,
+          "interval_ms": {
+            "maximum": 17.104,
+            "p99": 14.469,
+            "p95": 12.793,
+            "count": 6859,
+            "mean": 8.332454002041128,
+            "p50": 8.41
+          },
+          "physics_ms": {
+            "maximum": 7.603,
+            "p99": 7.603,
+            "p95": 6.993,
+            "count": 6859,
+            "mean": 4.365169412450714,
+            "p50": 4.631
+          },
+          "draw_call_peak": 786.0,
+          "process_ms": {
+            "maximum": 5.676,
+            "p99": 5.676,
+            "p95": 5.258,
+            "count": 6859,
+            "mean": 3.9832271468144165,
+            "p50": 3.748
+          },
+          "frames": 6859,
+          "intervals_over_33_333_ms": 0
+        },
+        "dense_at_least_12": {
+          "intervals_over_16_667_ms": 3,
+          "effective_callback_fps": 120.01388156936565,
+          "wall_seconds": 18.381207000000042,
+          "enemy_peak": 34.0,
+          "projectile_peak": 89.0,
+          "interval_ms": {
+            "maximum": 17.104,
+            "p99": 15.305,
+            "p95": 13.733,
+            "count": 2206,
+            "mean": 8.332369446962836,
+            "p50": 7.321
+          },
+          "physics_ms": {
+            "maximum": 7.603,
+            "p99": 7.603,
+            "p95": 7.603,
+            "count": 2206,
+            "mean": 5.769902085222196,
+            "p50": 5.852
+          },
+          "draw_call_peak": 593.0,
+          "process_ms": {
+            "maximum": 5.258,
+            "p99": 5.258,
+            "p95": 4.961,
+            "count": 2206,
+            "mean": 4.304668631006333,
+            "p50": 4.31
+          },
+          "frames": 2206,
+          "intervals_over_33_333_ms": 0
+        }
+      },
+      "id": "f8_performance_risk_1280_v1",
+      "viewport": [
+        1280,
+        720
+      ],
+      "report_sha256": "3d0c290b3b124d151408a4d31486cbe667cb771903ffad206c8c20d0e2ec74c0",
+      "log_sha256": "aea0532742efede7cce472b575ac2d7232e7f810c827ea2c947622a8d17b372a",
+      "adapter": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "report_source_keys": 22,
+      "assertions": 10316,
+      "longest_contiguous_dense_seconds": 7.938241999999987
+    },
+    {
+      "actual_exit": 0,
+      "metrics": {
+        "combat": {
+          "intervals_over_16_667_ms": 1,
+          "effective_callback_fps": 120.00340100962987,
+          "wall_seconds": 32.849068999999986,
+          "enemy_peak": 33.0,
+          "projectile_peak": 132.0,
+          "interval_ms": {
+            "maximum": 17.024,
+            "p99": 14.814,
+            "p95": 13.281,
+            "count": 3942,
+            "mean": 8.333097158802634,
+            "p50": 8.357
+          },
+          "physics_ms": {
+            "maximum": 7.73,
+            "p99": 7.73,
+            "p95": 7.177,
+            "count": 3942,
+            "mean": 5.436021308980227,
+            "p50": 5.743
+          },
+          "draw_call_peak": 581.0,
+          "process_ms": {
+            "maximum": 5.635,
+            "p99": 5.635,
+            "p95": 5.436,
+            "count": 3942,
+            "mean": 4.132980974124783,
+            "p50": 4.049
+          },
+          "frames": 3942,
+          "intervals_over_33_333_ms": 0
+        },
+        "boss": {
+          "intervals_over_16_667_ms": 0,
+          "effective_callback_fps": 120.01167480615375,
+          "wall_seconds": 31.80523900000001,
+          "enemy_peak": 7.0,
+          "projectile_peak": 49.0,
+          "interval_ms": {
+            "maximum": 14.239,
+            "p99": 11.831,
+            "p95": 10.925,
+            "count": 3817,
+            "mean": 8.332522661776276,
+            "p50": 8.359
+          },
+          "physics_ms": {
+            "maximum": 5.305,
+            "p99": 5.305,
+            "p95": 4.918,
+            "count": 3817,
+            "mean": 3.083462405030091,
+            "p50": 3.07
+          },
+          "draw_call_peak": 478.0,
+          "process_ms": {
+            "maximum": 4.576,
+            "p99": 4.576,
+            "p95": 4.544,
+            "count": 3817,
+            "mean": 3.4274582132564246,
+            "p50": 3.306
+          },
+          "frames": 3817,
+          "intervals_over_33_333_ms": 0
+        },
+        "all": {
+          "intervals_over_16_667_ms": 1,
+          "effective_callback_fps": 120.00747111855304,
+          "wall_seconds": 64.65430799999973,
+          "enemy_peak": 33.0,
+          "projectile_peak": 132.0,
+          "interval_ms": {
+            "maximum": 17.024,
+            "p99": 14.203,
+            "p95": 12.572,
+            "count": 7759,
+            "mean": 8.332814537955919,
+            "p50": 8.359
+          },
+          "physics_ms": {
+            "maximum": 7.73,
+            "p99": 7.73,
+            "p95": 6.963,
+            "count": 7759,
+            "mean": 4.278692099497378,
+            "p50": 4.158
+          },
+          "draw_call_peak": 581.0,
+          "process_ms": {
+            "maximum": 5.635,
+            "p99": 5.635,
+            "p95": 5.358,
+            "count": 7759,
+            "mean": 3.785902693646062,
+            "p50": 3.569
+          },
+          "frames": 7759,
+          "intervals_over_33_333_ms": 0
+        },
+        "dense_at_least_12": {
+          "intervals_over_16_667_ms": 1,
+          "effective_callback_fps": 120.00668421769375,
+          "wall_seconds": 16.815730000000006,
+          "enemy_peak": 33.0,
+          "projectile_peak": 88.0,
+          "interval_ms": {
+            "maximum": 17.024,
+            "p99": 15.263,
+            "p95": 13.794,
+            "count": 2018,
+            "mean": 8.33286917740337,
+            "p50": 7.285
+          },
+          "physics_ms": {
+            "maximum": 7.73,
+            "p99": 7.73,
+            "p95": 7.177,
+            "count": 2018,
+            "mean": 6.162616947472644,
+            "p50": 6.237
+          },
+          "draw_call_peak": 581.0,
+          "process_ms": {
+            "maximum": 5.635,
+            "p99": 5.635,
+            "p95": 5.635,
+            "count": 2018,
+            "mean": 4.466374132804679,
+            "p50": 4.552
+          },
+          "frames": 2018,
+          "intervals_over_33_333_ms": 0
+        }
+      },
+      "id": "f8_performance_risk_960_v1",
+      "viewport": [
+        960,
+        540
+      ],
+      "report_sha256": "5952f6d757080522c946dd4198b017eb22dfa6ad3b3796bff8d0500af2e79be2",
+      "log_sha256": "3e28f33ea67c972d7f32719cc38a179327ba02321daac7371a56e82dd1f7daed",
+      "adapter": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "report_source_keys": 22,
+      "assertions": 11310,
+      "longest_contiguous_dense_seconds": 6.922427999999997
+    },
+    {
+      "actual_exit": 0,
+      "metrics": {
+        "combat": {
+          "intervals_over_16_667_ms": 7,
+          "effective_callback_fps": 120.0153776633153,
+          "wall_seconds": 35.17049300000011,
+          "enemy_peak": 34.0,
+          "projectile_peak": 149.0,
+          "interval_ms": {
+            "maximum": 18.542,
+            "p99": 15.16,
+            "p95": 13.571,
+            "count": 4221,
+            "mean": 8.332265576877505,
+            "p50": 8.393
+          },
+          "physics_ms": {
+            "maximum": 8.324,
+            "p99": 8.324,
+            "p95": 8.173,
+            "count": 4221,
+            "mean": 5.234884387585781,
+            "p50": 5.115
+          },
+          "draw_call_peak": 1095.0,
+          "process_ms": {
+            "maximum": 6.68,
+            "p99": 6.68,
+            "p95": 6.285,
+            "count": 4221,
+            "mean": 5.0609786780384125,
+            "p50": 4.964
+          },
+          "frames": 4221,
+          "intervals_over_33_333_ms": 0
+        },
+        "boss": {
+          "intervals_over_16_667_ms": 0,
+          "effective_callback_fps": 120.01033747719366,
+          "wall_seconds": 29.539122000000035,
+          "enemy_peak": 8.0,
+          "projectile_peak": 30.0,
+          "interval_ms": {
+            "maximum": 14.395,
+            "p99": 12.261,
+            "p95": 11.086,
+            "count": 3545,
+            "mean": 8.332615514809607,
+            "p50": 8.328
+          },
+          "physics_ms": {
+            "maximum": 5.243,
+            "p99": 5.243,
+            "p95": 4.712,
+            "count": 3545,
+            "mean": 3.029040620592355,
+            "p50": 2.96
+          },
+          "draw_call_peak": 687.0,
+          "process_ms": {
+            "maximum": 5.449,
+            "p99": 5.449,
+            "p95": 4.964,
+            "count": 3545,
+            "mean": 4.134650493653021,
+            "p50": 4.056
+          },
+          "frames": 3545,
+          "intervals_over_33_333_ms": 0
+        },
+        "all": {
+          "intervals_over_16_667_ms": 7,
+          "effective_callback_fps": 120.01307688200585,
+          "wall_seconds": 64.70961500000001,
+          "enemy_peak": 34.0,
+          "projectile_peak": 149.0,
+          "interval_ms": {
+            "maximum": 18.542,
+            "p99": 14.588,
+            "p95": 12.964,
+            "count": 7766,
+            "mean": 8.332425315477703,
+            "p50": 8.342
+          },
+          "physics_ms": {
+            "maximum": 8.324,
+            "p99": 8.324,
+            "p95": 6.594,
+            "count": 7766,
+            "mean": 4.227967550862633,
+            "p50": 4.353
+          },
+          "draw_call_peak": 1095.0,
+          "process_ms": {
+            "maximum": 6.68,
+            "p99": 6.68,
+            "p95": 6.181,
+            "count": 7766,
+            "mean": 4.63813121297965,
+            "p50": 4.506
+          },
+          "frames": 7766,
+          "intervals_over_33_333_ms": 0
+        },
+        "dense_at_least_12": {
+          "intervals_over_16_667_ms": 7,
+          "effective_callback_fps": 120.01583296004203,
+          "wall_seconds": 18.839181000000018,
+          "enemy_peak": 34.0,
+          "projectile_peak": 147.0,
+          "interval_ms": {
+            "maximum": 18.542,
+            "p99": 15.663,
+            "p95": 14.1,
+            "count": 2261,
+            "mean": 8.332233967271115,
+            "p50": 7.64
+          },
+          "physics_ms": {
+            "maximum": 8.324,
+            "p99": 8.324,
+            "p95": 8.324,
+            "count": 2261,
+            "mean": 5.733867315347233,
+            "p50": 5.304
+          },
+          "draw_call_peak": 1084.0,
+          "process_ms": {
+            "maximum": 6.68,
+            "p99": 6.68,
+            "p95": 6.68,
+            "count": 2261,
+            "mean": 5.265947810703236,
+            "p50": 5.025
+          },
+          "frames": 2261,
+          "intervals_over_33_333_ms": 0
+        }
+      },
+      "id": "f8_performance_risk_1920_v1",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "report_sha256": "c7dd255be40e3a43dec3e6885ed6be1cb9e32991564c201fba70f576b6f5d441",
+      "log_sha256": "156d881de6dc3f3f18c6c69b14d0128f32589b857b3c43244e4547e44441b5ad",
+      "adapter": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "report_source_keys": 22,
+      "assertions": 11320,
+      "longest_contiguous_dense_seconds": 9.303327999999993
+    }
+  ],
+  "verified_utc": "2026-10-12T00:31:54.8901624Z",
+  "source_keys_rehashed": 1731,
+  "source_freeze_sha256": "d156f591c90fcfae51cdc8a1c1d3702a54db9f93f13544f63a3966a32f369ff6"
+}

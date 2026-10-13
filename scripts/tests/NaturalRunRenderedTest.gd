@@ -126,7 +126,7 @@ func _check_recording_path() -> void:
 		return
 	if not _check(row.ui_names.size() == 6 and str(scene.ui.hud.combo_panel.get_path()) in row.ui_names and str(scene.ui.hud.toast_overlay.get_path()) in row.ui_names and str(scene.ui.hud.collection_panel.get_path()) in row.ui_names, "actual recording omitted visible combat HUD panels"):
 		return
-	var sprite_rect: Rect2 = view.canvas_transform * boss.boss_visual.global_transform * boss.boss_visual.get_rect()
+	var sprite_rect: Rect2 = view.canvas_transform * boss.get_visual_node().global_transform * boss.get_visual_rect()
 	if not _check(Rect2(row.sprite_rect[0], row.sprite_rect[1], row.sprite_rect[2], row.sprite_rect[3]).is_equal_approx(sprite_rect), "Boss geometry was not transformed to viewport coordinates"):
 		return
 	var ui_index: int = row.ui_names.find(str(scene.ui.hud.combo_panel.get_path()))

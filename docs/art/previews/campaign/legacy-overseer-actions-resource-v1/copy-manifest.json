@@ -1,0 +1,110 @@
+[
+  {
+    "sha256": "ae80bd1dfd29e9d2622528099be55682fe77237b0ee3ae14576b5ec673daaf55",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\aimed_fan.png",
+    "bytes": 27413,
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_legacy_overseer_actions_resource_v2\\aimed_fan.png"
+  },
+  {
+    "sha256": "dbd4a05076d2904e54faeaa468693e6fcdc91523b775add5b8b9893aef4ba32a",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\broken_ring.png",
+    "bytes": 27892,
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_legacy_overseer_actions_resource_v2\\broken_ring.png"
+  },
+  {
+    "sha256": "df25917164571e3e58061a72c5cf4c5e08cdfb8548b26752d2aa602eea6c61f7",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\phase_transition.png",
+    "bytes": 14028,
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_legacy_overseer_actions_resource_v2\\phase_transition.png"
+  },
+  {
+    "sha256": "41d3538f2d5c5426d0a56b18c8fd9a69c9f586b3234595c4c30a75cd11780dc3",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\poses.png",
+    "bytes": 159792,
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_legacy_overseer_actions_resource_v2\\poses.png"
+  },
+  {
+    "sha256": "c2a3d191606ba22bb725d85e007d90de2891666875902483cf367ac8226ee667",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\report.json",
+    "bytes": 44426,
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_legacy_overseer_actions_resource_v2\\report.json"
+  },
+  {
+    "sha256": "80a66bd8572402565ab8a65bf791a4367121df093eefb9f9784349d0fa6d8c49",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\slam.png",
+    "bytes": 33557,
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_legacy_overseer_actions_resource_v2\\slam.png"
+  },
+  {
+    "sha256": "7ceecd5f82e40dd9963851c83310f25f6ad723d4f80a74ac6ef52385377832e0",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\sweep.png",
+    "bytes": 33376,
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_legacy_overseer_actions_resource_v2\\sweep.png"
+  },
+  {
+    "sha256": "0ce2f455d4a520045ddf135cd5c882692b4c5d22ced3dba529eba95ee1f2f5d8",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\twin_spiral.png",
+    "bytes": 29557,
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\f4_legacy_overseer_actions_resource_v2\\twin_spiral.png"
+  },
+  {
+    "sha256": "d74c154f0e64423672c5067cdfa229d9611c3b996449412a71be2999d7dd1dae",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\f4-legacy-overseer-resource-red-v1.log",
+    "bytes": 452,
+    "source": "build\\diagnostics\\campaign-goal\\f4-legacy-overseer-resource-red-v1.log"
+  },
+  {
+    "sha256": "ba42720387dc5b9483e917023bce40849ab31b6b22cca845ae27718beddf2a29",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\f4-legacy-overseer-resource-green-v2.log",
+    "bytes": 120,
+    "source": "build\\diagnostics\\campaign-goal\\f4-legacy-overseer-resource-green-v2.log"
+  },
+  {
+    "sha256": "08d6a902cb7b8af0c852055fda58307edae5ffc06fda83dae3f2e6039707b7b2",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\f4-legacy-overseer-bake-v2.log",
+    "bytes": 162,
+    "source": "build\\diagnostics\\campaign-goal\\f4-legacy-overseer-bake-v2.log"
+  },
+  {
+    "sha256": "853e22a0621e959db189a317b85b0dc8a2e59e48eb653164db87111e9e9134f8",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\f4-legacy-overseer-resource-gpu-v1.log",
+    "bytes": 4447,
+    "source": "build\\diagnostics\\campaign-goal\\f4-legacy-overseer-resource-gpu-v1.log"
+  },
+  {
+    "sha256": "e463d1079c5f4139260a71277ba040d5fac47e276a743e5c6a79f2356bf8f6f6",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\f4-legacy-overseer-resource-gpu-v2.log",
+    "bytes": 267,
+    "source": "build\\diagnostics\\campaign-goal\\f4-legacy-overseer-resource-gpu-v2.log"
+  },
+  {
+    "sha256": "6f42cb9851a8f314a0947ac06fbcce3212ef9bae7e538dc96f84afb3c0276063",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\f4-legacy-overseer-import-v1.log",
+    "bytes": 1346,
+    "source": "build\\diagnostics\\campaign-goal\\f4-legacy-overseer-import-v1.log"
+  },
+  {
+    "sha256": "39f2371a5fa7149ffa529b578adca567bbfd54adbd4f9b6c225955bc780337c9",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\f4-overseer-prerequisite-NativeRigCheckpointTest-v1.log",
+    "bytes": 109,
+    "source": "build\\diagnostics\\campaign-goal\\f4-overseer-prerequisite-NativeRigCheckpointTest-v1.log"
+  },
+  {
+    "sha256": "7e9441fef983faa48684623bb83cf3f2d3cdcff9b541b4240995fae88e53c3b7",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\f4-overseer-prerequisite-NativeArtValidatorTest-v1.log",
+    "bytes": 108,
+    "source": "build\\diagnostics\\campaign-goal\\f4-overseer-prerequisite-NativeArtValidatorTest-v1.log"
+  },
+  {
+    "sha256": "f93af1fd35fb4383489dd13ece8e41b121162d2e16928288ee53222417275366",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\f4-overseer-prerequisite-BossCameraFramingTest-v1.log",
+    "bytes": 6818,
+    "source": "build\\diagnostics\\campaign-goal\\f4-overseer-prerequisite-BossCameraFramingTest-v1.log"
+  },
+  {
+    "sha256": "baa36aee8c842059da7aa9b4a9f1be8657e383cc4d7e77374ff5aa9bf0506945",
+    "copy": "docs\\art\\previews\\campaign\\legacy-overseer-actions-resource-v1\\f4-overseer-prerequisite-EchoChapterTest-v1.log",
+    "bytes": 102,
+    "source": "build\\diagnostics\\campaign-goal\\f4-overseer-prerequisite-EchoChapterTest-v1.log"
+  }
+]

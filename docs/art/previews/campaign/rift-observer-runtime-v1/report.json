@@ -1,0 +1,402 @@
+{
+	"captures": [
+		{
+			"action": "beam",
+			"boss_position": [
+				-0.00849102437496185,
+				-782.514343261719
+			],
+			"both_fit": true,
+			"clip": "beam_warning",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/beam-warning-1.png",
+			"sha256": "c45585594ad7863af3b3a9bc94bc7d5bc947774e2d1f9b44b488c89481789d56",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "beam",
+			"boss_position": [
+				-0.00849102437496185,
+				-782.514343261719
+			],
+			"both_fit": true,
+			"clip": "beam_attack",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/beam-active-1.png",
+			"sha256": "ce2525dbfb22597407d21f98bf2c9d52537a784655bc8b23ec288c053eb72973",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "probes",
+			"boss_position": [
+				-0.0161025989800692,
+				-807.077087402344
+			],
+			"both_fit": true,
+			"clip": "probes_warning",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/probes-warning-1.png",
+			"sha256": "b4f36402e597e0bbb6d5e34f49a8049fc1b6b5b069fe151e994bfbd71035cf6c",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "probes",
+			"boss_position": [
+				-0.0161025989800692,
+				-807.077087402344
+			],
+			"both_fit": true,
+			"clip": "probes_attack",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/probes-active-1.png",
+			"sha256": "8a997bcba020f8b84ede9d1db107b768fe2ddf5d653f6702bc2c35daa397b8f3",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "refract",
+			"boss_position": [
+				-0.83820241689682,
+				-831.563842773438
+			],
+			"both_fit": true,
+			"clip": "refract_warning",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/refract-warning-1.png",
+			"sha256": "db9455899a048bf42fcc09e1df724d491f0f21233e372f462bdb2b572b3b72ca",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "refract",
+			"boss_position": [
+				-0.83820241689682,
+				-831.563842773438
+			],
+			"both_fit": true,
+			"clip": "refract_attack",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/refract-active-1.png",
+			"sha256": "a037b3a78010f8300f9ae126a283e9cdc24954a08c1b4b1d86042dbe1dc4c7f4",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "",
+			"boss_position": [
+				-5.12304639816284,
+				-855.739685058594
+			],
+			"both_fit": true,
+			"clip": "idle",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/paused-1.png",
+			"sha256": "13d759be2f0481777d563c9f4f8f4a79e36eb7fd846563950049b1198093d16c",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "",
+			"boss_position": [
+				-5.16914033889771,
+				-856.109008789063
+			],
+			"both_fit": true,
+			"clip": "hit",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/hit-1.png",
+			"sha256": "8a59fef8b2aee1a15ae4b62ee77c796bb97519757d02e6e48636016bfec26ea9",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "",
+			"boss_position": [
+				-5.25963306427002,
+				-856.847839355469
+			],
+			"both_fit": true,
+			"clip": "walk",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/phase2-1.png",
+			"sha256": "0a5a6dd26a526f7b5a9520657ba7b35defbe903bb5042ffc085d051864a545bf",
+			"state": "PHASE_2",
+			"zoom": 1.0
+		},
+		{
+			"action": "",
+			"boss_position": [
+				-5.34786462783813,
+				-857.5869140625
+			],
+			"both_fit": true,
+			"clip": "walk",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/phase3-1.png",
+			"sha256": "b29614b1034a39119755461a0c3d16cd19cefcf808615ae8eda938b53b012ead",
+			"state": "PHASE_3",
+			"zoom": 1.0
+		},
+		{
+			"action": "",
+			"boss_position": [
+				-6.10568380355835,
+				-864.990966796875
+			],
+			"both_fit": true,
+			"clip": "walk",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/size960-1.png",
+			"sha256": "078d0fc01bda73b7c09d5fdd90515b8bb5ca880b8170b1961987019b457eb744",
+			"state": "PHASE_3",
+			"zoom": 1.0
+		},
+		{
+			"action": "beam",
+			"boss_position": [
+				-6.57150745391846,
+				-871.300415039063
+			],
+			"both_fit": true,
+			"clip": "beam_warning",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/size1920-1.png",
+			"sha256": "bd99984ff2171bd9a0b1c33021917c68545f157105983a3623900b0ad65ab6c4",
+			"state": "PHASE_3",
+			"zoom": 1.0
+		},
+		{
+			"animation_time": 0.55,
+			"clip": "death",
+			"controlled_damage": true,
+			"natural_animation": true,
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/death-1.png",
+			"sha256": "7d1e0fe0391be36125e6022c96d3d06478e38adecccd8dc4ac10631ef41b004a"
+		},
+		{
+			"action": "beam",
+			"boss_position": [
+				0.00965310074388981,
+				-753.485595703125
+			],
+			"both_fit": true,
+			"clip": "beam_warning",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/beam-warning--1.png",
+			"sha256": "1954b784383313d3e5f816285ce2a315934728b1513442de37a48300cba81e2a",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "beam",
+			"boss_position": [
+				0.00965310074388981,
+				-753.485595703125
+			],
+			"both_fit": true,
+			"clip": "beam_attack",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/beam-active--1.png",
+			"sha256": "b659f5b1ed134c606dc81396e012d45f2bb1062f8208021f7dc03f46f114f1be",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "probes",
+			"boss_position": [
+				0.0198231972754002,
+				-728.922912597656
+			],
+			"both_fit": true,
+			"clip": "probes_warning",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/probes-warning--1.png",
+			"sha256": "f0c726ea32f679184d478c7c94f09918a3c06861761eb5299c47e876e3e6639b",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "probes",
+			"boss_position": [
+				0.0198231972754002,
+				-728.922912597656
+			],
+			"both_fit": true,
+			"clip": "probes_attack",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/probes-active--1.png",
+			"sha256": "dfa8fd4784cdf5600f2f9cbea81180ba0f9eae4550f469c53401f05d36f89ec2",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "refract",
+			"boss_position": [
+				-0.863098204135895,
+				-704.440490722656
+			],
+			"both_fit": true,
+			"clip": "refract_warning",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/refract-warning--1.png",
+			"sha256": "8e3cda71580d9d946eda0cc7b8674c9713288502ddf7a7d6100ec095373bf788",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "refract",
+			"boss_position": [
+				-0.863098204135895,
+				-704.440490722656
+			],
+			"both_fit": true,
+			"clip": "refract_attack",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/refract-active--1.png",
+			"sha256": "332d1693a438835740a42bbd5b7a15d4ea27de91fbe4b4bf85ae1a15122d994c",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "",
+			"boss_position": [
+				-7.5232834815979,
+				-680.808471679688
+			],
+			"both_fit": true,
+			"clip": "idle",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/paused--1.png",
+			"sha256": "f37c16c14705dcf1938d62a19e2e94924fe82761dd730780d8cc7a4af4a5e9fb",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "",
+			"boss_position": [
+				-7.64244318008423,
+				-680.455871582031
+			],
+			"both_fit": true,
+			"clip": "hit",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/hit--1.png",
+			"sha256": "2acdfb9e022fe148512004463aa00d5db6688a254451a922d2894c766eafefe4",
+			"state": "PHASE_1",
+			"zoom": 1.0
+		},
+		{
+			"action": "",
+			"boss_position": [
+				-7.88237857818604,
+				-679.751220703125
+			],
+			"both_fit": true,
+			"clip": "walk",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/phase2--1.png",
+			"sha256": "228e6d072f41c826d25bfb4fe152a1bd69bb8018fb14fb79d89fb8e6ac63230b",
+			"state": "PHASE_2",
+			"zoom": 1.0
+		},
+		{
+			"action": "",
+			"boss_position": [
+				-8.12446689605713,
+				-679.047302246094
+			],
+			"both_fit": true,
+			"clip": "walk",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/phase3--1.png",
+			"sha256": "9d05c17e193cc6e66f6d662db459d0ca4c399d504ab3f431db7c1b623898a842",
+			"state": "PHASE_3",
+			"zoom": 1.0
+		},
+		{
+			"action": "",
+			"boss_position": [
+				-10.6632661819458,
+				-672.05078125
+			],
+			"both_fit": true,
+			"clip": "walk",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/size960--1.png",
+			"sha256": "7a10a358c7e48946681d1f80008fb38383c5f0cda3378581d9019f9f64416281",
+			"state": "PHASE_3",
+			"zoom": 1.0
+		},
+		{
+			"action": "beam",
+			"boss_position": [
+				-12.9885702133179,
+				-666.167053222656
+			],
+			"both_fit": true,
+			"clip": "beam_warning",
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/size1920--1.png",
+			"sha256": "8359b6dc77443037142cd69d0769c726c3df836c7bc7165a5b377ab56d2d04d8",
+			"state": "PHASE_3",
+			"zoom": 1.0
+		},
+		{
+			"animation_time": 0.55,
+			"clip": "death",
+			"controlled_damage": true,
+			"natural_animation": true,
+			"path": "res://build/diagnostics/campaign-goal/rift_observer_runtime_gpu_v3/death--1.png",
+			"sha256": "5deb0f8a06a79d64ee2c2b77dde26c6bc8721b72bd5681c947810ac49041a3be"
+		}
+	],
+	"cases": [
+		{
+			"facing": 1,
+			"health": 76.0,
+			"moves": 305,
+			"pointers": 474,
+			"seconds": 7.961,
+			"seen": [
+				"beam",
+				"probes",
+				"refract"
+			]
+		},
+		{
+			"facing": -1,
+			"health": 100.0,
+			"moves": 303,
+			"pointers": 481,
+			"seconds": 7.991,
+			"seen": [
+				"beam",
+				"probes",
+				"refract"
+			]
+		}
+	],
+	"checks": 2964,
+	"failures": 0,
+	"passed": true,
+	"renderer": "NVIDIA GeForce RTX 5060 Laptop GPU",
+	"scope": "ordinary continuous physics/automatic cycle; controlled phase/death inspection, NOT chapter victory",
+	"sources": {
+		"assets/art/actors/native/rift_observer_motion_v2.tres": "5afdfc43cc72792c1a1b24682262d7dc499397c40c8a755b88e4a22c59da55d5",
+		"scenes/actors/native/player_paper_v1.tscn": "bb419ea74d52a8eb95a4b5c41ce68c76e94d164f67aaa6b21df85648c13af3da",
+		"scenes/actors/native/rift_observer_paper_v2.tscn": "83991983baef45619ae56b6f736d0e5283e6b11911977c7b64285de22f835790",
+		"scenes/world/rift_observatory.tscn": "945389fa40b9641c3b2ac11e2d06d2121bfd72bf1abcceea60c453445bd030b8",
+		"scripts/actors/OverseerBoss.gd": "a2fc52f59e3215ea6805fa31d020144cb1458f3ed8dbbfbb863dd81484082aa4",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/actors/RiftObserverBoss.gd": "5b71d27e2ae31e8baf128adff98ac86b2a6e527860165e8915446bb88ab3817a",
+		"scripts/components/HealthComponent.gd": "1b31ea06d89f3850ac240ba307199eaa5ccb87b20ccaff125f14d3f56068975d",
+		"scripts/components/NativeActorView.gd": "2f809462e45c77dc05dd028fecafddb8e3e021cb8415cbb3cae2a6864fe160f3",
+		"scripts/components/NativeBossMotion.gd": "f0f223b1e42897fac3584dcd3962518040a479bb8234038ac309074c811f740a",
+		"scripts/components/NativePlayerMotion.gd": "5aadba04100f62b759111e9071dee7442cfdbe17ee74eafa9fcd6c042959974d",
+		"scripts/components/NativePlayerView.gd": "0939043fc03a1bd701251deffa1b964272eefdaddadfeecb42c15e83d556466c",
+		"scripts/components/NativeProjectileOriginSafety.gd": "e1d158d2e93f1192723e363cc656489d5408198efb1d163b3495044d1740acdb",
+		"scripts/components/NativeRiftObserverMotion.gd": "e66cb7c734669df4e432d523835b543973085788a1bf6ab6d114aa9af85d21e8",
+		"scripts/components/RiftObserverAttackDirector.gd": "34823eef6fc17ebc95ef5caed1f0c04c4409979777f9ad90ef62196daaf2d427",
+		"scripts/components/RiftObserverBeam.gd": "02f4ddd29dfd401fdb4f8ed28607fede9cc0e7e22fa84e0604f8ba7d3888afb4",
+		"scripts/components/RiftObserverCircleFlight.gd": "60d891ea6083066177be230e41df8e95d71e12137684559461502708ae2e9ee9",
+		"scripts/components/RiftObserverFragment.gd": "53fa462b2c80e444ecf9a73c6a458439c764b1699add984c49a1fa29cf759b1b",
+		"scripts/components/RiftObserverProbe.gd": "3eb6048f29fdf478e5a3d8aa51c290635f8f33c087cf966169df59f0b3a769e5",
+		"scripts/components/RiftObserverRefractVolley.gd": "0cb6905cb0d3c04895d8822d65cb946211c61cd77bf717f0080ee011cabccfac",
+		"scripts/effects/EnemyWorldStatus.gd": "ec7ceb7a9e4171048ffc1f1c0168658266276cb481d3231abc9d67efa9b423f1",
+		"scripts/systems/BossCameraFraming.gd": "33fe1031c560a81bb200a6ecae969a4b642be0c59fdb2e15c3e82cfdbdda402a",
+		"scripts/systems/CombatView.gd": "9b0eb9cef8243ff6a433e1daf9b6db74ebd27d4820788b66d5d9b92f03d4f4a0",
+		"scripts/tests/RiftObserverAutomaticCycleTest.gd": "742aa98dbc63163bf17ea67a955e1a96fc5fbfe5d46a638881d7ea3141c0552b",
+		"scripts/tests/RiftObserverIntegrationTest.gd": "256038277fb36fd28b91677dd4ef67ffe451824a0f6ef59eb37f3192d97a7d4c",
+		"scripts/tests/RiftObserverLifecycleTest.gd": "f27756487cac4f2b1b185b4e0c8e8f34b906e5b28885ad16fd523f99a668fdfa",
+		"scripts/tests/RiftObserverRuntimeTest.gd": "d027726407419161324043ea0e0cb27f7e63219f23c6b15cd4bc9ed0d12e5bce",
+		"scripts/ui/BossDirectionIndicator.gd": "7a7781da74eca0bbeec4b4ca7a43d5787c5de31a25574f3aadb46afa93d1310d",
+		"scripts/ui/BossHealthBar.gd": "0b4b0baa58d17680c872dd357bf5246c9fb1df609f80a24da6116d8188811893",
+		"scripts/ui/GameUI.gd": "ebda9da803efdeed0cfcb0b0e0006f87ba712e536f973360a135b63a662c1fc4",
+		"scripts/world/RiftArenaLayout.gd": "aa2c2bceaaa5493ec5b33ce39ee87db9778350e4e8f5280a5f4041b8d0ab5f68",
+		"scripts/world/RiftField.gd": "200a38d06124bae032c6a87346239afe7a13de0dd090b0c25f440099d3ea7023",
+		"scripts/world/RiftFloor.gd": "b0b6db5a5b67e19d5259230e7217a085e4964d20fa3bcdf009b8ef371e61de03",
+		"scripts/world/RiftMap.gd": "e2060cc941061f76f83ab658f0544dff34edce0b76f417a8048e1dd8ae5cc10d",
+		"scripts/world/RiftObstacle.gd": "f12edb262e80b9d7b1ec74a2e4e89a0ea970e47ece86f3d50dfbe2b12fc67bec",
+		"scripts/world/TerrainSweep.gd": "08e472ff12bb0ab46ca2e86a88061e54be7f3f2cc3780f50d15eec12dff13255",
+		"themes/MintFarmTheme.tres": "193b66171b7f4e8f7b341d2058082f7c867fa576b9485c35b1ac1f5cbd5e7f63"
+	}
+}

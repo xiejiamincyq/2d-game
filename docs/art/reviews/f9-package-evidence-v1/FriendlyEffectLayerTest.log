@@ -1,0 +1,18 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+FRIENDLY EFFECT LAYER res://scripts/components/ArcPulseVisual.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/components/LaserBeam.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/components/SpikeTrap.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/components/FlameTrail.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/effects/CombatVfx.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/components/ArcPulseVisual.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/components/LaserBeam.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/components/SpikeTrap.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/components/FlameTrail.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/effects/CombatVfx.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/components/ArcPulseVisual.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/components/LaserBeam.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/components/SpikeTrap.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/components/FlameTrail.gd effective_z=-1
+FRIENDLY EFFECT LAYER res://scripts/effects/CombatVfx.gd effective_z=-1
+TEST PASS: FriendlyEffectLayerTest 33

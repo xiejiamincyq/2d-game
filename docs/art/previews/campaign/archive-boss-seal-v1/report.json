@@ -1,0 +1,148 @@
+{
+	"actor_samples": [
+		{
+			"clip": "seal_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13660,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "seal_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13660,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "seal_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 14014,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "seal_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 14014,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "seal_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 13908,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "seal_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 13908,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "seal_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13660,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "seal_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13660,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "seal_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 14014,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "seal_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 14014,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "seal_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 13908,
+			"outside": 0,
+			"partial": 0
+		},
+		{
+			"clip": "seal_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 13908,
+			"outside": 0,
+			"partial": 0
+		}
+	],
+	"captures": {
+		"runtime-active": "533b94d363d2bdf92524b05df63a5d2ef63e7bbc81afc8ccc0cca0097e498035",
+		"runtime-cancelled": "71a01165e1ea09583c65642ef6b378bc98cae0fd1056678e905cbf4928148d1f",
+		"runtime-recovery": "b8f06cb5442c18d90824363d50e7236fd652a10760d33b9fed7ca8533bfc77e8",
+		"runtime-warning": "bca015f4b840d8f4f51373fc0116bcfcb1cc2fd8e721fddf16acbf20c9d9c29f"
+	},
+	"checks": 73,
+	"ground_removed_pixels": 734,
+	"head_black": 72,
+	"head_cream": 18,
+	"passed": true,
+	"scope": "12 actual Actor seal-stage/left/right/flash body samples + actual Archive map warning/damage/ground removal. Controlled Boss clock, stationary actual Player. No ordinary run, Boss victory/unlock, brood, whole roster or performance proof.",
+	"sources": {
+		"assets/art/actors/native/spore_archivist_motion_v2.tres": "d01bdd0fdd739af74fccb1de6700b9c7ef5468ff1fa5581d37bb5cf439363569",
+		"assets/art/shaders/dasher_hit_flash.gdshader": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9",
+		"scenes/actors/native/spore_archivist_paper_v2.tscn": "5876e9f0277930690dd6a17c69a7e5ae34ee59a6ab356bcbe691f6e6410776a5",
+		"scenes/world/luminous_archive.tscn": "3998b97c34fca40915e0ddc3d41bdba1f8fb56e7c527ea8cba4a4c1ab28328b9",
+		"scripts/actors/ArchiveArchivistBoss.gd": "c0f9a09f673d9c7cf49872c9b9eaf7464d0eb3a598434267af691641160ea67e",
+		"scripts/actors/OverseerBoss.gd": "a2fc52f59e3215ea6805fa31d020144cb1458f3ed8dbbfbb863dd81484082aa4",
+		"scripts/actors/Player.gd": "b401d1162d3aeaaf4248d1b680ac894285030373a4459e2069520b452308d6e4",
+		"scripts/art/RenderArchiveBossSeal.gd": "16a42bf86223cd746b9ee911801de826031dae4ac434dffec06c8c6dd579da25",
+		"scripts/components/ArchivePageProjectile.gd": "1e6b357afb9d88fb2df3970e4db1ba2a6880daa600a5ce9a8e72d946f6d92675",
+		"scripts/components/ArchiveSealAttack.gd": "d605de4f8b6c3577a6d73b216ba1d1a86cba2504dc6d25adff6d74aee9170a9f",
+		"scripts/components/NativeActorView.gd": "2f809462e45c77dc05dd028fecafddb8e3e021cb8415cbb3cae2a6864fe160f3",
+		"scripts/components/NativeBossMotion.gd": "f0f223b1e42897fac3584dcd3962518040a479bb8234038ac309074c811f740a",
+		"scripts/components/NativeProjectileOriginSafety.gd": "9be51ed7fb55861a124174653b9570589ed8d7bb65ede5b11195e77df158cc70",
+		"scripts/components/NativeSporeArchivistMotion.gd": "2ead0bb72ab961c37117c478f6f807d136f728825bc7a574beb085c4d76a8a85",
+		"scripts/components/SporeArchivistAttackDirector.gd": "a986484a73a4001071fb4a9d252704721bf57a0abecc9f4ae3ff4e5051dc541b",
+		"scripts/effects/EnemyWorldStatus.gd": "ec7ceb7a9e4171048ffc1f1c0168658266276cb481d3231abc9d67efa9b423f1",
+		"scripts/effects/HostileAttackDrawing.gd": "7888152661e967cd6d0ca79810ce2af0c6ecf24d33e06e2dd6dead53fcf52b89",
+		"scripts/world/ArchiveArenaLayout.gd": "797723586facd953c837b31a153f39b1b3c0fcccd85609a5a17cb0513d7e5601",
+		"scripts/world/ArchiveFloor.gd": "e422d58068821d1e232e557a2277ec43c801e212787248a328599a0f694115b2",
+		"scripts/world/ArchiveMap.gd": "9a82d2ae5409ade9622f64f53ffb5e863459b919d04ca2e7cb7e6d6e561bebf2",
+		"scripts/world/ArchiveObstacle.gd": "3d99c3df6fabb63f80a72d6781a1b694fe49e8b6a72e46e01a67bc8f7f32eaca",
+		"scripts/world/ArchivePropArt.gd": "caf3e6425274457b27ebf13405bb67e0da515edf351829a9c43c02f41139c8d1"
+	}
+}

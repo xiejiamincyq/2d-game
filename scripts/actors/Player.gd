@@ -61,8 +61,6 @@ const BASE_MOVE_SPEED := 235.0
 const ENTRANCE_FALL_SECONDS := 0.72
 const ENTRANCE_SMOKE_SECONDS := 0.38
 const ENTRANCE_MIN_FALL_HEIGHT := 280.0
-const PLAYER_CARDINAL_ATLAS_PATH := "res://assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png"
-const PLAYER_WEAPON_PATH := "res://assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png"
 const CHIBI_CARDINAL_CELL_SIZE := Vector2(128.0, 128.0)
 const CHIBI_BODY_DRAW_SIZE := Vector2(84.0, 84.0)
 const CHIBI_WEAPON_DRAW_SIZE := Vector2(72.0, 72.0)
@@ -122,6 +120,7 @@ var dash_active: bool = false
 var dash_terrain_blocked := false
 var stealth_terrain_embedded := false
 var stealth_recovery_pending := false
+var dash_recovery_pending := false
 var stealth_recovery_trace: Dictionary = {}
 var dash_direction: Vector2 = Vector2.RIGHT
 var last_movement_direction: Vector2 = Vector2.RIGHT
@@ -216,13 +215,14 @@ func _update_movement(input_vector: Vector2) -> void:
 	if is_stealthed() or player_collision.disabled:
 		_move_along_terrain(velocity * get_physics_process_delta_time())
 		return
-	if stealth_recovery_pending:
+	if stealth_recovery_pending or dash_recovery_pending:
 		var bounds := Rect2() if world_bounds.size == Vector2.ZERO else world_bounds.grow(-BODY_RADIUS)
 		stealth_recovery_trace = StealthRecoveryMotion.move(self, player_collision, normal_collision_mask,
 			velocity * get_physics_process_delta_time(), bounds)
-		stealth_recovery_pending = stealth_recovery_trace.pending
+		stealth_recovery_pending = stealth_recovery_pending and stealth_recovery_trace.pending
+		dash_recovery_pending = dash_recovery_pending and stealth_recovery_trace.pending
 		if stealth_recovery_trace.embedded and not stealth_terrain_embedded:
-			push_warning("Stealth recovery started embedded in terrain; refusing unsafe motion")
+			push_warning("Body recovery started embedded in terrain; refusing unsafe motion")
 		stealth_terrain_embedded = stealth_recovery_trace.embedded
 		return
 	move_and_slide()
@@ -265,6 +265,9 @@ func _move_along_terrain(remainder: Vector2) -> void:
 func begin_spawn_input_guard() -> void:
 	spawn_input_guard_active = true
 	velocity = Vector2.ZERO
+	# Resume cancels a dash at its current position, possibly inside an enemy.
+	# Keep terrain-safe body recovery until that overlap has actually cleared.
+	dash_recovery_pending = dash_recovery_pending or dash_active
 	dash_active = false
 	dash_terrain_blocked = false
 	stealth_recovery_pending = false
@@ -279,6 +282,7 @@ func begin_entrance() -> void:
 	dash_active = false
 	dash_terrain_blocked = false
 	stealth_recovery_pending = false
+	dash_recovery_pending = false
 	stealth_recovery_trace = {}
 	dash_timer = 0.0
 	native_motion.advance(0)
@@ -747,6 +751,9 @@ func _update_dash(delta: float) -> void:
 	if dash_timer <= 0.0:
 		dash_active = false
 		velocity = Vector2.ZERO
+		# A terrain-only dash may stop inside an enemy. Native overlap recovery
+		# must be terrain-constrained until a whole enabled frame is body-clear.
+		dash_recovery_pending = true
 		if active_build_evolutions.has("rift_overdrive"):
 			_activate_assassin_stealth()
 		if mine_level > 0:
@@ -886,6 +893,8 @@ func _update_drone_lasers(delta: float) -> void:
 		beam.visible = true
 		beam.setup(origin, ray_result["end"], get_drone_laser_color(), width)
 	_set_laser_audio_active(any_laser_active)
+	for index in drone_visuals.size():
+		drone_visuals[index].advance_visual(delta,index<drone_lasers.size() and drone_lasers[index].visible)
 
 func _turn_drone_toward(index: int, desired_direction: Vector2, delta: float) -> Vector2:
 	while drone_aim_directions.size() <= index:
@@ -1103,7 +1112,8 @@ func _update_drone_positions() -> void:
 	if drone_visuals.is_empty():
 		return
 	var orbit := 48.0
-	var spin := Time.get_ticks_msec() / 520.0
+	# Orbit and native joints must freeze with gameplay, not jump on unpause.
+	var spin := visual_elapsed * 1000.0 / 520.0
 	for index in range(drone_visuals.size()):
 		var angle := spin + float(index) * TAU / float(drone_visuals.size())
 		drone_visuals[index].position = Vector2.RIGHT.rotated(angle) * orbit

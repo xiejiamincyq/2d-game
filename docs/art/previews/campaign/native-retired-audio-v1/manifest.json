@@ -1,0 +1,164 @@
+[
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\native-retired-audio-pack-v1\\AudioLifecycleTest.log",
+    "file": "AudioLifecycleTest.log",
+    "sha256": "f0ffb9bcdef3403a2c8a79dc6f25464bb0364c68cbfece5bc4a466de848143c4",
+    "bytes": 108
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\native-retired-audio-pack-v1\\CombatFeedbackTest.log",
+    "file": "CombatFeedbackTest.log",
+    "sha256": "aa5736c99a6f414a177f3e17421f3566881b7ea16c33c38bdd2b33b40899a349",
+    "bytes": 107
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\native-retired-audio-pack-v1\\directory-report.json",
+    "file": "directory-report.json",
+    "sha256": "aa1e3fe54f0edbab4451b1b7ba0288cb1885251a45260953ff0c3474b5ca95bc",
+    "bytes": 35015
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\native-retired-audio-pack-v1\\export.log",
+    "file": "export.log",
+    "sha256": "0529c498e1b471f418b195e11fcdb2fd9a001abd867012c930d752e0175e9367",
+    "bytes": 72450
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\native-retired-audio-pack-v1\\NativeCharacterRosterTest.log",
+    "file": "NativeCharacterRosterTest.log",
+    "sha256": "9ff576a1dd86415ea7544df118a58c403b94e7d7341a83d3b117c1f16a276d56",
+    "bytes": 224
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\native-retired-audio-pack-v1\\NativePlayerResourceTest.log",
+    "file": "NativePlayerResourceTest.log",
+    "sha256": "25782a1e3789e831c804890d65fd4aec309b5085aab854196b603cca9b842832",
+    "bytes": 115
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\native-retired-audio-pack-v1\\OriginalOverdriveAudioTest.log",
+    "file": "OriginalOverdriveAudioTest.log",
+    "sha256": "b92337cecde99fb81ae6cc7426e404807a24bff2dfbc0d8bb4fa9dde80686b9e",
+    "bytes": 215
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\native-retired-audio-pack-v1\\PlayerNativeIntegrationTest.log",
+    "file": "PlayerNativeIntegrationTest.log",
+    "sha256": "0adaa9bc784f99d3249e890db7d7905e7cd3e61b693bb69e108748e1a1bbfe18",
+    "bytes": 117
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\native-retired-audio-pack-v1\\report.json",
+    "file": "report.json",
+    "sha256": "84bff898df8bdd25ace1e61fc5477df916a8b1ee9e6d66db286be1453501b572",
+    "bytes": 2627
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\native-retired-audio-pack-v1\\source-bank.json",
+    "file": "source-bank.json",
+    "sha256": "7b02d14adf26109af3a83d9788e665f6af04cc23bf63f08866403cc9bfee6059",
+    "bytes": 193869
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\retired-unused-policy-red-v1.log",
+    "file": "retired-unused-policy-red-v1.log",
+    "sha256": "a2d0193d62504c45f352ea9fd95bf73dbeeee111a6964ff6292db27234fbdc21",
+    "bytes": 12278
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\retired-unused-policy-green-v1.log",
+    "file": "retired-unused-policy-green-v1.log",
+    "sha256": "8b1cf4ff66ea650cfbd19c9cac7c8e5a5a0a52adda0acdf37bd9a6c5628f4df5",
+    "bytes": 114
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\original-overdrive-red-v1.log",
+    "file": "original-overdrive-red-v1.log",
+    "sha256": "07111692db4b10de7a092c720b0d1901d55e45dce0cd1ab95b43a02cf1047bce",
+    "bytes": 439
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\original-overdrive-green-v1.log",
+    "file": "original-overdrive-green-v1.log",
+    "sha256": "da65c476dbc8c5ebf006cd8f63664fcd8415b2bdb2131f15da3bbbaf3c88072a",
+    "bytes": 115
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\original-overdrive-policy-red-v1.log",
+    "file": "original-overdrive-policy-red-v1.log",
+    "sha256": "489a694899cf699d820a6f28008b05449ee77e77a502ec01fa1b741b55de496a",
+    "bytes": 2685
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\original-overdrive-policy-green-v1.log",
+    "file": "original-overdrive-policy-green-v1.log",
+    "sha256": "562d1d4cbc15969be3da2ab0d4185ebeffb091533d2e15082b1c19da35f72e22",
+    "bytes": 115
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\original-overdrive-import-v1.log",
+    "file": "original-overdrive-import-v1.log",
+    "sha256": "c0badd7332457f3121b07d1e3559c9bf5d9ca201656ac6b5c14c23f4a24334fa",
+    "bytes": 1982
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\original-overdrive-preview-v1.log",
+    "file": "original-overdrive-preview-v1.log",
+    "sha256": "562c4830ac5e7f4661e31d73dbd73912b1217fe8be507249919b1bb458d70b2d",
+    "bytes": 115
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\original-overdrive-preview-v1.wav",
+    "file": "original-overdrive-preview-v1.wav",
+    "sha256": "a84c78f98ff53c46a564bebebd33e17e9fd6b11997100f6fa323416916dd4bbe",
+    "bytes": 7982
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\OriginalOverdriveAudioTest-original-overdrive-v1.log",
+    "file": "OriginalOverdriveAudioTest-original-overdrive-v1.log",
+    "sha256": "56bf7862e75c003625198081d87a82fb958bd4bbf15c1102e2ccf1084369d4bb",
+    "bytes": 217
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\CombatFeedbackTest-original-overdrive-v1.log",
+    "file": "CombatFeedbackTest-original-overdrive-v1.log",
+    "sha256": "7cb28fe6d4c5cc0b1914898fe50004d23d7e5db76952e4cd45cbc9d3b65479c2",
+    "bytes": 109
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\AudioLifecycleTest-original-overdrive-v1.log",
+    "file": "AudioLifecycleTest-original-overdrive-v1.log",
+    "sha256": "f0102f9c643ad838dfdfb03888a49f5370caccc6e34181522356d79d84d742cf",
+    "bytes": 110
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\NativePlayerResourceTest-original-overdrive-v1.log",
+    "file": "NativePlayerResourceTest-original-overdrive-v1.log",
+    "sha256": "f389a71cbf316815d194cd7765f668167a23203982f3083be207238ac82a1934",
+    "bytes": 117
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\NativePlayerIntegrationTest-original-overdrive-v1.log",
+    "file": "NativePlayerIntegrationTest-original-overdrive-v1.log",
+    "sha256": "5b804d2c56106ce8ce8c36468df851048f8a5d8505ffd165eab0a1e5c1736087",
+    "bytes": 503
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\PlayerNativeIntegrationTest-original-overdrive-v1.log",
+    "file": "PlayerNativeIntegrationTest-original-overdrive-v1.log",
+    "sha256": "2832c6900e58f7873dfbfdf8fa049ee560b98389c003410f88897a0d025946be",
+    "bytes": 119
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\NativeCharacterRosterTest-original-overdrive-v1.log",
+    "file": "NativeCharacterRosterTest-original-overdrive-v1.log",
+    "sha256": "0ccdfb48342c6928074ab45102b8ed146ced9ce5df6253b8094ce7ec43a2a9db",
+    "bytes": 226
+  },
+  {
+    "source": "C:\\Users\\21604\\Documents\\2D game\\.worktrees\\5分钟超载\\build\\diagnostics\\campaign-goal\\ChibiRuntimeArtTest-original-overdrive-v1.log",
+    "file": "ChibiRuntimeArtTest-original-overdrive-v1.log",
+    "sha256": "be718b4027c509fd545aea1accba7616c35a4821929cf759c0c813efc59b7028",
+    "bytes": 110
+  }
+]

@@ -1,0 +1,110 @@
+{
+  "copies": [
+    {
+      "sha256": "b762cb805eade5f1e8683ae710323d67e5cf47e85c351751eb4194d2968ed243",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_000.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_000.png"
+    },
+    {
+      "sha256": "565b1aa132fafd84ee862c9c748c762a032a53af63cdc4047de22e44e3d021ae",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_001.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_001.png"
+    },
+    {
+      "sha256": "d4b66b9ea47197cd4ab1c898691bc4efebe3b1f4e0c44591132443c4edf48027",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_002.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_002.png"
+    },
+    {
+      "sha256": "00ac03e5d4f9c707a0c75d3e516e80a9e307eeddd89f2a57956cfa53ebe25b8d",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_003.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_003.png"
+    },
+    {
+      "sha256": "82d5401df1f6668587897ed7a9fce229df355c673cb351656241c48d47e5db6a",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_004.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_004.png"
+    },
+    {
+      "sha256": "297d31c6d8ac6ab619611ccd73f4ddeeb28b974aedb83f8656a7a3bcd0661142",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_005.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_005.png"
+    },
+    {
+      "sha256": "4ab8320b9e44b457217a8402cd0c5cc924dce7688f4ad108d355f8fec8e90fa8",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_006.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_006.png"
+    },
+    {
+      "sha256": "eb46c6dfcedddd109f4927e5e025bd00f25da4b3602b40f5e74d72e8ffe6297a",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_007.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_007.png"
+    },
+    {
+      "sha256": "b858915eaa0c407a031d8f5c56a4146a6c9ce70658d543c6754a622c7b7ba321",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_008.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_008.png"
+    },
+    {
+      "sha256": "fd475d05f44320c09a55157ac18705b8a651d1450865320ce068cffefd59a5f9",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_009.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_009.png"
+    },
+    {
+      "sha256": "02c9eb172b50855fd54d414070f3b0e8a6c5c5fcdff48cae7c6bf320097b47c8",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_010.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_010.png"
+    },
+    {
+      "sha256": "27fb99f9cd334fcc2b82a8af731ed80fdd52b0f2b391ae7ec1a3670177cfe4e5",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_011.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_011.png"
+    },
+    {
+      "sha256": "27fb99f9cd334fcc2b82a8af731ed80fdd52b0f2b391ae7ec1a3670177cfe4e5",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_012.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_012.png"
+    },
+    {
+      "sha256": "9421daf30180d5cec6cfcaf6364e064a654cc6d02de68761ac210f04f2afae0a",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_013.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_013.png"
+    },
+    {
+      "sha256": "1127b196d2b66937c9ccf03bc72f0745d628ad1f467dbdce1275d48ef31314a0",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_014.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_014.png"
+    },
+    {
+      "sha256": "e22c74b33abf5aa7336a4c05e01237d8153c6d3221e4dda7b0241178ee9a8a93",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_015.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_015.png"
+    },
+    {
+      "sha256": "c8792896ff64e78786d277690679fe910306f4b0d3090a0f1263eff9a68cc603",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_016.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_016.png"
+    },
+    {
+      "sha256": "2976abd31c6f0ac3f0039367d1ca7404b548b7fa45361a6b18747f9d99f6d22d",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/frame_017.png",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/frame_017.png"
+    },
+    {
+      "sha256": "300223d64c11fec242d5c038b7d5d11f9949fd1dd156e034d084fff2203abe96",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/report.json",
+      "source": "build/diagnostics/campaign-goal/f3_fire_viewport_20261012_v1/report.json"
+    },
+    {
+      "sha256": "1b0967449cc8238e0439677e7079fef679a4a88e1a534173f7bd4763838199e3",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/fire-viewport-defeated/driver.log",
+      "source": "build/diagnostics/campaign-goal/f3-fire-viewport-compensated-ordinary-v1.log"
+    }
+  ],
+  "scope": "Actual ordinary defeated run with validated engine pointer; not Boss victory or final balance",
+  "valid": false,
+  "exit_observation": "Main serial session 8283 terminal actual engine and outer strict exit 1",
+  "source_count": 1660,
+  "schema": 1,
+  "actual_exit": 1
+}

@@ -1,0 +1,10 @@
+{
+  "asset_id": "ranger_drone_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/ranger_drone_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/ranger_drone_motion_v1.tres",
+  "role": "companion",
+  "review_state": "style-approved",
+  "bone_count": 10,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "shoot", "entrance", "death"]
+}

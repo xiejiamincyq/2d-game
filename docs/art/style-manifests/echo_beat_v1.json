@@ -1,0 +1,18 @@
+{
+  "contract":"native-style-group-preview-v1",
+  "asset_id":"echo_beat_v1",
+  "review_state":"draft",
+  "approval_authority":"user-delegated-autonomous-art-review",
+  "license_origin":"project-original",
+  "review_document":"res://docs/art/echo-beat-review-v1.md",
+  "environment_preview":"res://docs/art/previews/campaign/echo-beat-v2/natural-escape.png",
+  "prop_preview":"res://docs/art/previews/campaign/echo-beat-v2/pulse-second.png",
+  "runtime_evidence":"res://docs/art/previews/campaign/echo-beat-v2/report.json",
+  "assets":[
+    {"role":"environment-hazard","id":"echo_fixed_beat","authoring_source":"res://scripts/world/EchoBeat.gd","scope":"Original neutral bronze pedestal, two offset local amber warnings and brief coral stamps; actual finite clock, no expanding wave, movement wall, enemy reward or animation-driven damage"},
+    {"role":"chapter-environment-owner","id":"echo_beat_field","authoring_source":"res://scripts/world/EchoField.gd","scope":"Four seeded, preplaced, nonblocking sites; ordinary two/risk four activation API, actual encounter binding awaits E3"}
+  ],
+  "external_raster_dependencies":[],
+  "limitations":["Controlled clock-state pixels and natural-input escape are separate proofs","Full regression and independent-pack status recorded in review document","No fifth-region encounter/Boss/readiness/save-unlock6 or six-chapter completion","No human/OS input, dense performance or final licensing approval"],
+  "reference_policy":"Continue project-original native ink-paper style and existing free-reference policy. No external artwork/downloads/paid extraction/installations; not an imagegen or raster-generation manifest."
+}

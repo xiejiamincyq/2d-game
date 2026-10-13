@@ -1,7 +1,7 @@
 extends SceneTree
 
 const Main = preload("res://scripts/Main.gd")
-const Support = preload("res://scripts/tests/TestSupport.gd")
+const Support = preload("TestSupport.gd")
 var assertions := 0
 var failures := 0
 
@@ -43,7 +43,8 @@ func _run() -> void:
 	menu.mute_button.button_pressed = true
 	check(scene.audio.bgm_muted, "menu mute did not reach audio")
 	menu.back_button.pressed.emit()
-	menu.start_button.pressed.emit()
+	menu.legacy_button.pressed.emit()
+	menu.legacy_start_button.pressed.emit()
 	check(scene.run_started and scene.player != null, "one-click old demo no longer starts")
 	check(not scene.ui.start_screen.visible and not scene.ui.start_panel.visible and not scene.ui.start_backdrop.visible, "new cover obscures live gameplay")
 	check(scene.campaign_progress.to_state().cleared_chapters.is_empty(), "starting old demo advanced campaign progress")

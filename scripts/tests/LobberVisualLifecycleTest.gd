@@ -48,15 +48,18 @@ func test_case(parent_z: int, distance: float) -> bool:
 	enemy.set_physics_process(false)
 	enemy.position = Vector2(180, 20)
 	enemy.ranged_target_position = Vector2(40, 30)
+	var held_origin: Vector2 = enemy.native_visual.get_node("Facing/Skeleton2D/Torso/ArmR/ForearmR/HandR/Payload/Release").global_position
 	enemy._fire_lobber(target)
 	var lob := shots.get_child(0)
 	lob.set_physics_process(false)
+	if not check(lob.start_position.is_equal_approx(held_origin), "launch detached from the native held pouch"):
+		return false
 	if not check(lob.tint.is_equal_approx(Color("f27a4b")), "actual enemy launch did not keep coral"):
 		return false
 	if not check(lob.damage == 48.0 and lob.flight_duration == 0.9 and lob.splash_radius == 72.0, "enemy mechanical overrides changed"):
 		return false
 	lob._physics_process(0.45)
-	if not check(lob.global_position.is_equal_approx(Vector2(110, 25)) and target.hits == 0 and not lob.is_queued_for_deletion(), "half-flight position or timing changed"):
+	if not check(lob.global_position.is_equal_approx(held_origin.lerp(Vector2(40,30),0.5)) and target.hits == 0 and not lob.is_queued_for_deletion(), "half-flight position or timing changed"):
 		return false
 	if not check(lob.landing_fill.global_position.is_equal_approx(Vector2(40, 30)) and not lob.landing_fill.z_as_relative and lob.landing_fill.z_index == -1, "ground fill drifted or rose over actors"):
 		return false
@@ -65,6 +68,7 @@ func test_case(parent_z: int, distance: float) -> bool:
 		return false
 	lob._physics_process(lob.flight_duration - lob.elapsed)
 	var hit := distance <= 72.0
+	lob._explode() # Queue-free is deferred; impact must nevertheless resolve once.
 	if not check(target.hits == (1 if hit else 0) and target.damage_taken == (48.0 if hit else 0.0) and lob.is_queued_for_deletion(), "exact damage radius or landing moment changed"):
 		return false
 	var impact := shots.get_node_or_null("LobImpact")

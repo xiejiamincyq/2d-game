@@ -1,0 +1,18 @@
+{
+  "contract":"native-style-group-preview-v1",
+  "asset_id":"echo_encounter_v1",
+  "review_state":"draft",
+  "approval_authority":"user-delegated-autonomous-art-review",
+  "license_origin":"project-original",
+  "review_document":"res://docs/art/echo-encounter-review-v1.md",
+  "environment_preview":"res://docs/art/previews/campaign/echo-encounter-v3/mixed.png",
+  "prop_preview":"res://docs/art/previews/campaign/echo-encounter-v3/encounter-beat.png",
+  "runtime_evidence":"res://docs/art/previews/campaign/echo-encounter-v3/report.json",
+  "assets":[
+    {"role":"native-family-encounter","id":"echo_mixed_encounters","authoring_source":"res://scripts/systems/EchoEncounterDirector.gd","scope":"Original existing native sentinel spacing/rings and visible shade flanking/strikes, seeded two mandatory fights plus optional risk; actual ownership, pickups and build transactions"},
+    {"role":"environment-hazard-integration","id":"echo_combat_beats","authoring_source":"res://scripts/world/EchoBeat.gd","scope":"Normal two/risk four map-owned clocks; moving actors are not terrain, static/thin walls retained, saturated queries fail closed; brief actual coral stamp and amber warning"}
+  ],
+  "external_raster_dependencies":[],
+  "limitations":["First real ordinary-input mixed fight, not chapter/Boss victory","Controlled transaction evidence does not substitute ordinary-input complete routes","Readiness remains chapters 1 to 4; fifth Boss/entry/unlock6 wait E4/E5","Full and independent-pack terminal status in review document","No human/OS playtest, dense performance or final licensing approval"],
+  "reference_policy":"Continue project-original native ink-paper style and established free-reference policy; no external artwork/downloads/paid extraction/installations. Not an imagegen or raster-generation manifest."
+}

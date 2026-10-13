@@ -1,0 +1,27 @@
+{
+	"checks": 76,
+	"passed": true,
+	"process_id": 70668,
+	"progress_sha256": "729510abc934fc3e7ea491bb4d0a321ff66ae63ca6207033247b67af8139f739",
+	"ready_chapters": [
+		1,
+		2,
+		3,
+		4,
+		5,
+		6
+	],
+	"restore_source_sha256": "07f9273c558be30e0ac07c44eeb97c2e5277f199998f65eb43294a2b826b8a43",
+	"scope": "Fresh engine process/actual Main reads prior isolated ordinary-input sixth Boss clear. Existing progress read-only; fresh report only. Prerequisites1..5 were prepared fixtures, NOT a six-chapter ordinary chain or human/OS input acceptance.",
+	"state": {
+		"cleared_chapters": [
+			1,
+			2,
+			3,
+			4,
+			5,
+			6
+		],
+		"version": 1
+	}
+}

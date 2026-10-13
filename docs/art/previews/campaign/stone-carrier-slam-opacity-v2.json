@@ -1,0 +1,990 @@
+{
+	"actual_effect_pixels": 298,
+	"adjacent_changes": 59,
+	"clips": [
+		"idle",
+		"walk",
+		"hit",
+		"entrance",
+		"slam_warning",
+		"slam_attack",
+		"slam_recovery",
+		"death"
+	],
+	"gait_frames": 60,
+	"passed": true,
+	"samples": [
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5896,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5896,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5965,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5965,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5959,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5959,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 6074,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 6074,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5907,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5907,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5968,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5968,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 6044,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 6044,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5966,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5966,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5989,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5989,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 6380,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 6380,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 6329,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 6329,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 6315,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 6315,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 6194,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 6194,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 6282,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 6282,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 6315,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 6315,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 6401,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 6401,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 6202,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 6202,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5586,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5586,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": false,
+			"opaque": 5267,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": false,
+			"opaque": 5267,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5896,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5896,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5965,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "idle",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5965,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5959,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5959,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 6074,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "walk",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 6074,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5907,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5907,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5968,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "hit",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5968,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 6044,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 6044,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5966,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5966,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5989,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "entrance",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5989,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 6380,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 6380,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 6329,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_warning",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 6329,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 6315,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 6315,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 6194,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 6194,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 6282,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_attack",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 6282,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 6315,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 6315,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 6401,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 6401,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 6202,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "slam_recovery",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 6202,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5977,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.0
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5586,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5586,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.45
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.0,
+			"left": true,
+			"opaque": 5267,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		},
+		{
+			"clip": "death",
+			"edge": 0,
+			"flash": 0.35,
+			"left": true,
+			"opaque": 5267,
+			"outside_body_bounds": 0,
+			"partial": 0,
+			"phase": 0.85
+		}
+	],
+	"scope": "Actual Enemy body/shader poses (HUD excluded), all listed clips/mirrors/hit flash; actual gait and hit/bar. Optional post-checkpoint slam adds actual warning/impact and one real hit; not natural Main input or all Boss attacks.",
+	"sources": {
+		"res://assets/art/actors/native/stone_carrier_motion_v2.tres": "3e8c65a253d621dd60983bcd4267a65d3df8ee6c72790a4254eba0a9cbcd3234",
+		"res://assets/art/shaders/dasher_hit_flash.gdshader": "8e7702d055a4374e66438f3183f214182ddcdd6dc394986dc703ddc4e52358e9",
+		"res://scenes/actors/native/stone_carrier_paper_v2.tscn": "1219dc7a241857c3adb779f0407f044d3b6494a4f12873fb19a01b28fdfd1567",
+		"res://scripts/actors/Enemy.gd": "92d5479162335cfbb3dfdae313f49b27719b7d20d726365e5ce91076e62af3b1",
+		"res://scripts/art/RenderNativeLargePreview.gd": "1a7d5583473934a2899fcfed0cd2c4f7cddb650d4e20b40d3b3be670f2683ad4",
+		"res://scripts/components/NativeActorView.gd": "2485aad6edc3b97270c1a4c13159c6e74a81bf533c9a16d16f66470d18275da5",
+		"res://scripts/components/NativeLargeMotion.gd": "9bf3932fa9daccbdac7fc488f981e8e1e5f0dac1a7b6cadc934a84eec351a6c3",
+		"res://scripts/components/NativeScrapperMotion.gd": "7b840b4f9a98540ee8d4cb62e75a53950e218c9ab87852c2a92bfc0979d003ec",
+		"res://scripts/components/NativeStoneCarrierMotion.gd": "ca7cbc9d3cc61d565f0d12795c4b4dc362eca4fbbc23f3f05a9e8a39fe5186bf"
+	}
+}

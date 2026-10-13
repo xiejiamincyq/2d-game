@@ -1,0 +1,447 @@
+{
+  "valid": true,
+  "results": [
+    {
+      "width": "1280",
+      "valid": true,
+      "report_sha256": "7936528e3335545e9fa9a21f10e521c88e2518ae164772a85c5086e6302879c8",
+      "log_sha256": "50e6fdb458e979837a81795e4ec19ea5f1308fddb7f69223986814750d909fa7",
+      "source_count": 22,
+      "longest_dense_seconds": 9.050468000000002,
+      "groups": {
+        "all": {
+          "frames": 7361,
+          "wall_seconds": 61.33686700000004,
+          "effective_callback_fps": 120.00939011117075,
+          "interval_ms": {
+            "count": 7361,
+            "mean": 8.332681293302546,
+            "p50": 8.234,
+            "p95": 13.802,
+            "p99": 15.39,
+            "maximum": 20.694
+          },
+          "process_ms": {
+            "count": 7361,
+            "mean": 5.11313259068085,
+            "p50": 4.852,
+            "p95": 7.928,
+            "p99": 8.138,
+            "maximum": 8.138
+          },
+          "physics_ms": {
+            "count": 7361,
+            "mean": 5.127761853008875,
+            "p50": 5.377,
+            "p95": 9.264,
+            "p99": 10.411,
+            "maximum": 14.973
+          },
+          "enemy_peak": 37.0,
+          "projectile_peak": 128.0,
+          "draw_call_peak": 933.0,
+          "intervals_over_16_667_ms": 23,
+          "intervals_over_33_333_ms": 0
+        },
+        "combat": {
+          "frames": 4391,
+          "wall_seconds": 36.5883340000001,
+          "effective_callback_fps": 120.01093025990163,
+          "interval_ms": {
+            "count": 4391,
+            "mean": 8.332574356638602,
+            "p50": 8.078,
+            "p95": 14.316,
+            "p99": 15.806,
+            "maximum": 20.694
+          },
+          "process_ms": {
+            "count": 4391,
+            "mean": 5.435482805738875,
+            "p50": 5.275,
+            "p95": 8.001,
+            "p99": 8.138,
+            "maximum": 8.138
+          },
+          "physics_ms": {
+            "count": 4391,
+            "mean": 6.377433158733626,
+            "p50": 6.684,
+            "p95": 9.264,
+            "p99": 14.973,
+            "maximum": 14.973
+          },
+          "enemy_peak": 37.0,
+          "projectile_peak": 128.0,
+          "draw_call_peak": 933.0,
+          "intervals_over_16_667_ms": 22,
+          "intervals_over_33_333_ms": 0
+        },
+        "boss": {
+          "frames": 2970,
+          "wall_seconds": 24.74853299999999,
+          "effective_callback_fps": 120.0071131488885,
+          "interval_ms": {
+            "count": 2970,
+            "mean": 8.332839393939391,
+            "p50": 8.411,
+            "p95": 11.484,
+            "p99": 12.517,
+            "maximum": 18.296
+          },
+          "process_ms": {
+            "count": 2970,
+            "mean": 4.636553535353636,
+            "p50": 4.317,
+            "p95": 7.011,
+            "p99": 7.078,
+            "maximum": 7.078
+          },
+          "physics_ms": {
+            "count": 2970,
+            "mean": 3.280183838383786,
+            "p50": 2.58,
+            "p95": 5.604,
+            "p99": 10.411,
+            "maximum": 10.411
+          },
+          "enemy_peak": 7.0,
+          "projectile_peak": 35.0,
+          "draw_call_peak": 659.0,
+          "intervals_over_16_667_ms": 1,
+          "intervals_over_33_333_ms": 0
+        },
+        "dense_at_least_12": {
+          "frames": 2281,
+          "wall_seconds": 19.00731899999995,
+          "effective_callback_fps": 120.00640384895976,
+          "interval_ms": {
+            "count": 2281,
+            "mean": 8.332888645330973,
+            "p50": 7.987,
+            "p95": 14.584,
+            "p99": 16.101,
+            "maximum": 18.321
+          },
+          "process_ms": {
+            "count": 2281,
+            "mean": 5.901870670758283,
+            "p50": 5.349,
+            "p95": 8.001,
+            "p99": 8.001,
+            "maximum": 8.001
+          },
+          "physics_ms": {
+            "count": 2281,
+            "mean": 7.350292415606994,
+            "p50": 7.344,
+            "p95": 9.264,
+            "p99": 14.973,
+            "maximum": 14.973
+          },
+          "enemy_peak": 37.0,
+          "projectile_peak": 55.0,
+          "draw_call_peak": 711.0,
+          "intervals_over_16_667_ms": 14,
+          "intervals_over_33_333_ms": 0
+        }
+      }
+    },
+    {
+      "width": "960",
+      "valid": true,
+      "report_sha256": "295398448e9c89a49a8b6a91d5325ce2a91f47f2b0fb0a658cb1dbb1d099740e",
+      "log_sha256": "c8edaf413ec477c86b3d999d97f7682b6d20375be44fe203673ae177183392ca",
+      "source_count": 22,
+      "longest_dense_seconds": 5.364257999999997,
+      "groups": {
+        "all": {
+          "frames": 6218,
+          "wall_seconds": 52.16439700000011,
+          "effective_callback_fps": 119.20007433422431,
+          "interval_ms": {
+            "count": 6218,
+            "mean": 8.38925651334836,
+            "p50": 8.553,
+            "p95": 14.881,
+            "p99": 16.334,
+            "maximum": 23.602
+          },
+          "process_ms": {
+            "count": 6218,
+            "mean": 6.368260533933946,
+            "p50": 6.85,
+            "p95": 9.906,
+            "p99": 13.628,
+            "maximum": 13.628
+          },
+          "physics_ms": {
+            "count": 6218,
+            "mean": 4.969725474429101,
+            "p50": 4.754,
+            "p95": 8.462,
+            "p99": 9.331,
+            "maximum": 9.331
+          },
+          "enemy_peak": 35.0,
+          "projectile_peak": 108.0,
+          "draw_call_peak": 714.0,
+          "intervals_over_16_667_ms": 41,
+          "intervals_over_33_333_ms": 0
+        },
+        "combat": {
+          "frames": 2851,
+          "wall_seconds": 24.110637999999984,
+          "effective_callback_fps": 118.24655987950223,
+          "interval_ms": {
+            "count": 2851,
+            "mean": 8.45690564714135,
+            "p50": 9.426,
+            "p95": 15.584,
+            "p99": 16.991,
+            "maximum": 23.602
+          },
+          "process_ms": {
+            "count": 2851,
+            "mean": 8.251381620484038,
+            "p50": 7.824,
+            "p95": 10.404,
+            "p99": 13.628,
+            "maximum": 13.628
+          },
+          "physics_ms": {
+            "count": 2851,
+            "mean": 6.84569484391451,
+            "p50": 6.689,
+            "p95": 9.155,
+            "p99": 9.331,
+            "maximum": 9.331
+          },
+          "enemy_peak": 35.0,
+          "projectile_peak": 108.0,
+          "draw_call_peak": 714.0,
+          "intervals_over_16_667_ms": 41,
+          "intervals_over_33_333_ms": 0
+        },
+        "boss": {
+          "frames": 3367,
+          "wall_seconds": 28.053759000000053,
+          "effective_callback_fps": 120.01956671831371,
+          "interval_ms": {
+            "count": 3367,
+            "mean": 8.331974754974771,
+            "p50": 8.278,
+            "p95": 11.472,
+            "p99": 13.056,
+            "maximum": 16.446
+          },
+          "process_ms": {
+            "count": 3367,
+            "mean": 4.773731808731729,
+            "p50": 4.07,
+            "p95": 8.301,
+            "p99": 8.819,
+            "maximum": 8.819
+          },
+          "physics_ms": {
+            "count": 3367,
+            "mean": 3.3812524502524712,
+            "p50": 3.385,
+            "p95": 5.835,
+            "p99": 6.545,
+            "maximum": 6.545
+          },
+          "enemy_peak": 9.0,
+          "projectile_peak": 41.0,
+          "draw_call_peak": 527.0,
+          "intervals_over_16_667_ms": 0,
+          "intervals_over_33_333_ms": 0
+        },
+        "dense_at_least_12": {
+          "frames": 1683,
+          "wall_seconds": 14.380858000000009,
+          "effective_callback_fps": 117.03056938605464,
+          "interval_ms": {
+            "count": 1683,
+            "mean": 8.544775995246589,
+            "p50": 10.678,
+            "p95": 15.698,
+            "p99": 17.085,
+            "maximum": 23.602
+          },
+          "process_ms": {
+            "count": 1683,
+            "mean": 8.507387997623367,
+            "p50": 7.824,
+            "p95": 13.628,
+            "p99": 13.628,
+            "maximum": 13.628
+          },
+          "physics_ms": {
+            "count": 1683,
+            "mean": 7.06480213903752,
+            "p50": 7.114,
+            "p95": 9.331,
+            "p99": 9.331,
+            "maximum": 9.331
+          },
+          "enemy_peak": 35.0,
+          "projectile_peak": 46.0,
+          "draw_call_peak": 714.0,
+          "intervals_over_16_667_ms": 27,
+          "intervals_over_33_333_ms": 0
+        }
+      }
+    },
+    {
+      "width": "1920",
+      "valid": true,
+      "report_sha256": "d7bf926274583f5ed402404491e4929bc3729621690803e2627f72f771b5fa66",
+      "log_sha256": "db48089c3f5711b7a106d4b3585dba04b5af483b443c085de9e916af24e2cb7c",
+      "source_count": 22,
+      "longest_dense_seconds": 8.61713800000001,
+      "groups": {
+        "all": {
+          "frames": 7201,
+          "wall_seconds": 60.00276199999998,
+          "effective_callback_fps": 120.01114215375623,
+          "interval_ms": {
+            "count": 7201,
+            "mean": 8.332559644493818,
+            "p50": 8.271,
+            "p95": 13.672,
+            "p99": 15.254,
+            "maximum": 18.59
+          },
+          "process_ms": {
+            "count": 7201,
+            "mean": 6.121056936536596,
+            "p50": 5.566,
+            "p95": 8.787,
+            "p99": 9.081,
+            "maximum": 9.081
+          },
+          "physics_ms": {
+            "count": 7201,
+            "mean": 4.588616858769693,
+            "p50": 4.745,
+            "p95": 7.257,
+            "p99": 8.398,
+            "maximum": 8.398
+          },
+          "enemy_peak": 37.0,
+          "projectile_peak": 105.0,
+          "draw_call_peak": 1208.0,
+          "intervals_over_16_667_ms": 15,
+          "intervals_over_33_333_ms": 0
+        },
+        "combat": {
+          "frames": 4019,
+          "wall_seconds": 33.48775299999996,
+          "effective_callback_fps": 120.0140242314856,
+          "interval_ms": {
+            "count": 4019,
+            "mean": 8.332359542174661,
+            "p50": 8.087,
+            "p95": 14.278,
+            "p99": 15.815,
+            "maximum": 18.59
+          },
+          "process_ms": {
+            "count": 4019,
+            "mean": 7.096913411296337,
+            "p50": 7.432,
+            "p95": 8.953,
+            "p99": 9.081,
+            "maximum": 9.081
+          },
+          "physics_ms": {
+            "count": 4019,
+            "mean": 6.024880567305266,
+            "p50": 6.174,
+            "p95": 8.332,
+            "p99": 8.398,
+            "maximum": 8.398
+          },
+          "enemy_peak": 37.0,
+          "projectile_peak": 105.0,
+          "draw_call_peak": 1208.0,
+          "intervals_over_16_667_ms": 15,
+          "intervals_over_33_333_ms": 0
+        },
+        "boss": {
+          "frames": 3182,
+          "wall_seconds": 26.51500900000003,
+          "effective_callback_fps": 120.00750216603721,
+          "interval_ms": {
+            "count": 3182,
+            "mean": 8.332812382149601,
+            "p50": 8.296,
+            "p95": 11.417,
+            "p99": 12.491,
+            "maximum": 15.48
+          },
+          "process_ms": {
+            "count": 3182,
+            "mean": 4.888509113765029,
+            "p50": 4.828,
+            "p95": 5.599,
+            "p99": 8.142,
+            "maximum": 8.142
+          },
+          "physics_ms": {
+            "count": 3182,
+            "mean": 2.774555311125117,
+            "p50": 2.305,
+            "p95": 4.779,
+            "p99": 5.557,
+            "maximum": 5.557
+          },
+          "enemy_peak": 8.0,
+          "projectile_peak": 27.0,
+          "draw_call_peak": 907.0,
+          "intervals_over_16_667_ms": 0,
+          "intervals_over_33_333_ms": 0
+        },
+        "dense_at_least_12": {
+          "frames": 2389,
+          "wall_seconds": 19.905625999999952,
+          "effective_callback_fps": 120.01632101396889,
+          "interval_ms": {
+            "count": 2389,
+            "mean": 8.332200083717018,
+            "p50": 8.028,
+            "p95": 14.391,
+            "p99": 15.915,
+            "maximum": 18.216
+          },
+          "process_ms": {
+            "count": 2389,
+            "mean": 7.007312264545736,
+            "p50": 7.17,
+            "p95": 8.953,
+            "p99": 8.953,
+            "maximum": 8.953
+          },
+          "physics_ms": {
+            "count": 2389,
+            "mean": 6.327025533696044,
+            "p50": 6.627,
+            "p95": 8.398,
+            "p99": 8.398,
+            "maximum": 8.398
+          },
+          "enemy_peak": 37.0,
+          "projectile_peak": 69.0,
+          "draw_call_peak": 1002.0,
+          "intervals_over_16_667_ms": 9,
+          "intervals_over_33_333_ms": 0
+        }
+      }
+    }
+  ],
+  "full_freeze_count": 1839,
+  "full_freeze_sha256": "1cfba556430cf06d71f2339b9e810369325cce60e1516d2193b85b86ecefabdd",
+  "full_freeze_drift": 0,
+  "scope": "Independent PowerShell recomputation of all raw native frame callbacks and telemetry, retaining slow frames; three ordinary first-chapter risk runs. Not OS presented-frame or all-six-chapter/minimum-hardware guarantees."
+}

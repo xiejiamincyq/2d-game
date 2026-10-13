@@ -1,0 +1,7 @@
+{
+  "export_actual_exit": 0,
+  "main_actual_exit": 0,
+  "exe_sha256": "b5972ed3389906d857e60315308e18d3474bab4eeaa3a32a00bf637643cfc4d0",
+  "pck_sha256": "fadb72a55170976544c1ed3b2887eb3be6c266043cc59e04ac8e7453375838c7",
+  "scope": "Actual release export and headless Main120, same verified PCK; not OS input or human playtest"
+}

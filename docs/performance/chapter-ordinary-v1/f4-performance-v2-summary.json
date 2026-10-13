@@ -1,0 +1,614 @@
+[
+  {
+    "id": "f4_performance_risk_1280_v2",
+    "actual_exit": 0,
+    "assertions": 11254,
+    "source_count": 1694,
+    "report_sha256": "93a0356f428ea8b96c90374402a02fbacaf9a5337b56d2010117888f2727d8f7",
+    "log_sha256": "ed47f1fa0283ee07c4e19ad0bc3fe0db8f547e879f3ecc0bf62697415245b779",
+    "moves": 4866,
+    "shots": 1378,
+    "map_seed": 189217499,
+    "final_sample": {
+      "image_readback": false,
+      "kills": 99,
+      "label": "CLEARED",
+      "physics_frame": 4966,
+      "shots": 1378,
+      "state": 9,
+      "step": 4940
+    },
+    "performance": {
+      "adapter": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "all": {
+        "draw_call_peak": 806,
+        "effective_callback_fps": 120.010337484045,
+        "enemy_peak": 34,
+        "frames": 7709,
+        "interval_ms": {
+          "count": 7709,
+          "maximum": 17.088,
+          "mean": 8.33261551433391,
+          "p50": 8.364,
+          "p95": 12.713,
+          "p99": 14.186
+        },
+        "intervals_over_16_667_ms": 3,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 7709,
+          "maximum": 9.291,
+          "mean": 4.53032857698791,
+          "p50": 4.619,
+          "p95": 6.804,
+          "p99": 9.291
+        },
+        "process_ms": {
+          "count": 7709,
+          "maximum": 5.926,
+          "mean": 3.88940926190166,
+          "p50": 3.794,
+          "p95": 5.208,
+          "p99": 5.926
+        },
+        "projectile_peak": 126,
+        "wall_seconds": 64.2361330000001
+      },
+      "audio_driver": "WASAPI",
+      "boss": {
+        "draw_call_peak": 347,
+        "effective_callback_fps": 120.011686098811,
+        "enemy_peak": 9,
+        "frames": 3451,
+        "interval_ms": {
+          "count": 3451,
+          "maximum": 14.544,
+          "mean": 8.33252187771659,
+          "p50": 8.362,
+          "p95": 11.001,
+          "p99": 12.246
+        },
+        "intervals_over_16_667_ms": 0,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 3451,
+          "maximum": 5.568,
+          "mean": 3.44804346566213,
+          "p50": 3.268,
+          "p95": 5.23,
+          "p99": 5.568
+        },
+        "process_ms": {
+          "count": 3451,
+          "maximum": 4.671,
+          "mean": 3.45196001159081,
+          "p50": 3.426,
+          "p95": 4.397,
+          "p99": 4.671
+        },
+        "projectile_peak": 32,
+        "wall_seconds": 28.755533
+      },
+      "combat": {
+        "draw_call_peak": 806,
+        "effective_callback_fps": 120.009244488537,
+        "enemy_peak": 34,
+        "frames": 4258,
+        "interval_ms": {
+          "count": 4258,
+          "maximum": 17.088,
+          "mean": 8.33269140441523,
+          "p50": 8.377,
+          "p95": 13.241,
+          "p99": 14.623
+        },
+        "intervals_over_16_667_ms": 3,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 4258,
+          "maximum": 9.291,
+          "mean": 5.40749295443858,
+          "p50": 5.309,
+          "p95": 7.103,
+          "p99": 9.291
+        },
+        "process_ms": {
+          "count": 4258,
+          "maximum": 5.926,
+          "mean": 4.24395068107097,
+          "p50": 4.161,
+          "p95": 5.407,
+          "p99": 5.926
+        },
+        "projectile_peak": 126,
+        "wall_seconds": 35.4806
+      },
+      "cpu_monitor_scope": "Godot Performance telemetry, not independent per-frame profiling; monitors may update less frequently than callbacks. Repeated values are retained, never interpreted as precise per-frame CPU cost attribution.",
+      "dense_at_least_12": {
+        "draw_call_peak": 806,
+        "effective_callback_fps": 120.013404731265,
+        "enemy_peak": 34,
+        "frames": 2350,
+        "interval_ms": {
+          "count": 2350,
+          "maximum": 17.088,
+          "mean": 8.33240255319152,
+          "p50": 7.173,
+          "p95": 13.635,
+          "p99": 15.185
+        },
+        "intervals_over_16_667_ms": 3,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 2350,
+          "maximum": 9.291,
+          "mean": 5.74465106382977,
+          "p50": 5.784,
+          "p95": 7.103,
+          "p99": 9.291
+        },
+        "process_ms": {
+          "count": 2350,
+          "maximum": 5.926,
+          "mean": 4.38750936170197,
+          "p50": 4.208,
+          "p95": 5.407,
+          "p99": 5.926
+        },
+        "projectile_peak": 107,
+        "wall_seconds": 19.5811460000001
+      },
+      "dense_coverage_available": true,
+      "driver": "opengl3",
+      "engine": {
+        "build": "official",
+        "hash": "5b4e0cb0fd279832bbdd69fed5354d4e5ad26f88",
+        "hex": 263936,
+        "major": 4,
+        "minor": 7,
+        "patch": 0,
+        "status": "stable",
+        "string": "4.7-stable (official)",
+        "timestamp": 0
+      },
+      "longest_contiguous_dense_seconds": 8.471314,
+      "overflow": false,
+      "sampling_image_readbacks": 0,
+      "schema": 1,
+      "scope": "Actual first-chapter ordinary risk/supply combat and real Boss; no actor stat/damage/reward/spawn writes or frozen actors. Wall intervals are native frame_post_draw callbacks including diagnostic input/clearance overhead, not OS presented-frame or minimum-hardware guarantees. CPU process/physics telemetry is separate from frame intervals. Audio nodes enabled; actual audio driver recorded. Two-second phase warmups, no outlier filtering or capture readbacks. Dense coverage excludes the first interval of each dense streak, is explicit, not assumed. Source-bound original build driver and isolated saves; no screenshots or native pose/health observations in this run.",
+      "user_save_hashes_after": {
+        "user://five_minute_overdrive_campaign_v1.json": "absent",
+        "user://five_minute_overdrive_run_v1.json": "absent"
+      },
+      "user_save_hashes_before": {
+        "user://five_minute_overdrive_campaign_v1.json": "absent",
+        "user://five_minute_overdrive_run_v1.json": "absent"
+      },
+      "user_saves_preserved": true,
+      "viewport": [
+        1280,
+        720
+      ],
+      "warmup_frames": 957,
+      "warmup_seconds_per_phase": 2
+    },
+    "native_player": {
+      "reason": "performance-only run; no native pose or screenshot observations",
+      "sampled": false
+    },
+    "health_events": {
+      "reason": "performance-only run; no health-event observer",
+      "sampled": false
+    },
+    "user_saves_preserved": true,
+    "independent_audit": "Current source SHA equality, nearest-rank interval quantiles, duration sums, dense continuous window verified from full raw rows"
+  },
+  {
+    "id": "f4_performance_risk_960_v2",
+    "actual_exit": 0,
+    "assertions": 9920,
+    "source_count": 1694,
+    "report_sha256": "a047a76126c583c6cb5fe29260a95706caf99892a210c35e2e00da96d8a73769",
+    "log_sha256": "ba53b2da196ce0f1d3b26b608979f87de40d40db3674efefe569ab5b7b67b9be",
+    "moves": 4262,
+    "shots": 1245,
+    "map_seed": 189217499,
+    "final_sample": {
+      "image_readback": false,
+      "kills": 99,
+      "label": "CLEARED",
+      "physics_frame": 4366,
+      "shots": 1245,
+      "state": 9,
+      "step": 4339
+    },
+    "performance": {
+      "adapter": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "all": {
+        "draw_call_peak": 618,
+        "effective_callback_fps": 120.012078706445,
+        "enemy_peak": 35,
+        "frames": 6504,
+        "interval_ms": {
+          "count": 6504,
+          "maximum": 17.425,
+          "mean": 8.3324946186962,
+          "p50": 8.321,
+          "p95": 12.665,
+          "p99": 14.177
+        },
+        "intervals_over_16_667_ms": 2,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 6504,
+          "maximum": 7.332,
+          "mean": 4.43105796432958,
+          "p50": 4.054,
+          "p95": 7.084,
+          "p99": 7.332
+        },
+        "process_ms": {
+          "count": 6504,
+          "maximum": 5.333,
+          "mean": 3.65396463714643,
+          "p50": 3.631,
+          "p95": 4.625,
+          "p99": 4.927
+        },
+        "projectile_peak": 105,
+        "wall_seconds": 54.1945450000001
+      },
+      "audio_driver": "WASAPI",
+      "boss": {
+        "draw_call_peak": 511,
+        "effective_callback_fps": 120.009505602468,
+        "enemy_peak": 8,
+        "frames": 2825,
+        "interval_ms": {
+          "count": 2825,
+          "maximum": 15.262,
+          "mean": 8.33267327433629,
+          "p50": 8.344,
+          "p95": 10.983,
+          "p99": 11.852
+        },
+        "intervals_over_16_667_ms": 0,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 2825,
+          "maximum": 6.724,
+          "mean": 3.1241713274336,
+          "p50": 3.095,
+          "p95": 4.659,
+          "p99": 6.724
+        },
+        "process_ms": {
+          "count": 2825,
+          "maximum": 4.375,
+          "mean": 3.43144460176994,
+          "p50": 3.352,
+          "p95": 4.282,
+          "p99": 4.375
+        },
+        "projectile_peak": 45,
+        "wall_seconds": 23.539802
+      },
+      "combat": {
+        "draw_call_peak": 618,
+        "effective_callback_fps": 120.014054595075,
+        "enemy_peak": 35,
+        "frames": 3679,
+        "interval_ms": {
+          "count": 3679,
+          "maximum": 17.425,
+          "mean": 8.33235743408535,
+          "p50": 8.26,
+          "p95": 13.214,
+          "p99": 14.591
+        },
+        "intervals_over_16_667_ms": 2,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 3679,
+          "maximum": 7.332,
+          "mean": 5.43457923348728,
+          "p50": 5.426,
+          "p95": 7.141,
+          "p99": 7.332
+        },
+        "process_ms": {
+          "count": 3679,
+          "maximum": 5.333,
+          "mean": 3.82483147594459,
+          "p50": 3.779,
+          "p95": 4.903,
+          "p99": 4.927
+        },
+        "projectile_peak": 105,
+        "wall_seconds": 30.654743
+      },
+      "cpu_monitor_scope": "Godot Performance telemetry, not independent per-frame profiling; monitors may update less frequently than callbacks. Repeated values are retained, never interpreted as precise per-frame CPU cost attribution.",
+      "dense_at_least_12": {
+        "draw_call_peak": 527,
+        "effective_callback_fps": 120.013164110623,
+        "enemy_peak": 35,
+        "frames": 2025,
+        "interval_ms": {
+          "count": 2025,
+          "maximum": 17.425,
+          "mean": 8.33241925925926,
+          "p50": 7.981,
+          "p95": 13.695,
+          "p99": 15.41
+        },
+        "intervals_over_16_667_ms": 2,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 2025,
+          "maximum": 7.332,
+          "mean": 6.11937086419756,
+          "p50": 6.591,
+          "p95": 7.332,
+          "p99": 7.332
+        },
+        "process_ms": {
+          "count": 2025,
+          "maximum": 4.927,
+          "mean": 4.0557802469136,
+          "p50": 4.152,
+          "p95": 4.927,
+          "p99": 4.927
+        },
+        "projectile_peak": 63,
+        "wall_seconds": 16.873149
+      },
+      "dense_coverage_available": true,
+      "driver": "opengl3",
+      "engine": {
+        "build": "official",
+        "hash": "5b4e0cb0fd279832bbdd69fed5354d4e5ad26f88",
+        "hex": 263936,
+        "major": 4,
+        "minor": 7,
+        "patch": 0,
+        "status": "stable",
+        "string": "4.7-stable (official)",
+        "timestamp": 0
+      },
+      "longest_contiguous_dense_seconds": 8.08843,
+      "overflow": false,
+      "sampling_image_readbacks": 0,
+      "schema": 1,
+      "scope": "Actual first-chapter ordinary risk/supply combat and real Boss; no actor stat/damage/reward/spawn writes or frozen actors. Wall intervals are native frame_post_draw callbacks including diagnostic input/clearance overhead, not OS presented-frame or minimum-hardware guarantees. CPU process/physics telemetry is separate from frame intervals. Audio nodes enabled; actual audio driver recorded. Two-second phase warmups, no outlier filtering or capture readbacks. Dense coverage excludes the first interval of each dense streak, is explicit, not assumed. Source-bound original build driver and isolated saves; no screenshots or native pose/health observations in this run.",
+      "user_save_hashes_after": {
+        "user://five_minute_overdrive_campaign_v1.json": "absent",
+        "user://five_minute_overdrive_run_v1.json": "absent"
+      },
+      "user_save_hashes_before": {
+        "user://five_minute_overdrive_campaign_v1.json": "absent",
+        "user://five_minute_overdrive_run_v1.json": "absent"
+      },
+      "user_saves_preserved": true,
+      "viewport": [
+        960,
+        540
+      ],
+      "warmup_frames": 958,
+      "warmup_seconds_per_phase": 2
+    },
+    "native_player": {
+      "reason": "performance-only run; no native pose or screenshot observations",
+      "sampled": false
+    },
+    "health_events": {
+      "reason": "performance-only run; no health-event observer",
+      "sampled": false
+    },
+    "user_saves_preserved": true,
+    "independent_audit": "Current source SHA equality, nearest-rank interval quantiles, duration sums, dense continuous window verified from full raw rows"
+  },
+  {
+    "id": "f4_performance_risk_1920_v2",
+    "actual_exit": 0,
+    "assertions": 11272,
+    "source_count": 1694,
+    "report_sha256": "eead148c173ffb658ad3ce9c280bda40c75a290de2e86f3a2230dff94ea7500a",
+    "log_sha256": "a1a5f81803748363abd68bb1e8c1126d17a40e7f0e63c520d14f1c2bbd2129de",
+    "moves": 4873,
+    "shots": 1380,
+    "map_seed": 189217499,
+    "final_sample": {
+      "image_readback": false,
+      "kills": 99,
+      "label": "CLEARED",
+      "physics_frame": 4974,
+      "shots": 1380,
+      "state": 9,
+      "step": 4948
+    },
+    "performance": {
+      "adapter": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "all": {
+        "draw_call_peak": 1076,
+        "effective_callback_fps": 120.008375872762,
+        "enemy_peak": 33,
+        "frames": 7721,
+        "interval_ms": {
+          "count": 7721,
+          "maximum": 17.627,
+          "mean": 8.33275171609894,
+          "p50": 8.399,
+          "p95": 12.565,
+          "p99": 14.196
+        },
+        "intervals_over_16_667_ms": 4,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 7721,
+          "maximum": 7.635,
+          "mean": 4.10803833700297,
+          "p50": 3.944,
+          "p95": 6.54,
+          "p99": 7.635
+        },
+        "process_ms": {
+          "count": 7721,
+          "maximum": 6.277,
+          "mean": 4.58954966973212,
+          "p50": 4.485,
+          "p95": 5.912,
+          "p99": 6.277
+        },
+        "projectile_peak": 128,
+        "wall_seconds": 64.3371759999999
+      },
+      "audio_driver": "WASAPI",
+      "boss": {
+        "draw_call_peak": 803,
+        "effective_callback_fps": 120.001848642551,
+        "enemy_peak": 9,
+        "frames": 3752,
+        "interval_ms": {
+          "count": 3752,
+          "maximum": 15.299,
+          "mean": 8.33320495735607,
+          "p50": 8.396,
+          "p95": 11.164,
+          "p99": 12.122
+        },
+        "intervals_over_16_667_ms": 0,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 3752,
+          "maximum": 5.642,
+          "mean": 3.10912100213217,
+          "p50": 3.132,
+          "p95": 4.873,
+          "p99": 5.642
+        },
+        "process_ms": {
+          "count": 3752,
+          "maximum": 5.104,
+          "mean": 4.26492137526658,
+          "p50": 4.203,
+          "p95": 4.825,
+          "p99": 5.104
+        },
+        "projectile_peak": 33,
+        "wall_seconds": 31.266185
+      },
+      "combat": {
+        "draw_call_peak": 1076,
+        "effective_callback_fps": 120.014546887936,
+        "enemy_peak": 33,
+        "frames": 3969,
+        "interval_ms": {
+          "count": 3969,
+          "maximum": 17.627,
+          "mean": 8.33232325522802,
+          "p50": 8.41,
+          "p95": 13.282,
+          "p99": 14.749
+        },
+        "intervals_over_16_667_ms": 4,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 3969,
+          "maximum": 7.635,
+          "mean": 5.05234114386491,
+          "p50": 4.821,
+          "p95": 6.942,
+          "p99": 7.635
+        },
+        "process_ms": {
+          "count": 3969,
+          "maximum": 6.277,
+          "mean": 4.89642932728644,
+          "p50": 4.792,
+          "p95": 6.034,
+          "p99": 6.277
+        },
+        "projectile_peak": 128,
+        "wall_seconds": 33.070991
+      },
+      "cpu_monitor_scope": "Godot Performance telemetry, not independent per-frame profiling; monitors may update less frequently than callbacks. Repeated values are retained, never interpreted as precise per-frame CPU cost attribution.",
+      "dense_at_least_12": {
+        "draw_call_peak": 1076,
+        "effective_callback_fps": 120.014338523199,
+        "enemy_peak": 33,
+        "frames": 1975,
+        "interval_ms": {
+          "count": 1975,
+          "maximum": 17.627,
+          "mean": 8.33233772151898,
+          "p50": 7.697,
+          "p95": 13.888,
+          "p99": 15.701
+        },
+        "intervals_over_16_667_ms": 4,
+        "intervals_over_33_333_ms": 0,
+        "physics_ms": {
+          "count": 1975,
+          "maximum": 7.635,
+          "mean": 5.7277225316455,
+          "p50": 5.972,
+          "p95": 7.635,
+          "p99": 7.635
+        },
+        "process_ms": {
+          "count": 1975,
+          "maximum": 6.277,
+          "mean": 5.26063443037972,
+          "p50": 5.204,
+          "p95": 6.277,
+          "p99": 6.277
+        },
+        "projectile_peak": 128,
+        "wall_seconds": 16.456367
+      },
+      "dense_coverage_available": true,
+      "driver": "opengl3",
+      "engine": {
+        "build": "official",
+        "hash": "5b4e0cb0fd279832bbdd69fed5354d4e5ad26f88",
+        "hex": 263936,
+        "major": 4,
+        "minor": 7,
+        "patch": 0,
+        "status": "stable",
+        "string": "4.7-stable (official)",
+        "timestamp": 0
+      },
+      "longest_contiguous_dense_seconds": 7.47192,
+      "overflow": false,
+      "sampling_image_readbacks": 0,
+      "schema": 1,
+      "scope": "Actual first-chapter ordinary risk/supply combat and real Boss; no actor stat/damage/reward/spawn writes or frozen actors. Wall intervals are native frame_post_draw callbacks including diagnostic input/clearance overhead, not OS presented-frame or minimum-hardware guarantees. CPU process/physics telemetry is separate from frame intervals. Audio nodes enabled; actual audio driver recorded. Two-second phase warmups, no outlier filtering or capture readbacks. Dense coverage excludes the first interval of each dense streak, is explicit, not assumed. Source-bound original build driver and isolated saves; no screenshots or native pose/health observations in this run.",
+      "user_save_hashes_after": {
+        "user://five_minute_overdrive_campaign_v1.json": "absent",
+        "user://five_minute_overdrive_run_v1.json": "absent"
+      },
+      "user_save_hashes_before": {
+        "user://five_minute_overdrive_campaign_v1.json": "absent",
+        "user://five_minute_overdrive_run_v1.json": "absent"
+      },
+      "user_saves_preserved": true,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "warmup_frames": 958,
+      "warmup_seconds_per_phase": 2
+    },
+    "native_player": {
+      "reason": "performance-only run; no native pose or screenshot observations",
+      "sampled": false
+    },
+    "health_events": {
+      "reason": "performance-only run; no health-event observer",
+      "sampled": false
+    },
+    "user_saves_preserved": true,
+    "independent_audit": "Current source SHA equality, nearest-rank interval quantiles, duration sums, dense continuous window verified from full raw rows"
+  }
+]

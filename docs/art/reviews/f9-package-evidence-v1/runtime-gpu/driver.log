@@ -1,0 +1,12 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.91 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060 Laptop GPU
+
+Movie Maker mode enabled, recording movie in 1280×720 @ 60 FPS...
+NATIVE PLAYER RUNTIME PACK PASS: 12 checks; actual Main/first chapter, native Player, natural entrance/movement/fire and Back
+--------------------------------------------------------------------------------
+Done recording movie at path: C:\Users\21604\Documents\2D game\.worktrees\5分钟超载\build\diagnostics\campaign-goal\f9-final-native-pack-v1\runtime-gpu-v1\frame.png
+126 frames at 60 FPS (movie length: 00:00:02:06), recorded in 00:00:04 (50% of real-time speed).
+CPU render time: 0.09 seconds (average: 0.70 ms/frame)
+GPU render time: 0.08 seconds (average: 0.63 ms/frame)
+Encoding time: 2.16 seconds (average: 17.12 ms/frame)
+--------------------------------------------------------------------------------

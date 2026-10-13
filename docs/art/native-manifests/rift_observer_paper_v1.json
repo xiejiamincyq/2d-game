@@ -1,0 +1,10 @@
+{
+  "asset_id": "rift_observer_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/rift_observer_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/rift_observer_motion_v1.tres",
+  "role": "boss",
+  "review_state": "style-approved",
+  "bone_count": 30,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "hit", "entrance", "death"]
+}

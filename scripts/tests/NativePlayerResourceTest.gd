@@ -15,7 +15,8 @@ func _initialize() -> void:
 	call_deferred("_run")
 
 func _run() -> void:
-	check(FileAccess.file_exists(SCENE), "four-facing editable new player absent")
+	# Export remaps text scenes to packed resources; test the loader, not disk text.
+	check(ResourceLoader.exists(SCENE), "four-facing editable new player absent")
 	if failures:
 		quit(1)
 		return

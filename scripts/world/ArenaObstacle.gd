@@ -1,20 +1,14 @@
 extends StaticBody2D
 class_name ArenaObstacle
 
-const PROP_ATLAS = preload("res://assets/art/environment/mint_farm_props_b_packed_v1.png")
-const PROP_REGIONS := {
-	&"planter": Rect2(8, 8, 511, 277),
-	&"greenhouse": Rect2(552, 8, 487, 426),
-	&"tank": Rect2(8, 552, 431, 463),
-	&"pipe": Rect2(552, 552, 523, 305),
-}
-const ALPHA_SHADER = preload("res://assets/art/environment/prop_alpha.gdshader")
+const PropArt = preload("res://scripts/world/ArenaPaperPropArt.gd")
 const TerrainSweep = preload("res://scripts/world/TerrainSweep.gd")
 
 var obstacle_size := Vector2(160.0, 100.0)
 var obstacle_kind: StringName = &"planter"
 var occlusion_rect := Rect2()
 var plinth_style: StyleBoxFlat
+var art: Node2D
 
 func update_player_occlusion(player_position: Vector2, active: bool, delta: float) -> void:
 	# Only fade a foreground obstacle overlapping the player's 84px visual,
@@ -23,7 +17,7 @@ func update_player_occlusion(player_position: Vector2, active: bool, delta: floa
 	var player_rect := Rect2(local_player - Vector2(42, 42), Vector2(84, 84))
 	var in_front := local_player.y < 0.0
 	var covers_player := active and in_front and occlusion_rect.intersects(player_rect)
-	modulate.a = move_toward(modulate.a, 0.32 if covers_player else 1.0, maxf(delta, 0.0) * 5.0)
+	art.modulate.a = move_toward(art.modulate.a, 0.32 if covers_player else 1.0, maxf(delta, 0.0) * 5.0)
 
 func setup(rect: Rect2, kind: StringName) -> void:
 	name = "ArenaObstacle_%s" % kind
@@ -42,27 +36,15 @@ func setup(rect: Rect2, kind: StringName) -> void:
 	collision.position.y = -obstacle_size.y * 0.5
 	add_child(collision)
 
-	var atlas := AtlasTexture.new()
-	atlas.atlas = PROP_ATLAS
-	atlas.region = PROP_REGIONS.get(kind, PROP_REGIONS[&"planter"])
-	atlas.filter_clip = true
-	var art := Sprite2D.new()
+	art = PropArt.new()
 	art.name = "Art"
-	art.texture = atlas
-	art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-	art.scale = Vector2.ONE * (obstacle_size.x / atlas.region.size.x)
-	art.position.y = -atlas.region.size.y * art.scale.y * 0.5
-	var art_size := atlas.region.size * art.scale
-	var height := maxf(obstacle_size.y, art_size.y)
-	occlusion_rect = Rect2(Vector2(-obstacle_size.x * 0.5, -height), Vector2(obstacle_size.x, height))
-	var alpha_material := ShaderMaterial.new()
-	alpha_material.shader = ALPHA_SHADER
-	art.material = alpha_material
+	art.configure(obstacle_size,kind)
+	occlusion_rect = art.get_visual_rect()
 	add_child(art)
 	plinth_style = StyleBoxFlat.new()
-	plinth_style.bg_color = Color("756c50") if kind == &"planter" else Color("c5cebb")
-	plinth_style.border_color = Color("d8d7bc")
-	plinth_style.set_border_width_all(5)
+	plinth_style.bg_color = Color("6b684b") if kind == &"planter" else Color("8d987d")
+	plinth_style.border_color = Color("142520")
+	plinth_style.set_border_width_all(3)
 	plinth_style.set_corner_radius_all(5)
 	plinth_style.anti_aliasing = true
 	queue_redraw()

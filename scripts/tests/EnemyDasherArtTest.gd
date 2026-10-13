@@ -2,7 +2,7 @@ extends SceneTree
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 
-const DASHER_PATH := "res://scenes/actors/native/cinder_runner_paper_v1.tscn"
+const DASHER_PATH := "res://scenes/actors/native/cinder_runner_paper_v2.tscn"
 const EXPECTED_RUNTIME_SCALE := Vector2.ONE
 const EXPECTED_OVERDRIVE_DASHER_SPEED := 235.0 * 1.10
 
@@ -55,7 +55,10 @@ func _initialize() -> void:
 	if not _assert_true(visual.get_node("Facing").scale.x == -1, "Dasher did not mirror toward left target"):
 		return
 
-	var collision_shape := enemy.get_child(enemy.get_child_count() - 1) as CollisionShape2D
+	var collision_shapes := enemy.find_children("*","CollisionShape2D",false,false)
+	if not _assert_true(collision_shapes.size()==1 and collision_shapes[0].shape is CircleShape2D,"Dasher must retain one physical circle, regardless of status-child order"):
+		return
+	var collision_shape := collision_shapes[0] as CollisionShape2D
 	var radius_before: float = (collision_shape.shape as CircleShape2D).radius
 	var leg: Bone2D = visual.skeleton.get_node("Torso/LegL/ShinL")
 	var leg_before: Transform2D = leg.transform

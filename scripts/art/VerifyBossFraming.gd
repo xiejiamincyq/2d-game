@@ -74,7 +74,7 @@ func _initialize() -> void:
 			for control in [scene.ui.hud.grid, scene.ui.boss_health_bar, scene.ui.combo_panel, scene.ui.hud.overdrive_panel, scene.ui.hud.collection_panel, scene.ui.toast_panel]:
 				if control.is_visible_in_tree():
 					blockers.append({"name": control.name, "rect": _rect_array(_control_screen_rect(control))})
-			measurements.append({"file": name, "sha256": FileAccess.get_sha256(path), "viewport": [viewport_size.x, viewport_size.y], "player_world": [scene.player.global_position.x, scene.player.global_position.y], "boss_world": [boss.global_position.x, boss.global_position.y], "player_rect": _rect_array(_player_screen_rect()), "boss_rect": _rect_array(_sprite_screen_rect(boss.boss_visual)), "zoom": camera.zoom.x, "ui": blockers})
+			measurements.append({"file": name, "sha256": FileAccess.get_sha256(path), "viewport": [viewport_size.x, viewport_size.y], "player_world": [scene.player.global_position.x, scene.player.global_position.y], "boss_world": [boss.global_position.x, boss.global_position.y], "player_rect": _rect_array(_player_screen_rect()), "boss_rect": _rect_array(_project_rect(boss.get_visual_node().get_global_transform_with_canvas(),boss.get_visual_rect())), "zoom": camera.zoom.x, "ui": blockers})
 	await _capture_dynamic(output)
 	if failed:
 		_cleanup()
@@ -82,7 +82,7 @@ func _initialize() -> void:
 		quit(1)
 		return
 	var sources: Dictionary = {}
-	for path in ["scripts/Main.gd", "scripts/ui/GameUI.gd", "scripts/art/VerifyBossFraming.gd", "scripts/tests/BossCameraFramingTest.gd", "scripts/systems/BossCameraFraming.gd", "scripts/systems/CombatView.gd", "scripts/ui/BossDirectionIndicator.gd", "scripts/actors/Player.gd", "scripts/actors/OverseerBoss.gd", "scripts/ui/HUD.gd", "scripts/ui/BossHealthBar.gd", "scripts/effects/CameraEffects.gd", "themes/MintFarmTheme.tres", "scenes/ui/HUD.tscn", "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png", "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png", "assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png", "scripts/world/FloorGrid.gd", "scripts/world/ArenaObstacle.gd", "assets/art/environment/mint_farm_floor_b_v1.png", "assets/art/environment/mint_farm_props_b_packed_v1.png", "assets/art/environment/floor_surface.gdshader", "assets/art/environment/prop_alpha.gdshader"]:
+	for path in ["scripts/Main.gd", "scripts/ui/GameUI.gd", "scripts/art/VerifyBossFraming.gd", "scripts/tests/BossCameraFramingTest.gd", "scripts/systems/BossCameraFraming.gd", "scripts/systems/CombatView.gd", "scripts/ui/BossDirectionIndicator.gd", "scripts/actors/Player.gd", "scripts/actors/OverseerBoss.gd", "scripts/components/NativeBossMotion.gd", "scripts/components/NativeActorView.gd", "scripts/components/NativeScrapperMotion.gd", "scenes/actors/native/root_commander_paper_v1.tscn", "assets/art/actors/native/root_commander_motion_v1.tres", "assets/art/shaders/dasher_hit_flash.gdshader", "scripts/ui/HUD.gd", "scripts/ui/BossHealthBar.gd", "scripts/effects/CameraEffects.gd", "themes/MintFarmTheme.tres", "scenes/ui/HUD.tscn", "assets/art/actors/player/player_chibi_b_cardinal_atlas_v1.png", "assets/art/actors/player/player_chibi_b_weapon_cardinal_atlas_v1.png", "assets/art/actors/enemies/enemy_overseer_chibi_b_v1.png", "scripts/world/FloorGrid.gd", "scripts/world/ArenaObstacle.gd", "assets/art/environment/mint_farm_floor_b_v1.png", "assets/art/environment/mint_farm_props_b_packed_v1.png", "assets/art/environment/floor_surface.gdshader", "assets/art/environment/prop_alpha.gdshader"]:
 		if FileAccess.file_exists("res://" + path):
 			sources[path] = FileAccess.get_sha256("res://" + path)
 	var manifest := FileAccess.open(output + "/manifest.json", FileAccess.WRITE)
@@ -118,7 +118,7 @@ func _capture_dynamic(output: String) -> void:
 			failed = true
 			push_error("Dynamic screenshot failed: " + path)
 			return
-		frames.append({"frame": frame, "sha256": FileAccess.get_sha256(path), "zoom": camera.zoom.x, "player_rect": _rect_array(_player_screen_rect()), "boss_rect": _rect_array(_sprite_screen_rect(boss.boss_visual)), "both_fit": rig.both_fit, "cue_visible": scene.ui.boss_direction_indicator.visible})
+		frames.append({"frame": frame, "sha256": FileAccess.get_sha256(path), "zoom": camera.zoom.x, "player_rect": _rect_array(_player_screen_rect()), "boss_rect": _rect_array(_project_rect(boss.get_visual_node().get_global_transform_with_canvas(),boss.get_visual_rect())), "both_fit": rig.both_fit, "cue_visible": scene.ui.boss_direction_indicator.visible})
 	var record := FileAccess.open(output + "/dynamic.json", FileAccess.WRITE)
 	record.store_string(JSON.stringify({"scope": "240 consecutive controlled component frames, 1/60 solver delta, frozen physics; not natural play or realtime performance", "frames": frames}, "\t"))
 	record.close()

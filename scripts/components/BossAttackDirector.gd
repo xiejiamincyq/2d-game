@@ -63,8 +63,12 @@ func advance(delta: float) -> void:
 		and boss.global_position.distance_to(target_player.global_position) <= MELEE_ZONE_MAX
 	):
 		pattern.cancel(false)
+		if state == State.DEATH:
+			return
 		attack_gap = maxf(attack_gap, ATTACK_RECOVERY_SECONDS)
 	pattern.advance(delta)
+	if state == State.DEATH:
+		return
 	var attack_is_active: bool = pattern.is_pattern_active() or tentacle_attack.is_attacking()
 	if waiting_for_attack_completion and not attack_is_active:
 		waiting_for_attack_completion = false
@@ -125,17 +129,24 @@ func _enter_phase(phase: int) -> void:
 	attack_index = 0
 	waiting_for_attack_completion = false
 	phase_changed.emit(phase)
+	# Signal callbacks may terminate this combat. DEATH is irreversible.
+	if state != [State.PHASE_1, State.PHASE_2, State.PHASE_3][phase - 1]:
+		return
 	combat_cue.emit(&"boss_phase")
 	if requested_phase > current_phase:
 		_start_next_transition()
 
 func _start_next_transition() -> void:
-	if current_phase >= 3:
+	if state == State.DEATH or current_phase >= 3:
 		return
 	_cancel_active_attacks()
+	if state == State.DEATH:
+		return
 	state = State.TRANSITION_1 if current_phase == 1 else State.TRANSITION_2
 	state_elapsed = 0.0
 	reinforcements_requested.emit(6 if current_phase == 1 else 8)
+	if state not in [State.TRANSITION_1, State.TRANSITION_2]:
+		return
 	combat_cue.emit(&"boss_transition")
 
 func _finish_transition() -> void:
@@ -149,16 +160,19 @@ func _cancel_active_attacks() -> void:
 	waiting_for_attack_completion = false
 
 func _schedule_attack() -> void:
-	if attack_gap > 0.0 or not is_instance_valid(target_player):
+	if state not in [State.PHASE_1, State.PHASE_2, State.PHASE_3] or attack_gap > 0.0 or not is_instance_valid(target_player):
 		return
 	if pattern.is_pattern_active() or tentacle_attack.is_attacking():
 		return
 	var distance := boss.global_position.distance_to(target_player.global_position) if is_instance_valid(boss) else INF
 	var choose_melee := distance <= MELEE_ZONE_MAX or (distance < RANGED_ZONE_MIN and attack_index % 2 == 0)
+	var scheduled_state := state
 	var started := _start_melee_attack() if choose_melee else _start_ranged_attack()
-	if started:
+	if started and state == scheduled_state:
 		last_attack_class = &"melee" if choose_melee else &"ranged"
 		combat_cue.emit(&"boss_tentacle" if choose_melee else &"boss_barrage")
+		if state != scheduled_state:
+			return
 		attack_index += 1
 		waiting_for_attack_completion = true
 

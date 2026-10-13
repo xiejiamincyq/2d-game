@@ -1,0 +1,262 @@
+[
+  {
+    "sha256": "4abfc62906c3cda006efc48f16f72b0371cec7b2ff938dc467a0c35caee5e5c6",
+    "original": "build/diagnostics/campaign-goal/f9-final-current-full-v1.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\f9-final-current-full-v1.log"
+  },
+  {
+    "sha256": "fe56195d69e9b748b394be60ca5d9669f4c7da27fe870e83604c1a56bb14d9b8",
+    "original": "build/diagnostics/campaign-goal/f9-final-full-terminal-v1.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\f9-final-full-terminal-v1.json"
+  },
+  {
+    "sha256": "4c82c03b94ac5d84057063a8c76617da50b9a3a5fc174bcd6c155f7d78483247",
+    "original": "build/diagnostics/campaign-goal/f9-campaign-fresh-chain-v1.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\f9-campaign-fresh-chain-v1.log"
+  },
+  {
+    "sha256": "8cf9699e61d12f8bcfba7e5521014963d1f6ab3ac60cc41aec9dabdfe8026420",
+    "original": "build/diagnostics/campaign-goal/f9-chain-terminal-v1.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\f9-chain-terminal-v1.json"
+  },
+  {
+    "sha256": "16e8ea1d37f24a9a05aece15a6b7f917dcc191ec543f4fff3d569a013744c223",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1-chain-summary.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1-chain-summary.json"
+  },
+  {
+    "sha256": "66baa5494113956291f4dad971c5a321a5dd2b5808c066b634723de0ed158777",
+    "original": "build/diagnostics/campaign-goal/f9-risk-six-flow-v1.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\f9-risk-six-flow-v1.log"
+  },
+  {
+    "sha256": "cc6981826aaf09aea3178cd64d2e3c28b11728ccde084cb915a1fa6f50e377e8",
+    "original": "build/diagnostics/campaign-goal/f9-risk-six-restore-v1.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\f9-risk-six-restore-v1.log"
+  },
+  {
+    "sha256": "cc6981826aaf09aea3178cd64d2e3c28b11728ccde084cb915a1fa6f50e377e8",
+    "original": "build/diagnostics/campaign-goal/f9-supply-six-restore-v1.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\f9-supply-six-restore-v1.log"
+  },
+  {
+    "sha256": "17ba485d28713bb545b18dc7eac46cc31565339f78eae139f81848cc7585d81b",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s1/campaign.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s1\\campaign.json"
+  },
+  {
+    "sha256": "f231fc7c3be961e4f571ae96d235e8b60f2271e67d10568c9829e0ed1ee94127",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s1/driver.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s1\\driver.log"
+  },
+  {
+    "sha256": "98f165f98ff8aecd325fc5693453f280523ab595903587a178c7bb58c4d9974a",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s1/exit-report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s1\\exit-report.json"
+  },
+  {
+    "sha256": "5a0ecf6c51addc1e5478114486d30a0aee3b6a69b63e8b57db61764f07e987f8",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s1/report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s1\\report.json"
+  },
+  {
+    "sha256": "d1d2764fd744ba82ab4fd28f604a4724a1747fae153eda2db4a7e684e9177d34",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s1/frame_019.png",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s1\\frame_019.png"
+  },
+  {
+    "sha256": "1047031f2a04fd419fcbb400b8339ca24b46b884b8e72a1c0e029f3ec865e664",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s2/campaign.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s2\\campaign.json"
+  },
+  {
+    "sha256": "aa4b70fcee10ca4d6e7eb2409eca5dac7a8f82b0939703169af71c3419c29491",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s2/driver.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s2\\driver.log"
+  },
+  {
+    "sha256": "7b8792892b8cfc71679f9c0efc29454a80d9ef66a6755f5359d067d91c3ae79b",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s2/exit-report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s2\\exit-report.json"
+  },
+  {
+    "sha256": "60348fa357c61dfbbc4672a12ed3fcdd6904be6eff70cbf86b1d7f900a269f6b",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s2/report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s2\\report.json"
+  },
+  {
+    "sha256": "0c0940091c0cb4befee56afdbcd74b6488d62aad985ae6f86fc87ef32d1be03e",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s2/frame_016.png",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s2\\frame_016.png"
+  },
+  {
+    "sha256": "41e434981104e8137e195bdbd9296a763dd9458b23dfae88e550d92624c0785f",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s3/campaign.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s3\\campaign.json"
+  },
+  {
+    "sha256": "469fb5dc81cf9983b953d82e4078c5910818b361d263a6687dbc8af675b0cd83",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s3/driver.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s3\\driver.log"
+  },
+  {
+    "sha256": "41b55d518e3c316073e21ecb97ce4e84d89281170000736147fed5c0324b810d",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s3/exit-report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s3\\exit-report.json"
+  },
+  {
+    "sha256": "2c33d7fb3f21fcbfd91a808345bd6ea3c2268bf1f2ba40469c95cedcba0de0ee",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s3/report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s3\\report.json"
+  },
+  {
+    "sha256": "39e066e98555240a45d8571b1b7582566e1c74b05d835588f9e1e4ed2e7589e8",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s3/frame_018.png",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s3\\frame_018.png"
+  },
+  {
+    "sha256": "ba4edaa6ae88ca6a57e35e267a99a1d745a14338ae4c643ddd6f69973eff8cee",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s4/campaign.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s4\\campaign.json"
+  },
+  {
+    "sha256": "3b6b02cae7f73230aad276a5b1feacab5e37dd52fe330bfaae33705f96e7c9e7",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s4/driver.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s4\\driver.log"
+  },
+  {
+    "sha256": "2b1e9f5734376912bd3e9fcf5efe6600009c7eba7a7ca582d1bfd1a814125d77",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s4/exit-report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s4\\exit-report.json"
+  },
+  {
+    "sha256": "cd95d30ec7b0214024eccf677ca01bafe1e61c5861c964e70523303581583a7d",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s4/report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s4\\report.json"
+  },
+  {
+    "sha256": "1bb3225dad52b293e62fbf903dcf4aa0cda882b4d575d14e203149029d85ef76",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s4/frame_017.png",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s4\\frame_017.png"
+  },
+  {
+    "sha256": "dcc136a102ab9aa021fe15d45376dabd16856c57b16d9f003de8df3ad564c5e1",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s5/campaign.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s5\\campaign.json"
+  },
+  {
+    "sha256": "43b4f26eb35205fb45469c09c7452ec05e7ca706920a64f1b66c71e08fa16473",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s5/driver.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s5\\driver.log"
+  },
+  {
+    "sha256": "4578dfd28c4001ca4fc54af9a9165724b8da3fddbfee0c5235ef9b8f50a210cf",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s5/exit-report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s5\\exit-report.json"
+  },
+  {
+    "sha256": "d004113feecb892f5a46adc2de144580e6211ac4b458e6d351513c1a79222d6b",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s5/report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s5\\report.json"
+  },
+  {
+    "sha256": "983d099c16e947b4eb2794de214e459b06da04eb528ca9df79e4f1db6364da55",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s5/frame_016.png",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s5\\frame_016.png"
+  },
+  {
+    "sha256": "729510abc934fc3e7ea491bb4d0a321ff66ae63ca6207033247b67af8139f739",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s6/campaign.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s6\\campaign.json"
+  },
+  {
+    "sha256": "28202eaafbaca626f84ed3ef59c18d4b24c59e9c35ca0847338f135daaf31dc9",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s6/driver.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s6\\driver.log"
+  },
+  {
+    "sha256": "e53c793fd417cb4abce0586a0d39139159dffedea73b54671ba1b19a43981bb8",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s6/exit-report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s6\\exit-report.json"
+  },
+  {
+    "sha256": "16d15f4f861c56af0b394599c2e3ae94e76396036ef7eb2e4d041ee2b506934d",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s6/report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s6\\report.json"
+  },
+  {
+    "sha256": "13ec05293ffac5e696f847725854c2b05a76613a4568ffbfed5c46471391e953",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s6/restore-exit.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s6\\restore-exit.json"
+  },
+  {
+    "sha256": "1c2db90cf893ce8dbe13963b10d1fe8c552a978c4207174c21400f050e6403c8",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s6/restore-report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s6\\restore-report.json"
+  },
+  {
+    "sha256": "d087d711c7848ace3602f881f6f3784639eb742852193cdbbe9ff8fb712249fc",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_fresh_v1_s6/frame_016.png",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_fresh_v1_s6\\frame_016.png"
+  },
+  {
+    "sha256": "729510abc934fc3e7ea491bb4d0a321ff66ae63ca6207033247b67af8139f739",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_risk6_v1/campaign.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_risk6_v1\\campaign.json"
+  },
+  {
+    "sha256": "66baa5494113956291f4dad971c5a321a5dd2b5808c066b634723de0ed158777",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_risk6_v1/driver.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_risk6_v1\\driver.log"
+  },
+  {
+    "sha256": "960217b8299a352c4ccb878fa063d03bbac42b0051ff7b0e569e09167ea4cf08",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_risk6_v1/exit-report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_risk6_v1\\exit-report.json"
+  },
+  {
+    "sha256": "134ccb7d845386adb8ea6ec36b42f8ad79e71e31ad68145cf318c2d24ee7a1fa",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_risk6_v1/report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_risk6_v1\\report.json"
+  },
+  {
+    "sha256": "cbc802eb91ee9dda4aeb123cd25b3e14ea95c060084716d2b07847d71c8407f6",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_risk6_v1/restore-exit.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_risk6_v1\\restore-exit.json"
+  },
+  {
+    "sha256": "83654d4ef40d4103a5af9ee3f41dd7f4a856ef076e31277f835ec19bc9080441",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_risk6_v1/restore-report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_risk6_v1\\restore-report.json"
+  },
+  {
+    "sha256": "148a2b5c02ed7245b3b3bbae2e03d1bd04875d57098cd5872f3ae20f5f98e73b",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_risk6_v1/frame_002.png",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_risk6_v1\\frame_002.png"
+  },
+  {
+    "sha256": "3d780d9cd4ddd2004a38976f7609e70bbc50e43b27e265abef1a0742727c58b3",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_risk6_v1/frame_019.png",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_risk6_v1\\frame_019.png"
+  },
+  {
+    "sha256": "f2a8d1111bdd55bc55d20569d8e587c5f2d4ca1a0ed4dfee3662e62251b412ca",
+    "original": "build/diagnostics/campaign-goal/campaign_f9_risk6_v1/frame_020.png",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\campaign_f9_risk6_v1\\frame_020.png"
+  },
+  {
+    "sha256": "b3231ee7eb78feef991937d86fc39f920268ecb995f7059ae8bfb0c81df9f70a",
+    "original": "build/diagnostics/campaign-goal/f9-final-chapter-pack-supplement-v1/report.json",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\chapter-pack-supplement\\report.json"
+  },
+  {
+    "sha256": "8d66d25457410fe2154697725993c9e0167d8bac25d06e05ba46e703bc951089",
+    "original": "build/diagnostics/campaign-goal/f9-final-chapter-pack-supplement-v1/RiftChapterLaunchTest.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\chapter-pack-supplement\\RiftChapterLaunchTest.log"
+  },
+  {
+    "sha256": "97d63d6ad68b127713337b8ffd97e6a3ba087a42774cba5af918daecf2a25e52",
+    "original": "build/diagnostics/campaign-goal/f9-final-chapter-pack-supplement-v1/RiftChapterTest.log",
+    "copy": "docs\\art\\reviews\\f9-terminal-evidence-v1\\chapter-pack-supplement\\RiftChapterTest.log"
+  }
+]

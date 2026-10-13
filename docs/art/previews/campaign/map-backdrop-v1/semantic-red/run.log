@@ -1,0 +1,723 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.91 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060 Laptop GPU
+
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 960x540 edge 0 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 960x540 edge 1 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 960x540 edge 2 has 33/33 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 960x540 edge 3 has 44/44 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 960x540 edge 4 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 960x540 edge 5 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 960x540 edge 6 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 960x540 edge 7 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1280x720 edge 0 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1280x720 edge 1 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1280x720 edge 2 has 75/75 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1280x720 edge 3 has 60/60 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1280x720 edge 4 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1280x720 edge 5 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1280x720 edge 6 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1280x720 edge 7 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1920x1080 edge 0 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1920x1080 edge 1 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1920x1080 edge 2 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1920x1080 edge 3 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1920x1080 edge 4 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1920x1080 edge 5 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1920x1080 edge 6 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 1 1920x1080 edge 7 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 960x540 edge 0 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 960x540 edge 1 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 960x540 edge 2 has 33/33 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 960x540 edge 3 has 44/44 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 960x540 edge 4 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 960x540 edge 5 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 960x540 edge 6 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 960x540 edge 7 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1280x720 edge 0 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1280x720 edge 1 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1280x720 edge 2 has 75/75 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1280x720 edge 3 has 60/60 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1280x720 edge 4 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1280x720 edge 5 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1280x720 edge 6 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1280x720 edge 7 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1920x1080 edge 0 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1920x1080 edge 1 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1920x1080 edge 2 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1920x1080 edge 3 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1920x1080 edge 4 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1920x1080 edge 5 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1920x1080 edge 6 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 2 1920x1080 edge 7 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 960x540 edge 0 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 960x540 edge 1 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 960x540 edge 2 has 33/33 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 960x540 edge 3 has 44/44 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 960x540 edge 4 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 960x540 edge 5 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 960x540 edge 6 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 960x540 edge 7 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1280x720 edge 0 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1280x720 edge 1 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1280x720 edge 2 has 75/75 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1280x720 edge 3 has 60/60 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1280x720 edge 4 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1280x720 edge 5 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1280x720 edge 6 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1280x720 edge 7 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1920x1080 edge 0 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1920x1080 edge 1 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1920x1080 edge 2 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1920x1080 edge 3 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1920x1080 edge 4 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1920x1080 edge 5 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1920x1080 edge 6 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 3 1920x1080 edge 7 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 960x540 edge 0 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 960x540 edge 1 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 960x540 edge 2 has 33/33 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 960x540 edge 3 has 44/44 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 960x540 edge 4 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 960x540 edge 5 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 960x540 edge 6 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 960x540 edge 7 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1280x720 edge 0 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1280x720 edge 1 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1280x720 edge 2 has 75/75 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1280x720 edge 3 has 60/60 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1280x720 edge 4 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1280x720 edge 5 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1280x720 edge 6 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1280x720 edge 7 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1920x1080 edge 0 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1920x1080 edge 1 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1920x1080 edge 2 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1920x1080 edge 3 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1920x1080 edge 4 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1920x1080 edge 5 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1920x1080 edge 6 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 4 1920x1080 edge 7 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 960x540 edge 0 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 960x540 edge 1 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 960x540 edge 2 has 33/33 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 960x540 edge 3 has 44/44 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 960x540 edge 4 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 960x540 edge 5 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 960x540 edge 6 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 960x540 edge 7 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1280x720 edge 0 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1280x720 edge 1 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1280x720 edge 2 has 75/75 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1280x720 edge 3 has 60/60 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1280x720 edge 4 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1280x720 edge 5 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1280x720 edge 6 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1280x720 edge 7 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1920x1080 edge 0 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1920x1080 edge 1 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1920x1080 edge 2 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1920x1080 edge 3 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1920x1080 edge 4 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1920x1080 edge 5 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1920x1080 edge 6 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 5 1920x1080 edge 7 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 960x540 edge 0 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 960x540 edge 1 has 40/40 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 960x540 edge 2 has 33/33 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 960x540 edge 3 has 44/44 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 960x540 edge 4 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 960x540 edge 5 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 960x540 edge 6 has 64/64 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 960x540 edge 7 has 58/58 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1280x720 edge 0 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1280x720 edge 1 has 70/70 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1280x720 edge 2 has 75/75 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1280x720 edge 3 has 60/60 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1280x720 edge 4 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1280x720 edge 5 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1280x720 edge 6 has 102/102 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1280x720 edge 7 has 110/110 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1920x1080 edge 0 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1920x1080 edge 1 has 165/165 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1920x1080 edge 2 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1920x1080 edge 3 has 154/154 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1920x1080 edge 4 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1920x1080 edge 5 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1920x1080 edge 6 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)
+ERROR: TEST FAIL: VerifyChapterMapEdges chapter 6 1920x1080 edge 7 has 242/242 unpainted samples
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/art/VerifyChapterMapEdges.gd:16)
+       [1] run_checks (res://scripts/art/VerifyChapterMapEdges.gd:73)

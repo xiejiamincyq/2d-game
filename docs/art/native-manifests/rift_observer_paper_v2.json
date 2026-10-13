@@ -1,0 +1,11 @@
+{
+  "asset_id":"rift_observer_paper_v2",
+  "runtime_scene":"res://scenes/actors/native/rift_observer_paper_v2.tscn",
+  "motion_library":"res://assets/art/actors/native/rift_observer_motion_v2.tres",
+  "role":"boss",
+  "review_state":"draft",
+  "bone_count":30,
+  "license_origin":"project-original",
+  "required_clips":["idle","walk","hit","entrance","death","beam_warning","beam_attack","beam_recovery","probes_warning","probes_attack","probes_recovery","refract_warning","refract_attack","refract_recovery"],
+  "rig_checkpoint":"res://docs/art/native-checkpoints/rift_observer_attack_v1.json"
+}

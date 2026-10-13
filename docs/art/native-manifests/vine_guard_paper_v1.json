@@ -1,0 +1,10 @@
+{
+  "asset_id": "vine_guard_paper_v1",
+  "runtime_scene": "res://scenes/actors/native/vine_guard_paper_v1.tscn",
+  "motion_library": "res://assets/art/actors/native/vine_guard_motion_v1.tres",
+  "role": "boss",
+  "review_state": "style-approved",
+  "bone_count": 22,
+  "license_origin": "project-original",
+  "required_clips": ["idle", "walk", "hit", "death", "entrance"]
+}

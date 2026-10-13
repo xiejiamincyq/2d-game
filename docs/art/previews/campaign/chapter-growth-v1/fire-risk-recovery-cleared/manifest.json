@@ -1,0 +1,102 @@
+{
+  "copies": [
+    {
+      "sha256": "17ba485d28713bb545b18dc7eac46cc31565339f78eae139f81848cc7585d81b",
+      "file": "campaign.json"
+    },
+    {
+      "sha256": "3981993af65540814bf95ec1dae03c298640c5f6ebb5d6d784feec2cffcec967",
+      "file": "frame_000.png"
+    },
+    {
+      "sha256": "565b1aa132fafd84ee862c9c748c762a032a53af63cdc4047de22e44e3d021ae",
+      "file": "frame_001.png"
+    },
+    {
+      "sha256": "a700333735244a69d2a2454a8565e05fd90efa93f8afae57e182b6a8bcca3883",
+      "file": "frame_002.png"
+    },
+    {
+      "sha256": "7649e43012a91940146342d13d5fdb6e85d7e6c2e7491e4442a70506732709ce",
+      "file": "frame_003.png"
+    },
+    {
+      "sha256": "40514d8e6568a8af35d5d4ebe0489e1f050d83151d3a52364ba5a05dda05c947",
+      "file": "frame_004.png"
+    },
+    {
+      "sha256": "ea5b14f9e08143edea8ac9659af03a8c8bc76582e51327c51ccc29551aad5f37",
+      "file": "frame_005.png"
+    },
+    {
+      "sha256": "2db7cb52b6f978eea40ebe0f2a9489944f16d2246b961969a09acecc6b852741",
+      "file": "frame_006.png"
+    },
+    {
+      "sha256": "7cc35257cb13710d50fd9c4b2c664debdd0e42665b5b65ba5e6f9c16a5a293a5",
+      "file": "frame_007.png"
+    },
+    {
+      "sha256": "fa918885c9096ec725808672b9044b6bdb7b935f9b34133596b7a165df9ab229",
+      "file": "frame_008.png"
+    },
+    {
+      "sha256": "08a03ac7aab5063b06397fd0b3ffa2e0c3612a020415cd8770ac857344d74f92",
+      "file": "frame_009.png"
+    },
+    {
+      "sha256": "e2ff8452d18a70eee55503fb662b977095aed34b2a478180c6c56801a4bbabe0",
+      "file": "frame_010.png"
+    },
+    {
+      "sha256": "3e4a27ef89c9af5361ca9e0501defad58f7afa2e453b885f1fb8cd6285f57d00",
+      "file": "frame_011.png"
+    },
+    {
+      "sha256": "40b7f51d6fc6a254258ac2c8eea23011d116c57fbf82d5efaeb46cbf0a8f3d40",
+      "file": "frame_012.png"
+    },
+    {
+      "sha256": "d2128a33311d6070169f55bc4a70c04991e98fee69b8d3fce7e321c8231e9268",
+      "file": "frame_013.png"
+    },
+    {
+      "sha256": "f0fe03abf531373c33989b33d4c5fe82397e90d7a97a5666275955fdacf9cf7e",
+      "file": "frame_014.png"
+    },
+    {
+      "sha256": "da050797884a3ab27d0b33b98ab584a3983909f8f0c80b38050835ab50ed8358",
+      "file": "frame_015.png"
+    },
+    {
+      "sha256": "cae1ed3b5bc37dedb36dd8305f0b5e73bf2e4d6b805cebe7dae5ee50c7002073",
+      "file": "frame_016.png"
+    },
+    {
+      "sha256": "2e69f44014dca922f13c7d09e257b2e76105b5570742acf0bf71e9f53186d2fd",
+      "file": "frame_017.png"
+    },
+    {
+      "sha256": "7758d91cf1e9ad8b253b2837bb606212b0089b0b14967dcb926d9dcb03d214e1",
+      "file": "frame_018.png"
+    },
+    {
+      "sha256": "740e047d1b758002f3c08deca2440be718589d4af14ee99609201cd2132437de",
+      "file": "frame_019.png"
+    },
+    {
+      "sha256": "0767f2cd6efab9f7233420953ea5d03fbf7b318658aa0fbdce5e57acbc867a7e",
+      "file": "frame_020.png"
+    },
+    {
+      "sha256": "9b4e55c25dd2d4b2094f2c5b6e2b175ff51bfc3cffb3a597d9ec7380e5934e7c",
+      "file": "report.json"
+    },
+    {
+      "sha256": "99c66768795cd7faa3672a6cca4159f70b12aa8ecce8629ba45ab25e04996be8",
+      "file": "f3_fire_risk_recovery_20261012_v1.log"
+    }
+  ],
+  "run_id": "f3_fire_risk_recovery_20261012_v1",
+  "scope": "Original failed seed/route ordinary production GPU retest; not all maps, human playtest or full acceptance"
+}

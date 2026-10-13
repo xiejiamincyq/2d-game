@@ -27,13 +27,22 @@ func _initialize() -> void:
 		root.add_child(enemy)
 		await process_frame
 		enemy.set_physics_process(false)
-		var native: bool = fixture.kind == EnemyScript.EnemyKind.SPITTER
+		var native_defs := {
+			EnemyScript.EnemyKind.SPITTER: {"scene":"res://scenes/actors/native/sporeling_paper_v1.tscn","bones":14},
+			EnemyScript.EnemyKind.MARKSMAN: {"scene":"res://scenes/actors/native/salt_needler_paper_v1.tscn","bones":16},
+			EnemyScript.EnemyKind.LOBBER: {"scene":"res://scenes/actors/native/folio_lobber_paper_v1.tscn","bones":16},
+			EnemyScript.EnemyKind.BRUISER: {"scene":"res://scenes/actors/native/stone_carrier_paper_v2.tscn","bones":17},
+			EnemyScript.EnemyKind.OVERSEER: {"scene":"res://scenes/actors/native/root_commander_paper_v2.tscn","bones":23},
+		}
+		var native: bool = native_defs.has(fixture.kind)
+		var native_scene: String = native_defs[fixture.kind].scene if native else ""
+		var native_bones: int = native_defs[fixture.kind].bones if native else 0
 		var visual: Node2D = enemy.get_visual_node()
 		if not _assert_true(visual != null, "enemy did not create a visual"):
 			return
-		if not _assert_true(visual.scene_file_path == "res://scenes/actors/native/sporeling_paper_v1.tscn" if native else visual.texture.resource_path == fixture.path, "enemy loaded wrong native/raster resource"):
+		if not _assert_true(visual.scene_file_path == native_scene if native else visual.texture.resource_path == fixture.path, "enemy loaded wrong native/raster resource"):
 			return
-		if not _assert_true(visual.skeleton.get_bone_count() == 14 if native else visual.texture.get_size() == Vector2(128, 128), "enemy lacks bounded raster / complete native rig"):
+		if not _assert_true(visual.skeleton.get_bone_count() == native_bones if native else visual.texture.get_size() == Vector2(128, 128), "enemy lacks bounded raster / complete native rig"):
 			return
 		if not _assert_true(visual.scale.is_equal_approx(Vector2.ONE if native else fixture.scale), "enemy display scale drifted"):
 			return

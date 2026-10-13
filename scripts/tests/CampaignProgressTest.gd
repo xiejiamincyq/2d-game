@@ -11,7 +11,7 @@ func check(ok: bool, message: String) -> void:
 
 func _initialize() -> void:
 	var path := "res://scripts/systems/CampaignProgress.gd"
-	check(FileAccess.file_exists(path), "sequential boss unlock model is not implemented")
+	check(ResourceLoader.exists(path, "GDScript"), "sequential boss unlock model is not implemented")
 	if failures > 0:
 		quit(1)
 		return

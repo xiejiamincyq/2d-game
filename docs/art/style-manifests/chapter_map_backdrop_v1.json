@@ -1,0 +1,17 @@
+{
+  "contract": "native-style-group-preview-v1",
+  "asset_id": "chapter_map_backdrop_v1",
+  "review_state": "draft",
+  "approval_authority": "user-delegated-autonomous-art-review",
+  "license_origin": "project-original",
+  "authoring_source": "res://scripts/world/ChapterMapBackdrop.gd",
+  "generation_model": "Godot original vector and ColorRect drawing; no generated bitmap",
+  "style_basis": "Existing approved six-region native paper and compact chibi palettes; no new style direction",
+  "palette": ["#243b30", "#303637", "#35494b", "#253b3a", "#302b3b", "#202b40"],
+  "purpose": "Fill camera overscan outside existing physical bounds and mark a closed, non-walkable perimeter without modifying the floor, terrain, navigation, hazards or camera framing",
+  "external_raster_dependencies": [],
+  "reference_policy": "Original deterministic shapes in the project's existing palette; no external copied asset, paid extraction, download or image prompt library needed for this technical additive",
+  "runtime_evidence": "docs/art/previews/campaign/map-backdrop-v1/sha256-manifest.json",
+  "review_document": "docs/chapter-map-backdrop-v1.md",
+  "limitations": ["Actual Main clear-color context: six-map GPU144 semantic RED then GREEN321; bare-map false-green separately retained and rejected", "Map-only representative pixels reviewed; actual first/sixth Boss framing and final full/PCK/chain remain separate gates, so this draft does not claim whole gameplay acceptance", "Standard raster manifest validator accepts only PNG and is inapplicable; do not invent a fake PNG path or claim it passed"]
+}

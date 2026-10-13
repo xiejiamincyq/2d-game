@@ -1,0 +1,12 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+ERROR: TEST FAIL: LegacyOverseerMotionIntegrationTest actual legacy Actor has no independent attack rig
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/tests/LegacyOverseerMotionIntegrationTest.gd:14)
+       [1] _run (res://scripts/tests/LegacyOverseerMotionIntegrationTest.gd:29)
+ERROR: TEST FAIL: LegacyOverseerMotionIntegrationTest authoritative observation contract missing
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/tests/LegacyOverseerMotionIntegrationTest.gd:14)
+       [1] _run (res://scripts/tests/LegacyOverseerMotionIntegrationTest.gd:33)

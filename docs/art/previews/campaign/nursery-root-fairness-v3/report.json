@@ -1,0 +1,20 @@
+{
+	"passed": true,
+	"player_health": 40.0,
+	"root_centers": [
+		"(0.0, 0.0)",
+		"(-0.360714, 125.9995)",
+		"(0.360714, -125.9995)"
+	],
+	"scope": "Actual map521/native Boss and Player,6 GPU captures with controlled authoritative clocks; not ordinary victory or OS input",
+	"sources": {
+		"scripts/art/RenderNurseryRootReadability.gd": "ab3cbab1dbe43b450eab64feb2c45c3d0cb7866d2c080e9cd5750370cd66c612",
+		"scripts/art/RenderVineGuardAttackEffects.gd": "392728d2657d886ac20985a30000eb9327103be0c66f93dde54a7cd8c8f3adb5",
+		"scripts/components/NativeVineGuardMotion.gd": "fcd538456031eb61d4c6a05ad5b36164a0a51652e8a9c2af2bf017c5bff492ca",
+		"scripts/components/VineGuardAttackDirector.gd": "d7ed5ebda804b682e57d7009f11afd59b1f08bff757d869b424447a0e13dbb9b",
+		"scripts/systems/NurseryEncounterDirector.gd": "b3471684fdcad00dd9a2ee595aac150257dd640bd5ce49baa0b372f6434de0aa",
+		"scripts/systems/WaveDirector.gd": "bb24c1c5aefdbc31f50513ee45ca09857ba1fd887bd2247e5ebf6f1b160287c2"
+	},
+	"stagger_seconds": 0.12,
+	"warning_seconds": 0.8
+}

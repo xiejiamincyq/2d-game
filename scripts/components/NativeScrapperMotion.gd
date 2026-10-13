@@ -49,8 +49,16 @@ func release_death(parent: Node) -> void:
 	ghost.get_parent().remove_child(ghost)
 	parent.add_child(ghost)
 	ghost.process_mode = Node.PROCESS_MODE_PAUSABLE
+	ghost.add_to_group("native_death_tail")
 	ghost.global_transform = at
 	ghost.play_clip("death")
 	ghost.player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_PHYSICS
 	ghost.player.animation_finished.connect(func(_clip: StringName): ghost.queue_free(), CONNECT_ONE_SHOT)
 	view = null
+
+static func settle_cleared_death_tails(owner: Node) -> void:
+	# Only detached, collision-free visuals owned by this completed chapter.
+	# Manual pause never invokes this; live actors retain PAUSABLE processing.
+	for ghost in owner.get_tree().get_nodes_in_group("native_death_tail"):
+		if owner.is_ancestor_of(ghost):
+			ghost.process_mode = Node.PROCESS_MODE_ALWAYS

@@ -1,0 +1,135 @@
+{
+  "copies": [
+    {
+      "sha256": "1549aefcc6c7a9f9d326bef33d5b3fcf7153ab28c9f236b27dfa2586d39658a5",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_000.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_000.png"
+    },
+    {
+      "sha256": "1549aefcc6c7a9f9d326bef33d5b3fcf7153ab28c9f236b27dfa2586d39658a5",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_001.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_001.png"
+    },
+    {
+      "sha256": "10828daba1c37425f8c405290786d3347604a2d343d4e1436f059226f95c483a",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_002.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_002.png"
+    },
+    {
+      "sha256": "0b20f6b2dc613b872537efc18bd9f99d9e58a47f212990f1ff39cdeebded214c",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_003.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_003.png"
+    },
+    {
+      "sha256": "1e87c8815afd5ab09b57cc9ced831397f27debdb915e6ffebf8f4233970814f9",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_004.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_004.png"
+    },
+    {
+      "sha256": "95a6c3938eec11ef0eaa82f78d91b76d0704c8399eb55c932c800456eb79ecbd",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_005.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_005.png"
+    },
+    {
+      "sha256": "68b5a7c8518202db3c9bf90b002c7e0bb4f154ccd8c77dde4a60f2fe87398804",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_006.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_006.png"
+    },
+    {
+      "sha256": "447276e7501d6f8a48a0dc312f64162b6c727956fb8fdd388860e038c065b479",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_007.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_007.png"
+    },
+    {
+      "sha256": "d03e3d6a9b7a531d22a686b3cba7ca8e13583e644da1e5ccf32ecb7034afe267",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_008.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_008.png"
+    },
+    {
+      "sha256": "bf45055a210e12bb104535887936974537d01d4aa06585039cfae7acdfc0e17f",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_009.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_009.png"
+    },
+    {
+      "sha256": "3fc2a931f2e6c9a6f44948cd73faa6d8c38b06d69b74159e59c20acb1152c92d",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_010.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_010.png"
+    },
+    {
+      "sha256": "8153dada25e79e0506b73da71f1251d35367444c6930fe282037b0a4660b6487",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_011.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_011.png"
+    },
+    {
+      "sha256": "fe26517984eebde8da5e4ad6e242a4bb9e62d16b668300d29171898a22119fa3",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_012.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_012.png"
+    },
+    {
+      "sha256": "4b65d583bfb9c490a64f357037d84764df532302e44cd3a8ce0a8a386b4a0a43",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_013.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_013.png"
+    },
+    {
+      "sha256": "081aa22f5d9d69b2ea7660eb573638eda38904d06a7385cfabcb537a160dc58d",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_014.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_014.png"
+    },
+    {
+      "sha256": "37d909067e40516bd43d897fda7e63282efc9e869054a6f9417b9a176a2e7633",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_015.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_015.png"
+    },
+    {
+      "sha256": "0e498c925d1604fa005aa03fff35924a3b5aa510a05f3bf26737d63c3450cf88",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_016.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_016.png"
+    },
+    {
+      "sha256": "9870c34fd46565301f0b717d433a3449afac0056ec380535896a50f6d11e0269",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_017.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_017.png"
+    },
+    {
+      "sha256": "51ea9ebb7c73dd6e991a762bdffbcfdc9c352c2e5404bbcdc53992e96fbf0f6a",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_018.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_018.png"
+    },
+    {
+      "sha256": "3c4a5f93e941d5867b63ae5fd9d324749119e3305f0234b3c01605429d15c4e5",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_019.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_019.png"
+    },
+    {
+      "sha256": "1f045d24949af54e81035091d81206c7d05b23483ab120299121b359baf6820d",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_020.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_020.png"
+    },
+    {
+      "sha256": "31aacdf4c5c77945e15399936a1389fe8c05ed761fa63aed420383fef15cec5c",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_021.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_021.png"
+    },
+    {
+      "sha256": "dc27660f84a3f6864e386f88face59a8c2c9b296a9a4ea38654a5d0d9f8570d9",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/frame_022.png",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/frame_022.png"
+    },
+    {
+      "sha256": "e76e5558caa387b4da658ea5a2a28976defc7f0f3417cc5f12faad039be6e428",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/report.json",
+      "source": "build/diagnostics/campaign-goal/f3_mobility_risk_20261012_v1/report.json"
+    },
+    {
+      "sha256": "fb32f59534e9c1063e1aa67d699ee424957b9957dc773255f3d7c53e32c4df8f",
+      "copy": "docs/art/previews/campaign/chapter-growth-v1/mobility-risk-defeated/driver.log",
+      "source": "build/diagnostics/campaign-goal/f3-mobility-risk-ordinary-v1.log"
+    }
+  ],
+  "source_observation": "Main compared all 1660 report bank hashes at actual terminal, observed 0 mismatches before subsequent all-primary-aim TDD source changes",
+  "scope": "Actual ordinary mobility risk defeated run, genuine evolution, not victory or final balance",
+  "actual_exit": 1,
+  "schema": 1,
+  "valid": false,
+  "exit_observation": "Main serial session 24900 actual engine/outer terminal 1"
+}
