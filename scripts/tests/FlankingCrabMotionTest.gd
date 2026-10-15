@@ -45,7 +45,8 @@ func _run() -> void:
 	check(target.hits==[21.0] and warning_at>0,"actual engine never closes for unique pincer")
 	if not target.hits.is_empty() and warning_at>0:
 		var seconds := (Time.get_ticks_usec()-warning_at)/1000000.0
-		check(seconds>=0.145 and seconds<=0.25,"engine pincer warning stalls or has second clock")
+		var expected: float = crab.basic_attack.get_warning_duration()
+		check(seconds>=expected-0.035 and seconds<=expected+0.07,"engine pincer warning stalls or has second clock")
 		print("FlankingCrabMotionTest actual_warning=%.6f" % seconds)
 	arena.free()
 	await process_frame

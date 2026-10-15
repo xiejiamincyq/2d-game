@@ -4,6 +4,7 @@ class_name SpikeTrap
 const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
 
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const TerrainDamage = preload("res://scripts/components/TerrainDamageQuery.gd")
 const MAX_SPIKES_PER_TARGET := 3
 const ACTIVE_SPIKE_SOURCES_META: StringName = &"active_spike_damage_sources"
 
@@ -16,6 +17,7 @@ var radius: float = 38.0
 var damage_multiplier_provider: Callable
 var damage_source: StringName = DamageTypes.SPIKE
 var registered_bodies: Array[Node] = []
+var _resolving := false
 
 func _ready() -> void:
 	z_as_relative = false
@@ -54,11 +56,32 @@ func _draw() -> void:
 		draw_circle(outer, 3.0, Color(Palette.CREAM, 0.85 * fade))
 
 func _damage_enemies() -> void:
+	if _resolving or not _live(): return
+	_resolving=true
+	_apply_tick()
+	_resolving=false
+
+func _live() -> bool: return is_inside_tree() and not is_queued_for_deletion()
+
+func _apply_tick() -> void:
 	var resolved_damage := get_resolved_damage()
+	if not _live(): return
+	var targets: Array[Node2D]=[]
 	for body in get_overlapping_bodies():
-		if body.is_in_group("enemies") and body.has_method("take_damage") and _try_acquire_damage_slot(body):
-			var hit_direction: Vector2 = (body.global_position - global_position).normalized()
-			body.take_damage(resolved_damage, damage_source, hit_direction)
+		if body.is_in_group("enemies") and not body.is_in_group(&"destructible_terrain") and body.has_method("take_damage"): targets.append(body)
+	targets.append_array(TerrainDamage.collect_in_circle(self,global_position,radius))
+	# Area receivers do not emit body_exited. Release their slots from the same
+	# real-world overlap snapshot, without changing the three-source limit.
+	for body in registered_bodies.duplicate():
+		if not targets.has(body): _release_body(body)
+	var seen: Dictionary={}
+	for body in targets:
+		if not is_instance_valid(body) or body.is_queued_for_deletion() or seen.has(body.get_instance_id()): continue
+		seen[body.get_instance_id()]=true
+		if not _try_acquire_damage_slot(body): continue
+		var hit_direction: Vector2 = (body.global_position - global_position).normalized()
+		body.take_damage(resolved_damage, damage_source, hit_direction)
+		if not _live(): return
 
 func _try_acquire_damage_slot(body: Node) -> bool:
 	if registered_bodies.has(body):
@@ -66,7 +89,7 @@ func _try_acquire_damage_slot(body: Node) -> bool:
 	var active_sources: Dictionary = body.get_meta(ACTIVE_SPIKE_SOURCES_META, {})
 	for source_id in active_sources.keys():
 		var source_ref: WeakRef = active_sources[source_id]
-		if source_ref == null or not is_instance_valid(source_ref.get_ref()):
+		if source_ref == null or not is_instance_valid(source_ref.get_ref()) or source_ref.get_ref().is_queued_for_deletion():
 			active_sources.erase(source_id)
 	if active_sources.size() >= MAX_SPIKES_PER_TARGET:
 		body.set_meta(ACTIVE_SPIKE_SOURCES_META, active_sources)

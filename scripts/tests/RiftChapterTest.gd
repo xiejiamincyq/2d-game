@@ -10,8 +10,10 @@ func battle(chapter: Node,expected_faults: int) -> void:
 	chapter.ui.proceed_button.pressed.emit()
 	check(chapter.director.state==chapter.director.State.COMBAT and not paused,"actual sixth UI battle")
 	check(chapter.map.rift_field.active and chapter.map.rift_field.get_children().filter(func(n): return n.enabled).size()==expected_faults,"actual fault pressure")
-	chapter._toggle_pause(); await physics_frame; await physics_frame
-	check(paused and chapter.map.rift_field.get_children().all(func(n): return n.state==n.State.INACTIVE),"pause retains fault danger")
+	chapter._toggle_pause()
+	var frozen: Array=Support.trap_field_snapshot(chapter.map.rift_field)
+	await physics_frame; await physics_frame
+	check(paused and Support.trap_field_snapshot(chapter.map.rift_field)==frozen,"pause must freeze plate stage/clock/HP")
 	chapter.ui.resume_button.pressed.emit(); await physics_frame; await physics_frame
 	check(not paused,"actual resume failed")
 	chapter.director.set_process(false); chapter.player.set_physics_process(false)
@@ -61,15 +63,16 @@ func run() -> void:
 	for _frame in 360:
 		if boss.entrance_resolved: break
 		await process_frame
-	check(DirAccess.make_dir_absolute(path+".tmp")==OK,"owned save-denial fixture")
+	check(DirAccess.make_dir_absolute(path+".journey.tmp")==OK,"owned save-denial fixture")
 	check(boss.take_damage(1e9,&"test"),"actual post-entrance death")
 	await process_frame; await process_frame
 	check(not chapter.clear_saved and not chapter.progress.has_cleared(6) and not chapter.progress.is_campaign_complete() and FileAccess.get_sha256(path)==before and chapter.ui.retry_save_button.visible,"save failure fabricates campaign completion or lacks retry")
-	check(DirAccess.remove_absolute(path+".tmp")==OK,"owned empty denial directory cleanup")
+	check(DirAccess.remove_absolute(path+".journey.tmp")==OK,"owned empty denial directory cleanup")
 	chapter.ui.retry_save_button.pressed.emit()
+	check(Support.claim_chapter_carry(chapter),"real carry choice finalizes clear")
 	var restored := Progress.new()
-	check(chapter.clear_saved and Store.new(path).load_progress(restored)==Store.LoadResult.LOADED and restored.has_cleared(6) and restored.is_campaign_complete() and not restored.is_unlocked(7),"true sixth clear fails full completion or invents seventh")
-	check(chapter.ui.flow_title.text.contains("第6关通关") and chapter.ui.flow_description.text.contains("六关探索已完成") and not chapter.ui.flow_description.text.contains("第7关"),"terminal UI lacks truthful campaign completion")
+	check(chapter.clear_saved and Support.restore_journey_progress(path,restored) and restored.has_cleared(6) and restored.is_campaign_complete() and not restored.is_unlocked(7),"true sixth clear fails full completion or invents seventh")
+	check(chapter.ui.flow_title.text.contains("第6关通关") and chapter.ui.flow_description.text.contains("下一轮") and not chapter.ui.next_button.visible and not chapter.ui.flow_description.text.contains("第7关"),"sixth clear lacks next-loop tent rule")
 	var saved_hash := FileAccess.get_sha256(path)
 	check(not chapter.save_clear(5) and not chapter.save_clear(6) and not chapter.save_clear(7) and FileAccess.get_sha256(path)==saved_hash,"duplicate/wrong clear changes save")
 	chapter.ui.replay_button.pressed.emit(); await process_frame; await process_frame
@@ -95,6 +98,7 @@ func run() -> void:
 	check(returned.get_script().resource_path=="res://scripts/Main.gd" and returned.campaign_store_path==path and returned.campaign_progress.has_cleared(6) and returned.campaign_progress.is_campaign_complete() and not returned._can_start_campaign_chapter(7),"Back loses actual permanent completion/path or creates seventh")
 	await dispose(returned)
 	check(DirAccess.remove_absolute(path)==OK,"owned isolated save cleanup")
+	check(Support.cleanup_journey_fixture(path),"owned journey fixture cleanup")
 	if FileAccess.file_exists(path+".bak"): check(DirAccess.remove_absolute(path+".bak")==OK,"owned isolated backup cleanup")
 	if not failures: print("TEST PASS: RiftChapterTest %d"%assertions)
 	quit(1 if failures else 0)

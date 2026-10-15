@@ -5,14 +5,30 @@ const VineBoss = preload("res://scripts/actors/NurseryVineBoss.gd")
 const HEART_CHANCE := 0.08
 const SMALL_SHIELD_CHANCE := 0.10
 const SMALL_SHIELD_VALUE := 9.0
+const TrapField = preload("res://scripts/world/ReusableTrapField.gd")
+var trap_field: Node2D
 var supply_rng := RandomNumberGenerator.new()
 var encounter_kills := 0
 var encounter_hearts := 0
 var encounter_shields := 0
 
+func start_run(seed_value: int,target: PlayerBody,enemies: Node2D,projectiles: Node2D,portals: Node2D,build: BuildSystem,navigation: ArenaLayout) -> bool:
+	if state!=State.IDLE or not is_instance_valid(navigation) or navigation.get_parent()==null: return false
+	var field := navigation.get_parent().get_node_or_null("TrapField")
+	if not is_instance_valid(field) or field.get_script()!=TrapField or not field.is_inside_tree() or field.layout!=navigation: return false
+	trap_field = field
+	trap_field.tree_exiting.connect(_on_trap_departure)
+	return super.start_run(seed_value,target,enemies,projectiles,portals,build,navigation)
+
+func _on_trap_departure() -> void: _fail("苗圃压板所有者离场")
+
+func _on_state_changed(next: State) -> void:
+	if is_instance_valid(trap_field): trap_field.set_active(next==State.COMBAT,4 if encounter_index==2 else 2)
+
 func _on_run_started() -> void:
 	# Supply randomness must not alter map, portal or enemy composition rolls.
 	supply_rng.seed = run_seed ^ 0x4E555253
+	trap_field.configure(arena_navigation,run_seed,player)
 
 func _prepare_encounter(index: int) -> void:
 	encounter_kills = 0

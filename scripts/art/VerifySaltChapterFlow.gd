@@ -57,13 +57,7 @@ func pilot_motion(chapter: Node,policy: RefCounted,step: int,threats: Array[Vect
 		var distance := position.distance_squared_to(item.position)
 		if wanted and distance<closest: closest = distance; loot = item
 	if loot!=null: goal = chapter.map.layout.get_navigation_direction(position,loot.position,chapter.player.get_body_radius())
-	for band in chapter.map.tidal_field.get_children():
-		var area := Rect2(band.global_position+band.footprint.position,band.footprint.size)
-		if band.state in [band.State.WARNING,band.State.ACTIVE] and area.grow(18).has_point(position):
-			var center: Vector2 = area.get_center()
-			threats.append(center); danger_distance = 0
-			goal = Vector2(signf(position.x-center.x),0) if area.size.x<area.size.y else Vector2(0,signf(position.y-center.y))
-			if goal==Vector2.ZERO: goal = Vector2.RIGHT if area.size.x<area.size.y else Vector2.DOWN
+	# Actual reusable pressure plates are observed once by the common driver.
 	if boss!=null:
 		var combat = boss.attack_director
 		if combat.action_stage in [combat.Stage.WARNING,combat.Stage.ACTIVE]:

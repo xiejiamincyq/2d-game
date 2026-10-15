@@ -22,7 +22,7 @@ func _initialize() -> void:
 	enemy.setup(0, 0, root, target)
 	root.add_child(enemy)
 	enemy.set_physics_process(false)
-	check(is_equal_approx(enemy.attack_windup, 0.18), "ordinary windup remains long")
+	check(is_equal_approx(enemy.attack_windup, 0.45), "ordinary close-contact warning lost reaction window")
 	check(is_equal_approx(enemy.attack_recovery, 0.20), "ordinary recovery remains long")
 	check(enemy.has_method("should_show_attack_marker"), "missing head warning state")
 	if enemy.has_method("should_show_attack_marker"):
@@ -32,7 +32,7 @@ func _initialize() -> void:
 			target.position = Vector2(50, 0)
 			enemy.basic_attack.begin(enemy, target, move)
 			check(enemy.should_show_attack_marker(), "warning marker absent")
-			enemy.basic_attack.advance(0.23 if move == 0 else 0.31)
+			enemy.basic_attack.advance(enemy.basic_attack.get_warning_duration()+0.01)
 			check(enemy.basic_attack.stage == enemy.basic_attack.Stage.ACTIVE, "compact warning not ended")
 			check(not enemy.should_show_attack_marker(), "marker persists into damage phase")
 			check(enemy.basic_attack.get_attack_strokes(enemy).size() <= 1, "ordinary attack still has three strokes")
@@ -41,7 +41,7 @@ func _initialize() -> void:
 			check(not enemy.should_show_attack_marker(), "recovery marker visible")
 			enemy.basic_attack.advance(0.21)
 			check(not enemy.basic_attack.is_active(), "recovery still blocks pursuit")
-			check(enemy.basic_attack.cooldown >= 4.47, "shorter action unintentionally increased special attack rate")
+			check(is_equal_approx(enemy.basic_attack.cooldown,enemy.basic_attack.COOLDOWN+enemy.basic_attack.get_released_delay()), "warning change unintentionally changed special full cycle")
 		enemy.basic_attack.cancel()
 		enemy.basic_attack.cooldown = 0.0
 		target.position = Vector2(155, 0)
@@ -54,7 +54,7 @@ func _initialize() -> void:
 		check(not enemy.should_show_attack_marker(), "close marker remains after hit")
 		enemy.attack_timer = -0.20
 		enemy._update_melee_attack(0.0, target, 100.0)
-		check(is_equal_approx(enemy.attack_cooldown, 0.64), "ordinary cycle was buffed by recovery reduction")
+		check(is_equal_approx(enemy.attack_cooldown,enemy.melee_cycle_duration-enemy.attack_windup-enemy.attack_recovery), "ordinary full cycle changed")
 	for kind in [3, 6]:
 		var heavy := Enemy.new()
 		heavy.setup(kind, 0, root, target)
@@ -75,7 +75,7 @@ func _initialize() -> void:
 		chaser.free()
 	enemy.is_attacking = false
 	enemy.basic_attack.begin(enemy, target, 0)
-	enemy.basic_attack.advance(0.35)
+	enemy.basic_attack.advance(enemy.basic_attack.get_warning_duration()+enemy.basic_attack.get_active_duration()+0.01)
 	await physics_frame
 	var old_position := enemy.position
 	enemy._physics_process(0.01)
@@ -85,7 +85,7 @@ func _initialize() -> void:
 	undecorated_target.position = enemy.position + Vector2(50, 0)
 	enemy.basic_attack.cancel()
 	enemy.basic_attack.begin(enemy, undecorated_target, 0)
-	enemy.basic_attack.advance(0.23)
+	enemy.basic_attack.advance(enemy.basic_attack.get_warning_duration()+0.01)
 	enemy.basic_attack.resolve_hit(enemy, undecorated_target)
 	check(not enemy.basic_attack.did_hit, "non-damage target incorrectly consumed hit")
 	undecorated_target.free()

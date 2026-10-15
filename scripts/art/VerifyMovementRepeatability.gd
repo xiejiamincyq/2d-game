@@ -4,8 +4,8 @@ extends SceneTree
 # --mode=walk --run=smoke-d-walk-01 --steps=120 --clock=fixed.
 # --clock is a caller declaration, not proof of engine pacing. Default: unknown.
 # Formal budget is 1200 steps.
-const MainScript = preload("res://scripts/Main.gd")
-const StoreScript = preload("res://scripts/systems/RunSnapshotStore.gd")
+const MainScript = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
+const StoreScript = preload("res://scripts/tests/fixtures/LegacyRunSnapshotStore.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const FeedbackScript = preload("res://scripts/art/MovementDiagnosticFeedback.gd")
 const TestSupportScript = preload("res://scripts/tests/TestSupport.gd")
@@ -292,7 +292,7 @@ func _initialize() -> void:
 
 func _source_hashes() -> Dictionary:
 	var hashes := {}
-	for source in ["scripts/art/VerifyMovementRepeatability.gd", "scripts/art/MovementPhysicsSampler.gd", "scripts/art/MovementDiagnosticFeedback.gd", "scripts/Main.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/systems/WaveDirector.gd", "scripts/world/SpawnPortal.gd"]:
+	for source in ["scripts/art/VerifyMovementRepeatability.gd", "scripts/art/MovementPhysicsSampler.gd", "scripts/art/MovementDiagnosticFeedback.gd", "scripts/tests/fixtures/LegacyWaveMain.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/tests/fixtures/LegacyWaveDirector.gd", "scripts/world/SpawnPortal.gd"]:
 		hashes[source] = FileAccess.get_sha256("res://" + source)
 	if config.capture == "peak":
 		for source in RenderedSources.visual_source_paths() + ["scripts/art/StressCaptureObserver.gd", "scripts/art/LateCrowdLedger.gd"]:

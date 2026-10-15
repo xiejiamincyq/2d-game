@@ -18,6 +18,20 @@ powershell -ExecutionPolicy Bypass -File scripts/tests/run_tests.ps1 -Group pyth
 
 受限环境无 Python 时可加 `-SkipPython` 跳过 Python 套件；推送前检查不应跳过。
 
+## 当前无尽旅程的正常输入链
+
+`run_campaign_chain.ps1`是旧Progress六关诊断，不适用于当前Journey，无权充作无尽两轮成绩。当前工具通过真实游戏移动/射击/UI完成Boss与继承，每段启动新进程，只接续已验收的上一实际存档；不得拷贝测试构造的通关标志。
+
+```powershell
+pwsh -NoProfile -File scripts/tests/run_endless_campaign.ps1 -EvidenceId fresh_endless_run -ProfileMode all -StopAfterStage 1
+# 首段通过并且来源不变后，接续而非重做首段：
+pwsh -NoProfile -File scripts/tests/run_endless_campaign.ps1 -EvidenceId fresh_endless_run -ProfileMode all -StartStage 2
+```
+
+ID必须全新，旧输出一律拒绝覆盖。只有12段实际通过、父报告/文件/退出收据/来源全部复核后才输出完整两轮PASS；较短运行只标PARTIAL。`all`用真实时钟、实际音频驱动采样各关；默认`second`仅实测第二轮、首轮固定步长加速。固定步长成绩不能解释为FPS，GUI引擎输入不等于真人/OS输入。详见[采样契约](performance/campaign-endless-profile-contract-v1.md)。
+
+来源银行包含作者验证脚本；先准备完工具与正式文案再冻结长链，过程中不要改相关源文件。完成通关链仍需完整回归、实际同源EXE/PCK、当前画面/存档及性能数据审查，不因一段PARTIAL或合成报告测试通过就交付。
+
 运行单个 Godot 套件：
 
 ```powershell
@@ -188,7 +202,7 @@ powershell -ExecutionPolicy Bypass -File scripts/tests/prepush.ps1
 `prepush.ps1` 按顺序执行以下检查，任一失败即返回非零退出码：
 
 1. `git diff --check`（含暂存区）捕获空白错误；
-2. 暂停赋值扫描，确保 `get_tree().paused =` 只出现在 `scripts/Main.gd`；
+2. 正式脚本暂停赋值扫描，只允许 `scripts/Main.gd` 和共用 `scripts/campaign/ChapterRun.gd`；测试/作者夹具不随包发布，敌人/UI/其他章节脚本仍禁止写暂停；
 3. 相对 HEAD 的变更密钥扫描，命中高置信凭证模式即失败；
 4. 完整严格测试套件；纯文档改动可加 `-SkipTests` 跳过。
 
@@ -202,7 +216,7 @@ rg -n 'get_tree\(\)\.paused\s*=' scripts -g '*.gd'
 git status --short
 ```
 
-暂停赋值只能出现在 `scripts/Main.gd`。提交不得包含密钥、`.godot` 本地状态、临时输出或无关 `.superpowers/sdd` 文件。
+正式暂停权只属于主菜单与共用章节控制器；`check_pause_ownership.ps1`忽略字符串/注释而不豁免其他正式模块，隔离负例由`test_pause_ownership.py`验证。精确字节资源保留CRLF，空白门用per-command `cr-at-eol`识别换行，不关闭行尾空格/空白EOF/tab前空格检查。提交不得包含密钥、`.godot` 本地状态、临时输出或无关 `.superpowers/sdd` 文件。复用已经通过且依赖未变的全量证据时可单独执行`prepush.ps1 -SkipTests`，必须明确记录复用的真实退出收据，不把SKIP计为新的全量通过。
 
 `run_release_checks.ps1` 使用版本化的 `Windows Desktop` 预设在系统临时目录生成 PCK，再从该 PCK 启动主场景 120 帧。它不需要导出模板；生成正式独立 EXE 前仍需安装与 Godot 4.7 完全匹配的官方模板。
 

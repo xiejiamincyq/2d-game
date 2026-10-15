@@ -4,7 +4,7 @@ extends SceneTree
 ## fixtures: prerequisite progress, accelerated encounter clocks/lethal damage,
 ## frozen actor physics and edge poses, deterministic camera-solver steps.
 const MainScene = preload("res://scenes/Main.tscn")
-const Snapshot = preload("res://scripts/systems/RunSnapshotStore.gd")
+const Snapshot = preload("res://scripts/tests/fixtures/LegacyRunSnapshotStore.gd")
 const Progress = preload("res://scripts/systems/CampaignProgress.gd")
 const Store = preload("res://scripts/systems/CampaignProgressStore.gd")
 const Evidence = preload("res://scripts/art/CampaignChainEvidence.gd")

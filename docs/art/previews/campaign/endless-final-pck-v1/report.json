@@ -1,0 +1,178 @@
+{
+	"adapter": "NVIDIA GeForce RTX 5060 Laptop GPU",
+	"captures": [
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c1_intro.png",
+			"height": 720,
+			"sha256": "4d3280585ebdcb59b60b3e298cfedab9e6fcd05048165b9f014a41064bbad2b7",
+			"width": 1280
+		},
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c1_live.png",
+			"height": 720,
+			"sha256": "720764ab4017fc13954a62403f6ea21e066fd6d292d3c32e7a42ae8b27b319da",
+			"width": 1280
+		},
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c2_intro.png",
+			"height": 720,
+			"sha256": "fa28adefe6af3bd1217e1c9cfc3d622b7fd1e321abb654dd3f0c2472bdb0efaf",
+			"width": 1280
+		},
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c2_live.png",
+			"height": 720,
+			"sha256": "09191ef86f622c6d849a4d04a5cc83a7bb401d984cc961b50ff27f48709e0ae9",
+			"width": 1280
+		},
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c3_intro.png",
+			"height": 720,
+			"sha256": "f05f5dbee5a2463488e5edda8c78306b8b461baffe2f119d3382f748c6a17b99",
+			"width": 1280
+		},
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c3_live.png",
+			"height": 720,
+			"sha256": "42c2e4d0d56cb2e4168c2b3065e0da8becea97f3df25f466647b1a113756de2d",
+			"width": 1280
+		},
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c4_intro.png",
+			"height": 720,
+			"sha256": "63660151baa558a59edfe5e73260bce0e6079202905222e8e43494b09a979e49",
+			"width": 1280
+		},
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c4_live.png",
+			"height": 720,
+			"sha256": "777e7272740b872e5dfabf0b5aed7827cb71c8d533f1b536164ea64375ed112f",
+			"width": 1280
+		},
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c5_intro.png",
+			"height": 720,
+			"sha256": "b52eb3387066c832f5630999a80a07f528a267fa51e237cbf2256e8f41043668",
+			"width": 1280
+		},
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c5_live.png",
+			"height": 720,
+			"sha256": "d74225850e64c9004318af0086f153e6f37a9e87a546253105a4b9be9e895183",
+			"width": 1280
+		},
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c6_intro.png",
+			"height": 720,
+			"sha256": "ec0bf3ab5e1749b43a2519fe4414b46dd3b0f51916294a2cce7494ad9890aa06",
+			"width": 1280
+		},
+		{
+			"file": "C:/Users/21604/Documents/2D game/.worktrees/5分钟超载/build/diagnostics/campaign-goal/native-campaign-endless-final-v3-views/c6_live.png",
+			"height": 720,
+			"sha256": "2c96c18c2169a6ffa4b40c83d180ade13770741857c81d340515aae9b64600c4",
+			"width": 1280
+		}
+	],
+	"checks": 71,
+	"default_saves_after": {
+		"user://five_minute_overdrive_campaign_v1.json": "729510abc934fc3e7ea491bb4d0a321ff66ae63ca6207033247b67af8139f739",
+		"user://five_minute_overdrive_campaign_v1.json.bak": "dcc136a102ab9aa021fe15d45376dabd16856c57b16d9f003de8df3ad564c5e1",
+		"user://five_minute_overdrive_campaign_v1.json.tmp": "absent",
+		"user://five_minute_overdrive_journey_v1.json": "absent",
+		"user://five_minute_overdrive_journey_v1.json.bak": "absent",
+		"user://five_minute_overdrive_journey_v1.json.tmp": "absent",
+		"user://five_minute_overdrive_run_v1.json": "absent",
+		"user://five_minute_overdrive_run_v1.json.bak": "absent",
+		"user://five_minute_overdrive_run_v1.json.tmp": "absent"
+	},
+	"default_saves_before": {
+		"user://five_minute_overdrive_campaign_v1.json": "729510abc934fc3e7ea491bb4d0a321ff66ae63ca6207033247b67af8139f739",
+		"user://five_minute_overdrive_campaign_v1.json.bak": "dcc136a102ab9aa021fe15d45376dabd16856c57b16d9f003de8df3ad564c5e1",
+		"user://five_minute_overdrive_campaign_v1.json.tmp": "absent",
+		"user://five_minute_overdrive_journey_v1.json": "absent",
+		"user://five_minute_overdrive_journey_v1.json.bak": "absent",
+		"user://five_minute_overdrive_journey_v1.json.tmp": "absent",
+		"user://five_minute_overdrive_run_v1.json": "absent",
+		"user://five_minute_overdrive_run_v1.json.bak": "absent",
+		"user://five_minute_overdrive_run_v1.json.tmp": "absent"
+	},
+	"driver": "vulkan",
+	"observations": [
+		{
+			"chapter": 1,
+			"controlled_prerequisites": true,
+			"enemy_peak": 23,
+			"final_health": 100.0,
+			"loop": 2,
+			"moves": 600,
+			"shots": 131,
+			"spawn_guard_after_neutral": false,
+			"spawn_guard_before_neutral": false,
+			"state": "COMBAT"
+		},
+		{
+			"chapter": 2,
+			"controlled_prerequisites": true,
+			"enemy_peak": 21,
+			"final_health": 110.0,
+			"loop": 2,
+			"moves": 599,
+			"shots": 130,
+			"spawn_guard_after_neutral": false,
+			"spawn_guard_before_neutral": false,
+			"state": "COMBAT"
+		},
+		{
+			"chapter": 3,
+			"controlled_prerequisites": true,
+			"enemy_peak": 20,
+			"final_health": 120.0,
+			"loop": 2,
+			"moves": 600,
+			"shots": 132,
+			"spawn_guard_after_neutral": false,
+			"spawn_guard_before_neutral": false,
+			"state": "COMBAT"
+		},
+		{
+			"chapter": 4,
+			"controlled_prerequisites": true,
+			"enemy_peak": 15,
+			"final_health": 130.0,
+			"loop": 2,
+			"moves": 600,
+			"shots": 132,
+			"spawn_guard_after_neutral": false,
+			"spawn_guard_before_neutral": false,
+			"state": "COMBAT"
+		},
+		{
+			"chapter": 5,
+			"controlled_prerequisites": true,
+			"enemy_peak": 14,
+			"final_health": 140.0,
+			"loop": 2,
+			"moves": 600,
+			"shots": 133,
+			"spawn_guard_after_neutral": false,
+			"spawn_guard_before_neutral": false,
+			"state": "COMBAT"
+		},
+		{
+			"chapter": 6,
+			"controlled_prerequisites": true,
+			"enemy_peak": 14,
+			"final_health": 150.0,
+			"loop": 2,
+			"moves": 600,
+			"shots": 133,
+			"spawn_guard_after_neutral": false,
+			"spawn_guard_before_neutral": false,
+			"state": "COMBAT"
+		}
+	],
+	"passed": true,
+	"pck_sha256": "6056fbb9a6fc9971c2cdb6cd9e638190bb48df6a8e30c493b9a05e6fbfdc7375",
+	"scope": "Actual compiled PCK, six controlled Loop2 prerequisite journals, actual chapter UI and ordinary movement/aim/fire with natural AI clocks. No post-spawn position, HP, damage or attack-clock writes. NOT six victories, natural predecessor chain, human/OS input, performance or isolated-alpha proof. Actors are retired only after capture."
+}

@@ -2,6 +2,8 @@ extends Area2D
 class_name FlameTrail
 
 const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
+const TerrainDamage = preload("res://scripts/components/TerrainDamageQuery.gd")
+const TerrainBurn = preload("res://scripts/components/TerrainBurnReceiver.gd")
 
 const RADIUS := 22.0
 const STACK_INTERVAL := 0.20
@@ -34,20 +36,27 @@ func _physics_process(delta: float) -> void:
 		queue_redraw()
 
 func _update_burning_enemies(delta: float) -> void:
+	if not is_inside_tree() or is_queued_for_deletion() or not is_finite(delta) or delta<=0: return
 	var overlapping: Array[Node] = []
 	overlapping.append_array(get_overlapping_bodies())
 	overlapping.append_array(get_overlapping_areas())
+	overlapping.append_array(TerrainDamage.collect_in_circle(self,global_position,RADIUS))
 	var active_ids: Dictionary = {}
 	for enemy in overlapping:
-		if not is_instance_valid(enemy) or not enemy.is_in_group(&"enemies"):
+		if not is_instance_valid(enemy) or enemy.is_queued_for_deletion() or (not enemy.is_in_group(&"enemies") and not enemy.is_in_group(&"destructible_terrain")):
 			continue
 		var enemy_id := enemy.get_instance_id()
+		if active_ids.has(enemy_id): continue
 		active_ids[enemy_id] = true
 		var timer := float(stack_timers.get(enemy_id, 0.0)) + delta
 		while timer >= STACK_INTERVAL:
 			timer -= STACK_INTERVAL
-			if enemy.has_method("apply_burn_stack"):
+			if enemy.is_in_group(&"destructible_terrain"):
+				TerrainBurn.apply(enemy,burn_base_attack,burn_duration)
+			elif enemy.has_method("apply_burn_stack"):
 				enemy.apply_burn_stack(burn_base_attack, burn_duration, slow_fraction)
+			if not is_inside_tree() or is_queued_for_deletion(): return
+			if not is_instance_valid(enemy) or enemy.is_queued_for_deletion(): break
 		stack_timers[enemy_id] = timer
 	for enemy_id in stack_timers.keys():
 		if not active_ids.has(enemy_id):

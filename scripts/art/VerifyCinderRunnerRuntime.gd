@@ -10,7 +10,7 @@ func _run() -> void:
 		quit(1)
 		return
 	DirAccess.make_dir_recursive_absolute(OUTPUT)
-	for path in ["scripts/art/VerifyCinderRunnerRuntime.gd","scripts/actors/Enemy.gd","scripts/components/NativeCinderRunnerMotion.gd","scripts/Main.gd","scripts/systems/WaveDirector.gd","scripts/art/NaturalRunPolicy.gd","scripts/art/VerifyNurseryChapterFlow.gd","scenes/actors/native/cinder_runner_paper_v1.tscn","assets/art/actors/native/cinder_runner_motion_v1.tres"]:
+	for path in ["scripts/art/VerifyCinderRunnerRuntime.gd","scripts/actors/Enemy.gd","scripts/components/NativeCinderRunnerMotion.gd","scripts/Main.gd","scripts/systems/EncounterCombatCore.gd","scripts/art/NaturalRunPolicy.gd","scripts/art/VerifyNurseryChapterFlow.gd","scenes/actors/native/cinder_runner_paper_v1.tscn","assets/art/actors/native/cinder_runner_motion_v1.tres"]:
 		sources[path] = FileAccess.get_sha256("res://"+path)
 		check(sources[path].length() == 64,"missing source hash")
 	var main = MainScene.instantiate()

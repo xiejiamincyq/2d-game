@@ -1,9 +1,10 @@
 extends "res://scripts/components/VineSeedProjectile.gd"
 ## Straight, opaque paper leaf. Reuse canonical swept-circle collision only.
+const HIT_RADIUS := 10.0
 var source_actor: WeakRef
 func _init() -> void:
 	super._init()
-	radius = 5; damage = 24; lifetime = 1.35
+	radius = HIT_RADIUS; damage = 24; lifetime = 1.35
 	velocity = Vector2(420,0); damage_source = &"archive_page"
 	tint = Color("d6c8a4")
 ## Called after add_child/ready, before the first physics step.
@@ -37,9 +38,15 @@ func _exit_tree() -> void:
 	if source_actor==null: return
 	var actor = source_actor.get_ref()
 	if is_instance_valid(actor) and actor.tree_exiting.is_connected(cancel): actor.tree_exiting.disconnect(cancel)
+func get_visual_hull() -> PackedVector2Array:
+	var hull := PackedVector2Array()
+	for angle in [PI,-2*PI/3,-PI/3,0,PI/3,2*PI/3]:
+		hull.append(Vector2.from_angle(angle)*radius)
+	return hull
 func _draw() -> void:
 	draw_set_transform(Vector2.ZERO,velocity.angle(),Vector2.ONE)
-	var hull := PackedVector2Array([Vector2(-5,0),Vector2(-3,-3),Vector2(4,-2),Vector2(5,0),Vector2(3,3),Vector2(-4,2)])
-	var core := PackedVector2Array([Vector2(-3,0),Vector2(-2,-1.8),Vector2(3,-1),Vector2(3,1),Vector2(1.5,1.8),Vector2(-2,1)])
+	var hull := get_visual_hull()
+	var core := hull.duplicate()
+	for point in core.size(): core[point] *= 0.65
 	draw_colored_polygon(hull,Color("1c2926")); draw_colored_polygon(core,tint)
-	draw_line(Vector2(-1,-0.5),Vector2(2,0),Color("f27a4b"),1)
+	draw_line(Vector2(-radius*0.3,-0.5),Vector2(radius*0.3,0),Color("f27a4b"),1.5)

@@ -2,7 +2,7 @@ extends SceneTree
 
 # Controlled encounters in the real Main scene. Player input, enemy AI,
 # obstacles and attack clocks run normally; spawns/health are diagnostic only.
-const Main = preload("res://scripts/Main.gd")
+const Main = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
 const Enemy = preload("res://scripts/actors/Enemy.gd")
 var output := ""
 var scene: Node2D

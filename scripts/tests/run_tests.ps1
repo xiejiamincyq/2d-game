@@ -55,9 +55,64 @@ $gameplayTests = @(
     "CampaignChainEvidenceTest",
     "CampaignChainFileTest",
     "CampaignChainFlowTest",
+    "CampaignEndlessEvidenceTest",
+    "CampaignEndlessInputTest",
+    "CampaignRuntimeProfileTest",
     "NativeChapterPilotThreatTest",
     "CampaignProgressTest",
     "CampaignProgressStoreTest",
+    "CampaignCarryRulesTest",
+    "CampaignJourneyTest",
+    "CampaignJourneyPendingClearTest",
+    "CampaignJourneyStoreTest",
+    "CampaignJourneyStoreRetryTest",
+    "CampaignSessionTest",
+    "CampaignSessionRestartTest",
+    "CampaignExitCheckpointRetryTest",
+    "CampaignPendingEntryMenuTest",
+    "CampaignBossCoinSettlementTest",
+    "CampaignRangedWarningTest",
+    "CampaignRangedReactionTest",
+    "CampaignRangedReactionTest_60FPS",
+    "CampaignAttackStartClockTest",
+    "CampaignMeleeReactionTest_30Hz",
+    "CampaignMeleeReactionTest_60Hz",
+    "CampaignMeleeReactionTest_120Hz",
+    "CampaignMeleeReactionTest_120Hz_60FPS",
+    "CampaignCapsuleHatchTest",
+    "CampaignCloseContactReactionTest_30Hz",
+    "CampaignCloseContactReactionTest_60Hz",
+    "CampaignCloseContactReactionTest_120Hz",
+    "CampaignTerrainDestructionTest",
+    "CampaignTerrainProjectileTest",
+    "CampaignTerrainFirstWallTest",
+    "ProjectileFirstImpactTest",
+    "TerrainDamageReentryTest",
+    "ReusableStepTrapTest",
+    "ReusableTrapFieldTest",
+    "CampaignStepTrapIntegrationTest",
+    "CampaignStepTrapPhysicsTest",
+    "GrenadeTerrainTest",
+    "LaserTerrainTest",
+    "AoeTerrainTest",
+    "MobilityTerrainTest",
+    "EnemyTerrainAttackTest",
+    "TerrainFeedbackTest",
+    "CampaignDensityTest",
+    "CampaignLoopRulesTest",
+    "CampaignLoopIntegrationTest",
+    "CampaignLoopCapacityTest",
+    "CampaignLegacyRetirementTest",
+    "CampaignHubLifecycleTest",
+    "StepTrapWallIsolationTest",
+    "CampaignCrossChapterCoinsRegression",
+    "CampaignSixChapterCarryFlowTest",
+    "CampaignPendingRewardRecoveryTest",
+    "CampaignChapterCarryBuildTest",
+    "CampaignCarrySettlementUITest",
+    "CampaignFirstBossSeedEmissionRegression_30Hz",
+    "CampaignFirstBossSeedEmissionRegression_60Hz",
+    "CampaignFirstBossSeedEmissionRegression_120Hz",
     "CampaignMenuTest",
     "CampaignMenuMotionTest",
     "CampaignMenuIntegrationTest",
@@ -235,6 +290,7 @@ $gameplayTests = @(
     "SporeArchivistAttackGateTest",
     "SporeArchivistAttackResourceTest",
     "ArchivePageProjectileTest",
+    "ArchivePageWidthTest",
     "ArchiveBossPageIntegrationTest",
     "ArchiveBossPageLifecycleTest",
     "ArchiveBossPageDodgeTest",
@@ -381,6 +437,7 @@ $gameplayTests = @(
     "SettlementUITest",
     "PerformanceTest",
     "SmokeTest"
+    "LegacyWaveSmokeTest"
 )
 $artTests = @(
     "FriendlyEffectPaletteTest",
@@ -425,6 +482,13 @@ foreach ($test in $tests) {
         elseif ($test -in @("DashTest", "ScrapperAttackTest", "EnemyFlockTest", "EnemyFlockPolicyTest", "EnemyNeighborGridTest", "FlankingCrabMotionTest", "SplittingMoteLifecycleTest", "CapsulePlantHazardTest", "CapsulePlanterLifecycleTest", "EchoRingAttackTest", "EchoSentinelClockTest", "ShadeAmbushAttackTest", "CirclingShadeClockTest", "EliteHybridAttackTest", "RiftEliteIntegrationTest", "RiftShardPhysicsTest", "RiftEliteClockTest", "SpaceCutAttackTest", "SpaceCutterClockTest")) { 1800 }
         elseif ($test -in @("PortalRuntimeClockTest", "BossRuntimeClockTest", "CombatStatusLayoutTest", "EnemyWorldStatusTest")) { 600 }
         else { 120 }
+    if ($test -match '^CampaignFirstBossSeedEmissionRegression_(30|60|120)Hz$') {
+        $scriptTest = "CampaignFirstBossSeedEmissionRegression"
+        $physicsHz = $Matches[1]
+        $fixedStepArguments = "--fixed-fps $physicsHz"
+        $userArguments = "-- --ticks=$physicsHz"
+        $frameBudget = 3000
+    }
     # Clock tests observe real portal/Boss warnings at 60 FPS.
     if ($test -eq "NurserySupplyRuntimeTest") { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
     if ($test -like "BossFairness*Test") { $frameBudget = 18000; $fixedStepArguments = "--max-fps 120" }
@@ -433,6 +497,11 @@ foreach ($test in $tests) {
     if ($test -eq "ChapterDeathTailTest") { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
     if ($test -in @("ChapterEvolutionContextTest", "ChapterFinaleFlowTest", "ChapterFinaleUITest", "ChapterBuildPointerTest", "ChapterReplayGuardTest")) { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
     if ($test -eq "CampaignPrimaryEntryTest") { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "CampaignLegacyRetirementTest") { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -eq "CampaignHubLifecycleTest") { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("CampaignEndlessEvidenceTest", "CampaignEndlessInputTest")) { $frameBudget = 600; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("SmokeTest", "LegacyWaveSmokeTest")) { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
+    if ($test -in @("CampaignLoopIntegrationTest", "CampaignLoopCapacityTest")) { $frameBudget = 12000; $fixedStepArguments = "--max-fps 120" }
     if ($test -in @("ArchivePageProjectileTest", "ArchiveBossPageDodgeTest", "ArchiveBossSealDodgeTest")) { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
     if ($test -in @("ArchiveBossPageIntegrationTest", "ArchiveBossPageLifecycleTest", "ArchiveBossSealTest", "ArchiveBossSealLifecycleTest")) { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
     if ($test -in @("ArchiveBossBroodTest", "ArchiveBossCycleTest", "ArchiveBossBroodBirthTest", "ArchiveBossBroodLifecycleTest", "ArchiveBossVictoryCleanupTest", "ArchiveBossFailureCancellationTest")) { $frameBudget = 1800; $fixedStepArguments = "--max-fps 120" }
@@ -464,6 +533,40 @@ foreach ($test in $tests) {
         $fixedStepArguments = "--max-fps 120"
     }
     # Their own five-second watchdogs remain the lifecycle failure bounds.
+	if ($test -in @("CampaignCrossChapterCoinsRegression", "CampaignPendingRewardRecoveryTest")) { $frameBudget = 3000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -in @("CampaignSixChapterCarryFlowTest", "CampaignBossCoinSettlementTest")) { $frameBudget = 12000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -in @("ArchivePageWidthTest", "CampaignExitCheckpointRetryTest")) { $frameBudget = 3000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -eq "CampaignRangedReactionTest") { $frameBudget = 14000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -eq "CampaignRangedReactionTest_60FPS") { $scriptTest = "CampaignRangedReactionTest"; $frameBudget = 14000; $fixedStepArguments = "--max-fps 60" }
+	if ($test -eq "CampaignCapsuleHatchTest") { $frameBudget = 12000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -match '^CampaignMeleeReactionTest_(30|60|120)Hz(?:_60FPS)?$') {
+		$scriptTest = "CampaignMeleeReactionTest"
+		$userArguments = "-- --ticks=$($Matches[1])"
+		$frameBudget = 8000
+		$fixedStepArguments = "--max-fps 120"
+		if ($test.EndsWith("_60FPS")) { $fixedStepArguments = "--max-fps 60" }
+	}
+	if ($test -match '^CampaignCloseContactReactionTest_(30|60|120)Hz$') {
+		$scriptTest = "CampaignCloseContactReactionTest"
+		$physicsHz = $Matches[1]
+		$userArguments = "-- --ticks=$physicsHz"
+		$frameBudget = 6000
+		$fixedStepArguments = "--fixed-fps $physicsHz"
+	}
+	if ($test -in @("CampaignTerrainDestructionTest", "CampaignTerrainProjectileTest", "ProjectileFirstImpactTest", "TerrainDamageReentryTest", "ReusableStepTrapTest", "StepTrapWallIsolationTest")) {
+		$frameBudget = 3000
+		$fixedStepArguments = "--max-fps 120"
+	}
+	if ($test -eq "CampaignTerrainFirstWallTest") { $frameBudget = 8000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -eq "ReusableTrapFieldTest") { $frameBudget = 18000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -in @("CampaignStepTrapIntegrationTest", "CampaignStepTrapPhysicsTest")) { $frameBudget = 18000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -eq "GrenadeTerrainTest") { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -eq "LaserTerrainTest") { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -eq "AoeTerrainTest") { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -in @("MobilityTerrainTest", "EnemyTerrainAttackTest")) { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -eq "TerrainFeedbackTest") { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -eq "CampaignDensityTest") { $frameBudget = 18000; $fixedStepArguments = "--max-fps 120" }
+	if ($test -in @("ArchiveSporeFieldTest", "EchoFieldTest", "RiftFieldTest")) { $frameBudget = 6000; $fixedStepArguments = "--max-fps 120" }
     if ($test -in @("NurseryMovementTest", "FoundryMovementTest", "SaltMovementTest", "ArchiveMovementTest", "ArchiveSporePhysicsTest", "SaltTidalPhysicsTest", "FoundryHeatPhysicsTest", "SaltEncounterRuntimeTest", "SaltEncounterTest", "FoundryEncounterRuntimeTest", "FoundryEncounterTest", "FurnaceForemanPhysicsTest", "FurnaceForemanDodgeTest", "TideShellPhysicsTest", "TideShellDodgeTest")) {
         # Three real-time 30/60/120Hz routes await physics, not idle frames.
         # Cap idle throughput so quit-after cannot exhaust before physics runs;

@@ -2,7 +2,7 @@ extends RefCounted
 class_name ChapterCatalog
 
 const CHAPTER_COUNT := 6
-# Content IDs describe planned chapter profiles, not yet integrated encounters.
+# Stable content IDs retain their lineage; descriptions reflect current play.
 const CHAPTERS: Array[Dictionary] = [
 	{
 		"id": 1, "name": "雾苔苗圃", "theme_id": "mist_nursery",
@@ -16,14 +16,14 @@ const CHAPTERS: Array[Dictionary] = [
 		"map_profile_id": "furnace_lanes", "enemy_family_id": "emberforged",
 		"boss_id": "furnace_warden", "boss_name": "炉心督工", "mechanic_id": "heat_vents",
 		"enemy_roles": ["slag_charger", "spark_gunner"],
-		"description": "借管道遮挡避开冲撞，在间歇热区之间寻找安全节奏。",
+		"description": "借管道与工位遮挡避开冲撞，留意可破坏的踩踏压板。",
 	},
 	{
 		"id": 3, "name": "盐蚀水道", "theme_id": "salt_culvert",
 		"map_profile_id": "linked_causeways", "enemy_family_id": "saltcarapace",
 		"boss_id": "tide_shell", "boss_name": "潮壳巨兽", "mechanic_id": "tidal_bands",
 		"enemy_roles": ["flanking_crab", "salt_needle"],
-		"description": "相连堤道带来侧向包围风险，预留浪带与盐针的躲避空间。",
+		"description": "相连堤道与盐池带来侧向包围风险，预留盐针与压板的躲避空间。",
 	},
 	{
 		"id": 4, "name": "菌光档案", "theme_id": "luminous_archive",
@@ -44,7 +44,7 @@ const CHAPTERS: Array[Dictionary] = [
 		"map_profile_id": "rift_platforms", "enemy_family_id": "riftwatchers",
 		"boss_id": "rift_observer", "boss_name": "裂隙观测者", "mechanic_id": "shifting_faults",
 		"enemy_roles": ["rift_elite", "space_cutter"],
-		"description": "利用平台隔断保留退路，应对空间切线与终局阶段组合。",
+		"description": "利用设备岛隔断保留退路，躲开空间切线并迎战本轮首领。",
 	},
 ]
 

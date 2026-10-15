@@ -2,7 +2,7 @@
 #
 # Implements the pre-push checks documented in docs/testing.md:
 #   1. whitespace errors via git diff --check (worktree and staged),
-#   2. SceneTree.paused ownership (only scripts/Main.gd may assign),
+#   2. SceneTree.paused ownership (Main and shared ChapterRun only),
 #   3. a secret scan over changes relative to HEAD,
 #   4. the strict test suite (skippable with -SkipTests for docs-only changes).
 #
@@ -25,7 +25,9 @@ $failures = [System.Collections.Generic.List[string]]::new()
 foreach ($scope in @(@("worktree", @("diff", "--check")), @("staged", @("diff", "--cached", "--check")))) {
     $scopeName = $scope[0]
     $scopeArgs = $scope[1]
-    $output = (& git -C $projectRoot @scopeArgs | Out-String).Trim()
+    # Exact-byte Godot resources intentionally retain CRLF. Keep all whitespace
+    # guards while recognizing CR at EOL, rather than normalizing signed files.
+    $output = (& git -C $projectRoot -c core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol @scopeArgs | Out-String).Trim()
     if ($LASTEXITCODE -ne 0 -or $output.Length -gt 0) {
         $failures.Add("whitespace ($scopeName): $output")
     } else {
@@ -34,41 +36,9 @@ foreach ($scope in @(@("worktree", @("diff", "--check")), @("staged", @("diff", 
 }
 
 # --- Check 2: SceneTree.paused ownership ---------------------------------
-# Only scripts/Main.gd may assign get_tree().paused. String literals (such as
-# the scanner inside StateTest.gd) are stripped before matching so the meta
-# check does not flag itself.
-$pausedPattern = 'get_tree\(\)\.paused\s*='
-$pausedMatches = @()
-$rg = Get-Command rg -ErrorAction SilentlyContinue
-if ($null -ne $rg) {
-    Push-Location $projectRoot
-    $raw = & rg -n --no-heading $pausedPattern scripts -g '*.gd' 2>$null
-    Pop-Location
-    if ($LASTEXITCODE -eq 0) {
-        $pausedMatches = @($raw)
-    } elseif ($LASTEXITCODE -gt 1) {
-        $failures.Add("paused check: rg failed with exit code $LASTEXITCODE")
-    }
-} else {
-    $raw = & git -C $projectRoot grep -n -E $pausedPattern -- "scripts/*.gd" "scripts/*/*.gd"
-    if ($LASTEXITCODE -eq 0) {
-        $pausedMatches = @($raw)
-    }
-}
-foreach ($match in $pausedMatches) {
-    $parts = ("$match") -split ":", 3
-    if ($parts.Count -lt 3) {
-        continue
-    }
-    $path = $parts[0] -replace "\\", "/"
-    $code = $parts[2] -replace '"[^"]*"', "" -replace "'[^']*'", ""
-    if ($code -match $pausedPattern -and $path -ne "scripts/Main.gd") {
-        $failures.Add("paused check: $path assigns SceneTree.paused; only scripts/Main.gd may do so")
-    }
-}
-if (-not ($failures | Where-Object { $_ -like "paused check:*" })) {
-    Write-Host "CHECK PASS: SceneTree.paused ownership" -ForegroundColor Green
-}
+$pauseOutput = & (Join-Path $PSScriptRoot 'check_pause_ownership.ps1') -ProjectRoot $projectRoot
+if ($LASTEXITCODE -ne 0) { $failures.Add('paused check: '+($pauseOutput -join '; ')) }
+else { $pauseOutput | ForEach-Object { Write-Host $_ -ForegroundColor Green } }
 
 # --- Check 3: secret scan ------------------------------------------------
 # High-confidence credential shapes abort; loose key/value shapes only warn.

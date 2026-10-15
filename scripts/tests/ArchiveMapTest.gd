@@ -23,7 +23,7 @@ func run() -> void:
 		check(solid.art.modulate.a==1,"upper art alpha does not recover")
 	map.generate_map(20261011)
 	check(map.floor_view.map_seed==20261011 and map.floor_view.chambers==map.layout.get_chambers(),"stale room decoration")
-	check(map.layout.get_child_count()==24,"regeneration doubles shelf colliders")
+	check(map.layout.get_child_count()==32,"regeneration duplicates or omits denser shelf colliders")
 	map.free(); await process_frame
 	if not failures: print("TEST PASS: ArchiveMapTest %d"%checks)
 	quit(1 if failures else 0)

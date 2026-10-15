@@ -31,7 +31,7 @@ func _run() -> void:
 	var attack = load(PATH).new()
 	attack.cooldown = 0
 	attack.consider(actor,target,0)
-	attack.advance(0.15)
+	attack.advance(attack.get_warning_duration()-0.01)
 	attack.resolve_hit(actor,target)
 	check(attack.stage==attack.Stage.WARNING and target.hits.is_empty(),"thin cut hits during short head warning")
 	attack.advance(0.02)
@@ -44,7 +44,7 @@ func _run() -> void:
 	attack.cooldown = 0
 	attack.consider(actor,target,0)
 	target.position = Vector2(0,120)
-	attack.advance(0.17)
+	attack.advance(attack.get_warning_duration()+0.01)
 	attack.resolve_hit(actor,target)
 	check(target.hits.is_empty() and attack.direction==Vector2.RIGHT,"cut homes toward escaped player")
 	target.position = Vector2(120,0)
@@ -64,7 +64,7 @@ func _run() -> void:
 	await physics_frame
 	attack.cooldown = 0
 	attack.consider(actor,target,0)
-	attack.advance(0.17)
+	attack.advance(attack.get_warning_duration()+0.01)
 	attack.resolve_hit(actor,target)
 	check(target.hits.is_empty() and attack.line_end.x<=76.1 and attack.line_end.x>70,"terrain does not clip visible cut/hits through wall")
 	target.position = Vector2(35,0)
@@ -76,7 +76,7 @@ func _run() -> void:
 	target.stealth_active = true
 	attack.cooldown = 0
 	attack.consider(actor,target,0)
-	attack.advance(0.17)
+	attack.advance(attack.get_warning_duration()+0.01)
 	attack.resolve_hit(actor,target)
 	check(target.hits.is_empty() and not attack.is_active(),"hidden target still starts or takes cut")
 	target.stealth_active = false
@@ -87,7 +87,7 @@ func _run() -> void:
 	target.position = Vector2(186,0)
 	attack.cooldown = 0
 	attack.consider(actor,target,0)
-	attack.advance(0.17)
+	attack.advance(attack.get_warning_duration()+0.01)
 	attack.resolve_hit(actor,target)
 	check(target.hits.is_empty(),"cut hits beyond visible reach plus real body radius")
 	attack.cancel()

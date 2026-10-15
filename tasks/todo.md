@@ -1,5 +1,9 @@
 # 五分钟暴兵：执行清单
 
+2026-10-15：六关无尽本轮实现与自动验收完成，见[逐需求终审](../docs/campaign-endless-final-audit-v1.md)。下方状态全部为历史；Git交付以本次最终回复为准，未公开发布。
+
+2026-10-14 新Goal执行入口：[完整清单](campaign-endless-upgrade-todo-v1.md)、[计划](campaign-endless-upgrade-plan-v1.md)。以下旧待解锁/未完成状态是历史，不能覆盖用户已经确认的F11基础操作或已完成的125a67c。
+
 > 最新执行状态见[短状态](campaign-final-live-state-v1.md)、[F9终态](../docs/campaign-final-f9-terminal-review-v1.md)与[提交范围/验证依赖修复](../docs/campaign-final-git-scope-review-v1.md)。以下“当前”均为当时历史节点，旧计数/句柄/checkbox不覆盖最新证据。OS输入待解锁，Goal未完成；不提交部分工作。
 
 当前[F3成长实现进展](../docs/campaign-chapter-growth-progress-v1.md)：正式上下文/家族3级/首领前整备16项2128与GPU107/12图已验证。诊断预算/指针/发射/两类主武器提前量RED→5项206+GPU146通过。正常火力、机动各取进化但实际死亡，失败完整保留；工程冒险正常取雷网后真正击败Boss/独立存档解锁2，严格actualexit0/PASS10044/1660源保持。三不同地图正常进化可达，不把不同报价/驾驶版本胜负当严格平衡比较。[诊断详情](../docs/campaign-grenade-orbit-diagnosis-v1.md)。下一统一策略复查多种子/供给风险与已通关真正重玩；F3不整阶段勾，F4/最终当前源full/候选/新链保留，goal active，不提交/推送中间工作。

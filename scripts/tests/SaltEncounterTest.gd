@@ -26,7 +26,7 @@ func fixture(source: Script,seed_value: int) -> Dictionary:
 func clear_encounter(f: Dictionary,enabled_count: int) -> void:
 	var director = f.director
 	var policy: Dictionary = director.get_encounter()
-	var sites: Array[Rect2] = f.map.tidal_field.get_sites()
+	var sites: Array[Vector2] = f.map.tidal_field.get_sites()
 	check(director.begin_encounter() and not director.begin_encounter(),"unique encounter start")
 	check(f.map.tidal_field.active and f.map.tidal_field.get_children().filter(func(band): return band.enabled).size()==enabled_count,"real tide count does not follow encounter")
 	for _step in 100:

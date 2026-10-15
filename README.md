@@ -1,18 +1,34 @@
 # 废土清剿协议
 
-当前六关原生骨骼工程与验证已完成，见[F12逐需求验收](docs/campaign-final-f12-requirements-audit-v1.md)。[Boss公平性与二关机关](docs/campaign-boss-fairness-v1.md)：热喷口0.70秒锁点预警、正式热区10/10/16，主线17伤害技能无普通撤离路线则取消；兼容监工终态回调漏洞已修复。本机最新F12可双击 `build/playtest/native-campaign-f12-terminal-safety-v1/five-minute-overdrive.exe`，同目录PCK必须保留。[F12验包与边界](docs/campaign-f12-package-review-v1.md)。完整361 Godot/340162、38 Python/290、真空档六链/风险双恢复、同包23套7020+GPU12、三尺寸密集复算均通过；最终Git交付以本对话记录为准。旧候选保留，不混配PCK，不公开发布。
+## 当前开发：六关无尽旅程
+
+Godot 4.7、Windows、纯2D Q版纸偶与原生Skeleton2D/Bone2D。六关为一轮；击败第六关Boss后返回帐篷，“继续”进入下一轮第一关，“重玩本关卡”仍重玩刚完成轮次的第六关。每局随机地图，不再提供旧波次兼容入口；旧快照文件保留，不擅自删除。
+
+金币与继承能力通过旅程存档跨关、跨帐篷和正常退出保留。每轮每关首通选择一项本局获得的普通能力继承一级，终极技能不继承，重玩不重复领取。基础生命按章节为100/110/120/130/140/150，基础护盾20，每轮与重玩不重复叠加；已选的生命/护盾支援卡仍各应用一次。返回帐篷不恢复原场景、敌人或局内战斗进度。
+
+六关建筑和踩踏压板都可被双方攻击破坏，且不计入敌人名册。压板80血量、踩中后0.5秒预警、单次20伤害、冷却1.5秒再用；第二关两段遭遇10/10处、风险16处。第一至第四关实体地形已加密，第五关布局保留。后续轮次增加怪物数量、生命和异区种类，数量与存活预算有安全上限。
+
+本轮自动验收完成：[逐需求终审](docs/campaign-endless-final-audit-v1.md)、[真实帧时间](docs/performance/campaign-endless-final-v1.md)。418套Godot、39套Python、完整12段两轮自然链、同PCK机制/六关画面及密集补测已通过；后补作者门与文档另定向复核。不是人类完整通关、最低配置/FPS保证或公共发布，不把旧F12成绩当作本轮成绩。
+
+过程记录与失败修正保留在[升级进度](docs/campaign-endless-upgrade-progress-v1.md)和[验收任务](tasks/campaign-endless-upgrade-todo-v1.md)。
+
+从本工作树导入`project.godot`后按F5运行当前源码；[当前玩法与操作](docs/campaign-gameplay-guide-v1.md)。本地候选为`build/playtest/native-campaign-endless-final-v3/five-minute-overdrive.exe`，同目录PCK必须成对；[成品检查](docs/art/reviews/campaign-endless-final-package-v1.md)。候选不随Git克隆分发，未公开发布；E1及更早包只保留作历史。
+
+## F12与更早阶段的历史记录
+
+以下记录描述当时候选，不代表上方无尽源码已经完成验收。F12六关原生骨骼阶段曾完成[逐需求验收](docs/campaign-final-f12-requirements-audit-v1.md)。[当时的Boss公平性与二关机关](docs/campaign-boss-fairness-v1.md)：热喷口0.70秒锁点预警、当时热区10/10/16，主线17伤害技能无普通撤离路线则取消；兼容监工终态回调漏洞已修复。F12历史包为`build/playtest/native-campaign-f12-terminal-safety-v1/five-minute-overdrive.exe`，同目录PCK必须保留。[F12验包与边界](docs/campaign-f12-package-review-v1.md)。当时完整361 Godot/340162、38 Python/290、真空档六链/风险双恢复、同包23套7020+GPU12、三尺寸密集复算通过；这些数字不覆盖本次无尽升级。旧候选保留，不混配PCK，不公开发布。
 
 使用 Godot 4.7 制作的 Windows 桌面纯2D Q版肉鸽战斗游戏。“5分钟超载”源码采用原创墨线纸偶、Godot原生Skeleton2D动画与六关逐Boss解锁制，每局随机障碍地图。首关保留8%血包/10%小护盾及每场保底，根刺0.8秒预警/错峰。当前24身体/27动作库与既有签收逐SHA一致；旧验证保留历史版本边界。用户已明确确认F11正常移动、四向瞄准射击与暂停恢复，F12未改对应输入源。工程完成不等于真人通六关、最低硬件保证或公开发行。保留旧波次兼容模式；旧45°/M2仅作历史。
 
-## 当前源码：六关探索
+## F12历史源码：六关探索
 
 在Godot导入本工作树的 `project.godot` 后按F5。主界面“开始探索”从新进度进入第1区，已解锁时“继续探索”进入最高已解锁区；“六区档案”可选择已经解锁的关卡。击败该关真实首领并成功保存才永久解锁下一关；第6关完成后不会生成第7关。每次重新探索生成新地图种子，局内成长重新开始。永久进度不保存关卡中途状态。
 
-当前机制见[六关玩法说明](docs/campaign-gameplay-guide-v1.md)。[旧六关链](docs/campaign-fresh-chain-acceptance-v1.md)及[构筑矩阵](docs/campaign-build-uniform-matrix-v1.md)绑定各自历史源码；不能代替最近地图、资源退役与音频更新后的最终同源验收。未公开发布，不把自动驾驶测试当真人试玩。
+[旧六关链](docs/campaign-fresh-chain-acceptance-v1.md)及[构筑矩阵](docs/campaign-build-uniform-matrix-v1.md)绑定各自历史源码；不能代替最近地图、资源退役与无尽更新后的最终同源验收。未公开发布，不把自动驾驶测试当真人试玩。
 
 [当前收尾状态](tasks/campaign-final-live-state-v1.md)、[原生角色限定签收](docs/art/reviews/final-native-production-acceptance-v1.md)、[开始页轻动效](docs/art/reviews/paper-menu-motion-v1.md)。历史manifest/旧失败保留，pending来源素材不假批；正式消费者不使用这些待核素材。
 
-最新六关本机候选为上方F12；F10/F11及更早候选仅供历史对照。不需要编辑器，不混配旧PCK。本机文件不随Git克隆分发，未公开发布。[首关修正历史](docs/campaign-first-chapter-fairness-v1.md)。
+该历史阶段的候选为F12；它和F10/F11及更早候选现在均仅供历史对照。不需要编辑器，不混配旧PCK。本机文件不随Git克隆分发，未公开发布。[首关修正历史](docs/campaign-first-chapter-fairness-v1.md)。
 
 [首关真实密集性能](docs/performance/chapter-ordinary-v1.md)记录三分辨率实际风险路线与首领通关、完整慢帧/硬件/采样范围；不是冻结演员的视觉负载，也不是全六关或最低配置性能承诺。
 

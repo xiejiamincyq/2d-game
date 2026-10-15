@@ -1,7 +1,7 @@
 extends "res://scripts/art/VerifyChapterBuildRun.gd"
 ## Read-only native frame-callback baseline during actual ordinary gameplay.
 const Timing = preload("res://scripts/art/ChapterPerformanceLedger.gd")
-const Snapshot = preload("res://scripts/systems/RunSnapshotStore.gd")
+const Snapshot = preload("res://scripts/tests/fixtures/LegacyRunSnapshotStore.gd")
 const EXTENTS := {"960":Vector2i(960,540),"1280":Vector2i(1280,720),"1920":Vector2i(1920,1080)}
 const SAMPLE_LIMIT := 60000
 var extent := Vector2i(1280,720)

@@ -21,7 +21,11 @@ func _get_ranged_desired_velocity(to_player: Vector2,safe_rect: Rect2 = Rect2())
 	if basic_attack.stage in [basic_attack.Stage.WARNING,basic_attack.Stage.ACTIVE]: return Vector2.ZERO
 	return super._get_ranged_desired_velocity(to_player,safe_rect)
 func _update_spitter(delta: float,player: Node2D) -> void:
+	var was_active: bool = basic_attack.is_active()
 	basic_attack.consider(self,player,delta)
+	if not was_active and basic_attack.is_active():
+		_queue_visual_redraw()
+		return
 	if basic_attack.is_active():
 		basic_attack.advance(delta)
 		basic_attack.resolve_hit(self,player)

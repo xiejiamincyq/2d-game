@@ -1,6 +1,6 @@
 extends SceneTree
 const Nursery = preload("res://scripts/systems/NurseryEncounterDirector.gd")
-const Legacy = preload("res://scripts/systems/WaveDirector.gd")
+const Legacy = preload("res://scripts/tests/fixtures/LegacyWaveDirector.gd")
 const EnemyActor = preload("res://scripts/actors/Enemy.gd")
 var checks := 0
 var failures := 0
@@ -18,7 +18,10 @@ func _run() -> void:
 	if failures:
 		director.free(); legacy.free(); enemy.free(); quit(1); return
 	director.run_seed = 521
-	director._on_run_started()
+	# Pure drop-policy fixture. Real world start/binding is independently covered
+	# by NurserySupplyRuntimeTest; never call its world hook without a map.
+	director.supply_rng.seed = 521
+	director.spawn_rng.seed = 521
 	director.encounters = director._build_encounters()
 	var counts: Array[int] = []
 	for encounter in 3:

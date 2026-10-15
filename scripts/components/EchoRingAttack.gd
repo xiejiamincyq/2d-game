@@ -2,7 +2,8 @@ extends "res://scripts/components/ScrapperAttack.gd"
 ## Swept hollow sound rim. Visual motion and crowd displacement cannot move origin.
 var radius := 0.0
 var previous_radius := 0.0
-func get_warning_duration() -> float: return 0.18
+const AttackTiming = preload("res://scripts/components/EnemyAttackTiming.gd")
+func get_warning_duration() -> float: return AttackTiming.RANGED_WARNING
 func get_active_duration() -> float: return 0.5
 func get_released_delay() -> float: return 0.15
 func consider(actor: Node2D,target: Node2D,delta: float) -> void:
@@ -15,7 +16,7 @@ func advance(delta: float) -> void:
 	if not is_finite(delta) or delta<0: return
 	previous_radius = radius
 	super.advance(delta)
-	radius = 0 if stage==Stage.IDLE else 170*clampf((elapsed-0.18)/0.5,0,1)
+	radius = 0 if stage==Stage.IDLE else 170*clampf((elapsed-get_warning_duration())/get_active_duration(),0,1)
 func cancel() -> void:
 	stage = Stage.IDLE
 	cooldown = 2.4
@@ -23,6 +24,12 @@ func cancel() -> void:
 	previous_radius = 0
 	did_hit = false
 func resolve_hit(actor: CharacterBody2D,target: Node2D) -> void:
+	_resolve_player_hit(actor,target)
+	if stage not in [Stage.ACTIVE,Stage.RECOVERY] or radius<=previous_radius or not TerrainAttack.live(actor): return
+	var targets: Array[Node2D]=[]
+	for hit in TerrainQuery.collect_in_annulus(actor,origin,maxf(0,previous_radius-1.5),radius+1.5): targets.append(hit.node)
+	TerrainAttack.apply(actor,targets,origin,actor.contact_damage,&"enemy",terrain_hit_ids,func(): return stage in [Stage.ACTIVE,Stage.RECOVERY] and radius>previous_radius)
+func _resolve_player_hit(actor: CharacterBody2D,target: Node2D) -> void:
 	if stage not in [Stage.ACTIVE,Stage.RECOVERY] or radius<=previous_radius or did_hit or not is_instance_valid(target): return
 	if not target.has_method("take_damage") or target.is_queued_for_deletion(): return
 	if target.has_method("is_stealthed") and target.is_stealthed(): return

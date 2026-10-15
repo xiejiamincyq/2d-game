@@ -1,7 +1,7 @@
 extends "res://scripts/art/VerifyPlayerNatural.gd"
 
 const Recorder = preload("res://scripts/art/VerifyNaturalRunRendered.gd")
-const MainScript = preload("res://scripts/Main.gd")
+const MainScript = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
 const BossScript = preload("res://scripts/actors/OverseerBoss.gd")
 const UIScript = preload("res://scripts/ui/GameUI.gd")
 const PlayerScript = preload("res://scripts/actors/Player.gd")

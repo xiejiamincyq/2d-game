@@ -1,5 +1,11 @@
 extends "res://scripts/components/NativeBossMotion.gd"
 ## Attack stages share the actual chapter director clock, not autoplay events.
+func sample_seed_release() -> void:
+	# The preview and birth use the same t=0 release pose. A normal physics
+	# frame can carry time past the warning boundary; that remainder belongs
+	# to subsequent animation, not to a different unpreviewed launch point.
+	view.sample_clip("seeds_attack",0)
+
 func update(actor: CharacterBody2D,delta: float) -> void:
 	if not is_finite(delta) or delta<0: return
 	var combat = actor.attack_director

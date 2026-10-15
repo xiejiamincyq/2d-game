@@ -1,7 +1,7 @@
 extends "res://scripts/systems/ChapterEncounterDirector.gd"
 ## Sixth-region policy only; shared director owns combat debts/reward transactions.
 const Factory = preload("res://scripts/campaign/RegionalEnemyFactory.gd")
-const RiftField = preload("res://scripts/world/RiftField.gd")
+const RiftField = preload("res://scripts/world/ReusableTrapField.gd")
 const Layout = preload("res://scripts/world/RiftArenaLayout.gd")
 const Observer = preload("res://scripts/actors/RiftObserverBoss.gd")
 var rift_field: Node2D
@@ -29,7 +29,7 @@ func _encounter_kinds(encounter: Dictionary) -> Array[int]:
 	for _count in encounter.cutter: kinds.append(EnemyScript.EnemyKind.SCRAPPER)
 	for _count in encounter.elite: kinds.append(EnemyScript.EnemyKind.SPITTER)
 	return kinds
-func _create_enemy_actor(kind: int) -> Node:
+func _create_chapter_enemy_actor(kind: int) -> Node:
 	var role: String
 	match kind:
 		EnemyScript.EnemyKind.SCRAPPER: role = "space_cutter"

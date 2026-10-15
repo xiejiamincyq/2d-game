@@ -1,7 +1,7 @@
 extends "res://scripts/systems/ChapterEncounterDirector.gd"
 ## Second-chapter encounter/heat policy and its actual native Furnace Boss.
 const Factory = preload("res://scripts/campaign/RegionalEnemyFactory.gd")
-const HeatField = preload("res://scripts/world/FoundryHeatField.gd")
+const HeatField = preload("res://scripts/world/ReusableTrapField.gd")
 const FurnaceBoss = preload("res://scripts/actors/FoundryFurnaceBoss.gd")
 var heat_field: Node2D
 func bind_heat_field(field: Node2D) -> bool:
@@ -37,7 +37,7 @@ func _encounter_kinds(encounter: Dictionary) -> Array[int]:
 	for _count in encounter.dasher: kinds.append(EnemyScript.EnemyKind.DASHER)
 	for _count in encounter.spitter: kinds.append(EnemyScript.EnemyKind.SPITTER)
 	return kinds
-func _create_enemy_actor(kind: int) -> Node:
+func _create_chapter_enemy_actor(kind: int) -> Node:
 	var role := "spark_gunner" if kind==EnemyScript.EnemyKind.SPITTER else "slag_charger"
 	var actor := Factory.create_actor(2,role,encounter_index+2,projectile_parent,player)
 	actor.world_bounds = world_bounds

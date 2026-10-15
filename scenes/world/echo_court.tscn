@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/world/EchoMap.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/world/EchoFloor.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/world/EchoArenaLayout.gd" id="3"]
-[ext_resource type="Script" path="res://scripts/world/EchoField.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/world/ReusableTrapField.gd" id="4"]
 
 [node name="EchoCourt" type="Node2D"]
 y_sort_enabled = true

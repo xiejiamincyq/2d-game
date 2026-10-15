@@ -2,6 +2,8 @@ extends SceneTree
 const Upgrades = preload("res://scripts/systems/UpgradeSystem.gd")
 const Pause = preload("res://scripts/ui/PauseScreen.gd")
 const Player = preload("res://scripts/actors/Player.gd")
+const Catalog = preload("res://scripts/systems/ChapterCatalog.gd")
+const Definitions = preload("res://scripts/campaign/ChapterRunDefinitions.gd")
 var assertions := 0
 var failures := 0
 func check(ok: bool, label: String) -> void:
@@ -48,6 +50,9 @@ func _initialize() -> void:
 	for label in labels:
 		help += label.text
 	check(help.contains("三倍") and help.contains("爪击") and help.contains("扑击"), "current combat help missing")
+	check(help.contains("遭遇清场") and not help.contains("波次清剿"),"help retains retired wave progression wording")
+	check(Catalog.get_chapter(2).description.contains("压板") and not Catalog.get_chapter(2).description.contains("间歇热区"),"region selector describes removed periodic traps")
+	check(Definitions.get_definition(6).route.contains("本轮首领") and not Definitions.get_definition(6).route.contains("终局首领"),"sixth route implies the endless journey terminates")
 	for size in [Vector2(640, 360), Vector2(1280, 720)]:
 		root.size = Vector2i(size)
 		pause.apply_viewport_size(size)

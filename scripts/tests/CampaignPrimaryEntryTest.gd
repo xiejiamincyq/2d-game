@@ -3,7 +3,7 @@ extends SceneTree
 const Main = preload("res://scripts/Main.gd")
 const Progress = preload("res://scripts/systems/CampaignProgress.gd")
 const Store = preload("res://scripts/systems/CampaignProgressStore.gd")
-const Snapshot = preload("res://scripts/systems/RunSnapshotStore.gd")
+const Snapshot = preload("res://scripts/tests/fixtures/LegacyRunSnapshotStore.gd")
 const Support = preload("TestSupport.gd")
 var assertions := 0
 var failures := 0
@@ -58,41 +58,32 @@ func _run() -> void:
 		main.campaign_store_path = path
 		root.add_child(main)
 		current_scene = main
-		main.snapshot_store.save_path = snapshot_path
-		main.ui.set_continue_available(main.snapshot_store.has_valid_snapshot())
 		check(not main.ui.start_screen.start_button.disabled, "actual frontier primary unavailable")
 		key(main.ui, KEY_C)
 		key(main.ui, KEY_ENTER, true)
-		check(not main.run_started and not main.restarting, "cover C or echo starts legacy/formal run")
-		if clears == 6:
-			key(main.ui, KEY_ENTER)
-			check(current_scene == main and main.ui.start_screen.page == main.ui.start_screen.Page.CHAPTERS and main.ui.start_screen.selected_chapter == 6, "all-clear primary invents seventh or launches legacy")
-			main._start_primary_campaign()
-			check(not main.run_started and not main.restarting, "live all-clear model bypasses replay choice")
+		check(not main.restarting, "cover C or echo starts legacy/formal run")
+		key(main.ui, KEY_SPACE if clears % 2 == 0 else KEY_ENTER)
+		main._start_primary_campaign() # a duplicate signal cannot spawn another scene
+		await process_frame
+		await process_frame
+		var chapter = current_scene
+		check(chapter != main and chapter.has_method("_chapter_number"), "primary never reached actual chapter")
+		if chapter == main:
 			await dispose(main)
-		else:
-			key(main.ui, KEY_SPACE if clears % 2 == 0 else KEY_ENTER)
-			main._start_primary_campaign() # a duplicate signal cannot spawn another scene
+			break
+		check(chapter._chapter_number() == clears % 6 + 1 and chapter.run_loop == clears / 6 + 1 and chapter.campaign_store_path == path, "primary skipped frontier, next loop or save boundary")
+		var live_chapters := 0
+		for child in root.get_children():
+			if child.has_method("_chapter_number"): live_chapters += 1
+		check(live_chapters == 1, "duplicate launch creates multiple chapters")
+		if clears == 0:
+			chapter.ui.return_button.pressed.emit()
 			await process_frame
 			await process_frame
-			var chapter = current_scene
-			check(chapter != main and chapter.has_method("_chapter_number"), "primary never reached actual chapter")
-			if chapter == main:
-				await dispose(main)
-				break
-			check(chapter._chapter_number() == clears + 1 and chapter.campaign_store_path == path, "primary skipped frontier or save boundary")
-			var live_chapters := 0
-			for child in root.get_children():
-				if child.has_method("_chapter_number"): live_chapters += 1
-			check(live_chapters == 1, "duplicate launch creates multiple chapters")
-			if clears == 0:
-				chapter.ui.return_button.pressed.emit()
-				await process_frame
-				await process_frame
-				var returned = current_scene
-				check(returned.get_script() == Main and not returned.run_started and returned.ui.start_screen.start_button.text.contains("第1区"), "Back lost formal primary")
-				await dispose(returned)
-			else: await dispose(chapter)
+			var returned = current_scene
+			check(returned.get_script() == Main and not returned.restarting and returned.ui.start_screen.start_button.text.contains("第1关"), "Back lost formal primary")
+			await dispose(returned)
+		else: await dispose(chapter)
 		check(FileAccess.get_sha256(snapshot_path) == snapshot_sha, "formal launch/Back deleted or rewrote legacy snapshot")
 		check((FileAccess.get_sha256(path) if clears else "") == before and (clears > 0 or not FileAccess.file_exists(path)), "primary selection wrote permanent progress")
 	# Hostile UI state cannot bypass Main's live storage guard.
@@ -109,28 +100,21 @@ func _run() -> void:
 	current_scene = bad
 	bad.ui.start_screen.start_button.disabled = false
 	bad.ui.start_requested.emit()
-	check(not bad.restarting and not bad.run_started and bad.ui.start_screen.start_button.text.contains("异常"), "live storage failure silently enters demo")
+	check(not bad.restarting and not bad.has_method("_start_run") and bad.ui.start_screen.start_button.text.contains("异常"), "live storage failure silently enters demo")
 	check(FileAccess.get_sha256(bad_path) == bad_sha and not FileAccess.file_exists(bad_path + ".tmp"), "bad campaign silently repaired")
 	await dispose(bad)
-	# C remains an actual legacy continuation request, only in the explicit page.
-	var legacy := Main.new()
-	legacy.audio_enabled = false
-	legacy.campaign_store_path = owned_paths[1]
-	root.add_child(legacy)
-	current_scene = legacy
-	legacy.snapshot_store.save_path = snapshot_path
-	legacy.ui.set_continue_available(legacy.snapshot_store.has_valid_snapshot())
-	legacy.ui.start_screen.settings_button.pressed.emit()
-	key(legacy.ui, KEY_SPACE)
-	key(legacy.ui, KEY_C)
-	check(not legacy.run_started and not legacy.restarting, "settings shortcuts hijack focused controls")
-	legacy.ui.start_screen.back_button.pressed.emit()
-	legacy.ui.start_screen.legacy_button.pressed.emit()
-	key(legacy.ui, KEY_C)
-	check(legacy.run_started and legacy.player != null and not legacy.ui.start_screen.visible, "explicit C no longer resumes actual legacy snapshot")
-	check(legacy.campaign_progress.to_state().cleared_chapters.is_empty(), "legacy continuation advances campaign")
-	await dispose(legacy)
+	# C is ignored on cover/settings even when an old snapshot exists.
+	var tent:=Main.new(); tent.audio_enabled=false; tent.campaign_store_path=owned_paths[1]
+	root.add_child(tent); current_scene=tent
+	tent.ui.start_screen.settings_button.pressed.emit()
+	key(tent.ui,KEY_SPACE); key(tent.ui,KEY_C)
+	check(not tent.restarting,"settings shortcuts hijack focused controls")
+	tent.ui.start_screen.back_button.pressed.emit(); key(tent.ui,KEY_C)
+	check(not tent.restarting and not tent.has_method("_continue_run"),"retired C resumes legacy gameplay")
+	check(FileAccess.get_sha256(snapshot_path)==snapshot_sha,"ignored legacy snapshot was modified")
+	await dispose(tent)
 	for path in owned_paths:
+		check(Support.cleanup_journey_fixture(path),"owned journey cleanup")
 		for suffix in ["", ".tmp", ".bak"]:
 			if FileAccess.file_exists(path + suffix): DirAccess.remove_absolute(path + suffix)
 	if not failures: print("TEST PASS: CampaignPrimaryEntryTest %d" % assertions)

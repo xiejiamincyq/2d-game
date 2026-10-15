@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends "res://scripts/world/DestructibleObstacle.gd"
 ## Stable opaque stone footprint; only elevated decoration clears the player.
 const Terrain = preload("res://scripts/world/TerrainSweep.gd")
 const Art = preload("res://scripts/world/EchoPropArt.gd")
@@ -7,6 +7,7 @@ var obstacle_kind: StringName
 var art: Node2D
 var occlusion_rect := Rect2()
 func setup(rect: Rect2,kind: StringName) -> void:
+	set_layout_footprint(rect)
 	name = "EchoPillar"
 	position = Vector2(rect.get_center().x,rect.end.y)
 	obstacle_size = rect.size; obstacle_kind = kind

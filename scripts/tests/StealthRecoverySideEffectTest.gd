@@ -61,6 +61,12 @@ func _test_sensor(kind: String, positive: bool) -> bool:
 	else:
 		sensor.target_group = &"player"
 		sensor.damage = 3.0
+		# The rejected recovery proposal lies inside a now-destructible wall.
+		# Spend one legitimate pierce on that wall, retaining the real Area sensor
+		# to detect any illicit Player callback throughout the negative control.
+		if not positive: sensor.pierce = 1
+	var wall: Node = fixture.scene.get_child(0)
+	var wall_health_before: float = wall.health.current_health
 	sensor.position = sensor_position
 	fixture.scene.add_child(sensor)
 	# Freeze only homing/translation/lifetime logic. Keep the genuine Area2D
@@ -71,6 +77,9 @@ func _test_sensor(kind: String, positive: bool) -> bool:
 			player_entries[0] += 1)
 	if not await _flush_sensor_steps(2):
 		return false
+	if kind == "projectile" and not positive:
+		if not _assert_true(is_instance_valid(sensor) and sensor.pierce == 0 and sensor.hit_bodies == [wall] and is_equal_approx(wall.health.current_health, wall_health_before-3.0), "negative projectile must spend exactly one real pierce/damage on its overlapping wall, not disappear or bypass terrain"):
+			return false
 	var circles: Array[CollisionShape2D] = []
 	for child in sensor.get_children():
 		if child is CollisionShape2D:

@@ -18,17 +18,17 @@ func _run() -> void:
 		root.add_child(layout)
 		layout.generate_map(seed_value)
 		var entries: Array[Dictionary] = layout.get_obstacle_descriptors()
-		check(entries.size()>=16 and entries.size()<=20,"seed %s must produce 16..20 obstacles, got %s" % [seed_value,entries.size()])
-		check(layout.get_child_count()>=16 and layout.get_child_count()==entries.size(),"seed %s must produce actual solid terrain, not an empty-map success" % seed_value)
+		check(entries.size()>=26 and entries.size()<=28,"seed %s must produce 26..28 obstacles, got %s" % [seed_value,entries.size()])
+		check(layout.get_child_count()>=26 and layout.get_child_count()==entries.size(),"seed %s must produce actual solid terrain, not an empty-map success" % seed_value)
 		check(layout.world_bounds==Layout.BOUNDS and layout.map_seed==seed_value and layout.generator_version==2,"seed %s changed its map identity" % seed_value)
 		# Empty maps are trivially connected. Never use that as positive route evidence.
-		if entries.size()<16:
+		if entries.size()<26:
 			layout.free()
 			continue
 		check(layout._layout_is_acceptable(),"seed %s returned rejected terrain" % seed_value)
 		check(entries.filter(func(entry): return entry.kind==&"pipe_bank").size()==8,"seed %s loses eight pipe segments" % seed_value)
 		check(entries.filter(func(entry): return entry.kind==&"furnace").size()==4,"seed %s loses four furnaces" % seed_value)
-		check(entries.filter(func(entry): return entry.kind==&"slag_stack").size()>=4,"seed %s loses slag scenery role" % seed_value)
+		check(entries.filter(func(entry): return entry.kind==&"slag_stack").size()>=14,"seed %s loses denser slag scenery role" % seed_value)
 		for radius in [16.9,26.0,56.0]:
 			for target in ROUTES:
 				check(layout.is_reachable(Vector2.ZERO,target,radius),"seed %s radius %s cannot reach %s" % [seed_value,radius,target])

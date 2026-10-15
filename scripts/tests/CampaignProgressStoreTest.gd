@@ -1,7 +1,7 @@
 extends SceneTree
 
 const Progress = preload("res://scripts/systems/CampaignProgress.gd")
-const LegacyStore = preload("res://scripts/systems/RunSnapshotStore.gd")
+const LegacyStore = preload("res://scripts/tests/fixtures/LegacyRunSnapshotStore.gd")
 const FailedCommit = preload("fixtures/CampaignFailedCommitStore.gd")
 var assertions := 0
 var failures := 0

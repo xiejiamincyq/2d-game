@@ -2,6 +2,8 @@ extends RefCounted
 class_name DroneLaserResolver
 
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
+const TerrainDamage = preload("res://scripts/components/TerrainDamageQuery.gd")
+const BeamGeometry = preload("res://scripts/components/BeamHitGeometry.gd")
 
 const BURN_STACK_INTERVAL := 0.20
 const BURN_SECONDS := 4.0
@@ -43,30 +45,34 @@ func resolve_ray(
 	enemies: Array,
 	piercing: bool,
 	world_bounds: Rect2,
-	viewport_size: Vector2
+	viewport_size: Vector2,
+	length_limit: float = INF
 ) -> Dictionary:
-	var beam_length := get_ray_length(origin, world_bounds, viewport_size)
+	if not origin.is_finite() or not direction.is_finite() or direction.is_zero_approx() or not is_finite(width) or width<0:
+		return {"end":origin,"targets":[]}
+	direction=direction.normalized()
+	var beam_length := minf(get_ray_length(origin, world_bounds, viewport_size),maxf(0,length_limit))
 	var hits := collect_ray_hits(origin, direction, beam_length, width, enemies)
-	if piercing:
-		return {"end": origin + direction * beam_length, "targets": nodes_from_ray_hits(hits)}
-	var blocker_distance := beam_length
-	var blocker_position := origin + direction * beam_length
-	if world != null:
-		var query := PhysicsRayQueryParameters2D.create(origin, blocker_position)
-		query.exclude = [owner_body.get_rid()]
-		query.collide_with_areas = false
-		var obstruction := world.direct_space_state.intersect_ray(query)
-		if not obstruction.is_empty():
-			blocker_position = obstruction["position"]
-			blocker_distance = origin.distance_to(blocker_position)
+	if world!=null and is_instance_valid(owner_body) and owner_body.is_inside_tree():
+		if world!=owner_body.get_world_2d(): return {"end":origin,"targets":[]}
+		for receiver in TerrainDamage.collect_in_beam(owner_body,origin,direction,beam_length,width):
+			var entry:=BeamGeometry.receiver_entry(receiver,origin,direction,beam_length,width)
+			if is_finite(entry): hits.append({"node":receiver,"entry":entry,"solid":receiver is StaticBody2D,"damageable":receiver.is_in_group(&"destructible_terrain") or enemies.has(receiver)})
+	hits.sort_custom(func(a: Dictionary,b: Dictionary):
+		if is_equal_approx(a.entry,b.entry): return a.get("solid",false) and not b.get("solid",false)
+		return a.entry<b.entry
+	)
+	var targets: Array=[]
+	var seen: Dictionary={}
+	var end_distance:=beam_length
 	for hit in hits:
-		var enemy: Node2D = hit["node"]
-		var radius := get_target_radius(enemy)
-		if float(hit["distance"]) <= blocker_distance + radius + width:
-			var enemy_surface_distance := maxf(0.0, float(hit["distance"]) - radius)
-			var visible_distance := minf(blocker_distance, enemy_surface_distance)
-			return {"end": origin + direction * visible_distance, "targets": [enemy]}
-	return {"end": blocker_position, "targets": []}
+		var receiver: Node2D=hit.node
+		if not is_instance_valid(receiver) or receiver.is_queued_for_deletion() or seen.has(receiver.get_instance_id()): continue
+		seen[receiver.get_instance_id()]=true
+		if hit.get("damageable",true) and receiver.has_method("take_damage"): targets.append(receiver)
+		if hit.get("solid",false) or not piercing:
+			end_distance=hit.entry; break
+	return {"end":origin+direction*end_distance,"targets":targets}
 
 func collect_ray_hits(
 	origin: Vector2,
@@ -78,15 +84,13 @@ func collect_ray_hits(
 	var hits: Array[Dictionary] = []
 	for enemy in candidates:
 		var node := enemy as Node2D
-		if node == null or not is_instance_valid(node) or not enemy.has_method("take_damage"):
+		if node == null or not is_instance_valid(node) or node.is_queued_for_deletion() or not enemy.has_method("take_damage"):
 			continue
 		var relative := node.global_position - origin
 		var along := relative.dot(direction)
-		if along < 0.0 or along > length:
-			continue
-		if is_target_on_ray(node, origin, direction, length, width):
-			hits.append({"node": node, "distance": along})
-	hits.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return float(a["distance"]) < float(b["distance"]))
+		var entry:=BeamGeometry.circle_entry(node.global_position,get_target_radius(node)+width,origin,direction,length)
+		if is_finite(entry): hits.append({"node":node,"distance":along,"entry":entry,"solid":false})
+	hits.sort_custom(func(a: Dictionary,b: Dictionary): return a.entry<b.entry)
 	return hits
 
 func is_target_on_ray(
@@ -96,11 +100,7 @@ func is_target_on_ray(
 	length: float,
 	width: float
 ) -> bool:
-	var relative := target.global_position - origin
-	var along := relative.dot(direction)
-	if along < 0.0 or along > length:
-		return false
-	return (origin + direction * along).distance_to(target.global_position) <= width + get_target_radius(target)
+	return is_finite(BeamGeometry.circle_entry(target.global_position,get_target_radius(target)+width,origin,direction,length))
 
 func nodes_from_ray_hits(hits: Array[Dictionary]) -> Array:
 	var targets: Array = []
@@ -110,7 +110,8 @@ func nodes_from_ray_hits(hits: Array[Dictionary]) -> Array:
 
 func get_target_radius(target: Node2D) -> float:
 	var radius_value: Variant = target.get("body_radius")
-	return float(radius_value) if radius_value != null else 0.0
+	if radius_value!=null: return float(radius_value)
+	return target.get_body_radius() if target.has_method("get_body_radius") else 0.0
 
 func update_burn_tracks(
 	index: int,

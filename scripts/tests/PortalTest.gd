@@ -1,6 +1,6 @@
 extends SceneTree
 
-const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
+const WaveDirectorScript = preload("res://scripts/tests/fixtures/LegacyWaveDirector.gd")
 const SpawnPortalScript = preload("res://scripts/world/SpawnPortal.gd")
 
 var assertions := 0

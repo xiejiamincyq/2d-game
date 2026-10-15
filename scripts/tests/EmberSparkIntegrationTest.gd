@@ -61,9 +61,14 @@ func _initialize() -> void:
 	check(shots.get_child_count()==0 and enemy.ranged_target_position==locked_target,"fan tracks target after commitment or fires early")
 	enemy._update_static_motion(0)
 	var nozzle: Vector2 = enemy.native_motion.get_safe_muzzle(enemy)
-	enemy._update_spitter(0.011,target)
+	check(enemy.ranged_windup_duration>=0.55,"scatterer warning is shorter than the human reaction floor")
+	enemy._update_spitter(enemy.ranged_windup_remaining+0.001,target)
 	enemy._update_static_motion(0)
 	check(shots.get_child_count()==3 and not enemy.should_show_attack_marker() and view.player.current_animation=="attack","warning does not release one three-spark fan")
+	if shots.get_child_count()!=3:
+		arena.free()
+		quit(1)
+		return
 	for i in 3:
 		var shot = shots.get_child(i)
 		shot.set_physics_process(false)
@@ -132,7 +137,7 @@ func _initialize() -> void:
 	target.position = enemy.position+Vector2(250,0)
 	enemy._update_spitter(0.01,target)
 	enemy._update_static_motion(0)
-	enemy._update_spitter(0.19,target)
+	enemy._update_spitter(enemy.ranged_windup_duration+0.01,target)
 	check(shots.get_child_count()==3,"scatterer does not resume after cancellation")
 	for shot in shots.get_children():
 		shot.set_physics_process(false)

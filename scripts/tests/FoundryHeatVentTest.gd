@@ -36,9 +36,12 @@ func run() -> void:
 	if failures: quit(1); return
 	var layout = load("res://scripts/world/FoundryArenaLayout.gd").new()
 	root.add_child(layout); layout.generate_map(521)
+	# Isolated retired-component test: the guaranteed spawn pocket is large
+	# enough for this radius46 vent; densified (600,100) is player-only space.
+	check(layout.is_position_walkable(Vector2.ZERO,46),"legacy vent fixture has its full footprint in reserved open terrain")
 	var target := Target.new(); root.add_child(target)
 	var vent = source.new(); root.add_child(vent); vent.set_physics_process(false)
-	vent.configure(layout,target,Vector2(600,100))
+	vent.configure(layout,target,Vector2.ZERO)
 	target.position = vent.position
 	check(vent.state==vent.State.INACTIVE,"defaults disabled")
 	vent.set_enabled(true)
@@ -89,7 +92,7 @@ func run() -> void:
 	check(vent.state==vent.State.INACTIVE,"solid terrain cannot activate vent")
 	vent.configure(layout,target,Vector2(1590,0)); vent.set_enabled(true); vent.advance(10)
 	check(vent.state==vent.State.INACTIVE,"bounds constrain full footprint")
-	vent.configure(layout,target,Vector2(600,100)); vent.set_enabled(true)
+	vent.configure(layout,target,Vector2.ZERO); vent.set_enabled(true)
 	target.queue_free(); await process_frame; vent.advance(10)
 	check(vent.state==vent.State.INACTIVE and not vent.enabled,"target exit cancels")
 	vent.free(); layout.free(); await process_frame

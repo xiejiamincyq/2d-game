@@ -29,6 +29,9 @@ func get_display_name() -> String:
 func get_safe_seed_origin() -> Vector2:
 	var socket: Vector2 = native_visual.get_node("Facing/Skeleton2D/Torso/Head/Crown/SeedOrigin").global_position
 	return OriginSafety.resolve(self,socket,6)
+func get_seed_release_origin() -> Vector2:
+	native_motion.sample_seed_release()
+	return get_safe_seed_origin()
 func get_visual_node() -> Node2D:
 	return native_visual
 func get_visual_rect() -> Rect2:

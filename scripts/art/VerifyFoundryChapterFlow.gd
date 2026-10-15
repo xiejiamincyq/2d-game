@@ -102,12 +102,7 @@ func pilot_motion(chapter: Node, policy: RefCounted, step: int, threats: Array[V
 		if wanted and distance < closest:
 			closest = distance; loot = item
 	if loot != null: goal = chapter.map.layout.get_navigation_direction(position,loot.position,chapter.player.get_body_radius())
-	# Warning fields are threats, not terrain: a player at the locked vent center
-	# must be allowed to move outward through its still-harmless warning.
-	for vent in chapter.map.heat_field.get_children():
-		if vent.state in [vent.State.WARNING,vent.State.ACTIVE]:
-			threats.append(vent.global_position)
-			danger_distance = minf(danger_distance, position.distance_to(vent.global_position))
+	# Actual reusable pressure plates are observed once by the common driver.
 	if attack != null and attack.action_stage in [attack.Stage.WARNING,attack.Stage.ACTIVE]:
 		match attack.action:
 			&"vents":

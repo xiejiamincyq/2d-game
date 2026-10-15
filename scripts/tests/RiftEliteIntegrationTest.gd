@@ -39,8 +39,12 @@ func _run() -> void:
 	actor._physics_process(0.16)
 	check(shots.get_child_count()==0,"shards released too early")
 	target.position = Vector2(200,340)
-	actor._physics_process(0.02)
+	actor._physics_process(actor.basic_attack.get_warning_duration()-actor.basic_attack.elapsed+0.01)
 	check(shots.get_child_count()==2 and actor.native_visual.player.current_animation=="shard_attack","dual emission missing/new clip absent")
+	if shots.get_child_count()!=2:
+		arena.free()
+		quit(1)
+		return
 	for shot in shots.get_children():
 		shot.set_physics_process(false)
 		var locked: Vector2 = shot.global_position.direction_to(actor.basic_attack.target_position)
@@ -68,7 +72,7 @@ func _run() -> void:
 	actor.basic_attack.cooldown = 0
 	target.position = actor.position+Vector2(35,0)
 	actor._physics_process(0.01)
-	actor._physics_process(0.19)
+	actor._physics_process(actor.basic_attack.get_warning_duration())
 	check(target.hits==[24.0] and actor.native_visual.player.current_animation=="attack" and shots.get_child_count()==2,"close sweep lacks unique hit or also emits")
 	actor._update_spitter(0,target)
 	check(target.hits==[24.0],"two blades stack repeated hits")

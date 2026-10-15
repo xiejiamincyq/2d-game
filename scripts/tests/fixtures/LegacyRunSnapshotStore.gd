@@ -1,5 +1,5 @@
 extends Node
-class_name RunSnapshotStore
+## Historical snapshot reader/writer for offline compatibility regression only.
 
 const VERSION := 1
 const DEFAULT_PATH := "user://five_minute_overdrive_run_v1.json"

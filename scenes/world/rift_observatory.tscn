@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/world/RiftMap.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/world/RiftFloor.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/world/RiftArenaLayout.gd" id="3"]
-[ext_resource type="Script" path="res://scripts/world/RiftField.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/world/ReusableTrapField.gd" id="4"]
 
 [node name="RiftObservatory" type="Node2D"]
 y_sort_enabled = true

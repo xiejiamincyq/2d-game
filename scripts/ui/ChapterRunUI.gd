@@ -7,6 +7,8 @@ signal return_requested
 signal resume_requested
 signal retry_save_requested
 signal replay_requested
+signal next_chapter_requested
+signal carry_choice_requested(card_id: String)
 
 const PaperTheme = preload("res://scripts/ui/CampaignMenuTheme.gd")
 var flow_root: Control
@@ -20,6 +22,9 @@ var resume_button: Button
 var retry_save_button: Button
 var replay_button: Button
 var return_button: Button
+var next_button: Button
+var carry_selector: OptionButton
+var carry_hint: Label
 var risk_name := "根巢"
 
 func _ready() -> void:
@@ -54,6 +59,18 @@ func _ready() -> void:
 	flow_description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	flow_description.custom_minimum_size = Vector2(600, 100)
 	column.add_child(flow_description)
+	carry_selector = OptionButton.new()
+	carry_selector.custom_minimum_size.y = 46
+	carry_selector.clip_text = true
+	column.add_child(carry_selector)
+	carry_hint = Label.new()
+	carry_hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	column.add_child(carry_hint)
+	carry_selector.item_selected.connect(_select_carry)
+	next_button = _action(column, "进入下一关", func() -> void:
+		if next_button.visible and not next_button.disabled:
+			next_chapter_requested.emit()
+	)
 	proceed_button = _action(column, "进入遭遇", func() -> void: proceed_requested.emit())
 	supply_button = _action(column, "保守补给：12金币 · 恢复最多20生命", func() -> void: route_requested.emit(&"supply"))
 	risk_button = _action(column, "高风险%s：额外战斗 · 免费构筑 · 完成后35金币" % risk_name, func() -> void: route_requested.emit(&"risk"))
@@ -79,6 +96,12 @@ func present(title: String, description: String, stage: StringName) -> void:
 	flow_root.show()
 	flow_title.text = title
 	flow_description.text = description
+	flow_description.custom_minimum_size.y = 100
+	next_button.hide()
+	carry_selector.hide()
+	carry_hint.hide()
+	return_button.disabled = false
+	replay_button.disabled = false
 	proceed_button.visible = stage in [&"intro", &"boss"]
 	proceed_button.disabled = false
 	proceed_button.text = "进入遭遇" if stage == &"intro" else "迎战首领"
@@ -86,16 +109,54 @@ func present(title: String, description: String, stage: StringName) -> void:
 	risk_button.visible = stage == &"route"
 	resume_button.visible = stage == &"pause"
 	retry_save_button.visible = stage == &"save_error"
+	retry_save_button.text = "重试保存通关"
 	replay_button.visible = stage in [&"cleared", &"failed"]
+	_link_flow_focus()
+	(resume_button if stage == &"pause" else return_button).grab_focus()
+	set_aim_reticle_visible(false)
+
+func _link_flow_focus() -> void:
 	var active: Array[Button] = []
-	for button in [proceed_button, supply_button, risk_button, resume_button, retry_save_button, replay_button, return_button]:
+	for button in [carry_selector, next_button, proceed_button, supply_button, risk_button, resume_button, retry_save_button, replay_button, return_button]:
 		if button.visible and not button.disabled:
 			active.append(button)
 	for index in active.size():
 		active[index].focus_next = active[(index + 1) % active.size()].get_path()
 		active[index].focus_previous = active[(index - 1) % active.size()].get_path()
-	(resume_button if stage == &"pause" else return_button).grab_focus()
-	set_aim_reticle_visible(false)
+
+func present_chapter_clear(chapter: int, choices: Array[Dictionary], balance: int, reward_already_claimed: bool) -> void:
+	present("第%d关通关" % chapter, "金币 %d · 选择一项已获得能力继承一个等级，终极技能不可继承。" % balance, &"cleared")
+	flow_description.custom_minimum_size.y = 50
+	var pending := not reward_already_claimed and not choices.is_empty()
+	next_button.visible = chapter >= 1 and chapter < 6
+	next_button.disabled = pending
+	replay_button.text = "重玩本关卡"
+	replay_button.disabled = pending
+	return_button.disabled = pending
+	carry_selector.visible = pending
+	carry_hint.visible = pending
+	carry_selector.clear()
+	carry_selector.add_item("选择要继承的能力")
+	carry_selector.set_item_metadata(0, {})
+	for card in choices:
+		carry_selector.add_item(String(card.label))
+		carry_selector.set_item_metadata(carry_selector.item_count - 1, card.duplicate(true))
+	carry_hint.text = "每轮每关仅领取一次。先继承核心模块，后续才能继承其附属能力。"
+	if reward_already_claimed:
+		flow_description.text = "金币 %d · 本轮本关继承奖励已领取，重玩不会重复叠加。" % balance
+	elif not pending:
+		flow_description.text = "金币 %d · 没有可继承的普通能力，可继续旅程。" % balance
+	if chapter==6:
+		flow_description.text+="\n回帐篷后继续进入下一轮第1关；重玩仍在当前轮第6关。"
+	_link_flow_focus()
+	(carry_selector if pending else return_button).grab_focus()
+
+func _select_carry(index: int) -> void:
+	var valid := carry_selector.visible and index > 0 and index < carry_selector.item_count
+	if valid:
+		var card: Dictionary = carry_selector.get_item_metadata(index)
+		carry_hint.text = String(card.get("description", ""))
+		carry_choice_requested.emit(String(card.get("id", "")))
 
 func hide_flow() -> void:
 	flow_root.hide()

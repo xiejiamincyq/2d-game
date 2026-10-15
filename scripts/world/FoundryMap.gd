@@ -5,7 +5,9 @@ const Backdrop = preload("res://scripts/world/ChapterMapBackdrop.gd")
 @onready var layout = $Layout
 @onready var floor_view = $Floor
 @onready var heat_field = $HeatField
-func _ready() -> void: generate_map(map_seed)
+func _ready() -> void:
+	layout.obstacle_destroyed.connect(floor_view.release_obstacle)
+	generate_map(map_seed)
 func generate_map(seed_value: int) -> void:
 	map_seed = seed_value
 	layout.generate_map(seed_value)

@@ -1,5 +1,7 @@
 extends RefCounted
 const Drawing = preload("res://scripts/effects/HostileAttackDrawing.gd")
+const TerrainAttack = preload("res://scripts/components/TerrainAttackDamage.gd")
+const TerrainQuery = preload("res://scripts/components/TerrainDamageQuery.gd")
 
 # Only basic chasers use these locked, dodgeable strikes. The actor owns motion
 # and collision; this controller never teleports or modifies player damage rules.
@@ -10,7 +12,7 @@ const CLAW_HALF_ANGLE := PI / 5.0
 const POUNCE_SPEED := 330.0
 const POUNCE_DURATION := 0.30
 const COOLDOWN := 4.0
-const CLAW_WARNING := 0.22
+const CLAW_WARNING := 0.45
 const POUNCE_WARNING := 0.30
 const CLAW_ACTIVE := 0.12
 const RECOVERY := 0.20
@@ -23,6 +25,7 @@ var origin := Vector2.ZERO
 var did_hit := false
 var next_move := Move.CLAW
 var target_radius := 14.0
+var terrain_hit_ids: Dictionary={}
 
 func is_active() -> bool:
 	return stage != Stage.IDLE
@@ -57,6 +60,7 @@ func begin(actor: Node2D, target: Node2D, chosen: int) -> bool:
 	stage = Stage.WARNING
 	elapsed = 0.0
 	did_hit = false
+	terrain_hit_ids.clear()
 	return true
 
 func consider(actor: Node2D, target: Node2D, delta: float) -> void:
@@ -102,6 +106,23 @@ func get_contact_reach(actor: CharacterBody2D) -> float:
 	return actor.body_radius + target_radius + actor.safe_margin + 0.5
 
 func resolve_hit(actor: CharacterBody2D, target: Node2D) -> void:
+	_resolve_player_hit(actor,target)
+	_resolve_terrain(actor)
+
+func _resolve_terrain(actor: CharacterBody2D) -> void:
+	if stage!=Stage.ACTIVE or not TerrainAttack.live(actor): return
+	var targets: Array[Node2D]
+	var ray_origin:=origin
+	if move==Move.CLAW:
+		var points:=get_warning_polygon(actor)
+		for index in points.size(): points[index]+=actor.global_position
+		targets=TerrainQuery.collect_in_polygon(actor,points)
+	else:
+		ray_origin=actor.global_position
+		targets=TerrainQuery.collect_in_circle(actor,ray_origin,actor.body_radius+actor.safe_margin+0.5)
+	TerrainAttack.apply(actor,targets,ray_origin,actor.contact_damage,&"enemy",terrain_hit_ids,func(): return stage==Stage.ACTIVE)
+
+func _resolve_player_hit(actor: CharacterBody2D, target: Node2D) -> void:
 	if stage != Stage.ACTIVE or did_hit or not is_instance_valid(target) or not target.has_method("take_damage"):
 		return
 	var offset := target.global_position - actor.global_position

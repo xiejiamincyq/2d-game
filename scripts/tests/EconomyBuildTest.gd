@@ -4,7 +4,7 @@ const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const OverseerBossScript = preload("res://scripts/actors/OverseerBoss.gd")
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const UpgradeSystemScript = preload("res://scripts/systems/UpgradeSystem.gd")
-const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
+const WaveDirectorScript = preload("res://scripts/tests/fixtures/LegacyWaveDirector.gd")
 
 const FAMILY_IDS: Array[String] = ["ballistics", "mobility", "automation"]
 const ENEMY_KIND_BY_STAGE_KEY: Dictionary = {

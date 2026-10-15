@@ -81,7 +81,7 @@ func _run() -> void:
 			var controls: Array[Control] = menu.get_active_controls()
 			for index in controls.size(): check(controls[index].get_global_rect() == control_rects[index], "control geometry moved")
 			capture(pixels,folder + "%d-cover-%d.png" % [width,int(seconds)])
-		for page in [menu.Page.CHAPTERS,menu.Page.SETTINGS,menu.Page.LEGACY]:
+		for page in [menu.Page.CHAPTERS,menu.Page.SETTINGS]:
 			menu.show_page(page)
 			capture(await render(view),folder + "%d-page-%d.png" % [width,page])
 		if width == 1280:

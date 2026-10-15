@@ -1,7 +1,7 @@
 extends "res://scripts/systems/ChapterEncounterDirector.gd"
 ## Fifth-region mixed encounters and verified native priest combat owner.
 const Factory = preload("res://scripts/campaign/RegionalEnemyFactory.gd")
-const EchoField = preload("res://scripts/world/EchoField.gd")
+const EchoField = preload("res://scripts/world/ReusableTrapField.gd")
 const BellPriest = preload("res://scripts/actors/EchoBellPriestBoss.gd")
 const Layout = preload("res://scripts/world/EchoArenaLayout.gd")
 var echo_field: Node2D
@@ -29,7 +29,7 @@ func _encounter_kinds(encounter: Dictionary) -> Array[int]:
 	for _count in encounter.sentinel: kinds.append(EnemyScript.EnemyKind.SPITTER)
 	for _count in encounter.shade: kinds.append(EnemyScript.EnemyKind.SCRAPPER)
 	return kinds
-func _create_enemy_actor(kind: int) -> Node:
+func _create_chapter_enemy_actor(kind: int) -> Node:
 	var role: String
 	match kind:
 		EnemyScript.EnemyKind.SPITTER: role = "echo_sentinel"

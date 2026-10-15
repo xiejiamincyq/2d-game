@@ -6,6 +6,7 @@ const Growth = preload("res://scripts/systems/UpgradeSystem.gd")
 const Director = preload("res://scripts/systems/SaltEncounterDirector.gd")
 const Crab = preload("res://scripts/actors/FlankingCrabEnemy.gd")
 const EnemyBody = preload("res://scripts/actors/Enemy.gd")
+const Support = preload("res://scripts/tests/TestSupport.gd")
 var checks := 0
 var failures := 0
 func check(ok: bool,label: String) -> void:
@@ -50,10 +51,9 @@ func choose_movement(player: Node2D,map: Node2D,director: Node,shots: Node2D,ope
 			var first: Vector2 = shot.global_position-at
 			var last: Vector2 = first+(shot.velocity-velocity)*0.30
 			if Geometry2D.get_closest_point_to_segment(Vector2.ZERO,first,last).length()<radius+shot.radius+7: score -= 4000
-		for band in map.tidal_field.get_children():
-			if band.state not in [band.State.WARNING,band.State.ACTIVE]: continue
-			var local: Vector2 = band.to_local(future)
-			if local.distance_to(local.clamp(band.footprint.position,band.footprint.end))<radius+5: score -= 3000
+		for plate in map.tidal_field.get_children():
+			if not plate.enabled: continue
+			if future.distance_to(plate.global_position)<plate.trigger_radius+radius+5: score -= 3000
 		if score>best_score: best = direction; best_score = score
 	return best
 func press_movement(direction: Vector2,actions: Array) -> void:
@@ -94,25 +94,29 @@ func run() -> void:
 				claw_warning = claw_warning or enemy.basic_attack.stage==enemy.basic_attack.Stage.WARNING
 				claw_active = claw_active or enemy.basic_attack.stage==enemy.basic_attack.Stage.ACTIVE
 			else: needle_warning = needle_warning or enemy.ranged_is_winding_up
-		tide_active = tide_active or map.tidal_field.get_children().any(func(band): return band.state==band.State.ACTIVE)
+		# Pressure plates must not pulse spontaneously when this pilot avoids them.
+		# Deliberate stepping/reaction/hit controls live in the six-map physics suite.
+		tide_active = tide_active or map.tidal_field.get_children().filter(func(plate): return plate.enabled).size()==2
 		if claw_active and needle_warning and observations.needles>0 and tide_active: break
 	for action in actions: Input.action_release(action)
 	check(moved>30,"normal movement stuck")
 	check(claw_warning and claw_active,"real spawned crab never performs pincer")
 	check(needle_warning and observations.needles>0,"real spawned needler never aims/emits fast shot")
-	check(tide_active,"encounter-owned tide never activates")
+	check(tide_active,"encounter-owned stepped plate count never armed")
 	check(player.health.current_health>0 and director.state==director.State.COMBAT,"witness died or fabricated clear")
 	check(not director.finish_reward() and not director.choose_route(&"supply"),"unfinished encounter grants reward")
 	var actors := director.get_active_enemies().duplicate(); var positions: Array[Vector2] = []
 	for enemy in actors: positions.append(enemy.position)
 	var health: float = player.health.current_health+player.shield
-	paused = true; await physics_frame; await physics_frame
-	check(map.tidal_field.get_children().all(func(band): return band.state==band.State.INACTIVE),"paused encounter retains danger")
+	paused = true
+	var frozen: Array=Support.trap_field_snapshot(map.tidal_field)
+	await physics_frame; await physics_frame
+	check(Support.trap_field_snapshot(map.tidal_field)==frozen,"pause must freeze plate clock/stage/HP")
 	await create_timer(0.12,true).timeout
 	check(player.health.current_health+player.shield==health,"paused encounter damages player")
 	for index in actors.size(): check(actors[index].position==positions[index],"paused salt enemy moves")
 	paused = false; await physics_frame; await physics_frame
-	check(map.tidal_field.get_children().filter(func(band): return band.enabled).all(func(band): return band.state==band.State.COOLDOWN and band.remaining>1.6),"resume lacks safe interval")
+	check(map.tidal_field.active and map.tidal_field.get_children().any(func(plate): return plate.enabled),"resume loses encounter-owned plate authority")
 	var final_health: float = player.health.current_health
 	host.free(); await process_frame
 	print("SaltEncounterRuntimeTest actual_moves=%d needle_shots=%d elapsed_ms=%d simulation_seconds=%s hp=%s claw_warning=%s claw_active=%s tide_active=%s"%[moved,observations.needles,Time.get_ticks_msec()-started,simulation_seconds,final_health,claw_warning,claw_active,tide_active])

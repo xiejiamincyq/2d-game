@@ -19,7 +19,7 @@ func run() -> void:
 		var doors: Array[Rect2] = layout.get_doorways()
 		var fingerprint := str(entries); fingerprints[fingerprint] = true; openings[str(doors)] = true
 		check(layout.PROFILE_ID==&"archive_shelf_chambers" and layout.world_bounds==layout.BOUNDS,"wrong archive profile")
-		check(rooms.size()==4 and doors.size()==8 and entries.size()==24,"four six-piece twin-exit rooms absent")
+		check(rooms.size()==4 and doors.size()==8 and entries.size()==32,"four twin-exit rooms with two interior stacks each absent")
 		check(layout.get_child_count()==entries.size(),"physical shelf count differs")
 		for radius in [13.0,16.0,24.0,56.0]:
 			for target in [layout.BOSS_CENTER,Vector2(-1504,0),Vector2(1504,0),Vector2(0,864),Vector2(-1504,864),Vector2(1504,-864)]:

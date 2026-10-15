@@ -54,10 +54,7 @@ func pilot_motion(chapter: Node,policy: RefCounted,step: int,threats: Array[Vect
 		var distance := position.distance_squared_to(item.position)
 		if wanted and distance<closest: closest = distance; loot = item
 	if loot!=null: goal = chapter.map.layout.get_navigation_direction(position,loot.position,chapter.player.get_body_radius())
-	for nest in chapter.map.spore_field.get_children():
-		if nest.state in [nest.State.WARNING,nest.State.ACTIVE]:
-			threats.append(nest.global_position)
-			danger_distance = minf(danger_distance,position.distance_to(nest.global_position))
+	# Actual reusable pressure plates are observed once by the common driver.
 	if boss!=null:
 		var combat = boss.attack_director
 		if combat.action_stage in [combat.Stage.WARNING,combat.Stage.ACTIVE]:

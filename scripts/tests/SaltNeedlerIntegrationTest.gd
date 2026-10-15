@@ -38,15 +38,15 @@ func _initialize() -> void:
 	enemy._update_static_motion(0.12)
 	check(view.player.current_animation=="walk" and view.skeleton.get_node("Torso/LegL/ShinL").rotation!=0,"no articulated walking")
 	enemy.ranged_is_winding_up = true
-	enemy.ranged_windup_remaining = 0.15
+	enemy.ranged_windup_remaining = enemy.ranged_windup_duration*0.5
 	enemy.ranged_target_position = Vector2(1400,0)
 	enemy._update_static_motion(0)
-	check(view.player.current_animation=="warning" and absf(view.player.current_animation_position-0.15)<0.001,"warning not tied to 0.30s combat clock")
+	check(view.player.current_animation=="warning" and absf(view.player.current_animation_position-0.15)<0.001,"warning midpoint not normalized to combat clock")
 	check(enemy.should_show_attack_marker() and not view.get_node("Warning").visible and projectiles.get_child_count()==0,"duplicate marker / warning damages")
 	var muzzle: Node2D = view.get_node("Facing/Skeleton2D/Torso/ArmR/ForearmR/HandR/NeedleGun/Muzzle")
 	var emission: Vector2 = muzzle.global_position
 	target.position = Vector2(300,80)
-	enemy._update_marksman(0.16,target)
+	enemy._update_marksman(enemy.ranged_windup_remaining+0.01,target)
 	enemy._update_static_motion(0)
 	check(projectiles.get_child_count()==1 and view.player.current_animation=="attack","real shot lacks recoil or duplicate shot")
 	var shot = projectiles.get_child(0)

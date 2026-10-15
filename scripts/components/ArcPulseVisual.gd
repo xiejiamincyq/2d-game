@@ -2,6 +2,7 @@ extends Node2D
 class_name ArcPulseVisual
 
 const Palette = preload("res://scripts/effects/FriendlyEffectPalette.gd")
+const TerrainDamage = preload("res://scripts/components/TerrainDamageQuery.gd")
 
 const BASE_EXPANSION_SPEED: float = 340.0
 const START_RADIUS: float = 18.0
@@ -53,26 +54,32 @@ func get_expansion_speed() -> float:
 	return BASE_EXPANSION_SPEED * expansion_speed_scale
 
 func _damage_crossed_enemies(previous_radius: float, current_radius: float) -> void:
-	if damage <= 0.0 or not enemy_provider.is_valid():
+	if damage <= 0.0 or not _live():
 		return
-	var provided: Variant = enemy_provider.call()
-	if not provided is Array:
-		return
+	var provided: Variant = enemy_provider.call() if enemy_provider.is_valid() else []
+	if not _live(): return
+	if not provided is Array: provided=[]
 	var inner_radius := maxf(0.0, minf(previous_radius, current_radius) - HIT_HALF_WIDTH)
 	var outer_radius := maxf(previous_radius, current_radius) + HIT_HALF_WIDTH
+	var hits: Array[Dictionary]=[]
 	for enemy_value in provided:
 		var enemy := enemy_value as Node2D
-		if enemy == null or not is_instance_valid(enemy) or not enemy.has_method("take_damage"):
-			continue
-		var enemy_id := enemy.get_instance_id()
-		if hit_enemy_ids.has(enemy_id):
+		if enemy == null or not is_instance_valid(enemy) or enemy.is_queued_for_deletion() or enemy.is_in_group(&"destructible_terrain") or not enemy.has_method("take_damage"):
 			continue
 		var distance := global_position.distance_to(enemy.global_position)
 		if distance < inner_radius or distance > outer_radius:
 			continue
-		hit_enemy_ids[enemy_id] = true
+		hits.append({"node":enemy,"distance":distance})
+	hits.append_array(TerrainDamage.collect_in_annulus(self,global_position,inner_radius,outer_radius))
+	for hit in hits:
+		var enemy: Node2D=hit.node
+		if not is_instance_valid(enemy) or enemy.is_queued_for_deletion() or hit_enemy_ids.has(enemy.get_instance_id()): continue
+		hit_enemy_ids[enemy.get_instance_id()] = true
 		var hit_direction := (enemy.global_position - global_position).normalized()
-		enemy.take_damage(damage * get_damage_multiplier_at_distance(distance), damage_source, hit_direction)
+		enemy.take_damage(damage * get_damage_multiplier_at_distance(hit.distance), damage_source, hit_direction)
+		if not _live(): return
+
+func _live() -> bool: return is_inside_tree() and not is_queued_for_deletion()
 
 func get_damage_multiplier_at_distance(distance: float) -> float:
 	var normalized_distance := clampf(distance / maxf(1.0, max_radius), 0.0, 1.0)

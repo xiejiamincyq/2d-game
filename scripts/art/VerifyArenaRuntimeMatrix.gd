@@ -1,7 +1,7 @@
 extends SceneTree
 
-const Main = preload("res://scripts/Main.gd")
-const Store = preload("res://scripts/systems/RunSnapshotStore.gd")
+const Main = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
+const Store = preload("res://scripts/tests/fixtures/LegacyRunSnapshotStore.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const Support = preload("res://scripts/tests/TestSupport.gd")
 const ACTIONS := ["move_left", "move_right", "move_up", "move_down", "fire", "dash_melee"]
@@ -281,9 +281,9 @@ func _save_hashes() -> Dictionary:
 
 func _source_hashes() -> Dictionary:
 	var hashes := {}
-	for path in ["scripts/art/VerifyArenaRuntimeMatrix.gd", "scripts/art/check_arena_runtime_report.py", "scripts/Main.gd",
-		"scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/actors/OverseerBoss.gd", "scripts/systems/WaveDirector.gd",
-		"scripts/systems/RunSnapshotStore.gd", "scripts/world/ArenaLayout.gd", "scripts/world/ArenaObstacle.gd", "scripts/world/SpawnPortal.gd",
+	for path in ["scripts/art/VerifyArenaRuntimeMatrix.gd", "scripts/art/check_arena_runtime_report.py", "scripts/tests/fixtures/LegacyWaveMain.gd",
+		"scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/actors/OverseerBoss.gd", "scripts/tests/fixtures/LegacyWaveDirector.gd",
+		"scripts/tests/fixtures/LegacyRunSnapshotStore.gd", "scripts/world/ArenaLayout.gd", "scripts/world/ArenaObstacle.gd", "scripts/world/SpawnPortal.gd",
 		"scripts/systems/BossCameraFraming.gd", "scripts/systems/CombatView.gd", "scripts/world/TerrainSweep.gd"]:
 		hashes[path] = FileAccess.get_sha256("res://" + path)
 	return hashes

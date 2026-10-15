@@ -127,9 +127,13 @@ func heat_case(hz: int, dodge: bool) -> void:
 	map.map_seed = 521
 	host.add_child(map)
 	var player := Player.new()
-	player.position = Vector2(600, 100)
+	var at:=heat_fixture_site(map,player.get_body_radius())
+	check(at.is_finite(),"seed521 has a vent-sized fixture with a clear right escape")
+	if not at.is_finite(): host.free(); await process_frame; return
+	player.position = at
 	player.world_bounds = map.layout.world_bounds
 	host.add_child(player)
+	print("HEAT FIXTURE: ",JSON.stringify({"at":str(player.position),"body_clear":map.layout.is_position_walkable(player.position,player.get_body_radius()),"vent_clear":map.layout.is_position_walkable(player.position,HeatVent.RADIUS),"escape_clear":map.layout.is_position_walkable(player.position+Vector2(100,0),player.get_body_radius())}))
 	var label := "%dHz heat %s" % [hz, "reaction dodge" if dodge else "stationary control"]
 	check(map.layout.is_position_walkable(player.position, player.get_body_radius())
 		and map.layout.is_position_walkable(player.position + Vector2(100, 0), player.get_body_radius()), label + " real map open fixture")
@@ -159,12 +163,23 @@ func heat_case(hz: int, dodge: bool) -> void:
 	release_inputs()
 	check(saw_active and vent.state == vent.State.COOLDOWN, label + " complete actual active window")
 	if dodge:
-		check(moving and player.position.x > 605 and is_equal_approx(vitality(player), before), label + " ordinary escape from center after reaction")
+		check(moving and player.position.x > at.x+5 and is_equal_approx(vitality(player), before), label + " ordinary escape from center after reaction")
 	else:
 		check(is_equal_approx(before - vitality(player), vent.DAMAGE) and vent.attempted, label + " exactly one real heat hit")
 	ordinary_player(player, label)
 	host.free()
 	await process_frame
+
+func heat_fixture_site(map: Node2D,body_radius: float) -> Vector2:
+	# The old fixed (600,100) still fits a player after map densification,
+	# but not this unshipped legacy radius46 vent. Do not weaken its safety gate.
+	for at: Vector2 in map.heat_field.get_sites():
+		if not map.layout.is_position_walkable(at,HeatVent.RADIUS): continue
+		var clear_exit:=true
+		for distance in range(0,101,4):
+			if not map.layout.is_position_walkable(at+Vector2(distance,0),body_radius): clear_exit=false; break
+		if clear_exit: return at
+	return Vector2.INF
 
 func count_encounter(f: Dictionary, expected: int) -> bool:
 	var director = f.director
@@ -226,6 +241,16 @@ func formal_heat_counts() -> void:
 	await process_frame
 
 func run() -> void:
+	if OS.get_cmdline_user_args().has("--heat-fixture-probe"):
+		var host:=Node2D.new(); root.add_child(host)
+		var map: Node2D=FoundryMap.instantiate(); map.map_seed=521; host.add_child(map)
+		var at:=Vector2(600,100)
+		var candidates: Array[Dictionary]=[]
+		for site: Vector2 in map.heat_field.get_sites():
+			if map.layout.is_position_walkable(site,HeatVent.RADIUS) and map.layout.is_position_walkable(site+Vector2(100,0),16.9): candidates.append({"at":str(site),"vent_clear":true,"escape_clear":true})
+		print("HEAT GEOMETRY PROBE: ",JSON.stringify({"original_at":str(at),"original_player_clear":map.layout.is_position_walkable(at,16.9),"original_vent_clear":map.layout.is_position_walkable(at,HeatVent.RADIUS),"valid_placed_alternatives":candidates}))
+		host.free(); await process_frame
+		quit(0); return # Diagnostic only, deliberately not a suite PASS marker.
 	var original_hz := Engine.physics_ticks_per_second
 	for hz in [30, 60, 120]:
 		Engine.physics_ticks_per_second = hz

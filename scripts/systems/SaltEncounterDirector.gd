@@ -1,7 +1,7 @@
 extends "res://scripts/systems/ChapterEncounterDirector.gd"
 ## Salt causeway encounters; chapter readiness waits for its real Boss and run.
 const Factory = preload("res://scripts/campaign/RegionalEnemyFactory.gd")
-const TidalField = preload("res://scripts/world/SaltTidalField.gd")
+const TidalField = preload("res://scripts/world/ReusableTrapField.gd")
 const TideBoss = preload("res://scripts/actors/SaltTideBoss.gd")
 var tidal_field: Node2D
 func bind_tidal_field(field: Node2D) -> bool:
@@ -37,7 +37,7 @@ func _encounter_kinds(encounter: Dictionary) -> Array[int]:
 	for _count in encounter.crab: kinds.append(EnemyScript.EnemyKind.SCRAPPER)
 	for _count in encounter.needle: kinds.append(EnemyScript.EnemyKind.MARKSMAN)
 	return kinds
-func _create_enemy_actor(kind: int) -> Node:
+func _create_chapter_enemy_actor(kind: int) -> Node:
 	var role: String
 	match kind:
 		EnemyScript.EnemyKind.SCRAPPER: role = "flanking_crab"

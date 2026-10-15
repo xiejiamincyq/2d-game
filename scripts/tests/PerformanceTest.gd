@@ -2,7 +2,7 @@ extends SceneTree
 
 const AudioManagerScript = preload("res://scripts/systems/AudioManager.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
-const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
+const WaveDirectorScript = preload("res://scripts/tests/fixtures/LegacyWaveDirector.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const BossProjectilePatternScript = preload("res://scripts/components/BossProjectilePattern.gd")

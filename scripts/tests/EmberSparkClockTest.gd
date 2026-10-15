@@ -33,7 +33,7 @@ func _initialize() -> void:
 	check(observed.warning>0 and observed.shot>observed.warning,"actual engine does not expose short warning then fan")
 	if observed.warning>0 and observed.shot>observed.warning:
 		var delay: float = (observed.shot-observed.warning)/1000000.0
-		check(delay>=0.145 and delay<=0.25,"actual actor warning has a second clock or stalls")
+		check(delay>=enemy.ranged_windup_duration-0.035 and delay<=enemy.ranged_windup_duration+0.07,"actual actor warning has a second clock or stalls")
 		print("EmberSparkClockTest actual_warning=%.6f" % delay)
 	check(shots.get_child_count()==3,"actual engine fan does not emit three unique sparks")
 	check(enemy.native_visual.player.current_animation=="attack" and not enemy.should_show_attack_marker(),"actual emission not bound to new attack pose")

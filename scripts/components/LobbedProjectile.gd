@@ -1,5 +1,6 @@
 extends Node2D
 class_name LobbedProjectile
+const TerrainQuery=preload("res://scripts/components/TerrainDamageQuery.gd")
 
 const WARNING_COLOR := Color("f27a4b")
 const OUTLINE_COLOR := Color("123b3b")
@@ -71,19 +72,27 @@ func _physics_process(delta: float) -> void:
 		_explode()
 
 func _explode() -> void:
-	if impact_resolved:
+	if impact_resolved or not _live():
 		return
 	impact_resolved = true
+	var terrain_targets:=TerrainQuery.collect_in_circle(self,target_position,splash_radius)
 	if get_parent() != null:
 		var impact := ImpactVisual.new()
 		impact.name = "LobImpact"
 		impact.radius = splash_radius
 		get_parent().add_child(impact)
 		impact.global_position = target_position
+	if not _live(): queue_free(); return
+	for terrain in terrain_targets:
+		if not is_instance_valid(terrain) or terrain.is_queued_for_deletion(): continue
+		terrain.take_damage(damage,&"enemy",target_position.direction_to(terrain.global_position))
+		if not _live(): queue_free(); return
 	if is_instance_valid(target_player) and target_player.global_position.distance_to(target_position) <= splash_radius:
 		if target_player.has_method("take_damage"):
 			target_player.take_damage(damage)
 	queue_free()
+
+func _live() -> bool: return is_inside_tree() and not is_queued_for_deletion()
 
 func _draw() -> void:
 	var arc_height := sin(clampf(elapsed / maxf(0.01, flight_duration), 0.0, 1.0) * PI) * 18.0

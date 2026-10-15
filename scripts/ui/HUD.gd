@@ -75,7 +75,7 @@ func _build_hud() -> void:
 	grid.add_child(progression_box.get_parent())
 
 	var wave_box := _make_card()
-	wave_label = _make_title("波次 -- / --")
+	wave_label = _make_title("遭遇 -- / --")
 	stats_label = _make_label("击杀 0    用时 00:00")
 	wave_box.add_child(wave_label)
 	wave_box.add_child(stats_label)
@@ -270,7 +270,7 @@ func set_progression_state(state: Dictionary) -> void:
 	]
 
 func set_wave(index: int, total: int, remaining: int) -> void:
-	wave_label.text = "波次 %d / %d    剩余 %d" % [index, total, remaining]
+	wave_label.text = "遭遇 %d / %d    剩余 %d" % [index, total, remaining]
 
 func set_run_stats(kills: int, elapsed_seconds: float) -> void:
 	stats_label.text = "击杀 %d    用时 %02d:%02d" % [kills, int(elapsed_seconds) / 60, int(elapsed_seconds) % 60]

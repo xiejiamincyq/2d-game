@@ -55,7 +55,8 @@ const RANGED_MIN_VIEW_FRACTION := 0.38
 const RANGED_MAX_VIEW_FRACTION := 0.48
 const ENEMY_PROJECTILE_BASE_SPEED := 260.0
 const MARKSMAN_PROJECTILE_SPEED_MULTIPLIER := 3.5
-const MARKSMAN_TELEGRAPH_SECONDS := 0.30
+const AttackTiming = preload("res://scripts/components/EnemyAttackTiming.gd")
+const MARKSMAN_TELEGRAPH_SECONDS := AttackTiming.RANGED_WARNING
 const MARKSMAN_TELEGRAPH_LENGTH := 1400.0
 const BASE_MOVE_SPEED_MULTIPLIER := 1.10
 const MELEE_ENEMY_SPEED := 235.0 * 0.90
@@ -85,7 +86,7 @@ var projectile_parent: Node
 var flash_timer: float = 0.0
 var body_radius: float = 14.0
 var attack_range: float = 32.0
-var attack_windup: float = 0.18
+var attack_windup: float = 0.45
 var attack_recovery: float = 0.20
 var melee_cycle_duration := 1.02
 var attack_timer: float = 0.0
@@ -151,7 +152,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 			coin_value = 2
 			_add_health(22.0 * scale_factor)
 		EnemyKind.SPITTER:
-			ranged_windup_duration = 0.18
+			ranged_windup_duration = AttackTiming.RANGED_WARNING
 			feedback_weight = FeedbackWeight.LIGHT
 			speed = 58.0 + wave_index * 2.0
 			contact_damage = 15.0
@@ -186,7 +187,7 @@ func setup(enemy_kind: EnemyKind, wave_index: int, projectiles: Node, target: No
 			contact_damage = 24.0
 			coin_value = 7
 			shoot_cooldown = randf_range(1.0, 1.8)
-			ranged_windup_duration = 0.35
+			ranged_windup_duration = AttackTiming.RANGED_WARNING
 			ranged_keep_min = 230.0
 			ranged_keep_max = 460.0
 			body_radius = 17.0
@@ -896,8 +897,12 @@ func _update_melee_attack(delta: float, player: Node2D, distance: float) -> void
 	attack_timer -= delta
 	if not attack_has_hit and attack_timer <= 0.0:
 		attack_has_hit = true
+		var terrain_query=preload("res://scripts/components/TerrainDamageQuery.gd")
+		var terrain_attack=preload("res://scripts/components/TerrainAttackDamage.gd")
+		var terrain_targets:=terrain_attack.visible(self,terrain_query.collect_in_circle(self,global_position,attack_range+8.0),global_position)
 		if global_position.distance_to(player.global_position) <= attack_range + 8.0 and player.has_method("take_damage"):
 			player.take_damage(contact_damage)
+		terrain_attack.apply(self,terrain_targets,global_position,contact_damage,&"enemy",{},func(): return is_attacking)
 	if attack_timer <= -attack_recovery:
 		is_attacking = false
 		attack_cooldown = maxf(0.15, melee_cycle_duration - attack_windup - attack_recovery)

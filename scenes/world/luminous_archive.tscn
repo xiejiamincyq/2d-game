@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/world/ArchiveMap.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/world/ArchiveFloor.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/world/ArchiveArenaLayout.gd" id="3"]
-[ext_resource type="Script" path="res://scripts/world/ArchiveSporeField.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/world/ReusableTrapField.gd" id="4"]
 
 [node name="LuminousArchive" type="Node2D"]
 y_sort_enabled = true

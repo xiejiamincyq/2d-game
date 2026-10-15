@@ -1,8 +1,9 @@
 extends RefCounted
+const TerrainAttack=preload("res://scripts/components/TerrainAttackDamage.gd")
 ## Ordinary ram-runner only. Motion uses each phase's actual subinterval;
 ## visual clips cannot deal damage, steer, teleport, or advance this clock.
 enum Stage { IDLE, WARNING, ACTIVE, RECOVERY }
-const WARNING := 0.18
+const WARNING := 0.40
 const ACTIVE := 0.36
 const RECOVERY := 0.24
 const SPEED := 440.0
@@ -15,6 +16,7 @@ var origin := Vector2.ZERO
 var did_hit := false
 var target_radius := 13.0
 var blocked := false
+var terrain_hit_ids: Dictionary={}
 
 func is_active() -> bool:
 	return stage != Stage.IDLE
@@ -50,6 +52,7 @@ func tick(actor: CharacterBody2D, target: Node2D, delta: float) -> bool:
 		elapsed = 0
 		did_hit = false
 		blocked = false
+		terrain_hit_ids.clear()
 	actor.velocity = Vector2.ZERO
 	while remaining > 0.000001 and is_active():
 		var duration: float = WARNING if stage == Stage.WARNING else ACTIVE if stage == Stage.ACTIVE else RECOVERY
@@ -84,6 +87,12 @@ func tick(actor: CharacterBody2D, target: Node2D, delta: float) -> bool:
 	return true
 
 func _resolve_hit(actor: CharacterBody2D, target: Node2D, start: Vector2, end: Vector2) -> void:
+	_resolve_player_hit(actor,target,start,end)
+	if stage!=Stage.ACTIVE or not TerrainAttack.live(actor): return
+	var targets:=TerrainAttack.segment(actor,start,end,actor.body_radius+actor.safe_margin+0.5)
+	TerrainAttack.apply(actor,targets,start,actor.contact_damage,&"enemy",terrain_hit_ids,func(): return stage==Stage.ACTIVE)
+
+func _resolve_player_hit(actor: CharacterBody2D, target: Node2D, start: Vector2, end: Vector2) -> void:
 	if did_hit or not is_instance_valid(target) or not target.has_method("take_damage"):
 		return
 	var closest := Geometry2D.get_closest_point_to_segment(target.global_position,start,end)

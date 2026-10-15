@@ -53,9 +53,9 @@ func run() -> void:
 	check(map.has_node("HeatField"),"actual map assembles heat field")
 	if map.has_node("HeatField"):
 		var owned = map.get_node("HeatField")
-		check(owned.get_child_count()==6 and not owned.active,"actual map hazard off until encounter")
+		check(owned.get_script()==load("res://scripts/world/ReusableTrapField.gd") and owned.get_child_count()==10 and not owned.active,"actual map replacement plates off until encounter")
 		map.generate_map(97)
-		check(owned.get_child_count()==6 and not owned.active,"map regenerate cancels danger")
+		check(owned.get_child_count()==10 and not owned.active,"map regenerate cancels danger")
 	map.free(); await process_frame
 	if not failures: print("TEST PASS: FoundryHeatFieldTest %d"%checks)
 	quit(1 if failures else 0)

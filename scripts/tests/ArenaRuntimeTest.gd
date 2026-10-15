@@ -1,6 +1,6 @@
 extends SceneTree
 
-const MainScript = preload("res://scripts/Main.gd")
+const MainScript = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const TestSupport = preload("TestSupport.gd")
 

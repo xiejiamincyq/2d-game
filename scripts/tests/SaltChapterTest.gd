@@ -25,8 +25,10 @@ func battle(chapter: Node,expected_bands: int) -> void:
 	chapter.ui.proceed_button.pressed.emit()
 	check(chapter.director.state==chapter.director.State.COMBAT and not paused,"actual UI cannot begin encounter")
 	check(chapter.map.tidal_field.active and chapter.map.tidal_field.get_children().filter(func(band): return band.enabled).size()==expected_bands,"wrong actual tide pressure")
-	chapter._toggle_pause(); await physics_frame; await physics_frame; await process_frame
-	check(paused and chapter.map.tidal_field.get_children().all(func(band): return band.state==band.State.INACTIVE),"pause leaves tide danger")
+	chapter._toggle_pause()
+	var frozen: Array=Support.trap_field_snapshot(chapter.map.tidal_field)
+	await physics_frame; await physics_frame; await process_frame
+	check(paused and Support.trap_field_snapshot(chapter.map.tidal_field)==frozen,"pause must freeze plate stage/clock/HP")
 	chapter.ui.resume_button.pressed.emit(); await physics_frame; await physics_frame; await process_frame
 	check(not paused,"real resume failed")
 	chapter.director.set_process(false); chapter.player.set_physics_process(false)
@@ -79,15 +81,16 @@ func run() -> void:
 	for _frame in 360:
 		if boss.entrance_resolved: break
 		await process_frame
-	check(DirAccess.make_dir_absolute(path+".tmp")==OK,"owned save-denial fixture unavailable")
+	check(DirAccess.make_dir_absolute(path+".journey.tmp")==OK,"owned save-denial fixture unavailable")
 	check(boss.take_damage(1e9,&"test"),"actual post-entrance fatal damage refused")
 	await process_frame; await process_frame
 	check(not chapter.clear_saved and not chapter.progress.has_cleared(3) and FileAccess.get_sha256(path)==before and chapter.ui.retry_save_button.visible,"failed save exposes false unlock or no retry")
-	check(DirAccess.remove_absolute(path+".tmp")==OK,"owned empty tmp cleanup failed")
+	check(DirAccess.remove_absolute(path+".journey.tmp")==OK,"owned empty tmp cleanup failed")
 	chapter.ui.retry_save_button.pressed.emit()
+	check(Support.claim_chapter_carry(chapter),"earned ordinary inheritance UI required")
 	check(chapter.clear_saved and paused and chapter.ui.flow_title.text.contains("第3关通关"),"actual clear not saved/shown")
 	var restored := Progress.new()
-	check(Store.new(path).load_progress(restored)==Store.LoadResult.LOADED and restored.has_cleared(3) and restored.is_unlocked(4) and not restored.is_unlocked(5),"real third clear doesn't unlock only fourth")
+	check(Support.restore_journey_progress(path,restored) and restored.has_cleared(3) and restored.is_unlocked(4) and not restored.is_unlocked(5),"real third clear doesn't unlock only fourth")
 	var saved_hash := FileAccess.get_sha256(path)
 	check(not chapter.save_clear(2) and not chapter.save_clear(3) and not chapter.save_clear(4) and FileAccess.get_sha256(path)==saved_hash,"duplicate/wrong callback changes progress")
 	check(chapter.ui.stats_label.text.begins_with("击杀 %d "%chapter.kills),"terminal kill HUD stale")
@@ -115,6 +118,7 @@ func run() -> void:
 	check(returned.get_script().resource_path=="res://scripts/Main.gd" and returned.campaign_progress.has_cleared(3) and returned._can_start_campaign_chapter(4) and not returned._can_start_campaign_chapter(5),"Back loses third/fourth progress or launches unbuilt fifth")
 	await dispose(returned)
 	check(DirAccess.remove_absolute(path)==OK,"owned isolated save cleanup failed")
+	check(Support.cleanup_journey_fixture(path),"owned journey fixture cleanup failed")
 	if FileAccess.file_exists(path+".bak"): check(DirAccess.remove_absolute(path+".bak")==OK,"owned backup cleanup failed")
 	if not failures: print("TEST PASS: SaltChapterTest %d"%assertions)
 	quit(1 if failures else 0)

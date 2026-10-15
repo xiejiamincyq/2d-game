@@ -1,5 +1,7 @@
 # 统一实施计划：五分钟暴兵、波次构筑与金币商店
 
+2026-10-14 当前Goal为[六关无尽升级](campaign-endless-upgrade-plan-v1.md)，完整[规格](../docs/campaign-endless-upgrade-spec-v1.md)与[逐项清单](campaign-endless-upgrade-todo-v1.md)。上一轮125a67c已完成；下文状态均保留为历史。本轮必须六关共用，不中间推送。
+
 > 最新执行状态见[短状态](campaign-final-live-state-v1.md)、[F9终态](../docs/campaign-final-f9-terminal-review-v1.md)与[提交范围/验证依赖修复](../docs/campaign-final-git-scope-review-v1.md)。以下“当前”均为当时历史节点，不据旧句柄重复启动验证或判断今天的完成范围。OS输入待解锁，Goal未完成；不提交部分工作。
 
 当前[F3章节成长规则已实现并受控验证](../docs/campaign-chapter-growth-progress-v1.md)：真实Chapter fresh上下文、两次同系达到3级且必需模块齐备，在供给/风险后真实首领前奖励可选一项进化；旧波次/快照保留。16项2128与GPU107/12图通过，三系普通构筑、多种子、风险/重玩与平衡未完成，F4/最终当前源full与本地交付继续。整体goal active，无中间提交推送/阶段邮件。

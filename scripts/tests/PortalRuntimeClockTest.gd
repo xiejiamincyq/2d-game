@@ -1,6 +1,6 @@
 extends SceneTree
 
-const DirectorScript = preload("res://scripts/systems/WaveDirector.gd")
+const DirectorScript = preload("res://scripts/tests/fixtures/LegacyWaveDirector.gd")
 var assertions := 0
 var failures: Array[String] = []
 

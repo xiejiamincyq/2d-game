@@ -113,14 +113,15 @@ func run() -> void:
 	check(not director.active_portals.is_empty() and not director.portal_spawn_queues.is_empty(),"real reinforcement portal reservation missing")
 	# Real Mote death produces genuine deferred fragments. No fabricated signals.
 	check(split_parent.take_damage(split_parent.health.current_health+1),"actual splitting parent did not die")
-	check(director.pending_births.size()==2,"death fixture lacks two genuine pending fragments")
+	check(director.pending_births.filter(func(child): return child is Mote).size()==2,"death fixture lacks two genuine pending fragments")
+	check(director.pending_births.has(plant) and director.pending_births.size()==3,"landed capsule must remain distinct incubation debt")
 	check(boss.take_damage(boss.health.current_health+1),"actual lethal Boss damage did not resolve")
 	check(boss.death_resolved and boss.health.current_health<=0 and not reentry[0],"death callback resurrected actual Boss attack/health")
 	await process_frame; await process_frame; await physics_frame
 	check(clears[0]==1 and defeat_notifications[0]==1 and failed[0]==0 and director.state==director.State.CLEARED,"true Boss death did not publish unique clean victory")
 	check(live_hostiles(f)==0 and director.pending_births.is_empty() and f.portals.get_child_count()==0,"deferred work repopulated cleared arena")
 	check(kills.size()==2 and kills.has(boss_id) and kills.has(split_id) and rewards.reduce(func(total,value): return total+value,0)==63,"follower cancellation manufactured kill/coin rewards")
-	check(f.host.coins==63 and f.growth.coins==original_coins,"drops or build currency duplicated during cleanup")
+	check(f.host.coins==3 and f.growth.coins==original_coins+60 and f.host.coins+f.growth.coins-original_coins==63,"Boss currency must settle once; only follower coins remain floor drops")
 	check(not outsider.resolved and not outsider.is_queued_for_deletion(),"victory cleanup touched another world ownership domain")
 	f.host.free(); other_world.free(); await process_frame; await process_frame
 	# An actual living Boss merely leaving the tree is failure, never a win.

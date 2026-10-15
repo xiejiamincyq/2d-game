@@ -50,7 +50,7 @@ func run() -> void:
 			actor.free()
 		check(director._create_enemy_actor(director.EnemyScript.EnemyKind.BRUISER)==null,"foreign role silently substitutes")
 		check(director._boss_available() and not director.begin_boss(),"verified priest unavailable or intro bypasses boss gate")
-		check(not director.restore_stable_boundary(5,"combat") and not director.begin_prepared_wave() and not director.complete_final_wave(),"old waves bypass chapter")
+		check(not director.has_method("restore_stable_boundary") and not director.has_method("begin_prepared_wave") and not director.has_method("complete_final_wave"),"retired wave bypass is absent")
 		map.remove_child(map.echo_field)
 		check(director.state==director.State.FAILED and not director.finish_reward(),"field departure leaves progression authority")
 		map.echo_field.free(); host.free(); await process_frame

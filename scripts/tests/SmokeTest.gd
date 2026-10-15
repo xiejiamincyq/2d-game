@@ -1,141 +1,71 @@
 extends SceneTree
-
-const MainScene = preload("res://scenes/Main.tscn")
-const TestSupport = preload("res://scripts/tests/TestSupport.gd")
-
-var assertions := 0
-
-func _assert_true(condition: bool, message: String) -> bool:
-	assertions += 1
-	if condition:
-		return true
-	push_error("TEST FAIL: SmokeTest: " + message)
-	paused = false
-	quit(1)
-	return false
-
-func _initialize() -> void:
-	var scene: Node = MainScene.instantiate()
-	root.add_child(scene)
+## Product smoke: real tent -> chapter -> encounter reward -> tent.
+## Combat damage/collection clocks are controlled, not a natural victory claim.
+const MainScene=preload("res://scenes/Main.tscn")
+const Main=preload("res://scripts/Main.gd")
+const Support=preload("TestSupport.gd")
+var checks:=0
+var failures:=0
+func check(ok: bool,label: String) -> void:
+	checks+=1
+	if not ok: failures+=1; push_error("TEST FAIL: SmokeTest "+label)
+func _initialize() -> void: call_deferred("run")
+func run() -> void:
+	var path:="user://campaign_smoke_%d_%d.json"%[OS.get_process_id(),Time.get_ticks_usec()]
+	var tent: Node=MainScene.instantiate(); tent.audio_enabled=false; tent.campaign_store_path=path
+	root.add_child(tent); current_scene=tent
+	check(tent.get_script()==Main and tent.ui.start_screen.visible and tent.get_node_or_null("World")==null,"product boots to tent, not retired arena")
+	check(not tent.has_method("_start_run") and not tent.ui.aim_reticle.visible,"legacy entry or active reticle remains")
+	tent.ui.start_button.pressed.emit()
+	await process_frame; await process_frame
+	var chapter: Node=current_scene
+	check(chapter!=tent and chapter.has_method("_chapter_number"),"actual primary did not enter chapter")
+	if chapter==tent:
+		Support.stop_audio(tent.audio); tent.free(); quit(1); return
+	check(chapter._chapter_number()==1 and chapter.run_loop==1,"fresh journal skipped first chapter/loop")
+	check(chapter.map.process_mode==Node.PROCESS_MODE_PAUSABLE and chapter.player.process_mode in [Node.PROCESS_MODE_INHERIT,Node.PROCESS_MODE_PAUSABLE],"actual combat tree is not pausable")
+	check(chapter.player.health.max_health==100 and chapter.player.shield==20 and chapter.growth.coins==0,"actual fresh player has wrong base resources")
+	chapter.player.advance_entrance(chapter.player.get_entrance_duration()+0.01)
 	await process_frame
-	if not _assert_true(scene.run_state == scene.RunState.START, "scene did not boot into START"):
-		return
-	if not _assert_true(scene.world.process_mode == Node.PROCESS_MODE_PAUSABLE, "world is not pausable"):
-		return
-
-	scene._start_run()
-	scene.player.advance_entrance(scene.player.get_entrance_duration() + 0.01)
-	await process_frame
-	if not _assert_true(
-		scene.run_state == scene.RunState.WAVE_INTRO and paused and scene.ui.wave_banner.visible,
-		"start did not enter the first wave introduction gate"
-	):
-		return
-	if not _assert_true(scene.ui.wave_banner.message_label.text == "侦测到第 1 波敌人", "first wave banner copy was incorrect"):
-		return
-	scene.ui.wave_banner.finish_message()
-	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "wave introduction did not enter PLAYING"):
-		return
-	scene.wave_director.active = false
-	if not _assert_true(scene.player.process_mode == Node.PROCESS_MODE_PAUSABLE, "player is not pausable"):
-		return
-	if not _assert_true(scene.audio.bgm_player != null and scene.audio.bgm_player.playing, "BGM did not start"):
-		return
-	if not _assert_true(scene.upgrade_system.coins == 0 and scene.ui.hud.coin_value_label.text == "金币 0", "run did not start with a visible zero coin balance"):
-		return
-
-	scene.wave_director.active = true
-	scene.wave_director.wave_index = 0
-	scene.wave_director.spawn_queue.clear()
-	scene.wave_director.active_enemies.clear()
-	for portal in scene.wave_director.active_portals.duplicate():
-		scene.wave_director._on_portal_closed(portal)
-	scene.wave_director.prepared_wave = false
-	scene.wave_director.wave_running = true
-	scene.wave_director.waiting_for_advance = false
-	scene.wave_director._process(0.016)
-	if not _assert_true(
-		scene.run_state == scene.RunState.PLAYING and not paused and scene.wave_director.collection_window_active and scene.ui.hud.collection_panel.visible,
-		"cleared wave did not keep gameplay active during the coin collection window"
-	):
-		return
-	scene.wave_director._process(scene.wave_director.COLLECTION_WINDOW_SECONDS)
-	if not _assert_true(
-		scene.run_state == scene.RunState.WAVE_CLEAR and paused and scene.wave_director.waiting_for_advance,
-		"cleared wave did not enter the clear banner gate"
-	):
-		return
-	if not _assert_true(scene.ui.wave_banner.message_label.text == "第 1 波清剿完成", "wave clear banner copy was incorrect"):
-		return
-	scene.ui.wave_banner.finish_message()
-	if not _assert_true(scene.run_state == scene.RunState.SETTLEMENT and paused and scene.ui.settlement_screen.visible, "clear banner did not open unified settlement"):
-		return
-	var settlement: Dictionary = scene.upgrade_system.get_settlement_state()
-	var settlement_offers: Array[Dictionary] = []
-	for family in settlement["families"]:
-		for offer in family["offers"]:
-			settlement_offers.append(offer)
-	if not _assert_true(settlement_offers.size() == 6 and not settlement["can_close"], "settlement did not contain two cards per family behind the reward gate"):
-		return
-	var free_offer: Dictionary = settlement_offers[0]
-	var free_family := String(free_offer["family"])
-	var free_family_level := int(scene.upgrade_system.family_levels[free_family])
-	scene._on_settlement_offer_selected(free_offer)
-	settlement = scene.upgrade_system.get_settlement_state()
-	if not _assert_true(settlement["reward_claimed"] and settlement["can_close"] and int(scene.upgrade_system.family_levels[free_family]) == free_family_level + 1, "free reward did not unlock close and increase its family level"):
-		return
-	var paid_offer: Dictionary = {}
-	for family in settlement["families"]:
-		for offer in family["offers"]:
-			if not bool(offer["sold"]):
-				paid_offer = offer
-				break
-		if not paid_offer.is_empty():
+	check(chapter.director.state==chapter.director.State.INTRO and paused,"entrance did not retain intro gate")
+	chapter.ui.proceed_button.pressed.emit()
+	check(chapter.director.state==chapter.director.State.COMBAT and not paused and not chapter.ui.flow_root.visible,"real proceed did not resume combat")
+	chapter.ui.pause_button.pressed.emit()
+	check(chapter.manually_paused and paused and chapter.ui.resume_button.visible and not chapter.player.can_process(),"manual pause did not freeze actual player/state/UI")
+	check(chapter.ui.flow_description.text.contains("金币") and chapter.ui.flow_description.text.contains("继承"),"actual pause does not explain current journey checkpoint retention")
+	chapter.ui.resume_button.pressed.emit()
+	check(not chapter.manually_paused and not paused,"manual resume did not restore combat")
+	chapter.director.set_process(false); chapter.player.set_physics_process(false)
+	for step in 80:
+		chapter.director._process(0.2)
+		for actor in chapter.director.get_active_enemies(): actor.set_physics_process(false)
+		if chapter.director.spawn_queue.is_empty() and chapter.director.active_portals.is_empty(): break
+	check(not chapter.director.get_active_enemies().is_empty(),"actual portal actors absent")
+	for actor in chapter.director.get_active_enemies().duplicate(): actor.take_damage(1e9,&"test")
+	await process_frame; await process_frame; await physics_frame
+	for pickup in chapter.pickups.get_children():
+		if pickup is CoinPickup: pickup._physics_process(10)
+	chapter.director._process(0); chapter.director._process(3.1)
+	check(paused and chapter.ui.settlement_screen.visible and chapter.director.state==chapter.director.State.REWARD,"real deaths did not open actual encounter reward")
+	check(chapter.growth.coins>0 and chapter.kills>0,"actual combat rewards/stats absent")
+	var balance: int=chapter.growth.coins
+	var claim: Dictionary={}
+	for button in chapter.ui.settlement_screen.offer_buttons:
+		if button.visible and not button.disabled:
+			button.pressed.emit()
+			claim=chapter.growth.get_settlement_state()
 			break
-	var paid_family := String(paid_offer["family"])
-	var paid_family_level := int(scene.upgrade_system.family_levels[paid_family])
-	scene.upgrade_system.add_coins(int(paid_offer["cost"]))
-	scene._on_settlement_offer_selected(paid_offer)
-	if not _assert_true(scene.upgrade_system.coins == 0 and int(scene.upgrade_system.family_levels[paid_family]) == paid_family_level, "paid card changed coins or family level incorrectly"):
-		return
-	scene.wave_director.waiting_for_advance = false
-	scene._on_settlement_close_requested()
-	if not _assert_true(
-		scene.run_state == scene.RunState.SETTLEMENT
-		and scene.ui.settlement_screen.visible
-		and not bool(scene.upgrade_system.get_settlement_state()["closed"]),
-		"failed wave preflight consumed or hid the settlement"
-	):
-		return
-	scene.wave_director.waiting_for_advance = true
-	scene._on_settlement_close_requested()
-	if not _assert_true(scene.run_state == scene.RunState.WAVE_INTRO and paused and scene.wave_director.wave_index == 1, "closing settlement did not prepare the next wave introduction"):
-		return
-	scene.ui.wave_banner.finish_message()
-	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "second wave introduction did not resume combat"):
-		return
-	scene.wave_director.active = false
-
-	scene._toggle_manual_pause()
-	if not _assert_true(scene.run_state == scene.RunState.PAUSED and paused and scene.ui.pause_panel.visible, "manual pause did not own tree and UI state"):
-		return
-	if not _assert_true(not scene.ui.pause_screen.has_signal("offer_selected") and not scene.ui.has_signal("shop_offer_selected"), "manual pause still exposed a second card shop"):
-		return
-	scene._toggle_manual_pause()
-	if not _assert_true(scene.run_state == scene.RunState.PLAYING and not paused, "manual resume did not restore PLAYING"):
-		return
-
-	scene._end_run(false)
-	if not _assert_true(scene.run_state == scene.RunState.RESULT and paused, "defeat did not enter RESULT"):
-		return
-	if not _assert_true(not scene.player.is_physics_processing() and scene.ui.result_panel.visible, "result did not stop player and show UI"):
-		return
-
-	TestSupport.stop_audio(scene.audio)
-	await create_timer(0.25).timeout
-	scene.queue_free()
-	paused = false
-	await process_frame
-	await process_frame
-	print("TEST PASS: SmokeTest %d" % assertions)
-	quit(0)
+	check(not claim.is_empty() and claim.reward_claimed and chapter.growth.coins==balance,"free choice did not grant reward or charged coins")
+	chapter.ui.settlement_screen.close_button.pressed.emit()
+	check(paused and chapter.director.state==chapter.director.State.INTRO and chapter.director.encounter_index==1,"reward completion did not prepare next encounter")
+	check(not chapter.director.has_method("prepare_next_wave"),"product still exposes old wave progression")
+	chapter.ui.return_button.pressed.emit()
+	await process_frame; await process_frame
+	var returned: Node=current_scene
+	check(returned!=chapter and returned.get_script()==Main and returned.ui.start_screen.visible,"Back did not reach product tent")
+	check(returned.campaign_session.journey.get_build().coins==balance and returned.campaign_session.journey.get_entry().chapter==1,"aborted encounter lost balance or falsely cleared chapter")
+	Support.stop_audio(returned.audio); returned.free(); paused=false; await process_frame
+	check(Support.cleanup_journey_fixture(path),"owned journal cleanup")
+	check(not FileAccess.file_exists(path),"smoke fabricated permanent unlock file")
+	if failures==0: print("TEST PASS: SmokeTest %d"%checks)
+	quit(1 if failures else 0)

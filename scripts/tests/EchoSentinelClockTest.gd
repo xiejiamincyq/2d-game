@@ -26,18 +26,23 @@ func _run() -> void:
 	var deadline := Time.get_ticks_msec()+2000
 	while not actor.should_show_attack_marker() and Time.get_ticks_msec()<deadline: await physics_frame
 	check(actor.should_show_attack_marker() and target.hits.is_empty(),"real physics ring lacks damage-free head warning")
-	var warning_started := Time.get_ticks_msec()
+	var warning_frame := Engine.get_physics_frames()
+	var expected_hit: float = actor.basic_attack.get_warning_duration() + maxf(0.0, actor.basic_attack.origin.distance_to(target.global_position)-actor.basic_attack.target_radius-1.5)/340.0
+	check(actor.basic_attack.get_warning_duration()>=0.55,"ring warning is shorter than the human reaction floor")
 	while actor.basic_attack.radius<20 and Time.get_ticks_msec()<deadline: await physics_frame
 	check(actor.native_visual.player.current_animation=="attack" and target.hits.is_empty(),"actual wave starts with instant damage or wrong animation")
 	var before: float = actor.basic_attack.elapsed
 	var before_radius: float = actor.basic_attack.radius
+	var pause_frame := Engine.get_physics_frames()
 	paused = true
 	await create_timer(0.05,true,false,true).timeout
+	var paused_frames := Engine.get_physics_frames()-pause_frame
 	check(is_equal_approx(actor.basic_attack.elapsed,before) and is_equal_approx(actor.basic_attack.radius,before_radius),"paused real wave advances attack/render clock")
 	paused = false
 	while target.hits.is_empty() and Time.get_ticks_msec()<deadline: await physics_frame
-	var elapsed := (Time.get_ticks_msec()-warning_started)/1000.0-0.05
-	check(target.hits==[15.0] and elapsed>=0.30 and elapsed<0.70,"real ring does not honor warning plus travel time")
+	var elapsed := float(Engine.get_physics_frames()-warning_frame-paused_frames)/Engine.physics_ticks_per_second
+	var tolerance := 2.0/Engine.physics_ticks_per_second
+	check(target.hits==[15.0] and absf(elapsed-expected_hit)<=tolerance,"real ring does not honor warning plus travel time: actual %.6f expected %.6f" % [elapsed,expected_hit])
 	var death_observed_radius := [-1.0]
 	actor.died.connect(func(_actor,_coins,_source): death_observed_radius[0]=actor.basic_attack.radius)
 	actor.take_damage(1000)

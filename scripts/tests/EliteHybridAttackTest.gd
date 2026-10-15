@@ -32,7 +32,7 @@ func _run() -> void:
 	attack.cooldown = 0
 	attack.consider(actor,target,0)
 	check(attack.stage==attack.Stage.WARNING and attack.mode==attack.Mode.SHARDS,"ranged mode lacks locked warning")
-	attack.advance(0.17)
+	attack.advance(attack.get_warning_duration()-0.01)
 	check(not attack.take_release(),"shards released during warning")
 	target.position = Vector2(-120,0)
 	attack.advance(0.02)
@@ -43,7 +43,7 @@ func _run() -> void:
 	target.position = Vector2(35,0)
 	attack.cooldown = 0
 	attack.consider(actor,target,0)
-	attack.advance(0.17)
+	attack.advance(attack.get_warning_duration()-0.01)
 	attack.resolve_hit(actor,target)
 	check(target.hits.is_empty() and attack.mode==attack.Mode.SWEEP,"nearby double blade ignores warning")
 	attack.advance(0.02)
@@ -55,7 +55,7 @@ func _run() -> void:
 	attack.cooldown = 0
 	attack.consider(actor,target,0)
 	target.position = Vector2(-35,0)
-	attack.advance(0.20)
+	attack.advance(attack.get_warning_duration()+0.02)
 	attack.resolve_hit(actor,target)
 	check(target.hits.size()==1,"sweep tracks escaped target behind")
 	attack.cancel()
@@ -71,7 +71,7 @@ func _run() -> void:
 	await physics_frame
 	attack.cooldown = 0
 	attack.consider(actor,target,0)
-	attack.advance(0.2)
+	attack.advance(attack.get_warning_duration()+0.02)
 	attack.resolve_hit(actor,target)
 	check(target.hits.size()==1,"cross blades hit through terrain")
 	wall.free()
@@ -79,7 +79,7 @@ func _run() -> void:
 	target.stealth_active = true
 	attack.cooldown = 0
 	attack.consider(actor,target,0)
-	attack.advance(0.2)
+	attack.advance(attack.get_warning_duration()+0.02)
 	attack.resolve_hit(actor,target)
 	check(target.hits.size()==1,"cross blades hit hidden target")
 	attack.cancel()

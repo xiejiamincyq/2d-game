@@ -3,17 +3,20 @@ extends "res://scripts/actors/Enemy.gd"
 const PLANTER_SCENE = preload("res://scenes/actors/native/capsule_planter_paper_v1.tscn")
 const Plant = preload("res://scripts/components/CapsulePlantHazard.gd")
 const PlantMotion = preload("res://scripts/components/NativeCapsulePlanterMotion.gd")
+signal plant_prepared(plant: Node)
+var difficulty_index := 0
 var planned_plant_position := Vector2.ZERO
 var pending_plant := false
 var owned_plants: Array[WeakRef] = []
 func setup(_enemy_kind: EnemyKind,wave_index: int,shots: Node,target: Node2D = null) -> void:
 	super.setup(EnemyKind.SPITTER,wave_index,shots,target)
+	difficulty_index = wave_index
 	health.max_health = 40.0*(1.0+float(wave_index)*0.13)
 	body_radius = 16
 	speed = 118
 	ranged_keep_min = 170
 	ranged_keep_max = 260
-	ranged_windup_duration = 0.18
+	ranged_windup_duration = AttackTiming.RANGED_WARNING
 func _create_native_visual(_scene: PackedScene = NATIVE_SCRAPPER) -> void:
 	super._create_native_visual(PLANTER_SCENE)
 	static_visual_half_height = 57
@@ -42,7 +45,7 @@ func _update_spitter(delta: float,player: Node2D) -> void:
 			planned_plant_position = at
 			pending_plant = true
 			ranged_is_winding_up = true
-			ranged_windup_remaining = 0.18
+			ranged_windup_remaining = ranged_windup_duration
 			shoot_cooldown = 2.6
 			_queue_visual_redraw()
 			return
@@ -52,7 +55,9 @@ func _fire_spitter() -> void:
 	if not can_commit_plant(planned_plant_position) or get_owned_plant_count()>=2: return
 	var plant := Plant.new()
 	plant.target_player = get_target_player()
+	plant.difficulty_index = difficulty_index
 	owned_plants.append(weakref(plant)) # Pending births count toward the cap.
+	plant_prepared.emit(plant)
 	plant.call_deferred("complete_placement",weakref(self),weakref(projectile_parent),planned_plant_position)
 	native_motion.notify_shot()
 func can_commit_plant(at: Vector2) -> bool:
@@ -94,7 +99,8 @@ func _cancel_native_ranged_windup() -> void:
 func _disarm_owned_plants() -> void:
 	for reference in owned_plants:
 		var plant = reference.get_ref()
-		if is_instance_valid(plant): plant.disarm()
+		# The chapter, not a defeated launcher, owns an admitted incubation pod.
+		if is_instance_valid(plant) and not (plant.chapter_owned and plant.is_inside_tree()): plant.disarm()
 	owned_plants.clear()
 func _exit_tree() -> void: _disarm_owned_plants()
 func _die(source: StringName) -> void:

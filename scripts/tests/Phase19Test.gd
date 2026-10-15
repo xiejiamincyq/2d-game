@@ -1,11 +1,11 @@
 extends SceneTree
 
-const MainScript = preload("res://scripts/Main.gd")
+const MainScript = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const BurnStatusScript = preload("res://scripts/components/BurnStatus.gd")
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
-const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
+const WaveDirectorScript = preload("res://scripts/tests/fixtures/LegacyWaveDirector.gd")
 const UpgradeSystemScript = preload("res://scripts/systems/UpgradeSystem.gd")
 const CombatFeedbackScript = preload("res://scripts/systems/CombatFeedback.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")

@@ -1,6 +1,6 @@
 extends SceneTree
 
-const SnapshotStoreScript = preload("res://scripts/systems/RunSnapshotStore.gd")
+const SnapshotStoreScript = preload("res://scripts/tests/fixtures/LegacyRunSnapshotStore.gd")
 const PlayerScript = preload("res://scripts/actors/Player.gd")
 const UpgradeSystemScript = preload("res://scripts/systems/UpgradeSystem.gd")
 

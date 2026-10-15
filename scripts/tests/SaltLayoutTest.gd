@@ -25,7 +25,7 @@ func _initialize() -> void:
 		fingerprints[fingerprint] = true
 		connections[str(layout.get_causeways())] = true
 		check(layout.PROFILE_ID==&"salt_causeways" and layout.world_bounds==layout.BOUNDS,"wrong salt profile")
-		check(entries.size()==10,"four split pools and two lock walls absent")
+		check(entries.size()==22 and entries.filter(func(entry): return entry.kind==&"reservoir").size()==8 and entries.filter(func(entry): return entry.kind==&"sluice_wall").size()==14,"four split pools and denser lock/baffle cover absent")
 		check(layout.get_causeways().size()==4,"actual causeway gaps absent")
 		for radius in [13.0,14.0,16.0,24.0,56.0]:
 			for target in [layout.BOSS_CENTER,Vector2(-1472,0),Vector2(1472,0),Vector2(0,832),Vector2(-1504,896),Vector2(1504,-896)]:

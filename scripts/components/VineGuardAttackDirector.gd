@@ -152,8 +152,8 @@ func start_action(kind: StringName) -> bool:
 	hit_delivered = false
 	seed_warning_paths.clear()
 	if kind==&"seeds":
-		action_stage = Stage.ACTIVE; boss._update_boss_motion(0)
-		var origin: Vector2 = boss.get_safe_seed_origin()
+		action_stage = Stage.ACTIVE
+		var origin: Vector2 = boss.get_seed_release_origin()
 		action_stage = Stage.WARNING; boss._update_boss_motion(0)
 		var count := 5 if current_phase==3 else 3
 		for index in count:
@@ -239,8 +239,7 @@ func _resolve_hit(root_time: float = -1.0,only_root: int = -1) -> void:
 func _release_seeds() -> void:
 	if target_hidden or state==State.DEATH or not is_instance_valid(projectile_parent): return
 	var serial := action_serial
-	boss._update_boss_motion(0) # Sample firing posture before reading the crown socket.
-	var origin: Vector2 = boss.get_safe_seed_origin()
+	var origin: Vector2 = boss.get_seed_release_origin()
 	if seed_warning_paths.is_empty() or not origin.is_equal_approx(seed_warning_paths[0]): cancel_action(); attack_gap = 1.1; return
 	var count := 5 if current_phase==3 else 3
 	owned_seeds = owned_seeds.filter(func(shot): return is_instance_valid(shot) and not shot.is_queued_for_deletion())

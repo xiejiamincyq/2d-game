@@ -52,7 +52,7 @@ func test_launch(kind: int, transformed: bool) -> bool:
 			enemy._fire_marksman(target)
 		EnemyScript.EnemyKind.SPITTER:
 			enemy._update_spitter(0.0, target)
-			enemy._update_spitter(0.19, target)
+			enemy._update_spitter(enemy.ranged_windup_duration+0.01, target)
 		EnemyScript.EnemyKind.OVERSEER:
 			enemy._fire_overseer_burst()
 			# The reviewed native burst now releases at its posed core, not the
@@ -86,9 +86,19 @@ func test_launch(kind: int, transformed: bool) -> bool:
 	await physics_frame
 	await physics_frame
 	for shot in shots.get_children():
-		if not check(point_hits(shot, radius - 0.1), "physics server missed point inside configured circle"):
+		# Layer-zero projectiles deliberately cannot be scene-query candidates.
+		# Inspect the registered live shape RID/data, not just the resource field;
+		# no collision property is changed to make this geometry probe pass.
+		var registered := PhysicsServer2D.area_get_shape(shot.get_rid(),0)
+		var collider := shot.get_child(0) as CollisionShape2D
+		if not check(registered==collider.shape.get_rid() and PhysicsServer2D.shape_get_type(registered)==PhysicsServer2D.SHAPE_CIRCLE,
+			"physics server registered a different shape than the actual projectile circle"):
 			return false
-		if not check(not point_hits(shot, radius + 0.1), "physics server hit point outside configured circle"):
+		if not check(is_equal_approx(float(PhysicsServer2D.shape_get_data(registered)),radius),"physics server registered the wrong actual radius"):
+			return false
+		if not check(PhysicsServer2D.area_get_transform(shot.get_rid()).origin.distance_to(shot.global_position)<0.001,"physics server projectile transform differs from live world origin"):
+			return false
+		if not check(shot.collision_layer==0 and not point_hits(shot,0),"projectile leaked into scene/spawn queries"):
 			return false
 	fixture.queue_free()
 	await process_frame

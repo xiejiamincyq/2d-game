@@ -28,7 +28,7 @@ func _initialize() -> void:
 		var descriptors: Array[Dictionary] = layout.get_obstacle_descriptors()
 		var fingerprint := str(descriptors)
 		fingerprints[fingerprint] = true
-		check(descriptors.size() >= 13 and descriptors.size() <= 20, "nursery cluster count outside design range")
+		check(descriptors.size() >= 26 and descriptors.size() <= 28, "nursery cluster count outside denser design range")
 		check(layout.is_position_walkable(Vector2.ZERO, 56), "spawn buffer not safe for every supported actor radius")
 		check(layout.is_position_walkable(layout.BOSS_CENTER, 56), "Boss center blocked")
 		for radius in [13.0, 14.0, 16.9, 24.0, 56.0]:

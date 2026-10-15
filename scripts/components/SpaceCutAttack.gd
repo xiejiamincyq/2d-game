@@ -1,9 +1,11 @@
 extends RefCounted
+const TerrainAttack=preload("res://scripts/components/TerrainAttackDamage.gd")
 ## Locked world-space line; skeletal animation never owns damage or physics.
 enum Stage { IDLE, WARNING, ACTIVE, RECOVERY }
 const RECOVERY := 0.24
 const REACH := 170.0
 const HALF_WIDTH := 1.5
+const AttackTiming = preload("res://scripts/components/EnemyAttackTiming.gd")
 var stage := Stage.IDLE
 var elapsed := 0.0
 var cooldown := 1.0
@@ -13,8 +15,9 @@ var line_end := Vector2.ZERO
 var target_radius := 14.0
 var did_hit := false
 var line_resolved := false
+var terrain_hit_ids: Dictionary={}
 func is_active() -> bool: return stage!=Stage.IDLE
-func get_warning_duration() -> float: return 0.16
+func get_warning_duration() -> float: return AttackTiming.RANGED_WARNING
 func get_active_duration() -> float: return 0.14
 func consider(actor: Node2D,target: Node2D,delta: float) -> void:
 	if not is_finite(delta) or delta<0: return
@@ -31,6 +34,7 @@ func consider(actor: Node2D,target: Node2D,delta: float) -> void:
 	target_radius = (collision.shape as CircleShape2D).radius if collision!=null and collision.shape is CircleShape2D else 14.0
 	did_hit = false
 	line_resolved = false
+	terrain_hit_ids.clear()
 	elapsed = 0
 	stage = Stage.WARNING
 func advance(delta: float) -> void:
@@ -45,6 +49,11 @@ func cancel() -> void:
 	did_hit = false
 	line_resolved = false
 func resolve_hit(actor: CharacterBody2D,target: Node2D) -> void:
+	_resolve_player_hit(actor,target)
+	if stage!=Stage.ACTIVE or not line_resolved or origin.distance_to(line_end)<=10 or not TerrainAttack.live(actor): return
+	var targets:=TerrainAttack.segment(actor,origin+direction*10,line_end,HALF_WIDTH)
+	TerrainAttack.apply(actor,targets,origin,actor.contact_damage,&"enemy",terrain_hit_ids,func(): return stage==Stage.ACTIVE and line_resolved)
+func _resolve_player_hit(actor: CharacterBody2D,target: Node2D) -> void:
 	if stage!=Stage.ACTIVE or not is_instance_valid(target) or target.is_queued_for_deletion(): return
 	if target.has_method("is_stealthed") and target.is_stealthed(): return
 	var space := actor.get_world_2d().direct_space_state

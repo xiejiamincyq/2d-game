@@ -31,7 +31,7 @@ func _run() -> void:
 		return
 	DirAccess.make_dir_recursive_absolute(output)
 	var sources := {}
-	for path in ["res://scripts/art/RenderNativeBossPreview.gd","res://scripts/actors/NurseryVineBoss.gd","res://scripts/actors/OverseerBoss.gd","res://scripts/components/NativeBossMotion.gd","res://scripts/components/NativeActorView.gd","res://scripts/components/NativeScrapperMotion.gd","res://scripts/systems/BossCameraFraming.gd","res://scripts/systems/NurseryEncounterDirector.gd","res://scripts/systems/WaveDirector.gd","res://scripts/campaign/NurseryChapter.gd","res://scenes/actors/native/vine_guard_paper_v1.tscn","res://assets/art/actors/native/vine_guard_motion_v1.tres","res://assets/art/shaders/dasher_hit_flash.gdshader"]:
+	for path in ["res://scripts/art/RenderNativeBossPreview.gd","res://scripts/actors/NurseryVineBoss.gd","res://scripts/actors/OverseerBoss.gd","res://scripts/components/NativeBossMotion.gd","res://scripts/components/NativeActorView.gd","res://scripts/components/NativeScrapperMotion.gd","res://scripts/systems/BossCameraFraming.gd","res://scripts/systems/NurseryEncounterDirector.gd","res://scripts/systems/EncounterCombatCore.gd","res://scripts/campaign/NurseryChapter.gd","res://scenes/actors/native/vine_guard_paper_v1.tscn","res://assets/art/actors/native/vine_guard_motion_v1.tres","res://assets/art/shaders/dasher_hit_flash.gdshader"]:
 		sources[path] = FileAccess.get_sha256(path)
 		check(sources[path].length()==64,"missing source "+path)
 	for path in ["res://scenes/actors/native/root_commander_paper_v1.tscn","res://assets/art/actors/native/root_commander_motion_v1.tres"]:

@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends "res://scripts/world/DestructibleObstacle.gd"
 ## Opaque physical base; only the original elevated art layer can fade.
 const TerrainSweep = preload("res://scripts/world/TerrainSweep.gd")
 const PropArt = preload("res://scripts/world/RiftPropArt.gd")
@@ -7,6 +7,7 @@ var footprint := Vector2(160,112)
 var occlusion_rect := Rect2()
 var prop_art: Node2D
 func setup(rect: Rect2,value: StringName) -> void:
+	set_layout_footprint(rect)
 	kind = value; footprint = rect.size
 	position = Vector2(rect.get_center().x,rect.end.y)
 	collision_layer = 1|TerrainSweep.QUERY_LAYER; collision_mask = 0

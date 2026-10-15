@@ -2,7 +2,7 @@ extends "res://scripts/world/ArenaLayout.gd"
 ## Broken pipe bands/workstations, not the nursery placement algorithm.
 const Solid = preload("res://scripts/world/FoundryObstacle.gd")
 const PROFILE_ID := &"furnace_lanes"
-const PROFILE_VERSION := 2
+const PROFILE_VERSION := 3
 const BOUNDS := Rect2(-1600,-1000,3200,2000)
 const SPAWN_BUFFER := Rect2(-300,-220,600,440)
 const BOSS_BUFFER := Rect2(-340,-920,680,480)
@@ -31,13 +31,15 @@ func _build_descriptors(seed_value: int) -> Array[Dictionary]:
 			var center := Vector2(side*1260+rng.randf_range(-60,60),row*760+rng.randf_range(-60,60))
 			entries.append({"rect":Rect2(center-size/2,size),"kind":&"furnace"})
 	var candidates: Array[Vector2] = []
-	for side in [-1,1]:
-		candidates.append_array([Vector2(side*560,-100),Vector2(side*1060,100),Vector2(side*560,740),Vector2(side*560,-740),Vector2(side*1420,0)])
+	for y in [-120,120]:
+		for x in [-1400,-1100,-800,-500,500,800,1100,1400]: candidates.append(Vector2(x,y))
+	for y in [-800,800]:
+		for x in [-800,-500,500,800]: candidates.append(Vector2(x,y))
 	_shuffle_with_rng(candidates,rng)
-	var desired := 16+posmod(seed_value,5)
+	var desired := 26+posmod(seed_value,3)
 	for center in candidates:
 		var size := Vector2(rng.randf_range(132,164),rng.randf_range(102,126))
-		var point: Vector2 = center+Vector2(rng.randf_range(-24,24),rng.randf_range(-22,22))
+		var point: Vector2 = center+Vector2(rng.randf_range(-10,10),rng.randf_range(-10,10))
 		var rect := Rect2(point-size/2,size)
 		var clear := world_bounds.grow(-EDGE_MARGIN).encloses(rect) and not rect.intersects(SPAWN_BUFFER) and not rect.intersects(BOSS_BUFFER)
 		# Validate the same grid endpoints used by navigation, not only raw points.
@@ -50,7 +52,7 @@ func _build_descriptors(seed_value: int) -> Array[Dictionary]:
 		if entries.size()>=desired: break
 	return entries
 func _layout_is_acceptable() -> bool:
-	if obstacle_descriptors.size()<16: return false
+	if obstacle_descriptors.size()<26: return false
 	for i in obstacle_descriptors.size():
 		var rect: Rect2 = obstacle_descriptors[i].rect
 		if not world_bounds.grow(-EDGE_MARGIN).encloses(rect) or rect.intersects(SPAWN_BUFFER) or rect.intersects(BOSS_BUFFER): return false

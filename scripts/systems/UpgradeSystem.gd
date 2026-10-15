@@ -5,6 +5,8 @@ signal progression_state_changed(state: Dictionary)
 signal upgrade_applied(label: String)
 signal settlement_changed(state: Dictionary)
 
+const CarryRules = preload("res://scripts/systems/CampaignCarryRules.gd")
+
 const FAMILY_IDS: Array[String] = ["ballistics", "mobility", "automation"]
 const FAMILY_LABELS: Dictionary = {
 	"ballistics": "火力",
@@ -56,25 +58,25 @@ var upgrade_pool: Array[Dictionary] = [
 
 	# Mobility: six normal cards.
 	{"id": "move_speed", "label": "伺服腿甲", "description": "移速 +9%，地刺伤害 +8%", "family": "mobility", "kind": "support", "requires": "mine", "max_rank": 5, "base_cost": 30},
-	{"id": "mine", "label": "静滞地刺", "description": "首次解锁；后续伤害 +16%、持续时间 +0.6s、半径 +2", "family": "mobility", "kind": "core", "max_rank": 5, "base_cost": 52},
+	{"id": "mine", "label": "静滞地刺", "description": "首次解锁，可持续破坏地形；后续伤害 +16%、持续时间 +0.6s、半径 +2", "family": "mobility", "kind": "core", "max_rank": 5, "base_cost": 52},
 	{"id": "spike_density", "label": "裂地密度", "description": "地刺间距 -16%，触发间隔 -3%", "family": "mobility", "kind": "core", "requires": "mine", "max_rank": 4, "base_cost": 38},
 	{"id": "dash_cooldown", "label": "冲刺冷却", "description": "冲刺冷却 -7%，冲刺伤害 +4%", "family": "mobility", "kind": "support", "max_rank": 4, "base_cost": 38},
-	{"id": "dash_impact", "label": "动能撞角", "description": "冲刺距离 +8%，冲刺伤害 +10%", "family": "mobility", "kind": "core", "max_rank": 4, "base_cost": 44},
+	{"id": "dash_impact", "label": "动能撞角", "description": "冲刺距离 +8%，冲刺伤害 +10%；可撞伤地形但不穿墙", "family": "mobility", "kind": "core", "max_rank": 4, "base_cost": 44},
 	{"id": "spike_resonance", "label": "地脉共振", "description": "地刺伤害 +8%、半径 +5、触发间隔 -10%", "family": "mobility", "kind": "support", "requires": "mine", "max_rank": 4, "base_cost": 30},
 
 	# Automation: eight normal cards.
-	{"id": "drone_pierce", "label": "穿透棱镜", "description": "激光无视遮挡，点燃阈值降至 0.3 秒", "family": "automation", "kind": "support", "requires": "drone", "max_rank": 1, "base_cost": 48},
+	{"id": "drone_pierce", "label": "穿透棱镜", "description": "激光穿过敌人但不穿实体墙，可持续破坏地形；点燃阈值降至 0.3 秒", "family": "automation", "kind": "support", "requires": "drone", "max_rank": 1, "base_cost": 48},
 	{"id": "drone", "label": "无人机部署", "description": "无人机 +1，单机伤害 +3%", "family": "automation", "kind": "core", "max_rank": 4, "base_cost": 52},
 	{"id": "drone_damage", "label": "激光放大器", "description": "无人机激光伤害 +16%", "family": "automation", "kind": "core", "requires": "drone", "max_rank": 5, "base_cost": 34},
-	{"id": "arc", "label": "电弧启动器", "description": "首次解锁；每层伤害 +5.4、半径 +18、间隔 -0.2s；后续基础伤害 +16%、半径 +14", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 45},
+	{"id": "arc", "label": "电弧启动器", "description": "首次解锁，波前可破坏地形；每层伤害 +5.4、半径 +18、间隔 -0.2s；后续基础伤害 +16%、半径 +14", "family": "automation", "kind": "core", "max_rank": 5, "base_cost": 45},
 	{"id": "arc_capacitor", "label": "电弧电容", "description": "基础电弧伤害 +14%、半径 +18、基础间隔 -6%（最低 1.15s）", "family": "automation", "kind": "core", "requires": "arc", "max_rank": 5, "base_cost": 36},
 	{"id": "arc_relay", "label": "电弧继电器", "description": "基础电弧伤害 +8%、半径 +8、基础间隔 -16%（最低 1.15s）", "family": "automation", "kind": "support", "requires": "arc", "max_rank": 4, "base_cost": 30},
 	{"id": "health", "label": "维修矩阵", "description": "最大生命 +20%；回复原上限 40% + 原缺失生命 20%（不超上限）", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 40},
 	{"id": "shield_capacity", "label": "护盾扩容", "description": "护盾上限 +20，并立即补满护盾", "family": "automation", "kind": "support", "max_rank": 3, "base_cost": 42},
 
 	# Evolutions are guaranteed candidates only after their family qualifies.
-	{"id": "orbital_storm", "label": "榴弹协议", "description": "终极进化：射速 -80%；基础弹速为 48%，继承移动速度 30%；近敌爆炸造成 300% 伤害", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
-	{"id": "rift_overdrive", "label": "顶级刺客", "description": "终极进化：冲刺距离/冷却 +20%；地刺伤害 +28%、间距 -30%（最低22）；冲刺后 1.2s 隐身穿敌（不穿地形）、移速 +30%、灼烧焰迹", "family": "mobility", "kind": "evolution", "requires": "mine", "max_rank": 1, "base_cost": 120},
+	{"id": "orbital_storm", "label": "榴弹协议", "description": "终极进化：射速 -80%；弹速 48%，继承移速 30%；近敌或碰撞地形引爆，300% 伤害，可破坏地形", "family": "ballistics", "kind": "evolution", "max_rank": 1, "base_cost": 120},
+	{"id": "rift_overdrive", "label": "顶级刺客", "description": "终极进化：冲刺距离/冷却 +20%；地刺伤害 +28%、间距 -30%（最低22）；冲刺后 1.2s 隐身穿敌（不穿地形）、移速 +30%、焰迹可灼烧地形", "family": "mobility", "kind": "evolution", "requires": "mine", "max_rank": 1, "base_cost": 120},
 	{"id": "thunder_matrix", "label": "雷网矩阵", "description": "终极进化：全屏电弧伤害 -30%、触发间隔 +50%；薄荷色无人机激光伤害 +80%", "family": "automation", "kind": "evolution", "requires": ["drone", "arc"], "max_rank": 1, "base_cost": 120},
 ]
 
@@ -88,6 +90,8 @@ func setup(target_player: Node) -> void:
 func setup_chapter(target_player: Node, chapter: int) -> bool:
 	if target_player == null or chapter < 1 or chapter > 6 or player != null or coins != 0:
 		return false
+	if target_player.get("health") == null:
+		return false
 	if settlement_generation != 0 or settlement_wave != 0 or not upgrade_counts.is_empty() or not acquired_evolution_id.is_empty():
 		return false
 	for family in FAMILY_IDS:
@@ -96,7 +100,32 @@ func setup_chapter(target_player: Node, chapter: int) -> bool:
 	_chapter_number = chapter
 	_settlement_stage_kind = "encounter"
 	player = target_player
+	var stats := CarryRules.base_stats(chapter)
+	player.health.max_health = float(stats.health)
+	player.health.current_health = float(stats.health)
+	player.max_shield = float(stats.shield)
+	player.shield = float(stats.shield)
+	player.health.health_changed.emit(player.health.current_health, player.health.max_health)
+	player.shield_changed.emit(player.shield, player.max_shield)
 	_sync_build_family_levels()
+	_emit_progression_changed()
+	return true
+
+func setup_chapter_with_carry(target_player: Node, chapter: int, build: Dictionary) -> bool:
+	# Validate the complete external checkpoint before touching a real actor.
+	if build.size() != 2 or not build.has("coins") or not build.has("inherited_counts"):
+		return false
+	if not CarryRules.is_integer(build.coins, 0, CarryRules.MAX_COINS) or not build.inherited_counts is Dictionary:
+		return false
+	if not CarryRules.validate_counts(build.inherited_counts, upgrade_pool):
+		return false
+	if not setup_chapter(target_player, chapter):
+		return false
+	coins = int(build.coins)
+	for card in upgrade_pool:
+		var id := String(card.id)
+		for _rank in range(int(build.inherited_counts.get(id, 0))):
+			_apply_card(id)
 	_emit_progression_changed()
 	return true
 

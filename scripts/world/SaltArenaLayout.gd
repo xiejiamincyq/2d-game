@@ -2,7 +2,7 @@ extends "res://scripts/world/ArenaLayout.gd"
 ## Split reservoirs leave four changing dry causeways plus two outer loops.
 const Solid = preload("res://scripts/world/SaltObstacle.gd")
 const PROFILE_ID := &"salt_causeways"
-const PROFILE_VERSION := 1
+const PROFILE_VERSION := 2
 const BOUNDS := Rect2(-1664,-1024,3328,2048)
 const SPAWN_BUFFER := Rect2(-300,-220,600,440)
 const BOSS_BUFFER := Rect2(-360,-912,720,480)
@@ -43,9 +43,20 @@ func _build_descriptors(seed_value: int) -> Array[Dictionary]:
 		var size := Vector2(72,112)
 		var center := Vector2(side*430+rng.randi_range(-12,12),rng.randi_range(-36,36))
 		entries.append({"rect":Rect2(center-size/2,size),"kind":&"sluice_wall"})
+	# Narrow raised sluices flank the central dry cross without shrinking any
+	# existing reservoir gap or placing solids in the spawn/Boss pockets.
+	for side in [-1,1]:
+		for y in [-850,-300,300,850]:
+			var size:=Vector2(96,rng.randi_range(148,168))
+			var center:=Vector2(side*416+rng.randi_range(-3,3),y+rng.randi_range(-6,6))
+			entries.append({"rect":Rect2(center-size/2,size),"kind":&"sluice_wall"})
+		for x in [800,1200]:
+			var size:=Vector2(96,rng.randi_range(148,168))
+			var center:=Vector2(side*x+rng.randi_range(-6,6),rng.randi_range(-6,6))
+			entries.append({"rect":Rect2(center-size/2,size),"kind":&"sluice_wall"})
 	return entries
 func _layout_is_acceptable() -> bool:
-	if obstacle_descriptors.size()!=10 or causeways.size()!=4: return false
+	if obstacle_descriptors.size()!=22 or causeways.size()!=4: return false
 	for i in obstacle_descriptors.size():
 		var rect: Rect2 = obstacle_descriptors[i].rect
 		if not world_bounds.grow(-EDGE_MARGIN).encloses(rect) or rect.intersects(SPAWN_BUFFER) or rect.intersects(BOSS_BUFFER): return false
@@ -55,6 +66,15 @@ func _layout_is_acceptable() -> bool:
 		if not is_reachable(Vector2.ZERO,target,56): return false
 	for passage in causeways:
 		if not is_reachable(Vector2.ZERO,passage.get_center(),56): return false
+		var axis:=Vector2.DOWN if passage.size.x<passage.size.y else Vector2.RIGHT
+		var extent: float=maxf(passage.size.x,passage.size.y)/2+88
+		var start:=passage.get_center()-axis*extent; var end:=passage.get_center()+axis*extent
+		if not is_reachable(start,end,56): return false
+		# Keep a wide outer loop even if a dry crossing is temporarily occupied.
+		obstacle_descriptors.append({"rect":passage,"kind":&"probe_closed"})
+		var bypass:=is_reachable(start,end,56)
+		obstacle_descriptors.pop_back()
+		if not bypass: return false
 	return true
 func _spawn_obstacles() -> void:
 	for entry in obstacle_descriptors:

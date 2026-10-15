@@ -5,8 +5,6 @@ signal settlement_offer_selected(offer: Dictionary)
 signal settlement_close_requested
 signal wave_banner_finished(context: StringName)
 signal start_requested
-signal legacy_start_requested
-signal continue_requested
 signal chapter_requested(chapter: int)
 signal quit_requested
 signal restart_requested
@@ -40,7 +38,6 @@ var start_backdrop: Control
 var start_screen: Control
 var start_panel: PanelContainer
 var start_button: Button
-var continue_button: Button
 var combat_status_stack: VBoxContainer
 var combat_status_row: HBoxContainer
 var status_viewport_size := Vector2(1280, 720)
@@ -159,10 +156,7 @@ func _build_start_screen() -> void:
 	start_backdrop = start_screen
 	start_panel = start_screen.cover_panel
 	start_button = start_screen.start_button
-	continue_button = start_screen.continue_button
 	start_screen.start_requested.connect(func() -> void: start_requested.emit())
-	start_screen.legacy_start_requested.connect(func() -> void: legacy_start_requested.emit())
-	start_screen.continue_requested.connect(func() -> void: continue_requested.emit())
 	start_screen.chapter_requested.connect(func(chapter: int) -> void: chapter_requested.emit(chapter))
 	start_screen.quit_requested.connect(func() -> void: quit_requested.emit())
 	start_screen.bgm_volume_changed.connect(_forward_bgm_volume)
@@ -203,9 +197,6 @@ func _bind_compatibility_references() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if start_screen.visible and event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_C and start_screen.page == CampaignStartScreen.Page.LEGACY:
-			start_screen._continue()
-			return
 		if event.keycode in [KEY_ENTER, KEY_SPACE] and start_screen.page == CampaignStartScreen.Page.COVER:
 			start_screen.request_primary()
 			return
@@ -329,11 +320,6 @@ func show_start_screen() -> void:
 	hud.visible = false
 	start_screen.show()
 	start_screen.show_page(CampaignStartScreen.Page.COVER)
-
-func set_continue_available(available: bool) -> void:
-	if continue_button == null:
-		return
-	start_screen.set_continue_available(available)
 
 func hide_start_screen() -> void:
 	hud.visible = true

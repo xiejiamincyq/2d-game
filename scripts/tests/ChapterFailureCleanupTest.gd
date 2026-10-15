@@ -13,7 +13,7 @@ func cleanup_checks() -> void:
 	root.add_child(main)
 	current_scene=main
 	await process_frame
-	check(main.has_method("_reset_combat_feedback") and main.combat_feedback==null,"formal Main menu should not create legacy combat feedback")
+	check(not main.has_method("_reset_combat_feedback") and main.get("combat_feedback")==null,"formal tent no longer exposes legacy combat feedback lifecycle")
 	call("shutdown_failed_scene",main)
 	check(main.audio.shutting_down,"actual Main audio did not begin shutdown")
 	check(not FileAccess.file_exists(owned),"cleanup wrote permanent progress")

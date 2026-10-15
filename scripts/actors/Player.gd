@@ -816,9 +816,22 @@ func _drop_assassin_flame(world_position: Vector2) -> void:
 	projectile_parent.add_child(flame)
 
 func _apply_dash_melee_sweep(start: Vector2, end: Vector2) -> void:
-	for enemy in _get_enemies():
+	var terrain_damage=preload("res://scripts/components/TerrainAttackDamage.gd")
+	if not terrain_damage.live(self): return
+	var enemies: Array=_get_enemies()
+	if not terrain_damage.live(self): return
+	var hit_ids: Dictionary={}
+	for body in dash_hit_bodies:
+		if is_instance_valid(body): hit_ids[body.get_instance_id()]=true
+	var candidates: Array[Node2D]=terrain_damage.segment(self,start,end,dash_melee_radius)
+	terrain_damage.apply(self,candidates,start,dash_melee_damage*get_effective_damage_multiplier(DamageTypes.DASH),DamageTypes.DASH,hit_ids)
+	for candidate in candidates:
+		if is_instance_valid(candidate) and hit_ids.has(candidate.get_instance_id()) and not dash_hit_bodies.has(candidate): dash_hit_bodies.append(candidate)
+	if not terrain_damage.live(self): return
+	for enemy in enemies:
+		if not terrain_damage.live(self): return
 		var node := enemy as Node2D
-		if node == null or dash_hit_bodies.has(enemy) or not enemy.has_method("take_damage"):
+		if node == null or not is_instance_valid(node) or node.is_queued_for_deletion() or node.is_in_group(&"destructible_terrain") or dash_hit_bodies.has(enemy) or not enemy.has_method("take_damage"):
 			continue
 		if _distance_to_segment(node.global_position, start, end) <= dash_melee_radius:
 			dash_hit_bodies.append(enemy)
@@ -965,8 +978,9 @@ func _damage_enemies_on_laser(
 	candidates: Array = []
 ) -> void:
 	var enemies: Array = candidates if not candidates.is_empty() else _get_enemies()
-	for hit in drone_laser_resolver.collect_ray_hits(origin, direction, length, width, enemies):
-		var enemy: Node2D = hit["node"]
+	var ray: Dictionary=drone_laser_resolver.resolve_ray(self,get_world_2d(),origin,direction,width,enemies,drone_laser_piercing,world_bounds,get_viewport_rect().size,length)
+	for enemy in ray.targets:
+		if not is_instance_valid(enemy) or enemy.is_queued_for_deletion(): continue
 		enemy.take_damage(
 			damage * get_effective_damage_multiplier(DamageTypes.LASER),
 			DamageTypes.LASER

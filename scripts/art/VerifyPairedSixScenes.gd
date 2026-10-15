@@ -1,7 +1,7 @@
 extends SceneTree
 
 # Controlled display keyframes. Never a physics/input, FPS or human acceptance claim.
-const MainScript = preload("res://scripts/Main.gd")
+const MainScript = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const BossScript = preload("res://scripts/actors/OverseerBoss.gd")
 const LobScript = preload("res://scripts/components/LobbedProjectile.gd")
@@ -10,7 +10,7 @@ const SpikeScript = preload("res://scripts/components/SpikeTrap.gd")
 const ShotScript = preload("res://scripts/components/Projectile.gd")
 const PatternScript = preload("res://scripts/components/BossProjectilePattern.gd")
 const SCENES := ["opening", "crowd", "dash", "overlap", "boss", "shop"]
-const SOURCES := ["scripts/Main.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd",
+const SOURCES := ["scripts/tests/fixtures/LegacyWaveMain.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd",
 	"scripts/actors/OverseerBoss.gd", "scripts/ui/GameUI.gd", "scripts/ui/HUD.gd", "scripts/ui/AimReticle.gd",
 	"scripts/ui/SettlementScreen.gd", "scripts/components/TentacleAttack.gd",
 	"scripts/components/BossProjectilePattern.gd", "scripts/components/LobbedProjectile.gd",

@@ -25,15 +25,15 @@ func _run() -> void:
 		scene.free()
 		quit(1)
 		return
-	check(not scene.run_started and scene.player == null, "opening the menu started gameplay")
+	check(not scene.restarting and scene.get_node_or_null("World")==null, "opening the menu started gameplay")
 	var menu = scene.ui.start_screen
 	menu.regions_button.pressed.emit()
-	check(not scene.run_started and not menu.launch_button.disabled, "ready first chapter unavailable or selection started old waves")
+	check(not scene.restarting and not menu.launch_button.disabled, "ready first chapter unavailable or selection started old waves")
 	var event := InputEventKey.new()
 	event.pressed = true
 	event.keycode = KEY_ENTER
 	scene.ui._unhandled_input(event)
-	check(not scene.run_started, "region page Enter launched the old demo")
+	check(not scene.restarting, "region page Enter launched the old demo")
 	menu.back_button.pressed.emit()
 	menu.settings_button.pressed.emit()
 	check(is_equal_approx(menu.volume_slider.value, scene.audio.bgm_volume_linear), "settings invented a different audio state")
@@ -43,11 +43,9 @@ func _run() -> void:
 	menu.mute_button.button_pressed = true
 	check(scene.audio.bgm_muted, "menu mute did not reach audio")
 	menu.back_button.pressed.emit()
-	menu.legacy_button.pressed.emit()
-	menu.legacy_start_button.pressed.emit()
-	check(scene.run_started and scene.player != null, "one-click old demo no longer starts")
-	check(not scene.ui.start_screen.visible and not scene.ui.start_panel.visible and not scene.ui.start_backdrop.visible, "new cover obscures live gameplay")
-	check(scene.campaign_progress.to_state().cleared_chapters.is_empty(), "starting old demo advanced campaign progress")
+	check(not menu.has_signal("legacy_start_requested") and menu.get("legacy_button")==null,"legacy compatibility entry remains")
+	check(not scene.has_method("_start_run") and scene.get_node_or_null("World")==null,"tent creates retired gameplay")
+	check(scene.campaign_progress.to_state().cleared_chapters.is_empty(),"settings advanced campaign progress")
 	Support.stop_audio(scene.audio)
 	scene.free()
 	await process_frame

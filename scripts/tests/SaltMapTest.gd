@@ -31,7 +31,7 @@ func _initialize() -> void:
 		check(solid.art.modulate.a==1,"lock alpha does not recover")
 	map.generate_map(20261011)
 	check(map.floor_view.map_seed==20261011 and map.floor_view.causeways==map.layout.get_causeways(),"regeneration leaves stale floor")
-	check(map.layout.get_child_count()==10,"regeneration doubles collision")
+	check(map.layout.get_child_count()==22,"regeneration duplicates or omits denser collision")
 	map.free()
 	await process_frame
 	if not failures: print("TEST PASS: SaltMapTest %d"%checks)

@@ -25,7 +25,8 @@ func run() -> void:
 		Engine.physics_ticks_per_second = hz
 		var host := Node2D.new(); root.add_child(host)
 		var map = Map.instantiate(); host.add_child(map)
-		var player := Player.new(); player.position = Vector2(600,100); host.add_child(player)
+		var player := Player.new(); player.position = Vector2.ZERO; host.add_child(player)
+		check(map.layout.is_position_walkable(player.position,Vent.RADIUS),"legacy component uses a full-footprint-safe reserved pocket")
 		var vent := Vent.new(); host.add_child(vent)
 		vent.configure(map.layout,player,player.position)
 		var before: float = player.health.current_health+player.shield
@@ -60,14 +61,14 @@ func run() -> void:
 	# Real thin wall query, not a mock navigation veto.
 	var host := Node2D.new(); root.add_child(host)
 	var map = Map.instantiate(); host.add_child(map)
-	var player := Player.new(); player.position = Vector2(658,100); host.add_child(player)
+	var player := Player.new(); player.position = Vector2(58,0); host.add_child(player)
 	player.set_physics_process(false)
-	var wall := StaticBody2D.new(); wall.position = Vector2(650,100)
+	var wall := StaticBody2D.new(); wall.position = Vector2(50,0)
 	var shape := CollisionShape2D.new(); var rect := RectangleShape2D.new()
 	rect.size = Vector2(2,120); shape.shape = rect; wall.add_child(shape); host.add_child(wall)
 	await physics_frame; await physics_frame
 	var vent := Vent.new(); host.add_child(vent); vent.set_physics_process(false)
-	vent.configure(map.layout,player,Vector2(600,100)); vent.set_enabled(true)
+	vent.configure(map.layout,player,Vector2.ZERO); vent.set_enabled(true)
 	var before: float = player.health.current_health+player.shield
 	vent.advance(1.5); advance_warning(vent,vent.WARNING_TIME)
 	check(player.health.current_health+player.shield==before and not vent.attempted,"thin wall blocks damage")

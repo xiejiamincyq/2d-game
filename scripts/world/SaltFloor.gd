@@ -10,6 +10,10 @@ func configure(area: Rect2,seed_value: int,solids: Array[Dictionary],passages: A
 	descriptors = solids.duplicate(true)
 	causeways = passages.duplicate()
 	queue_redraw()
+func release_obstacle(footprint: Rect2) -> void:
+	for index in descriptors.size():
+		if Rect2(descriptors[index].rect)==footprint:
+			descriptors.remove_at(index); queue_redraw(); return
 func _draw() -> void:
 	if bounds.size==Vector2.ZERO: return
 	draw_rect(bounds,Color("596665"))

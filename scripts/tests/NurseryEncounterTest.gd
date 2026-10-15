@@ -93,7 +93,7 @@ func _run() -> void:
 	var exported: Dictionary = director.get_encounter()
 	exported.scrapper = 9999
 	check(director.get_encounter() == original, "caller mutated live encounter")
-	check(not director.restore_stable_boundary(6, "boss_settlement"), "old wave snapshot bypassed chapter flow")
+	check(not director.has_method("restore_stable_boundary"), "old wave snapshot entry still exists")
 	check(not director.choose_route(&"supply") and not director.begin_boss(), "route/Boss entered before combat")
 	await _clear_combat(supply)
 	check(director.get_encounter().id != original.id, "two mandatory encounters have same identity")
@@ -132,7 +132,7 @@ func _run() -> void:
 	await process_frame
 	await process_frame
 	check(director.state == director.State.CLEARED and clears == 1, "actual Boss death did not clear exactly once")
-	check(not director.complete_final_wave(), "legacy final wave path can emit alternate victory")
+	check(not director.has_method("complete_final_wave"), "legacy final-wave alternate victory entry remains")
 	supply.host.free()
 	await process_frame
 	var risk := _fixture(script, 521)

@@ -1,7 +1,7 @@
 # Negative fixture: must emit the real timeout error and exit 1, never TEST PASS.
 extends SceneTree
 
-const MainScript = preload("res://scripts/Main.gd")
+const MainScript = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
 
 class NeverDrains extends Node:
 	func begin_shutdown() -> void:

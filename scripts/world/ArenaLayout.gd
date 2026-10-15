@@ -1,5 +1,6 @@
 extends Node2D
 class_name ArenaLayout
+signal obstacle_destroyed(footprint: Rect2)
 
 const ArenaObstacleScript = preload("res://scripts/world/ArenaObstacle.gd")
 
@@ -56,6 +57,23 @@ func generate(bounds: Rect2, seed_value: int, version: int = GENERATOR_VERSION) 
 
 func get_obstacle_descriptors() -> Array[Dictionary]:
 	return obstacle_descriptors.duplicate(true)
+
+func remove_destroyed_obstacle(obstacle: Node,footprint: Rect2) -> bool:
+	if obstacle.get_parent()!=self or obstacle.get("destroyed")!=true: return false
+	for index in obstacle_descriptors.size():
+		if Rect2(obstacle_descriptors[index].rect)!=footprint: continue
+		obstacle_descriptors.remove_at(index)
+		flow_fields.clear() # Both body-size caches must observe the new topology.
+		obstacle_destroyed.emit(footprint)
+		return true
+	return false
+
+func get_destructible_targets() -> Array[Node]:
+	var targets: Array[Node] = []
+	for child in get_children():
+		if not child.is_queued_for_deletion() and child.is_in_group(&"destructible_terrain"):
+			targets.append(child)
+	return targets
 
 func is_position_walkable(point: Vector2, radius: float = ROUTE_RADIUS) -> bool:
 	if not world_bounds.grow(-radius).has_point(point):

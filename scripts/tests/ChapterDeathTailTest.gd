@@ -86,8 +86,9 @@ func _run() -> void:
 	check(boss.take_damage(1e9, &"test"), "accepted Boss damage failed")
 	await process_frame
 	await process_frame
+	check(Support.claim_chapter_carry(chapter), "actual carry choice required")
 	check(paused and chapter.clear_saved and chapter.director.state == chapter.director.State.CLEARED, "actual Boss did not create saved paused clear")
-	var saved_sha := FileAccess.get_sha256(owned)
+	var saved_sha := FileAccess.get_sha256(owned+".journey")
 	var final_position: Vector2 = chapter.player.position
 	var final_health: float = chapter.player.health.current_health
 	var final_kills: int = chapter.kills
@@ -103,7 +104,7 @@ func _run() -> void:
 	check(not is_instance_valid(boss_tail), "saved clear freezes actual Boss death tail")
 	check(not is_instance_valid(clear_tail) and not is_instance_valid(manual_tail), "saved clear freezes detached small enemy death tails")
 	check(paused and chapter.player.position == final_position and chapter.player.health.current_health == final_health and chapter.kills == final_kills, "visual settlement advanced paused gameplay")
-	check(FileAccess.get_sha256(owned) == saved_sha, "visual settlement mutated permanent save")
+	check(FileAccess.get_sha256(owned+".journey") == saved_sha, "visual settlement mutated journey save")
 	check(is_instance_valid(survivor) and survivor.position==survivor_position and survivor.health.current_health==survivor_health and not survivor.can_process(), "visual settlement advanced a live enemy")
 	check(is_instance_valid(foreign_tail) and foreign_tail.process_mode==Node.PROCESS_MODE_PAUSABLE and foreign_tail.player.current_animation_position==foreign_pose, "cleared Chapter advanced another owner's death tail")
 	await capture_gpu("saved_clear_finished")
@@ -111,6 +112,7 @@ func _run() -> void:
 	foreign_owner.free()
 	check(not is_instance_valid(foreign_tail), "owner cancellation left detached death tail")
 	await _dispose(chapter)
+	check(Support.cleanup_journey_fixture(owned), "owned journey cleanup failed")
 	if FileAccess.file_exists(owned):
 		check(DirAccess.remove_absolute(owned) == OK, "owned test save cleanup failed")
 	if failures == 0: print("TEST PASS: ChapterDeathTailTest %d" % assertions)

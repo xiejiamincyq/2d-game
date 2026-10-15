@@ -16,7 +16,7 @@ func run() -> void:
 		var actor = Factory.create_actor(4,"capsule_planter",0,shots,target)
 		actor.world_bounds = Rect2(-600,-400,1400,1000); host.add_child(actor); actor.set_physics_process(false)
 		await physics_frame
-		actor.shoot_cooldown = 0; actor._physics_process(0.01); actor._physics_process(0.19)
+		actor.shoot_cooldown = 0; actor._physics_process(0.01); actor._physics_process(actor.ranged_windup_duration+0.01)
 		check(actor.get_owned_plant_count()==1,"missing reserved capsule "+mode)
 		if mode=="destination_detached": host.remove_child(shots)
 		elif mode=="target_detached": host.remove_child(target)
@@ -26,14 +26,16 @@ func run() -> void:
 		if mode=="expired_replacement":
 			for cycle in 8:
 				check(shots.get_child_count()==1,"expired replacement actual birth missing")
+				if shots.get_child_count()!=1: break # Keep the failure, avoid a misleading nil crash.
 				var plant = shots.get_child(0); plant._physics_process(3)
 				await process_frame; await process_frame
 				check(actor.get_owned_plant_count()==0 and actor.owned_plants.size()<=2,"dead weak-reference history grows beyond owned cap")
 				if cycle<7:
-					actor.shoot_cooldown = 0; actor._physics_process(0.01); actor._physics_process(0.19)
+					actor.shoot_cooldown = 0; actor._physics_process(0.01); actor._physics_process(actor.ranged_windup_duration+0.01)
 					await process_frame; await process_frame
 		elif mode=="live_death":
 			check(shots.get_child_count()==1 and actor.get_owned_plant_count()==1,"real capsule admission missing")
+			if shots.get_child_count()!=1: host.free(); await process_frame; continue
 			var plant = shots.get_child(0)
 			check(plant.is_inside_tree() and plant.health.current_health==16 and plant.is_in_group(&"capsule_plants"),"admitted hazard wrong")
 			actor.take_damage(1000,&"test")

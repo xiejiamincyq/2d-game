@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends "res://scripts/world/DestructibleObstacle.gd"
 ## Full opaque collision plinth; only upper decor yields when the player is behind.
 const Terrain = preload("res://scripts/world/TerrainSweep.gd")
 const Art = preload("res://scripts/world/FoundryPropArt.gd")
@@ -6,6 +6,7 @@ var obstacle_size := Vector2.ZERO
 var occlusion_rect := Rect2()
 var art: Node2D
 func setup(rect: Rect2,kind: StringName) -> void:
+	set_layout_footprint(rect)
 	name = "Foundry_%s"%kind
 	position = Vector2(rect.get_center().x,rect.end.y)
 	obstacle_size = rect.size

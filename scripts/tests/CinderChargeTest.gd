@@ -53,8 +53,8 @@ func _initialize() -> void:
 	await process_frame
 	check(enemy.position == paused_at and enemy.native_visual.skeleton.get_bone(0).transform.is_equal_approx(paused_pose), "pause moves charge pose/body")
 	paused = false
-	enemy._physics_process(0.07)
-	check(enemy.position.is_equal_approx(Vector2.ZERO), "charge starts before 0.18 second warning")
+	enemy._physics_process(charge.WARNING-charge.elapsed-0.01)
+	check(enemy.position.is_equal_approx(Vector2.ZERO), "charge starts before promised warning")
 	enemy._physics_process(0.02)
 	check(is_equal_approx(enemy.position.x,4.4) and not enemy.should_show_attack_marker(), "cross-phase step moves more than actual active time")
 	target.position = Vector2(0,150)
@@ -81,7 +81,7 @@ func _initialize() -> void:
 	target.position = Vector2(150,0)
 	target.hits.clear()
 	charge.cooldown = 0
-	charge.tick(enemy,target,0.55)
+	charge.tick(enemy,target,charge.WARNING+charge.ACTIVE+0.01)
 	check(absf(enemy.position.x-158.4)<0.05 and target.hits == [18.0], "large delta skips final active hit or overruns motion")
 	check(enemy.velocity == Vector2.ZERO, "recovery still moving")
 	enemy._update_static_motion(0)
@@ -117,7 +117,7 @@ func _initialize() -> void:
 	arena.add_child(wall)
 	await physics_frame
 	charge.cooldown = 0
-	charge.tick(enemy,target,0.5)
+	charge.tick(enemy,target,charge.WARNING+0.32)
 	check(enemy.position.x < 51 and target.hits.is_empty(), "charge tunnels / damages through wall")
 	check(charge.stage == charge.Stage.RECOVERY and enemy.velocity == Vector2.ZERO, "collision doesn't stop into recovery")
 	wall.free()
@@ -149,7 +149,7 @@ func _initialize() -> void:
 	enemy.position = Vector2.ZERO
 	enemy.world_bounds = Rect2(-20,-100,100,200)
 	target.position = Vector2(150,0)
-	charge.tick(enemy,target,0.5)
+	charge.tick(enemy,target,charge.WARNING+0.32)
 	check(enemy.position.x <= 66.01 and charge.stage == charge.Stage.RECOVERY, "world boundary doesn't stop charge")
 	enemy.world_bounds = Rect2()
 	charge.cancel()
@@ -163,7 +163,7 @@ func _initialize() -> void:
 	await physics_frame
 	charge.cooldown = 0
 	var health_before: float = real_player.health.current_health
-	charge.tick(enemy,real_player,0.5)
+	charge.tick(enemy,real_player,charge.WARNING+0.32)
 	check(absf(real_player.health.current_health-(health_before-18))<0.01, "real player collision stops outside damage reach")
 	check(enemy.position.x < 124 and charge.stage == charge.Stage.RECOVERY, "real player doesn't stop charge")
 	charge.tick(enemy,real_player,0.05)

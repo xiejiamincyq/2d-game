@@ -24,7 +24,7 @@ func _initialize() -> void:
 		var fingerprint := str(entries)
 		fingerprints[fingerprint] = true
 		densities[entries.size()] = true
-		check(entries.size()>=16 and entries.size()<=22,"foundry obstacle count outside design")
+		check(entries.size()>=26 and entries.size()<=28,"foundry obstacle count outside denser design")
 		check(layout.PROFILE_ID==&"furnace_lanes" and layout.world_bounds==layout.BOUNDS,"chapter profile mismatch")
 		check(layout.is_position_walkable(Vector2.ZERO,56) and layout.is_position_walkable(layout.BOSS_CENTER,56),"spawn/Boss buffer blocked")
 		for radius in [13.0,14.0,16.9,24.0,56.0]:

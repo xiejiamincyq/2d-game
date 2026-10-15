@@ -1,8 +1,10 @@
 extends "res://scripts/systems/ChapterEncounterDirector.gd"
 ## Actual archive families and finite Archivist combat; main readiness waits for A5.
 const Factory = preload("res://scripts/campaign/RegionalEnemyFactory.gd")
-const SporeField = preload("res://scripts/world/ArchiveSporeField.gd")
+const SporeField = preload("res://scripts/world/ReusableTrapField.gd")
 const Archivist = preload("res://scripts/actors/ArchiveArchivistBoss.gd")
+const Capsule = preload("res://scripts/components/CapsulePlantHazard.gd")
+const Mote = preload("res://scripts/actors/SplittingMoteEnemy.gd")
 const BROOD_KINDS := [EnemyScript.EnemyKind.SCRAPPER,EnemyScript.EnemyKind.SPITTER,EnemyScript.EnemyKind.SCRAPPER,EnemyScript.EnemyKind.SPITTER,EnemyScript.EnemyKind.SCRAPPER]
 const BROOD_VISUAL_SPACING := 76.0 # Native silhouettes + bars, not larger hitboxes.
 var spore_field: Node2D
@@ -39,7 +41,7 @@ func _encounter_kinds(encounter: Dictionary) -> Array[int]:
 	for _count in encounter.mote: kinds.append(EnemyScript.EnemyKind.SCRAPPER)
 	for _count in encounter.planter: kinds.append(EnemyScript.EnemyKind.SPITTER)
 	return kinds
-func _create_enemy_actor(kind: int) -> Node:
+func _create_chapter_enemy_actor(kind: int) -> Node:
 	var role: String
 	match kind:
 		EnemyScript.EnemyKind.SCRAPPER: role = "splitting_mote"
@@ -53,6 +55,69 @@ func _on_state_changed(next: State) -> void:
 	if next==State.FAILED: _cancel_boss_followers()
 func _birth_context_active() -> bool:
 	return not boss_cleanup_started and super._birth_context_active()
+func _register_enemy(enemy: Node) -> bool:
+	if not super._register_enemy(enemy): return false
+	if enemy.has_signal("plant_prepared"):
+		enemy.plant_prepared.connect(_on_capsule_prepared.bind(enemy))
+	return true
+func _on_capsule_prepared(plant: Node,parent: Node) -> void:
+	if not is_instance_valid(plant) or plant.get_script()!=Capsule: return
+	if pending_births.has(plant): return
+	if not _birth_context_active() or not active_enemies.has(parent) or parent.death_resolved or plant.is_inside_tree() or population_load()>=LoopRules.MAX_POPULATION_LOAD:
+		plant.disarm(); return
+	# Incubation debt is reserved before deferred placement can run or parent die.
+	pending_births.append(plant)
+	plant.chapter_owned = true
+	plant.retired.connect(_on_capsule_retired.bind(plant),CONNECT_ONE_SHOT)
+	plant.tree_exiting.connect(_on_capsule_retired.bind(plant),CONNECT_ONE_SHOT)
+	plant.hatch_requested.connect(_on_capsule_hatch_requested,CONNECT_DEFERRED)
+	_emit_wave_status()
+func _on_capsule_retired(plant: Node) -> void:
+	if not pending_births.has(plant): return
+	pending_births.erase(plant)
+	_emit_wave_status()
+func _on_capsule_hatch_requested(plant: Node) -> void:
+	if not is_instance_valid(plant) or not pending_births.has(plant): return
+	if not _birth_context_active() or plant.resolved or plant.is_queued_for_deletion() or plant.get_parent()!=projectile_parent or plant.health.current_health<=0:
+		plant.disarm(); return
+	if get_tree().paused:
+		plant.defer_hatch(); return
+	var at := _capsule_hatch_position(plant)
+	if not at.is_finite():
+		# Mature pods stay destructible and retain debt until a legal birth exists.
+		plant.defer_hatch(); return
+	var child := Mote.new()
+	child.is_fragment = true # One real small enemy, never an exponential brood.
+	child.setup(EnemyScript.EnemyKind.SCRAPPER,plant.difficulty_index,projectile_parent,player)
+	_apply_combat_scaling(child)
+	child.world_bounds = world_bounds
+	child.set_arena_navigation(arena_navigation)
+	child.position = enemy_parent.to_local(at)
+	child.apply_spawn_impulse(Vector2.ZERO,0.35)
+	enemy_parent.add_child(child)
+	# Ready/tree-entered callbacks can cancel the run. Preserve debt until admission.
+	if not _birth_context_active() or child.get_parent()!=enemy_parent or not _register_enemy(child):
+		if child.get_parent()!=null: child.get_parent().remove_child(child)
+		child.queue_free()
+	plant.disarm()
+func _capsule_hatch_position(plant: Node2D) -> Vector2:
+	var shape := CircleShape2D.new(); shape.radius = 9
+	var query := PhysicsShapeQueryParameters2D.new(); query.shape = shape
+	query.collision_mask = 1; query.collide_with_areas = true
+	query.exclude = [plant.get_rid()]
+	var space := plant.get_world_2d().direct_space_state
+	for radius in [0.0,28.0,40.0,56.0,72.0]:
+		for sector in (1 if radius==0 else 12):
+			var at: Vector2 = plant.global_position+Vector2.from_angle(TAU*sector/12.0)*radius
+			if not world_bounds.grow(-9).has_point(at) or not arena_navigation.is_position_walkable(at,9) or at.distance_to(player.global_position)<9+player.get_body_radius()+0.5: continue
+			query.transform = Transform2D(0,at)
+			if not space.intersect_shape(query,1).is_empty(): continue
+			if radius>0:
+				var ray := PhysicsRayQueryParameters2D.create(plant.global_position,at,1,[player.get_rid()])
+				ray.hit_from_inside = true
+				if not space.intersect_ray(ray).is_empty(): continue
+			return at
+	return Vector2.INF
 func _on_boss_died(boss: Node,dropped_coins: int,source: StringName) -> void:
 	if state!=State.BOSS or boss!=active_boss or boss.health.current_health>0 or not boss.death_resolved: return
 	# Cancel this encounter's authority before publishing any victory callback.
@@ -90,6 +155,7 @@ func _on_boss_reinforcements_requested(owner: Node,count: int,_count_limit: int 
 	if positions.size()!=count: return # No safe full batch: no wall birth or retry debt.
 	for index in count:
 		if not _brood_context_valid(owner) or combat.action_serial!=serial: return
+		if not _can_spawn_enemy(BROOD_KINDS[first+index]): return
 		var actor = _create_enemy_actor(BROOD_KINDS[first+index])
 		actor.set_arena_navigation(arena_navigation)
 		actor.position = enemy_parent.to_local(positions[index])

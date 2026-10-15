@@ -9,6 +9,7 @@ const Shade = preload("res://scripts/actors/CirclingShadeEnemy.gd")
 const Clearance = preload("EchoMovementTest.gd")
 const UI_THEME = preload("res://themes/MintFarmTheme.tres")
 const Palette = preload("res://scripts/effects/HostileEffectPalette.gd")
+const Plate = preload("res://scripts/world/ReusableStepTrap.gd")
 var checks := 0
 var failures := 0
 var output := ""
@@ -32,14 +33,57 @@ func save_capture(pixels: Image,name: String) -> void:
 	check(not pixels.is_empty() and pixels.save_png(output+name)==OK,"actual GPU capture "+name)
 	captures.append({"path":output+name,"sha256":FileAccess.get_sha256(output+name)})
 func pulse_pixels(_view: SubViewport,pixels: Image) -> int:
+	return pressure_plate_pixels(beat_field,pixels)
+
+func pressure_plate_pixels(field: Node2D,pixels: Image) -> int:
 	var count := 0
-	for beat in beat_field.get_children():
-		if beat.state not in [beat.State.PULSE_FIRST,beat.State.PULSE_SECOND]: continue
-		var center: Vector2 = beat.get_global_transform_with_canvas()*beat.to_local(beat.get_current_center())
+	for plate in field.get_children():
+		if plate.stage!=Plate.Stage.WARNING: continue
+		var center: Vector2 = plate.get_global_transform_with_canvas().origin
 		for sector in 8:
-			var at: Vector2 = center+Vector2.from_angle(TAU*sector/8)*20
-			if Rect2(8,80,1264,632).has_point(at) and pixels.get_pixelv(Vector2i(at)).is_equal_approx(Color("b56e64")): count += 1
+			var at: Vector2 = center+Vector2.from_angle(TAU*sector/8)*plate.trigger_radius
+			for y in range(-2,3):
+				for x in range(-2,3):
+					var sample_at:=at+Vector2(x,y)
+					if not Rect2(8,80,1264,632).has_point(sample_at): continue
+					var color:=pixels.get_pixelv(Vector2i(sample_at))
+					if color.r>0.75 and color.g>0.25 and color.g<0.65 and color.b<0.5: count+=1
 	return count
+
+func pressure_plate_start(field: Node2D,layout: Node2D,radius: float) -> Vector2:
+	var at: Vector2=field.get_sites()[0]
+	for offset in [Vector2(0,80),Vector2(80,0),Vector2(0,-80),Vector2(-80,0)]:
+		var clear_path:=true
+		for step in range(9):
+			if not layout.is_position_walkable(at+offset*step/8.0,radius): clear_path=false; break
+		if clear_path: return at+offset
+	return at # Legal initial spawn; no post-spawn teleport or immunity.
+
+func pressure_plate_snapshot(field: Node2D) -> Dictionary:
+	var state: Dictionary={}
+	for plate in field.get_children():
+		if plate.is_queued_for_deletion(): continue
+		state[plate.get_instance_id()]={"stage":plate.stage,"elapsed":plate.elapsed,"hp":plate.health.current_health}
+	return state
+
+func verify_pressure_plate_pause(view: SubViewport,field: Node2D,player: Node2D) -> void:
+	var health: float=player.health.current_health+player.shield
+	var before:=pressure_plate_snapshot(field)
+	check(not before.is_empty(),"real pressure plate ownership remains")
+	paused=true; await physics_frame; await physics_frame; await create_timer(0.12,true).timeout
+	check(player.health.current_health+player.shield==health and pressure_plate_snapshot(field)==before,"pause freezes existing stages, timers, HP and IDs without resetting danger")
+	await capture(view,"paused.png")
+	paused=false; await physics_frame; await process_frame
+	var after:=pressure_plate_snapshot(field)
+	var continued:=true
+	var limit:=4.0/Engine.physics_ticks_per_second
+	for id in after:
+		if not before.has(id): continued=false; continue
+		continued=continued and after[id].hp<=before[id].hp
+		if before[id].stage==Plate.Stage.WARNING: continued=continued and after[id].stage in [Plate.Stage.WARNING,Plate.Stage.COOLDOWN]
+		if before[id].stage==Plate.Stage.COOLDOWN and before[id].elapsed+limit<Plate.COOLDOWN_SECONDS:
+			continued=continued and after[id].stage==Plate.Stage.COOLDOWN and after[id].elapsed>=before[id].elapsed and after[id].elapsed-before[id].elapsed<=limit
+	check(continued,"resume continues existing pressure plates, not old periodic reset or replenishment")
 func status_pixels(view: SubViewport,actor: Node2D) -> bool:
 	if output.is_empty(): return true
 	var top: Vector2 = actor.get_global_transform_with_canvas()*Vector2(0,actor.get_attack_marker_top())
@@ -64,14 +108,15 @@ func run() -> void:
 		DirAccess.make_dir_recursive_absolute(output)
 		for path in ["scripts/world/TerrainSweep.gd","scripts/tests/EchoBeatEntitySeparationTest.gd"]:
 			sources[path] = FileAccess.get_sha256("res://"+path); check(sources[path].length()==64,"source "+path)
-		for path in ["scripts/tests/EchoEncounterRuntimeTest.gd","scripts/tests/EchoMovementTest.gd","scripts/tests/EchoEncounterPolicyTest.gd","scripts/tests/EchoEncounterTest.gd","scripts/systems/EchoEncounterDirector.gd","scripts/systems/ChapterEncounterDirector.gd","scripts/systems/WaveDirector.gd","scripts/campaign/RegionalEnemyFactory.gd","scripts/systems/UpgradeSystem.gd","scripts/actors/Player.gd","scripts/actors/Enemy.gd","scripts/actors/EchoSentinelEnemy.gd","scripts/actors/CirclingShadeEnemy.gd","scripts/components/EchoRingAttack.gd","scripts/components/ShadeAmbushAttack.gd","scripts/effects/EnemyWorldStatus.gd","scripts/components/NativeActorView.gd","scripts/components/NativeScrapperMotion.gd","scripts/world/EchoMap.gd","scripts/world/EchoArenaLayout.gd","scripts/world/EchoBeat.gd","scripts/world/EchoField.gd","scenes/world/echo_court.tscn","scenes/actors/native/echo_sentinel_paper_v1.tscn","scenes/actors/native/circling_shade_paper_v1.tscn"]:
+		for path in ["scripts/tests/EchoEncounterRuntimeTest.gd","scripts/tests/EchoMovementTest.gd","scripts/tests/EchoEncounterPolicyTest.gd","scripts/tests/EchoEncounterTest.gd","scripts/systems/EchoEncounterDirector.gd","scripts/systems/ChapterEncounterDirector.gd","scripts/systems/EncounterCombatCore.gd","scripts/campaign/RegionalEnemyFactory.gd","scripts/systems/UpgradeSystem.gd","scripts/actors/Player.gd","scripts/actors/Enemy.gd","scripts/actors/EchoSentinelEnemy.gd","scripts/actors/CirclingShadeEnemy.gd","scripts/components/EchoRingAttack.gd","scripts/components/ShadeAmbushAttack.gd","scripts/effects/EnemyWorldStatus.gd","scripts/components/NativeActorView.gd","scripts/components/NativeScrapperMotion.gd","scripts/world/EchoMap.gd","scripts/world/EchoArenaLayout.gd","scripts/world/ReusableStepTrap.gd","scripts/world/ReusableTrapField.gd","scenes/world/echo_court.tscn","scenes/actors/native/echo_sentinel_paper_v1.tscn","scenes/actors/native/circling_shade_paper_v1.tscn"]:
 			sources[path] = FileAccess.get_sha256("res://"+path); check(sources[path].length()==64,"source "+path)
 	release()
 	var view := SubViewport.new(); view.size = Vector2i(1280,720); view.world_2d = World2D.new(); view.render_target_update_mode = SubViewport.UPDATE_ALWAYS; root.add_child(view)
 	var host := Node2D.new(); host.process_mode = Node.PROCESS_MODE_PAUSABLE; view.add_child(host)
 	var map = Map.instantiate(); map.map_seed = 521; host.add_child(map)
 	beat_field = map.echo_field
-	var player := Player.new(); player.world_bounds = map.layout.world_bounds; player.position = map.echo_field.get_sites()[0]+Vector2(0,80); host.add_child(player)
+	var player := Player.new(); player.world_bounds = map.layout.world_bounds; player.position = pressure_plate_start(map.echo_field,map.layout,player.get_body_radius()); host.add_child(player)
+	var plate_escape: Vector2=player.position
 	map.layout.occlusion_target = player; var camera := Camera2D.new(); player.add_child(camera)
 	var enemies := Node2D.new(); var shots := Node2D.new(); var portals := Node2D.new(); enemies.y_sort_enabled = true
 	for layer in [enemies,shots,portals]: host.add_child(layer)
@@ -86,7 +131,7 @@ func run() -> void:
 	check(director.bind_echo_field(map.echo_field) and director.start_run(521,player,enemies,shots,portals,growth,map.layout),"automatic actual owner run")
 	player.set_enemy_provider(director.get_attack_targets)
 	await capture(view,"intro.png"); check(director.begin_encounter(),"actual encounter start")
-	var seen := {"sentinel_walk":false,"shade_walk":false,"sentinel_warning":false,"sentinel_ring":false,"shade_warning":false,"shade_strike":false,"beat_warning":false,"beat_pulse":false}
+	var seen := {"sentinel_walk":false,"shade_walk":false,"sentinel_warning":false,"sentinel_ring":false,"shade_warning":false,"shade_strike":false,"plate_warning":false,"plate_cooldown":false}
 	var taken := {}; var moves := 0; var pointers := 0; var maximum := 0
 	var rng := RandomNumberGenerator.new(); rng.seed = 7021
 	var target: Vector2 = player.position; var started := Time.get_ticks_msec()
@@ -96,6 +141,8 @@ func run() -> void:
 				var candidate: Vector2 = map.echo_field.get_sites()[0]+Vector2(rng.randf_range(-220,220),rng.randf_range(-220,220))
 				if map.layout.is_position_walkable(candidate,player.get_body_radius()): target = candidate; break
 		var direction: Vector2 = map.layout.get_navigation_direction(player.position,target,player.get_body_radius())
+		if not seen.plate_warning: direction=map.layout.get_navigation_direction(player.position,beat_field.get_sites()[0],player.get_body_radius())
+		elif not seen.plate_cooldown: direction=map.layout.get_navigation_direction(player.position,plate_escape,player.get_body_radius())
 		release()
 		for axis in [["move_left",-direction.x],["move_right",direction.x],["move_up",-direction.y],["move_down",direction.y]]:
 			if axis[1]>0: Input.action_press(axis[0],axis[1])
@@ -106,7 +153,7 @@ func run() -> void:
 		if is_instance_valid(nearest):
 			var mouse := InputEventMouseMotion.new(); mouse.position = nearest.get_global_transform_with_canvas().origin; view.push_input(mouse); pointers += 1
 			check(player.get_global_mouse_position().distance_to(nearest.global_position)<1,"engine cursor fails real aim")
-			Input.action_press("fire")
+			if seen.plate_cooldown: Input.action_press("fire") # Observe actual stepping before shooting the plate.
 		var before := player.position; await physics_frame; await process_frame
 		if player.position.distance_to(before)>0.01: moves += 1
 		check(Clearance.has_clearance(player.position,map.layout.world_bounds,map.layout.get_obstacle_descriptors(),player.get_body_radius()),"actual full body embeds in pillar")
@@ -126,31 +173,27 @@ func run() -> void:
 					taken.head = true
 					if not output.is_empty(): save_capture(view.get_texture().get_image(),"short-head-warning.png")
 		for beat in map.echo_field.get_children():
-			if beat.state in [beat.State.WARNING_FIRST,beat.State.WARNING_SECOND]: seen.beat_warning = true
-			if beat.state in [beat.State.PULSE_FIRST,beat.State.PULSE_SECOND]:
-				seen.beat_pulse = true
+			if beat.stage==Plate.Stage.COOLDOWN: seen.plate_cooldown=true
+			if beat.stage==Plate.Stage.WARNING:
+				seen.plate_warning = true
 				if not taken.has("beat"):
 					if output.is_empty(): taken.beat = true
 					else:
 						await RenderingServer.frame_post_draw
 						var pixels := view.get_texture().get_image(); var count := pulse_pixels(view,pixels)
-						if count>=3: beat_pixels = count; taken.beat = true; save_capture(pixels,"encounter-beat.png")
+						if count>=3: beat_pixels = count; taken.beat = true; save_capture(pixels,"encounter-pressure-plate-warning.png")
 		if seen.values().all(func(v): return v) and moves>180 and fired[0]>6 and taken.has("head") and taken.has("beat"): break
 	release()
 	check(seen.values().all(func(v): return v) and moves>180 and fired[0]>6 and pointers>100 and maximum>=8 and taken.has("beat"),"natural mixed actions/input/density missing "+str(seen))
-	if not output.is_empty(): check(beat_pixels>=3,"claimed live beat capture has no current hazard pixels")
+	if not output.is_empty(): check(beat_pixels>=3,"claimed live pressure plate warning capture has no current coral rim")
 	check(player.health.current_health>0 and director.state==director.State.COMBAT and is_equal_approx(player.move_speed,235) and not player.is_stealthed(),"witness dead or artificial actor motion")
 	check(not director.finish_reward() and not director.begin_boss(),"living first fight bypass")
 	await capture(view,"mixed.png")
-	var health: float = player.health.current_health+player.shield
-	paused = true; await physics_frame; await physics_frame; await create_timer(0.12,true).timeout
-	check(player.health.current_health+player.shield==health and map.echo_field.get_children().all(func(n): return n.state==n.State.INACTIVE),"actual pause retains damage")
-	await capture(view,"paused.png"); paused = false; await physics_frame; await physics_frame
-	check(map.echo_field.get_children().filter(func(n): return n.enabled).all(func(n): return n.state==n.State.COOLDOWN and n.remaining>3.3),"actual resume lacks safety")
+	await verify_pressure_plate_pause(view,map.echo_field,player)
 	var final_health: float = player.health.current_health; host.free(); view.free(); await process_frame; await process_frame
 	for path in sources: check(FileAccess.get_sha256("res://"+path)==sources[path],"source changed "+path)
 	if not output.is_empty():
-		var report := {"passed":failures==0,"checks":checks,"sources":sources,"captures":captures,"observed":seen,"actual_adjacent_moves":moves,"engine_pointer_updates":pointers,"owned_player_shots":fired[0],"maximum_live_enemies":maximum,"warning_cream_pixels":warning_pixels,"bar_coral_pixels":bar_pixels,"current_beat_coral_pixels":beat_pixels,"final_player_health":final_health,"scope":"First actual seeded fifth-region encounter and actual AI/ordinary movement/fire, no post-spawn position/stat/pose/velocity/clock writes. Not Boss/chapter victory, OS input, human playtest, dense performance or six-chapter completion."}
+		var report := {"passed":failures==0,"checks":checks,"sources":sources,"captures":captures,"observed":seen,"actual_adjacent_moves":moves,"engine_pointer_updates":pointers,"owned_player_shots":fired[0],"maximum_live_enemies":maximum,"warning_cream_pixels":warning_pixels,"bar_coral_pixels":bar_pixels,"pressure_plate_warning_coral_pixels":beat_pixels,"final_player_health":final_health,"scope":"First actual seeded fifth-region encounter and actual AI/ordinary movement/fire, no post-spawn position/stat/pose/velocity/clock writes. Not Boss/chapter victory, OS input, human playtest, dense performance or six-chapter completion."}
 		var file := FileAccess.open(output+"report.json",FileAccess.WRITE); file.store_string(JSON.stringify(report,"\t")); file.close()
 	print("ECHO ENCOUNTER OBSERVED: moves=%d shots=%d pointer=%d max_live=%d health=%s"%[moves,fired[0],pointers,maximum,final_health])
 	if not failures: print("TEST PASS: EchoEncounterRuntimeTest %d"%checks)

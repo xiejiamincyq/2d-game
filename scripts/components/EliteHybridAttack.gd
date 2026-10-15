@@ -1,9 +1,12 @@
 extends RefCounted
+const TerrainAttack=preload("res://scripts/components/TerrainAttackDamage.gd")
+const TerrainQuery=preload("res://scripts/components/TerrainDamageQuery.gd")
 ## Ordinary hybrid attack. Animation reads this clock; never emits gameplay.
 enum Stage { IDLE, WARNING, ACTIVE, RECOVERY }
 enum Mode { SWEEP, SHARDS }
 const RECOVERY := 0.20
 const SWEEP_REACH := 38.0
+const AttackTiming = preload("res://scripts/components/EnemyAttackTiming.gd")
 var stage := Stage.IDLE
 var mode := Mode.SWEEP
 var elapsed := 0.0
@@ -14,8 +17,9 @@ var target_position := Vector2.ZERO
 var target_radius := 14.0
 var did_hit := false
 var released := false
+var terrain_hit_ids: Dictionary={}
 func is_active() -> bool: return stage!=Stage.IDLE
-func get_warning_duration() -> float: return 0.18
+func get_warning_duration() -> float: return AttackTiming.RANGED_WARNING
 func get_active_duration() -> float: return 0.12 if mode==Mode.SWEEP else 0.10
 func consider(actor: Node2D,target: Node2D,delta: float) -> void:
 	if not is_finite(delta) or delta<0: return
@@ -34,6 +38,7 @@ func consider(actor: Node2D,target: Node2D,delta: float) -> void:
 	elapsed = 0
 	did_hit = false
 	released = false
+	terrain_hit_ids.clear()
 	stage = Stage.WARNING
 func advance(delta: float) -> void:
 	if not is_active() or not is_finite(delta) or delta<0: return
@@ -53,6 +58,12 @@ func take_release() -> bool:
 	released = true
 	return true
 func resolve_hit(actor: CharacterBody2D,target: Node2D) -> void:
+	_resolve_player_hit(actor,target)
+	if stage!=Stage.ACTIVE or mode!=Mode.SWEEP or not TerrainAttack.live(actor): return
+	var points:=PackedVector2Array([origin])
+	for index in 17: points.append(origin+direction.rotated(lerpf(-0.70,0.70,index/16.0))*SWEEP_REACH)
+	TerrainAttack.apply(actor,TerrainQuery.collect_in_polygon(actor,points),origin,actor.contact_damage,&"enemy",terrain_hit_ids,func(): return stage==Stage.ACTIVE and mode==Mode.SWEEP)
+func _resolve_player_hit(actor: CharacterBody2D,target: Node2D) -> void:
 	if stage!=Stage.ACTIVE or mode!=Mode.SWEEP or did_hit or not is_instance_valid(target): return
 	if target.is_queued_for_deletion() or not target.has_method("take_damage"): return
 	if target.has_method("is_stealthed") and target.is_stealthed(): return

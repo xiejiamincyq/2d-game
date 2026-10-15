@@ -36,7 +36,7 @@ func _run() -> void:
 	check(actor.should_show_attack_marker() and actor.native_visual.player.current_animation=="warning" and target.hits.is_empty(),"head warning lacks native anticipation")
 	actor._physics_process(0.14)
 	check(target.hits.is_empty() and actor.basic_attack.radius==0,"warning hurts early")
-	actor._physics_process(0.05)
+	actor._physics_process(actor.basic_attack.get_warning_duration()-actor.basic_attack.elapsed+0.02)
 	check(not actor.should_show_attack_marker() and actor.native_visual.player.current_animation=="attack" and target.hits.is_empty(),"wave bypasses expansion/attack clip")
 	actor._physics_process(0.25)
 	check(target.hits==[15.0],"actual ring misses nearby player")

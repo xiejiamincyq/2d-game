@@ -1,4 +1,4 @@
-extends "res://scripts/Main.gd"
+extends "res://scripts/tests/fixtures/LegacyWaveMain.gd"
 
 # Only startup RNG/save destination differ; all game states/rules stay inherited.
 # Refuse standalone use: never fall back to the real user's store.

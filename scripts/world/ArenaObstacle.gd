@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends "res://scripts/world/DestructibleObstacle.gd"
 class_name ArenaObstacle
 
 const PropArt = preload("res://scripts/world/ArenaPaperPropArt.gd")
@@ -20,6 +20,7 @@ func update_player_occlusion(player_position: Vector2, active: bool, delta: floa
 	art.modulate.a = move_toward(art.modulate.a, 0.32 if covers_player else 1.0, maxf(delta, 0.0) * 5.0)
 
 func setup(rect: Rect2, kind: StringName) -> void:
+	set_layout_footprint(rect)
 	name = "ArenaObstacle_%s" % kind
 	# Sort at the front contact edge; keep the original world-space collider.
 	position = Vector2(rect.get_center().x, rect.end.y)

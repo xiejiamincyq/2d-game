@@ -65,9 +65,9 @@ func run() -> void:
 	check(map.has_node("TidalField"),"actual map does not assemble tides")
 	if map.has_node("TidalField"):
 		var owned = map.get_node("TidalField")
-		check(owned.get_child_count()==4 and not owned.active,"actual map starts dangerous")
+		check(owned.get_script()==load("res://scripts/world/ReusableTrapField.gd") and owned.get_child_count()==10 and not owned.active,"actual replacement plates start disarmed")
 		map.generate_map(97)
-		check(owned.get_child_count()==4 and not owned.active,"actual regeneration leaves old/active tides")
+		check(owned.get_child_count()==10 and not owned.active,"actual regeneration leaves old/active pressure plates")
 	map.free(); await process_frame
 	if not failures: print("TEST PASS: SaltTidalFieldTest %d"%checks)
 	quit(1 if failures else 0)

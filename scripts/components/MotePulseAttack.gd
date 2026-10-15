@@ -1,6 +1,6 @@
 extends "res://scripts/components/ScrapperAttack.gd"
 ## Locked short-range pulse. No pounce or visual event can apply damage.
-func get_warning_duration() -> float: return 0.16
+func get_warning_duration() -> float: return 0.40
 func get_released_delay() -> float: return 0.15
 func cancel() -> void:
 	stage = Stage.IDLE

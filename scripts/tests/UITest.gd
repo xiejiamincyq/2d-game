@@ -18,7 +18,7 @@ func _initialize() -> void:
 	await process_frame
 	if not _assert_true(ui.get("hud") != null, "GameUI did not instantiate a HUD component"):
 		return
-	if not _assert_true(ui.hud.wave_label.text == "波次 -- / --", "HUD invented a wave count before receiving director state"):
+	if not _assert_true(ui.hud.wave_label.text == "遭遇 -- / --", "HUD invented a count or retained retired mode wording before receiving director state"):
 		return
 	var aim_reticle := ui.get("aim_reticle") as Control
 	if not _assert_true(
@@ -66,10 +66,7 @@ func _initialize() -> void:
 	pause_restart_button.pressed.emit()
 	if not _assert_true(pause_restart_requests[0] == 1, "pause restart button did not reuse GameUI's restart request"):
 		return
-	if not _assert_true(ui.continue_button != null and not ui.continue_button.visible, "Continue button did not start hidden"):
-		return
-	ui.set_continue_available(true)
-	if not _assert_true(ui.continue_button.visible and not ui.continue_button.disabled, "valid-save state did not expose an enabled Continue button"):
+	if not _assert_true(not ui.has_signal("continue_requested") and ui.get("continue_button")==null,"retired old-save Continue remains in product UI"):
 		return
 	if not _assert_true(ui.start_panel.get_combined_minimum_size().y <= 500.0, "start screen with Continue no longer fits the 960x540 safe height"):
 		return
@@ -146,7 +143,7 @@ func _initialize() -> void:
 		return
 	if not _assert_true(ui.start_panel.get_theme_stylebox("panel") != ui.hud.overdrive_panel.get_theme_stylebox("panel") and panel_style.border_color.is_equal_approx(Color("142520")), "dynamic overdrive styling mutated the separate menu theme"):
 		return
-	for button in [ui.start_button, ui.continue_button, ui.hud.pause_button, ui.pause_screen.resume_button, pause_restart_button, ui.result_screen.restart_button, ui.settlement_screen.close_button]:
+	for button in [ui.start_button, ui.hud.pause_button, ui.pause_screen.resume_button, pause_restart_button, ui.result_screen.restart_button, ui.settlement_screen.close_button]:
 		if not _assert_true(button.get_combined_minimum_size().y >= 44.0 and button.focus_mode == Control.FOCUS_ALL, "%s lost its 44px keyboard-focusable target" % button.name):
 			return
 

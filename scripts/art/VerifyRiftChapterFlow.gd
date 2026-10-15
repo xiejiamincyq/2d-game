@@ -53,6 +53,7 @@ func _click(button: Button) -> void:
 		button = chapter.ui.risk_button
 	await super._click(button)
 func minimum_victory_kills(chapter: Node) -> int:
+	if endless_context.get("enabled",false): return super.minimum_victory_kills(chapter)
 	expected_kills = 1
 	for index in (3 if selected_route==&"risk" else 2):
 		var encounter: Dictionary = chapter.director.encounters[index]
@@ -83,11 +84,7 @@ func pilot_motion(chapter: Node, policy: RefCounted, step: int, threats: Array[V
 		if wanted and distance<closest: closest = distance; loot = item
 	if loot!=null:
 		goal = chapter.map.layout.get_navigation_direction(position,loot.position,chapter.player.get_body_radius())
-	for fault in chapter.map.rift_field.get_children():
-		if fault.state in [fault.State.WARNING,fault.State.ACTIVE]:
-			var at: Vector2 = fault.get_current_center()
-			threats.append(at)
-			danger_distance = minf(danger_distance,position.distance_to(at))
+	# Actual reusable pressure plates are observed once by the common driver.
 	if boss!=null:
 		var combat = boss.attack_director
 		boss_phases[str(combat.current_phase)] = true

@@ -1,6 +1,6 @@
 extends SceneTree
 
-const MainScript = preload("res://scripts/Main.gd")
+const MainScript = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const OUTPUT := "res://docs/art/previews/environment/"
 const ACTIONS := ["move_left", "move_right", "move_up", "move_down", "fire"]

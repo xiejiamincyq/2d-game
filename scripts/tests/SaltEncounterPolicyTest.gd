@@ -4,6 +4,7 @@ const Map = preload("res://scenes/world/salt_waterway.tscn")
 const Player = preload("res://scripts/actors/Player.gd")
 const Growth = preload("res://scripts/systems/UpgradeSystem.gd")
 const Shared = preload("res://scripts/systems/ChapterEncounterDirector.gd")
+const StepTrap = preload("res://scripts/world/ReusableStepTrap.gd")
 var checks := 0
 var failures := 0
 func check(ok: bool,label: String) -> void:
@@ -32,7 +33,8 @@ func run() -> void:
 	check(not director.start_run(521,player,enemies,shots,portals,growth,map.layout),"duplicate run")
 	check(not director.bind_tidal_field(map.tidal_field),"combat policy owner mutable after start")
 	check(director.encounters.size()==3 and director.state==director.State.INTRO,"required battles and risk catalog")
-	check(map.tidal_field.get_child_count()==4 and not map.tidal_field.active,"intro creates active or absent channels")
+	check(map.tidal_field.get_child_count()==10 and not map.tidal_field.active,"all ten reusable sites exist but INTRO is disarmed")
+	check(map.tidal_field.get_children().all(func(trap): return trap is StepTrap and not trap.enabled and trap.health.current_health==80 and not trap.is_in_group(&"enemies")),"actual safe destructible pressure plates, not old four tidal channels")
 	var first: Dictionary = director.get_encounter()
 	first.crab = 9999
 	check(director.get_encounter().crab<9999,"catalog query leaks writable state")
@@ -40,7 +42,7 @@ func run() -> void:
 		var kinds: Array[int] = director._encounter_kinds(encounter)
 		check(kinds.count(director.EnemyScript.EnemyKind.SCRAPPER)==encounter.crab and kinds.count(director.EnemyScript.EnemyKind.MARKSMAN)==encounter.needle,"salt families/counts differ from policy")
 	check(director._boss_available() and not director.begin_boss(),"real Boss bypasses INTRO encounter gate")
-	check(not director.restore_stable_boundary(3,"combat") and not director.begin_prepared_wave() and not director.complete_final_wave(),"legacy wave bypass")
+	check(not director.has_method("restore_stable_boundary") and not director.has_method("begin_prepared_wave") and not director.has_method("complete_final_wave"),"retired wave bypass is absent")
 	map.remove_child(map.tidal_field)
 	check(director.state==director.State.FAILED,"owner removal does not fail run")
 	map.tidal_field.free(); host.free(); await process_frame

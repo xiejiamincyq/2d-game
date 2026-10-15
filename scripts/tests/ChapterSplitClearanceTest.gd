@@ -5,9 +5,10 @@ const Player = preload("res://scripts/actors/Player.gd")
 const Growth = preload("res://scripts/systems/UpgradeSystem.gd")
 class ProbeDirector extends "res://scripts/systems/ChapterEncounterDirector.gd":
 	const Factory = preload("res://scripts/campaign/RegionalEnemyFactory.gd")
+	func _chapter_number() -> int: return 4
 	func _build_encounters() -> Array[Dictionary]: return [{"rate":0.2},{"rate":0.2},{"rate":0.2}]
 	func _encounter_kinds(_data: Dictionary) -> Array[int]: return [EnemyScript.EnemyKind.SCRAPPER]
-	func _create_enemy_actor(_kind: int) -> Node:
+	func _create_chapter_enemy_actor(_kind: int) -> Node:
 		var actor := Factory.create_actor(4,"splitting_mote",0,projectile_parent,player)
 		actor.world_bounds = world_bounds; actor.set_physics_process(false); return actor
 var checks := 0

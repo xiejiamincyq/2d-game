@@ -8,6 +8,10 @@ func configure(area: Rect2,seed_value: int,obstacles: Array[Dictionary]) -> void
 	map_seed = seed_value
 	descriptors = obstacles.duplicate(true)
 	queue_redraw()
+func release_obstacle(footprint: Rect2) -> void:
+	for index in descriptors.size():
+		if Rect2(descriptors[index].rect)==footprint:
+			descriptors.remove_at(index); queue_redraw(); return
 func _draw() -> void:
 	if bounds.size==Vector2.ZERO: return
 	draw_rect(bounds,Color("3e4443"))

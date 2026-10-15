@@ -57,13 +57,14 @@ func _initialize() -> void:
 	enemy._update_static_motion(0.12)
 	check(view.player.current_animation=="walk" and view.skeleton.get_node("Torso/LegL/ShinL").rotation!=0,"no articulated walking")
 	enemy.ranged_is_winding_up = true
-	enemy.ranged_windup_remaining = 0.175
+	check(enemy.ranged_windup_duration>=0.55,"shared human-reactable warning retained")
+	enemy.ranged_windup_remaining = enemy.ranged_windup_duration*0.5
 	enemy.ranged_target_position = Vector2(300,0)
 	enemy._update_static_motion(0)
 	check(view.player.current_animation=="warning" and absf(view.player.current_animation_position-0.175)<0.001 and enemy.should_show_attack_marker(),"warning not real combat clock")
 	var release: Node2D = view.get_node("Facing/Skeleton2D/Torso/ArmR/ForearmR/HandR/Payload/Release")
 	var origin: Vector2 = release.global_position
-	enemy._update_lobber(0.18,target)
+	enemy._update_lobber(enemy.ranged_windup_remaining+0.01,target)
 	enemy._update_static_motion(0)
 	check(shots.get_child_count()==1 and view.player.current_animation=="attack","throw duplicated / no actual recoil")
 	var lob = shots.get_child(0)

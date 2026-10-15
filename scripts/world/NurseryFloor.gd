@@ -11,6 +11,11 @@ func configure(area: Rect2, seed_value: int, obstacles: Array[Dictionary]) -> vo
 	descriptors = obstacles.duplicate(true)
 	queue_redraw()
 
+func release_obstacle(footprint: Rect2) -> void:
+	for index in descriptors.size():
+		if Rect2(descriptors[index].rect)==footprint:
+			descriptors.remove_at(index); queue_redraw(); return
+
 func _draw() -> void:
 	if bounds.size == Vector2.ZERO:
 		return

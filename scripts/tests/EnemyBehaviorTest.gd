@@ -1,7 +1,7 @@
 extends SceneTree
 
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
-const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
+const WaveDirectorScript = preload("res://scripts/tests/fixtures/LegacyWaveDirector.gd")
 
 class StealthPlayer extends Node2D:
 	var stealth_active := true
@@ -101,7 +101,9 @@ func _initialize() -> void:
 	spitter._update_spitter(1.0, player)
 	if not _assert_true(spitter.ranged_is_winding_up and projectiles.get_child_count() == 0, "visible Spitter skipped head warning"):
 		return
-	spitter._update_spitter(0.19, player)
+	if not _assert_true(spitter.ranged_windup_duration >= 0.55, "Spitter warning is shorter than the human reaction floor"):
+		return
+	spitter._update_spitter(spitter.ranged_windup_duration + 0.01, player)
 	if not _assert_true(projectiles.get_child_count() == 1, "visible Spitter inside its distance ring did not fire"):
 		return
 

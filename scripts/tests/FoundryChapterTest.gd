@@ -35,15 +35,16 @@ func _battle(chapter: Node) -> void:
 	check(chapter.director.state == chapter.director.State.COMBAT and not paused, "real UI did not start encounter")
 	check(chapter.map.heat_field.active, "combat did not activate heat field")
 	chapter._toggle_pause()
+	var frozen: Array=Support.trap_field_snapshot(chapter.map.heat_field)
 	await physics_frame
 	await physics_frame
 	await process_frame
-	check(paused and chapter.map.heat_field.get_children().all(func(vent): return vent.state == vent.State.INACTIVE), "real pause left encounter heat active")
+	check(paused and Support.trap_field_snapshot(chapter.map.heat_field)==frozen, "real pause must freeze plate stage/clock/HP")
 	chapter.ui.resume_button.pressed.emit()
 	await physics_frame
 	await physics_frame
 	await process_frame
-	check(not paused and chapter.map.heat_field.get_children().filter(func(vent): return vent.enabled).all(func(vent): return vent.remaining > 1.3), "resume has no heat safety interval")
+	check(not paused and chapter.map.heat_field.get_children().all(func(plate): return plate.stage==plate.Stage.READY and is_zero_approx(plate.elapsed)), "resume must not trigger an unstepped plate")
 	chapter.director.set_process(false)
 	chapter.player.set_physics_process(false)
 	for step in 120:
@@ -117,18 +118,19 @@ func _run() -> void:
 	for frame in 360:
 		if boss.entrance_resolved: break
 		await process_frame
-	check(DirAccess.make_dir_absolute(path + ".tmp") == OK, "save-denial fixture could not reserve owned tmp")
+	check(DirAccess.make_dir_absolute(path + ".journey.tmp") == OK, "save-denial fixture could not reserve owned tmp")
 	check(boss.take_damage(1e9, &"test"), "actual post-entrance damage did not defeat Boss")
 	check(chapter.ui.stats_label.text.begins_with("击杀 %d " % chapter.kills), "terminal kill HUD relies on a future unpaused frame")
 	await process_frame
 	await process_frame
 	check(not chapter.clear_saved and not chapter.progress.has_cleared(2) and FileAccess.get_sha256(path) == previous_hash, "failed write exposed permanent second clear")
 	check(chapter.ui.retry_save_button.visible, "save error has no retry")
-	check(DirAccess.remove_absolute(path + ".tmp") == OK, "owned empty tmp fixture removal failed")
+	check(DirAccess.remove_absolute(path + ".journey.tmp") == OK, "owned empty tmp fixture removal failed")
 	chapter.ui.retry_save_button.pressed.emit()
+	check(Support.claim_chapter_carry(chapter), "earned ordinary inheritance UI required")
 	check(chapter.clear_saved and paused and chapter.ui.flow_title.text.contains("第2关通关"), "real Boss clear not saved/shown")
 	var restored := Progress.new()
-	check(Store.new(path).load_progress(restored) == Store.LoadResult.LOADED and restored.has_cleared(2) and restored.is_unlocked(3), "second clear failed permanent third unlock")
+	check(Support.restore_journey_progress(path, restored) and restored.has_cleared(2) and restored.is_unlocked(3), "second clear failed permanent third unlock")
 	var clear_hash := FileAccess.get_sha256(path)
 	check(not chapter.save_clear(1) and not chapter.save_clear(2) and not chapter.save_clear(3), "repeated/wrong callback accepted")
 	check(FileAccess.get_sha256(path) == clear_hash, "duplicate callback rewrote committed save")
@@ -169,6 +171,7 @@ func _run() -> void:
 	check(returned._can_start_campaign_chapter(3) and not returned._can_start_campaign_chapter(4), "actual second clear cannot launch completed third policy or opens future fourth")
 	await _dispose(returned)
 	check(DirAccess.remove_absolute(path) == OK, "owned isolated save cleanup failed")
+	check(Support.cleanup_journey_fixture(path), "owned journey fixture cleanup failed")
 	if FileAccess.file_exists(path + ".bak"): check(DirAccess.remove_absolute(path + ".bak") == OK, "owned isolated backup cleanup failed")
 	if failures == 0: print("TEST PASS: FoundryChapterTest %d" % assertions)
 	quit(1 if failures > 0 else 0)

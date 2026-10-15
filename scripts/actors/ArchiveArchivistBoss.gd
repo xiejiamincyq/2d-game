@@ -4,6 +4,7 @@ const NATIVE_SCENE = preload("res://scenes/actors/native/spore_archivist_paper_v
 const Motion = preload("res://scripts/components/NativeSporeArchivistMotion.gd")
 const Combat = preload("res://scripts/components/SporeArchivistAttackDirector.gd")
 const OriginSafety = preload("res://scripts/components/NativeProjectileOriginSafety.gd")
+const Page = preload("res://scripts/components/ArchivePageProjectile.gd")
 func setup(_wave_index: int,projectiles: Node,target: Node2D = null) -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	projectile_parent = projectiles; target_player = target
@@ -25,7 +26,7 @@ func _create_boss_visual() -> void:
 func get_safe_page_origin() -> Vector2:
 	if boss_visual==null: return global_position
 	var at: Vector2 = boss_visual.get_node("Facing/Skeleton2D/Torso/Book/Spine/IndexOrigin").global_position
-	return OriginSafety.resolve(self,at,5)
+	return OriginSafety.resolve(self,at,Page.HIT_RADIUS)
 func get_safe_seal_origin() -> Vector2:
 	if boss_visual==null: return global_position
 	var at: Vector2 = boss_visual.get_node("Facing/Skeleton2D/Torso/Head/Cap/SporeOrigin").global_position

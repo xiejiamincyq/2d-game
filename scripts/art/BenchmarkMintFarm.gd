@@ -1,6 +1,6 @@
 extends SceneTree
 
-const MainScript = preload("res://scripts/Main.gd")
+const MainScript = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const FLOOR_SCRIPT = preload("res://scripts/world/FloorGrid.gd")
 const REPORT_PATH := "res://docs/art/previews/environment/mint-farm-benchmark-v1.json"

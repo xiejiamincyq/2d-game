@@ -114,7 +114,7 @@ func _initialize() -> void:
 		return
 	player.drone_laser_piercing = true
 	player._update_drone_lasers(0.1)
-	if not _assert_true(lock_target.damage_received > 0.0, "piercing laser did not ignore a world blocker"):
+	if not _assert_true(is_zero_approx(lock_target.damage_received), "enemy-piercing laser bypassed solid world cover"):
 		return
 	blocker.queue_free()
 	await physics_frame

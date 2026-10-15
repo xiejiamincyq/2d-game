@@ -22,6 +22,10 @@ func create_actor(arena: Node2D,shots: Node2D,target: Node2D):
 	actor.shoot_cooldown = 0
 	return actor
 func _initialize() -> void: call_deferred("_run")
+func finish_windup(actor: Node) -> void:
+	for step in 120:
+		if not actor.ranged_is_winding_up: break
+		actor._physics_process(1.0/120.0)
 func _run() -> void:
 	var arena := Node2D.new()
 	root.add_child(arena)
@@ -47,7 +51,7 @@ func _run() -> void:
 	# A pending placement owned by a dying actor must never enter the tree.
 	actor.shoot_cooldown = 0
 	actor._physics_process(0.01)
-	actor._physics_process(0.19)
+	finish_windup(actor)
 	check(actor.get_owned_plant_count()==1,"pending cleanup fixture lacks reserved plant")
 	actor.take_damage(1000)
 	await process_frame
@@ -56,7 +60,7 @@ func _run() -> void:
 	# Removed/queued projectile containers cannot receive new physics Areas.
 	var cancelled = create_actor(arena,shots,target)
 	cancelled._physics_process(0.01)
-	cancelled._physics_process(0.19)
+	finish_windup(cancelled)
 	shots.queue_free()
 	await process_frame
 	await process_frame

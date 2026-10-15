@@ -38,7 +38,7 @@ func _run() -> void:
 	check(actor.should_show_attack_marker() and actor.native_visual.player.current_animation=="warning" and target.hits.is_empty(),"cut misses head warning")
 	actor._physics_process(0.14)
 	check(target.hits.is_empty() and actor.position.is_equal_approx(origin),"warning hits or body skates")
-	actor._physics_process(0.02)
+	actor._physics_process(actor.basic_attack.get_warning_duration()-actor.basic_attack.elapsed+0.01)
 	check(target.hits==[21.0] and actor.native_visual.player.current_animation=="attack" and shots.get_child_count()==0,"cut missing/also old spit")
 	actor._update_spitter(0,target)
 	check(target.hits==[21.0] and actor.position.is_equal_approx(origin),"live cut repeats or moves root")

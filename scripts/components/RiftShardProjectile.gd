@@ -16,10 +16,13 @@ func _ready() -> void:
 	sweep_query.shape = sweep_shape
 	sweep_query.exclude = [get_rid()]
 func _physics_process(delta: float) -> void:
-	if is_queued_for_deletion() or not is_finite(delta) or delta<0: return
-	visual_time += delta
+	if is_queued_for_deletion() or not is_finite(delta) or delta<=0: return
+	var seconds := _legal_flight_seconds(delta)
+	if seconds<=0:
+		queue_free(); return
+	visual_time += seconds
 	var space := get_world_2d().direct_space_state
-	var motion := velocity*delta
+	var motion := velocity*seconds
 	sweep_query.collision_mask = collision_mask
 	sweep_query.transform = Transform2D(0,global_position)
 	sweep_query.margin = 0.01
@@ -41,7 +44,9 @@ func _physics_process(delta: float) -> void:
 			if is_instance_valid(body): _on_body_entered(body)
 		queue_free() # Never continue past a detected first collision.
 		return
-	super._physics_process(delta)
+	# This class has already swept both bodies and terrain; do not query it twice.
+	_advance_unblocked(seconds)
+	if seconds<delta: queue_free()
 	queue_redraw()
 func _on_body_entered(body: Node) -> void:
 	if is_queued_for_deletion(): return
@@ -51,6 +56,8 @@ func _on_body_entered(body: Node) -> void:
 			return
 		super._on_body_entered(body)
 	else:
+		if body.is_in_group(&"destructible_terrain"):
+			super._on_body_entered(body)
 		queue_free() # Physical terrain blocks hostile shards, not only muzzle birth.
 func _draw() -> void:
 	draw_set_transform(Vector2.ZERO,velocity.angle(),Vector2.ONE)

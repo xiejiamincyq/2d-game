@@ -15,6 +15,7 @@ class Boss extends CharacterBody2D:
 	var world_bounds := Rect2(-1000,-1000,2000,2000)
 	var death_resolved := false
 	func get_safe_seed_origin() -> Vector2: return global_position+Vector2(0,-100)
+	func get_seed_release_origin() -> Vector2: return get_safe_seed_origin()
 	func _update_boss_motion(_delta: float) -> void: pass
 var checks := 0
 var failures := 0

@@ -11,14 +11,7 @@ func check(ok: bool,label: String) -> void:
 	checks += 1
 	if not ok: failures += 1; push_error("TEST FAIL: RiftEncounterRuntimeTest "+label)
 func fault_pixels(pixels: Image) -> int:
-	var count := 0
-	for fault in fault_field.get_children():
-		if fault.state!=fault.State.ACTIVE: continue
-		var center: Vector2 = fault.get_global_transform_with_canvas()*fault.to_local(fault.get_current_center())
-		for sector in 8:
-			var at := center+Vector2.from_angle(TAU*sector/8)*12
-			if Rect2(8,80,1264,632).has_point(at) and pixels.get_pixelv(Vector2i(at)).is_equal_approx(Color("b56e64")): count += 1
-	return count
+	return pressure_plate_pixels(fault_field,pixels)
 func live_cut_pixels(director: Node,pixels: Image) -> int:
 	var count := 0
 	for actor in director.get_active_enemies():
@@ -51,13 +44,14 @@ func run() -> void:
 		check(DisplayServer.get_name()!="headless" and not DirAccess.dir_exists_absolute(output),"fresh actual GPU required")
 		if failures: quit(1); return
 		DirAccess.make_dir_recursive_absolute(output)
-		for path in ["scripts/tests/RiftEncounterRuntimeTest.gd","scripts/tests/EchoEncounterRuntimeTest.gd","scripts/tests/EchoMovementTest.gd","scripts/tests/RiftEncounterPolicyTest.gd","scripts/tests/RiftEncounterTest.gd","scripts/systems/RiftEncounterDirector.gd","scripts/systems/ChapterEncounterDirector.gd","scripts/systems/WaveDirector.gd","scripts/campaign/RegionalEnemyFactory.gd","scripts/systems/UpgradeSystem.gd","scripts/actors/Player.gd","scripts/actors/Enemy.gd","scripts/actors/SpaceCutterEnemy.gd","scripts/actors/RiftEliteEnemy.gd","scripts/components/SpaceCutAttack.gd","scripts/components/EliteHybridAttack.gd","scripts/components/RiftShardProjectile.gd","scripts/components/NativeRiftEliteMotion.gd","scripts/components/NativeScrapperMotion.gd","scripts/effects/EnemyWorldStatus.gd","scripts/world/RiftMap.gd","scripts/world/RiftArenaLayout.gd","scripts/world/RiftFault.gd","scripts/world/RiftField.gd","scripts/world/RiftObstacle.gd","scripts/world/RiftPropArt.gd","scripts/world/RiftFloor.gd","scripts/world/TerrainSweep.gd","scenes/world/rift_observatory.tscn","scenes/actors/native/space_cutter_paper_v1.tscn","scenes/actors/native/rift_elite_paper_v1.tscn","scripts/components/NativePlayerView.gd","scripts/components/NativePlayerMotion.gd","themes/MintFarmTheme.tres"]:
+		for path in ["scripts/tests/RiftEncounterRuntimeTest.gd","scripts/tests/EchoEncounterRuntimeTest.gd","scripts/tests/EchoMovementTest.gd","scripts/tests/RiftEncounterPolicyTest.gd","scripts/tests/RiftEncounterTest.gd","scripts/systems/RiftEncounterDirector.gd","scripts/systems/ChapterEncounterDirector.gd","scripts/systems/EncounterCombatCore.gd","scripts/campaign/RegionalEnemyFactory.gd","scripts/systems/UpgradeSystem.gd","scripts/actors/Player.gd","scripts/actors/Enemy.gd","scripts/actors/SpaceCutterEnemy.gd","scripts/actors/RiftEliteEnemy.gd","scripts/components/SpaceCutAttack.gd","scripts/components/EliteHybridAttack.gd","scripts/components/RiftShardProjectile.gd","scripts/components/NativeRiftEliteMotion.gd","scripts/components/NativeScrapperMotion.gd","scripts/effects/EnemyWorldStatus.gd","scripts/world/RiftMap.gd","scripts/world/RiftArenaLayout.gd","scripts/world/ReusableStepTrap.gd","scripts/world/ReusableTrapField.gd","scripts/world/RiftObstacle.gd","scripts/world/RiftPropArt.gd","scripts/world/RiftFloor.gd","scripts/world/TerrainSweep.gd","scenes/world/rift_observatory.tscn","scenes/actors/native/space_cutter_paper_v1.tscn","scenes/actors/native/rift_elite_paper_v1.tscn","scripts/components/NativePlayerView.gd","scripts/components/NativePlayerMotion.gd","themes/MintFarmTheme.tres"]:
 			sources[path] = FileAccess.get_sha256("res://"+path); check(sources[path].length()==64,"source "+path)
 	release()
 	var view := SubViewport.new(); view.size = Vector2i(1280,720); view.world_2d = World2D.new(); view.render_target_update_mode = SubViewport.UPDATE_ALWAYS; root.add_child(view)
 	var host := Node2D.new(); host.process_mode = Node.PROCESS_MODE_PAUSABLE; view.add_child(host)
 	var map = RiftMap.instantiate(); map.map_seed = 521; host.add_child(map); fault_field = map.rift_field
-	var player := Player.new(); player.world_bounds = map.layout.world_bounds; player.position = fault_field.get_sites()[0]+Vector2(0,80); host.add_child(player)
+	var player := Player.new(); player.world_bounds = map.layout.world_bounds; player.position = pressure_plate_start(fault_field,map.layout,player.get_body_radius()); host.add_child(player)
+	var plate_escape: Vector2=player.position
 	map.layout.occlusion_target = player; var camera := Camera2D.new(); player.add_child(camera)
 	var enemies := Node2D.new(); var shots := Node2D.new(); var portals := Node2D.new(); enemies.y_sort_enabled = true
 	for layer in [enemies,shots,portals]: host.add_child(layer)
@@ -72,7 +66,7 @@ func run() -> void:
 	check(director.bind_rift_field(fault_field) and director.start_run(521,player,enemies,shots,portals,growth,map.layout),"automatic current owner run refused")
 	player.set_enemy_provider(director.get_attack_targets)
 	await capture(view,"intro.png"); check(director.begin_encounter(),"actual first encounter cannot start")
-	var seen := {"cutter_walk":false,"elite_walk":false,"cutter_warning":false,"elite_warning":false,"cutter_cut":false,"elite_shards":false,"fault_warning":false,"fault_active":false}
+	var seen := {"cutter_walk":false,"elite_walk":false,"cutter_warning":false,"elite_warning":false,"cutter_cut":false,"elite_shards":false,"plate_warning":false,"plate_cooldown":false}
 	var taken := {}; var moves := 0; var pointers := 0; var maximum := 0; var shards := 0
 	var rng := RandomNumberGenerator.new(); rng.seed = 7021
 	var target: Vector2 = player.position; var started := Time.get_ticks_msec()
@@ -82,6 +76,8 @@ func run() -> void:
 				var candidate: Vector2 = fault_field.get_sites()[0]+Vector2(rng.randf_range(-220,220),rng.randf_range(-220,220))
 				if map.layout.is_position_walkable(candidate,player.get_body_radius()): target = candidate; break
 		var direction: Vector2 = map.layout.get_navigation_direction(player.position,target,player.get_body_radius()); release()
+		if not seen.plate_warning: direction=map.layout.get_navigation_direction(player.position,fault_field.get_sites()[0],player.get_body_radius())
+		elif not seen.plate_cooldown: direction=map.layout.get_navigation_direction(player.position,plate_escape,player.get_body_radius())
 		for axis in [["move_left",-direction.x],["move_right",direction.x],["move_up",-direction.y],["move_down",direction.y]]:
 			if axis[1]>0: Input.action_press(axis[0],axis[1])
 		var nearest: Node2D; var distance := INF
@@ -91,7 +87,7 @@ func run() -> void:
 		if is_instance_valid(nearest):
 			var mouse := InputEventMouseMotion.new(); mouse.position = nearest.get_global_transform_with_canvas().origin; view.push_input(mouse); pointers += 1
 			check(player.get_global_mouse_position().distance_to(nearest.global_position)<1,"real engine pointer does not aim at target")
-			Input.action_press("fire")
+			if seen.plate_cooldown: Input.action_press("fire")
 		var before := player.position; await physics_frame; await process_frame
 		if player.position.distance_to(before)>0.01: moves += 1
 		check(Clearance.has_clearance(player.position,map.layout.world_bounds,map.layout.get_obstacle_descriptors(),player.get_body_radius()),"ordinary full circle embeds equipment")
@@ -113,15 +109,15 @@ func run() -> void:
 			if shot is Shard and not shot.is_queued_for_deletion():
 				seen.elite_shards = true; shards += 1
 		for fault in fault_field.get_children():
-			if fault.state==fault.State.WARNING: seen.fault_warning = true
-			if fault.state==fault.State.ACTIVE:
-				seen.fault_active = true
+			if fault.stage==Plate.Stage.COOLDOWN: seen.plate_cooldown=true
+			if fault.stage==Plate.Stage.WARNING:
+				seen.plate_warning = true
 				if not taken.has("fault"):
 					if output.is_empty(): taken.fault = true
 					else:
 						await RenderingServer.frame_post_draw
 						var pixels := view.get_texture().get_image(); var count := fault_pixels(pixels)
-						if count>=3: beat_pixels = count; taken.fault = true; save_capture(pixels,"encounter-fault.png")
+						if count>=3: beat_pixels = count; taken.fault = true; save_capture(pixels,"encounter-pressure-plate-warning.png")
 		if not output.is_empty() and (not taken.has("cut") or not taken.has("shards")):
 			await RenderingServer.frame_post_draw
 			var pixels := view.get_texture().get_image()
@@ -136,21 +132,17 @@ func run() -> void:
 	release()
 	check(seen.values().all(func(v): return v) and moves>180 and fired[0]>6 and pointers>100 and maximum>=8 and taken.has("head") and taken.has("fault"),"natural mixed actions/input/density missing "+str(seen))
 	if not output.is_empty():
-		check(beat_pixels>=3,"live fault capture has no current visible disk pixels")
+		check(beat_pixels>=3,"live pressure plate capture has no current warning rim pixels")
 		check(cut_pixels>=4 and shard_pixels>=4 and taken.has("cutter") and taken.has("elite"),"actual native attacks/family captures missing")
 	check(player.health.current_health>0 and director.state==director.State.COMBAT and is_equal_approx(player.move_speed,235) and is_equal_approx(player.get_body_radius(),16.9) and not player.is_stealthed(),"witness dead or artificial movement")
 	check(not director.finish_reward() and not director.begin_boss(),"living first battle bypasses or spawns unmade Boss")
 	await capture(view,"mixed.png")
-	var health: float = player.health.current_health+player.shield
-	paused = true; await physics_frame; await physics_frame; await create_timer(0.12,true).timeout
-	check(player.health.current_health+player.shield==health and fault_field.get_children().all(func(n): return n.state==n.State.INACTIVE),"actual pause leaves damage active")
-	await capture(view,"paused.png"); paused = false; await physics_frame; await physics_frame
-	check(fault_field.get_children().filter(func(n): return n.enabled).all(func(n): return n.state==n.State.COOLDOWN and n.remaining>4.1),"resume lacks safe staggered recovery")
+	await verify_pressure_plate_pause(view,fault_field,player)
 	var final_health: float = player.health.current_health; host.free(); view.free(); await process_frame; await process_frame
 	for path in sources: check(FileAccess.get_sha256("res://"+path)==sources[path],"source drift "+path)
 	if not output.is_empty():
 		var file := FileAccess.open(output+"report.json",FileAccess.WRITE)
-		file.store_string(JSON.stringify({"passed":failures==0,"checks":checks,"sources":sources,"captures":captures,"observed":seen,"actual_adjacent_moves":moves,"engine_pointer_updates":pointers,"owned_player_shots":fired[0],"maximum_live_enemies":maximum,"shard_body_samples":shards,"warning_cream_pixels":warning_pixels,"bar_coral_pixels":bar_pixels,"current_fault_coral_pixels":beat_pixels,"locked_cut_positive_pixels":cut_pixels,"native_shard_positive_pixels":shard_pixels,"final_player_health":final_health,"scope":"Actual first seeded sixth-region natural clocks/AI/movement and fire. No post-spawn position, stats, pose, velocity or attack-clock writes. Not whole encounter clear/Boss/chapter victory, OS/human playtest, dense performance or six-chapter completion."},"\t")); file.close()
+		file.store_string(JSON.stringify({"passed":failures==0,"checks":checks,"sources":sources,"captures":captures,"observed":seen,"actual_adjacent_moves":moves,"engine_pointer_updates":pointers,"owned_player_shots":fired[0],"maximum_live_enemies":maximum,"shard_body_samples":shards,"warning_cream_pixels":warning_pixels,"bar_coral_pixels":bar_pixels,"pressure_plate_warning_coral_pixels":beat_pixels,"locked_cut_positive_pixels":cut_pixels,"native_shard_positive_pixels":shard_pixels,"final_player_health":final_health,"scope":"Actual first seeded sixth-region natural clocks/AI/movement and fire. No post-spawn position, stats, pose, velocity or attack-clock writes. Not whole encounter clear/Boss/chapter victory, OS/human playtest, dense performance or six-chapter completion."},"\t")); file.close()
 	print("RIFT ENCOUNTER OBSERVED: moves=%d shots=%d pointer=%d max_live=%d health=%s"%[moves,fired[0],pointers,maximum,final_health])
 	if not failures: print("TEST PASS: RiftEncounterRuntimeTest %d"%checks)
 	quit(1 if failures else 0)

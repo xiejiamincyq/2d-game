@@ -51,7 +51,7 @@ func _initialize() -> void:
 	check(enemy.should_show_attack_marker() and view.player.current_animation=="warning" and target.hits.is_empty(),"short warning absent or early hit")
 	enemy._physics_process(0.14)
 	check(target.hits.is_empty(),"pincer damage before short head warning ends")
-	enemy._physics_process(0.04)
+	enemy._physics_process(enemy.basic_attack.get_warning_duration()-enemy.basic_attack.elapsed+0.01)
 	check(target.hits==[21.0] and not enemy.should_show_attack_marker() and view.player.current_animation=="attack","locked pincer not bound to actual unique hit")
 	for index in 5: enemy._physics_process(0.01)
 	check(target.hits==[21.0],"pincer damages every active frame")
@@ -67,7 +67,7 @@ func _initialize() -> void:
 	arena.add_child(wall)
 	await physics_frame
 	enemy._physics_process(0.01)
-	enemy._physics_process(0.19)
+	enemy._physics_process(enemy.basic_attack.get_warning_duration()-enemy.basic_attack.elapsed+0.01)
 	check(target.hits==[21.0],"pincer damages through solid terrain")
 	enemy._physics_process(0.32)
 	wall.free()
@@ -77,7 +77,7 @@ func _initialize() -> void:
 	target.position = Vector2(50,0)
 	enemy._physics_process(0.01)
 	target.position = Vector2(-50,0)
-	enemy._physics_process(0.19)
+	enemy._physics_process(enemy.basic_attack.get_warning_duration()-enemy.basic_attack.elapsed+0.01)
 	check(target.hits==[21.0],"pincer tracks escaped target behind locked direction")
 	enemy.basic_attack.cancel()
 	enemy.basic_attack.cooldown = 0

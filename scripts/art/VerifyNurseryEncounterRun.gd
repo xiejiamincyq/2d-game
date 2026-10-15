@@ -63,7 +63,7 @@ func _run() -> void:
 		quit(1)
 		return
 	var sources := {}
-	for path in ["scripts/systems/NurseryEncounterDirector.gd", "scripts/systems/WaveDirector.gd", "scripts/art/VerifyNurseryEncounterRun.gd", "scripts/art/NaturalRunPolicy.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/systems/UpgradeSystem.gd", "scenes/world/mist_nursery.tscn", "scripts/world/NurseryMap.gd", "scripts/world/NurseryArenaLayout.gd", "scripts/world/NurseryFloor.gd", "scripts/world/NurseryObstacle.gd", "scripts/world/NurseryPropArt.gd"]:
+	for path in ["scripts/systems/NurseryEncounterDirector.gd", "scripts/systems/EncounterCombatCore.gd", "scripts/art/VerifyNurseryEncounterRun.gd", "scripts/art/NaturalRunPolicy.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/systems/UpgradeSystem.gd", "scenes/world/mist_nursery.tscn", "scripts/world/NurseryMap.gd", "scripts/world/NurseryArenaLayout.gd", "scripts/world/NurseryFloor.gd", "scripts/world/NurseryObstacle.gd", "scripts/world/NurseryPropArt.gd"]:
 		sources[path] = FileAccess.get_sha256("res://" + path)
 	_release()
 	var view := SubViewport.new()

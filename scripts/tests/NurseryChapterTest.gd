@@ -105,28 +105,29 @@ func _run() -> void:
 			break
 		await process_frame
 	# A real filesystem denial at the .tmp boundary; no mocked store outcome.
-	check(DirAccess.make_dir_absolute(path + ".tmp") == OK, "save-failure fixture could not reserve its own temporary path")
+	check(DirAccess.make_dir_absolute(path + ".journey.tmp") == OK, "save-failure fixture could not reserve its own temporary path")
 	check(boss.take_damage(1e9, &"test"), "natural post-entrance Boss damage failed")
 	await process_frame
 	await process_frame
 	check(not chapter.clear_saved and not chapter.progress.has_cleared(1) and not FileAccess.file_exists(path), "failed write still exposed permanent unlock")
 	check(chapter.ui.retry_save_button.visible and chapter.ui.flow_title.text.contains("保存失败"), "actual save failure has no retry feedback")
-	check(DirAccess.remove_absolute(path + ".tmp") == OK, "owned empty failure fixture removal failed")
+	check(DirAccess.remove_absolute(path + ".journey.tmp") == OK, "owned empty failure fixture removal failed")
 	chapter.ui.retry_save_button.pressed.emit()
+	check(Support.claim_chapter_carry(chapter), "true clear must traverse earned ordinary inheritance UI")
 	check(chapter.clear_saved and paused and chapter.ui.flow_title.text.contains("通关"), "real accepted Boss clear not saved/shown")
 	var restored := Progress.new()
-	check(Store.new(path).load_progress(restored) == Store.LoadResult.LOADED and restored.is_unlocked(2), "fresh progress load lost chapter unlock")
-	var hash_before := FileAccess.get_sha256(path)
+	check(Support.restore_journey_progress(path, restored) and restored.is_unlocked(2), "fresh journey load lost chapter unlock")
+	var hash_before := FileAccess.get_sha256(path + ".journey")
 	check(not chapter.save_clear(2) and not chapter.save_clear(1), "clear callback replay or wrong chapter accepted")
-	check(FileAccess.get_sha256(path) == hash_before, "duplicate callback changed committed progress")
+	check(FileAccess.get_sha256(path + ".journey") == hash_before, "duplicate callback changed committed progress")
 	await _dispose(chapter)
 	var replay = _fixture(packed, path)
 	check(replay.progress.has_cleared(1) and replay.director.state == replay.director.State.INTRO, "replay lost permanent clear or failed to start fresh")
 	replay.player.health.damage(1e9, true)
 	check(replay.ui.flow_title.text.contains("失败") and paused, "actual death lacks result screen")
-	check(FileAccess.get_sha256(path) == hash_before, "death erased permanent progress")
+	check(FileAccess.get_sha256(path + ".journey") == hash_before, "death erased permanent progress")
 	await _dispose(replay)
-	DirAccess.remove_absolute(path)
+	check(Support.cleanup_journey_fixture(path), "owned journey fixture cleanup")
 	var corrupt_path := path + ".corrupt"
 	var file := FileAccess.open(corrupt_path, FileAccess.WRITE)
 	file.store_string("invalid campaign")

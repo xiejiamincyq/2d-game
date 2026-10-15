@@ -3,7 +3,7 @@ extends "res://scripts/components/ScrapperAttack.gd"
 const DASH_SPEED := 500.0
 const DASH_TIME := 0.24
 const HOOK_REACH := 37.0 # 12px center offset + 25px visible crescent.
-func get_warning_duration() -> float: return 0.18
+func get_warning_duration() -> float: return 0.40 if move==Move.POUNCE else 0.45
 func get_active_duration() -> float: return DASH_TIME if move==Move.POUNCE else 0.10
 func get_released_delay() -> float: return 0.15
 func cancel() -> void:
@@ -25,6 +25,17 @@ func finish_motion() -> void:
 		stage = Stage.RECOVERY
 		elapsed = get_warning_duration()+DASH_TIME
 func resolve_hit(actor: CharacterBody2D,target: Node2D) -> void:
+	_resolve_player_hit(actor,target)
+	_resolve_terrain(actor)
+func _resolve_terrain(actor: CharacterBody2D) -> void:
+	if stage!=Stage.ACTIVE or not TerrainAttack.live(actor): return
+	if move==Move.POUNCE:
+		TerrainAttack.apply(actor,TerrainQuery.collect_in_circle(actor,actor.global_position,actor.body_radius+actor.safe_margin+0.5),actor.global_position,actor.contact_damage,&"enemy",terrain_hit_ids,func(): return stage==Stage.ACTIVE)
+		return
+	var points:=PackedVector2Array([origin])
+	for index in 17: points.append(origin+direction.rotated(lerpf(-0.8,0.8,index/16.0))*HOOK_REACH)
+	TerrainAttack.apply(actor,TerrainQuery.collect_in_polygon(actor,points),origin,actor.contact_damage,&"enemy",terrain_hit_ids,func(): return stage==Stage.ACTIVE)
+func _resolve_player_hit(actor: CharacterBody2D,target: Node2D) -> void:
 	if stage!=Stage.ACTIVE or did_hit or not is_instance_valid(target): return
 	if target.is_queued_for_deletion() or not target.has_method("take_damage"): return
 	if target.has_method("is_stealthed") and target.is_stealthed(): return

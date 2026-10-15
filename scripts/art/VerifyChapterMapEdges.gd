@@ -2,7 +2,7 @@ extends SceneTree
 ## Controlled actual six map scenes/camera render, NOT ordinary combat/save.
 const Definitions = preload("res://scripts/campaign/ChapterRunDefinitions.gd")
 const MainScene = preload("res://scenes/Main.tscn")
-const Snapshot = preload("res://scripts/systems/RunSnapshotStore.gd")
+const Snapshot = preload("res://scripts/tests/fixtures/LegacyRunSnapshotStore.gd")
 const Support = preload("res://scripts/tests/TestSupport.gd")
 const SIZES := [Vector2i(960,540), Vector2i(1280,720), Vector2i(1920,1080)]
 var assertions := 0

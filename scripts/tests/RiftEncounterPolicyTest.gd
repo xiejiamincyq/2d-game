@@ -49,7 +49,7 @@ func run() -> void:
 		check(director._boss_available() and boss is Observer,"actual verified Observer factory unavailable or legacy substituted")
 		check(not director.begin_boss(),"intro bypasses actual Boss-ready gate")
 		if is_instance_valid(boss): boss.free()
-		check(not director.restore_stable_boundary(6,"combat") and not director.begin_prepared_wave() and not director.complete_final_wave(),"old waves bypass chapter")
+		check(not director.has_method("restore_stable_boundary") and not director.has_method("begin_prepared_wave") and not director.has_method("complete_final_wave"),"retired wave bypass is absent")
 		map.remove_child(map.rift_field)
 		check(director.state==director.State.FAILED and not director.finish_reward(),"field departure leaves advancement authority")
 		map.rift_field.free(); host.free(); await process_frame

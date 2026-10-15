@@ -11,6 +11,8 @@ const Interface = preload("res://scripts/ui/NurseryChapterUI.gd")
 const Audio = preload("res://scripts/systems/AudioManager.gd")
 const Progress = preload("res://scripts/systems/CampaignProgress.gd")
 const Store = preload("res://scripts/systems/CampaignProgressStore.gd")
+const Session = preload("res://scripts/systems/CampaignSession.gd")
+const LoopRules = preload("res://scripts/systems/CampaignLoopRules.gd")
 const Feedback = preload("res://scripts/systems/CombatFeedback.gd")
 const Vfx = preload("res://scripts/effects/CombatVfx.gd")
 const Effects = preload("res://scripts/effects/CameraEffects.gd")
@@ -21,12 +23,14 @@ const Coin = preload("res://scripts/pickups/CoinPickup.gd")
 const Heart = preload("res://scripts/pickups/HeartPickup.gd")
 const Shield = preload("res://scripts/pickups/ShieldPickup.gd")
 var campaign_store_path := Store.DEFAULT_PATH
+var journey_store_path := ""
+var run_loop := 0
 var audio_enabled := true
 var bgm_volume := 0.65
 var bgm_muted := false
 var run_seed: int = -9223372036854775807
 var progress := Progress.new()
-var store: CampaignProgressStore
+var session: RefCounted
 var ui: GameUI
 var audio: AudioManager
 var map: Node2D
@@ -38,6 +42,11 @@ var pickups: Node2D
 var feedback: CombatFeedback
 var framing: Node
 var clear_saved := false
+var _clear_received := false
+var _receipt_saved := false
+var _pending_choice := ""
+var _resuming_reward := false
+var _pending_exit: Dictionary = {}
 var manually_paused := false
 var leaving := false
 var kills := 0
@@ -73,18 +82,32 @@ func _ready() -> void:
 	ui.resume_requested.connect(_toggle_pause)
 	ui.return_requested.connect(func() -> void: _leave(false))
 	ui.replay_requested.connect(func() -> void: _leave(true))
-	ui.retry_save_requested.connect(func() -> void: save_clear(_chapter_number()))
+	ui.retry_save_requested.connect(_retry_clear_save)
+	ui.carry_choice_requested.connect(_claim_carry)
+	ui.next_chapter_requested.connect(func() -> void:
+		if clear_saved and _chapter_number() < 6:
+			_leave(true, false, _chapter_number() + 1)
+	)
 	ui.settlement_offer_selected.connect(_claim_offer)
 	ui.settlement_close_requested.connect(_finish_reward)
 	if DisplayServer.get_name() == "headless" and campaign_store_path == Store.DEFAULT_PATH:
 		campaign_store_path = "user://five_minute_overdrive_campaign_test_v1.json"
-	store = Store.new(campaign_store_path)
-	var status := store.load_progress(progress)
-	if status not in [Store.LoadResult.MISSING, Store.LoadResult.LOADED]:
-		ui.present("章节无法启动", "存档异常或版本不兼容：原文件保留，请返回帐篷处理；未开始战斗。", &"error")
+	session = Session.new(campaign_store_path, journey_store_path)
+	if not session.load():
+		ui.present("章节无法启动", session.failure_message, &"error")
 		return
-	if definition.is_empty() or not progress.is_unlocked(_chapter_number()):
+	progress = session.progress
+	var allowed_loop: int = session.loop_for_chapter(_chapter_number())
+	if definition.is_empty() or allowed_loop == 0 or (run_loop > 0 and run_loop != allowed_loop):
 		ui.present("章节无法启动", "该章节尚未解锁或内容未完成。请先击败前一关首领，再返回帐篷选择。", &"error")
+		return
+	run_loop = allowed_loop
+	if session.has_pending_clear():
+		_clear_received = true
+		_receipt_saved = true
+		_resuming_reward = true
+		ui.hud.hide()
+		_present_carry()
 		return
 	if run_seed == -9223372036854775807:
 		run_seed = randi()
@@ -153,17 +176,17 @@ func _build_world() -> void:
 		ui.set_encounter_reward(state, director.get_encounter().name)
 	)
 	growth.upgrade_applied.connect(func(label: String) -> void: ui.show_toast(label); audio.play("upgrade"))
-	if not growth.setup_chapter(player, _chapter_number()):
+	if not growth.setup_chapter_with_carry(player, _chapter_number(), session.journey.get_build()):
 		_modal("章节无法启动", "章节成长上下文无法初始化。未开始战斗、未保存进度；请返回帐篷。", &"error")
 		return
 	director = definition.director.new()
-	# WaveDirector's canonical deferred drop callback targets its parent owner.
+	# Shared combat's deferred drop callback targets its chapter owner.
 	director.process_mode = PROCESS_MODE_PAUSABLE
 	add_child(director)
 	director.encounter_prepared.connect(_on_prepared)
 	director.encounter_status.connect(func(encounter: Dictionary, remaining: int) -> void:
 		var label: String = definition.boss_name if director.state == Director.State.BOSS else encounter.name
-		ui.wave_label.text = "第%d关 · %s\n剩余 %d" % [_chapter_number(), label, remaining]
+		ui.wave_label.text = "%s · %s\n剩余 %d" % [_location_label(), label, remaining]
 	)
 	director.reward_ready.connect(_on_reward)
 	director.route_ready.connect(func() -> void:
@@ -174,13 +197,13 @@ func _build_world() -> void:
 	)
 	director.chapter_cleared.connect(save_clear)
 	director.run_failed.connect(func(reason: String) -> void:
-		_modal("探索失败", reason + "\n永久已解锁进度保留；本局构筑不保留。", &"failed")
+		_modal("探索失败", reason + "\n离开时保存金币；已继承能力与解锁保留。未继承的本局构筑重置。", &"failed")
 		audio.play("defeat")
 	)
 	director.boss_spawned.connect(func(boss: Node, label: String, maximum: float) -> void:
 		framing.track_boss(boss)
 		ui.show_boss_health(boss, label, maximum)
-		ui.wave_label.text = "第%d关 · %s" % [_chapter_number(), definition.boss_name]
+		ui.wave_label.text = "%s · %s" % [_location_label(), definition.boss_name]
 	)
 	director.boss_health_changed.connect(ui.set_boss_health)
 	director.boss_defeated.connect(func(_boss: Node) -> void: ui.hide_boss_health())
@@ -188,7 +211,7 @@ func _build_world() -> void:
 	director.damage_resolved.connect(feedback.on_damage_resolved)
 	director.enemy_killed.connect(_on_kill)
 	director.collection_window_changed.connect(ui.set_collection_window)
-	if not _bind_region() or not director.start_run(run_seed, player, enemies, projectiles, portals, growth, map.layout):
+	if not director.configure_loop(run_loop) or not _bind_region() or not director.start_run(run_seed, player, enemies, projectiles, portals, growth, map.layout):
 		_modal("章节无法启动", "区域资源或战斗流程无法初始化。未开始战斗、未保存进度；请返回帐篷。", &"error")
 		return
 	player.set_enemy_provider(director.get_attack_targets)
@@ -221,8 +244,12 @@ func _modal(title: String, description: String, stage: StringName) -> void:
 	ui.present(title, description, stage)
 
 func _on_prepared(encounter: Dictionary) -> void:
-	ui.wave_label.text = "第%d关 · %s\n尚未开始" % [_chapter_number(), encounter.name]
-	_modal("第%d关 / %s" % [_chapter_number(), encounter.name], "%s · 随机地图种子 %d\n%s" % [definition.name, run_seed, definition.intro], &"intro")
+	ui.wave_label.text = "%s · %s\n尚未开始" % [_location_label(), encounter.name]
+	var difficulty:="本轮敌方生命 ×%.2f；第2轮起逐轮混入异区敌人，分批增援。"%LoopRules.health_scale(run_loop)
+	_modal("%s / %s" % [_location_label(), encounter.name], "%s · 地图种子 %d\n%s\n%s" % [definition.name, run_seed, difficulty, definition.intro], &"intro")
+
+func _location_label() -> String:
+	return "第%d轮 · 第%d关"%[run_loop,_chapter_number()]
 
 func _proceed() -> void:
 	if leaving or player == null or player.is_entrance_active() or manually_paused:
@@ -268,27 +295,68 @@ func _toggle_pause() -> void:
 		return
 	manually_paused = not manually_paused
 	if manually_paused:
-		_modal("暂停探索", "空格或 Esc 继续。返回帐篷将结束本局；永久解锁保留。", &"pause")
+		_modal("暂停探索", "空格或 Esc 继续。返回帐篷会保存金币与已继承能力，结束本局探索。", &"pause")
 	else:
 		_resume_combat()
 
 func save_clear(chapter: int) -> bool:
 	if leaving or clear_saved or chapter != _chapter_number() or director == null or director.state != Director.State.CLEARED or director.defeated_boss_instance <= 0:
 		return false
-	var candidate := Progress.new()
-	if not candidate.restore_state(progress.to_state()): return false
-	if not candidate.has_cleared(chapter) and not candidate.record_boss_defeat(chapter): return false
-	if not store.save_progress(candidate):
-		_modal("首领已击败 · 保存失败", "未显示虚假解锁，未覆盖异常存档。可重试保存；返回前请注意本次通关尚未永久记录。", &"save_error")
+	if _receipt_saved:
 		return false
-	progress = candidate
-	clear_saved = true
-	var next := chapter + 1
-	var description := "六关探索已完成。" if next > Catalog.CHAPTER_COUNT else "第%d关 · %s已永久解锁%s。" % [next, Catalog.get_chapter(next).name, "" if next in Registry.READY_CHAPTERS else "（内容仍制作中）"]
-	description += "可返回帐篷选择区域，或重玩%s，尝试新的地图、风险路线与局内构筑。" % definition.name
-	_modal("第%d关通关 · 已保存" % chapter, description, &"cleared")
-	audio.play("victory")
+	_clear_received = true
+	if not session.record_defeat(run_loop, chapter, growth.coins, growth.upgrade_counts):
+		_modal("首领已击败 · 保存失败", session.failure_message + " 可重试保存通关；本次奖励尚未提交。", &"save_error")
+		return false
+	_receipt_saved = true
+	_present_carry()
 	return true
+
+func _present_carry() -> void:
+	if session.has_pending_clear():
+		var choices: Array[Dictionary] = session.journey.get_pending_choices()
+		if choices.is_empty():
+			_claim_carry("")
+			return
+		_modal("选择通关继承", "本次通关奖励已登记，可关闭游戏后继续领取。", &"cleared")
+		ui.present_chapter_clear(_chapter_number(), choices, session.journey.get_build().coins, false)
+		if _resuming_reward:
+			ui.flow_title.text = "继续领取%s通关奖励" % _location_label()
+		return
+	_show_saved_clear()
+
+func _claim_carry(card_id: String) -> void:
+	if leaving or not _clear_received or not _receipt_saved or clear_saved or not session.has_pending_clear():
+		return
+	_pending_choice = card_id
+	if not session.claim_pending(card_id):
+		_modal("通关奖励 · 保存失败", session.failure_message + " 已登记奖励保留，可重试或回帐篷后继续领取。", &"save_error")
+		return
+	_show_saved_clear()
+
+func _show_saved_clear() -> void:
+	progress = session.progress
+	clear_saved = true
+	_modal("%s通关 · 已保存" % _location_label(), "金币与继承能力已保存。", &"cleared")
+	var choices: Array[Dictionary] = []
+	ui.present_chapter_clear(_chapter_number(), choices, session.journey.get_build().coins, true)
+	ui.flow_title.text = "%s通关 · 已保存" % _location_label()
+	if not _pending_choice.is_empty():
+		ui.flow_description.text = "金币 %d · 所选普通能力继承一级；重玩本关不会再次发放继承奖励。" % session.journey.get_build().coins
+	if _chapter_number() == 6:
+		ui.flow_description.text += "\n返回帐篷后继续，进入下一轮第1关；重玩仍为第%d轮第6关。" % run_loop
+	audio.play("victory")
+
+func _retry_clear_save() -> void:
+	if not _pending_exit.is_empty():
+		var request := _pending_exit.duplicate()
+		_pending_exit.clear()
+		_leave(request.replay, request.quit_app, request.destination_chapter)
+		return
+	if _receipt_saved:
+		_claim_carry(_pending_choice)
+	else:
+		save_clear(_chapter_number())
 
 func _on_kill(_enemy: Node, _source: StringName, _coins: int) -> void:
 	kills += 1
@@ -351,9 +419,27 @@ func _set_overdrive(active: bool) -> void:
 	if active:
 		audio.play("upgrade")
 
-func _leave(replay: bool, quit_app := false) -> void:
+func _leave(replay: bool, quit_app := false, destination_chapter := 0) -> void:
 	if leaving:
 		return
+	# An accepted death is not just a balance checkpoint. Retry its receipt before
+	# abandoning the scene after a transient save failure; never lose the reward.
+	if _clear_received and not _receipt_saved:
+		save_clear(_chapter_number())
+		if not _receipt_saved:
+			if quit_app:
+				get_tree().quit(1)
+			return
+	if not quit_app and replay and session != null and session.has_pending_clear():
+		return
+	if growth != null and session != null and not session.checkpoint_coins(growth.coins):
+		_pending_exit = {"replay":replay,"quit_app":quit_app,"destination_chapter":destination_chapter}
+		_modal("旅程保存失败", session.failure_message, &"save_error")
+		ui.retry_save_button.text = "重试保存并离开"
+		if quit_app:
+			get_tree().quit(1)
+		return
+	_pending_exit.clear()
 	leaving = true
 	get_tree().paused = true
 	if feedback != null:
@@ -369,16 +455,19 @@ func _leave(replay: bool, quit_app := false) -> void:
 	if quit_app:
 		get_tree().quit(0)
 		return
-	var destination: Node = Registry.instantiate_chapter(_chapter_number()) if replay else load("res://scenes/Main.tscn").instantiate()
+	var selected_chapter: int = _chapter_number() if destination_chapter == 0 else destination_chapter
+	var destination: Node = Registry.instantiate_chapter(selected_chapter) if replay else load("res://scenes/Main.tscn").instantiate()
 	if destination == null:
 		push_error("Chapter destination unavailable")
 		get_tree().quit(1)
 		return
 	if replay:
+		destination.run_loop = run_loop
 		# A fresh run must not silently reuse the prior seed, even on RNG collision.
 		destination.run_seed = randi()
 		if destination.run_seed == run_seed: destination.run_seed = run_seed + 1 if run_seed < 9223372036854775807 else 0
 	destination.campaign_store_path = campaign_store_path
+	destination.journey_store_path = journey_store_path
 	destination.audio_enabled = audio_enabled
 	# Chapter replays keep audio preferences; Main reload also receives them.
 	if replay:

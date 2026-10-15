@@ -44,7 +44,7 @@ func _ready() -> void:
 	panel.add_child(box)
 
 	title_label = Label.new()
-	title_label.text = "波次结算 // 构筑升级"
+	title_label.text = "遭遇战利品 / 构筑升级"
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title_label.add_theme_font_size_override("font_size", 28)
 	box.add_child(title_label)
@@ -92,7 +92,7 @@ func _ready() -> void:
 			offer_buttons.append(button)
 
 	close_button = Button.new()
-	close_button.text = "关闭并开始下一波"
+	close_button.text = "完成整备并继续探索"
 	close_button.custom_minimum_size = Vector2(240, 46)
 	close_button.focus_mode = Control.FOCUS_ALL
 	close_button.pressed.connect(func() -> void: close_requested.emit())
@@ -142,9 +142,9 @@ func _refresh() -> void:
 	var wave := int(current_state.get("wave", 0))
 	var coins := int(current_state.get("coins", 0))
 	var reward_claimed := bool(current_state.get("reward_claimed", false))
-	wave_label.text = "第 %d 波战利品" % wave
+	wave_label.text = "第 %d 次遭遇战利品" % wave
 	coin_label.text = "金币 %d" % coins
-	hint_label.text = "先免费领取一张获胜奖励" if not reward_claimed else "可继续购买，完成后关闭进入下一波"
+	hint_label.text = "先免费领取一张获胜奖励" if not reward_claimed else "可继续购买，完成整备后继续探索"
 	close_button.disabled = not bool(current_state.get("can_close", false))
 
 	current_offers.clear()

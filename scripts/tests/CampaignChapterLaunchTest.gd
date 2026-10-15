@@ -56,12 +56,12 @@ func _run() -> void:
 	await process_frame
 	await process_frame
 	var returned = current_scene
-	check(returned.get_script() == Main and returned.ui.start_screen.visible and not returned.run_started, "Back did not return to real tent menu")
+	check(returned.get_script() == Main and returned.ui.start_screen.visible and not returned.restarting, "Back did not return to real tent menu")
 	check(returned.campaign_store_path == path and is_equal_approx(returned.audio.bgm_volume_linear, 0.37) and returned.audio.bgm_muted, "Back lost progress path/audio preferences")
 	check(not FileAccess.file_exists(path), "aborting chapter saved a false unlock")
-	returned.ui.start_screen.legacy_button.pressed.emit()
-	returned.ui.start_screen.legacy_start_button.pressed.emit()
-	check(not returned._can_start_campaign_chapter(1), "active old demo admits parallel chapter")
+	returned.closing=true
+	check(not returned._can_start_campaign_chapter(1),"closing tent admits another chapter")
+	check(not returned.has_method("_start_run"),"retired old mode remains callable")
 	paused = false
 	Support.stop_audio(returned.audio)
 	returned.free()

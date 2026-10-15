@@ -12,7 +12,7 @@ func update(actor: CharacterBody2D,delta: float) -> void:
 	if not show_action: shot_remaining = 0
 	if show_action and actor.ranged_is_winding_up:
 		clip = "warning"
-		seconds = 0.18*clampf(1-actor.ranged_windup_remaining/0.18,0,1)
+		seconds = view.player.get_animation(clip).length*clampf(1-actor.ranged_windup_remaining/actor.ranged_windup_duration,0,1)
 	elif show_action and shot_remaining>0:
 		clip = "attack"
 		seconds = 0.32-shot_remaining

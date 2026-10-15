@@ -44,7 +44,7 @@ func run() -> void:
 		var target := Target.new(); target.position = Vector2(200,0); shape(target,16.9); host.add_child(target)
 		await physics_frame; await physics_frame
 		var shot = fire(shots,emitter)
-		check(shot.radius==5 and shot.damage==24 and shot.velocity==Vector2(420,0) and is_equal_approx(shot.lifetime,1.35),"page stats/footprint")
+		check(shot.radius==10 and shot.damage==24 and shot.velocity==Vector2(420,0) and is_equal_approx(shot.lifetime,1.35),"page stats/footprint")
 		check(shot.sweep_query.exclude.has(emitter.get_rid()),"source still intersects birth circle")
 		check(await gone(shot),"open page never resolves")
 		check(target.hits==[24.0] and target.sources==[&"archive_page"],"page damage missing/repeated/misclassified")

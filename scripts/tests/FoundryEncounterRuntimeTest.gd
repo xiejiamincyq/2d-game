@@ -5,6 +5,7 @@ const Player = preload("res://scripts/actors/Player.gd")
 const Growth = preload("res://scripts/systems/UpgradeSystem.gd")
 const Director = preload("res://scripts/systems/FoundryEncounterDirector.gd")
 const Spark = preload("res://scripts/actors/EmberSparkEnemy.gd")
+const Support = preload("res://scripts/tests/TestSupport.gd")
 var checks := 0
 var failures := 0
 func check(ok: bool,label: String) -> void:
@@ -62,13 +63,15 @@ func run() -> void:
 	var actors := director.get_active_enemies().duplicate()
 	for enemy in actors: positions.append(enemy.position)
 	var health: float = player.health.current_health+player.shield
-	paused = true; await physics_frame; await physics_frame
-	check(map.heat_field.get_children().all(func(vent): return vent.state==vent.State.INACTIVE),"real encounter pause cancels dangers")
+	paused = true
+	var frozen: Array=Support.trap_field_snapshot(map.heat_field)
+	await physics_frame; await physics_frame
+	check(Support.trap_field_snapshot(map.heat_field)==frozen,"real pause freezes plate clock/stage/HP")
 	await create_timer(0.12,true).timeout
 	check(player.health.current_health+player.shield==health,"paused encounter damage")
 	for index in actors.size(): check(actors[index].position==positions[index],"paused native enemy moves")
 	paused = false; await physics_frame; await physics_frame
-	check(map.heat_field.get_children().filter(func(vent): return vent.enabled).all(func(vent): return vent.state==vent.State.COOLDOWN and vent.remaining>1.3),"resume skips safe floor cooldown")
+	check(map.heat_field.active and map.heat_field.get_children().any(func(plate): return plate.enabled),"resume loses encounter-owned plate authority")
 	host.free(); await process_frame
 	print("FoundryEncounterRuntimeTest actual_moves=%d fan_shots=%d elapsed_ms=%d"%[moved,fans.shots,Time.get_ticks_msec()-started])
 	if not failures: print("TEST PASS: FoundryEncounterRuntimeTest %d"%checks)

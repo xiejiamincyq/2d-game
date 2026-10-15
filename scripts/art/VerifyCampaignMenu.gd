@@ -74,7 +74,6 @@ func _run() -> void:
 		view.add_child(scene)
 		# Switch the old snapshot destination before any input can start a run.
 		scene.snapshot_store.save_path = "user://campaign_menu_capture_wave_%d.json" % OS.get_process_id()
-		scene.ui.set_continue_available(false)
 		var menu: Control = scene.ui.start_screen
 		await _capture(view, menu, "cover")
 		await _click(view, menu.regions_button)

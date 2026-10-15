@@ -53,7 +53,6 @@ func _run() -> void:
 		var ui: Node = UIScript.new()
 		canvas.add_child(ui)
 		ui.apply_viewport_size(Vector2(dimensions))
-		ui.set_continue_available(true)
 		ui.set_health(73, 100)
 		ui.set_shield(22, 60)
 		ui.set_progression_state({"coins": 25, "family_levels": {"ballistics": 2, "mobility": 2, "automation": 2}})

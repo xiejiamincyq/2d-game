@@ -14,6 +14,10 @@ func check(ok: bool,label: String) -> void:
 		failures += 1
 		push_error("TEST FAIL: CapsulePlanterIntegrationTest "+label)
 func _initialize() -> void: call_deferred("_run")
+func finish_windup(actor: Node) -> void:
+	for step in 120:
+		if not actor.ranged_is_winding_up: break
+		actor._physics_process(1.0/120.0)
 func _run() -> void:
 	var arena := Node2D.new()
 	arena.position = Vector2(200,150)
@@ -41,8 +45,8 @@ func _run() -> void:
 	check(actor.ranged_is_winding_up and actor.native_visual.player.current_animation=="warning" and actor.should_show_attack_marker() and shots.get_child_count()==0,"short warning releases capsule early")
 	target.position.y = 100
 	actor._physics_process(0.13)
-	check(shots.get_child_count()==0 and actor.planned_plant_position==locked,"windup retargets/places before 0.18 seconds")
-	actor._physics_process(0.06)
+	check(shots.get_child_count()==0 and actor.planned_plant_position==locked,"windup retargets/places before its promised duration")
+	finish_windup(actor)
 	check(actor.get_owned_plant_count()==1 and shots.get_child_count()==0,"pending plant not reserved before deferred birth")
 	actor._fire_spitter()
 	check(actor.get_owned_plant_count()==1,"duplicate release creates another plant")
@@ -55,13 +59,13 @@ func _run() -> void:
 	# Reserve two maximum; ordinary actor death disarms ground hazards before settlement.
 	actor.shoot_cooldown = 0
 	actor._physics_process(0.01)
-	actor._physics_process(0.19)
+	finish_windup(actor)
 	await process_frame
 	for child in shots.get_children(): child.set_physics_process(false)
 	check(actor.get_owned_plant_count()==2,"second valid nonoverlapping capsule absent")
 	actor.shoot_cooldown = 0
 	actor._physics_process(0.01)
-	actor._physics_process(0.19)
+	finish_windup(actor)
 	await process_frame
 	check(actor.get_owned_plant_count()==2 and shots.get_child_count()==2,"per-planter ground hazard cap exceeded")
 	var roster := Roster.new()

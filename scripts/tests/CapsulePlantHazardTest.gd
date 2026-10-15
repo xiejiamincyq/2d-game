@@ -32,18 +32,18 @@ func _run() -> void:
 	hazard._physics_process(0.54)
 	check(target.hits.is_empty(),"capsule hurts during incubation")
 	hazard._physics_process(0.02)
-	check(target.hits==[9.0] and hazard.is_armed(),"armed capsule lacks first real pulse")
+	check(target.hits.is_empty() and not hazard.resolved,"incubator retains obsolete ground pulse")
 	hazard._physics_process(0.3)
-	check(target.hits==[9.0],"capsule deals damage every frame")
+	check(target.hits.is_empty(),"incubator deals damage every frame")
 	hazard._physics_process(0.31)
-	check(target.hits==[9.0,9.0],"persistent capsule loses bounded repeated threat")
+	check(target.hits.is_empty(),"incubator retains obsolete repeat pulse")
 	target.stealth_active = true
 	hazard._physics_process(0.61)
-	check(target.hits==[9.0,9.0],"capsule tracks hidden player")
+	check(target.hits.is_empty(),"incubator attacks hidden player")
 	target.stealth_active = false
 	target.position = Vector2(33,0)
 	hazard._physics_process(0.61)
-	check(target.hits.size()==2,"capsule damages beyond drawn 32px radius")
+	check(target.hits.is_empty(),"incubator has an invisible damage disk")
 	var shot := ProjectileSource.new()
 	shot.damage = 20
 	arena.add_child(shot)
@@ -51,7 +51,7 @@ func _run() -> void:
 	shot._try_hit(hazard)
 	check(hazard.resolved and not hazard.is_in_group("enemies"),"real player projectile does not disarm capsule")
 	hazard._physics_process(0.61)
-	check(target.hits.size()==2,"destroyed capsule still pulses")
+	check(target.hits.is_empty(),"destroyed capsule still attacks")
 	await process_frame
 	check(not is_instance_valid(hazard),"destroyed capsule leaks")
 	var expiry = load(PATH).new()
@@ -59,10 +59,10 @@ func _run() -> void:
 	arena.add_child(expiry)
 	expiry.set_physics_process(false)
 	expiry._physics_process(3.0)
-	check(expiry.resolved and target.hits.size()==2,"expired capsule bursts catch-up damage")
+	check(expiry.resolved and target.hits.is_empty(),"orphan capsule creates a catch-up attack")
 	await process_frame
 	check(not is_instance_valid(expiry),"expired capsule remains")
-	# A real static wall blocks the pulse even inside the visible danger radius.
+	# Incubation is harmless on either side of a real static wall.
 	target.position = Vector2(24,0)
 	var wall := StaticBody2D.new()
 	wall.position = Vector2(12,0)
@@ -78,7 +78,7 @@ func _run() -> void:
 	blocked.set_physics_process(false)
 	await physics_frame
 	blocked._physics_process(0.56)
-	check(blocked.is_armed() and target.hits.size()==2,"capsule pulse hurts through a physical wall")
+	check(not blocked.resolved and target.hits.is_empty(),"incubator hurts through a physical wall")
 	blocked.disarm()
 	arena.free()
 	await process_frame

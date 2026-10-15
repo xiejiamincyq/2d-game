@@ -41,7 +41,7 @@ func clear_encounter(f: Dictionary,count: int) -> void:
 		if enemy is Mote:
 			motes += 1; check(not enemy.is_fragment and enemy.native_visual.skeleton.get_bone_count()==16,"parent Mote role/rig replaced")
 		elif enemy is Planter:
-			planters += 1; check(enemy.native_visual.skeleton.get_bone_count()==20 and enemy.ranged_windup_duration==0.18,"Planter role/short warning replaced")
+			planters += 1; check(enemy.native_visual.skeleton.get_bone_count()==20 and enemy.ranged_windup_duration==0.55,"Planter role/human-reactable warning replaced")
 		else: check(false,"generic enemy substituted")
 		enemy.died.emit(enemy,999,&"test"); check(not enemy.get_meta(&"kill_resolved",false),"living forged kill rewarded")
 	check(motes==policy.mote and planters==policy.planter and not director.finish_reward(),"living enemies permit reward")

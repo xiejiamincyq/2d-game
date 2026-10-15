@@ -1,7 +1,7 @@
 extends SceneTree
 
-const MainScript = preload("res://scripts/Main.gd")
-const SnapshotStoreScript = preload("res://scripts/systems/RunSnapshotStore.gd")
+const MainScript = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
+const SnapshotStoreScript = preload("res://scripts/tests/fixtures/LegacyRunSnapshotStore.gd")
 const TestSupport = preload("res://scripts/tests/TestSupport.gd")
 
 var assertions := 0

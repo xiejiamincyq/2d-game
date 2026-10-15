@@ -3,7 +3,7 @@ extends SceneTree
 const DamageTypes = preload("res://scripts/components/DamageTypes.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
 const OverseerBossScript = preload("res://scripts/actors/OverseerBoss.gd")
-const WaveDirectorScript = preload("res://scripts/systems/WaveDirector.gd")
+const WaveDirectorScript = preload("res://scripts/tests/fixtures/LegacyWaveDirector.gd")
 
 var assertions := 0
 

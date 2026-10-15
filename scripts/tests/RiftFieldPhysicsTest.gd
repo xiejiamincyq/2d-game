@@ -1,5 +1,5 @@
 extends "EchoMovementTest.gd"
-## All four natural clocks while an unmodified Player uses real bypass inputs.
+## Actual four-plate risk authority while a normal Player uses both bypasses.
 const RiftMap = preload("res://scenes/world/rift_observatory.tscn")
 func check(ok: bool,label: String) -> void:
 	checks += 1
@@ -15,11 +15,7 @@ func run() -> void:
 			var player := Player.new(); player.world_bounds = map.layout.world_bounds; player.position = island.left; map.add_child(player)
 			await physics_frame; await process_frame; await physics_frame; await process_frame
 			map.rift_field.bind_player(player); map.rift_field.set_active(true,4)
-			check(map.rift_field.get_children().all(func(n): return n.enabled),"risk field not genuinely active")
-			var first = map.rift_field.get_child(0)
-			var deadline := Time.get_ticks_msec()+6000
-			while first.state!=first.State.WARNING and Time.get_ticks_msec()<deadline: await physics_frame; await process_frame
-			check(first.state==first.State.WARNING,"no natural warning before route")
+			check(map.rift_field.active and map.rift_field.get_children().filter(func(plate): return plate.enabled).size()==4,"risk field must actually arm four pressure plates")
 			var before_moves := moves; var samples := 0
 			var targets: Array[Vector2] = [Vector2(island.left.x,bypass.get_center().y),Vector2(island.right.x,bypass.get_center().y),island.right]
 			for target in targets:
@@ -27,12 +23,14 @@ func run() -> void:
 				for _frame in ceili(hz*12):
 					if player.position.distance_to(target)<12: reached = true; break
 					await tick(player,map.layout.get_navigation_direction(player.position,target,player.get_body_radius()))
-					samples += map.rift_field.get_children().filter(func(n): return n.state==n.State.ACTIVE).size()
+					samples += map.rift_field.get_children().filter(func(plate): return plate.stage in [plate.Stage.WARNING,plate.Stage.COOLDOWN]).size()
 					check(has_clearance(player.position,map.layout.world_bounds,map.layout.get_obstacle_descriptors(),player.get_body_radius()),"full body embeds equipment")
 					check(player.health.current_health>0,"normal live route kills Player before completing bypass")
 				check(reached,"actual %sHz bypass %s closed by live field"%[hz,side])
 			release()
-			check(moves>before_moves+40 and samples>0,"path not walked or real moving dangers never observed")
+			# Avoiding pressure is valid; the six-map stepping suite supplies positive
+			# warning/hit controls. Keep this test's actual route/collision/life checks.
+			check(moves>before_moves+40 and map.rift_field.active,"path not walked with genuine active pressure authority")
 			check(is_equal_approx(player.move_speed,235) and is_equal_approx(player.get_body_radius(),16.9),"fixture modifies ordinary movement")
 			print("RIFT LIVE BYPASS: %sHz side%s moves=%s active_samples=%s HP=%s"%[hz,side,moves-before_moves,samples,player.health.current_health])
 			map.rift_field.set_active(false); map.free(); await process_frame

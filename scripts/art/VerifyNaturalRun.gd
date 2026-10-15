@@ -2,8 +2,8 @@ extends SceneTree
 
 const Policy = preload("res://scripts/art/NaturalRunPolicy.gd")
 const EnemyScript = preload("res://scripts/actors/Enemy.gd")
-const Store = preload("res://scripts/systems/RunSnapshotStore.gd")
-const Main = preload("res://scripts/Main.gd")
+const Store = preload("res://scripts/tests/fixtures/LegacyRunSnapshotStore.gd")
+const Main = preload("res://scripts/tests/fixtures/LegacyWaveMain.gd")
 const Support = preload("res://scripts/tests/TestSupport.gd")
 const ACTIONS := ["move_left", "move_right", "move_up", "move_down", "fire", "dash_melee"]
 const OUTPUT := "res://build/diagnostics/natural-run/"
@@ -368,7 +368,7 @@ func _source_hashes() -> Dictionary:
 	var hashes := {}
 	for path in ["scripts/ui/GameUI.gd", "scripts/ui/CampaignStartScreen.gd", "scripts/systems/CampaignEntryPolicy.gd", "scripts/systems/CampaignProgress.gd", "scripts/systems/ChapterCatalog.gd", "scripts/ui/CampaignMenuTheme.gd", "scripts/ui/CampaignBackdrop.gd"]:
 		hashes[path] = FileAccess.get_sha256("res://" + path)
-	for path in ["scripts/art/VerifyNaturalRun.gd", "scripts/art/check_natural_run_report.py", "scripts/art/NaturalRunMain.gd", "scripts/art/NaturalRunPolicy.gd", "scripts/art/NaturalRunDiagnostic.tscn", "scripts/Main.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/actors/OverseerBoss.gd", "scripts/systems/WaveDirector.gd", "scripts/systems/UpgradeSystem.gd", "scripts/systems/RunSnapshotStore.gd", "scripts/systems/CombatFeedback.gd", "scripts/world/ArenaLayout.gd"]:
+	for path in ["scripts/art/VerifyNaturalRun.gd", "scripts/art/check_natural_run_report.py", "scripts/art/NaturalRunMain.gd", "scripts/art/NaturalRunPolicy.gd", "scripts/art/NaturalRunDiagnostic.tscn", "scripts/tests/fixtures/LegacyWaveMain.gd", "scripts/actors/Player.gd", "scripts/actors/Enemy.gd", "scripts/actors/OverseerBoss.gd", "scripts/tests/fixtures/LegacyWaveDirector.gd", "scripts/systems/UpgradeSystem.gd", "scripts/tests/fixtures/LegacyRunSnapshotStore.gd", "scripts/systems/CombatFeedback.gd", "scripts/world/ArenaLayout.gd"]:
 		hashes[path] = FileAccess.get_sha256("res://" + path)
 	return hashes
 

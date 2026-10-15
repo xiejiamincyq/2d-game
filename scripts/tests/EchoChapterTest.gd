@@ -10,8 +10,10 @@ func battle(chapter: Node,expected_beats: int) -> void:
 	chapter.ui.proceed_button.pressed.emit()
 	check(chapter.director.state==chapter.director.State.COMBAT and not paused,"actual fifth UI battle")
 	check(chapter.map.echo_field.active and chapter.map.echo_field.get_children().filter(func(n): return n.enabled).size()==expected_beats,"actual beat pressure")
-	chapter._toggle_pause(); await physics_frame; await physics_frame
-	check(paused and chapter.map.echo_field.get_children().all(func(n): return n.state==n.State.INACTIVE),"pause retains beat danger")
+	chapter._toggle_pause()
+	var frozen: Array=Support.trap_field_snapshot(chapter.map.echo_field)
+	await physics_frame; await physics_frame
+	check(paused and Support.trap_field_snapshot(chapter.map.echo_field)==frozen,"pause must freeze plate stage/clock/HP")
 	chapter.ui.resume_button.pressed.emit(); await physics_frame; await physics_frame
 	check(not paused,"actual resume failed")
 	chapter.director.set_process(false); chapter.player.set_physics_process(false)
@@ -61,14 +63,15 @@ func run() -> void:
 	for _frame in 360:
 		if boss.entrance_resolved: break
 		await process_frame
-	check(DirAccess.make_dir_absolute(path+".tmp")==OK,"owned save-denial fixture")
+	check(DirAccess.make_dir_absolute(path+".journey.tmp")==OK,"owned save-denial fixture")
 	check(boss.take_damage(1e9,&"test"),"actual post-entrance death")
 	await process_frame; await process_frame
 	check(not chapter.clear_saved and not chapter.progress.has_cleared(5) and FileAccess.get_sha256(path)==before and chapter.ui.retry_save_button.visible,"save failure exposes fake unlock or lacks retry")
-	check(DirAccess.remove_absolute(path+".tmp")==OK,"owned empty denial directory cleanup")
+	check(DirAccess.remove_absolute(path+".journey.tmp")==OK,"owned empty denial directory cleanup")
 	chapter.ui.retry_save_button.pressed.emit()
+	check(Support.claim_chapter_carry(chapter),"real carry choice finalizes clear")
 	var restored := Progress.new()
-	check(chapter.clear_saved and Store.new(path).load_progress(restored)==Store.LoadResult.LOADED and restored.has_cleared(5) and restored.is_unlocked(6) and not restored.is_unlocked(7) and not restored.is_campaign_complete(),"true fifth clear fails adjacent save or fabricates sixth clear")
+	check(chapter.clear_saved and Support.restore_journey_progress(path,restored) and restored.has_cleared(5) and restored.is_unlocked(6) and not restored.is_unlocked(7) and not restored.is_campaign_complete(),"true fifth clear fails adjacent save or fabricates sixth clear")
 	var saved_hash := FileAccess.get_sha256(path)
 	check(not chapter.save_clear(4) and not chapter.save_clear(5) and not chapter.save_clear(6) and FileAccess.get_sha256(path)==saved_hash,"duplicate/wrong clear changes save")
 	chapter.ui.replay_button.pressed.emit(); await process_frame; await process_frame
@@ -91,6 +94,7 @@ func run() -> void:
 	check(supply.clear_saved and supply.progress.is_unlocked(6) and not supply.progress.is_unlocked(7) and FileAccess.get_sha256(path)==saved_hash,"replay skips or rewrites gate")
 	await dispose(supply)
 	check(DirAccess.remove_absolute(path)==OK,"owned isolated save cleanup")
+	check(Support.cleanup_journey_fixture(path),"owned journey fixture cleanup")
 	if FileAccess.file_exists(path+".bak"): check(DirAccess.remove_absolute(path+".bak")==OK,"owned isolated backup cleanup")
 	if not failures: print("TEST PASS: EchoChapterTest %d"%assertions)
 	quit(1 if failures else 0)

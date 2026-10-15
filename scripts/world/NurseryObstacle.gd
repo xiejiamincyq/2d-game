@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends "res://scripts/world/DestructibleObstacle.gd"
 ## Solid, opaque footprint and separately fading upper decoration.
 
 const TerrainSweep = preload("res://scripts/world/TerrainSweep.gd")
@@ -10,6 +10,7 @@ var occlusion_rect := Rect2()
 var art: Node2D
 
 func setup(rect: Rect2, kind: StringName) -> void:
+	set_layout_footprint(rect)
 	name = "Nursery_%s" % kind
 	position = Vector2(rect.get_center().x, rect.end.y)
 	obstacle_size = rect.size

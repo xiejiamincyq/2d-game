@@ -23,37 +23,16 @@ func _initialize() -> void:
 	var menu = menu_script.new()
 	root.add_child(menu)
 	await process_frame
-	check(menu.has_signal("legacy_start_requested") and menu.get("legacy_button") != null, "explicit legacy page and request boundary missing")
-	if failures:
-		menu.queue_free()
-		await process_frame
-		quit(1)
-		return
+	check(not menu.has_signal("legacy_start_requested") and menu.get("legacy_button")==null,"old compatibility page is absent")
+	check(not menu.has_signal("continue_requested") and not menu.has_method("_continue"),"old snapshot continuation route is absent")
 	var starts := [0]
-	var continues := [0]
 	var chapters: Array[int] = []
 	menu.start_requested.connect(func() -> void: starts[0] += 1)
-	menu.continue_requested.connect(func() -> void: continues[0] += 1)
 	menu.chapter_requested.connect(func(chapter: int) -> void: chapters.append(chapter))
-	check(menu.page == menu.Page.COVER, "initial page is not the cover")
-	check(menu.start_button.disabled and menu.regions_button.has_focus(), "unready primary entry pretends playable or traps focus")
-	check(not menu.continue_button.visible and menu.continue_button.disabled, "empty snapshot invents Continue")
+	check(menu.page == menu.Page.COVER,"initial page is cover")
+	check(menu.start_button.disabled and menu.regions_button.has_focus(),"unready primary cannot launch and focus remains usable")
 	menu.start_button.pressed.emit()
-	check(starts[0] == 0, "unready primary bypasses policy")
-	menu.continue_button.pressed.emit()
-	check(continues[0] == 0, "disabled Continue bypasses guard")
-	menu.set_continue_available(true)
-	menu.continue_button.pressed.emit()
-	check(continues[0] == 0, "cover directly continues legacy snapshot")
-	menu.legacy_button.pressed.emit()
-	check(menu.page == menu.Page.LEGACY and menu.back_button.has_focus(), "legacy page lost Back focus")
-	menu.continue_button.pressed.emit()
-	check(continues[0] == 1, "explicit legacy page cannot continue valid snapshot")
-	var legacy_starts := [0]
-	menu.legacy_start_requested.connect(func() -> void: legacy_starts[0] += 1)
-	menu.legacy_start_button.pressed.emit()
-	check(legacy_starts[0] == 1 and starts[0] == 0, "legacy start is mixed with formal start")
-	menu.back_button.pressed.emit()
+	check(starts[0]==0,"unready primary bypasses policy")
 	var progress = load("res://scripts/systems/CampaignProgress.gd").new()
 	var initial: Dictionary = progress.to_state()
 	menu.set_campaign(progress)
@@ -110,13 +89,14 @@ func _initialize() -> void:
 	for chapter in range(1, 7): full_progress.record_boss_defeat(chapter)
 	var all_ready: Array[int] = [1, 2, 3, 4, 5, 6]
 	menu.set_campaign(full_progress, all_ready)
+	menu.set_journey({"loop":2,"chapter":1},{"coins":72,"inherited_counts":{}},false)
 	menu.show_page(menu.Page.COVER)
 	menu.start_button.pressed.emit()
-	check(menu.page == menu.Page.CHAPTERS and menu.selected_chapter == 6 and starts[0] == 1, "complete primary invents next run rather than replay selection")
+	check(menu.page == menu.Page.COVER and menu.selected_chapter == 1 and starts[0] == 2 and menu.start_button.text.contains("第2轮"), "complete primary fails next-loop entry")
 	for extent in [Vector2(960, 540), Vector2(1280, 720), Vector2(1920, 1080)]:
 		menu.size = extent
 		menu.apply_viewport_size(extent)
-		for page in [menu.Page.COVER, menu.Page.CHAPTERS, menu.Page.SETTINGS, menu.Page.LEGACY]:
+		for page in [menu.Page.COVER, menu.Page.CHAPTERS, menu.Page.SETTINGS]:
 			menu.show_page(page)
 			await process_frame
 			await process_frame

@@ -137,7 +137,7 @@ func start_action(kind: StringName) -> bool:
 		locked_origin = boss.get_safe_page_origin()
 		action_stage = Stage.WARNING; _sample_motion()
 		var danger := func(at: Vector2,age: float) -> bool:
-			return at.distance_to(locked_origin+locked_direction*420*age)<=5+target_player.get_body_radius()+3
+			return at.distance_to(locked_origin+locked_direction*420*age)<=Page.HIT_RADIUS+target_player.get_body_radius()+3
 		if not Escape.has_route(boss,target_player,DURATIONS[kind][0],1.35,boss.world_bounds,danger,escape_route): cancel_action(); return false
 	combat_cue.emit(&"boss_barrage")
 	queue_redraw()
@@ -169,7 +169,7 @@ func cancel_action(clear_projectiles: bool = true) -> void:
 	_sample_motion()
 func _draw() -> void:
 	if action==&"page" and action_stage==Stage.WARNING and _owners_available() and _target_alive() and not target_hidden:
-		Escape.draw_path(self,locked_origin,locked_origin+locked_direction*420*1.35,5)
+		Escape.draw_path(self,locked_origin,locked_origin+locked_direction*420*1.35,Page.HIT_RADIUS)
 	if action==&"seal" and action_stage in [Stage.WARNING,Stage.ACTIVE] and _owners_available() and _target_alive() and not target_hidden:
 		seal_attack.draw_visual(self,action_stage==Stage.ACTIVE,action_elapsed/DURATIONS[&"seal"][0])
 func set_target_hidden(value: bool) -> void:

@@ -25,7 +25,12 @@ func _resolve_flock_velocity(desired: Vector2,to_player: Vector2,delta: float) -
 	if basic_attack.stage in [basic_attack.Stage.WARNING,basic_attack.Stage.ACTIVE]: return Vector2.ZERO
 	return super._resolve_flock_velocity(desired,to_player,delta)
 func _update_spitter(delta: float,player: Node2D) -> void:
+	var was_active: bool = basic_attack.is_active()
 	basic_attack.consider(self,player,delta)
+	# consider() creates the action now; delta describes time before that birth.
+	if not was_active and basic_attack.is_active():
+		_queue_visual_redraw()
+		return
 	basic_attack.advance(delta)
 	if basic_attack.take_release():
 		# Sample the release pose first so the real Bone2D muzzle is current.

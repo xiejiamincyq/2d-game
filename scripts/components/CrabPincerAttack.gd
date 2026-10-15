@@ -1,6 +1,6 @@
 extends "res://scripts/components/ScrapperAttack.gd"
 ## Same locked-sector/obstruction/unique-hit contract, never a pounce.
-func get_warning_duration() -> float: return 0.18
+func get_warning_duration() -> float: return 0.45
 func get_released_delay() -> float: return 0.15
 func cancel() -> void:
 	stage = Stage.IDLE

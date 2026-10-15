@@ -57,15 +57,16 @@ func run() -> void:
 			if mode=="wall": check(wall_contacts>0,"thin wall fixture never exercises real sliding")
 			print("ECHO BEAT ESCAPE: %sHz %s actual_moves=%s durability=%s"%[hz,mode,moves-start_moves,durability(player)])
 			beat.set_enabled(false); host.free(); await process_frame
-	# All four natural pads active: real gateway remains passable, not necessarily harmless.
+	# Four actual replacement pressure plates armed: real gateway stays passable.
+	# Deliberate stepping is covered by CampaignStepTrapPhysicsTest; a player
+	# avoiding plates must not be required to witness a retired periodic pulse.
 	for hz in [30,60,120]:
 		Engine.physics_ticks_per_second = hz
 		var host := Node2D.new(); root.add_child(host); var map = Map.instantiate(); map.map_seed = 521; host.add_child(map)
 		var gate: Dictionary = map.layout.get_gateways()[0]
 		var player := Player.new(); player.position = gate.inside; player.world_bounds = map.layout.world_bounds; host.add_child(player)
 		await tick(); await tick(); map.echo_field.bind_player(player); map.echo_field.set_active(true,4)
-		var first = map.echo_field.get_child(0)
-		check(await wait_for(func(): return first.state==Beat.State.WARNING_FIRST),"active field clock absent before gateway route")
+		check(map.echo_field.active and map.echo_field.get_children().filter(func(plate): return plate.enabled).size()==4,"four actual risk pressure plates not armed")
 		var start_moves := moves; var reached := false; var pulses := 0
 		for _frame in ceili(hz*8):
 			if player.position.distance_to(gate.outside)<12: reached = true; break
@@ -75,9 +76,9 @@ func run() -> void:
 				if axis[1]>0: Input.action_press(axis[0],axis[1])
 			var at := player.position; await tick()
 			if player.position.distance_to(at)>0.01: moves += 1
-			pulses += map.echo_field.get_children().filter(func(n): return n.state in [Beat.State.PULSE_FIRST,Beat.State.PULSE_SECOND]).size()
+			pulses += map.echo_field.get_children().filter(func(plate): return plate.stage in [plate.Stage.WARNING,plate.Stage.COOLDOWN]).size()
 			check(Clearance.has_clearance(player.position,map.layout.world_bounds,map.layout.get_obstacle_descriptors(),player.get_body_radius()),"live field gateway embeds full body")
-		release(); check(reached and moves>start_moves+40 and pulses>0,"all four enabled pads close actual gateway or route never observes danger")
+		release(); check(reached and moves>start_moves+40 and player.health.current_health>0 and map.echo_field.active,"actual armed pressure field blocks or kills ordinary gateway traversal")
 		print("ECHO BEAT GATEWAY: %sHz actual_moves=%s pulses=%s durability=%s"%[hz,moves-start_moves,pulses,durability(player)])
 		map.echo_field.set_active(false); host.free(); await process_frame
 	Engine.physics_ticks_per_second = 60

@@ -14,7 +14,7 @@ func _run() -> void:
 	if failed: quit(1); return
 	DirAccess.make_dir_recursive_absolute(output)
 	var sources := {}
-	for path in ["scripts/art/RenderNurseryRootReadability.gd","scripts/art/RenderVineGuardAttackEffects.gd","scripts/components/VineGuardAttackDirector.gd","scripts/components/NativeVineGuardMotion.gd","scripts/systems/NurseryEncounterDirector.gd","scripts/systems/WaveDirector.gd"]:
+	for path in ["scripts/art/RenderNurseryRootReadability.gd","scripts/art/RenderVineGuardAttackEffects.gd","scripts/components/VineGuardAttackDirector.gd","scripts/components/NativeVineGuardMotion.gd","scripts/systems/NurseryEncounterDirector.gd","scripts/systems/EncounterCombatCore.gd"]:
 		sources[path] = FileAccess.get_sha256("res://"+path)
 	viewport = SubViewport.new()
 	viewport.size = Vector2i(1280,720)

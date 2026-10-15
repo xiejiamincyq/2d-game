@@ -48,7 +48,9 @@ func test_launch(kind: int) -> bool:
 			enemy._fire_marksman(target)
 		EnemyScript.EnemyKind.SPITTER:
 			enemy._update_spitter(0.0, target)
-			enemy._update_spitter(0.19, target)
+			if not check(enemy.ranged_windup_duration >= 0.55, "Spitter warning is shorter than the human reaction floor"):
+				return false
+			enemy._update_spitter(enemy.ranged_windup_duration + 0.01, target)
 		EnemyScript.EnemyKind.OVERSEER:
 			enemy._fire_overseer_burst()
 	if not check(shots.get_child_count() == (12 if kind == EnemyScript.EnemyKind.OVERSEER else 1), "actual producer failed to launch"):

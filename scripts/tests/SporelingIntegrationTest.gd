@@ -38,13 +38,13 @@ func _initialize() -> void:
 	enemy._update_static_motion(0.12)
 	check(view.player.current_animation == "walk", "spore gait absent")
 	enemy.ranged_is_winding_up = true
-	enemy.ranged_windup_remaining = 0.09
+	enemy.ranged_windup_remaining = enemy.ranged_windup_duration*0.5
 	enemy._update_static_motion(0)
-	check(view.player.current_animation == "warning" and is_equal_approx(view.player.current_animation_position, 0.09), "short warning not combat-clock bound")
+	check(view.player.current_animation == "warning" and is_equal_approx(view.player.current_animation_position, 0.09), "warning midpoint not normalized to combat clock")
 	check(enemy.should_show_attack_marker() and not view.get_node("Warning").visible, "duplicate or missing head marker")
 	check(projectiles.get_child_count() == 0, "warning pose emitted projectile")
 	enemy.ranged_target_position = target.position
-	enemy._update_spitter(0.10,target)
+	enemy._update_spitter(enemy.ranged_windup_remaining+0.01,target)
 	enemy._update_static_motion(0)
 	check(projectiles.get_child_count() == 1 and view.player.current_animation == "attack", "real emission has no spit recoil or duplicated shot")
 	var shot = projectiles.get_child(0)

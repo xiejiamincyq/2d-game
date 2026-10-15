@@ -42,6 +42,7 @@ func _click(button: Button) -> void:
 	if chapter.has_method("_chapter_number") and chapter._chapter_number()==5 and button==chapter.ui.supply_button and selected_route==&"risk": button = chapter.ui.risk_button
 	await super._click(button)
 func minimum_victory_kills(chapter: Node) -> int:
+	if endless_context.get("enabled",false): return super.minimum_victory_kills(chapter)
 	# The regional policy has fewer, more dangerous actors than the nursery.
 	# Require the ACTUAL seeded mandatory/selected risk debts plus real Boss.
 	expected_kills = 1
@@ -69,10 +70,7 @@ func pilot_motion(chapter: Node,policy: RefCounted,step: int,threats: Array[Vect
 		var distance := position.distance_squared_to(item.position)
 		if wanted and distance<closest: closest = distance; loot = item
 	if loot!=null: goal = chapter.map.layout.get_navigation_direction(position,loot.position,chapter.player.get_body_radius())
-	for beat in chapter.map.echo_field.get_children():
-		if beat.state in [beat.State.WARNING_FIRST,beat.State.PULSE_FIRST,beat.State.WARNING_SECOND,beat.State.PULSE_SECOND]:
-			var at: Vector2 = beat.get_current_center()
-			threats.append(at); danger_distance = minf(danger_distance,position.distance_to(at))
+	# Actual reusable pressure plates are observed once by the common driver.
 	if boss!=null:
 		var combat = boss.attack_director
 		boss_phases[str(combat.current_phase)] = true

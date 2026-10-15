@@ -1,4 +1,4 @@
-extends "res://scripts/systems/WaveDirector.gd"
+extends "res://scripts/systems/EncounterCombatCore.gd"
 ## Shared chapter combat/clearance/reward lifecycle; chapter identity lives in subclasses.
 
 signal encounter_prepared(encounter: Dictionary)
@@ -15,6 +15,9 @@ const SUPPLY_HEAL := 20.0
 const RISK_COINS := 35
 const PlayerBody = preload("res://scripts/actors/Player.gd")
 const BuildSystem = preload("res://scripts/systems/UpgradeSystem.gd")
+const LoopRules = preload("res://scripts/systems/CampaignLoopRules.gd")
+const VisitorFactory = preload("res://scripts/campaign/RegionalEnemyFactory.gd")
+var run_loop := 1
 var pending_births: Array[Node] = []
 var state := State.IDLE:
 	set(value):
@@ -32,6 +35,45 @@ var defeated_boss_instance := 0
 var _finale_reward_pending := false
 var _finale_reward_completed := false
 
+func configure_loop(value: int) -> bool:
+	if state!=State.IDLE or value<1 or value>LoopRules.MAX_LOOP: return false
+	run_loop=value
+	return true
+
+func _create_enemy_actor(kind: int) -> Node:
+	var visitor:=LoopRules.foreign_role(kind)
+	var actor: Node
+	if not visitor.is_empty():
+		actor=VisitorFactory.create_actor(visitor.chapter,visitor.role,encounter_index+_chapter_number(),projectile_parent,player)
+		actor.world_bounds=world_bounds
+	else:
+		actor=_create_chapter_enemy_actor(kind)
+	_apply_combat_scaling(actor)
+	return actor
+
+func _create_chapter_enemy_actor(kind: int) -> Node:
+	return super._create_enemy_actor(kind)
+
+func population_load() -> int:
+	var load_value:=pending_births.size()
+	for actor in active_enemies:
+		if not is_instance_valid(actor) or actor.is_queued_for_deletion() or actor.health.current_health<=0: continue
+		# A full mote owns two future fragments; reserve both before it dies.
+		load_value+=2 if actor.has_signal("offspring_prepared") and actor.get("is_fragment")==false else 1
+	return load_value
+
+func _can_spawn_enemy(kind: int) -> bool:
+	var cost:=2 if _chapter_number()==4 and kind==EnemyScript.EnemyKind.SCRAPPER else 1
+	return population_load()+cost<=LoopRules.MAX_POPULATION_LOAD
+
+func _apply_combat_scaling(actor: Node) -> void:
+	if not is_instance_valid(actor) or actor.has_meta(&"campaign_loop_hp"): return
+	actor.set_meta(&"campaign_loop_hp",run_loop)
+	var health: Node=actor.health
+	var bonus: float=health.max_health*(LoopRules.health_scale(run_loop)-1.0)
+	if actor.is_inside_tree(): health.increase_max(bonus)
+	else: health.max_health+=bonus
+
 func start_run(seed_value: int, target: PlayerBody, enemies: Node2D, projectiles: Node2D, portals: Node2D, build: BuildSystem, navigation: ArenaLayout) -> bool:
 	if state != State.IDLE or not is_instance_valid(target) or not is_instance_valid(build) or build.player != target:
 		return false
@@ -43,7 +85,7 @@ func start_run(seed_value: int, target: PlayerBody, enemies: Node2D, projectiles
 	if encounters.size()!=3: return false
 	growth = build
 	world_bounds = navigation.world_bounds
-	super.setup(target, enemies, projectiles, portals, false, navigation)
+	super.setup_combat(target, enemies, projectiles, portals, navigation)
 	target.died.connect(func() -> void: _fail("玩家死亡"))
 	target.tree_exiting.connect(_on_combat_owner_departure)
 	enemies.tree_exiting.connect(_on_combat_owner_departure)
@@ -67,10 +109,7 @@ func get_attack_targets() -> Array[Node]:
 func _prepare_encounter(index: int) -> void:
 	encounter_index = index
 	var encounter := get_encounter()
-	# Base spawn helpers use a rate and combat difficulty, not chapter numbering.
-	wave_index = 0
-	waves = [{"rate": encounter.rate}]
-	spawn_queue = _encounter_kinds(encounter)
+	spawn_queue = LoopRules.compose(_encounter_kinds(encounter),_chapter_number(),run_loop)
 	for index_value in range(spawn_queue.size() - 1, 0, -1):
 		var other := spawn_rng.randi_range(0, index_value)
 		var saved := spawn_queue[index_value]
@@ -192,6 +231,14 @@ func _on_boss_died(boss: Node, dropped_coins: int, source: StringName) -> void:
 		return
 	super._on_boss_died(boss, dropped_coins, source)
 
+func _settle_coin_reward(enemy: Node, coin_value: int) -> int:
+	if enemy == active_boss and state == State.BOSS:
+		# The final modal pauses homing pickups. Credit only this accepted Boss's
+		# reward before publishing clear; kill_resolved already reserves it once.
+		growth.add_coins(coin_value)
+		return 0
+	return coin_value
+
 func _on_boss_tree_exiting(boss: Node) -> void:
 	if boss != active_boss:
 		return
@@ -228,21 +275,8 @@ func _emit_wave_status() -> void:
 		remaining += queue.size()
 	encounter_status.emit(get_encounter(), remaining)
 
-# Explicitly reject old progression/snapshot entry points on this subclass.
-func restore_stable_boundary(_pending_stage: int, _boundary: String) -> bool:
-	return false
-func prepare_next_wave() -> bool:
-	return false
-func begin_prepared_wave() -> bool:
-	return false
-func advance_after_settlement() -> bool:
-	return false
-func can_advance_after_settlement() -> bool:
-	return false
-func is_pre_boss_settlement_pending() -> bool:
-	return false
-func complete_final_wave() -> bool:
-	return false
+func _spawn_interval() -> float:
+	return float(get_encounter().get("rate",0.2))
 
 # Small concrete chapter policy hooks; not a generic event framework.
 func _chapter_number() -> int: return 0
@@ -271,6 +305,8 @@ func _on_portal_tree_exiting(portal: Node,portal_id: int) -> void:
 
 func _register_enemy(enemy: Node) -> bool:
 	if not super._register_enemy(enemy): return false
+	# Fragments and incubated offspring enter outside _create_enemy_actor.
+	_apply_combat_scaling(enemy)
 	if enemy.has_signal("offspring_prepared"):
 		enemy.offspring_prepared.connect(_on_offspring_prepared.bind(enemy))
 	return true
@@ -286,6 +322,7 @@ func _on_offspring_prepared(children: Array[CharacterBody2D],parent: Node) -> vo
 		if pending_births.has(child) or active_enemies.has(child): continue # Repeat callbacks must not cancel accepted children.
 		if not accepted or capacity==0 or child.is_inside_tree() or child.is_queued_for_deletion() or child.get_script()!=parent.get_script() or child.get("is_fragment")!=true:
 			child.queue_free(); continue
+		_apply_combat_scaling(child) # Establish max HP before ready/health callbacks.
 		pending_births.append(child); capacity -= 1
 		child.ready.connect(_on_offspring_ready.bind(child),CONNECT_ONE_SHOT)
 		child.birth_cancelled.connect(_on_birth_cancelled)
@@ -304,4 +341,6 @@ func _on_birth_cancelled(child: Node) -> void:
 func _cancel_pending_births() -> void:
 	var cancelled := pending_births.duplicate(); pending_births.clear()
 	for child in cancelled:
-		if is_instance_valid(child): child.queue_free()
+		if not is_instance_valid(child): continue
+		if child.has_method("disarm"): child.disarm()
+		else: child.queue_free()
